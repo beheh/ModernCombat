@@ -203,8 +203,8 @@ private func DeathMenu()
 
   var selection = GetMenuSelection(clonk);
 
-  //Bei offenem Statistikmenü oder Effektmanager nichts unternehmen
-  if(GetMenu(clonk) == RWDS ||GetMenu(clonk) == EFMN) return;
+  //Bei offenem Statistikmenü, Einstellungsmenu oder Effektmanager nichts unternehmen
+  if(GetMenu(clonk) == RWDS || GetMenu(clonk) == EFMN || GetMenu(clonk) == CSTR) return;
 
   CloseMenu(clonk);
 
@@ -236,6 +236,8 @@ private func DeathMenu()
 
     if(FindObject(EFMN) && GetOwner(clonk) == GetPlayerByIndex(0, C4PT_User) && !GetLeague())
       AddMenuItem("$EffectLevel$", Format("FindObject(EFMN)->Activate(%d)", GetOwner(clonk)), EFMN, clonk);			//Effektstufe-Menüpunkt
+  
+    AddMenuItem("$Settings$", "OpenSettings()", CSTR, clonk); //Einstellungen-Menüpunkt
 
     if(aTipps[iTippNr] && !clonk->~ShorterDeathMenu())
       AddMenuItem("$NextTipp$", "NextTipp", MCMC, clonk);									//Nächster Tipp-Menüpunkt
@@ -293,6 +295,12 @@ private func DeathMenu()
 }
 
 static const FKDT_MaxTippCount = 10;
+
+public func OpenSettings()
+{
+  CloseMenu(clonk);
+  clonk->~ContextSettings(clonk);
+}
 
 public func NextTipp()
 {
