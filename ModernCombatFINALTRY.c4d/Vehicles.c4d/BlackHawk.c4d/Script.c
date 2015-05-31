@@ -451,8 +451,15 @@ protected func ContainedUp(object ByObj)
     //Autopilot aus
     ResetAutopilot();
     //Startup-Sequence
-    if(!throttle && (GetAction() == "Stand" || GetAction() == "EngineShutDown"))
+    if(!throttle && (GetAction() == "Stand"))
       SetAction("EngineStartUp");
+    if(GetAction() == "EngineShutDown")
+		SetAction("EngineStartUp3");
+    if(GetAction() == "EngineShutDown2")
+		SetAction("EngineStartUp2");
+    if(GetAction() == "EngineShutDown3")
+		SetAction("EngineStartUp");
+	
     //Schub geben
     if(!GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())))
     {
@@ -485,8 +492,14 @@ protected func ContainedDown(object ByObj)
     //Autopilot aus
     ResetAutopilot();
     //Motor aus
-    if(!throttle && (GetAction() == "Fly" || GetAction() == "EngineStartUp") && GetContact(0, -1, CNAT_Bottom))
-      SetAction("EngineShutDown");
+    if(!throttle && (GetAction() == "Fly") && GetContact(0, -1, CNAT_Bottom))
+      SetAction("EngineShutDown"); 
+    if(GetAction() == "EngineStartUp")
+      SetAction("EngineShutDown3");
+    if(GetAction() == "EngineStartUp2")
+      SetAction("EngineShutDown2");
+    if(GetAction() == "EngineStartUp3")
+      SetAction("EngineShutDown");  
     //Vom Gas weg
     if(GetAction() == "Fly" || GetAction() == "Turn")
       if(GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())))
