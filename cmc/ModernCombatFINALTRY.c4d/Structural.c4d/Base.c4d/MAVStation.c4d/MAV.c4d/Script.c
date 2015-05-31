@@ -587,7 +587,7 @@ public func OnDmg(int iDmg, int iType)
 
 public func OnHit(int iDmg, int iType, object pBy)
 {
-  _inherited();
+  _inherited(iDmg, iType, pBy, ...);
 
   //Negativer Schaden erzeugt keinen Rückstoß
   if(iDmg < 0)

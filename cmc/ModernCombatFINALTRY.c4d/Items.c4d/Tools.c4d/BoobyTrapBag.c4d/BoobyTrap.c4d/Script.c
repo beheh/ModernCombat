@@ -44,7 +44,7 @@ public func ControlThrow(object caller)
 
   //Normales Ablegen
   if(GetPlrDownDouble(GetController(caller)))
-    return _inherited(...);
+    return _inherited(caller, ...);
 
   //Träger = Besitzer
   controller = GetOwner(caller);

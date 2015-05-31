@@ -17,7 +17,7 @@ public func SwitchProcedureCheck(bool fInto)	{fNoProcedureCheck = fInto;}	//Wenn
 public func Initialize()
 {
   Unlock();
-  return _inherited();
+  return _inherited(...);
 }
 
 /* Abschlieﬂfunktion */
@@ -152,9 +152,9 @@ func Collection2(obj)
       }
     }
   }
-  return _inherited(obj);
+  return _inherited(obj, ...);
 }
 
 public func ContainedLeft(pCaller)	{if(target){return true;} else return SetCommand(pCaller, "Get", this, 0, 0, 0, 1);}
 public func ContainedRight(pCaller)	{if(target){return true;} else return SetCommand(pCaller, "Get", this, 0, 0, 0, 1);}
-public func RejectContents()		{if(target){return true;} else return _inherited();}
+public func RejectContents()		{if(target){return true;} else return _inherited(...);}

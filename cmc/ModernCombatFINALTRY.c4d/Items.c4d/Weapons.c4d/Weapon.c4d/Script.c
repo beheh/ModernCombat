@@ -277,7 +277,7 @@ global func GetAmmo(id ammoid, object target)
 
   if(target->~IsWeapon2())
     return GetAmmo2(target->GetSlot(),target);
-  return _inherited(ammoid,target);
+  return _inherited(ammoid,target,...);
 }
 
 global func GetAmmo2(int slot, object target)
@@ -302,7 +302,7 @@ global func DoAmmo(id ammoid, int change, object target)
 
   if(target->~IsWeapon2())
     return DoAmmo2(target->GetSlot(),ammoid,change,target);
-  return _inherited(ammoid,change,target);
+  return _inherited(ammoid,change,target,...);
 }
 
 global func DoAmmo2(int slot, id ammoid, int change, object target)
@@ -453,7 +453,7 @@ public func GetCharge()
 public func IsRecharging()
 {
   if(IsCanceling()) return true;
-  return _inherited();
+  return _inherited(...);
 }
 
 public func GetRecharge()
@@ -2319,5 +2319,5 @@ func Hit()
 public func AimStart()
 {
   Sound("WPN2_Handle*.ogg");
-  return _inherited();
+  return _inherited(...);
 }

@@ -50,7 +50,7 @@ protected func ControlDigDouble()
 {
   ClearMacroCommands();
   if(Control2Grab("ControlDigDouble")) return true;
-  return _inherited();
+  return _inherited(...);
 }
 
 protected func ControlDownDouble()
@@ -74,7 +74,7 @@ protected func ControlDownDouble()
     RemoveEffect("CheckGround",this);
   }
 
-  return _inherited();
+  return _inherited(...);
 }
 
 protected func ControlUp()
@@ -89,7 +89,7 @@ protected func ControlUp()
   if(ControlLadder("ControlUp"))	return 1;
   if(ControlAgility("ControlUp"))	return 1;
   if(FindObject2(Find_Func("IsBackDoor"), Find_AtPoint()) && GetEffect("NoDoorEntrance", this))	return 1;
-  return(_inherited());
+  return(_inherited(...));
 }
 
 public func ControlDown() 
@@ -177,7 +177,7 @@ public func EquipGear(object pGear)
 {
   //Benutzbarkeit prüfen
   if(!pGear || !pGear->~IsHazardGear() || !HazardGearSupported(pGear)) return false;
-  return _inherited(pGear);
+  return _inherited(pGear, ...);
 }
 
 public func HazardGearSupported(object pGear)
@@ -609,13 +609,13 @@ public func IsAiming()
       return true;
   }
 
-  return _inherited();
+  return _inherited(...);
 }
 
 public func Entrance(object pContainer)
 {
   HideCH();
-  return _inherited(pContainer);
+  return _inherited(pContainer, ...);
 }
 
 protected func Departure()	//Gebäude verlassen
@@ -628,7 +628,7 @@ public func Destruction()
 {
   if(crosshair)
     RemoveObject(crosshair);
-  return _inherited();
+  return _inherited(...);
 }
 
 public func FxUpdateAimingTimer(object pTarget, int iNr)
@@ -695,7 +695,7 @@ public func StopAiming()
 
   RemoveEffect("UpdateAiming", this);
 
-  return _inherited();
+  return _inherited(...);
 }
 
 public func SetAiming(int iAngle, bool fForceExact)
@@ -1214,7 +1214,7 @@ public func Initialize()
   QINV_MenuOrder = [RMEN_UpItem, RMEN_RightItem, RMEN_DownItem,  RMEN_LeftItem];
   QINV_MenuItemIds = [];
   QINV_GrenadeTemporary = 0;
-  return _inherited();
+  return _inherited(...);
 }
 
 //Gibt die erste auch im Inventar vorhande ID einer Menükategorie zurück
@@ -1634,7 +1634,7 @@ public func ControlContents(id idTarget)
       return false;
     }
   }
-  return _inherited(idTarget);
+  return _inherited(idTarget, ...);
 }
 
 protected func ContentsDestruction()	//Wenn Inhaltsobjekte verschwinden
