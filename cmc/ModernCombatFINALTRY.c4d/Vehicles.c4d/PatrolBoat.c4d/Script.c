@@ -45,6 +45,38 @@ func Destruction()
   this->FadeOut();
 }
 
+public func ControlRightDouble(object pByObj)
+{
+  if(GetAction() != "OnLand")
+	return;
+
+  //Clonk drehen und anhalten
+  pByObj->SetDir(1);
+  pByObj->SetAction("Throw");
+  pByObj->SetComDir(COMD_Stop);
+
+  //Tonne anschieben
+  Fling(this, 3, -1);
+
+  Sound("RSHL_Shove.ogg");
+}
+
+public func ControlLeftDouble(object pByObj)
+{
+  if(GetAction() != "OnLand")
+	return;
+
+  //Clonk drehen und anhalten
+  pByObj->SetDir();
+  pByObj->SetAction("Throw");
+  pByObj->SetComDir(COMD_Stop);
+
+  //Tonne anschieben
+  Fling(this, -3, -1);
+
+  Sound("RSHL_Shove.ogg");
+}
+
 /* Aktivierung */
 
 private func Floating()
