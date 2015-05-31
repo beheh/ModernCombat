@@ -125,18 +125,18 @@ protected func ContainedUp(object ByObj)
     if (!throttle && (GetAction() == "Stand"))
       SetAction("EngineStartUp");
     if(GetAction() == "EngineShutDown")
-	{     
-	  SetAction("EngineStartUp3");
-	  StartEngine();
-	}
+    {
+      SetAction("EngineStartUp3");
+      StartEngine();
+    }
     if(GetAction() == "EngineShutDown2")
-	{
+    {
       SetAction("EngineStartUp2");
-	  StartEngine();
-	}
+      StartEngine();
+    }
     if(GetAction() == "EngineShutDown3")
       SetAction("EngineStartUp");
-  
+
     //Schub geben
     if(!GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())))
     {

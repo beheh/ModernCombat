@@ -71,12 +71,12 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
   if(pTarget != this)
     pFrom = this;
   if(!pFrom) pFrom = GetCrew(dmgdealer);
-  
-  //falls es gerade eingefadet wird, Fade automatisch entfernen
+
+  //Wird gerade eingeblendet: Entfernen
   if(GetEffect("FadeIn4K", this))
   {
-	  EffectVar(0, this, GetEffect("FadeIn4K", this)) = 0;
-      SetClrModulation(RGBa(255, 255, 255, 0), this);
+    EffectVar(0, this, GetEffect("FadeIn4K", this)) = 0;
+    SetClrModulation(RGBa(255, 255, 255, 0), this);
   }
 
   pTarget->~LastDamageType(iType);
