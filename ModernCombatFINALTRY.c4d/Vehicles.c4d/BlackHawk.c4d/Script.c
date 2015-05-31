@@ -454,15 +454,15 @@ protected func ContainedUp(object ByObj)
     if(!throttle && (GetAction() == "Stand"))
       SetAction("EngineStartUp");
     if(GetAction() == "EngineShutDown")
-	{     
-	  SetAction("EngineStartUp3");
-	  StartEngine();
-	}
+    {
+      SetAction("EngineStartUp3");
+      StartEngine();
+    }
     if(GetAction() == "EngineShutDown2")
-	{
+    {
       SetAction("EngineStartUp2");
-	  StartEngine();
-	}
+      StartEngine();
+    }
     if(GetAction() == "EngineShutDown3")
       SetAction("EngineStartUp");
 
@@ -548,18 +548,18 @@ protected func ContainedUpDouble(object ByObj)
     if(!throttle && (GetAction() == "Stand"))
       SetAction("EngineStartUp");
     if(GetAction() == "EngineShutDown")
-	{     
-	  SetAction("EngineStartUp3");
-	  StartEngine();
-	}
+    {
+      SetAction("EngineStartUp3");
+      StartEngine();
+    }
     if(GetAction() == "EngineShutDown2")
-	{
+    {
       SetAction("EngineStartUp2");
-	  StartEngine();
-	}
+      StartEngine();
+    }
     if(GetAction() == "EngineShutDown3")
       SetAction("EngineStartUp");
-  
+
     if(GetAction() == "Fly")
       throttle = BoundBy(throttle + BKHK_ThrottleSpeed * 2, 0, BKHK_MaxThrottle);
     return true;
