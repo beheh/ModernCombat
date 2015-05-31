@@ -17,10 +17,10 @@ public func ControlDown(object pObj)
   //bei Dreifachstop loslassen und Zielen
   if(pObj && GetEffect("IntWasGrabbed", pObj) && Contents(0, pObj))
   {
-	pObj->SetAction("Walk");
+    pObj->SetAction("Walk");
     if(pObj->~ReadyToSquatAim())
       pObj->~StartSquatAiming();
-  
+
     this->~Grabbed(pObj, false);
     return;
   }
@@ -36,10 +36,10 @@ public func ControlUpdate(object pObj, int comdir, bool dig, bool throw)
   //bei Dreifachstop loslassen und Zielen
   if(pObj && GetEffect("IntWasGrabbed", pObj) && Contents(0, pObj))
   {
-	pObj->SetAction("Walk");
+    pObj->SetAction("Walk");
     if(pObj->~ReadyToSquatAim())
       pObj->~StartSquatAiming();
-  
+
     this->~Grabbed(pObj, false);
     return;
   }
