@@ -20,7 +20,9 @@ public func ControlDown(object pObj)
     pObj->SetAction("Walk");
     if(pObj->~ReadyToSquatAim())
       pObj->~StartSquatAiming();
-    return(1);
+  
+    Grabbed(pObj, false);
+    return;
   }
 
   return(_inherited(pObj, ...));
@@ -37,6 +39,8 @@ public func ControlUpdate(object pObj, int comdir, bool dig, bool throw)
     pObj->SetAction("Walk");
     if(pObj->~ReadyToSquatAim())
       pObj->~StartSquatAiming();
+  
+    Grabbed(pObj, false);
     return;
   }
 
