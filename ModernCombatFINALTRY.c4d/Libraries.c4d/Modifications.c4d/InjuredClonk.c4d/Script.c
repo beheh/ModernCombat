@@ -28,7 +28,7 @@ protected func Initialize()
   aGrenades = [];
   FKDT_QuickTipIDs = [ASTR, MNGN, PSTL, RTLR, PPGN, SGST, SMGN, ATWN, FGRN, FRAG, PGRN, STUN, SGRN, SRBL, AMPK, BTBG, C4PA, DGNN, FAPK, RSHL, CDBT, CUAM, BWTH];
 
-  _inherited();
+  _inherited(...);
 }
 
 /* Munitionsgürtel */
@@ -584,13 +584,13 @@ public func RejectCollect(id idObj, object pObj)
 public func ControlUp(object pCaller)
 {
   if(!pCaller || Hostile(GetOwner(pCaller), GetOwner()) || rejected || !clonk || !GetAlive(clonk))
-    return _inherited(...);
+    return _inherited(pCaller, ...);
 
   //Schwerverletzten nach Defibrillator durchsuchen
   if(!pCaller->~ActivateShockPaddles())
     var defi = FindObject2(Find_Func("IsShockPaddles"), Find_Container(this));
   else
-    return _inherited(...);
+    return _inherited(pCaller, ...);
 
   //Wenn gefunden: Nehmen und Auslösen planen
   if(defi)
@@ -601,7 +601,7 @@ public func ControlUp(object pCaller)
   else
     PlayerMessage(GetOwner(pCaller), "$NoShockPaddles$", pCaller);
 
-  return _inherited(...);
+  return _inherited(pCaller, ...);
 }
 
 public func ControlDig(object pCaller)

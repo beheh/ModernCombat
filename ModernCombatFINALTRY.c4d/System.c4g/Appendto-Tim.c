@@ -36,7 +36,7 @@ public func Spawn()
   {
     DoDmg(10000, DMG_Explosion, obj);
   }
-  return _inherited();
+  return _inherited(...);
 }
 
 protected func ContainedDown()

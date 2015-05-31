@@ -35,7 +35,7 @@ protected func Construction()
 
 protected func Initialize()
 {
-  _inherited();
+  _inherited(...);
 
   //Schadenseffekt einfügen
   if(!GetEffect("DmgCheck",this))
@@ -84,7 +84,7 @@ public func OnDmg(int iDmg, int iType)
   if(!IsFakeDeath() && GetAlive() && iDmg > 0)
     HurtSounds(iDmg, iType);
 
-  return _inherited(iDmg, iType);
+  return _inherited(iDmg, iType, ...);
 }
 
 public func HurtSounds(int iDmg, int iType)
@@ -210,7 +210,7 @@ public func OnHit(int iChange, int iType, object pFrom)
 
   //Mögliche Assists ermitteln
   var iByPlayer = GetController(pFrom);
-  if(iByPlayer == GetOwner() || !Hostile(iByPlayer, GetOwner())) return _inherited(...);
+  if(iByPlayer == GetOwner() || !Hostile(iByPlayer, GetOwner())) return _inherited(iChange, iType, pFrom, ...);
   for(var i=0; i < GetLength(assistkiller); i++)
   {
     if(!assistkiller[i]) assistkiller[i] = [-1, 0];
@@ -227,7 +227,7 @@ public func OnHit(int iChange, int iType, object pFrom)
       break;
     }
   }
-  _inherited(...);
+  _inherited(iChange, iType, pFrom, ...);
 }
 
 public func LastDamageType(int type)

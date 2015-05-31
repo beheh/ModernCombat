@@ -281,7 +281,7 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
   else
   {
     RemoveTrajectory(pTarget);
-    return _inherited(...);
+    return _inherited(pTarget, iEffectNumber, iEffectTime, ...);
   }
 }
 

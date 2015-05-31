@@ -19,7 +19,7 @@ public func Initialize()
     fHasNewSkin = true;
   }
 
-  return inherited();
+  return inherited(...);
 }
 
 /* Tod */

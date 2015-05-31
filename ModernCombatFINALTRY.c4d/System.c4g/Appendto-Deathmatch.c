@@ -11,7 +11,7 @@ local aMessages;
 protected func Initialize()
 {
   aMessages = [];
-  return _inherited();
+  return _inherited(...);
 }
 
 public func GoalExtraValue()	{return iWinScore;}	//Spielzielinformationen an Scoreboard weitergeben
@@ -75,5 +75,5 @@ public func WinScoreChange(int iNewScore)
   if(GetLeague())
     iNewScore = BoundBy(iNewScore, 5, 30);
 
-  return _inherited(iNewScore);
+  return _inherited(iNewScore, ...);
 }

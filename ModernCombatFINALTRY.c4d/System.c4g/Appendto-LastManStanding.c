@@ -12,7 +12,7 @@ public func GoalExtraValue()	{return iWinScore;}	//Spielzielinformationen an Sco
 
 protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 {
-  if(!chooser) return _inherited(iPlr, iX, iY, pBase, iTeam);
+  if(!chooser) return _inherited(iPlr, iX, iY, pBase, iTeam, ...);
   return;
 }
 
@@ -39,7 +39,7 @@ private func InitScoreboard()
   {
     ScheduleCall(this, "InitScoreboard", 1);
   }
-  return _inherited();
+  return _inherited(...);
 }
 
 /* Auswertung */
@@ -108,5 +108,5 @@ public func WinScoreChange(int iNewScore)
   if(GetLeague())
     iNewScore = BoundBy(iNewScore, 5, 15);
 
-  return _inherited(iNewScore);
+  return _inherited(iNewScore, ...);
 }

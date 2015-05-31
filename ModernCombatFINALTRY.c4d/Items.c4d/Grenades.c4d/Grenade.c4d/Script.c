@@ -116,7 +116,7 @@ public func ControlThrow(object caller)
    }
   }
 
-  return delay || _inherited(...);
+  return delay || _inherited(pCaller, ...);
 }
 
 public func Throw()

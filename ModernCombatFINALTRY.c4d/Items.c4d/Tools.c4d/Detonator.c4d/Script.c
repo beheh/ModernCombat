@@ -29,7 +29,7 @@ public func GetC4()
 public func ControlThrow(object pByObj)
 {
   if(GetPlrDownDouble(GetOwner(pByObj)))
-    return _inherited(...);
+    return _inherited(pByObj, ...);
 
   //Kein C4 übrig oder Wurfverzögerung?
   if(!GetPackPoints() || GetEffect("IntC4Cooldown", this))
@@ -122,7 +122,7 @@ public func Activate(object pActivator)
 
 public func JoinPack(object pInto, object pMsgObj)
 {
-  var i = _inherited(pInto, pMsgObj);
+  var i = _inherited(pInto, pMsgObj, ...);
   if(i)
   {
     //C4 übertragen
