@@ -214,9 +214,9 @@ protected func Selection()
   var c4 = GetC4();
   for(var obj in c4)
   {
-  	if(GetEffect("IntC4Icon", obj))
-    	continue;
-    
+    if(GetEffect("IntC4Icon", obj))
+      continue;
+
     AddEffect("IntC4Icon", obj, 100, 30);
     var marker = CreateObject(SM08, 0, 0, GetOwner(Contained()));
     marker->Set(obj, this, 0, 30, "ObjectAllied");
