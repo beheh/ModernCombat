@@ -10,7 +10,7 @@ public func ControlDown(object pObj)
     return(_inherited(...));
 
   //bei Dreifachstop loslassen und Zielen
-  if(pObj && GetPlrDownDouble(GetOwner(pObj)) && Contents(0, pObj))
+  if(pObj && GetEffect("IntWasGrabbed") && Contents(0, pObj))
   {
 	pObj->SetAction("Walk");
     if(pObj->~ReadyToSquatAim())
