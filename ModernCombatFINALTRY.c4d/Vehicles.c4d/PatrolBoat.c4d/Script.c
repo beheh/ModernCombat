@@ -45,6 +45,8 @@ func Destruction()
   this->FadeOut();
 }
 
+/* Steuerung */
+
 public func ControlRightDouble(object pByObj)
 {
   if(GetAction() != "OnLand")
@@ -55,8 +57,8 @@ public func ControlRightDouble(object pByObj)
   pByObj->SetAction("Throw");
   pByObj->SetComDir(COMD_Stop);
 
-  //Tonne anschieben
-  Fling(this, 3, -1);
+  //Boot anschieben
+  Fling(this, 2, -1);
 
   Sound("RSHL_Shove.ogg");
 }
@@ -71,8 +73,8 @@ public func ControlLeftDouble(object pByObj)
   pByObj->SetAction("Throw");
   pByObj->SetComDir(COMD_Stop);
 
-  //Tonne anschieben
-  Fling(this, -3, -1);
+  //Boot anschieben
+  Fling(this, -2, -1);
 
   Sound("RSHL_Shove.ogg");
 }
