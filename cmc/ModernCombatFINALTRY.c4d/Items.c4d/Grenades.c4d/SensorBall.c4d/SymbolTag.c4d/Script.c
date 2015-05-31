@@ -53,8 +53,8 @@ protected func FxRemoverStop()
 
 public func RefreshRemoveTimer(object pByHost)
 {
-	if(pHost && pHost != pByHost)
-		return;
+  if(pHost && pHost != pByHost)
+    return;
 
   iEffectRemoveTime = iRemoveTime;
   return true;

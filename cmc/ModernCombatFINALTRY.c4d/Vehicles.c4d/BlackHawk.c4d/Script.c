@@ -454,12 +454,12 @@ protected func ContainedUp(object ByObj)
     if(!throttle && (GetAction() == "Stand"))
       SetAction("EngineStartUp");
     if(GetAction() == "EngineShutDown")
-		SetAction("EngineStartUp3");
+      SetAction("EngineStartUp3");
     if(GetAction() == "EngineShutDown2")
-		SetAction("EngineStartUp2");
+      SetAction("EngineStartUp2");
     if(GetAction() == "EngineShutDown3")
-		SetAction("EngineStartUp");
-	
+      SetAction("EngineStartUp");
+
     //Schub geben
     if(!GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())))
     {
@@ -1417,15 +1417,15 @@ protected func TimerCall()
     }
     else
     {
-	  if(GetPilot() && Hostile(GetOwner(GetPilot()), iPlr))
-	  {
-	    var a = EffectVar(0, GetPilot(), GetEffect("IntFlashbang"));
-	    if(a)
+      if(GetPilot() && Hostile(GetOwner(GetPilot()), iPlr))
+      {
+        var a = EffectVar(0, GetPilot(), GetEffect("IntFlashbang"));
+        if(a)
           CustomMessage(Format("<c %x>{{SM07}}</c>%d", RGBa(255,255,255,BoundBy(a, 1, 254)), a), this, iPlr);
-	    else
+        else
           CustomMessage("@", this, iPlr);
-	  }
-	  else
+      }
+      else
         CustomMessage("@", this, iPlr);
     }
   }
