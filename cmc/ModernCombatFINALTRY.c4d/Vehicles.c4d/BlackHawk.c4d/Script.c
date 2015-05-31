@@ -119,7 +119,7 @@ protected func Initialize()
   pEntrance->SetHelicopter(this);
   pEntrance->SetOffset(0, 6);
 
-  return _inherited();
+  return _inherited(...);
 }
 
 /* Positionsberechnung von Objekten */
@@ -454,9 +454,15 @@ protected func ContainedUp(object ByObj)
     if(!throttle && (GetAction() == "Stand"))
       SetAction("EngineStartUp");
     if(GetAction() == "EngineShutDown")
-      SetAction("EngineStartUp3");
+	{     
+	  SetAction("EngineStartUp3");
+	  StartEngine();
+	}
     if(GetAction() == "EngineShutDown2")
+	{
       SetAction("EngineStartUp2");
+	  StartEngine();
+	}
     if(GetAction() == "EngineShutDown3")
       SetAction("EngineStartUp");
 
@@ -492,14 +498,8 @@ protected func ContainedDown(object ByObj)
     //Autopilot aus
     ResetAutopilot();
     //Motor aus
-    if(!throttle && (GetAction() == "Fly") && GetContact(0, -1, CNAT_Bottom))
+    if(!throttle && (GetAction() == "Fly" || GetAction() == "EngineStartUp") && GetContact(0, -1, CNAT_Bottom))
       SetAction("EngineShutDown"); 
-    if(GetAction() == "EngineStartUp")
-      SetAction("EngineShutDown3");
-    if(GetAction() == "EngineStartUp2")
-      SetAction("EngineShutDown2");
-    if(GetAction() == "EngineStartUp3")
-      SetAction("EngineShutDown");  
     //Vom Gas weg
     if(GetAction() == "Fly" || GetAction() == "Turn")
       if(GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())))
@@ -545,8 +545,21 @@ protected func ContainedUpDouble(object ByObj)
       return;
     //Autopilot aus
     ResetAutopilot();
-    if(throttle == 0 && (GetAction() == "Stand" || GetAction() == "EngineShutDown"))
-      SetAction("EngineStartUp");  
+    if(!throttle && (GetAction() == "Stand"))
+      SetAction("EngineStartUp");
+    if(GetAction() == "EngineShutDown")
+	{     
+	  SetAction("EngineStartUp3");
+	  StartEngine();
+	}
+    if(GetAction() == "EngineShutDown2")
+	{
+      SetAction("EngineStartUp2");
+	  StartEngine();
+	}
+    if(GetAction() == "EngineShutDown3")
+      SetAction("EngineStartUp");
+  
     if(GetAction() == "Fly")
       throttle = BoundBy(throttle + BKHK_ThrottleSpeed * 2, 0, BKHK_MaxThrottle);
     return true;
