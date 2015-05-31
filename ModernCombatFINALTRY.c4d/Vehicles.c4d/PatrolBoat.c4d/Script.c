@@ -48,7 +48,7 @@ func Destruction()
 public func ControlRightDouble(object pByObj)
 {
   if(GetAction() != "OnLand")
-	return;
+    return;
 
   //Clonk drehen und anhalten
   pByObj->SetDir(1);
@@ -64,7 +64,7 @@ public func ControlRightDouble(object pByObj)
 public func ControlLeftDouble(object pByObj)
 {
   if(GetAction() != "OnLand")
-	return;
+    return;
 
   //Clonk drehen und anhalten
   pByObj->SetDir();

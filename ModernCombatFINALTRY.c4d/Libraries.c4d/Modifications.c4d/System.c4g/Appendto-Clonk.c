@@ -350,7 +350,7 @@ public func GetAssist(int iPlrExclude)
     if(assistkiller[i][0] == GetOwner()) continue;
     if(assistkiller[i][0] == iPlrExclude) continue;
     if(!GetPlayerName(assistkiller[i][0])) continue;
-	if(GetPlayerTeam(assistkiller[i][0]) == GetPlayerTeam(iPlrExclude)) continue;
+    if(GetPlayerTeam(assistkiller[i][0]) == GetPlayerTeam(iPlrExclude)) continue;
     if(assistkiller[i][1] > highest[1])
     {
       highest[0] = assistkiller[i][0];

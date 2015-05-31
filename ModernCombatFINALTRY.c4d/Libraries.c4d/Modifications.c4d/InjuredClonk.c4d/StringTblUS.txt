@@ -8,6 +8,7 @@ ReanimationDisallow=<c 777777>Reanimation is disallowed</c>
 ReanimationDescDisallow=Reject beeing reanimated by allies.
 Statistics=Statistics
 EffectLevel=Effect level
+Settings=Settings
 DeathCounter=Death in <c ffff33>%d</c> seconds
 Killer=<c ffff33>Killer</c>
 Tip=<c ffff33>Tip</c>
@@ -87,7 +88,3 @@ BWTH0=Blow torches can also <c 33ccff>damage</c> enemy vehicles and structures.
 BWTH1=The blow torch will <c 33ccff>overheat</c> for a moment when it is completely emptied.
 BWTH2=Blow torches can <c 33ccff>destroy</c> locked doors and crates as well.
 BWTH3=Enemy euqipment like booby traps and C4 charges can be <c 33ccff>defused</c> by using blow torches.
-
-#Settings
-
-Settings=Settings

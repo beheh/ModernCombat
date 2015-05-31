@@ -203,7 +203,7 @@ private func DeathMenu()
 
   var selection = GetMenuSelection(clonk);
 
-  //Bei offenem Statistikmenü, Einstellungsmenu oder Effektmanager nichts unternehmen
+  //Bei offenen Statistiken, Einstellungen oder Effektmanagern nichts unternehmen
   if(GetMenu(clonk) == RWDS || GetMenu(clonk) == EFMN || GetMenu(clonk) == CSTR) return;
 
   CloseMenu(clonk);
@@ -236,8 +236,8 @@ private func DeathMenu()
 
     if(FindObject(EFMN) && GetOwner(clonk) == GetPlayerByIndex(0, C4PT_User) && !GetLeague())
       AddMenuItem("$EffectLevel$", Format("FindObject(EFMN)->Activate(%d)", GetOwner(clonk)), EFMN, clonk);			//Effektstufe-Menüpunkt
-  
-    AddMenuItem("$Settings$", "OpenSettings()", CSTR, clonk); //Einstellungen-Menüpunkt
+
+    AddMenuItem("$Settings$", "OpenSettings()", CSTR, clonk);									//Einstellungen-Menüpunkt
 
     if(aTipps[iTippNr] && !clonk->~ShorterDeathMenu())
       AddMenuItem("$NextTipp$", "NextTipp", MCMC, clonk);									//Nächster Tipp-Menüpunkt
@@ -618,8 +618,13 @@ public func ControlRightDouble(object pByObj)
   pByObj->SetAction("Throw");
   pByObj->SetComDir(COMD_Stop);
 
-  //Toten anschieben
+  //Schwerverletzten anschieben
   Fling(this, 2, -1);
+
+  //Effekte
+  Sound("ClonkImpact*.ogg");
+  Sound("ClonkRustle*.ogg", 0, 0, 50);
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",RandomX(4,8),10,0,10,20,100);
 }
 
 public func ControlLeftDouble(object pByObj)
@@ -629,8 +634,13 @@ public func ControlLeftDouble(object pByObj)
   pByObj->SetAction("Throw");
   pByObj->SetComDir(COMD_Stop);
 
-  //Toten anschieben
+  //Schwerverletzten anschieben
   Fling(this, -2, -1);
+
+  //Effekte
+  Sound("ClonkImpact*.ogg");
+  Sound("ClonkRustle*.ogg", 0, 0, 50);
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",RandomX(4,8),10,0,10,20,100);
 }
 
 /* Aufschlag */ 

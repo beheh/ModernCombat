@@ -111,7 +111,7 @@ public func Activate(object pActivator)
   Sound("C4PA_Activate.ogg");
 
   //Bild ändern wenn C4 übrig
-  if (GetPackPoints())
+  if(GetPackPoints())
   {
     SetPicture(0, 4, 64, 64);
     Schedule("SetPicture(64, 4, 64, 64)", 25);
@@ -123,7 +123,7 @@ public func Activate(object pActivator)
 public func JoinPack(object pInto, object pMsgObj)
 {
   var i = _inherited(pInto, pMsgObj);
-  if (i)
+  if(i)
   {
     //C4 übertragen
     for (var obj in GetC4())
@@ -149,7 +149,7 @@ public func UpdateHUD(object pHUD)
 
 public func OnRefill()
 {
-  if (!GetPackPoints())
+  if(!GetPackPoints())
     SetPicture(0, 4, 64, 64);
   else
     SetPicture(64, 4, 64, 64);
@@ -160,7 +160,7 @@ protected func Check()
   if(thrown) return;
 
   //Grund zum Existieren?
-  if (!GetPackPoints() && !GetLength(GetC4()))
+  if(!GetPackPoints() && !GetLength(GetC4()))
   {
     thrown = true;
 
@@ -210,10 +210,10 @@ protected func Selection()
 {
   Sound("C4PA_Deploy.ogg");
 
-  //Ladungen kurzzeitig markieren, falls nicht mehr sichtbar
+  //Ladungen kurzzeitig markieren, sofern nicht bereits vorhanden
   if(!GetEffect("IntC4Icon"))
   {
-	AddEffect("IntC4Icon", 0, 100, 30);
+    AddEffect("IntC4Icon", 0, 100, 30);
     var c4 = GetC4();
     for(var obj in c4)
     {
@@ -221,10 +221,9 @@ protected func Selection()
       marker->Set(obj, this, 0, 30, "ObjectAllied");
       marker->SetActionData(4);
       marker->SetVisibility(VIS_Owner);
-	  marker->SetClrModulation(GetPlrColorDw(GetOwner()));
-    } 
+      marker->SetClrModulation(GetPlrColorDw(GetOwner()));
+    }
   }
 }
 
-protected func IntC4IconStart() { return 1; }
-
+protected func IntC4IconStart() {return 1;}
