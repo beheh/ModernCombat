@@ -87,3 +87,7 @@ BWTH0=Der Schweißbrenner kann feindliche Fahrzeuge und Strukturen <c 33ccff>besc
 BWTH1=Schweißbrenner <c 33ccff>überhitzen</c> für einen Moment, wenn sie komplett geleert wurden.
 BWTH2=Schweißbrenner können auch verschlossene Türen und Kisten <c 33ccff>zerstören</c>.
 BWTH3=Feindliches Equipment wie Sprengfallen und C4-Sätze können mit Schweißbrennern <c 33ccff>entschärft</c> werden.
+
+#Einstellungen
+
+Settings=Einstellungen
