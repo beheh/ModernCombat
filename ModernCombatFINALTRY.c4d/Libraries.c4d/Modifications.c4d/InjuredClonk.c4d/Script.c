@@ -603,6 +603,28 @@ public func ControlDig(object pCaller)
   SetCommand(pCaller, "Get", this, 0, 0, 0, 1);
 }
 
+public func ControlRightDouble(object pByObj)
+{
+  //lebenden Clonk drehen und anhalten
+  pByObj->SetDir(1);
+  pByObj->SetAction("Throw");
+  pByObj->SetComDir(COMD_Stop);
+
+  //Toten anschieben
+  Fling(this, 2, -1);
+}
+
+public func ControlLeftDouble(object pByObj)
+{
+  //lebenden Clonk drehen und anhalten
+  pByObj->SetDir();
+  pByObj->SetAction("Throw");
+  pByObj->SetComDir(COMD_Stop);
+
+  //Toten anschieben
+  Fling(this, -2, -1);
+}
+
 /* Aufschlag */ 
 
 protected func Hit(int xDir, int yDir)
