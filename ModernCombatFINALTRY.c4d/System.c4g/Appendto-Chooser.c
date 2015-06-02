@@ -7,7 +7,7 @@
 #appendto CHOS
 
 local iEffectCount;
-local iChoosedPlr;
+local iChosenPlr;
 local iTeamCount, arTeams, aTeamCaptains;
 local iTeamMode, iUsedTeamSort;
 local fRandomMenu;
@@ -36,7 +36,7 @@ protected func Initialize()
   ScheduleCall(this, "RemoveGoals", 1);
 
   //Host identifizieren
-  iChoosedPlr = -1;
+  iChosenPlr = -1;
   ScheduleCall(this, "ChoosePlayer", 15);
 
   //Dunkelheit ermitteln
@@ -76,7 +76,7 @@ public func FxLeagueAutostartTimer(object pTarget, int iNr, int iTime)
 
   if(iTime >= CHOS_LeagueAutostart*35)
   {
-    CloseMenu(GetCursor(iChoosedPlr));
+    CloseMenu(GetCursor(iChosenPlr));
     ConfigurationFinished();
     return -1;
   }
@@ -134,7 +134,7 @@ public func FxChooserScoreboardTimer(object target, nr, time)
 public func UpdateScoreboard()
 {
   //Host-Spieler
-  SetScoreboardData(CHOS_SBRD_Chooser, 1, GetPlayerName(iChoosedPlr), 0, true);
+  SetScoreboardData(CHOS_SBRD_Chooser, 1, GetPlayerName(iChosenPlr), 0, true);
 
   //Spielziele
   var str_goals = "", str_extra = "";
@@ -238,7 +238,7 @@ public func RemovePlayer(int iPlr)
 {
   if(GetType(aTeamMenu) == C4V_Array)
   {
-    var sel = GetMenuSelection(GetCursor(iChoosedPlr));
+    var sel = GetMenuSelection(GetCursor(iChosenPlr));
     for(var i = 0; i < GetPlayerCount(); i++)
       if(GetPlayerByIndex(i) == iPlr)
         break;
@@ -246,7 +246,7 @@ public func RemovePlayer(int iPlr)
     if(i <= sel)
       sel--;
 
-    CloseMenu(GetCursor(iChoosedPlr));
+    CloseMenu(GetCursor(iChosenPlr));
     if(aTeamMenu[0] == 1)
       ScheduleCall(this, "OpenTeamMenu", 3, 0, aTeamMenu[0], sel);
     else
@@ -272,9 +272,9 @@ public func RemovePlayer(int iPlr)
   ScheduleCall(this, "UpdateScoreboard", 1);
 
   //Neuen Host identifizieren und Menü öffnen
-  if(iChoosedPlr == iPlr)
+  if(iChosenPlr == iPlr)
   {
-    iChoosedPlr = -1;
+    iChosenPlr = -1;
     ScheduleCall(this, "ChoosePlayer", 15);
     ScheduleCall(this, "OpenMenu", 16);
   }
@@ -337,7 +337,7 @@ private func ChoosePlayer()
       lowest = [GetPlrClientNr(plr), plr];
   }
 
-  return iChoosedPlr = lowest[1];
+  return iChosenPlr = lowest[1];
 }
 
 /* Nur eine Mitteilung für Neugierige */
@@ -347,9 +347,9 @@ protected func Activate(iPlr)
   if(GetEffect("TeamRotationChoosePlr", this) || GetEffect("EvaluateGoalVote", this))
     return false;
 
-  if(iPlr == iChoosedPlr)
+  if(iPlr == iChosenPlr)
     return OpenMenu();
-  MessageWindow(Format("$Choosing$", GetPlayerName(iChoosedPlr)), iPlr);
+  MessageWindow(Format("$Choosing$", GetPlayerName(iChosenPlr)), iPlr);
 }
 
 local blocked_teams;
@@ -361,7 +361,7 @@ protected func OpenMenu()
   if(GetLength(aGoals))
     return OpenGoalChooseMenu();
 
-  var pClonk = GetCursor(iChoosedPlr);
+  var pClonk = GetCursor(iChosenPlr);
   if(!pClonk)
     return ScheduleCall(this, "OpenMenu", 1);
 
@@ -443,7 +443,7 @@ protected func OpenMenu()
 
 protected func OpenRuleMenu(id dummy, int iSelection)
 {
-  var pClonk = GetCursor(iChoosedPlr);
+  var pClonk = GetCursor(iChosenPlr);
   //Menü erstellen
   CreateMenu(GetID(), pClonk);
   //Regeln einfügen
@@ -477,7 +477,7 @@ protected func OpenRuleMenu(id dummy, int iSelection)
 
 protected func OpenEffectMenu(id dummy, int iSelection)
 {
-  var pClonk = GetCursor(iChoosedPlr);
+  var pClonk = GetCursor(iChosenPlr);
   //Menü aufmachen
   CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
   //Anzeige
@@ -509,7 +509,7 @@ protected func OpenGoalMenu(id dummy, int iSelection)
 {
   if(!pGoal)
     return OpenMenu();
-  var pClonk = GetCursor(iChoosedPlr);
+  var pClonk = GetCursor(iChosenPlr);
   if(pGoal->~ConfigMenu(pClonk))
     return 1;
 
@@ -530,7 +530,7 @@ protected func OpenGoalMenu(id dummy, int iSelection)
 
 protected func OpenDarknessMenu(id dummy, int iSelection)
 {
-  var pClonk = GetCursor(iChoosedPlr);
+  var pClonk = GetCursor(iChosenPlr);
   //Menü aufmachen
   CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
   //Anzeige
@@ -551,7 +551,7 @@ protected func OpenTeamMenu(id dummy, int iSelection)
 {
   aTeamMenu = [1, dummy, iSelection];
   fRandomMenu = false;
-  var pClonk = GetCursor(iChoosedPlr);
+  var pClonk = GetCursor(iChosenPlr);
   //Menü erstellen
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
   //Teams auflisten
@@ -582,7 +582,7 @@ protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
   if(iMode == CHOS_TeamRandom)
     fRandomMenu = true;
 
-  var pClonk = GetCursor(iChoosedPlr);
+  var pClonk = GetCursor(iChosenPlr);
 
   //Menü erstellen
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
@@ -682,7 +682,7 @@ public func CreateTeamsAllowed(int iMode)
 protected func SelectPredefinedTeamMember(bool fInvisible, int iSelection, int iTeamSort, int iPlr)
 {
   aTeamMenu = [2, fInvisible, iSelection, iTeamSort, iPlr];
-  var pClonk = GetCursor(iChoosedPlr);
+  var pClonk = GetCursor(iChosenPlr);
   //Menü erstellen
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
   //Teams auflisten
@@ -748,7 +748,7 @@ protected func SwitchTeam2(int iTeam, int iMode, bool fInvisible)
   //Deaktivierung aller Teams verhindern
   if(CountArrayItems(arTeams, true) < MinTeamCount())
   {
-    Sound("Error", true, 0, 100, iChoosedPlr+1);
+    Sound("Error", true, 0, 100, iChosenPlr+1);
     arTeams[iTeam] = true;
   }
 
@@ -761,7 +761,7 @@ protected func SwitchTeam2(int iTeam, int iMode, bool fInvisible)
   
   if(GetPlayerCount() < count)
   {
-    Sound("Error", true, 0, 100, iChoosedPlr+1);
+    Sound("Error", true, 0, 100, iChosenPlr+1);
     arTeams[iTeam] = false;
   }
 
@@ -1020,7 +1020,7 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
   {
     iTeamCaptainState = 1;
 
-    var pClonk = GetCursor(iChoosedPlr);
+    var pClonk = GetCursor(iChosenPlr);
     CloseMenu(pClonk);
 
     //Menü erstellen
@@ -1088,7 +1088,7 @@ public func GetAvailableTeamCount()
 public func SwitchTeamCaptain(int iPlr)
 {
   var f = (GetAvailableTeamCount()-GetTeamCaptainCount() > 0);
-  //var iSelection = GetMenuSelection(GetCursor(iChoosedPlr));
+  //var iSelection = GetMenuSelection(GetCursor(iChosenPlr));
 
   if(GetAvailableTeamCount()-GetTeamCaptainCount() <= 0)
     aTeamCaptains[iPlr] = 0;
@@ -1133,7 +1133,7 @@ public func SwitchTeamCaptain(int iPlr)
   Sound("Grab", 1,0,0,1);
 
   CreateTeams(0, CHOS_TeamRotation);
-  SelectMenuItem(iPlr, GetCursor(iChoosedPlr));
+  SelectMenuItem(iPlr, GetCursor(iChosenPlr));
 
   return true;
 }
@@ -1474,7 +1474,7 @@ protected func SwitchTeam(id dummy, int iPlr)
 
   SetPlayerTeam(iPlr, teams[p]);
 
-  var sel = GetMenuSelection(GetCursor(iChoosedPlr));
+  var sel = GetMenuSelection(GetCursor(iChosenPlr));
 
   //Geräusch
   Sound("Grab", 1,0,0,1);
@@ -1707,7 +1707,7 @@ private func Eastern(object P)
 
 protected func OpenGoalChooseMenu()
 {
-  var pClonk = GetCursor(iChoosedPlr);
+  var pClonk = GetCursor(iChosenPlr);
   if(!pClonk || !GetLength(aGoals))
     return ScheduleCall(this, "OpenMenu", 1);
 
@@ -1753,7 +1753,7 @@ protected func OpenGoalChooseMenu()
 
 public func ChangeHostMenu()
 {
-  var pClonk = GetCursor(iChoosedPlr);
+  var pClonk = GetCursor(iChosenPlr);
   if(!pClonk)
     return ScheduleCall(this, "OpenMenu", 1);
 
@@ -1768,7 +1768,7 @@ public func ChangeHostMenu()
   {
     var plr = GetPlayerByIndex(i, C4PT_User);
     var clr = 0x777777, name = GetPlayerName(plr), cmd = 0;
-    if(iChoosedPlr != plr)
+    if(iChosenPlr != plr)
     {
       clr = GetPlrColorDw(plr);
       cmd = "ChangeHostPlayer";
@@ -1783,7 +1783,7 @@ public func ChangeHostMenu()
 
 public func ChangeHostPlayer(id dummy, int iPlr)
 {
-  var pClonk = GetCursor(iChoosedPlr);
+  var pClonk = GetCursor(iChosenPlr);
   if(!pClonk)
     return ScheduleCall(this, "OpenMenu", 1);
 
@@ -1792,7 +1792,7 @@ public func ChangeHostPlayer(id dummy, int iPlr)
   //Eventnachricht: Neuer Host
   EventInfo4K(0, Format("$NewHost$", GetPlrColorDw(iPlr), GetPlayerName(iPlr)), CHOS, 0, 0, 0, "Info_Event.ogg");
 
-  iChoosedPlr = iPlr;
+  iChosenPlr = iPlr;
   return OpenMenu();
 }
 
