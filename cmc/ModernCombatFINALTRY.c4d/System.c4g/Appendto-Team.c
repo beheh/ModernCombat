@@ -244,3 +244,46 @@ global func HostileTeam(int iTeam1, int iTeam2)
 
   return 1;
 }
+
+public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
+{
+  if(iPlr == -1 || !GetPlayerName(iPlr)) 
+    return;
+
+  aDeath[iPlr]++;
+  
+  if(iMurdererPlr != -1 && GetPlayerTeam(iPlr) != GetPlayerTeam(iMurdererPlr))
+  {	
+    //Kills zaehlen
+    aKill[iMurdererPlr]++;
+  }	
+
+  RelaunchScoreboard(iPlr, pClonk, iMurdererPlr);
+
+  // Geld
+  Money(iPlr, pClonk, iMurdererPlr);
+}
+
+public func RelaunchScoreboard(int iPlr, object pClonk, int iMurdererPlr)
+{
+  //Tode zaehlen
+  if(GetTeamPlayerCount(GetPlayerTeam(iPlr)) > 1)
+    SetScoreboardData(iPlr, TEAM_DeathColumn, Format("%d", aDeath[iPlr]), aDeath[iPlr]);
+  else
+    SetScoreboardData(iPlr, TEAM_DeathColumn, Format("<c %x>%d</c>", GetPlrColorDw(iPlr), aDeath[iPlr]), aDeath[iPlr]);
+  if(GetTeamPlayerCount(GetPlayerTeam(iPlr)) > 1)
+    SetScoreboardData(TEAM_iRow + GetPlayerTeam(iPlr), TEAM_DeathColumn, Format("<c %x>%d</c>", GetTeamColor(GetPlayerTeam(iPlr)), TeamGetDeath(GetPlayerTeam(iPlr))), TeamGetDeath(GetPlayerTeam(iPlr))+1);
+  //kein Selfkill? kein Teamkill?
+  if(iMurdererPlr != -1 && GetPlayerTeam(iPlr) != GetPlayerTeam(iMurdererPlr))
+  {
+    SetScoreboardData(iMurdererPlr, TEAM_KillColumn, Format("<c %x>%d</c>", GetPlrColorDw(iMurdererPlr), aKill[iMurdererPlr]), aKill[iMurdererPlr]);
+    //Teamkills zaehlen
+    if(GetTeamPlayerCount(GetPlayerTeam(iMurdererPlr)) > 1)
+    {
+      SetScoreboardData(TEAM_iRow + GetPlayerTeam(iMurdererPlr), TEAM_KillColumn, Format("<c %x>%d</c>", GetTeamColor(GetPlayerTeam(iMurdererPlr)), TeamGetKills(GetPlayerTeam(iMurdererPlr))), TeamGetKills(GetPlayerTeam(iMurdererPlr))+1);
+      SetScoreboardData(iMurdererPlr, TEAM_KillColumn, Format("%d", aKill[iMurdererPlr]), aKill[iMurdererPlr]);
+    }
+  }
+  
+  SortTeamScoreboard();
+}

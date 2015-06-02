@@ -152,18 +152,6 @@ protected func Activate(iPlr)
   return MessageWindow(GetDesc(), iPlr);
 }
 
-protected func RelaunchPlayer(int iPlr, object pCrew, int iKiller, int iTeam, no_relaunch)
-{
-  Money(iPlr, pCrew, iKiller);
-
-  aDeath[iPlr]++;
-  if (iKiller != -1 && GetPlayerTeam(iKiller) != GetPlayerTeam(iPlr))
-    aKill[iKiller]++;
-
-  if(!FindObject(CHOS) && !FindObject(MCSL))
-    CreateGOCCSpawner(pCrew);
-}
-
 public func IsTeamGoal()		{return 1;}
 
 public func SetFlag(object pFlagPole)
@@ -371,6 +359,7 @@ private func InitPlayer(int iPlr)		{}
 private func RemoveScoreboardPlayer(int iPlr)	{}
 public func WinScoreChange(int iNewScore)	{}
 private func SortTeamScoreboard()		{}
+public func RelaunchScoreboard(int iPlr, object pClonk, int iMurdererPlr) {}
 
 private func TeamGetScore(int iTeam)
 {
