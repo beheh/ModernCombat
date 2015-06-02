@@ -348,20 +348,20 @@ public func IsFulfilled()
   }
 }
 
-/* Ungenutze Funktionen */
-
-private func InitScoreboard()			{}
-private func InitMultiplayerTeam(int iTeam)	{}
-private func RemoveMultiplayerTeam(int iTeam)	{}
-private func InitSingleplayerTeam(int iPlr)	{}
-private func RemoveSingleplayerTeam(int iPlr)	{}
-private func InitPlayer(int iPlr)		{}
-private func RemoveScoreboardPlayer(int iPlr)	{}
-public func WinScoreChange(int iNewScore)	{}
-private func SortTeamScoreboard()		{}
-public func RelaunchScoreboard(int iPlr, object pClonk, int iMurdererPlr) {}
-
 private func TeamGetScore(int iTeam)
 {
   return aTeamPoints[iTeam];
 }
+
+/* Ungenutze Funktionen */
+
+private func InitScoreboard()							{}
+private func InitMultiplayerTeam(int iTeam)					{}
+private func RemoveMultiplayerTeam(int iTeam)					{}
+private func InitSingleplayerTeam(int iPlr)					{}
+private func RemoveSingleplayerTeam(int iPlr)					{}
+private func InitPlayer(int iPlr)						{}
+private func RemoveScoreboardPlayer(int iPlr)					{}
+public func WinScoreChange(int iNewScore)					{}
+private func SortTeamScoreboard()						{}
+public func RelaunchScoreboard(int iPlr, object pClonk, int iMurdererPlr)	{}
