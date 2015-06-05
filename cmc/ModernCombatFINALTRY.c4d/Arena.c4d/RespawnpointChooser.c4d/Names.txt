@@ -1,2 +1,0 @@
-DE:Respawnmenu
-US:Respawnmenu
