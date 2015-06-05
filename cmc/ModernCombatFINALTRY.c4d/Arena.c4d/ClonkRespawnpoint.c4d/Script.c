@@ -2,7 +2,7 @@
 
 #strict 2
 
-local respawnpoints, team;
+local respawnpoints, respawnobjects, team;
 
 public func IsRespawnpoint(object pClonk) { return (GetObjectTeam() == GetPlayerTeam(GetOwner(pClonk))); }
 public func IsTeamRespawnpoint(int iTeam) { return (GetObjectTeam() == iTeam); }
@@ -29,6 +29,7 @@ public func GetText(object pClonk)
 protected func Initialize()
 {
   respawnpoints = [];
+  respawnobjects = [];
   
   return _inherited(...);
 }
@@ -36,6 +37,12 @@ protected func Initialize()
 public func AddRespawnpoint(int iX, int iY)
 {
   respawnpoints[GetLength(respawnpoints)] = [iX, iY];
+  return true;	
+}
+
+public func AddRespawnobject(object pObject)
+{
+  respawnobjects[GetLength(respawnobjects)] = pObject;
   return true;	
 }
 
@@ -47,7 +54,28 @@ public func AddRespawnpoints(array points)
   return true;
 }
 
-public func GetRespawnpoints() { return respawnpoints; }
+public func AddRespawnobjects(array objects)
+{
+  for(var obj in objects)
+    AddRespawnobject(obj);
+
+  return true;
+}
+
+public func GetRespawnpoints() 
+{
+  var arr = [];
+  for(var arritem in respawnpoints)
+	arr[GetLength(arr)] = arritem;
+
+  for(var obj in respawnobjects)
+  {
+	arr[GetLength(arr)][0] = GetX(obj);
+	arr[GetLength(arr)][1] = GetY(obj);
+  }
+
+  return arr; 
+}
 
 public func GetObjectTeam() { return team; }
 public func SetObjectTeam(int iTeam) { team = iTeam; }

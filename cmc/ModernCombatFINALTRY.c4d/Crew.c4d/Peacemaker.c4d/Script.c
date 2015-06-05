@@ -2,6 +2,7 @@
 
 #strict 2
 #include HZCK
+#include CRSP
 
 static const PCMK_PortraitVersion = 160;
 
@@ -9,6 +10,26 @@ public func WeaponCollectionLimit()	{return 3;}				//Anzahl Waffen im Inventar
 public func ObjectCollectionLimit()	{return 2;}				//Anzahl Objekte im Inventar
 public func DeathAnimationCount()	{return (GetID() == PCMK) && 6;}	//Anzahl Todesanimationen
 
+/* Spawnintegration */
+
+public func IsRespawnpoint(object pClonk) { return ((GetPlayerTeam(GetOwner()) == GetPlayerTeam(GetOwner(pClonk))) && (pClonk != this) && !Contained()); }
+public func IsTeamRespawnpoint(int iTeam) { return false; }
+public func IsAvailable(object pClonk) { return !FindObject2(Find_Distance(200), Find_Hostile(GetOwner(pClonk))); }
+public func IsViewable(object pClonk) { return true; }
+public func GetIconID(object pClonk) { return GetID(); }
+
+public func GetIcon(object pIcon, object pClonk)
+{
+  SetColorDw(RGBa(255, 255, 255, 0), pIcon);
+  SetGraphics("", pIcon, GetIconID(pClonk));
+  
+  return;
+}
+
+public func GetRespawnpoints() 
+{
+  return [[GetX(), GetY()]];	
+}
 
 /* Portrait-Updates */
 
