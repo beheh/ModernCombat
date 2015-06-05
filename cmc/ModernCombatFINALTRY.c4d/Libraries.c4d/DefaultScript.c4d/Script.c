@@ -2,6 +2,14 @@
 
 #strict 2
 
+public func Initialize()
+{
+  //falls mal kein Chooser verwendet wird
+  if(!FindObject(CHOS))
+	GameCall("PlaceSpawnpoints");
+
+  return _inherited(...);
+}
 
 /* Wahl abgeschlossen */
 
@@ -108,7 +116,7 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
   //Zufallsposition setzen (iX und iY für Abwärtskompatibilität)
   var iX, iY, aSpawnpoints;
   aSpawnpoints = RelaunchPosition(iX, iY, iTeam);
-
+  
   //Szenario nutzt neue Spawnmechanik?
   if(GetType(aSpawnpoints) == C4V_Array)
     GetBestSpawnpoint(aSpawnpoints, iPlr, iX, iY);
@@ -126,7 +134,9 @@ public func RelaunchClonk(int iPlr, object pCursor)
 {
   //Clonkerstellung
   var pClonk;
-  if(pCursor && pCursor->~GetRealCursor()) pCursor = pCursor->~GetRealCursor();
+  if(pCursor && pCursor->~GetRealCursor()) 
+	pCursor = pCursor->~GetRealCursor();
+
   if(pCursor)
   {
     pClonk = CreateObject(GetID(pCursor), 10, 10, iPlr);
@@ -137,6 +147,7 @@ public func RelaunchClonk(int iPlr, object pCursor)
     pClonk = CreateObject(PCMK, 10, 10, iPlr);
       MakeCrewMember(pClonk, iPlr);
   }
+  
   DoEnergy(+150, pClonk);
   SetCursor(iPlr, pClonk);
   SetPlrView(iPlr, pClonk);
@@ -153,11 +164,22 @@ public func RelaunchClonk(int iPlr, object pCursor)
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  var wipf = PlaceAnimal(WIPF); 
-  iX = GetX(wipf);
-  iY = GetY(wipf);
-  RemoveObject(wipf);
+  if(!g_chooserFinished)
+	return ChooserMenuPosition();
+  else
+  {
+	var rsp = FindObject2(Find_Func("IsTeamRespawnpoint", iTeam));
+	if(rsp)
+	  return [[GetX(rsp), GetY(rsp)]];
+  }
 }
+
+public func OnClassSelection(object pCrew, int iClass)
+{
+  CreateRelaunchMenu(pCrew, iClass);
+}
+
+global func ChooserMenuPosition() { return [LandscapeWidth()/2, LandscapeHeight()/2];}
 
 /* Intelligente Spawnmechanik */
 
@@ -296,5 +318,4 @@ global func SetWaitingMusic()
 
 /* Zusatzfunktionen */
 
-public func OnClassSelection()	{}
 public func OnWeaponChoice()	{}

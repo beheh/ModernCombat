@@ -3,7 +3,6 @@
 #strict 2
 #include TEAM
 
-local aSpawn;			//Spawnpunkte
 local aTargets, aTargetCount;	//Ziele
 
 global func IsAssaultTarget()	{return GetEffect("IntAssaultTarget", this);}
@@ -19,7 +18,8 @@ protected func Initialize()
   aTargetCount = [];
   aKill = [];
   aDeath = [];
-  aSpawn = [];
+  
+  return _inherited(...);
 }
 
 protected func ChooserFinished()
@@ -66,7 +66,7 @@ global func Find_InArray(array a)
 
 /* Zielobjekt Funktionen */
 
-public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iTeam, string szName, int iIndex, array aSpawns, bool fNoBar)
+public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iTeam, string szName, int iIndex, bool fNoBar)
 {
   //Grundobjekt erstellen
   var fake = CreateObject(AHBS, iX, iY+GetDefCoreVal("Offset", 0, idTarget, 1)+2, -1);
@@ -74,8 +74,6 @@ public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iT
   SetShape(GetDefCoreVal("Offset", 0, idTarget), GetDefCoreVal("Offset", 0, idTarget, 1), GetDefCoreVal("Width", 0, idTarget), GetDefCoreVal("Height", 0, idTarget), fake);
   SetGraphics(0, fake, idTarget, 1, 1);
   fake->SetImitationID(idTarget);
-  //Team setzen
-  fake->SetTeam(iTeam);
   //Name
   if(szName)
     SetName(szName, fake);
@@ -86,10 +84,7 @@ public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iT
     aTargets[iTeam] = [];
   aTargets[iTeam][iIndex] = fake;
   aTargetCount[iTeam]++;
-  //Relaunchpositionen
-  if(!aSpawn[iTeam])
-    aSpawn[iTeam] = [];
-  aSpawn[iTeam][iIndex] = aSpawns;
+  fake->SetTeam(iTeam);
   //Assault-Effekt
   AddEffect("IntAssaultTarget", fake, 1, 1, this, 0, iMaxDamage, fNoBar, idTarget);
   //Done.
@@ -476,11 +471,6 @@ protected func FxIntAlarmBlinkStop(object pTarget, int iNr)
   if(EffectVar(2, pTarget, iNr))
     RemoveObject(EffectVar(2, pTarget, iNr));
 }
-
-/* Relaunch */
-
-public func OnClassSelection()				{}
-public func GetRespawnPoint(int &iX, int &iY, int iTeam){}
 
 /* Ungenutzte Funktionen */
 
