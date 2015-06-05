@@ -1,1 +1,0 @@
-Verwaltet den Wiedereinstieg in Runden mit Besitznahme als Spielziel.
