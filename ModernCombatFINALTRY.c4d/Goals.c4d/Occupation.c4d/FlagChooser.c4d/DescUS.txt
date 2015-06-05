@@ -1,1 +1,0 @@
-Administrates respawning in rounds with occupation selected.
