@@ -1,6 +1,6 @@
-Die folgend gelisteten Musiktitel sind von ihren entsprechenden Künstlern:
+Die folgenden Musiktitel stammen von ihren jeweiligen Künstlern / The following songs are from their respective artists:
 
-"Base Groove", "Friendly Unit", "Getaway", "Moving Squad", "Offensive", "Slow Motion"
+"Friendly Unit", "Getaway", "Moving Squad", "Offensive", "Slow Motion"
 Kevin MacLeod
 
 "Eurocorps"
@@ -13,30 +13,13 @@ Richard Wagner
 Bomberman 64 Soundtrack
 
 "CMC_Firehawk"
+"CMC_Matrix"
 "CMC_No Good"
 "CMC_Obsession"
 "CMC_Rock Go On"
 "CMC_Your Eyes"
-"Command and Clonker" Clonk-Erweiterungspack
+Command and Clonker (Clonk Addon)
 
-
-Specific songs are from the following artists:
-
-"Base Groove", "Friendly Unit", "Getaway", "Moving Squad", "Offensive", "Slow Motion"
-Kevin MacLeod
-
-"Eurocorps"
-Two Steps from Hell
-
-"RadioSong_6"
-Richard Wagner
-
-"Blue Ressort"
-Bomberman 64 Soundtrack
-
-"CMC_Firehawk"
-"CMC_No Good"
-"CMC_Obsession"
-"CMC_Rock Go On"
-"CMC_Your Eyes"
-"Command and Clonker" Clonk Addon
+"CMC_Techno"
+"CMC_Titanium City"
+Star Empires (Clonk Addon)
