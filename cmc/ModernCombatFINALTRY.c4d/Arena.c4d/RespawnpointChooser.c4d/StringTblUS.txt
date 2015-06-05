@@ -1,0 +1,2 @@
+RelaunchMenu=Choose a <c ffff33>access position</c>
+SpawnAt=on <c ffff33>%s</c>

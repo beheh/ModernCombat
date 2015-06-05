@@ -7,7 +7,6 @@ local iAttacker;				//Angreifer-Team
 local iDefender;				//Verteidiger-Team
 local iTickets;					//Tickets der Angreifer
 local iWarningTickets;				//Ticketwarnung
-local aSpawns;					//Spawnpunkte
 local Connected;				//Verbundene Ziele
 local iTicketSubtrTime;				//Ticketabzugszeit
 
@@ -32,7 +31,6 @@ public func GoalExtraValue()
 static const BAR_AssaultBar = 4;
 static const GASS_PlantRadius = 100;
 
-
 /* Initialisierung */
 
 protected func Initialize()
@@ -40,7 +38,6 @@ protected func Initialize()
   iAttacker = -1;
   iDefender = -1;
   iTickets = 1;
-  aSpawns = [[],[]];
   Connected = [];
   iTicketSubtrTime = GASS_TicketIdleTime;
 
@@ -103,17 +100,11 @@ public func CalcTickets()
   return D + (D * (4 + (20 - D) * D / 12)) / A;
 }
 
-public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iTeam, string szName, int iIndex, array aSpawn, bool fNoBar)
+public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iTeam, string szName, int iIndex, bool fNoBar)
 {
-  if(_inherited(idTarget, iX, iY, iMaxDamage, iTeam, szName, iIndex, aSpawns, fNoBar))
-  {
-    //Team setzen
-    if(iTeam && iDefender == -1)
-      iDefender = iTeam;
-    //Spawnpunkte anders behandeln
-    aSpawns[iIndex] = aSpawn;
-    return true;
-  }
+  //Team setzen
+  iDefender = iTeam;
+  return _inherited(idTarget, iX, iY, iMaxDamage, iTeam, szName, iIndex, fNoBar);
 }
 
 global func SetTicketSubtractionTime()
@@ -149,7 +140,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam, array aAtt
     for(var i in Connected[index])
       if(aTargets[iDefender][i])
         fConnectedDestruction = false;
-
+	
   if(aAttacker)
   {
     var assist = false;
@@ -392,27 +383,14 @@ protected func FxTicketSubtractionReset(object pTarget, int iEffect)
 
 /* Relaunch */
 
-public func OnClassSelection(object pCrew)
+public func OnRelaunchPlayer(int iPlr, pClonk, int iKiller)
 {
-  RelaunchPlayer(GetOwner(pCrew), 0, -2);
-}
-
-public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
-{
-  if(iKiller != -2)
-  {
-    aDeath[iPlr]++;
-    if(iKiller != -1 && GetPlayerTeam(iPlr) != GetPlayerTeam(iKiller))
-      aKill[iKiller]++;
-        Money(iPlr, pClonk, iKiller);
-  }
-
   //Kein Angreiferteam definiert?
   if(iAttacker == -1 && GetPlayerTeam(iPlr) && GetPlayerTeam(iPlr) != iDefender)
   {
     iAttacker = GetPlayerTeam(iPlr);
   }
-
+  
   //Noch gar keine Ziele: Kurz warten
   if(!GetLength(aTargets[iDefender]))
     return;
@@ -423,126 +401,18 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
   if(GetPlayerTeam(iPlr) == iDefender)
     index = GASS_Spawn_Def;
 
-  if(iKiller != -2)
+  //Kein Verteidiger? Ticket-Abzug
+  if(GetPlayerTeam(iPlr) != iDefender && iKiller != -2)
   {
-    //Spieler darf gar nicht mehr joinen?
-    if(index == GASS_Spawn_Att)
-    {
-      //Angreifer: Keine Tickets?
-      if(!iTickets)
-        return AddEffect("WaitForJoin", this, 1, 5, this, 0, iPlr);
-    }
-    else
-      //Verteidiger: Keine Ziele?
-      if(GetLength(aTargets))
-        if(!ObjectCount2(Find_InArray(aTargets[iDefender])))
-          return EliminatePlayer(iPlr);
-
-    //Kein Verteidiger? Ticket-Abzug
-    if(GetPlayerTeam(iPlr) != iDefender && iKiller != -2)
-    {
-      iTickets = Max(iTickets-1);
-      //Keine Tickets mehr?
-      if(iTickets && iTickets == iWarningTickets)
-        Schedule(Format("GameCallEx(\"TicketsLow\", %d, %d, true)", iTickets, iDefender), 1);
-      if(!iTickets)
-        Schedule(Format("GameCallEx(\"NoTickets\", %d, true)", iDefender), 1);
-    }
+    iTickets = Max(iTickets-1);
+    //Keine Tickets mehr?
+    if(iTickets && iTickets == iWarningTickets)
+      Schedule(Format("GameCallEx(\"TicketsLow\", %d, %d, true)", iTickets, iDefender), 1);
+    if(!iTickets)
+      Schedule(Format("GameCallEx(\"NoTickets\", %d, true)", iDefender), 1);
   }
-
-  //Clonk wegstecken
-  var pCrew = GetCrew(iPlr);
-  if(!pCrew)
-    return;
-  var cont = Contained(pCrew);
-  var tim = CreateObject(TIM2, 0, 0, iPlr);
-  Enter(tim, pCrew);
-  if(cont)
-    RemoveObject(cont);
-
-  //Spawnpunkt raussuchen
-  if(ObjectCount2(Find_InArray(aTargets[iDefender])))
-    var target_index = GetNextTarget();
-  else
-    var target_index = GetLength(aTargets[iDefender])-1;
-
-  var x, y;
-  GetBestSpawnpoint(aSpawns[target_index][index], iPlr, x, y);
-  SetPosition(x, y-10, tim);
-  AddEffect("IntAssaultSpawn", tim, 1, 1, this);
-}
-
-protected func FxIntAssaultSpawnTimer(object pTarget)
-{
-  if(GetAlive(Contents(0, pTarget)))
-    pTarget->~Spawn();
-  if(pTarget)
-    RemoveObject(pTarget);
-}
-
-protected func FxWaitForJoinStart(object pTarget, int iNr, iTemp, int iPlr)
-{
-  EffectVar(0, pTarget, iNr) = iPlr;
-}
-
-protected func FxWaitForJoinTimer(object pTarget, int iNr)
-{
-  var iPlr = EffectVar(0, pTarget, iNr);
-  //Es gibt wieder Tickets!
-  if(iTickets || !ObjectCount2(Find_InArray(aTargets[iDefender])))
-  {
-    RelaunchPlayer(iPlr, GetCrew(iPlr), -2);
-    return -1;
-  }
-
-  //Wegstecken falls nötig
-  if(!Contained(GetCrew(iPlr)))
-  {
-    var target = aTargets[iDefender][GetNextTarget()];
-    var tim = CreateObject(TIM1, GetX(target)-GetX(), GetY(target)-GetY(), iPlr);
-    Enter(tim, GetCrew(iPlr));
-    SetPlrViewRange(200, tim);
-    AddEffect("IntAssaultWaitObject", tim, 1, 0, tim);
-    RemoveEffect("Spawn", GetCrew(iPlr));
-  }
-
-  //Alle anderen Angreifer sind eliminiert: Verlieren
-  var alive = false;
-  for(var obj in FindObjects(Find_Func("IsClonk")))
-  {
-    if(GetPlayerTeam(GetOwner(obj)) == iDefender)
-      continue;
-    if(GetAlive(obj) && !GetEffect("IntAssaultWaitObject", Contained(obj))/* && (GetOwner(obj) != iPlr || GetMenu(obj) != MCSL)*/)
-      alive = true;
-  }
-
-  if(alive)
-    return;
-  EliminatePlayer(iPlr);
-}
-
-public func GetRespawnPoint(int &iX, int &iY, int iTeam)
-{
-  var index = GASS_Spawn_Att;
-  if(iTeam == iDefender)
-    index = GASS_Spawn_Def;
-
-  //Erstmal checken
-  if(GetType(aTargets) != C4V_Array || !GetLength(aTargets[iDefender]))
-    return;
-
-  //Nächstes Ziel suchen
-  var target;
-  if(ObjectCount2(Find_InArray(aTargets[iDefender])))
-    target = GetNextTarget();
-
-  //Kein Ziel? 0 zurückgeben
-  if(!aTargets[iDefender][target])
-    return;
-
-  iX = aSpawns[target][index][0][0];
-  iY = aSpawns[target][index][0][1]-10;
-  return true;
+  
+  IsFulfilled();
 }
 
 /* Event-Nachrichten */
@@ -780,14 +650,7 @@ public func GetTeamPlayerCount(int iTeam, bool fAliveOnly)
         while(pCrew = GetCrew(GetPlayerByIndex(i), j))
         {
           ++j;
-          if(pCrew->~IsFakeDeath())  continue;
-
-          var fWait = false, k = 0, effect;
-          while(effect = GetEffect("WaitForJoin", this, k++))
-            if(EffectVar(0, this, effect) == GetPlayerByIndex(i))
-              fWait = true;
-
-          if(fWait) continue;
+          if(pCrew->~IsFakeDeath()) continue;
 
           fAlive = true;
           break;
