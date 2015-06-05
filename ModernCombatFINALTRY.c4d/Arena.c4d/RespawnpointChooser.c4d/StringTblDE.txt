@@ -1,0 +1,2 @@
+RelaunchMenu=Wähle einen <c ffff33>Einstiegspunkt</c>
+SpawnAt=bei <c ffff33>%s</c>

@@ -1,0 +1,2 @@
+DE:Clonk Respawnpunkt
+US:clonk respawnpoint
