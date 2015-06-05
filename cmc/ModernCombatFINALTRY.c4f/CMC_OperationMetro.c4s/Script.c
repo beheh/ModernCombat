@@ -601,7 +601,7 @@ public func ChooserFinished()
   inherited();
 
   //Starttitel und Musikliste zusammenstellen
-  SetPlayList("CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Deep Universe.ogg;CMC_Eurocorps.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Rock Go On.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Your Eyes.ogg");
+  SetPlayList("CMC_Deep Universe.ogg;CMC_Eurocorps.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Matrix.ogg;CMC_Moving Squad.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Offensive.ogg;CMC_Rock Go On.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_Techno.ogg;CMC_Titanium City.ogg;CMC_Your Eyes.ogg");
   Music("CMC_Eurocorps.ogg");
 
   //Teams abfragen
@@ -612,26 +612,78 @@ public func ChooserFinished()
   //OP-Spielziel
   if(FindObject(GOCC))
   {
-    //Grenzen setzen
-    CreateObject(BRDR, 520, 0, -1)->Set(0);
-    CreateObject(BRDR, 4720, 0, -1)->Set(1);
+   //Flaggenposten
+   aFlag[0] = CreateObject(OFPL,1420,370,NO_OWNER);
+   aFlag[0] -> AddSpawnPoint(1020, 450);
+   aFlag[0] -> AddSpawnPoint(1160, 290);
+   aFlag[0] -> AddSpawnPoint(1290, 430);
+   if(aTeams[1] == true)
+   {
+    aFlag[0]->Set("$Flag1$",100,2);
+    aFlag[0]->Capture(1,1);
+   }
+   else
+   {
+    aFlag[0]->Set("$Flag1$",0,2);
+   }
 
-    //Geschützstellungen
-    CreateObject(GNET, 830, 440, -1)->Set(0,90,1);
-    CreateObject(GNET, 1600, 370, -1)->Set(0,90,1);
-    CreateObject(GNET, 3640, 370, -1)->Set(0,-90,1);
-    CreateObject(GNET, 4410, 440, -1)->Set(0,-90,1);
+   aFlag[1] = CreateObject(OFPL,2190,460,NO_OWNER);
+   aFlag[1] -> AddSpawnPoint(1880,380);
+   aFlag[1] -> AddSpawnPoint(1880,430);
+   aFlag[1] -> AddSpawnPoint(2410,570);
+   aFlag[1]->Set("$Flag2$",0,2);
 
-    //Versorgungskisten (APW)
-    crate = CreateObject(AMCT, 1650, 500, -1);
-    crate->Set(ATWN);
-    crate = CreateObject(AMCT, 3590, 500, -1);
-    crate->Set(ATWN);
+   aFlag[2] = CreateObject(OFPL,3050,460,NO_OWNER);
+   aFlag[2] -> AddSpawnPoint(3360,380);
+   aFlag[2] -> AddSpawnPoint(3360,430);
+   aFlag[2] -> AddSpawnPoint(2830,570);
+   aFlag[2]->Set("$Flag3$",0,2);
+
+   aFlag[3] = CreateObject(OFPL,3820,370,NO_OWNER);
+   aFlag[3] -> AddSpawnPoint(4220, 450);
+   aFlag[3] -> AddSpawnPoint(4080, 290);
+   aFlag[3] -> AddSpawnPoint(3950, 430);
+   if(aTeams[2] == true)
+   {
+    aFlag[3]->Set("$Flag4$",100,2);
+    aFlag[3]->Capture(2,1);
+   }
+   else
+   {
+    aFlag[3]->Set("$Flag4$",0,2);
+   }
+
+   //Grenzen setzen
+   CreateObject(BRDR, 520, 0, -1)->Set(0);
+   CreateObject(BRDR, 4720, 0, -1)->Set(1);
+
+   //Geschützstellungen
+   CreateObject(GNET, 830, 440, -1)->Set(0,90,1);
+   CreateObject(GNET, 1600, 370, -1)->Set(0,90,1);
+   CreateObject(GNET, 3640, 370, -1)->Set(0,-90,1);
+   CreateObject(GNET, 4410, 440, -1)->Set(0,-90,1);
+
+   //Versorgungskisten (APW)
+   crate = CreateObject(AMCT, 1650, 500, -1);
+   crate->Set(ATWN);
+   crate = CreateObject(AMCT, 3590, 500, -1);
+   crate->Set(ATWN);
   }
 
   //Assault-Spielziel
   if(FindObject(GASS))
   {
+   //Zielobjekte
+   AddAssaultTarget(CMSN, 1900, 440, 30*30, 2, "$Target1$", 0, [[[2570, 440], [2440, 530], [2410, 580]], [[1170, 300], [1170, 440], [1290, 440]]]);
+   AddAssaultTarget(CMSN, 2620, 370, 30*30, 2, "$Target1$", 1, [[[3020, 460], [3160, 440], [3220, 440]], [[1800, 440], [1870, 390], [1590, 370]]]);
+   AddAssaultTarget(CMSN, 2670, 620, 30*30, 2, "$Target2$", 2, [[[3020, 460], [3160, 440], [3220, 440]], [[1800, 440], [1870, 390], [1590, 370]]]);
+   AddAssaultTarget(CMSN, 3680, 370, 30*30, 2, "$Target1$", 3, [[[4160, 440], [4220, 460], [4340, 460]], [[2780, 530], [2570, 440], [2620, 620]]]);
+   AddAssaultTarget(CMSN, 3800, 440, 30*30, 2, "$Target2$", 4, [[[4160, 440], [4220, 460], [4340, 460]], [[2780, 530], [2570, 440], [2620, 620]]]);
+
+   //Ziele verbinden
+   ConnectAssaultTargets([1, 2]);
+   ConnectAssaultTargets([3, 4]);
+
    //Grenzen setzen
    CreateObject(BRDR, 520, 0, -1)->Set(0);
    CreateObject(BRDR, 2780, 0, -1)->Set(1,1);
@@ -690,12 +742,18 @@ public func ChooserFinished()
   //Base Assault-Spielziel
   if(FindObject(GBAS))
   {
-    //Sprengsatz-Spawn
-    SetupBombSpawnpoint([[2620, 440],[2620,620]]);
- 
-    //Grenzen setzen
-    CreateObject(BRDR, 950, 0, -1)->Set(0);
-    CreateObject(BRDR, 4290, 0, -1)->Set(1);
+   //Zielobjekte
+   AddAssaultTarget(CMSN, 1650, 500, 350, 1, "$Target2$", 0, [[1050, 440], [1290, 300], [1410, 370]]);
+   AddAssaultTarget(CMSN, 2090, 440, 350, 1, "$Target1$", 1, [[1840, 300], [1870, 390], [1955, 300]]);
+   AddAssaultTarget(CMSN, 3150, 440, 350, 2, "$Target1$", 2, [[3285, 300], [3370, 390], [3400, 300]]);
+   AddAssaultTarget(CMSN, 3590, 500, 350, 2, "$Target2$", 3, [[3830, 370], [3950, 300], [4190, 440]]);
+
+   //Sprengsatz-Spawn
+   SetupBombSpawnpoint([[2620, 440],[2620,620]]);
+
+   //Grenzen setzen
+   CreateObject(BRDR, 950, 0, -1)->Set(0);
+   CreateObject(BRDR, 4290, 0, -1)->Set(1);
   }
 
   //HTF-Spielziel
@@ -842,159 +900,46 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   }
 }
 
-/* Respawnpunkte */
+/* Relaunch */
 
-public func PlaceSpawnpoints()
+public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //Teams abfragen
-  var aTeams = [false,false,false,false,false];
-  for(var i = 0; i < GetPlayerCount(); i++)
-   aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
+  //Startsicht
+  if(!g_chooserFinished)
+  {
+   iX = 1110; iY = 320;
+   return 1;
+  }
 
-  var rsp;
-  //CTF-Spawnpunkte
+  //Assault-Spielziel
+  if(FindObject(GASS))
+  {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
+
+  //CTF-Spielziel
   if(FindObject(GCTF))
   {
-	rsp = CreateObject(CRSP, 1560, 490);
-	rsp->AddRespawnpoints([[1560, 490], [1580, 360], [1680, 490]]);
-	rsp->SetObjectTeam(1);
-	rsp = CreateObject(CRSP, 3560, 490);
-	rsp->AddRespawnpoints([[3560, 490], [3660, 360], [3680, 490]]);
-	rsp->SetObjectTeam(2);
+   if(iTeam == 1)
+   {
+    return [[1560, 490], [1580, 360], [1680, 490]];
+   }
+   if(iTeam == 2)
+   {
+    return [[3560, 490], [3660, 360], [3680, 490]];
+   }
+   return 1;
   }
-  else  
-  //HTF/MR/LMS/DM-Spawnpunkte
+
+  //HTF/MR/LMS/DM-Spielziel
   if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM))
   {
-	rsp = CreateObject(CRSP, 1290, 430);
-	rsp->AddRespawnpoints([[1290, 430], [1470, 360], [1470, 430]]);
-	rsp->SetObjectTeam(1);
-	rsp = CreateObject(CRSP, 3770, 360);
-	rsp->AddRespawnpoints([[3770, 360], [3770, 430], [3950, 430]]);
-	rsp->SetObjectTeam(2);
+   if(iTeam == 1)
+   {
+    return [[1290, 430], [1470, 360], [1470, 430]];
+   }
+   if(iTeam == 2)
+   {
+    return [[3770, 360], [3770, 430], [3950, 430]];
+   }
+   return 1;
   }
-  else
-  //Assault-Spawnpunkte
-  if(FindObject(GASS))
-  {
-    //Zielobjekte
-    AddAssaultTarget(CMSN, 1900, 440, 30*30, 2, "$Target1$", 0);
-    AddAssaultTarget(CMSN, 2620, 370, 30*30, 2, "$Target1$", 1);
-    AddAssaultTarget(CMSN, 2670, 620, 30*30, 2, "$Target2$", 2);
-    AddAssaultTarget(CMSN, 3680, 370, 30*30, 2, "$Target1$", 3);
-    AddAssaultTarget(CMSN, 3800, 440, 30*30, 2, "$Target2$", 4);
-
-    //Ziele verbinden
-    ConnectAssaultTargets([1, 2]);
-    ConnectAssaultTargets([3, 4]);
-
-	rsp = CreateObject(ARSP, 2570, 430);
-	rsp->AddRespawnpoints([[2570, 430], [2440, 520], [2410, 570]]);
-	rsp->AddTargets([0]);
-	rsp->SetObjectTeam(2); 
-	
-	rsp = CreateObject(ARSP, 1170, 280);
-	rsp->AddRespawnpoints([[1170, 280], [1170, 420], [1290, 430]]);
-	rsp->AddTargets([0]);
-	rsp->SetObjectTeam(1); 
-	
-	rsp = CreateObject(ARSP, 3020, 440);
-	rsp->AddRespawnpoints([[3020, 440], [3160, 420], [3220, 430]]);
-	rsp->AddTargets([1, 2]);
-	rsp->SetObjectTeam(2); 
-	
-	rsp = CreateObject(ARSP, 1800, 420);
-	rsp->AddRespawnpoints([[1800, 420], [1870, 370], [1590, 360]]);
-	rsp->AddTargets([1, 2]);
-	rsp->SetObjectTeam(1);
-	
-	rsp = CreateObject(ARSP, 4160, 420);
-	rsp->AddRespawnpoints([[4160, 420], [4220, 440], [4340, 450]]);
-	rsp->AddTargets([3, 4]);
-	rsp->SetObjectTeam(2);
-	
-	rsp = CreateObject(ARSP, 2780, 510);
-	rsp->AddRespawnpoints([[2780, 510], [2570, 420], [2620, 610]]);
-	rsp->AddTargets([3, 4]);
-	rsp->SetObjectTeam(1);
-  }
-  else
-  if(FindObject(GBAS))
-  {
-    //Zielobjekte
-    AddAssaultTarget(CMSN, 1650, 500, 350, 1, "$Target2$", 0);
-    AddAssaultTarget(CMSN, 2090, 440, 350, 1, "$Target1$", 1);
-    AddAssaultTarget(CMSN, 3150, 440, 350, 2, "$Target1$", 2);
-    AddAssaultTarget(CMSN, 3590, 500, 350, 2, "$Target2$", 3);
-	
-	rsp = CreateObject(CRSP, 1050, 440);
-	rsp->AddRespawnpoints([[1050, 430], [1290, 290], [1410, 360]]);
-	rsp->SetObjectTeam(1);
-	rsp->SetName("$Target2$");
-	
-	rsp = CreateObject(CRSP, 1840, 300);
-	rsp->AddRespawnpoints([[1840, 290], [1870, 380], [1955, 290]]);
-	rsp->SetObjectTeam(1);
-	rsp->SetName("$Target1$");
-	
-	rsp = CreateObject(CRSP, 3285, 300);
-	rsp->AddRespawnpoints([[3285, 290], [3370, 380], [3400, 290]]);
-	rsp->SetObjectTeam(2);
-	rsp->SetName("$Target2$");
-	
-	rsp = CreateObject(CRSP, 3830, 370);
-	rsp->AddRespawnpoints([[3830, 360], [3950, 290], [4190, 430]]);
-	rsp->SetObjectTeam(2);
-	rsp->SetName("$Target1$");
-  }
-  else
-  if(FindObject(GOCC))
-  {
-    //Flaggenposten
-    aFlag[0] = CreateObject(OFPL,1420,370,NO_OWNER);
-    aFlag[0]->AddRespawnpoint(1020, 450);
-    aFlag[0]->AddRespawnpoint(1160, 290);
-    aFlag[0]->AddRespawnpoint(1290, 430);
-    if(aTeams[1] == true)
-    {
-      aFlag[0]->Set("$Flag1$",100,2);
-      aFlag[0]->Capture(1,1);
-    }
-    else
-    {
-      aFlag[0]->Set("$Flag1$",0,2);
-    }
-
-    aFlag[1] = CreateObject(OFPL,2190,460,NO_OWNER);
-    aFlag[1]->AddRespawnpoint(1880,380);
-    aFlag[1]->AddRespawnpoint(1880,430);
-    aFlag[1]->AddRespawnpoint(2410,570);
-    aFlag[1]->Set("$Flag2$",0,2);
-
-    aFlag[2] = CreateObject(OFPL,3050,460,NO_OWNER);
-    aFlag[2]-> AddRespawnpoint(3360,380);
-    aFlag[2]-> AddRespawnpoint(3360,430);
-    aFlag[2]-> AddRespawnpoint(2830,570);
-    aFlag[2]->Set("$Flag3$",0,2);
-
-    aFlag[3] = CreateObject(OFPL,3820,370,NO_OWNER);
-    aFlag[3]->AddRespawnpoint(4220, 450);
-    aFlag[3]->AddRespawnpoint(4080, 290);
-    aFlag[3]->AddRespawnpoint(3950, 430);
-    if(aTeams[2] == true)
-    {
-      aFlag[3]->Set("$Flag4$",100,2);
-      aFlag[3]->Capture(2,1);
-    }
-    else
-    {
-      aFlag[3]->Set("$Flag4$",0,2);
-    }	  
-  }
-}
-  
-/* Startsicht */
-global func ChooserMenuPosition()
-{
-	return [[1110, 320]];
 }

@@ -1018,7 +1018,7 @@ public func ChooserFinished()
   inherited();
 
   //Starttitel und Musikliste zusammenstellen
-  SetPlayList("CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Deep Universe.ogg;CMC_Eurocorps.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Rock Go On.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Your Eyes.ogg");
+  SetPlayList("CMC_Deep Universe.ogg;CMC_Eurocorps.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Matrix.ogg;CMC_Moving Squad.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Offensive.ogg;CMC_Rock Go On.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_Techno.ogg;CMC_Titanium City.ogg;CMC_Your Eyes.ogg");
   Music("CMC_Friendly Unit.ogg");
 
   //Verzögerte Hinweisnachricht ausgeben
@@ -1329,6 +1329,10 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    return 1;
   }
 
+  //Assault-Spielziel
+  if(FindObject(GASS))
+  {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
+
   //LMS-Spielziel
   if(FindObject(GLMS))
   {
@@ -1341,6 +1345,4 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     return [[990, 1680], [1040, 1930], [1185, 1910], [1330, 1930], [1295, 1680]];
    }
   }
-  
-  return _inherited(iX, iY, iTeam, ...);
 }
