@@ -6,8 +6,8 @@
 
 local iteam,process,range,flag,bar,attacker,trend,capt,pAttackers,lastowner, iconState;
 
-public func IsRespawnpoint(object pClonk) { return true; }
-public func IsTeamRespawnpoint(int iTeam) { return true; }
+public func IsRespawnpoint(object pClonk) { return !FindObject(GHTF); }
+public func IsTeamRespawnpoint(int iTeam) { return !FindObject(GHTF); }
 public func IsAvailable(object pClonk)    { return ((GetTeam() == GetPlayerTeam(GetOwner(pClonk))) && IsFullyCaptured()); }
 public func IsViewable(object pClonk) { return (GetTeam() == GetPlayerTeam(GetOwner(pClonk))); }
 
