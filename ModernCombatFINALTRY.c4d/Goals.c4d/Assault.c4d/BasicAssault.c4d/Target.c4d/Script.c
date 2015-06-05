@@ -17,6 +17,8 @@ protected func Initialize()
 {
   aDamage = [];
   iLastDamager = -1;
+  
+  return _inherited(...);
 }
 
 /* Assault-Calls */

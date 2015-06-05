@@ -251,39 +251,54 @@ public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
     return;
 
   aDeath[iPlr]++;
-
+  
   if(iMurdererPlr != -1 && GetPlayerTeam(iPlr) != GetPlayerTeam(iMurdererPlr))
   {	
-    //Kills zählen
+    //Kills zaehlen
     aKill[iMurdererPlr]++;
   }	
 
+  OnRelaunchPlayer(iPlr, pClonk, iMurdererPlr);
+  
   RelaunchScoreboard(iPlr, pClonk, iMurdererPlr);
 
-  //Geld
+  // Geld
   Money(iPlr, pClonk, iMurdererPlr);
 }
 
+/* Callbacks */
+
 public func RelaunchScoreboard(int iPlr, object pClonk, int iMurdererPlr)
 {
-  //Tode zählen
+  //Tode zaehlen
   if(GetTeamPlayerCount(GetPlayerTeam(iPlr)) > 1)
     SetScoreboardData(iPlr, TEAM_DeathColumn, Format("%d", aDeath[iPlr]), aDeath[iPlr]);
   else
     SetScoreboardData(iPlr, TEAM_DeathColumn, Format("<c %x>%d</c>", GetPlrColorDw(iPlr), aDeath[iPlr]), aDeath[iPlr]);
   if(GetTeamPlayerCount(GetPlayerTeam(iPlr)) > 1)
     SetScoreboardData(TEAM_iRow + GetPlayerTeam(iPlr), TEAM_DeathColumn, Format("<c %x>%d</c>", GetTeamColor(GetPlayerTeam(iPlr)), TeamGetDeath(GetPlayerTeam(iPlr))), TeamGetDeath(GetPlayerTeam(iPlr))+1);
-  //Kein Selbstmord oder Teamkill?
+  //kein Selfkill? kein Teamkill?
   if(iMurdererPlr != -1 && GetPlayerTeam(iPlr) != GetPlayerTeam(iMurdererPlr))
   {
     SetScoreboardData(iMurdererPlr, TEAM_KillColumn, Format("<c %x>%d</c>", GetPlrColorDw(iMurdererPlr), aKill[iMurdererPlr]), aKill[iMurdererPlr]);
-    //Teamkills zählen
+    //Teamkills zaehlen
     if(GetTeamPlayerCount(GetPlayerTeam(iMurdererPlr)) > 1)
     {
       SetScoreboardData(TEAM_iRow + GetPlayerTeam(iMurdererPlr), TEAM_KillColumn, Format("<c %x>%d</c>", GetTeamColor(GetPlayerTeam(iMurdererPlr)), TeamGetKills(GetPlayerTeam(iMurdererPlr))), TeamGetKills(GetPlayerTeam(iMurdererPlr))+1);
       SetScoreboardData(iMurdererPlr, TEAM_KillColumn, Format("%d", aKill[iMurdererPlr]), aKill[iMurdererPlr]);
     }
   }
-
+  
   SortTeamScoreboard();
 }
+
+public func RelaunchPosition(& iX, & iY, int iTeam)
+{
+	if(FindObject(CHOS))
+	  return(ChooserMenuPosition(iTeam));
+    else
+	  return(_inherited(iX, iY, iTeam, ...));
+}
+
+global func ChooserMenuPosition(int iTeam) { return;}
+public func OnRelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr) { }

@@ -461,7 +461,7 @@ public func ChooserFinished()
   inherited();
 
   //Starttitel und Musikliste zusammenstellen
-  SetPlayList("CMC_Blue Ressort.ogg;CMC_Deep Universe.ogg;CMC_Eurocorps.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Matrix.ogg;CMC_Moving Squad.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Offensive.ogg;CMC_Rock Go On.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_Techno.ogg;CMC_Titanium City.ogg;CMC_Your Eyes.ogg");
+  SetPlayList("CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Deep Universe.ogg;CMC_Eurocorps.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Rock Go On.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Your Eyes.ogg");
   Music("CMC_Deep Universe.ogg");
 
   //MR-Spielziel
@@ -489,23 +489,23 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //MR/LMS/DM-Spielziel
   if(FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM))
   {
-   //Gesonderte Spawnpoints bei 2 Teams
-   if(GetActiveTeamCount() == 2)
-   {
-    if(iTeam == GetActiveTeamByIndex(0))
-    {
-     return [[210, 480], [260, 700], [520, 490]];
-    }
-    if(iTeam == GetActiveTeamByIndex(1))
-    {
-     return [[1535, 300], [1635, 240], [1690, 420]];
-    }
-    return 1;
-   }
-   else
-   {
-    return [[210, 480], [260, 700], [595, 410], [1155, 180], [1525, 650], [1635, 240], [1690, 420]];
-   }
-   return 1;
+     //Gesonderte Spawnpoints bei 2 Teams
+     if(GetActiveTeamCount() == 2)
+     {
+        if(iTeam == GetActiveTeamByIndex(0))
+        {
+           return [[210, 480], [260, 700], [520, 490]];
+        }
+        if(iTeam == GetActiveTeamByIndex(1))
+        {
+           return [[1535, 300], [1635, 240], [1690, 420]];
+        }
+     }
+     else
+     {
+        return [[210, 480], [260, 700], [595, 410], [1155, 180], [1525, 650], [1635, 240], [1690, 420]];
+     }
   }
+  
+  return _inherited(iX, iY, iTeam, ...);
 }
