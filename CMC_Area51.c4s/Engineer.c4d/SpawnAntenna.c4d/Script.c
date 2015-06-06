@@ -7,13 +7,14 @@
 
 public func BuildCost() {return 50;}
 public func AutoRepairDuration()	{return 0;}
-public func MaxDamage()			{return 30;}
+public func MaxDamage()			{return 15;}
 public func IsRepairable()	{return !fDestroyed;}
 public func IsRespawnPoint(){return !fDestroyed;}
+public func IsBulletTarget(){return true;}
 
-public func GetRespawnPoints()
+public func GetRespawnpoints()
 {
-	return [GetX(), GetY()];
+	return [[GetX(), GetY() - 9]];
 }
 
 func Construction(object kit)
