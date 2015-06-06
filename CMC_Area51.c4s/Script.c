@@ -227,9 +227,10 @@ public func PlaceSpawnpoints()
   //Spawnorte
   rsp = CreateObject(CRSP, 160, 380);
   rsp->AddRespawnpoints([[160, 380], [160, 640], [1910, 380], [1910, 640]]);
-  rsp->SetObjectTeam(1);
+  rsp->SetObjectTeam(0);
 
   rsp = CreateObject(CRSP, 160, 380);
   rsp->AddRespawnpoints([[160, 380], [160, 640], [1910, 380], [1910, 640]]);
-  rsp->SetObjectTeam(2);
+    return;
+  rsp->SetObjectTeam(0);
 }
