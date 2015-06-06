@@ -65,8 +65,6 @@ public func RelaunchMenu()
     return;
 
   var team = GetPlayerTeam(GetOwner(crew));
-  if(!team) 
-    return;
 
   CloseMenu (crew);
 
