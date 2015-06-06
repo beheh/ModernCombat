@@ -20,7 +20,7 @@ public func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1);
+  return _inherited(...);
 }
 
 /* Plazierungslisten */
@@ -228,9 +228,6 @@ public func PlaceSpawnpoints()
   rsp = CreateObject(CRSP, 160, 380);
   rsp->AddRespawnpoints([[160, 380], [160, 640], [1910, 380], [1910, 640]]);
   rsp->SetObjectTeam(0);
-
-  rsp = CreateObject(CRSP, 160, 380);
-  rsp->AddRespawnpoints([[160, 380], [160, 640], [1910, 380], [1910, 640]]);
-    return;
-  rsp->SetObjectTeam(0);
+  
+  return;
 }
