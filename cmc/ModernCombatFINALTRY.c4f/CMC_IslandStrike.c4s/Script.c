@@ -46,8 +46,7 @@ func CreateInterior()
   CreateObject(LFTP, 1025, 390, -1);
   CreateObject(LFTP, 2745, 655, -1);
   CreateObject(LFTP, 3655, 655, -1);
-  var liftp = CreateObject(LFTP, 3785, 445, -1);
-  liftp->DisableVertical();
+  CreateObject(LFTP, 3785, 445, -1)->DisableVertical();
   CreateObject(LFTP, 4375, 655, -1);
   CreateObject(LFTP, 5665, 645, -1);
   CreateObject(LFTP, 6405, 655, -1);
