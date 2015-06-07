@@ -474,14 +474,14 @@ protected func FxIntAlarmBlinkStop(object pTarget, int iNr)
 
 /* Ungenutzte Funktionen */
 
-private func InitScoreboard()			{}
-private func InitMultiplayerTeam(int iTeam)	{}
-private func RemoveMultiplayerTeam(int iTeam)	{}
-private func InitSingleplayerTeam(int iPlr)	{}
-private func RemoveSingleplayerTeam(int iPlr)	{}
-private func InitPlayer(int iPlr)		{}
-private func RemoveScoreboardPlayer(int iPlr)	{}
-public func WinScoreChange(int iNewScore)	{}
-private func SortTeamScoreboard()		{}
-private func TeamGetScore()			{}
-public func RelaunchScoreboard(int iPlr, object pClonk, int iMurdererPlr) {}
+private func InitScoreboard()							{}
+private func InitMultiplayerTeam(int iTeam)					{}
+private func RemoveMultiplayerTeam(int iTeam)					{}
+private func InitSingleplayerTeam(int iPlr)					{}
+private func RemoveSingleplayerTeam(int iPlr)					{}
+private func InitPlayer(int iPlr)						{}
+private func RemoveScoreboardPlayer(int iPlr)					{}
+public func WinScoreChange(int iNewScore)					{}
+private func SortTeamScoreboard()						{}
+private func TeamGetScore()							{}
+public func RelaunchScoreboard(int iPlr, object pClonk, int iMurdererPlr)	{}
