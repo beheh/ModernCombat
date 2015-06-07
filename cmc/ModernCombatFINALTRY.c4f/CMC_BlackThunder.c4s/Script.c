@@ -5,8 +5,8 @@
 
 static aFlag,aArtillery;
 
-public func SpecificEquipment()	{return [[PPAR, 1]];}	//Zusatzausrüstung: Fallschirmrucksack
-func RecommendedGoals()		{return [GOCC, GHTF];}	//Spielzielempfehlung
+public func SpecificEquipment()  {return [[PPAR, 1]];}  //Zusatzausrüstung: Fallschirmrucksack
+func RecommendedGoals()    {return [GOCC, GHTF];}  //Spielzielempfehlung
 
 
 /* Initialisierung */
@@ -322,142 +322,149 @@ public func ChooserFinished()
   //Teams abfragen
   var aTeams = [false,false,false,false,false];
   for(var i = 0; i < GetPlayerCount(); i++)
-   aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
+    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
   //Helikopter und Hinweisschilder
   if(!FindObject(NOHC))
   {
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,720,560,-1),70*21);
-   SetupVehicleSpawn([APCE],DIR_Right,CreateObject(VSPW,1220,590,-1),70*21);
-   SetupVehicleSpawn([APCE],DIR_Left,CreateObject(VSPW,3020,590,-1),70*21);
-   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,3520,560,-1),70*21);
+    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,720,560,-1),70*21);
+    SetupVehicleSpawn([APCE],DIR_Right,CreateObject(VSPW,1220,590,-1),70*21);
+    SetupVehicleSpawn([APCE],DIR_Left,CreateObject(VSPW,3020,590,-1),70*21);
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,3520,560,-1),70*21);
 
-   CreateObject(SNPT, 630, 590, -1)->SetAction("Sign3");
-   var sign = CreateObject(SGNP, 1290, 670, -1);
-   sign->SetMode(1);
-   sign->Set("Helicopter");
-   sign = CreateObject(SGNP, 2940, 670, -1);
-   sign->SetMode(1);
-   sign->Set("Helicopter");
-   CreateObject(SNPT, 3610, 590, -1)->SetAction("Sign3");
+    CreateObject(SNPT, 630, 590, -1)->SetAction("Sign3");
+    var sign = CreateObject(SGNP, 1290, 670, -1);
+    sign->SetMode(1);
+    sign->Set("Helicopter");
+    sign = CreateObject(SGNP, 2940, 670, -1);
+    sign->SetMode(1);
+    sign->Set("Helicopter");
+    CreateObject(SNPT, 3610, 590, -1)->SetAction("Sign3");
   }
 
   //OP-Spielziel
   if(FindObject(GOCC))
   {
-   //Flaggenposten
-   aFlag[0] = CreateObject(OFPL,630,590,NO_OWNER);
-   aFlag[0] -> AddSpawnPoint(460,740);
-   aFlag[0] -> AddSpawnPoint(580,680);
-   aFlag[0] -> AddSpawnPoint(380,550);
-   if(aTeams[1] == true)
-   {
-    aFlag[0]->Set("$Flag1$",100,2);
-    aFlag[0]->Capture(1,1);
-   }
-   else
-   {
-    aFlag[0]->Set("$Flag1$",0,2);
-   }
-
-   aFlag[1] = CreateObject(OFPL,1330,670,NO_OWNER);
-   aFlag[1] -> AddSpawnPoint(1190,750);
-   aFlag[1] -> AddSpawnPoint(1300,840);
-   aFlag[1] -> AddSpawnPoint(1130,610);
-   aFlag[1]->Set("$Flag2$",0,2);
-
-   aFlag[2] = CreateObject(OFPL,2910,670,NO_OWNER);
-   aFlag[2] -> AddSpawnPoint(2950,840);
-   aFlag[2] -> AddSpawnPoint(3050,750);
-   aFlag[2] -> AddSpawnPoint(3110,610);
-   aFlag[2]->Set("$Flag3$",0,2);
-
-   aFlag[3] = CreateObject(OFPL,3610,590,NO_OWNER);
-   aFlag[3] -> AddSpawnPoint(3660,680);
-   aFlag[3] -> AddSpawnPoint(3780,740);
-   aFlag[3] -> AddSpawnPoint(3860,550);
-   if(aTeams[2] == true)
-   {
-    aFlag[3]->Set("$Flag4$",100,2);
-    aFlag[3]->Capture(2,1);
-   }
-   else
-   {
-    aFlag[3]->Set("$Flag4$",0,2);
-   }
-
-   //Objekte entfernen
-   RemoveObject(FindObject2(Find_ID(SNPT),Find_InRect(590, 500, 50, 50)));
-   RemoveObject(FindObject2(Find_ID(SNPT),Find_InRect(3570, 500, 50, 50)));
+    //Objekte entfernen
+    RemoveObject(FindObject2(Find_ID(SNPT),Find_InRect(590, 500, 50, 50)));
+    RemoveObject(FindObject2(Find_ID(SNPT),Find_InRect(3570, 500, 50, 50)));
   }
 
   //MR-Spielziel
   if(FindObject(GMNR))
   {
-   //Geldsäcke
-   AddMoneySpawn(770, 750, [20]);
-   AddMoneySpawn(1290, 840, [15]);
-   AddMoneySpawn(2120, 680, [15]);
-   AddMoneySpawn(2950, 840, [15]);
-   AddMoneySpawn(3470, 750, [20]);
+    //Geldsäcke
+    AddMoneySpawn(770, 750, [20]);
+    AddMoneySpawn(1290, 840, [15]);
+    AddMoneySpawn(2120, 680, [15]);
+    AddMoneySpawn(2950, 840, [15]);
+    AddMoneySpawn(3470, 750, [20]);
   }
 
   //HTF-Spielziel
   if(FindObject(GHTF))
   {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 2120, 690, -1);
-   flag->~Set("$Flag5$");
+    //Flaggenposten
+    var flag = CreateObject(OFPL, 2120, 690, -1);
+    flag->~Set("$Flag5$");
 
-   //Teamgrenzen
-   CreateObject(BRDR, 1760, 0, -1)->Set(0,1,0,1,1);
-   CreateObject(BRDR, 2480, 0, -1)->Set(1,1,0,1,2);
+    //Teamgrenzen
+    CreateObject(BRDR, 1760, 0, -1)->Set(0,1,0,1,1);
+    CreateObject(BRDR, 2480, 0, -1)->Set(1,1,0,1,2);
 
-   //Selbstschussanlagen
-   var selfdef = CreateObject(SEGU, 1135, 620, -1);
-   selfdef->Set(0,1,1,180,0,1680);
-   selfdef->SetTeam(1);
-   selfdef = CreateObject(SEGU, 3105, 620, -1);
-   selfdef->Set(0,1,1,180,2560);
-   selfdef->SetTeam(2);
+    //Selbstschussanlagen
+    var selfdef = CreateObject(SEGU, 1135, 620, -1);
+    selfdef->Set(0,1,1,180,0,1680);
+    selfdef->SetTeam(1);
+    selfdef = CreateObject(SEGU, 3105, 620, -1);
+    selfdef->Set(0,1,1,180,2560);
+    selfdef->SetTeam(2);
 
-   //Objekt entfernen
-   RemoveObject(aArtillery[0]);
+    //Objekt entfernen
+    RemoveObject(aArtillery[0]);
 
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Gewehrgranaten
-    PlaceSpawnpoint(GBOX, 2010, 845);
+    //Zusätzliche Munition
+    if(!FindObject(NOAM))
+    {
+      //Gewehrgranaten
+      PlaceSpawnpoint(GBOX, 2010, 845);
 
-    //Raketen
-    PlaceSpawnpoint(MBOX, 2230, 845);
-   }
+      //Raketen
+      PlaceSpawnpoint(MBOX, 2230, 845);
+    }
   }
 }
 
 /* Relaunch */
 
-public func RelaunchPosition(& iX, & iY, int iTeam)
+public func PlaceSpawnplaces()
 {
-  //Startsicht
-  if(!g_chooserFinished)
-  {
-   iX = 2220; iY = 600;
-   return 1;
-  }
+  //Teams abfragen
+  var aTeams = [false,false,false,false,false];
+  for(var i = 0; i < GetPlayerCount(); i++)
+    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //HTF/MR/LMS-Spielziel
+  var rsp;
+
   if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GLMS))
-  {
-   if(iTeam == 1)
-   {
-    return [[380, 550], [475, 630], [585, 680]];
-   }
-   if(iTeam == 2)
-   {
-    return [[3655, 680], [3765, 630], [3860, 550]];
-   }
-   return 1;
+  {  
+    //Spawnorte
+    rsp = CreateObject(CRSP, 380, 550);
+    rsp->AddRespawnplaces([[380, 550], [475, 630], [585, 680]]);
+    rsp->SetObjectTeam(1);
+
+    rsp = CreateObject(CRSP, 3655, 680);
+    rsp->AddRespawnplaces([[3655, 680], [3765, 630], [3860, 550]]);
+    rsp->SetObjectTeam(2);
   }
+  if(FindObject(GOCC))
+  {
+    //Flaggenposten
+    aFlag[0] = CreateObject(OFPL,630,590,NO_OWNER);
+    aFlag[0]->AddRespawnplace(460,740);
+    aFlag[0]->AddRespawnplace(580,680);
+    aFlag[0]->AddRespawnplace(380,550);
+    if(aTeams[1] == true)
+    {
+      aFlag[0]->Set("$Flag1$",100,2);
+      aFlag[0]->Capture(1,1);
+    }
+    else
+    {
+      aFlag[0]->Set("$Flag1$",0,2);
+    }
+
+    aFlag[1] = CreateObject(OFPL,1330,670,NO_OWNER);
+    aFlag[1]->AddRespawnplace(1190,750);
+    aFlag[1]->AddRespawnplace(1300,840);
+    aFlag[1]->AddRespawnplace(1130,610);
+    aFlag[1]->Set("$Flag2$",0,2);
+
+    aFlag[2] = CreateObject(OFPL,2910,670,NO_OWNER);
+    aFlag[2]->AddRespawnplace(2950,840);
+    aFlag[2]->AddRespawnplace(3050,750);
+    aFlag[2]->AddRespawnplace(3110,610);
+    aFlag[2]->Set("$Flag3$",0,2);
+
+    aFlag[3] = CreateObject(OFPL,3610,590,NO_OWNER);
+    aFlag[3]->AddRespawnplace(3660,680);
+    aFlag[3]->AddRespawnplace(3780,740);
+    aFlag[3]->AddRespawnplace(3860,550);
+    if(aTeams[2] == true)
+    {
+      aFlag[3]->Set("$Flag4$",100,2);
+      aFlag[3]->Capture(2,1);
+    }
+    else
+    {
+      aFlag[3]->Set("$Flag4$",0,2);
+    }
+  }
+}
+
+/* Startsicht */
+
+global func ChooserMenuPosition()
+{
+  return [[2220, 600]];
 }
