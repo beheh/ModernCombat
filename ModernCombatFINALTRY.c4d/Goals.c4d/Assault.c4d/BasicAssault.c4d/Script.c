@@ -484,3 +484,4 @@ private func RemoveScoreboardPlayer(int iPlr)	{}
 public func WinScoreChange(int iNewScore)	{}
 private func SortTeamScoreboard()		{}
 private func TeamGetScore()			{}
+public func RelaunchScoreboard(int iPlr, object pClonk, int iMurdererPlr) {}
