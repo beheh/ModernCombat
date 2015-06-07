@@ -69,7 +69,7 @@ public func RelaunchMenu()
   CloseMenu (crew);
 
   var tmp,place;  
-  CreateMenu(OFLG,crew,0,C4MN_Extra_Info,"$RelaunchMenu$",0,C4MN_Style_Dialog);
+  CreateMenu(OFLG, crew, this, 0, 0, 0, C4MN_Style_Dialog, true);
 
   var i = 0;
   for(place in FindObjects(Find_Func("IsRespawnplace", crew)))
