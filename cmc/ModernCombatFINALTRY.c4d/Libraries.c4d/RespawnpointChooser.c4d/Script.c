@@ -78,7 +78,7 @@ public func RelaunchMenu()
     SetGraphics("", this, SM16);  
     point->~GetIcon(tmp, crew);
 
-    AddMenuItem(point->~GetText(),"SelectRelaunchPoint",GetID(),crew,point->~GetNumber(crew),ObjectNumber(point),"",4,tmp);
+    AddMenuItem(point->~GetText(crew),"SelectRelaunchPoint",GetID(),crew,point->~GetNumber(crew),ObjectNumber(point),"",4,tmp);
     RemoveObject(tmp);
 
     //Cache, fuer die Sicht

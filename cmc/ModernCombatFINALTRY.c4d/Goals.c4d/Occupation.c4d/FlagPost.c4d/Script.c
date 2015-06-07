@@ -4,7 +4,7 @@
 
 #include CRSP
 
-local iteam,process,range,flag,bar,attacker,trend,capt,pAttackers,lastowner, iconState;
+local team,process,range,flag,bar,attacker,trend,capt,pAttackers,lastowner, iconState;
 
 public func IsRespawnpoint(object pClonk) { return !FindObject(GHTF); }
 public func IsTeamRespawnpoint(int iTeam) { return !FindObject(GHTF); }
@@ -12,7 +12,7 @@ public func IsAvailable(object pClonk)    { return ((GetTeam() == GetPlayerTeam(
 public func IsViewable(object pClonk) { return (GetTeam() == GetPlayerTeam(GetOwner(pClonk))); }
 
 public func GetAttacker()     { return attacker; }
-public func GetTeam()         { return iteam; }
+public func GetTeam()         { return team; }
 public func GetProcess()      { return process; }
 public func GetTrend()        { return trend; }
 public func GetRange()        { return range; }
@@ -58,7 +58,7 @@ public func IsAttacked()
   for(clonk in FindObjects(Find_Distance(range),Find_OCF(OCF_Alive), Find_NoContainer()))
   {
     if(GetOwner(clonk) == NO_OWNER) continue;
-    if(GetPlayerTeam(GetOwner(clonk)) != iteam)
+    if(GetPlayerTeam(GetOwner(clonk)) != team)
       return true;
   }
   return false;
@@ -124,7 +124,7 @@ protected func Timer()
     if(!GetPlayerName(GetOwner(clonk)) || !GetPlayerTeam(GetOwner(clonk))) continue;
     if(!PathFree4K(GetX(this()),GetY(this())-GetDefHeight(GetID())/2,GetX(clonk),GetY(clonk),4)) continue;
     if(Contained(clonk)) continue;
-    if(GetPlayerTeam(GetOwner(clonk)) == iteam)
+    if(GetPlayerTeam(GetOwner(clonk)) == team)
     {
       friends++;
       aFriends[GetLength(aFriends)] = clonk;
@@ -142,7 +142,7 @@ protected func Timer()
     DoProcess(opposition,Min(enemys,3));
 
   if(!enemys && friends)
-    DoProcess(iteam,Min(friends,3));
+    DoProcess(team,Min(friends,3));
 
   if((!enemys) == (!friends))
   {
@@ -159,8 +159,8 @@ protected func Timer()
     {
       if(iconState != 2)
       {
-        var clr = GetTeamColor(iteam), plr;
-        if(GetTeamConfig(TEAM_AutoGenerateTeams) && GetTeamPlayerCount(iteam) <= 1 && (plr = GetTeamMemberByIndex(iteam, 0)) > -1)
+        var clr = GetTeamColor(team), plr;
+        if(GetTeamConfig(TEAM_AutoGenerateTeams) && GetTeamPlayerCount(team) <= 1 && (plr = GetTeamMemberByIndex(team, 0)) > -1)
           clr = GetPlrColorDw(plr);
 
         bar->SetIcon(0, SM23, 0, 0, 32);
@@ -199,16 +199,16 @@ public func Capture(int iTeam, bool bSilent)
 {
   process = 100;
   attacker = 0;
-  iteam = iTeam;
+  team = iTeam;
   capt = true;
   var fRegained = false;
   if(!bSilent)
   {
-    if(lastowner == iteam) fRegained = true;
-    GameCallEx("FlagCaptured", this, iteam, pAttackers, fRegained);
+    if(lastowner == team) fRegained = true;
+    GameCallEx("FlagCaptured", this, team, pAttackers, fRegained);
   }
   ResetAttackers();
-  lastowner = iteam;
+  lastowner = team;
   UpdateFlag();
 }
 
@@ -219,7 +219,7 @@ protected func Capturing(int iTeam)
 
 public func NoTeam()
 {
-  iteam = 0;
+  team = 0;
   process = 0;
   attacker = 0;
   capt = false;
@@ -239,12 +239,12 @@ public func UpdateFlag()
     bar->Update(0, true, true);
     iconState = 0;
   }
-  if(iteam)
+  if(team)
   {
     SetColorDw(RGB(0,0,0), flag);
     for(var i = 0; i < GetPlayerCount(); i++)
     {
-      if(GetPlayerTeam(GetPlayerByIndex(i)) != iteam) continue;
+      if(GetPlayerTeam(GetPlayerByIndex(i)) != team) continue;
       flag->SetOwner(GetPlayerByIndex(i));
       break;
     }
@@ -271,13 +271,13 @@ public func DoProcess(int iTeam, int iAmount)
   var old = process;
 
   //Eventuelle Gegnerflagge abnehmen
-  if(iteam)
+  if(team)
   {
-    if(iTeam != iteam && (process != 0))
+    if(iTeam != team && (process != 0))
       iAmount = -iAmount;
   }
   else
-    iteam = iTeam;
+    team = iTeam;
 
   process = BoundBy(process+iAmount,0,100);
 
@@ -289,7 +289,7 @@ public func DoProcess(int iTeam, int iAmount)
 
   if((old == 100 && trend < 0) || (old == 0 && trend > 0))
   {
-    GameCallEx("FlagAttacked", this, iteam, pAttackers);
+    GameCallEx("FlagAttacked", this, team, pAttackers);
   }
 
   //Flagge wird übernommen
@@ -307,11 +307,11 @@ public func DoProcess(int iTeam, int iAmount)
   //Neutrale Flagge
   if((process <= 0) && (old > 0))
   {
-    if(iteam && lastowner != iTeam) GameCallEx("FlagLost", this, iteam, iTeam, pAttackers);
-    //lastowner = iteam;
+    if(team && lastowner != iTeam) GameCallEx("FlagLost", this, team, iTeam, pAttackers);
+    //lastowner = team;
     attacker = 0;
     capt = false;
-    iteam = iTeam;
+    team = iTeam;
   }
 
   UpdateFlag();
