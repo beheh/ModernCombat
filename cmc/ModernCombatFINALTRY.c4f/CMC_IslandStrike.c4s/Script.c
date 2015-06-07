@@ -5,8 +5,8 @@
 
 static aFlag,aStationary,aSelfDefense,aArtillery;
 
-func RecommendedGoals()         {return [GOCC, GASS];}  //Spielzielempfehlung
-public func AssaultDefenderTeam()   {return 2;}     //Verteidigerteam bei Assault
+func RecommendedGoals()			{return [GOCC, GASS];}	//Spielzielempfehlung
+public func AssaultDefenderTeam()	{return 2;}		//Verteidigerteam bei Assault
 
 
 /* Initialisierung */
@@ -648,7 +648,7 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
     aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //OP-Spielziel
+  //OCC-Spielziel
   if(FindObject(GOCC))
   {
     //SSA Besitzer setzen
@@ -709,8 +709,8 @@ public func ChooserFinished()
     SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5565,649,-1),50*21);
     SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,7440,609,-1),50*21);
   }
-
-  //Assault-Spielziel
+  else
+  //AS-Spielziel
   if(FindObject(GASS))
   {
     //Grenzen setzen
@@ -856,7 +856,7 @@ public func ChooserFinished()
       PlaceSpawnpoint(GBOX, 7595, 475);
     }
   }
-
+  else
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
@@ -904,7 +904,7 @@ public func ChooserFinished()
     RemoveObject(aArtillery[0]);
     RemoveObject(aArtillery[3]);
   }
-
+  else
   //LMS/DM-Spielziel
   if(FindObject(GLMS) || FindObject(GTDM))
   {
@@ -1116,7 +1116,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   }
 }
 
-/* Relaunch */
+/* Spawnpoints */
 
 public func PlaceSpawnpoints()
 {
@@ -1126,29 +1126,7 @@ public func PlaceSpawnpoints()
     aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
   var rsp;
-  //CTF-Respawnpoints
-  if(FindObject(GCTF))
-  {
-    rsp = CreateObject(CRSP, 3600, 500);
-    rsp->AddRespawnpoints([[3600, 500], [3675, 420]]);
-    rsp->SetObjectTeam(1);
-
-    rsp = CreateObject(CRSP, 6325, 600);
-    rsp->AddRespawnpoints([[6325, 600], [6460, 600]]);
-    rsp->SetObjectTeam(2);
-  }
-  //LMS/DM-Respawnpoints
-  if(FindObject(GLMS) || FindObject(GTDM))
-  {
-    rsp = CreateObject(CRSP, 3600, 500);
-    rsp->AddRespawnpoints([[3600, 500], [3675, 420]]);
-    rsp->SetObjectTeam(1);
-
-    rsp = CreateObject(CRSP, 5700, 430);
-    rsp->AddRespawnpoints([[5700, 430], [5785, 600]]);
-    rsp->SetObjectTeam(2);
-  }
-  //OCC-Respawnpoints
+  //OCC-Spielziel
   if(FindObject(GOCC))
   {
     //Flaggenposten
@@ -1306,7 +1284,8 @@ public func PlaceSpawnpoints()
     warn = CreateObject(ALGH, 7410, 460, -1);
     AddGOCCWarnEffect(warn, aFlag[6]);
   }
-  //Assault-Respawnpunkte
+  else
+  //AS-Spielziel
   if(FindObject(GASS))
   {
     //Zielobjekte
@@ -1323,7 +1302,7 @@ public func PlaceSpawnpoints()
     rsp->AddTargets([0]);
     rsp->SetName("$Target1$");
     rsp->SetObjectTeam(1);
-    
+
     rsp = CreateObject(ARSP, 4160, 420);
     rsp->AddRespawnpoints([[1790, 530], [1880, 520], [1935, 505]]);
     rsp->AddTargets([0]);
@@ -1335,46 +1314,46 @@ public func PlaceSpawnpoints()
     rsp->AddTargets([2]);
     rsp->SetName("$Target2$");
     rsp->SetObjectTeam(1);
-    
+
     rsp = CreateObject(ARSP, 1650, 720);
     rsp->AddRespawnpoints([[1650, 0], [1670, 0], [1710, 0]]);
     rsp->AddTargets([2]);
     rsp->SetName("$Target2$");
     rsp->SetObjectTeam(2);
     rsp->SetRespawnMethod("Parachute");
-    
+
     rsp = CreateObject(ARSP, 4300, 720);
     rsp->AddRespawnpoints([[4250, 0], [4300, 0], [4350, 0]]);
     rsp->AddTargets([3]);
     rsp->SetName("$Target3$");
     rsp->SetObjectTeam(1);
     rsp->SetRespawnMethod("Parachute");
-    
+
     rsp = CreateObject(ARSP, 2675, 720);
     rsp->AddRespawnpoints([[2570, 0], [2700, 0], [2800, 0]]);
     rsp->AddTargets([3]);
     rsp->SetName("$Target3$");
     rsp->SetObjectTeam(2);
     rsp->SetRespawnMethod("Parachute");
-    
+
     rsp = CreateObject(ARSP, 5000, 490);
     rsp->AddRespawnpoints([[5000, 490], [5080, 570], [5140, 500]]);
     rsp->AddTargets([4]);
     rsp->SetName("$Target4$");
     rsp->SetObjectTeam(1);
-    
+
     rsp = CreateObject(ARSP, 3550, 600);
     rsp->AddRespawnpoints([[3550, 600], [3600, 510], [3700, 570]]);
     rsp->AddTargets([4]);
     rsp->SetName("$Target4$");
     rsp->SetObjectTeam(2);
-    
+
     rsp = CreateObject(ARSP, 6195, 355);
     rsp->AddRespawnpoints([[6195, 355], [6210, 490], [6240, 500]]);
     rsp->AddTargets([5]);
     rsp->SetName("$Target5$");
     rsp->SetObjectTeam(1);
-    
+
     rsp = CreateObject(ARSP, 4340, 570);
     rsp->AddRespawnpoints([[4340, 570], [4425, 430], [4550, 680]]);
     rsp->AddTargets([5]);
@@ -1386,26 +1365,48 @@ public func PlaceSpawnpoints()
     rsp->AddTargets([6]);
     rsp->SetName("$Target6$");
     rsp->SetObjectTeam(1);
-    
+
     rsp = CreateObject(ARSP, 5630, 500);
     rsp->AddRespawnpoints([[5630, 500], [5630, 570], [5730, 650]]);
     rsp->AddTargets([6]);
     rsp->SetName("$Target6$");
     rsp->SetObjectTeam(2);
-    
 
     rsp = CreateObject(ARSP, 7565, 510);
     rsp->AddRespawnpoints([[7565, 510], [7580, 610], [7750, 420]]);
     rsp->AddTargets([7]);
     rsp->SetName("$Target7$");
     rsp->SetObjectTeam(2);
-    
+
     rsp = CreateObject(ARSP, 6410, 440);
     rsp->AddRespawnpoints([[6410, 440], [6460, 610], [6370, 610]]);
     rsp->AddTargets([7]);
     rsp->SetName("$Target7$");
     rsp->SetObjectTeam(1);
-    
+  }
+  else
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+    rsp = CreateObject(CRSP, 3600, 500);
+    rsp->AddRespawnpoints([[3600, 500], [3675, 420]]);
+    rsp->SetObjectTeam(1);
+
+    rsp = CreateObject(CRSP, 6325, 600);
+    rsp->AddRespawnpoints([[6325, 600], [6460, 600]]);
+    rsp->SetObjectTeam(2);
+  }
+  else
+  //LMS/DM-Spielziel
+  if(FindObject(GLMS) || FindObject(GTDM))
+  {
+    rsp = CreateObject(CRSP, 3600, 500);
+    rsp->AddRespawnpoints([[3600, 500], [3675, 420]]);
+    rsp->SetObjectTeam(1);
+
+    rsp = CreateObject(CRSP, 5700, 430);
+    rsp->AddRespawnpoints([[5700, 430], [5785, 600]]);
+    rsp->SetObjectTeam(2);
   }
 }
 
