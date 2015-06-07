@@ -287,12 +287,12 @@ private func UpdateScoreboard()
 
 /* Relaunch */
 
-public func OnRelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr) 
+public func OnRelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
 {
-  if(iPlr == -1 || !GetPlayerName(iPlr)) 
+  if(iPlr == -1 || !GetPlayerName(iPlr))
     return;
 
-  //Schauen wir mal ob noch geht
+  //Spielziel-Status prüfen
   IsFulfilled();
 
   var iTeam = GetPlayerTeam(iPlr);
@@ -307,7 +307,7 @@ public func OnRelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
 
   //Geld verteilen
   Money(iPlr, pClonk, iMurdererPlr);
-  
+
   //Check ob noch am Leben
   if(!TeamAlive(iTeam))
   {
@@ -315,7 +315,7 @@ public func OnRelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
   }
 
   DoTickets(iTeam,-1);
-}	
+}
 
 /* GameCalls */
 
