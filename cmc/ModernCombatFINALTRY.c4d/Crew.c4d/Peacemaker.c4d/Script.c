@@ -10,13 +10,13 @@ public func WeaponCollectionLimit()	{return 3;}				//Anzahl Waffen im Inventar
 public func ObjectCollectionLimit()	{return 2;}				//Anzahl Objekte im Inventar
 public func DeathAnimationCount()	{return (GetID() == PCMK) && 6;}	//Anzahl Todesanimationen
 
-/* Spawnintegration */
+/* Spawnsystem */
 
-public func IsRespawnpoint(object pClonk) { return ((GetPlayerTeam(GetOwner()) == GetPlayerTeam(GetOwner(pClonk))) && (pClonk != this) && !Contained()) && GetAlive(); }
-public func IsTeamRespawnpoint(int iTeam) { return false; }
-public func IsAvailable(object pClonk) { return (!FindObject2(Find_Distance(200), Find_Hostile(GetOwner(pClonk))) && !GetEffect("Border", this) && _inherited(pClonk, ...)); }
-public func IsViewable(object pClonk) { return _inherited(pClonk, ...); }
-public func GetIconID(object pClonk) { return GetID(); }
+public func IsRespawnpoint(object pClonk)	{return ((GetPlayerTeam(GetOwner()) == GetPlayerTeam(GetOwner(pClonk))) && (pClonk != this) && !Contained()) && GetAlive();}
+public func IsTeamRespawnpoint(int iTeam)	{return false;}
+public func IsAvailable(object pClonk)		{return (!FindObject2(Find_Distance(200), Find_Hostile(GetOwner(pClonk))) && !GetEffect("Border", this) && _inherited(pClonk, ...));}
+public func IsViewable(object pClonk)		{return _inherited(pClonk, ...);}
+public func GetIconID(object pClonk)		{return GetID();}
 
 public func GetIcon(object pIcon, object pClonk)
 {
@@ -47,6 +47,7 @@ public func GetObjectTeam()
 {
   return GetPlayerTeam(GetOwner());
 }
+
 
 /* Portrait-Updates */
 

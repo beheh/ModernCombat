@@ -6,20 +6,23 @@
 
 local team,process,range,flag,bar,attacker,trend,capt,pAttackers,lastowner, iconState;
 
-public func IsRespawnpoint(object pClonk) { return !FindObject(GHTF); }
-public func IsTeamRespawnpoint(int iTeam) { return !FindObject(GHTF); }
-public func IsAvailable(object pClonk)    { return ((GetTeam() == GetPlayerTeam(GetOwner(pClonk))) && IsFullyCaptured()); }
-public func IsViewable(object pClonk) { return (GetTeam() == GetPlayerTeam(GetOwner(pClonk))); }
-
-public func GetAttacker()     { return attacker; }
-public func GetTeam()         { return team; }
-public func GetProcess()      { return process; }
-public func GetTrend()        { return trend; }
-public func GetRange()        { return range; }
-public func IsFullyCaptured() { return capt; }
-public func IsFlagpole()      { return true; }
-
 static const BAR_FlagBar = 5;
+
+/* Spawnsystem */
+
+public func IsRespawnpoint(object pClonk)	{return !FindObject(GHTF);}
+public func IsTeamRespawnpoint(int iTeam)	{return !FindObject(GHTF);}
+public func IsAvailable(object pClonk)		{return ((GetTeam() == GetPlayerTeam(GetOwner(pClonk))) && IsFullyCaptured());}
+public func IsViewable(object pClonk)		{return (GetTeam() == GetPlayerTeam(GetOwner(pClonk)));}
+
+public func GetAttacker()	{return attacker;}
+public func GetTeam()		{return team;}
+public func GetProcess()	{return process;}
+public func GetTrend()		{return trend;}
+public func GetRange()		{return range;}
+public func IsFullyCaptured()	{return capt;}
+public func IsFlagpole()	{return true;}
+
 
 /* Initalisierung */
 
