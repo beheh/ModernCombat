@@ -4,9 +4,9 @@
 
 public func Initialize()
 {
-  //falls mal kein Chooser verwendet wird
+  //Chooser nicht vorhanden: Spawnpoints manuell abrufen
   if(!FindObject(CHOS))
-	GameCall("PlaceSpawnplaces");
+    GameCall("PlaceSpawnplaces");
 
   return _inherited(...);
 }
@@ -23,7 +23,7 @@ public func ChooserFinished()
   //"Keine Munition"-Regel
   if(FindObject(NOAM))
   {
-    //Munitionsspawnplaces entfernen
+    //Munitionsspawnpoints entfernen
     for(var spwn in FindObjects(Find_ID(SPNP)))
       if(Contents(0, spwn)->~IsAmmoPacket())
         RemoveObject(spwn);
@@ -52,6 +52,7 @@ public func ChooserFinished()
     SetFoW(true, GetPlayerByIndex(i));
   }
 
+  //Spawnpoints abrufen
   GameCall("PlaceSpawnplaces");
 }
 
@@ -136,8 +137,8 @@ public func RelaunchClonk(int iPlr, object pCursor)
 {
   //Clonkerstellung
   var pClonk;
-  if(pCursor && pCursor->~GetRealCursor()) 
-	pCursor = pCursor->~GetRealCursor();
+  if(pCursor && pCursor->~GetRealCursor())
+    pCursor = pCursor->~GetRealCursor();
 
   if(pCursor)
   {
@@ -149,12 +150,12 @@ public func RelaunchClonk(int iPlr, object pCursor)
     pClonk = CreateObject(PCMK, 10, 10, iPlr);
       MakeCrewMember(pClonk, iPlr);
   }
-  
+
   DoEnergy(+150, pClonk);
   SetCursor(iPlr, pClonk);
   SetPlrView(iPlr, pClonk);
 
-  //In Spawnplace verschieben
+  //In Spawnpoint verschieben
   var tim = CreateObject(TIM2, LandscapeWidth()/2, LandscapeHeight()/2, -1);
   Enter(tim, pClonk);
 
@@ -167,12 +168,12 @@ public func RelaunchClonk(int iPlr, object pCursor)
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
   if(!g_chooserFinished)
-	return ChooserMenuPosition();
+    return ChooserMenuPosition();
   else
   {
-	var rsp = FindObject2(Find_Func("IsTeamRespawnplace", iTeam));
-	if(rsp)
-	  return [[GetX(rsp), GetY(rsp)]];
+    var rsp = FindObject2(Find_Func("IsTeamRespawnplace", iTeam));
+    if(rsp)
+      return [[GetX(rsp), GetY(rsp)]];
   }
 }
 
