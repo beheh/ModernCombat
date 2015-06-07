@@ -10,20 +10,20 @@ local selection, respawns, oldvisrange, oldvisstate;
 public func Initialize()
 {
   SetVisibility(VIS_Owner);
-  
+
   selection = 0;
   respawns = [];
-  
+
   return;
 }
 
 global func CreateRelaunchMenu(object pCrew, int iChoosedClass)
 {
   if(!pCrew) 
-	pCrew = this;
+    pCrew = this;
 
   if(!pCrew) 
-	return false;
+    return false;
 
   var spawner = CreateObject(RPCH);
   Enter(spawner, pCrew);
@@ -36,7 +36,7 @@ global func CreateRelaunchMenu(object pCrew, int iChoosedClass)
 protected func Collection2(object pObject)
 {
   if(!(GetOCF(pObject) & OCF_CrewMember)) 
-	return;
+    return;
 
   SetOwner(GetController(pObject));
 
@@ -75,12 +75,12 @@ public func RelaunchMenu()
   for(point in FindObjects(Find_Func("IsRespawnpoint", crew)))
   {
     var tmp = CreateObject(GetID(this));
-	SetGraphics("", this, SM16);	
-	point->~GetIcon(tmp, crew);
+    SetGraphics("", this, SM16);  
+    point->~GetIcon(tmp, crew);
 
     AddMenuItem(point->~GetText(),"SelectRelaunchPoint",GetID(),crew,point->~GetNumber(crew),ObjectNumber(point),"",4,tmp);
     RemoveObject(tmp);
-	
+
     //Cache, fuer die Sicht
     respawns[i] = ObjectNumber(point);
     i++;
@@ -94,11 +94,11 @@ public func SelectRelaunchPoint(id unused, int iObject)
   var pObject = Object(iObject);
 
   if(!pObject)
-	return;
-  
+    return;
+
   var crew = Contents();
   if(!crew) 
-	return;
+    return;
 
   if(!pObject->~IsAvailable(crew))
   {
@@ -106,31 +106,27 @@ public func SelectRelaunchPoint(id unused, int iObject)
     RelaunchMenu();
     return Sound("Error", false, crew, 100, GetOwner(crew)+1);
   }
-  
+
   var respawnpoint = pObject->~GetRespawnpoints();
 
   if(!respawnpoint || !(GetType(respawnpoint) == C4V_Array))
-	return;
-  
+    return;
+
   var iX, iY;
   GetBestSpawnpoint(respawnpoint, GetOwner(crew), iX, iY);  
-  
+
   SetPosition(iX, iY);
-  
+
   //Sichtdaten zurücksetzen
   SetFoW(oldvisstate, GetOwner(crew));
   SetPlrViewRange(oldvisrange, crew);
-  
+
   if(!Contents()) 
-	return RemoveObject();
+    return RemoveObject();
 
   Exit(crew);
-  
-  //todo: eigene Spawnmoeglichkeit via Callback/Gamecall
-  var tim = CreateObject(TIM2);
-  Enter(tim, crew);
-  tim->Spawn();
-  RemoveObject();
+
+  pObject->CustomRespawn(crew);
 
   if(FindObject(MCSL))
     FindObject(MCSL)->SpawnEventInfo(Format("$SpawnAt$", GetName(pObject)), GetOwner(crew), iClass, FindObject(GOCC));
@@ -142,7 +138,7 @@ protected func Timer()
 {
   var crew = Contents();
   if(!crew) 
-	return;
+    return;
 
   selection = GetMenuSelection(crew); 
 
@@ -156,13 +152,13 @@ protected func Timer()
 global func ShowRespawnpoint(object pObject, object pCrew, object pContainer, int iMaxrange)
 {
   if(!pCrew) 
-	return;
+    return;
 
   if(!pObject) 
-	return;
+    return;
 
   if(!iMaxrange) 
-	iMaxrange = 200;
+    iMaxrange = 200;
 
   if(!pObject->~IsViewable(pCrew))
   {
@@ -173,7 +169,7 @@ global func ShowRespawnpoint(object pObject, object pCrew, object pContainer, in
   SetPlrViewRange(iMaxrange, pCrew);
 
   if(!pContainer)
-	pContainer = pCrew;
+    pContainer = pCrew;
 
   SetPosition(GetX(pObject), GetY(pObject), pContainer);
   return true;
