@@ -376,28 +376,6 @@ private func GetQuickTipps(object pFake)
 
 global func FKDTSupportedID()	{return GetIndexOf(GetID(), FKDT_QuickTipIDs) != -1;}
 
-/*private func GetQuickTipp(object pFake)
-{
-  //Standard-Tipp
-  if(!Random(8) || !ContentsCount(0, pFake))
-    return GetGeneralTipp();
-  //Sonst Tipps zu Inventarobjekten
-  var array = [], id = [], tipp;
-    for (var obj in FindObjects(Find_Container(pFake)))
-    {
-      //Hat schon so einen Tipp
-      if(GetIndexOf(GetID(obj), id) != -1 || !(tipp = GetRandomTipp(0, GetID(obj))))
-        continue;
-      //Tipp hinzufügen
-      id[GetLength(id)] = GetID(obj);
-      array[GetLength(array)] = tipp;
-    }
-  //Keine Tipps
-  if(!array || GetType(array) != C4V_Array || !GetLength(array))
-    return GetGeneralTipp();
-  return GetRandomTipp(array);
-}*/
-
 private func GetGeneralTipp()
 {
   return GetRandomTipp([[FGRN, "$NONE0$"], [CSTR, "$NONE1$"], [SM05, "$NONE2$"], [SM04, "$NONE3$"], [XBRL, "$NONE4$"], [PCMK, "$NONE5$"], [PCMK, "$NONE6$"], [SM01, "$NONE7$"], [PSTL, "$NONE8$"], [BKHK, "$NONE9$"], [SM04, "$NONE10$"], [MAVE, "$NONE11$"], [BDSN, "$NONE12$"], [CXTX, "$NONE13$"]]);
