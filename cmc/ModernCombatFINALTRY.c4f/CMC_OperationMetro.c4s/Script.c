@@ -914,12 +914,12 @@ public func PlaceSpawnpoints()
     rsp->SetName("$Target2$");
 
     rsp = CreateObject(CRSP, 1840, 300);
-    rsp->AddRespawnpoints([[1840, 290], [1870, 380], [1955, 290]]);
+    rsp->AddRespawnpoints([[1840, 280], [1870, 380], [1955, 280]]);
     rsp->SetObjectTeam(1);
     rsp->SetName("$Target1$");
 
     rsp = CreateObject(CRSP, 3285, 300);
-    rsp->AddRespawnpoints([[3285, 290], [3370, 380], [3400, 290]]);
+    rsp->AddRespawnpoints([[3285, 280], [3370, 380], [3400, 280]]);
     rsp->SetObjectTeam(2);
     rsp->SetName("$Target2$");
 
