@@ -794,7 +794,54 @@ public func ChooserFinished()
   }
 }
 
-/* Respawnpunkte */
+/* Assault Zerstörung */
+
+public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bool fConnectedDestroyed)
+{
+  if(!FindObject(GASS) || FindObject(GBAS)) return;
+
+  //Ziel 1
+  if(!iIndex)
+  {
+    //Grenzen neu setzen
+    RemoveAll(BRDR);
+    CreateObject(BRDR, 520, 0, -1)->Set(0);
+    CreateObject(BRDR, 3430, 0, -1)->Set(1,1);
+
+    //Teamgrenze setzen
+    FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),2130,0,1,1);
+  }
+
+  //Ziel 2 und 3
+  if(iIndex == 1 || iIndex == 2)
+  {
+    if(fConnectedDestroyed)
+    {
+      //Grenzen neu setzen
+      RemoveAll(BRDR);
+      CreateObject(BRDR, 1610, 0, -1)->Set(0);
+      CreateObject(BRDR, 4720, 0, -1)->Set(1,1);
+
+      //Teamgrenze setzen
+      FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),3000,0,1,1);
+
+      //Geschützstellung entfernen
+      aStationary[1]->DecoExplode(30);
+    }
+  }
+
+  //Ziel 3 und 4
+  if(iIndex == 3 || iIndex == 4)
+  {
+    if(fConnectedDestroyed)
+    {
+      //Geschützstellung entfernen
+      aStationary[2]->DecoExplode(30);
+    }
+  }
+}
+
+/* Spawnpoints */
 
 public func PlaceSpawnpoints()
 {
@@ -846,7 +893,7 @@ public func PlaceSpawnpoints()
     else
     {
       aFlag[3]->Set("$Flag4$",0,2);
-    }	  
+    }
   }
   else
   //AS-Spielziel
@@ -956,53 +1003,6 @@ public func PlaceSpawnpoints()
   }
 }
 
-/* Assault Zerstörung */
-
-public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bool fConnectedDestroyed)
-{
-  if(!FindObject(GASS) || FindObject(GBAS)) return;
-
-  //Ziel 1
-  if(!iIndex)
-  {
-    //Grenzen neu setzen
-    RemoveAll(BRDR);
-    CreateObject(BRDR, 520, 0, -1)->Set(0);
-    CreateObject(BRDR, 3430, 0, -1)->Set(1,1);
-
-    //Teamgrenze setzen
-    FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),2130,0,1,1);
-  }
-
-  //Ziel 2 und 3
-  if(iIndex == 1 || iIndex == 2)
-  {
-    if(fConnectedDestroyed)
-    {
-      //Grenzen neu setzen
-      RemoveAll(BRDR);
-      CreateObject(BRDR, 1610, 0, -1)->Set(0);
-      CreateObject(BRDR, 4720, 0, -1)->Set(1,1);
-
-      //Teamgrenze setzen
-      FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),3000,0,1,1);
-
-      //Geschützstellung entfernen
-      aStationary[1]->DecoExplode(30);
-    }
-  }
-
-  //Ziel 3 und 4
-  if(iIndex == 3 || iIndex == 4)
-  {
-    if(fConnectedDestroyed)
-    {
-      //Geschützstellung entfernen
-      aStationary[2]->DecoExplode(30);
-    }
-  }
-}
-  
 /* Startsicht */
 
 global func ChooserMenuPosition()
