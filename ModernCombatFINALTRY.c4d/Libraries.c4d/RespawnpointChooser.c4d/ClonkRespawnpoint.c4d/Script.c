@@ -27,7 +27,20 @@ public func GetIcon(object pIcon, object pClonk)
 
 public func GetText(object pClonk)
 {
-  return GetName();
+	
+  var clr;
+
+  if(IsAvailable(pClonk))
+    clr = RGB(255, 255, 255);
+  else
+  {
+    if(GetObjectTeam() != GetPlayerTeam(GetOwner(pClonk)))
+      clr = RGB(255, 0, 0);
+    else
+      clr = RGB(119, 119, 119);
+  }
+
+  return Format("<c %x>%s</c>", clr, GetName());
 }
 
 protected func Initialize()

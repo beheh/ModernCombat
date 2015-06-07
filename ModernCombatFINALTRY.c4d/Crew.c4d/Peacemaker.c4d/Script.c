@@ -26,9 +26,26 @@ public func GetIcon(object pIcon, object pClonk)
   return;
 }
 
-public func GetRespawnpoints() 
+public func GetText(object pClonk)
 {
-  return [[GetX(), GetY()]];	
+  var clr;
+
+  if(IsAvailable(pClonk))
+    clr = RGB(255, 255, 255);
+  else
+  {
+    if(FindObject2(Find_Distance(200), Find_Hostile(GetOwner(pClonk))))
+      clr = RGB(255, 0, 0);
+    else
+      clr = RGB(119, 119, 119);
+  }
+
+  return Format("<c %x>%s</c>", clr, GetPlayerName(GetOwner(this)));
+}
+
+public func GetObjectTeam()
+{
+  return GetPlayerTeam(GetOwner());
 }
 
 /* Portrait-Updates */
