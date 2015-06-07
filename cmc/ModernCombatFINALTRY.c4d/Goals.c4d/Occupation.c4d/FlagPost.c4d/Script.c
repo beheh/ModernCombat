@@ -10,8 +10,8 @@ static const BAR_FlagBar = 5;
 
 /* Spawnsystem */
 
-public func IsRespawnpoint(object pClonk)	{return !FindObject(GHTF);}
-public func IsTeamRespawnpoint(int iTeam)	{return !FindObject(GHTF);}
+public func IsRespawnplace(object pClonk)	{return !FindObject(GHTF);}
+public func IsTeamRespawnplace(int iTeam)	{return !FindObject(GHTF);}
 public func IsAvailable(object pClonk)		{return ((GetTeam() == GetPlayerTeam(GetOwner(pClonk))) && IsFullyCaptured());}
 public func IsViewable(object pClonk)		{return (GetTeam() == GetPlayerTeam(GetOwner(pClonk)));}
 

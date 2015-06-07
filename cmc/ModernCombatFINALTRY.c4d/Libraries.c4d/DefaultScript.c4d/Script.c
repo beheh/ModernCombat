@@ -6,7 +6,7 @@ public func Initialize()
 {
   //falls mal kein Chooser verwendet wird
   if(!FindObject(CHOS))
-	GameCall("PlaceSpawnpoints");
+	GameCall("PlaceSpawnplaces");
 
   return _inherited(...);
 }
@@ -23,7 +23,7 @@ public func ChooserFinished()
   //"Keine Munition"-Regel
   if(FindObject(NOAM))
   {
-    //Munitionsspawnpoints entfernen
+    //Munitionsspawnplaces entfernen
     for(var spwn in FindObjects(Find_ID(SPNP)))
       if(Contents(0, spwn)->~IsAmmoPacket())
         RemoveObject(spwn);
@@ -51,6 +51,8 @@ public func ChooserFinished()
     RelaunchPlayer(GetPlayerByIndex(i),GetCrew(GetPlayerByIndex(i)), 0, GetPlayerTeam(GetPlayerByIndex(i)));
     SetFoW(true, GetPlayerByIndex(i));
   }
+
+  GameCall("PlaceSpawnplaces");
 }
 
 /* Regelvoreinstellung */
@@ -114,12 +116,12 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
   OnClonkEquip(pCrew);
 
   //Zufallsposition setzen (iX und iY für Abwärtskompatibilität)
-  var iX, iY, aSpawnpoints;
-  aSpawnpoints = RelaunchPosition(iX, iY, iTeam);
+  var iX, iY, aSpawnplaces;
+  aSpawnplaces = RelaunchPosition(iX, iY, iTeam);
   
   //Szenario nutzt neue Spawnmechanik?
-  if(GetType(aSpawnpoints) == C4V_Array)
-    GetBestSpawnpoint(aSpawnpoints, iPlr, iX, iY);
+  if(GetType(aSpawnplaces) == C4V_Array)
+    GetBestSpawnplace(aSpawnplaces, iPlr, iX, iY);
 
   if(Contained(pCrew))
     SetPosition(iX, iY, Contained(pCrew));
@@ -152,7 +154,7 @@ public func RelaunchClonk(int iPlr, object pCursor)
   SetCursor(iPlr, pClonk);
   SetPlrView(iPlr, pClonk);
 
-  //In Spawnpoint verschieben
+  //In Spawnplace verschieben
   var tim = CreateObject(TIM2, LandscapeWidth()/2, LandscapeHeight()/2, -1);
   Enter(tim, pClonk);
 
@@ -168,7 +170,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
 	return ChooserMenuPosition();
   else
   {
-	var rsp = FindObject2(Find_Func("IsTeamRespawnpoint", iTeam));
+	var rsp = FindObject2(Find_Func("IsTeamRespawnplace", iTeam));
 	if(rsp)
 	  return [[GetX(rsp), GetY(rsp)]];
   }
@@ -187,11 +189,11 @@ static const SPAWNSYS_Allies = 50;
 static const SPAWNSYS_Enemies = -50;
 static const SPAWNSYS_Traps = -30;
 
-global func GetBestSpawnpoint(array aSpawnpoints, int iPlr, int &x, int &y)
+global func GetBestSpawnplace(array aSpawnplaces, int iPlr, int &x, int &y)
 {
   var team = GetPlayerTeam(iPlr);
   var spawn_grading = [];
-  for(var spawn in aSpawnpoints)
+  for(var spawn in aSpawnplaces)
   {
     var i = GetLength(spawn_grading);
     spawn_grading[i] = [spawn, 0];
@@ -222,11 +224,11 @@ global func GetBestSpawnpoint(array aSpawnpoints, int iPlr, int &x, int &y)
       chosen_spawns[GetLength(chosen_spawns)] = spawn_data[0];
   }
 
-  var spawnpoint = chosen_spawns[Random(GetLength(chosen_spawns))];
-  x = spawnpoint[0];
-  y = spawnpoint[1];
+  var spawnplace = chosen_spawns[Random(GetLength(chosen_spawns))];
+  x = spawnplace[0];
+  y = spawnplace[1];
 
-  return spawnpoint;
+  return spawnplace;
 }
 
 /* Bei Clonkausrüstung */

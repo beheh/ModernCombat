@@ -216,7 +216,7 @@ public func MessagePlayers()
 }
 
 /* Relaunch */
-public func PlaceSpawnpoints()
+public func PlaceSpawnplaces()
 {
   //Teams abfragen
   var aTeams = [false,false,false,false,false];
@@ -226,7 +226,7 @@ public func PlaceSpawnpoints()
   var rsp;
   //Spawnorte
   rsp = CreateObject(CRSP, 160, 380);
-  rsp->AddRespawnpoints([[160, 380], [160, 640], [1910, 380], [1910, 640]]);
+  rsp->AddRespawnplaces([[160, 380], [160, 640], [1910, 380], [1910, 640]]);
   rsp->SetObjectTeam(0);
   
   return;

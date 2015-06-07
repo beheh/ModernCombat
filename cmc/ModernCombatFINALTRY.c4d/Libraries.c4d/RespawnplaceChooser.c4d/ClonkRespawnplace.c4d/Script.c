@@ -2,12 +2,12 @@
 
 #strict 2
 
-local respawnmethod, respawnpoints, respawnobjects, team;
+local respawnmethod, respawnplaces, respawnobjects, team;
 
 //Bestimmt, ob der Respawnpunkt im Menu angezeigt wird, oder nicht
-public func IsRespawnpoint(object pClonk) { return (GetObjectTeam() == GetPlayerTeam(GetOwner(pClonk))); }
+public func IsRespawnplace(object pClonk) { return (GetObjectTeam() == GetPlayerTeam(GetOwner(pClonk))); }
 //Bestimmt, ob der Respawnpunkt beim ersten Respawn (in der Klassenwahl) angezeigt werden soll, oder nicht
-public func IsTeamRespawnpoint(int iTeam) { return (GetObjectTeam() == iTeam); }
+public func IsTeamRespawnplace(int iTeam) { return (GetObjectTeam() == iTeam); }
 //Bestimmt, ob man bei dem Spawnpunkt spawnen darf
 public func IsAvailable(object pClonk) { return true; }
 //Bestimmt, ob man die Vorschau des Spawnpunkts im Menu sehen darf
@@ -45,16 +45,16 @@ public func GetText(object pClonk)
 
 protected func Initialize()
 {
-  respawnpoints = [];
+  respawnplaces = [];
   respawnobjects = [];
   respawnmethod = "Default";
 
   return _inherited(...);
 }
 
-public func AddRespawnpoint(int iX, int iY)
+public func AddRespawnplace(int iX, int iY)
 {
-  respawnpoints[GetLength(respawnpoints)] = [iX, iY];
+  respawnplaces[GetLength(respawnplaces)] = [iX, iY];
   return true;	
 }
 
@@ -64,10 +64,10 @@ public func AddRespawnobject(object pObject)
   return true;	
 }
 
-public func AddRespawnpoints(array aPoints)
+public func AddRespawnplaces(array aPoints)
 { 
   for(var i = 0; i < GetLength(aPoints); i++)
-    AddRespawnpoint(aPoints[i][0], aPoints[i][1]);
+    AddRespawnplace(aPoints[i][0], aPoints[i][1]);
 
   return true;
 }
@@ -80,10 +80,10 @@ public func AddRespawnobjects(array aObjects)
   return true;
 }
 
-public func GetRespawnpoints() 
+public func GetRespawnplaces() 
 {
   var arr = [];
-  for(var arritem in respawnpoints)
+  for(var arritem in respawnplaces)
 	arr[GetLength(arr)] = arritem;
 
   for(var obj in respawnobjects)
@@ -117,11 +117,18 @@ public func ParachuteRespawnMethod(object pClonk)
 {
   DefaultRespawnMethod(pClonk);
 
-  CreateObject(PARA,0,0,GetOwner(pClonk))->Set(pClonk);
+  AddEffect("IntPara", pClonk, 1, 1);
   AddEffect("Flying", pClonk, 101, 5);
   Sound("Airstrike2", 0, pClonk);
 
   return 1;
+}
+
+global func FxIntParaTimer(object pTarget)
+{
+  if(!Contained(pTarget))
+   CreateObject(PARA,0,0,GetOwner(pTarget))->Set(pTarget);
+  return -1;
 }
 
 public func GetRespawnMethod() { return respawnmethod; }

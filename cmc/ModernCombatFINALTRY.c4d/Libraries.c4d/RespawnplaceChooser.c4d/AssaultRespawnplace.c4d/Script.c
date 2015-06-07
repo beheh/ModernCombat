@@ -33,7 +33,7 @@ public func IsValid(int iTarget)
   return false;
 }
 
-public func IsRespawnpoint(object pClonk) 
+public func IsRespawnplace(object pClonk) 
 {
   return(_inherited(pClonk) && FindObject(GASS) && IsValid(FindObject(GASS)->GetNextTarget()));    	  
 }
