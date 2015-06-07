@@ -285,6 +285,38 @@ private func UpdateScoreboard()
   SortScoreboard(1);
 }
 
+/* Relaunch */
+
+public func OnRelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr) 
+{
+  if(iPlr == -1 || !GetPlayerName(iPlr)) 
+    return;
+
+  //Schauen wir mal ob noch geht
+  IsFulfilled();
+
+  var iTeam = GetPlayerTeam(iPlr);
+
+  //Kills
+  aDeath[iPlr]++;
+  //Tode
+  if(iMurdererPlr != -1 && GetPlayerTeam(iPlr) != GetPlayerTeam(iMurdererPlr))
+  {
+    aKill[iMurdererPlr]++;
+  }
+
+  //Geld verteilen
+  Money(iPlr, pClonk, iMurdererPlr);
+  
+  //Check ob noch am Leben
+  if(!TeamAlive(iTeam))
+  {
+    return EliminatePlayer(iPlr);
+  }
+
+  DoTickets(iTeam,-1);
+}	
+
 /* GameCalls */
 
 private func Update()
