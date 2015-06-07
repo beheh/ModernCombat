@@ -180,14 +180,23 @@ private func IsSelecting()
   return GetEffect("SelectItem", this) != 0;
 }
 
+private func VerifySelection() {
+  if(IsSelecting())
+  {
+    PlayerMessage(GetOwner(GetUser()), "$CantUse$", GetUser());
+    return;
+  }
+  // true zurückgeben, damit die überprüfenden Funktionen abbrechen
+  return true;
+}
+
 private func ManualReload(fm)
 {
   if(IsReloading()) return false;
   if(GetFMData(FM_NoAmmoModify)) return false;
-  if(IsSelecting())
+  if(!VerifySelection())
   {
-    PlayerMessage(GetOwner(GetUser()), "$CantUse$", GetUser());
-    return false;
+    return;
   }
   return Reload(fm);
 }
@@ -196,10 +205,9 @@ private func ManualEmpty(unused,fm)
 {
   if(IsReloading()) return false;
   if(GetFMData(FM_NoAmmoModify)) return false;
-  if(IsSelecting())
+  if(!VerifySelection())
   {
-    PlayerMessage(GetOwner(GetUser()), "$CantUse$", GetUser());
-    return false;
+    return;
   }
   Sound("WPN2_Unload.ogg");
   return Empty2(GetSlot(fm));
@@ -1026,7 +1034,7 @@ public func FxRechargeStop(object pTarget, int iNumber, int iReason, bool fTemp)
 public func Fire()
 {
   //Abbruch bei Maximalstreuung
-  if(GetSpread()+GetFMData(FM_SpreadAdd) >= CH_MaxSpread)
+  if(GetSpread()+GetSpreadAdd() >= CH_MaxSpread)
     return false;
 
   //Schütze gibt Feuerfreigabe?
@@ -1101,12 +1109,19 @@ private func Shoot(object caller)
   //soll er zielen, zielt aber nicht?
   if(!(GetUser()->~IsAiming()) && GetFMData(FM_Aim)>0)
     stopauto=true;//abbrechen
+  //Minimaler Spread
+  var iAlreadyDone = 0;
+  if((GetSpread()) < GetSpreadMinimum())
+  {
+    iAlreadyDone = GetSpreadMinimum() - GetSpread();
+    DoSpread(iAlreadyDone);
+  }
   //Feuern...
   if(CheckFireTec())
     Call(Format("Fire%dT%d",firemode,GetFireTec()));
   else
     Call(Format("Fire%d",firemode));
-  DoSpread(+GetFMData(FM_SpreadAdd));
+  DoSpread(GetSpreadAdd() - iAlreadyDone);
   
   if(GetFMData(FM_Auto))
     shooting = true;
@@ -1588,6 +1603,30 @@ public func CheckFireTec(int iFT, int iFM)
 }
 
 /*----- Streuung -----*/
+
+/* Streuungserhöhung ermitteln */
+
+// Multiplikator-Callback pro Schuss: 1000 = 1.0, 1500 = 1.5
+private func GetSpreadAdd() {
+  var iSpreadAdd = GetFMData(FM_SpreadAdd);
+  var pUser = this->~GetUser();
+  var iModificator = pUser->~GetSpreadFactor();
+  if(iModificator != 0) // falls Callback vorhanden
+  {
+    iSpreadAdd = iSpreadAdd * iModificator / 1000; // multiplikativ einbeziehen
+  }
+  return iSpreadAdd;
+}
+
+// Minimaler Spread pro Schuss (inklusive dem ersten)
+private func GetSpreadMinimum() {
+  var pUser = this->~GetUser();
+  if(!pUser)
+  {
+    return 0; // keine Veränderung falls kein Schütze erkannt
+  }
+  return pUser->~GetSpreadMinimum(); // fehlender Callback ergibt 0 = keine Veränderung
+}
 
 /* Streuung erhöhen */
 
