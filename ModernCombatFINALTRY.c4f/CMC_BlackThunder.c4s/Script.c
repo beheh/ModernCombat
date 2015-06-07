@@ -5,8 +5,8 @@
 
 static aFlag,aArtillery;
 
-public func SpecificEquipment()  {return [[PPAR, 1]];}  //Zusatzausrüstung: Fallschirmrucksack
-func RecommendedGoals()    {return [GOCC, GHTF];}  //Spielzielempfehlung
+public func SpecificEquipment()	{return [[PPAR, 1]];}	//Zusatzausrüstung: Fallschirmrucksack
+func RecommendedGoals()		{return [GOCC, GHTF];}	//Spielzielempfehlung
 
 
 /* Initialisierung */
@@ -342,14 +342,14 @@ public func ChooserFinished()
     CreateObject(SNPT, 3610, 590, -1)->SetAction("Sign3");
   }
 
-  //OP-Spielziel
+  //OCC-Spielziel
   if(FindObject(GOCC))
   {
     //Objekte entfernen
     RemoveObject(FindObject2(Find_ID(SNPT),Find_InRect(590, 500, 50, 50)));
     RemoveObject(FindObject2(Find_ID(SNPT),Find_InRect(3570, 500, 50, 50)));
   }
-
+  else
   //MR-Spielziel
   if(FindObject(GMNR))
   {
@@ -360,7 +360,7 @@ public func ChooserFinished()
     AddMoneySpawn(2950, 840, [15]);
     AddMoneySpawn(3470, 750, [20]);
   }
-
+  else
   //HTF-Spielziel
   if(FindObject(GHTF))
   {
@@ -395,7 +395,7 @@ public func ChooserFinished()
   }
 }
 
-/* Relaunch */
+/* Spawnpoints */
 
 public func PlaceSpawnplaces()
 {
@@ -405,18 +405,7 @@ public func PlaceSpawnplaces()
     aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
   var rsp;
-
-  if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GLMS))
-  {  
-    //Spawnorte
-    rsp = CreateObject(CRSP, 380, 550);
-    rsp->AddRespawnplaces([[380, 550], [475, 630], [585, 680]]);
-    rsp->SetObjectTeam(1);
-
-    rsp = CreateObject(CRSP, 3655, 680);
-    rsp->AddRespawnplaces([[3655, 680], [3765, 630], [3860, 550]]);
-    rsp->SetObjectTeam(2);
-  }
+  //OCC-Spielziel
   if(FindObject(GOCC))
   {
     //Flaggenposten
@@ -459,6 +448,19 @@ public func PlaceSpawnplaces()
     {
       aFlag[3]->Set("$Flag4$",0,2);
     }
+  }
+  else
+  //HTF/MR/LMS-Spielziel
+  if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GLMS))
+  {  
+    //Spawnorte
+    rsp = CreateObject(CRSP, 380, 550);
+    rsp->AddRespawnplaces([[380, 550], [475, 630], [585, 680]]);
+    rsp->SetObjectTeam(1);
+
+    rsp = CreateObject(CRSP, 3655, 680);
+    rsp->AddRespawnplaces([[3655, 680], [3765, 630], [3860, 550]]);
+    rsp->SetObjectTeam(2);
   }
 }
 
