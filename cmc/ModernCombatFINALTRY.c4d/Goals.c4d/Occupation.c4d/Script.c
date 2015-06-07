@@ -287,6 +287,14 @@ private func UpdateScoreboard()
 
 /* GameCalls */
 
+private func Update()
+{
+  IsFulfilled();
+  UpdateScoreboard();
+
+  return;
+}
+
 public func FlagAttacked(object pFlag, int iTeam)
 {
   for(var i = 0; i < GetPlayerCount(); i++)
@@ -633,3 +641,4 @@ private func InitPlayer(int iPlr)		{}
 private func RemoveScoreboardPlayer(int iPlr)	{}
 public func WinScoreChange(int iNewScore)	{}
 private func SortTeamScoreboard()		{}
+public func RelaunchScoreboard(int iPlr, object pClonk, int iMurdererPlr) {}
