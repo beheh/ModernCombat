@@ -843,7 +843,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
 
 /* Spawnpoints */
 
-public func PlaceSpawnpoints()
+public func PlaceSpawnplaces()
 {
   //Teams abfragen
   var aTeams = [false,false,false,false,false];
@@ -856,9 +856,9 @@ public func PlaceSpawnpoints()
   {
     //Flaggenposten
     aFlag[0] = CreateObject(OFPL,1420,370,NO_OWNER);
-    aFlag[0]->AddRespawnpoint(1020, 450);
-    aFlag[0]->AddRespawnpoint(1160, 290);
-    aFlag[0]->AddRespawnpoint(1290, 430);
+    aFlag[0]->AddRespawnplace(1020, 450);
+    aFlag[0]->AddRespawnplace(1160, 290);
+    aFlag[0]->AddRespawnplace(1290, 430);
     if(aTeams[1] == true)
     {
       aFlag[0]->Set("$Flag1$",100,2);
@@ -870,21 +870,21 @@ public func PlaceSpawnpoints()
     }
 
     aFlag[1] = CreateObject(OFPL,2190,460,NO_OWNER);
-    aFlag[1]->AddRespawnpoint(1880,380);
-    aFlag[1]->AddRespawnpoint(1880,430);
-    aFlag[1]->AddRespawnpoint(2410,570);
+    aFlag[1]->AddRespawnplace(1880,380);
+    aFlag[1]->AddRespawnplace(1880,430);
+    aFlag[1]->AddRespawnplace(2410,570);
     aFlag[1]->Set("$Flag2$",0,2);
 
     aFlag[2] = CreateObject(OFPL,3050,460,NO_OWNER);
-    aFlag[2]-> AddRespawnpoint(3360,380);
-    aFlag[2]-> AddRespawnpoint(3360,430);
-    aFlag[2]-> AddRespawnpoint(2830,570);
+    aFlag[2]-> AddRespawnplace(3360,380);
+    aFlag[2]-> AddRespawnplace(3360,430);
+    aFlag[2]-> AddRespawnplace(2830,570);
     aFlag[2]->Set("$Flag3$",0,2);
 
     aFlag[3] = CreateObject(OFPL,3820,370,NO_OWNER);
-    aFlag[3]->AddRespawnpoint(4220, 450);
-    aFlag[3]->AddRespawnpoint(4080, 290);
-    aFlag[3]->AddRespawnpoint(3950, 430);
+    aFlag[3]->AddRespawnplace(4220, 450);
+    aFlag[3]->AddRespawnplace(4080, 290);
+    aFlag[3]->AddRespawnplace(3950, 430);
     if(aTeams[2] == true)
     {
       aFlag[3]->Set("$Flag4$",100,2);
@@ -913,34 +913,34 @@ public func PlaceSpawnpoints()
     //Spawnorte
     //Basis 1
     rsp = CreateObject(ARSP, 1230, 350);
-    rsp->AddRespawnpoints([[1170, 280], [1170, 430], [1290, 430]]);
+    rsp->AddRespawnplaces([[1170, 280], [1170, 430], [1290, 430]]);
     rsp->AddTargets([0]);
     rsp->SetObjectTeam(1); 
 
     rsp = CreateObject(ARSP, 2490, 350);
-    rsp->AddRespawnpoints([[2410, 570], [2440, 520], [2570, 430]]);
+    rsp->AddRespawnplaces([[2410, 570], [2440, 520], [2570, 430]]);
     rsp->AddTargets([0]);
     rsp->SetObjectTeam(2); 
 
     //Basis 2
     rsp = CreateObject(ARSP, 1730, 350);
-    rsp->AddRespawnpoints([[1590, 360], [1800, 430], [1870, 380]]);
+    rsp->AddRespawnplaces([[1590, 360], [1800, 430], [1870, 380]]);
     rsp->AddTargets([1, 2]);
     rsp->SetObjectTeam(1);
 
     rsp = CreateObject(ARSP, 3120, 350);
-    rsp->AddRespawnpoints([[3020, 450], [3160, 430], [3220, 430]]);
+    rsp->AddRespawnplaces([[3020, 450], [3160, 430], [3220, 430]]);
     rsp->AddTargets([1, 2]);
     rsp->SetObjectTeam(2); 
 
     //Basis 3
     rsp = CreateObject(ARSP, 2675, 350);
-    rsp->AddRespawnpoints([[2570, 430], [2620, 610], [2780, 520]]);
+    rsp->AddRespawnplaces([[2570, 430], [2620, 610], [2780, 520]]);
     rsp->AddTargets([3, 4]);
     rsp->SetObjectTeam(1);
 
     rsp = CreateObject(ARSP, 4250, 350);
-    rsp->AddRespawnpoints([[4160, 430], [4220, 450], [4340, 450]]);
+    rsp->AddRespawnplaces([[4160, 430], [4220, 450], [4340, 450]]);
     rsp->AddTargets([3, 4]);
     rsp->SetObjectTeam(2);
   }
@@ -956,22 +956,22 @@ public func PlaceSpawnpoints()
 
     //Spawnorte
     rsp = CreateObject(CRSP, 1050, 440);
-    rsp->AddRespawnpoints([[1050, 430], [1290, 290], [1410, 360]]);
+    rsp->AddRespawnplaces([[1050, 430], [1290, 290], [1410, 360]]);
     rsp->SetObjectTeam(1);
     rsp->SetName("$Target2$");
 
     rsp = CreateObject(CRSP, 1840, 300);
-    rsp->AddRespawnpoints([[1840, 280], [1870, 380], [1955, 280]]);
+    rsp->AddRespawnplaces([[1840, 280], [1870, 380], [1955, 280]]);
     rsp->SetObjectTeam(1);
     rsp->SetName("$Target1$");
 
     rsp = CreateObject(CRSP, 3285, 300);
-    rsp->AddRespawnpoints([[3285, 280], [3370, 380], [3400, 280]]);
+    rsp->AddRespawnplaces([[3285, 280], [3370, 380], [3400, 280]]);
     rsp->SetObjectTeam(2);
     rsp->SetName("$Target2$");
 
     rsp = CreateObject(CRSP, 3830, 370);
-    rsp->AddRespawnpoints([[3830, 360], [3950, 290], [4190, 430]]);
+    rsp->AddRespawnplaces([[3830, 360], [3950, 290], [4190, 430]]);
     rsp->SetObjectTeam(2);
     rsp->SetName("$Target1$");
   }
@@ -981,11 +981,11 @@ public func PlaceSpawnpoints()
   {
     //Spawnorte
     rsp = CreateObject(CRSP, 1560, 490);
-    rsp->AddRespawnpoints([[1560, 490], [1580, 360], [1680, 490]]);
+    rsp->AddRespawnplaces([[1560, 490], [1580, 360], [1680, 490]]);
     rsp->SetObjectTeam(1);
 
     rsp = CreateObject(CRSP, 3560, 490);
-    rsp->AddRespawnpoints([[3560, 490], [3660, 360], [3680, 490]]);
+    rsp->AddRespawnplaces([[3560, 490], [3660, 360], [3680, 490]]);
     rsp->SetObjectTeam(2);
   }
   else  
@@ -994,11 +994,11 @@ public func PlaceSpawnpoints()
   {
     //Spawnorte
     rsp = CreateObject(CRSP, 1290, 430);
-    rsp->AddRespawnpoints([[1290, 430], [1470, 360], [1470, 430]]);
+    rsp->AddRespawnplaces([[1290, 430], [1470, 360], [1470, 430]]);
     rsp->SetObjectTeam(1);
 
     rsp = CreateObject(CRSP, 3770, 360);
-    rsp->AddRespawnpoints([[3770, 360], [3770, 430], [3950, 430]]);
+    rsp->AddRespawnplaces([[3770, 360], [3770, 430], [3950, 430]]);
     rsp->SetObjectTeam(2);
   }
 }

@@ -68,21 +68,21 @@ public func RelaunchMenu()
 
   CloseMenu (crew);
 
-  var tmp,point;  
+  var tmp,place;  
   CreateMenu(OFLG,crew,0,C4MN_Extra_Info,"$RelaunchMenu$",0,C4MN_Style_Dialog);
 
   var i = 0;
-  for(point in FindObjects(Find_Func("IsRespawnpoint", crew)))
+  for(place in FindObjects(Find_Func("IsRespawnplace", crew)))
   {
     var tmp = CreateObject(GetID(this));
     SetGraphics("", this, SM16);  
-    point->~GetIcon(tmp, crew);
+    place->~GetIcon(tmp, crew);
 
-    AddMenuItem(point->~GetText(crew),"SelectRelaunchPoint",GetID(),crew,point->~GetNumber(crew),ObjectNumber(point),"",4,tmp);
+    AddMenuItem(place->~GetText(crew),"SelectRelaunchPoint",GetID(),crew,place->~GetNumber(crew),ObjectNumber(place),"",4,tmp);
     RemoveObject(tmp);
 
     //Cache, fuer die Sicht
-    respawns[i] = ObjectNumber(point);
+    respawns[i] = ObjectNumber(place);
     i++;
   }
   if(i > 0 && selection != -1)
@@ -107,13 +107,13 @@ public func SelectRelaunchPoint(id unused, int iObject)
     return Sound("Error", false, crew, 100, GetOwner(crew)+1);
   }
 
-  var respawnpoint = pObject->~GetRespawnpoints();
+  var respawnplace = pObject->~GetRespawnplaces();
 
-  if(!respawnpoint || !(GetType(respawnpoint) == C4V_Array))
+  if(!respawnplace || !(GetType(respawnplace) == C4V_Array))
     return;
 
   var iX, iY;
-  GetBestSpawnpoint(respawnpoint, GetOwner(crew), iX, iY);  
+  GetBestSpawnplace(respawnplace, GetOwner(crew), iX, iY);  
 
   SetPosition(iX, iY);
 
@@ -143,13 +143,13 @@ protected func Timer()
   selection = GetMenuSelection(crew); 
 
   if(selection >= 0 && respawns[selection])
-    ShowRespawnpoint(Object(respawns[selection]), Contents(), this, oldvisrange);
+    ShowRespawnplace(Object(respawns[selection]), Contents(), this, oldvisrange);
 
   RelaunchMenu();
 }
 
 //todo: eventuell die Methode verallgemeinern und outsourcen
-global func ShowRespawnpoint(object pObject, object pCrew, object pContainer, int iMaxrange)
+global func ShowRespawnplace(object pObject, object pCrew, object pContainer, int iMaxrange)
 {
   if(!pCrew) 
     return;

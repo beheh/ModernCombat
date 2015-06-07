@@ -12,7 +12,7 @@ public func IsRepairable()	{return !fDestroyed;}
 public func IsRespawnPoint(){return !fDestroyed;}
 public func IsBulletTarget(){return true;}
 
-public func GetRespawnpoints()
+public func GetRespawnplaces()
 {
 	return [[GetX(), GetY() - 9]];
 }
