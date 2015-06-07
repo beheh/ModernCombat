@@ -34,7 +34,7 @@ public func GetText(object pClonk)
     clr = RGB(255, 255, 255);
   else
   {
-    if(GetObjectTeam() != GetPlayerTeam(GetOwner(pClonk)))
+    if(GetObjectTeam() && (GetObjectTeam() != GetPlayerTeam(GetOwner(pClonk))))
       clr = RGB(255, 0, 0);
     else
       clr = RGB(119, 119, 119);
