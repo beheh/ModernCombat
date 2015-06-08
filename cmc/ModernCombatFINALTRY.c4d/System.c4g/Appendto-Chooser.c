@@ -1629,8 +1629,6 @@ protected func ConfigurationFinished2()
   log = Format("%s, %s x%d", log, GetName(0, DARK), iDarkCount);
   //Eventnachricht: Dunkelheit
   EventInfo4K(0,log,CHOS, 0, 0, 0, "Info_Event.ogg");
-  //GameCall fuer die Spawnpoints
-  GameCall("PlaceSpawnpoints");
   //Schneller GameCall für Einstellungen
   GameCallEx("ChooserFinished");
 

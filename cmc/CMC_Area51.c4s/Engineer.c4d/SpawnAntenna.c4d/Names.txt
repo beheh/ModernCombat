@@ -1,2 +1,0 @@
-DE:Spawnantenne
-US:Spawn antenna

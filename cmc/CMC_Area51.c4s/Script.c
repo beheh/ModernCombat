@@ -20,7 +20,7 @@ public func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return _inherited(...);
+  return(1);
 }
 
 /* Plazierungslisten */
@@ -216,18 +216,8 @@ public func MessagePlayers()
 }
 
 /* Relaunch */
-public func PlaceSpawnplaces()
-{
-  //Teams abfragen
-  var aTeams = [false,false,false,false,false];
-  for(var i = 0; i < GetPlayerCount(); i++)
-    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  var rsp;
-  //Spawnorte
-  rsp = CreateObject(CRSP, 160, 380);
-  rsp->AddRespawnplaces([[160, 380], [160, 640], [1910, 380], [1910, 640]]);
-  rsp->SetObjectTeam(0);
-  
-  return;
+public func RelaunchPosition(& iX, & iY, int iTeam)
+{
+  return [[160, 380], [160, 640], [1910, 380], [1910, 640]];
 }

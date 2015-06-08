@@ -67,6 +67,9 @@ public func ChooserFinished()
   {
     iWarningTickets = Max(iStartTickets/4, 5);
   }
+  //Bei Klassenwahl Spawnsystem anpassen
+  if(!FindObject(MCSL))
+    ScheduleCall(0,"CreateSpawners",1);
 
   //Tickets verteilen
   for(var i = 0; i < GetTeamCount(); i++)
@@ -78,6 +81,14 @@ public func ChooserFinished()
     DoScoreboardShow(1, GetPlayerByIndex(i) + 1);
     CreateObject(TK01, 0, 0, GetPlayerByIndex(i));
     Sound("Info_Round.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
+  }
+}
+
+public func CreateSpawners()
+{
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
+    CreateGOCCSpawner(GetCrew(GetPlayerByIndex(i)));
   }
 }
 
@@ -285,47 +296,7 @@ private func UpdateScoreboard()
   SortScoreboard(1);
 }
 
-/* Relaunch */
-
-public func OnRelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
-{
-  if(iPlr == -1 || !GetPlayerName(iPlr))
-    return;
-
-  //Spielziel-Status prüfen
-  IsFulfilled();
-
-  var iTeam = GetPlayerTeam(iPlr);
-
-  //Kills
-  aDeath[iPlr]++;
-  //Tode
-  if(iMurdererPlr != -1 && GetPlayerTeam(iPlr) != GetPlayerTeam(iMurdererPlr))
-  {
-    aKill[iMurdererPlr]++;
-  }
-
-  //Geld verteilen
-  Money(iPlr, pClonk, iMurdererPlr);
-
-  //Check ob noch am Leben
-  if(!TeamAlive(iTeam))
-  {
-    return EliminatePlayer(iPlr);
-  }
-
-  DoTickets(iTeam,-1);
-}
-
 /* GameCalls */
-
-private func Update()
-{
-  IsFulfilled();
-  UpdateScoreboard();
-
-  return;
-}
 
 public func FlagAttacked(object pFlag, int iTeam)
 {
@@ -663,14 +634,111 @@ global func AddGOCCWarnEffect(object pTarget, object pPoint)
   return true;
 }
 
+/* Respawn */
+
+protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
+{
+  if(!init) return;
+
+  if(IsFulfilled()) return EliminatePlayer(iPlr);
+
+  //Verfeindung setzen
+  Hostility(iPlr);
+  
+  RelaunchPlayer(iPlr, GetCrew(iPlr), 0, iTeam, true);
+}
+
+protected func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch)
+{
+  if(iPlr == -1 || !GetPlayerName(iPlr)) return;
+
+  //Schauen wir mal ob noch geht
+  IsFulfilled();
+
+  //Kein Team?
+  if(!iTeam) iTeam = GetPlayerTeam(iPlr);
+
+  //Kills
+  aDeath[iPlr]++;
+  //Tode
+  if(iMurdererPlr != -1 && GetPlayerTeam(iPlr) != GetPlayerTeam(iMurdererPlr))
+  {
+    aKill[iMurdererPlr]++;
+  }
+
+  //Geld verteilen
+  Money(iPlr, pCrew, iMurdererPlr);
+  
+  //Tickets
+  if(GetTickets(iTeam) <= 0)
+  {
+    if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
+    GameCall("ForceObservation",iPlr);
+    return;
+  }
+  if(GetWinningTeam() > 0 && GetWinningTeam() != iTeam)
+  {
+    if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
+    return;
+  }
+
+  //Check ob noch am Leben
+  if(!TeamAlive(iTeam))
+  {
+    return EliminatePlayer(iPlr);
+  }
+
+  DoTickets(iTeam,-1);
+
+  if(!FindObject(CHOS) && !FindObject(MCSL)) //Regelwähler oder Klassenwahl?
+    CreateGOCCSpawner(pCrew);
+
+  //Flagge anfokussieren
+  DoFlag(iTeam, iPlr);
+}
+
+public func DoFlag(int iTeam, int iPlr)
+{
+  var pCrew = GetCrew(iPlr);
+  if(!pCrew) return Schedule(Format("DoFlag(%d, %d)", iTeam, iPlr), 1);
+  var pObject = Contained(pCrew);
+
+  if(!ShowFlagpole(GetBestFlag(iTeam), pCrew, pObject))
+  {
+    SetPlrViewRange(0, pCrew);
+  }
+
+  return true;
+}
+
+private func RemovePlayer(int iPlr)
+{
+  if(iPlr == -1) return;
+
+  //Auswertungsdialog
+  DoEvaluation(iPlr);
+
+  UpdateHUDs();
+  aDeath[iPlr] = 0;
+  aKill[iPlr] = 0;
+}
+
+
+public func OnClassSelection(object pClonk, int iClass)
+{
+  if(FindObject(CHOS))
+    return;
+
+  CreateGOCCSpawner(pClonk, iClass);
+}
+
 /* Ungenutzte Funktionen */
 
-private func InitMultiplayerTeam(int iTeam)					{}
-private func RemoveMultiplayerTeam(int iTeam)					{}
-private func InitSingleplayerTeam(int iPlr)					{}
-private func RemoveSingleplayerTeam(int iPlr)					{}
-private func InitPlayer(int iPlr)						{}
-private func RemoveScoreboardPlayer(int iPlr)					{}
-public func WinScoreChange(int iNewScore)					{}
-private func SortTeamScoreboard()						{}
-public func RelaunchScoreboard(int iPlr, object pClonk, int iMurdererPlr)	{}
+private func InitMultiplayerTeam(int iTeam)	{}
+private func RemoveMultiplayerTeam(int iTeam)	{}
+private func InitSingleplayerTeam(int iPlr)	{}
+private func RemoveSingleplayerTeam(int iPlr)	{}
+private func InitPlayer(int iPlr)		{}
+private func RemoveScoreboardPlayer(int iPlr)	{}
+public func WinScoreChange(int iNewScore)	{}
+private func SortTeamScoreboard()		{}

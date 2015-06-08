@@ -2,14 +2,6 @@
 
 #strict 2
 
-public func Initialize()
-{
-  //Chooser nicht vorhanden: Spawnpoints manuell abrufen
-  if(!FindObject(CHOS))
-    GameCall("PlaceSpawnplaces");
-
-  return _inherited(...);
-}
 
 /* Wahl abgeschlossen */
 
@@ -51,9 +43,6 @@ public func ChooserFinished()
     RelaunchPlayer(GetPlayerByIndex(i),GetCrew(GetPlayerByIndex(i)), 0, GetPlayerTeam(GetPlayerByIndex(i)));
     SetFoW(true, GetPlayerByIndex(i));
   }
-
-  //Spawnpoints abrufen
-  GameCall("PlaceSpawnplaces");
 }
 
 /* Regelvoreinstellung */
@@ -117,12 +106,12 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
   OnClonkEquip(pCrew);
 
   //Zufallsposition setzen (iX und iY für Abwärtskompatibilität)
-  var iX, iY, aSpawnplaces;
-  aSpawnplaces = RelaunchPosition(iX, iY, iTeam);
-  
+  var iX, iY, aSpawnpoints;
+  aSpawnpoints = RelaunchPosition(iX, iY, iTeam);
+
   //Szenario nutzt neue Spawnmechanik?
-  if(GetType(aSpawnplaces) == C4V_Array)
-    GetBestSpawnplace(aSpawnplaces, iPlr, iX, iY);
+  if(GetType(aSpawnpoints) == C4V_Array)
+    GetBestSpawnpoint(aSpawnpoints, iPlr, iX, iY);
 
   if(Contained(pCrew))
     SetPosition(iX, iY, Contained(pCrew));
@@ -137,9 +126,7 @@ public func RelaunchClonk(int iPlr, object pCursor)
 {
   //Clonkerstellung
   var pClonk;
-  if(pCursor && pCursor->~GetRealCursor())
-    pCursor = pCursor->~GetRealCursor();
-
+  if(pCursor && pCursor->~GetRealCursor()) pCursor = pCursor->~GetRealCursor();
   if(pCursor)
   {
     pClonk = CreateObject(GetID(pCursor), 10, 10, iPlr);
@@ -150,7 +137,6 @@ public func RelaunchClonk(int iPlr, object pCursor)
     pClonk = CreateObject(PCMK, 10, 10, iPlr);
       MakeCrewMember(pClonk, iPlr);
   }
-
   DoEnergy(+150, pClonk);
   SetCursor(iPlr, pClonk);
   SetPlrView(iPlr, pClonk);
@@ -167,22 +153,11 @@ public func RelaunchClonk(int iPlr, object pCursor)
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  if(!g_chooserFinished)
-    return ChooserMenuPosition();
-  else
-  {
-    var rsp = FindObject2(Find_Func("IsTeamRespawnplace", iTeam));
-    if(rsp)
-      return [[GetX(rsp), GetY(rsp)]];
-  }
+  var wipf = PlaceAnimal(WIPF); 
+  iX = GetX(wipf);
+  iY = GetY(wipf);
+  RemoveObject(wipf);
 }
-
-public func OnClassSelection(object pCrew, int iClass)
-{
-  CreateRelaunchMenu(pCrew, iClass);
-}
-
-global func ChooserMenuPosition() { return [LandscapeWidth()/2, LandscapeHeight()/2];}
 
 /* Intelligente Spawnmechanik */
 
@@ -190,11 +165,11 @@ static const SPAWNSYS_Allies = 50;
 static const SPAWNSYS_Enemies = -50;
 static const SPAWNSYS_Traps = -30;
 
-global func GetBestSpawnplace(array aSpawnplaces, int iPlr, int &x, int &y)
+global func GetBestSpawnpoint(array aSpawnpoints, int iPlr, int &x, int &y)
 {
   var team = GetPlayerTeam(iPlr);
   var spawn_grading = [];
-  for(var spawn in aSpawnplaces)
+  for(var spawn in aSpawnpoints)
   {
     var i = GetLength(spawn_grading);
     spawn_grading[i] = [spawn, 0];
@@ -225,11 +200,11 @@ global func GetBestSpawnplace(array aSpawnplaces, int iPlr, int &x, int &y)
       chosen_spawns[GetLength(chosen_spawns)] = spawn_data[0];
   }
 
-  var spawnplace = chosen_spawns[Random(GetLength(chosen_spawns))];
-  x = spawnplace[0];
-  y = spawnplace[1];
+  var spawnpoint = chosen_spawns[Random(GetLength(chosen_spawns))];
+  x = spawnpoint[0];
+  y = spawnpoint[1];
 
-  return spawnplace;
+  return spawnpoint;
 }
 
 /* Bei Clonkausrüstung */
@@ -321,4 +296,5 @@ global func SetWaitingMusic()
 
 /* Zusatzfunktionen */
 
+public func OnClassSelection()	{}
 public func OnWeaponChoice()	{}
