@@ -1,0 +1,9 @@
+[Action]
+Name=Standing
+Length=3
+Facet=0,0,24,70
+
+[Action]
+Name=Destroyed
+Length=3
+Facet=72,0,24,70

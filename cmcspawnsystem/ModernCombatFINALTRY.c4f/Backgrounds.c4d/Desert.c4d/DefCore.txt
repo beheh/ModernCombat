@@ -1,0 +1,9 @@
+[DefCore]
+id=BD09
+Name=Desert
+Version=4,9,5
+Category=1
+Width=1020
+Height=200
+Picture=0,0,1,1
+Offset=-510,-100

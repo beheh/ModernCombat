@@ -1,0 +1,1 @@
+Solarpanele generieren zusätzliche Energie, sofern sie nach oben hin nicht bedeckt sind.

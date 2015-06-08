@@ -1,0 +1,3 @@
+Ziel ist es, alleine oder im Team eine vorgegebene Menge an Geld zu erwirtschaften.
+
+Geld gibt es für Kills und Geldsäcke, durch Tode, Selbstmorde oder Teamkills wiederum verliert man Geld.

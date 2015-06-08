@@ -1,0 +1,19 @@
+[DefCore]
+id=BNGT
+Version=4,9,8,2
+Name=Bring-your-own-Gun Emplacement
+Category=C4D_Structure
+Width=32
+Height=18
+Value=90
+Mass=170
+Picture=32,0,50,45
+Offset=-16,0
+Entrance=-9,0,19,18
+Vertices=6
+VertexX=0,-16,-1,15,6,-6
+VertexY=6,17,17,17,8,8
+VertexFriction=20,20,20,20,20,20
+VertexCNAT=0,0,0,0,0,0
+TopFace=0,18,32,18,0,0
+Grab=2

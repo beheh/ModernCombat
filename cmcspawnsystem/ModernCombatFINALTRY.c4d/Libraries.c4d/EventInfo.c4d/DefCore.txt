@@ -1,0 +1,10 @@
+[DefCore]
+id=EI4K
+Version=4,9,10,7
+Name=Event Info
+Category=C4D_StaticBack|C4D_Parallax|C4D_MouseIgnore|C4D_IgnoreFoW|C4D_Foreground
+Width=23
+Height=23
+Offset=-23,-11
+Picture=23,0,64,64
+ColorByOwner=1

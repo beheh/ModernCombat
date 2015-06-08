@@ -1,0 +1,20 @@
+CreatingFurniture=Creating furniture...
+
+TxtWelcome=Welcome, Commander!|I will now introduce you to the most important clonk unit of the Eurocorps.
+TxtThisisapeacemaker=This is a <c ffff33>Peacemaker</c>.|His abilities and equipment made him to one of the most feared enemies. 
+TxtGetpumpgun=Let's start. Order your peacemaker to take the <c ffff33>Pumpgun</c> from the table.
+TxtVeryGood=Very good.
+TxtSupplies=This is a <c ffff33>Ammo Box</c>. Clonks can open them by touching, taking the things in it automatically. Load the pumpgun with the ammo inside the box.
+TxtDestroyTargets=Good, now destroy all <c ffff33>3 targets</c> with the pumpgun.
+TxtNice=
+TxtFastbullets=
+TxtGotomountain=
+TxtNormalend=
+TxtGonow=
+TxtSecured=
+TxtSecured2=
+TxtWalljump=
+TxtWalljump2=
+TxtFrags=
+TxtFinal=
+TxtEnd=

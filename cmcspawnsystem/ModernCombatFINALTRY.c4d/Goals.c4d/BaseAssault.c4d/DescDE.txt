@@ -1,0 +1,3 @@
+Jedes Team startet mit mehreren Zielobjekten die es zu verteidigen gilt. Das Ziel ist das Sichern und Aufheben von Sprengladungen, um mit diesen alle gegnerischen Zielobjekte zu zerstören.
+
+Ein Zielobjekt gilt als Einstiegspunkt. Ein Team verliert mit Zerstörung aller eigenen Zielobjekte.

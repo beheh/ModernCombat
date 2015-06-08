@@ -1,0 +1,17 @@
+[DefCore]
+id=SKIN
+Version=4,9,10,7
+Name=Skins
+Category=C4D_Vehicle|C4D_SelectVehicle
+Width=16
+Height=20
+Offset=-8,-10
+Picture=0,0,64,64
+Entrance=-8,-10,16,20
+Vertices=7
+VertexX=0,0,0,-2,2,-4,4
+VertexY=2,-7,9,-3,-3,3,3
+VertexCNAT=0,4,8,1,2,1,2
+VertexFriction=300,300,100,300,300,300,300
+MaxUserSelect=1
+ColorByOwner=1

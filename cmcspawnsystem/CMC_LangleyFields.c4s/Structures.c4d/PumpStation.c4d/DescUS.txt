@@ -1,0 +1,3 @@
+Pump stations gain liquids from the underground and bring them to nearby refinerys for processing.
+
+Grab and [Jump] and [Stop] for moving the drainhead, [Left] or [Right] for stopping.

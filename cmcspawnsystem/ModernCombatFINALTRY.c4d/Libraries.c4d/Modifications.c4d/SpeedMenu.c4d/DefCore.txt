@@ -1,0 +1,13 @@
+[DefCore]
+id=SMEN
+Version=4,9,10,7
+Name=Speed Menu
+Category=C4D_StaticBack|C4D_Foreground|C4D_MouseIgnore|C4D_IgnoreFoW
+Width=159
+Height=161
+Offset=-79,-80
+Picture=0,0,159,161
+LineConnect=C4D_EnergyHolder
+
+[Physical]
+Energy=1000

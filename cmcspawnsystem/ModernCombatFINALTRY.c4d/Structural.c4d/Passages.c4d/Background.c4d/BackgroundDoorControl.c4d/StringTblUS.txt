@@ -1,0 +1,3 @@
+OpenDoor=Open door.
+NoCard=No fitting card available.
+Restricted=Can not enter:|Door leads to a restricted area!

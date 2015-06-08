@@ -1,0 +1,1 @@
+Stellt verschiedene Clonk-Klassen für jeden Spieler zur Verfügung.

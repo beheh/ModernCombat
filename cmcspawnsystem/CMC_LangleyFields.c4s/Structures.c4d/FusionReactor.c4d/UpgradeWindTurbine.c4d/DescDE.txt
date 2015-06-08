@@ -1,0 +1,1 @@
+Windanlagen generieren je nach Windstärke zusätzlichen Strom.

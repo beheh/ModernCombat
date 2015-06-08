@@ -1,0 +1,3 @@
+Enthält individuell verpackte Munition.
+
+[Doppelgraben] zum auspacken oder [Werfen] zum übergeben an Verbündete.

@@ -1,0 +1,16 @@
+[DefCore]
+id=TLGH
+Version=4,9,10,7
+Name=Traffic Light
+Category=C4D_StaticBack
+Width=15
+Height=50
+Offset=-7,-25
+Vertices=6
+VertexX=0,0,-3,3,-3,3
+VertexY=22,-2,-2,-2,-20,-20
+VertexFriction=30,30,30,30,30
+Mass=120
+Picture=0,0,15,50
+AttractLightning=1
+Rotate=1

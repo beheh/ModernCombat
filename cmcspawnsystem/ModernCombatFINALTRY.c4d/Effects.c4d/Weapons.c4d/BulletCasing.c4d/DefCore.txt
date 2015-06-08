@@ -1,0 +1,15 @@
+[DefCore]
+id=BHUL
+Name=Bullet Casing
+Category=4
+Width=4
+Height=4
+Offset=-2,-2
+Mass=2
+Picture=0,0,4,4
+Vertices=1
+VertexFriction=200
+Rotate=1
+Oversize=1
+StretchGrowth=1
+Float=1

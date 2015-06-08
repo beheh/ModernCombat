@@ -1,0 +1,17 @@
+[DefCore]
+id=LRDR
+Version=4,9,10,7
+Name=Laser Designator
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectKnowledge|C4D_SelectHomebase
+MaxUserSelect=1
+Width=10
+Height=4
+Offset=-5,-2
+Vertices=2
+VertexX=-3,3
+VertexY=2,2
+VertexFriction=100,100
+Value=120
+Mass=20
+Components=METL=4;KLAS=1
+Picture=0,4,80,60

@@ -1,0 +1,4 @@
+Deadly long-range weapon.
+
+Grab and press [Dig] to see the targeted area. [Throw] to start an artillery strike.
+[Left]/[Right] to adjust the cannon.

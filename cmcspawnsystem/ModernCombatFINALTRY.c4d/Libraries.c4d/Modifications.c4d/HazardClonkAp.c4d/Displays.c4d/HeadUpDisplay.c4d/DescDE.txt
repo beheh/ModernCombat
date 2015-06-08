@@ -1,0 +1,1 @@
+Zeigt Statusinformationen zu aktuell getragener Bewaffnung oder Ausrüstung.

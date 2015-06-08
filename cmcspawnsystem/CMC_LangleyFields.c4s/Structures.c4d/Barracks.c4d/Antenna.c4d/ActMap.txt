@@ -1,0 +1,7 @@
+[Action]
+Name=Rotate
+Procedure=FLOAT
+Length=17
+Delay=6
+Facet=0,0,27,14
+NextAction=Rotate

@@ -1,0 +1,10 @@
+[DefCore]
+id=SLCB
+Version=4,9,10,7
+Name=Rope
+Category=C4D_StaticBack
+Width=2
+Height=6
+Offset=-1,-1
+Vertices=1
+Picture=0,0,2,6

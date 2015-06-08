@@ -1,0 +1,31 @@
+TxtWelcome=<c 8888ff>Michael14</c>: Willkommen, Soldat! Dies ist das Eurocorps Ausbildungs- und Trainingscenter EAT-03. Das Trainingsgelände steht dir frei zur Verfügung. Absolviere das erste Trainingsprogramm, indem du den Simulationsraum rechts von dir betrittst!
+TxtChoose=<c 8888ff>Michael14</c>:Das Menü stellt dir alle zur Verfügung stehenden Trainingsprogramme dar, wähle Athletik I aus, um mit deinem Training zu beginnen. <c 44ff44>Grün</c> bedeutet, dass du bereits dieses Training abgeschlossen hast, <c ffff44>gelb</c>, dass es verfügbar ist, aber noch nicht bewältigt wurde und <c 888888>grau</c> bedeutet, dass du dieses Trainingsprogramm noch freigeschalten musst.
+
+# Einführung
+
+WelcomeMsg1=@<c 909090>Morgen ihr Luschen!
+WelcomeMsg2=@<c 909090>Willkommen zur freiwilligen Morgengymnastik!
+WelcomeMsg3=@<c 909090>Doch zuerst müsst ihr euren Charakter wählen!
+WelcomeMsg4=@<c 909090>Stellt euch vor einen Charakter und drückt 'Springen'!
+WelcomeMsg5=@<c 909090>Jetzt geht's weiter zur Aufstellung!
+WelcomeMsg6=@<c fafa00>Mit jedem gewonnenen Minispiel rückt ihr eine Stufe weiter!
+WelcomeMsg7=@<c fafa00>Wer zuerst %d Punkte hat, und damit den Thron erreicht, gewinnt!
+WelcomeMsg8=@<c fafa00>Dann fangen wir mal an!
+
+#Antworten
+
+WelcomeMsg1Answer=<c 909090>Morgen, Chef!
+WelcomeMsg2Answer=<c 909090>Fuck!
+
+#Einstellungen
+
+MusicConfig=Einstellungen
+MusicOn=<c 20ff20>Musik an (Empfohlen!)
+MusicOff=<c ff2020>Musik aus
+MusicDone=Fertig
+Recommended=Empfohlen
+Points=%d Punkte
+PointsMore=Mehr Punkte
+PointsLess=Weniger Punkte
+Ready=Fertig
+Minigames=Minigames

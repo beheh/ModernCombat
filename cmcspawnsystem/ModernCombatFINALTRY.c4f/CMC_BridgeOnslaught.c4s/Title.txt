@@ -1,0 +1,2 @@
+DE:CMC - <c ffff33>Bridge Onslaught</c>
+US:CMC - <c ffff33>Bridge Onslaught</c>

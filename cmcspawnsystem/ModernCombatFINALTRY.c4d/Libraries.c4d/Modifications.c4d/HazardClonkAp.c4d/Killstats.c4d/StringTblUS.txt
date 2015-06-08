@@ -1,0 +1,3 @@
+MsgScore=Soldier %s scored for team %s!
+
+MsgMultikill=["Doublekill","Triplekill","Quadruple Kill","Quintuple Kill","Sextuple Kill","Septuple Kill","Octuple Kill","Multikill"]

@@ -1,0 +1,3 @@
+Handy ammo box with 4 missiles of content.
+
+Press [Double Dig] to unpack or [Throw] to hand over to allies.

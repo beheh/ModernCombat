@@ -1,0 +1,20 @@
+CreatingInterior=Creating furniture...
+CreatingEquipment=Placing equipment...
+CreatingDecoration=Placing decoration...
+
+MsgJetpack=<c 33ccff>Jetpacks</c> available, press [<c 33ccff>Double Jump</c>], [<c 33ccff>-left</c>] or [<c 33ccff>-right</c>] to boost.
+MsgCollapse=<c ff0000>Warning</c>: The local antenna tower <c ffff33>collapses</c>
+
+Team1=Technowipf
+Team2=Eurocorps
+
+Flag1=Steepletop
+Flag2=Roof
+Flag3=Ventilation System
+Flag4=Conference Rooms
+Flag5=Lobby
+
+Target1=Communication Server
+Target2=Data Server
+Target3=Surveillance System
+Target4=Radar Unit

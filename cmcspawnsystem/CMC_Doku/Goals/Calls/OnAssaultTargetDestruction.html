@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <title>OnAssaultTargetDestruction - CMC Dokumentation</title>
+	<link rel="stylesheet" type="text/css" href="..\..\CSS.css">
+  </head>
+  
+  <body>
+    <h1>OnAssaultTargetDestruction</h1>
+	
+	<p><b>Kategorie:</b> Ziele (Calls)</p>
+
+	<h2>Beschreibung</h2>
+	<div class="Text">Wird im Spielziel <a href="..\Assault.html">Assault</a> bzw. <a href="..\BaseAssault.html">Base Assault</a> ein Zielobjekt zerstört, wird diese Funktion im Szenarienscript aufgerufen.</div>
+
+	<h2>Syntax</h2>
+	<div class="fnsyntax"><span class="type">public func</span> OnAssaultTargetDestruction (<span class="type">object</span> pTarget, <span class="type">int</span> iTeam, <span class="type">int</span> iIndex, <span class="type">bool</span> fConnectedDestruction)</div>
+
+	<h2>Parameter</h2>
+	<div class="parn">pTarget:</div>
+	<div class="part">Objekt, das zerstört wurde.</div>
+	<div class="parn">iTeam:</div>
+	<div class="part">Teamnummer des Teams, dem das Objekt gehörte.</div>
+	<div class="parn">iIndex:</div>
+	<div class="part">Index des zerstörten Ziels.</div>
+	<div class="parn">fConnectedDestruction:</div>
+	<div class="part">Wenn das Objekt als letztes Zielobjekt eines Verbundes zerstört wurde, ist dieser Parameter true.</div>
+
+	<h2>Anmerkung</h2>
+	<div class="Text">Zum Zeitpunkt des Aufrufs existiert das Zielobjekt noch, es kann also im Aufruf vernichtet werden. Wird dies nicht getan, explodiert es standardmäßig mit der Stärke 50.</div>
+
+	<h2>Beispiel</h2>
+	<pre class="code"><b>public func</b> OnAssaultTargetDestruction(object pTarget)
+{
+  <b>if</b> (!Random(4)) CastObjects(ABOX, 5, 50, GetX(pTarget), GetY(pTarget));
+}</pre>
+	<div class="Text">Mit etwas Glück verschleudern zerstörte Zielobjekte Munition.</div>
+	
+	<h2>Siehe auch</h2>
+	<div class="Text"><b>Objekte:</b> <a href="..\Assault.html">Assault</a>, <a href="..\BaseAssault.html">Base Assault</a></div>
+	<div class="Text"><b>Funktionen:</b> <a href="..\Functions\AddAssaultTarget.html">AddAssaultTarget</a>, <a href="..\Functions\ConnectAssaultTargets.html">ConnectAssaultTargets</a>, <a href="..\Functions\GetAssaultTarget.html">GetAssaultTarget</a></div>
+
+	<div class="Author">Limeox, Oktober 2010</div>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+[Particle]
+Name=BlastSpark1
+MaxCount=800
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+Face=0,0,32,32,-16,-16
+Delay=0
+AlphaFade=16
+RByV=1
+GravityAcc=0
+Additive=1
+CollisionFn=Die

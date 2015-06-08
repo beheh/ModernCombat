@@ -1,0 +1,8 @@
+MarkRequired=Jet benötigt ein Ziel!
+JetNotReady=Jet nicht in Position!
+InvalidItem=Gegenstand nicht montierbar!
+Updated=MAV mit <c ffff33>%s</c> modifiziert.
+AmmoReceived=%dx {{%i}} erhalten.
+NoMAVFound=Kein MAV gefunden!
+WaypointSetStock=Warenlager mit Wegpunkt markiert.
+WaypointSet=Wegpunkt gesetzt.

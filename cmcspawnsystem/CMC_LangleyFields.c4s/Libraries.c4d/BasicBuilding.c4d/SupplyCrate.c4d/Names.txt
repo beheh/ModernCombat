@@ -1,0 +1,2 @@
+DE:Nachschubskiste
+US:Supply crate

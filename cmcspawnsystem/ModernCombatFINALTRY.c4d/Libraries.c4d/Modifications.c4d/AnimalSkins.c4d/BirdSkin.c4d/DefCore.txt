@@ -1,0 +1,9 @@
+[DefCore]
+id=BRSN
+Version=4,9,10,7
+Name=Bird Skin
+Category=C4D_Vehicle|C4D_SelectVehicle
+Width=128
+Height=15
+Offset=-15,-12
+Picture=560,0,64,64

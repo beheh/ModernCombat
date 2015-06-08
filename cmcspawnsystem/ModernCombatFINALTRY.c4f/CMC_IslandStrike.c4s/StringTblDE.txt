@@ -1,0 +1,23 @@
+CreatingInterior=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+CreatingDecoration=Dekoration wird plaziert...
+
+Team1=Eurocorps
+Team2=Aggressoren
+
+Flag1=Aufklärungsturm
+Flag2=Westliche Küstenwache
+Flag3=Westlicher Zentralblock
+Flag4=Östlicher Zentralblock
+Flag5=Schiffswerft
+Flag6=Östliche Küstenwache
+Flag7=Bohrplattform
+
+Target1=Radaranlage
+Target2=Kommunikationsserver
+Target3=Überwachungssystem
+Target4=Wasserfilter
+Target5=Generator
+Target6=Zentralserver
+Target7=Sekundäre Radaranlage
+Target8=Datenserver

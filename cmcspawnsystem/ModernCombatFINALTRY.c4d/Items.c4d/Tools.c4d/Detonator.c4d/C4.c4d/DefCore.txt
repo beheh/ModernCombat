@@ -1,0 +1,23 @@
+[DefCore]
+id=C4EX
+Version=4,9,10,7
+Name=C4 Charge
+Category=C4D_Vehicle
+Width=9
+Height=4
+Offset=-4,-2
+Value=15
+Mass=10
+Picture=0,4,64,64
+Vertices=4
+VertexX=4,-4,4,-4
+VertexY=1,1,-1,-1
+VertexFriction=100,100,100,100
+ContactIncinerate=1
+NoBurnDecay=1
+NoGet=1
+NoSell=1
+Rotate=1
+Float=1
+Timer=1
+TimerCall=Timer

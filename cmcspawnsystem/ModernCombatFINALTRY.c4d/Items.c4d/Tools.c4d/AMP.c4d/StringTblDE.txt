@@ -1,0 +1,5 @@
+TakeAmmo=Munition entnehmen
+NeededPoints=Es werden <c ff0000>%d</c> Punkte zum Entpacken benötigt.
+AmmoReceived=%dx {{%i}} erhalten.
+NoSpace=Inventar bereits belegt.
+CantTake=Clonk kann gerade nicht entpacken.

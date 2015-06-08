@@ -1,0 +1,42 @@
+# Statistiken
+
+Stats=Statistiken
+BattlePoints=<c 00dd00>%d</c> Gefechtspunkte
+TeamPoints=<c 00dd00>%d</c> Teampunkte
+KillCount=<c ffff33>%d</c> Kills
+DeathCount=<c ee0000>%d</c> Tode
+AchievedAchievements=<c ffff33>%d</c> / %d Errungenschaften
+NextRank=Aktueller Rang: %s (%d)|Nächster Rang: %s (%d)
+YourRank=Aktueller Rang: %s (%d)
+YouHaveBeenPromoted=%s wurde auf den Rang <c ffff33>%s</c> befördert!
+UntilRankUp=Punkte bis Beförderung
+
+# Errungenschaften
+
+Ribbons=Ehrenbänder
+Achievements=Errungenschaften
+Showing=Seite %d von %d
+NextPage=Nächste Seite
+LastPage=Vorherige Seite
+Back=Zurück
+
+# Punktetabelle
+
+PointTable=Punktetabelle
+Points=Punkte
+
+# Allgemein
+
+AchievementNewUnlocked=<c %x>%s</c> hat die Errungenschaft <c ffff33>%s</c> erhalten
+Achievement=Errungenschaft
+Achievements=Errungenschaften
+AchievementsUnlocked=%d Errungenschaften freigeschaltet:
+AchievementLocked=<c 777777>Du hast diese Errungenschaft noch nicht erreicht.</c>
+RibbonAwarded=<c %x>%s</c> hat das Ehrenband <c ffff33>%s</c> von <c %x>%s</c> erhalten
+
+# Auswertung
+
+FirstLine=%s|Punktestand: <c 777777>%d (+ %d)</c> <c ffbb00>%d</c>
+SecondLine=Gefecht: <c 00ff00>+%d</c>  Team: <c 00ff00>+%d</c>  Minus: <c ff0000>%d</c>
+PlayerLine={{PSTL}}Kills: %d {{KAMB}}Tode: %d {{IC01}}Punkte: %d
+InfoLine={{CXTX}} Die Spielstände wurden gespeichert.

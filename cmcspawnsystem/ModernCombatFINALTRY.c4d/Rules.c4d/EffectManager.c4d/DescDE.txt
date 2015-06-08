@@ -1,0 +1,1 @@
+Das Heruntersetzen der Effektstufe kann bei langsameren Netzwerkrunden gegebenenfalls die Geschwindigkeit erhöhen. Stufe 3 stellt die normale Effektdarbietung dar.

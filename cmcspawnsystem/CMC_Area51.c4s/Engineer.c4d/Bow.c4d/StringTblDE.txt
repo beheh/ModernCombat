@@ -1,0 +1,2 @@
+Bolts=Bolzen
+EMPBolt=EMP-Bolzen

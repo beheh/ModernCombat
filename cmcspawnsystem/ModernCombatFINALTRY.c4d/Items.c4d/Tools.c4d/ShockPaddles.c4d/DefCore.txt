@@ -1,0 +1,20 @@
+[DefCore]
+id=CDBT
+Version=4,9,10,7
+Name=Shock Paddles
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
+MaxUserSelect=5
+Width=6
+Height=6
+Offset=-3,-3
+Value=40
+Mass=15
+Picture=0,6,64,64
+Vertices=3
+VertexX=2,0,-3
+VertexY=2,-3,2
+VertexFriction=80,60,80
+Rebuy=1
+Collectible=1
+Timer=35
+TimerCall=Timer

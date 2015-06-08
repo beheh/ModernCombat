@@ -1,0 +1,3 @@
+Handgranaten mit verschiedenen Inhalten und Funktionen.
+
+Handgranaten können mit [Doppelgraben] in den Granatengürtel übertragen werden und mit [Werfen] gezündet und geworfen.

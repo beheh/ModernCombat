@@ -1,0 +1,24 @@
+[DefCore]
+id=CPSN
+Version=4,9,10,7
+Name=Pump Station
+Category=C4D_Structure|C4D_SelectBuilding|C4D_SelectKnowledge
+MaxUserSelect=5
+Width=30
+Height=55
+Offset=-15,-28
+Vertices=5
+VertexX=-10,-15,0,15,10
+VertexY=-17,30,30,30,-28
+VertexFriction=100,100,100,100,100
+Value=200
+Mass=500
+Picture=0,0,30,55
+Exclusive=1
+ColorByOwner=1
+Construction=1
+Grab=2
+HorizontalFix=1
+
+[Physical]
+Energy=100000

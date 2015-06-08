@@ -1,0 +1,7 @@
+AlreadyHealing=Clonk already in treatment.
+NotWounded=Clonk not wounded.
+CantHeal=Clonk must stand in order to heal.
+CantTake=Clonk can't unpack at the moment.
+NotEnoughPoints=<c ff0000>40</c> points needed to unpack.
+NoSpace=Inventory is full.
+PacketJoined={{FAPK}} combined (+%d)

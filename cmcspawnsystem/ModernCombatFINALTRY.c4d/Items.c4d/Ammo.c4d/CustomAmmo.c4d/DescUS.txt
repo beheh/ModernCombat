@@ -1,0 +1,3 @@
+Contains individual packed ammo.
+
+Press [Double Dig] to unpack or [Throw] to hand over to allies.

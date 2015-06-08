@@ -1,0 +1,12 @@
+CreatingInterior=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+CreatingDecoration=Dekoration wird plaziert...
+
+Team1=Eurocorps
+Team2=Aggressoren
+
+Flag1=Eurocorps-Basis
+Flag2=Vorposten West
+Flag3=Resort
+Flag4=Vorposten Ost
+Flag5=Aggressoren-Basis

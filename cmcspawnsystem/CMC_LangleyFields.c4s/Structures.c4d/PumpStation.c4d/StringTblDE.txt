@@ -1,0 +1,5 @@
+CtrlDrillDesc=Bohren
+CtrlRetractDesc=Zurückziehen
+CtrlStopDesc=Stopp
+
+ErrNoRefinery=Keine Raffinerie in der Nähe!

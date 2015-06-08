@@ -1,0 +1,3 @@
+Ein Angreifer-Team tritt gegen ein Verteidiger-Team an. Die Angreifer haben das Ziel, die Zielobjekte der Verteidiger zu zerstören, um zu gewinnen. Die Verteidiger wiederum müssen dies verhindern und die Tickets der Angreifer aufbrauchen indem sie gleichere eliminieren, um zu gewinnen.
+
+Das Zerstören bestimmter Zielobjekte setzt die Ticketzahl der Angreifer zurück, sodass sie weiter vorrücken können, Verteidiger besitzen hingegen einen unendlichen Nachschub an Respawns.

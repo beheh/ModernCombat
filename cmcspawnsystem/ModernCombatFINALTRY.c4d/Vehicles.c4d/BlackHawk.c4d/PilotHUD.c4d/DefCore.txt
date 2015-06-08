@@ -1,0 +1,12 @@
+[DefCore]
+id=BHUD
+Version=4,9,10,7
+Name=Pilot HUD
+Category=C4D_StaticBack|C4D_Foreground|C4D_MouseIgnore|C4D_IgnoreFoW
+Width=332
+Height=202
+Offset=-166,-108
+Picture=0,0,332,202
+Timer=1
+TimerCall=Timer
+BorderBound=7

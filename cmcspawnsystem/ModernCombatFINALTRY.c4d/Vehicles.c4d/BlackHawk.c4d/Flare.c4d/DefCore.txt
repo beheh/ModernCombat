@@ -1,0 +1,15 @@
+[DefCore]
+id=FLRE
+Version=4,9,10,7
+Name=Flare
+Category=C4D_Vehicle
+Width=50
+Height=50
+Offset=-25,-25
+Mass=2
+Picture=50,0,46,44
+Vertices=1
+VertexY=1
+VertexFriction=20
+Timer=2
+TimerCall=TimerCall

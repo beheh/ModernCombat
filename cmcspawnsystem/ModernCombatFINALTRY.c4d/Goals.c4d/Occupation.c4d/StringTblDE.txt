@@ -1,0 +1,22 @@
+// Flaggenposten
+
+MsgCaptured=Team <c %x>%s</c> kontrolliert Flaggenposten <c ffff33>%s</c>!
+MsgFlagLost=Flaggenposten <c ffff33>%s</c> an Team <c %x>%s</c> verloren!
+
+// Tickets
+
+MsgTicketsLow=<c ff0000>Achtung</c>: Unsere Verstärkung geht zu Neige, nur noch <c ffff33>%d</c> übrig!
+MsgNoTickets=<c ff0000>Achtung</c>: Unsere Verstärkung ist <c ff0000>aufgebraucht</c>!
+
+// Sonstiges
+
+MsgGoalFulfilled=Und wir haben einen Gewinner!
+Score=Punkte
+MsgGoalLost=Dein Team hat verloren.
+TeamHasWon={{GOCC}} <c ffff33>Besitznahme</c> - Rundenende|Team <c %x>%s</c> hat diese Schlacht <c ffff33>gewonnen</c>!
+Kills=Kills
+Death=Tode
+MoreTickets=mehr Tickets
+LessTickets=weniger Tickets
+Finished=Fertig
+Tickets=Tickets

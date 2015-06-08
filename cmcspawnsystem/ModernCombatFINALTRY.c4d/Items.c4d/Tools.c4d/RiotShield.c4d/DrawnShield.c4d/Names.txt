@@ -1,0 +1,2 @@
+DE:Gezogenes Schild
+US:Drawn Shield

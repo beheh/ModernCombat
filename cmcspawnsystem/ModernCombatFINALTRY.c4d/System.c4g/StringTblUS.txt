@@ -1,0 +1,178 @@
+# Class Selection
+
+assault=Assault
+assault_desc=Qualified for all distances.|Assaults form the major attack|unit of the team and therefore are|mostly front and center in combat.
+medic=Medic
+medic_desc=Medics are the backbone of team|support and can heal and reanimate|wounded effectively. They are the|ultimate teamplayers.
+support=Supporter
+support_desc=Heavily armed and equppied with|lots of ammo. Idial to rain down|barrages on enemies and useful|in any stormy situation.
+antiskill=Antiskill
+antiskill_desc=Part of the special forces which|effectivly use riotshield to fend|of enemy fire. Use Shotguns to|quickly start counterattacks.
+artillerist=Artillerist
+artillerist_desc=Equipped with a powerful grenade|launcher, this unit acts behind|the battlefield and fires deadly|artillery onto the enemy.
+
+# CTF
+
+ReturnedTheFlag=%s returned the flag!
+CapturedTheFlag=%s captured the flag!
+HasTheFlag=%s has got the flag of team <c %x>%s</c>!
+FlagLost=The flag of <c %x>%s</c> was dropped!
+FlagReturned=The flag of <c %x>%s</c> was returned!
+OneFlagLeft=<c ff0000>Warning</c>: Team %s needs only <c ffff33>one</c> more flag to win!
+
+#Deathmatch
+
+DMPlayerIsWinning=<c ff0000>Warning</c>: %s needs only <c ffff33>%d</c> more kill(s) to win!
+DMTeamIsWinning=<c ff0000>Warning</c>: Team %s needs only <c ffff33>%d</c> more kill(s) to win!
+
+#Last Man Standing
+
+LivesLow=<c ff0000>Warning</c>: Only <c ffff33>%d</c> respawn(s) left!
+NoLivesLeft=<c ff0000>Warning</c>: No respawns left!
+
+# Chooser
+
+#General
+
+ChoosingPlayer=%s configures the game, please be patient...
+Choosing=%s configures the rules, please be patient...
+Goal=The goal has been chosen: <c ffff33>%s</c>
+Rules=<c ff0000>Rules chosen</c>: 
+StdRules=<c ffcc00>Standard rules</c>: 
+GoalChose=Configure goal
+Back=Back
+Finished=Finished
+ChangeHost=Transfer menu
+ChangeHostInfo=Transfer selection menu
+NewHost=<c %x>%s</c> <c ffff33>configures</c> the game now
+
+#Effects
+
+Effects=Effect Level
+MoreEffects=Increase Effect Level
+LessEffects=Decrease Effect Level
+EffectInfo=Configure Effect Level
+
+#Rules
+
+CreateRules=Rules
+RuleInfo=Configure rules
+
+#Darkness
+
+DarknessChose=Configure darkness
+MoreDarkness=Darker
+LessDarkness=Brighter
+
+#Teams
+
+TeamArrangement=Teams
+TeamInfo=Configure teams
+RandomTeams=Sort randomly
+AutoBalanceTeams=Sort by rank
+TeamCount=Team Count
+IncTeamCnt=Increase team count
+DecTeamCnt=Decrease team count
+SwitchInvisible=Invisible
+CreateTeams=Create Teams
+PredefinedTeamMember=Fixate player
+TeamsSortedManually=Manually
+TeamsSortedRandomly=Randomly
+TeamsSortedRandomlyAndInv=Randomly and invisible
+TeamsSortedByRank=By Rank
+Random=Random
+RotatedTeams=Alternating Team Selection
+ChooseCaptains=Choose Team Captains
+NoCaptain=<c 777777>No Team Captain</c>
+TeamCaptainsLeft=%d more team captains needed.
+StartTeamRotationDeactivated=<c 777777>Start Team Selection</c>
+StartTeamRotation=Start Team Selection
+TeamSortedByRotation=Team Captains
+TeamRotationBegins=Team Selection is starting!
+TeamRotationBegins=The host has started a team selection, all team captains can <c ffff33>choose</c> their own teammates one by one!
+TeamRotationEnd=The teams have been <c ffff33>selected</c>.
+TimeRemaining=Player Selection (%d)
+ChooseRandom=Random Player
+
+#AI
+
+AIMenu=AI setup
+AIInfo=Option to configure AI players
+OneAIMore=One bot more
+OneAILess=One bot less
+NewTeam=New Team
+FairTeams=Fair Teams
+FairTeamsInfo=Fair match
+OnlyDeleteLastTeam=The last team has to be removed first!
+
+#Goal
+
+MoreWinScore=Increase score
+LessWinScore=Decrease score
+
+#Game Goal Choosing
+
+RandomGoal=Random goal
+GoalRandomChoose=Choose goal randomly
+VoteGoal=Goal voting
+BeginVote=Begin vote?
+BeginVoteYes=Yes
+BeginVoteNo=No
+GoalVoteBegins=The host has started a goal election, you have <c ffff33>%d</c> seconds to choose your favorite(s)!
+
+#Scoreboard
+
+ScoreboardChooser=Host:
+ScoreboardGoals=Goal(s):
+ScoreboardRules=Rule(s):
+ScoreboardEffects=Effect Level:
+ScoreboardDarkness=Darkness Level:
+ScoreboardTeams=Team Arrangement:
+ScoreboardTimer=Round starts in:
+
+# Team
+
+Kills=Kills
+Death=Death
+WinMsg=And the winner is: %s
+
+# Votekick
+
+HostInfo=You can't start a voting in a round with a host.|Talk to the host about unpleasant players.
+LigaInfo=You can't start a voting in a liga round.
+PlayerCountInfo=At least 3 players have to be in the round to start a voting.
+SpamProtectInfo=You are only allowed to start a voting every 90 seconds.
+ClientChoose=Client Selection
+PlayerChoose=Player Selection
+MsgBoardReason=Reason:
+PlayerVotekickStart=Player %s started a kick voting and wants player %s to be kicked out.
+ClientVotekickStart=Player %s started a kick voting and wants client %s (%s) to be kicked out.
+Reason=<c ffff33>Reason:</c> %s
+VotekickInfo=Agree by typing <c ff0000>/votekick y</c>.
+VotekickDurationInfo=The voting runs for <c ff0000>30</c> seconds.
+HaveAlreadyVoted=You already voted.
+VotingCancelled=Voting canceled. (The player in question of expulsion left the round.)
+VotingStatistics=%d players participated in the voting. %d players are for and %d players against the expulsion of %s.
+VotekickSuccessful=A two thirds majority of the participants voted for the expulsion.
+VotekickNotEnough=There were not enough participants who voted for the expulsion.
+Cancel=Cancel
+
+# Easteregg
+
+Emptiness=The emptiness
+YourBrain=Your brain
+Nothing=Nothing
+Freezer=The freezer
+Space=The space
+YourGun=Your gun
+YourWallet=Your wallet
+YourCookieJar=Your cookie jar
+ThisWindow=You probably won't believe it but the absolute and great truth of it all is: This window
+YourStomach=Your stomach
+EverythingEmpty=Your FAP, AMP and shock paddles
+Barrel=The phosphor barrel
+Beer=The beer
+YourGlance=Your glance
+YourHarddrive=Your harddrive
+YourChat=Your chat window
+F=Authentification failed.

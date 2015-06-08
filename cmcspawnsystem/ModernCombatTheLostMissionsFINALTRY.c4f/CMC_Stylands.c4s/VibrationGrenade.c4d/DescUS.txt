@@ -1,0 +1,1 @@
+When activated, the grenade creates a local earthquake, aerating materials arround it.

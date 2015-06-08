@@ -1,0 +1,12 @@
+[Particle]
+Name=BloodBurst
+MaxCount=500
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+Face=0,0,64,64,-32,-32
+Delay=3
+Repeats=1
+GravityAcc=0
+AlphaFade=0
+RByV=2

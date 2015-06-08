@@ -1,0 +1,17 @@
+[DefCore]
+id=CNON
+Version=4,9,10,7
+Name=Cannon
+Category=C4D_StaticBack
+MaxUserSelect=10
+Width=6
+Height=68
+Offset=-3,-34
+Vertices=4
+VertexX=0,3,-3,0
+VertexY=-33,33,33,0
+VertexFriction=50,50,50
+Mass=150
+Components=METL=2
+Picture=0,0,6,68
+Rotate=1

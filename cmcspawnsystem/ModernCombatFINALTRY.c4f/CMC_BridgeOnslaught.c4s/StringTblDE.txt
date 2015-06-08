@@ -1,0 +1,16 @@
+CreatingInterior=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+CreatingDecoration=Dekoration wird plaziert...
+
+Team1=Eurocorps
+Team2=Aggressoren
+
+Flag1=Westlicher Eingang
+Flag2=Westliches Depot
+Flag3=Wachzentrale
+Flag4=Östliches Depot
+Flag5=Östlicher Eingang
+
+Target1=Überwachungssystem
+Target2=Kommunikationsserver
+Target3=Gasleitung

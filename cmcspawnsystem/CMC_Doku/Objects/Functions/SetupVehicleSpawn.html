@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>SetupVehicleSpawn - CMC Dokumentation</title>
+    <link rel="stylesheet" type="text/css" href="..\..\CSS.css">
+  </head>
+
+  <body>
+    <h1>SetupVehicleSpawn</h1>
+
+    <p><b>Kategorie:</b> Funktionen</p>
+
+    <h2>Beschreibung</h2>
+    <div class="Text">Lässt ein Fahrzeug automatisch respawnen, wenn es zerstört wurde.</div>
+    
+    <h2>Script</h2>
+    <div class="fnsyntax"><span class="type">bool</span> SetupVehicleSpawn (<span class="type">array</span> aType, <span class="type">int</span> iDir, <span class="type">object</span> pTarget, <span class="type">int</span> iFrames, <span class="type">int</span> iDistance);</div>
+
+    <h2>Parameter</h2>
+    <div class="parn">aType:</div>
+    <div class="part">Array der möglichen Fahrzeug-IDs. Es wird immer eine zufällige ID ausgewählt.</div>
+    <div class="parn">[opt] iDir:</div>
+    <div class="part">Richtung, in die die Fahrzeuge gedreht werden.</div>
+    <div class="parn">[opt] pTarget:</div>
+    <div class="part">Spawnpoint, dem die Fahrzeuge hinzugefügt werden. 0 bei lokalem Aufruf.</div>
+    <div class="parn">[opt] iFrames:</div>
+    <div class="part">Zeitintervall, nach dem ein Fahrzeug respawnt. Wenn nicht angegeben, respawnt ein Fahrzeug nach 2 Sekunden.</div>
+    <div class="parn">[opt] iDistance:</div>
+    <div class="part">Distanz für den sicheren Bereich. Fahrzeuge außerhalb dieses Bereichs werden mit der Zeit zerstört. Wenn nicht angegeben, wird 100 angenommen.</div>
+
+    <h2>Beispiel</h2>
+<pre class="code"><b>var</b> obj = CreateObject(VSPW, LandscapeWidth() / 2, 600, NO_OWNER);
+SetupVehicleSpawn([PBOT], 0, obj);</pre>
+    <div class="Text">Lässt Schlauchboote in der Mitte der Karte spawnen.</div>
+
+    <h2>Siehe auch</h2>
+    <div class="Text"><b>Objekte:</b> <a href="..\VehicleRespawnPoint.html">Fahrzeug-Respawnpoint</a></div>
+
+    <div class="Author">Limeox, November 2010</div>
+  </body>
+</html>

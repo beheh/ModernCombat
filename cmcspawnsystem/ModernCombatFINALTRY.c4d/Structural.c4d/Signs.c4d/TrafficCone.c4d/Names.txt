@@ -1,0 +1,2 @@
+DE:Leitkegel
+US:Traffic Cone

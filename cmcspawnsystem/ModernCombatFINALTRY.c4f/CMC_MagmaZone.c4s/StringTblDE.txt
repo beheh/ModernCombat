@@ -1,0 +1,17 @@
+CreatingInterior=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+CreatingDecoration=Dekoration wird plaziert...
+
+Team1=Spione
+Team2=Eurocorps
+
+Flag1=Westliche Station
+Flag2=Nachschublager
+Flag3=Aussichtsdeck
+Flag4=Verteiler
+Flag5=Kernplattform
+Flag6=Östliche Station
+
+Target1=Radaranlage
+Target2=Wasserfilter
+Target3=Datenserver

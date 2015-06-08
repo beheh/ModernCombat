@@ -1,0 +1,23 @@
+[DefCore]
+id=CWFY
+Version=4,9,10,7
+Name=War Factory
+Category=C4D_Structure|C4D_SelectBuilding|C4D_SelectKnowledge
+MaxUserSelect=3
+Width=116
+Height=90
+Offset=-58,-45
+Vertices=3
+VertexX=-58,0,58
+VertexY=44,44,44
+VertexFriction=100,100,100
+Value=450
+Mass=700
+Picture=0,0,116,90
+Entrance=-43,10,48,35
+Exclusive=1
+ColorByOwner=1
+Construction=1
+
+[Physical]
+Energy=100000

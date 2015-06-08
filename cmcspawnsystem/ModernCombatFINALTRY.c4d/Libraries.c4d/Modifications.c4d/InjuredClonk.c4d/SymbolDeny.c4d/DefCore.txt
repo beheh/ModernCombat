@@ -1,0 +1,9 @@
+[DefCore]
+id=SM06
+Version=4,9,10,7
+Name=Symbol
+Category=1
+Width=25
+Height=25
+Offset=-12,-12
+Picture=0,0,25,25

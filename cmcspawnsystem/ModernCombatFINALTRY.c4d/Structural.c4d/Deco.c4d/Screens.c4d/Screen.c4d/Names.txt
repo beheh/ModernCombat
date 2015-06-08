@@ -1,0 +1,2 @@
+DE:Bildschirm
+US:Screen

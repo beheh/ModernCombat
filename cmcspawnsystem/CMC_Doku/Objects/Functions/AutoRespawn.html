@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <title>AutoRespawn - CMC Dokumentation</title>
+    <link rel="stylesheet" type="text/css" href="..\..\CSS.css">
+  </head>
+
+  <body>
+    <h1>AutoRespawn</h1>
+
+    <p><b>Kategorie:</b> Funktionen</p>
+
+    <h2>Beschreibung</h2>
+    <div class="Text">Lässt ein Objekt automatisch respawnen, wenn es zerstört oder getötet wurde.</div>
+    
+    <h2>Script</h2>
+    <div class="fnsyntax"><span class="type">object</span> AutoRespawn (<span class="type">int</span> iFrames, <span class="type">int</span> iDistance, <span class="type">object</span> pTarget);</div>
+
+    <h2>Parameter</h2>
+    <div class="parn">[opt] iFrames:</div>
+    <div class="part">Zeit, nach der ein Objekt respawnt wird. Wenn nicht angegeben, wird ein Objekt nach 30 Sekunden respawnt.</div>
+    <div class="parn">[opt] iDistance:</div>
+    <div class="part">Wenn angegeben, wird ein Objekt bereits dann respawnt, wenn es mindestens so weit vom Spawnpoint entfernt ist.</div>
+    <div class="parn">[opt] pTarget:</div>
+    <div class="part">Objekt, das respawnt wird. 0 bei lokalem Aufruf.</div>
+
+    <h2>Beispiel</h2>
+<pre class="code">CreateObject(BIRD, LandscapeWidth() / 2, 200, NO_OWNER)->AutoRespawn(350);</pre>
+    <div class="Text">Erzeugt einen Vogel, der bei seinem Tod respawnt.</div>
+
+    <h2>Siehe auch</h2>
+    <div class="Text"><b>Objekte:</b> <a href="..\RespawnPoint.html">Respawnpoint</a></div>
+
+    <div class="Author">Limeox, November 2010</div>
+  </body>
+</html>

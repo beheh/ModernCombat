@@ -1,0 +1,2 @@
+This rule activates the points and statistics system.
+It allows players to earn points, achievements and ribbons. All data will be saved after finishing a round.

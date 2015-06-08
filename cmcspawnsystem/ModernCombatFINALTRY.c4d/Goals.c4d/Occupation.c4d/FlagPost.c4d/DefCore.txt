@@ -1,0 +1,13 @@
+[DefCore]
+id=OFPL
+Version=4,9,10,7
+Name=Flag Post
+Category=1
+Width=50
+Height=80
+Offset=-25,-80
+Mass=20
+Picture=0,0,50,80
+Vertices=1
+StretchGrowth=1
+BorderBound=1

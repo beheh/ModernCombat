@@ -1,0 +1,1 @@
+TargetMarked=<c %x>%s</c> hat ein Ziel markiert, Einheiten mit <c ffff33>Raketenwerfern</c>, feuerbereit halten

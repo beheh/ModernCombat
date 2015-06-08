@@ -1,0 +1,3 @@
+OpenDoor=Tür öffnen.
+NoCard=Keine passende Karte vorhanden.
+Restricted=Betreten nicht möglich:|Zugang führt in ein Sperrgebiet!

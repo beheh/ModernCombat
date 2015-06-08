@@ -1,0 +1,8 @@
+[DefCore]
+id=MCAM
+Version=4,9,10,7
+Name=Ammo
+Category=1
+Width=1
+Height=1
+Picture=0,0,64,64

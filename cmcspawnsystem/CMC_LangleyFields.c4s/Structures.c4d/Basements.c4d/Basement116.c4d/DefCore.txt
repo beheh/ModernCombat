@@ -1,0 +1,15 @@
+[DefCore]
+id=BT01
+Version=4,9,10,7
+Name=Basement
+Category=C4D_Structure
+Width=116
+Height=8
+Offset=-58,-4
+Vertices=4
+VertexX=-58,58,-58,58
+VertexY=-4,-4,4,4
+VertexFriction=5,5,5,5
+Picture=0,0,116,8
+SolidMask=0,0,116,8
+Construction=1

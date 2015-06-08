@@ -1,0 +1,4 @@
+Open=÷ffnen
+Close=Schlieﬂen
+Stop=Stop
+Repair=Reparieren

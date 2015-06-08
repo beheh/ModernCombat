@@ -1,0 +1,13 @@
+[DefCore]
+id=CMSN
+Version=4,9,10,7
+Name=COM Station
+Category=C4D_Structure
+Width=36
+Height=24
+Offset=-19,-12
+Vertices=2
+VertexY=11,-11
+VertexFriction=100,100
+Mass=800
+Picture=0,24,69,59

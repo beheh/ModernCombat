@@ -1,0 +1,15 @@
+[DefCore]
+id=ROOM
+Version=4,9,10,7
+Name=Room
+Category=1
+Width=20
+Height=24
+Offset=-10,-12
+Value=10
+Mass=100
+Components=METL=6
+Picture=0,0,20,24
+Entrance=-10,-12,20,24
+Exclusive=1
+ContainBlast=1

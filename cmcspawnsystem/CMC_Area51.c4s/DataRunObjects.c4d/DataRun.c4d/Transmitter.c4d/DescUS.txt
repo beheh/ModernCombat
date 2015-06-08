@@ -1,0 +1,3 @@
+A transmitter site which can access protected networks.
+
+Can be hacked with a specifically equipped computer.

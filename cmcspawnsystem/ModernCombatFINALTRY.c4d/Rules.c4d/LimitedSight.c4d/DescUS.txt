@@ -1,0 +1,1 @@
+Clonks have a limited view range.

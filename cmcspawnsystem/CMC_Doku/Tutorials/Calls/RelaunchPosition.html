@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>RelaunchPosition - CMC Dokumentation</title>
+    <link rel="stylesheet" type="text/css" href="..\..\CSS.css">
+  </head>
+
+  <body>
+    <h1>RelaunchPosition</h1>
+
+    <p><b>Kategorie:</b> Calls</p>
+
+    <h2>Beschreibung</h2>
+    <div class="Text">Wird aufgerufen, wenn Relaunchpositionen festgestellt werden müssen, zB bei den Hazard-Zielen und <a href="..\..\Goals\HoldTheFlag.html">Hold The Flag</a>.</div>
+    <div class="Text">Die Funktion bekommt zwei Referenzen übergeben, die als X- und Y-Position gesetzt werden müssen.</div>
+
+    <h2>Syntax</h2>
+    <div class="fnsyntax"><span class="type">public func</span> RelaunchPosition (<span class="type">int & </span>iX, <span class="type">int & </span>iY, <span class="type">int</span> iTeam)</div>
+
+    <h2>Beispiel</h2>
+<pre class="code"><b>public func</b> RelaunchPosition(<b>int &</b>iX, <b>int &</b>iY, <b>int</b> iTeam)
+{
+  <i class="string">//DM, LMS, CTF und HTF haben dieselben Spawnpunkte</i>
+  <b>if</b> (FindObject(GTDM) || FindObject(GLMS) || FindObject(GCTF) || FindObject(GHTF))
+    <i class="string">//Team 1</i>
+    <b>if</b> (iTeam == 1)
+      <i class="string">//Zufälliger Spawnpunkt</i>
+      <b>if</b> (!Random(2))
+      {
+        iX = 150;
+        iY = 150;
+        <b>return</b> true;
+      }
+      <b>else</b>
+      {
+        iX = 100;
+        iY = 300;
+        <b>return</b> true;
+      }
+    <i class="string">//Team 2</i>
+    <b>else</b>
+      <i class="string">//Zufälliger Spawnpunkt</i>
+      <b>if</b> (!Random(2))
+      {
+        iX = 1350;
+        iY = 150;
+        <b>return</b> true;
+      }
+      <b>else</b>
+      {
+        iX = 1400;
+        iY = 300;
+        <b>return</b> true;
+      }
+
+  <i class="string">//Besitznahme und Assaults verwalten Spawnpunkte selbst, also wird die Startsicht abgefragt</i>
+  iX = LandscapeWidth() / 2;
+  iY = LandscapeHeight() / 2;
+  <b>return</b> true;
+}</pre>
+
+    <div class="Author">Limeox, November 2010</div>
+  </body>
+</html>

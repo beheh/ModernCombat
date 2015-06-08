@@ -1,0 +1,18 @@
+//Tutorialtext
+
+Txt01=<c ffb100>Waffentechniker Ace:</c> Los gehts mit dem ersten Mobilitäts-Training! Das Ziel ist es, rechts auf die Ebene zu kommen. Um dieses Ziel zu erreichen musst du Techniken wie den altbekannten Backjump, das Kriechen und den Walljump anwenden. Viel Glück!
+Txt02=<c ffb100>Waffentechniker Ace:</c> Oh mein Gott, sind sie verletzt? Das war nicht unsere Absicht, die Sprengfalle lag hier ganz zufällig rum!|| ...jedenfalls, da dürfte auch irgendwo eine Dragninspritze liegen, die sollte sie wieder fit machen.
+Txt03=<c ffb100>Waffentechniker Ace:</c> Um da unten wieder rauszukommen, musst du durch den engen Tunnel. Um zu kriechen, drücke [<c ffff00>Doppelstop</c> + <c ffff00>Graben</c>], mit [<c ffff00>Springen</c>] kannst du wieder aufstehen.
+Txt04=<c ffb100>Waffentechniker Ace:</c> Bevor du da vorschnell runterspringst... Ich denke, ein normal denkender Clonk würde sich nicht von so einer Höhe stürzen.
+
+//Bestanden-Nachricht
+
+WellDone1=Ich denk, ich kann das so durchgehen lassen.
+WellDone2=Partizipant hat überlebt... check!
+WellDone3=Joa, passt.
+
+//Versagt-Nachricht
+
+Fail1=Woah. Echt genial. Respekt.
+Fail2=Das gibt für dich ein ein F, wie fersagt.
+Fail3=Sie haben den Eignungstest bestanden! ...sie sind nun CMC-zertifiziertes Kanonenfutter.

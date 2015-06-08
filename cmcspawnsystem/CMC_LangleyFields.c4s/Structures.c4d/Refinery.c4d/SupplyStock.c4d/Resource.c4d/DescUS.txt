@@ -1,0 +1,3 @@
+A transport box which contains raw material.
+
+[Double Dig] to sell directly. For complete processing, a refinery is needed.

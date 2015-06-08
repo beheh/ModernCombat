@@ -1,0 +1,16 @@
+[DefCore]
+id=PSPR
+Version=4,9,10,7
+Name=Phosphor
+Category=4
+Width=4
+Height=4
+Offset=-2,-2
+Mass=1
+Picture=4,0,32,32
+Vertices=1
+VertexY=1
+VertexFriction=200
+Timer=1
+TimerCall=Timer
+ 

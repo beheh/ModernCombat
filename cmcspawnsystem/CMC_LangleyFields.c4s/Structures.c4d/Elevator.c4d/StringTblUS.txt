@@ -1,0 +1,5 @@
+# Hauptmenü
+BuyElevatorCase=Buy elevator case
+BuyElevatorCaseInactive=<c 777777>Buy elevator case</c>
+ElevatorCaseMenuDesc=Buy a new elevator case.
+BuyElevatorCaseNotEnough=Not enough money for a new elevator case!

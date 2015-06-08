@@ -1,0 +1,19 @@
+[DefCore]
+id=AAMS
+Version=4,9,10,7
+Name=Anti Armor Missile
+Category=C4D_Object
+Width=4
+Height=16
+Offset=-2,0
+Mass=8
+Picture=4,0,64,64
+Vertices=2
+VertexY=-5,+5
+VertexFriction=70,70
+ColorByOwner=1
+Rotate=1
+NoStabilize=1
+
+[Physical]
+Float=100000

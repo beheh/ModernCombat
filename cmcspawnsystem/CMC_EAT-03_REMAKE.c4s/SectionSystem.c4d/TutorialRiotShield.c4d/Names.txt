@@ -1,0 +1,2 @@
+DE:Einsatzschild
+US:Riot Shield

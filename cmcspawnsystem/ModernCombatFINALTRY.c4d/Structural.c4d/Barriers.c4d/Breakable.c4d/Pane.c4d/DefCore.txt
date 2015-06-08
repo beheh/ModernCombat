@@ -1,0 +1,11 @@
+[DefCore]
+id=PANE
+Version=4,9,10,7
+Name=Pane
+Category=1
+Width=5
+Height=29
+Offset=-2,-15
+Mass=5
+SolidMask=5,0,5,29,0,0
+Picture=10,0,34,29

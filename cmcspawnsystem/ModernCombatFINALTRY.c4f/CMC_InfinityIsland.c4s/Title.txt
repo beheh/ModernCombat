@@ -1,0 +1,2 @@
+DE:CMC - <c ffff33>Infinity Island</c>
+US:CMC - <c ffff33>Infinity Island</c>

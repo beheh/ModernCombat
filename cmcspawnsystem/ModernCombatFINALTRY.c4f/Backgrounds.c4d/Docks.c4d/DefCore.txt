@@ -1,0 +1,9 @@
+[DefCore]
+id=BD04
+Name=Docks
+Version=4,9,5
+Category=1
+Width=612
+Height=314
+Picture=0,0,1,1
+Offset=-300,-150

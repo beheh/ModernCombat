@@ -1,0 +1,18 @@
+[DefCore]
+id=PPAR
+Version=4,9,10,7
+Name=Parachute Backpack
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
+MaxUserSelect=5
+Width=10
+Height=14
+Offset=-5,-7
+Value=50
+Mass=10
+Picture=0,14,64,64
+Vertices=4
+VertexX=2,2,-2,-2
+VertexY=5,-5,5,-5
+VertexFriction=50,50,50,50
+Rebuy=1
+Collectible=1

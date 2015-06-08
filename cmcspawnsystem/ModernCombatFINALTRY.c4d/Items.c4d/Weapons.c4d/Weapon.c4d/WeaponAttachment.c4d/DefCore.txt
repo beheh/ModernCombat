@@ -1,0 +1,19 @@
+[DefCore]
+id=WNAT
+Version=4,9,10,7
+Name=Weapon Attachment
+Category=C4D_Object|C4D_SelectMaterial
+MaxUserSelect=5
+Width=11
+Height=6
+Offset=-5,-3
+Value=10
+Mass=10
+Components=WNAT=1
+Picture=11,0,110,110
+Vertices=4
+VertexX=5,0,0,-6
+VertexY=2,2,-4,2
+VertexFriction=100,100,80,100
+Rebuy=1
+Collectible=1

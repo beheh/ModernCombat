@@ -1,0 +1,22 @@
+[DefCore]
+id=_HBB
+Version=4,9,10,7
+Name=Destroyed Bridge
+Category=C4D_Structure
+Width=72
+Height=24
+Offset=-36,-5
+Value=20
+Mass=400
+Components=METL=3
+Picture=0,25,63,34
+SolidMask=0,0,72,24
+TopFace=72,0,72,24
+Vertices=4
+Rotate=1
+RotatedSolidmasks=1
+VertexX=-36,35,-36,35
+VertexY=6,6,16,16
+VertexCNAT=5,6,9,10
+VertexFriction=100,100,20,20
+

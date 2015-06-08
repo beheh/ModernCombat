@@ -1,0 +1,3 @@
+Clonks können mit Ausrüstung weitere Fähigkeiten erlangen.
+
+Ausrüstung kann mit [Doppelgraben] angelegt und im Kontextmenü verwaltet werden.

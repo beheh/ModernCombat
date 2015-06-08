@@ -1,0 +1,6 @@
+Question=Name des Objektes: %s|Verbleibende Zeit: %d Sekunden
+Answer=Antwort abgeben
+AnsweredRight=Du hast die Frage schon richtig beantwortet.
+HasAnsweredRight=%s hat die Frage richtig beantwortet.
+Points=Punkte
+TheRightAnswerWas=Die gesuchte ID war <c ffff33>%i</c>.

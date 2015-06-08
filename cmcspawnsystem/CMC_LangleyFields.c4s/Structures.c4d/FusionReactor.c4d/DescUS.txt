@@ -1,0 +1,3 @@
+The fusion reactor is a reliable energy source for the base using environmentalfriendly fusion.
+
+The reactor can be adjusted to use additional forms of energy to increase production.

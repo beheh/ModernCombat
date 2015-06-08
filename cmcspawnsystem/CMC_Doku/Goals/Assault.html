@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>Assault - CMC Dokumentation</title>
+	<link rel="stylesheet" type="text/css" href="..\CSS.css">
+  </head>
+  
+  <body>
+    <h1>Assault</h1>
+	
+	<p><b>Kategorie:</b> Ziele (Objekt)</p>
+    <p><b>ID:</b> GASS</p>
+
+	<h2>Beschreibung</h2>
+	<img src="Assault.png" id="cpem"></img>
+	<div class="Text">Assault teilt die Spieler in 2 Teams, wovon ein Team die Rolle der Verteidiger übernimmt und alle anderen Spieler die der Angreifer.</div>
+	<div class="Text">Das Angreiferteam erhält je nach Spielerverteilung eine vorgegebene Anzahl Tickets, das Verteidigerteam erhält diverse Zielobjekte.</div>
+	<div class="Text">Ziel der Angreifer ist es, sämtliche Zielobjekte der Verteidiger zu zerstören. Die Verteidiger hingegen müssen versuchen, die Angreifer so oft wie möglich zu töten und somit deren Ticket-Anzahl auf 0 zu senken.</div>
+	<div class="Text">Die Verteidiger haben eine unbegrenzte Anzahl Relaunches. Die Angreifer hingegen benötigen pro Respawn ein Ticket. Sind keine Tickets übrig, können die Angreifer nicht mehr beitreten. Sind alle Angreifer so aus dem Spiel gezogen, gewinnen die Verteidiger. Das Zerstören von Zielobjekten setzt die Tickets wieder zurück.</div>
+
+	<h2>Anwendung</h2>
+	<div class="Text">Durch Verwendung von <a href="Functions\AddAssaultTarget.html">AddAssaultTarget</a> werden Zielobjekte erzeugt. Zu beachten ist, dass nur ein Team Zielobjekte erhalten darf. Dieses wird automatisch zum Verteidigerteam, alle anderen Spieler sind Angreifer, auch wenn sie in verschiedenen Teams sind. Wenn zum Beispiel die Teams Alpha, Beta und Gamma im Spiel sind und Team Beta Zielobjekte erhält, werden Team Alpha und Gamma zum Angreifer- und Beta zum Verteidigerteam.</div>
+	<div class="Text">Um den Aktionsbereich der Spieler einzuschränken, sollten Grenzobjekte benutzt werden, welche im jeweiligen <a href="Calls\OnAssaultTargetDestruction.html">OnAssaultTargetDestruction</a>-Call neu gesetzt werden müssen. Diese sind jedoch nicht zwingend notwendig. Wenn ein Zielobjekt nicht "an der Reihe" ist, kann es auch nicht beschädigt werden, weitere Schutzmaßnahmen sind nicht nötig.</div>
+	<div class="Text">Sollen mehrere Ziele gleichzeitig beschädigt werden können, sollte <a href="Functions\ConnectAssaultTargets.html">ConnectAssaultTargets</a> benutzt werden.</div>
+
+	<h2>Siehe auch</h2>
+	<div class="Text"><b>Objekte:</b> <a href="BaseAssault.html">Base Assault</a></div>
+	<div class="Text"><b>Funktionen:</b> <a href="Functions\AddAssaultTarget.html">AddAssaultTarget</a>, <a href="Functions\ConnectAssaultTargets.html">ConnectAssaultTargets</a>, <a href="Functions\GetAssaultTarget.html">GetAssaultTarget</a></div>
+	<div class="Text"><b>Calls:</b> <a href="Calls\OnAssaultTargetDestruction.html">OnAssaultTargetDestruction</a></div>
+
+	<div class="Author">Limeox, Oktober 2010</div>
+  </body>
+</html>

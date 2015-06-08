@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>Szenarien erstellen - CMC Dokumentation</title>
+    <link rel="stylesheet" type="text/css" href="..\CSS.css">
+  </head>
+
+  <body>
+    <h1>Szenarien erstellen</h1>
+
+    <p><b>Kategorie:</b> Tutorial</p>
+
+    <h2>Scenario.txt</h2>
+    <div class="Text">In der Scenario.txt müssen diverse Einstellungen vorgenommen werden, um typisches CMC-Verhalten zu erzeugen.</div>
+    <div class="Text">Unter der Sektion [Head] müssen die Einträge Origin und Loader gesetzt sein, damit CMC-Musik, -Materialien und -Loader genutzt werden.</div>
+<pre class="code">[Head]
+...
+Loader=Loader_CMC*
+Origin=ModernCombat.c4f</pre>
+    <div class="Text">Der nächste wichtige Punkt ist die Ladereihenfolge der benötigten Packs. Sie müssen in der folgenden Reihenfolge geladen werden:</div>
+<pre class="code">[Definitions]
+Definition1=Objects.c4d
+Definition2=Hazard.c4d
+Definition3=ModernCombat.c4d</pre>
+    <div class="Text">Um den Regelwähler zu benutzen, muss dieser unter [Game] eingetragen sein.</div>
+    <div class="Text">Dieser lässt automatisch die Auswahl aus allen unter Goals angegebenen Ziele. Hazard-Spielziele können über den Platzierungsfaktor voreingestellt werden.</div>
+<pre class="code">[Game]
+...
+Goals=GOCC=1;GBAS=1;GHTF=1;GLMS=10;GCTF=3;GTDM=10
+Rules=CHOS=1</pre>
+
+    <h2>Script</h2>
+    <div class="Text">Alle neuen Szenarien sollten den Standardscript CSTD inkludieren. Damit besitzt ein Szenario die CMC-Relaunch-Mechanik und diverse Standardeinstellungen, die ggf. überladen werden können.</div>
+
+    <div class="Text"><b>Überladbare Funktionen:</b></div>
+    <div class="Text">Generell:</div>
+    <div class="Text"><a href = "Calls\ChooserFinished.html">ChooserFinished</a></div>
+    <div class="Text"><a href = "Calls\ChooserRuleConfig.html">ChooserRuleConfig</a></div>
+    <div class="Text"><a href = "Calls\OnClassSelection.html">OnClassSelection</a></div>
+    <div class="Text"><a href = "Calls\RelaunchPosition.html">RelaunchPosition</a></div>
+
+    <div class="Text">Ziele:</div>
+    <div class="Text"><a href = "..\Goals\Calls\FlagAttacked.html">FlagAttacked</a></div>
+    <div class="Text"><a href = "..\Goals\Calls\FlagCaptured.html">FlagCaptured</a></div>
+    <div class="Text"><a href = "..\Goals\Calls\FlagLost.html">FlagLost</a></div>
+    <div class="Text"><a href = "..\Goals\Calls\GetHTFTime.html">GetHTFTime</a></div>
+    <div class="Text"><a href = "..\Goals\Calls\OccupationDir.html">OccupationDir</a></div>
+    <div class="Text"><a href = "..\Goals\Calls\OnAssaultTargetDestruction.html">OnAssaultTargetDestruction</a></div>
+
+    <div class="Author">Limeox, November 2010</div>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+[DefCore]
+id=CASS
+Version=4,9,10,7
+Name=Basic Assault
+Category=1
+Picture=0,0,64,64

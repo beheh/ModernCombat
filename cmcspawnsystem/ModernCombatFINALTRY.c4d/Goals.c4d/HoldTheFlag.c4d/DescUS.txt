@@ -1,0 +1,3 @@
+The goal is to hold the flag post. The team that controls the flag gains points over time.
+
+Whoever reaches the requested points first wins.

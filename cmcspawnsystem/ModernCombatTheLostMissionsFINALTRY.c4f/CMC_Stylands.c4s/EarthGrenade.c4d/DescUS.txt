@@ -1,0 +1,1 @@
+Creates a solid earth platform when detonating.

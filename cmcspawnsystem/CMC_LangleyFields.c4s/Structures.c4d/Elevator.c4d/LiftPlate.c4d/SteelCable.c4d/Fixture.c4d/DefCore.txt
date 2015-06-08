@@ -1,0 +1,7 @@
+[DefCore]
+id=FXTR
+Version=4,9,8,2
+Name=Fixture
+Category=C4D_StaticBack
+Width=1
+Height=1

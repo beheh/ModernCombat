@@ -1,0 +1,7 @@
+# Einführung
+
+WelcomeMsg3=@<c 909090>Doch zuerst müsst ihr euren Charakter wählen!
+WelcomeMsg4=@<c 909090>Stellt euch vor einen Charakter und drückt 'Springen'!
+WelcomeMsg5=@<c 909090>Jetzt geht's weiter zur Aufstellung!
+
+TimeRemaining=@Verbleibende Zeit: %d Sekunden

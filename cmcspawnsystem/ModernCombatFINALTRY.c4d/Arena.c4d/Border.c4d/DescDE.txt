@@ -1,0 +1,1 @@
+Das Grenzobjekt eliminiert nach wenigen Sekunden Spieler, welche eine bestimmte Koordinate überschreiten und hindert sie so daran, das Spielfeld zu verlassen.

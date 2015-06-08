@@ -1,0 +1,19 @@
+CreatingInterior=Creating furniture...
+CreatingEquipment=Placing equipment...
+CreatingDecoration=Placing decoration...
+
+Team1=Assault Troop
+Team2=Base Crew
+
+Flag1=Entrance
+Flag2=Lobby
+Flag3=Depot
+Flag4=Office Block
+
+Target1=Control Unit
+Target2=Water Filter
+Target3=Cooling System
+Target4=Energy Converter
+Target5=Data Server
+Target6=Central Server
+Target7=Water Filter

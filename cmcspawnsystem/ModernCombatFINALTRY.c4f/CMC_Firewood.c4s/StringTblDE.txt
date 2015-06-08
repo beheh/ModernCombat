@@ -1,0 +1,15 @@
+CreatingInterior=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+CreatingDecoration=Dekoration wird plaziert...
+
+Team1=Alpha
+Team2=Beta
+Team3=Gamma
+Team4=Delta
+
+Flag1=Westturm
+Flag2=Westlicher Tunnel
+Flag3=Hochebene
+Flag4=Anlegestelle
+Flag5=Östlicher Tunnel
+Flag6=Ostturm

@@ -1,0 +1,24 @@
+[DefCore]
+id=PBOT
+Version=4,9,10,7
+Name=Patrol Boat
+Category=C4D_Vehicle
+Width=80
+Height=22
+Offset=-40,-11
+Value=50
+Mass=100
+Vertices=4
+VertexX=26,-27,26,-27
+VertexY=9,9,0,0
+VertexCNAT=10,9,6,5
+VertexFriction=80,80,80,80
+Components=METL=1;OBRL=3
+Picture=0,22,64,64
+Rebuy=1
+Grab=1
+Rotate=30
+Float=3
+BorderBound=1
+ColorByOwner=1
+UprightAttach=8

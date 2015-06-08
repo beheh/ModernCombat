@@ -1,0 +1,2 @@
+DE:Verkehrsampel
+US:Traffic Light

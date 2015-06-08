@@ -1,0 +1,18 @@
+[DefCore]
+id=SDSD
+Version=4,9,10,7
+Name=Shield Stand
+Category=C4D_Vehicle
+Width=24
+Height=17
+Value=40
+Mass=40
+Picture=0,17,50,54
+Offset=-12,-7
+Vertices=5
+VertexX=0,10,8,8,-10
+VertexY=1,8,7,-6,7
+VertexFriction=0,60,60,60,60
+Float=1
+Rotate=0
+Grab=2

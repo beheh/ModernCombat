@@ -1,0 +1,5 @@
+# Hauptmenü
+BuyElevatorCase=Fahrstuhlplattform kaufen
+BuyElevatorCaseInactive=<c 777777>Fahrstuhlplattform kaufen</c>
+ElevatorCaseMenuDesc=Neue Fahrstuhlplattform kaufen.
+BuyElevatorCaseNotEnough=Nicht genügend Geld für eine neue Fahrstuhlplattform!

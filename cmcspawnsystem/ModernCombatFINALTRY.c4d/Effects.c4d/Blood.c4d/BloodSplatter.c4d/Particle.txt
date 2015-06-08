@@ -1,0 +1,10 @@
+[Particle]
+Name=BloodSplatter
+MaxCount=500
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+Face=0,0,64,64,-32,-32
+GravityAcc=0
+AlphaFade=1
+RByV=2

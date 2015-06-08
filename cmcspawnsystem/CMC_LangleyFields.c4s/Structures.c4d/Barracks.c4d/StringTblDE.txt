@@ -1,0 +1,39 @@
+StorageContent=Speicher: %d/%d
+CloseStorageSupply=Speicherzufuhr sperren
+OpenStorageSupply=Speicherzufuhr öffnen
+BuyClonkMenu=Clonks kaufen
+BuyEquipmentMenu=Ausrüstung kaufen
+AmmoReceived=Munition empfangen
+Paratrooper=Fallschirmspringer
+
+#Info
+CloseStorageInfo=Verbietet die Geldzufuhr zum Munitionsspeicher.
+OpenStorageInfo=Erlaubt die Geldzufuhr zum Munitionsspeicher
+ParatrooperInfo=Lässt den Clonk an einer bestimmten Position mit Fallschirm abspringen.
+BuyClonkInfo=Ermöglicht den Kauf von Einheiten.
+BuyEquipmentInfo=Ermöglicht den Kauf von Ausrüstungsgegenständen.
+BuyPresetInfo=Ermöglicht den Kauf anhand von voreingestellter Klassen.
+
+#Presets
+BuyPresets=Vordefinierte Klassen
+ChoosePresetMenu=Einstellung auswählen
+Preset1=Einstellung 1
+Preset2=Einstellung 2
+Preset3=Einstellung 3
+ChooseSpecPresetMenu=Einstellung bearbeiten
+PresetClonk=Clonk:
+ChooseClonk=Clonk wählen
+PresetWeapons=Waffen:
+PresetEquipment=Ausrüstung:
+ChooseWeaponSlot=<c ffff33>Waffe auswählen</c>
+ChooseEquipmentSlot=<c ffff33>Ausrüstung auswählen</c>
+Total=Summe:
+ChooseWeaponSlot=Waffenauswahl
+ChooseEquipmentSlot=Ausrüstungsauswahl
+BackToPresets=Fertig
+ChooseClonkMenu=Clonkauswahl
+NoBuySpecPreset=<c ff0000>Kaufen</c>
+BuySpecPreset=Kaufen
+GoToCart=Zum Einkaufswagen
+BackToMainMenu=Hauptmenü
+Back=Zurück

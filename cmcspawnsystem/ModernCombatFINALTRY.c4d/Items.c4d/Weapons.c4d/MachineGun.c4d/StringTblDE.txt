@@ -1,0 +1,3 @@
+Bullets=Kugeln
+Auto=Automatik
+Burst=Feuerstoﬂ

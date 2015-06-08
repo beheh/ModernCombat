@@ -1,0 +1,1 @@
+Warning=Warning, return to the area of operations!|Elimination in|<c ff0000>%d</c>

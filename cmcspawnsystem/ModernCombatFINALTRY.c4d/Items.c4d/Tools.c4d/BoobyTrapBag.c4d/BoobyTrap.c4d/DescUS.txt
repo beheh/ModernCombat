@@ -1,0 +1,3 @@
+Monitores a prior selected angle and tosses a deadly load of shrapnels toward the victim.
+
+Can be defused and picked up by grabbing it and pressing [Jump].

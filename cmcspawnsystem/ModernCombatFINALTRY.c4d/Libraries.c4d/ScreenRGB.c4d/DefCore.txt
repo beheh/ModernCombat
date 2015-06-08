@@ -1,0 +1,10 @@
+[DefCore]
+id=S24K
+Version=4,9,10,7
+Name=ScreenRGB
+Category=C4D_StaticBack|C4D_Parallax|C4D_Foreground|C4D_MouseIgnore|C4D_IgnoreFoW
+Width=250
+Height=250
+Offset=0,0
+Picture=250,0,64,64
+Oversize=1

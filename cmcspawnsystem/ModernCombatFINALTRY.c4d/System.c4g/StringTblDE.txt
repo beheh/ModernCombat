@@ -1,0 +1,177 @@
+# Klassenwahl
+
+assault=Sturmeinheit
+assault_desc=Eignen sich für alle Distanzen.|Sturmeinheiten bilden die Speer-|spitzen des Teams und sind demnach|meist an vorderster Front zuhause.
+medic=Sanitäter
+medic_desc=Sanitäter bilden das Rückgrat der|Teamversorgung und können|effektiv heilen und reanimieren.|Die ultimativen Teamspieler.
+support=Unterstützer
+support_desc=Schwer bewaffnet und mit genügend|Munition ausgerüstet ist der|Unterstützer die Antwort auf fast|jede hitzige Kampfsituation.
+antiskill=Antiskill
+antiskill_desc=Bilden die Spezialeinheiten, welche|effektiv mit Einsatzschildern vor|Feindbeschuss schützen und schnell|mit Shotguns Angriffe starten.
+artillerist=Artillerist
+artillerist_desc=Mit einem starken Granatenwerfer|ausgerüstet, agiert diese Einheit|hinter der Frontlinie und feuert|tödliche Artillerie auf den Feind.
+
+# CTF
+
+ReturnedTheFlag=%s hat die Flagge zurückgebracht!
+CapturedTheFlag=%s hat die Flagge erfolgreich geklaut!
+HasTheFlag=%s hat die Flagge von Team <c %x>%s</c>!
+FlagLost=Die Flagge von <c %x>%s</c> wurde fallen gelassen!
+FlagReturned=Die Flagge von <c %x>%s</c> ist zurück!
+OneFlagLeft=<c ff0000>Achtung</c>: Team %s fehlt nur noch <c ffff33>eine</c> Flagge zum Sieg!
+
+#Deathmatch
+
+DMPlayerIsWinning=<c ff0000>Achtung</c>: %s benötigt nur noch <c ffff33>%d</c> Kill(s) zum Sieg!
+DMTeamIsWinning=<c ff0000>Achtung</c>: Team %s benötigen nur noch <c ffff33>%d</c> Kill(s) zum Sieg!
+
+#Last Man Standing
+
+LivesLow=<c ff0000>Achtung</c>: Nur noch <c ffff33>%d</c> Respawn(s) übrig!
+NoLivesLeft=<c ff0000>Achtung</c>: Keine Respawns mehr übrig!
+
+# Chooser
+
+#Allgemein
+
+ChoosingPlayer=%s wählt jetzt die Spielkonfiguration, bitte noch etwas Geduld...
+Choosing=%s sucht gerade die Regeln aus, noch ein wenig Geduld...
+Goal=Das Spielziel wurde gewählt: <c ffff33>%s</c>
+Rules=<c ff0000>Regelwahl</c>: 
+StdRules=<c ffcc00>Standardregeln</c>: 
+GoalChose=Spielziel konfigurieren
+Back=Zurück
+Finished=Fertig
+ChangeHost=Menü weitergeben
+ChangeHostInfo=Spielzielwahl weitergeben
+NewHost=<c %x>%s</c> wählt jetzt die <c ffff33>Spielkonfiguration</c>
+
+#Effekte
+
+Effects=Effektstufe
+MoreEffects=Effektstufe erhöhen
+LessEffects=Effektstufe senken
+EffectInfo=Effektstufe setzen
+
+#Regeln
+
+CreateRules=Spielregeln
+RuleInfo=Spielregel einstellen
+
+#Dunkelheit
+
+DarknessChose=Intensität der Dunkelheit
+MoreDarkness=Dunkelheit erhöhen
+LessDarkness=Dunkelheit senken
+
+#Teams
+
+TeamArrangement=Teams
+TeamInfo=Teameinteilung konfigurieren
+RandomTeams=Zufällig anordnen
+AutoBalanceTeams=Nach Rang anordnen
+TeamCount=Teamanzahl
+IncTeamCnt=Teamanzahl erhöhen
+DecTeamCnt=Teamanzahl verringern
+SwitchInvisible=Unsichtbar
+CreateTeams=Teams aufstellen
+PredefinedTeamMember=Spieler festlegen
+TeamsSortedManually=Manuell
+TeamsSortedRandomly=Zufall
+TeamsSortedRandomlyAndInv=Zufällig und unsichtbar
+TeamsSortedByRank=Nach Rang
+Random=Zufällig
+RotatedTeams=Abwechselnde Teamwahl
+ChooseCaptains=Teamcaptains auswählen
+NoCaptain=<c 777777>Kein Teamcaptain</c>
+TeamCaptainsLeft=Es müssen noch %d Teamcaptains ausgewählt werden.
+StartTeamRotationDeactivated=<c 777777>Teamauswahl starten</c>
+StartTeamRotation=Teamauswahl starten
+TeamSortedByRotation=Teamcaptains
+TeamRotationBegins=Der Host startet eine Teamwahl, alle Teamcaptains können nacheinander ihre eigenen Mitspieler <c ffff33>wählen</c>!
+TeamRotationEnd=Die Teams wurden <c ffff33>ausgewählt</c>.
+TimeRemaining=Spielerwahl (%d)
+ChooseRandom=Zufälliger Spieler
+
+#KI
+
+AIMenu=KIs einstellen
+AIInfo=Diverse Einstellungen für KIs
+OneAIMore=Ein Bot mehr
+OneAILess=Ein Bot weniger
+NewTeam=Neues Team
+FairTeams=Faire Teams
+FairTeamsInfo=Alle Teams auffüllen, so dass überall die gleiche Anzahl Clonks vorhanden ist
+OnlyDeleteLastTeam=Das letzte Team muss als erstes entfernt werden!
+
+#Spielziel
+
+MoreWinScore=Punktzahl erhöhen
+LessWinScore=Punktzahl senken
+
+#Spielzielwahl
+
+RandomGoal=Zufallsspielziel
+GoalRandomChoose=Spielziel auswürfeln
+VoteGoal=Spielzielabstimmung
+BeginVote=Abstimmung starten?
+BeginVoteYes=Ja
+BeginVoteNo=Nein
+GoalVoteBegins=Der Host startet eine Spielzielwahl, du hast <c ffff33>%d</c> Sekunden um deine(n) Favorit(en) zu wählen!
+
+# Scoreboard
+
+ScoreboardChooser=Host:
+ScoreboardGoals=Spielziel(e):
+ScoreboardRules=Spielregel(n):
+ScoreboardEffects=Effektstufe:
+ScoreboardDarkness=Dunkelheitsstufe:
+ScoreboardTeams=Teamverteilung:
+ScoreboardTimer=Runde startet in:
+
+# Team
+
+Kills=Kills
+Death=Tode
+WinMsg=%s hat gewonnen!
+
+# Votekick
+
+HostInfo=Du kannst in einer Runde mit Host keine Umfrage starten.|Spreche den Host auf unliebsame Spieler an.
+LigaInfo=Du kannst in einer Ligarunde keine Umfrage starten.
+PlayerCountInfo=Es müssen mindestens 3 Spieler spielen, um eine Umfrage zu starten.
+SpamProtectInfo=Du darfst nur alle 90 Sekunden eine Umfrage starten.
+ClientChoose=Client-Auswahl
+PlayerChoose=Spielerauswahl
+MsgBoardReason=Grund:
+PlayerVotekickStart=Spieler %s hat eine Kick-Umfrage gestartet! Spieler %s soll rausgeworfen werden.
+ClientVotekickStart=Spieler %s hat eine Kick-Umfrage gestartet! Client %s (%s) soll rausgeworfen werden.
+Reason=<c ffff33>Begründung:</c> %s
+VotekickInfo=Mit <c ff0000>/votekick y</c> dem Rauswurf zustimmen.
+VotekickDurationInfo=Das Voting läuft <c ff0000>30</c> Sekunden lang.
+HaveAlreadyVoted=Du hast schon abgestimmt.
+VotingCancelled=Umfrage abgebrochen. (Der vom Rauswurf betroffene Spieler hat die Runde verlassen.)
+VotingStatistics=Es haben %d Spieler an der Umfrage teilgenommen. %d Spieler sind für und %d Spieler sind gegen einen Rauswurf von %s.
+VotekickSuccessful=Es hat eine 2/3 Mehrheit der Teilnehmer für einen Rauswurf gestimmt.
+VotekickNotEnough=Es haben nicht genügend Teilnehmer für einen Rauswurf gestimmt.
+Cancel=Abbrechen
+
+# Easteregg
+
+Emptiness=Die Leere
+YourBrain=Dein Gehirn
+Nothing=Nichts
+Freezer=Der Kühlschrank
+Space=Die unendliche Weite
+YourGun=Deine Waffe
+YourWallet=Dein Geldbeutel
+YourCookieJar=Deine Keksdose
+ThisWindow=Du wirst es kaum glauben aber die absolute, großartige Wahrheit von allem ist: Dieses Fenster
+YourStomach=Dein Magen
+EverythingEmpty=Dein EHP, MTP und Defibrillator
+Barrel=Das Phosphorfass
+Beer=Das Bier
+YourGlance=Dein Blick
+YourHarddrive=Deine Festplatte
+YourChat=Dein Chatfenster
+F=Authentifizierung fehlgeschlagen.

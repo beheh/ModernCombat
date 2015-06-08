@@ -1,0 +1,14 @@
+CreatingInterior=Creating furniture...
+CreatingEquipment=Placing equipment...
+CreatingDecoration=Placing decoration...
+
+MsgCollapse=<c ff0000>Warning</c>: The local antenna tower <c ffff33>collapses</c>
+
+Team1=Aggressors
+Team2=Eurocorps
+
+Flag1=Alpha Base West
+Flag2=Alpha Base East
+Flag3=Antenna Tower
+Flag4=Beta Base West
+Flag5=Beta Base East

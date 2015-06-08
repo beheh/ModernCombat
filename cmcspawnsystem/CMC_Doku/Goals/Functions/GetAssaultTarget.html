@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>GetAssaultTarget - CMC Dokumentation</title>
+	<link rel="stylesheet" type="text/css" href="..\..\CSS.css">
+  </head>
+  
+  <body>
+    <h1>GetAssaultTarget</h1>
+	
+	<p><b>Kategorie:</b> Ziele (global)</p>
+
+	<h2>Beschreibung</h2>
+	<div class="Text">Gibt ein Zielobjekt anhand seiner Teamzugehörigkeit und seiner bei <a href="AddAssaultTarget.html">AddAssaultTarget</a> angegebenen Nummer zurück. Ist das Ziel bereits zerstört, wird 0 zurückgegeben.</div>
+
+	<h2>Syntax</h2>
+	<div class="fnsyntax"><span class="type">object</span> GetAssaultTarget (<span class="type">int</span> iIndex, <span class="type">int</span> iTeam);</div>
+
+	<h2>Parameter</h2>
+	<div class="parn">iIndex:</div>
+	<div class="part">Index des Zielobjekts.</div>
+	<div class="parn">iTeam:</div>
+	<div class="part">Team, dessen Zielobjekt abgefragt werden soll.</div>
+
+	<h2>Siehe auch</h2>
+	<div class="Text"><b>Objekte:</b> <a href="..\Assault.html">Assault</a>, <a href="..\BaseAssault.html">Base Assault</a></div>
+	<div class="Text"><b>Funktionen:</b> <a href="AddAssaultTarget.html">AddAssaultTarget</a>, <a href="ConnectAssaultTargets.html">ConnectAssaultTargets</a></div>
+	<div class="Text"><b>Calls:</b> <a href="..\Calls\OnAssaultTargetDestruction.html">OnAssaultTargetDestruction</a></div>
+
+	<div class="Author">Limeox, Oktober 2010</div>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <title>Klassen erstellen - CMC Dokumentation</title>
+    <link rel="stylesheet" type="text/css" href="..\CSS.css">
+  </head>
+
+  <body>
+    <h1>Klassen erstellen</h1>
+
+    <p><b>Kategorie:</b> Tutorial</p>
+
+    <h2>Script</h2>
+    <div class="Text">Neue Klassen müssen im Script der Klassenwahl stehen. Am einfachsten wird dies erreicht, wenn man eine neue Scriptdatei im Ordner System.c4g erstellt und diese an den Klassenwahl-Script (MCSL) anhängt.</div>
+    <div class="Text">In diesem Script muss die Funktion Class*Info definiert sein, wobei der * durch die Nummer der Klasse zu ersetzen ist. Die Nummer ist so zu wählen, dass keine Lücken entstehen. Die letzte Klasse im Originalpack ist der Artillerist (Nummer 5), die nächste Klasse muss also die Nummer 6 tragen.</div>
+
+    <h2>Class*Info</h2>
+    <div class="Text">Hier werden nacheinander verschiedene Werte über die Klasse abgefragt. Bei Bedarf können Standardwerte per Default() zurückgegeben werden.</div>
+    <div class="fnsyntax"><span class="type">private func</span> Class*Info (<span class="type">int</span> iData, <span class="type">int</span> iPlr)</div>
+    <div class="parn">iData:</div>
+    <div class="part">Daten, die abgefragt werden. Die Konstanten sind unten aufgelistet.</div>
+    <div class="parn">iPlr:</div>
+    <div class="part">Spieler, für den die Daten abgefragt werden.</div>
+
+    <h2>CData-Konstanten</h2>
+<div class="text"><table>
+<tr class="dark"><th>Konstante</th><th>Wert</th><th>Beschreibung</th></tr>
+<tr><td>CData_Name</td><td>1</td><td>Name der Klasse (String).</td></tr>
+<tr class="dark"><td>CData_Desc</td><td>2</td><td>Beschreibung der Klasse (String).</td></tr>
+<tr><td>CData_Clonk</td><td>3</td><td>Clonktyp, der für die Klasse verwendet wird (C4ID).</td></tr>
+<tr class="dark"><td>CData_Ammo</td><td>4</td><td>Munition, die die Klasse besitzt (Array, s. Anmerkung).</td></tr>
+<tr><td>CData_Items</td><td>5</td><td>Ausrüstung, die die Klasse besitzt (Array, s. Anmerkung).</td></tr>
+<tr class="dark"><td>CData_Grenades</td><td>6</td><td>Granaten, die die Klasse besitzt (Array, s. Anmerkung).</td></tr>
+<tr><td>CData_Icon</td><td>7</td><td>Definition, aus der das Klassen-Icon geladen wird (C4ID).</td></tr>
+<tr class="dark"><td>CData_Condition</td><td>8</td><td>Klasse kann nur gewählt werden, wenn diese Bedingung wahr ist (Bool).</td></tr>
+<tr><td>CData_DisplayCondition</td><td>9</td><td>Klasse wird im Auswahlmenü nur angezeit, wenn diese Bedingung wahr ist (Bool).</td></tr>
+<tr class="dark"><td>CData_Facet</td><td>10</td><td>Picture-Facet, welches die Klasse repräsentiert. Diverse Icons sind in der Graphics.png der Klassenwahl enthalten. (Int)</td></tr>
+</table></div>
+
+    <h2>Anmerkung</h2>
+    <div class="Text">Die Werte CData_Ammo, CData_Items und CData_Grenades erwarten jeweils ein zweidimensionales Array. In der ersten Dimension können beliebig viele Einträge der Form [idItem, iCount] stehen, d.h. es werden iCount Objekte des Typs idItem für die Klasse erstellt (s. Beispiel).</div>
+
+    <h2>Beispiel</h2>
+    <pre class="code">
+<b>#strict 2</b>
+<b>#appendto</b> MCSL
+
+<i class="string">/* Der Michael */</i>
+
+<b>private func</b> Class6Info(<b>int</b> iData, <b>int</b> iPlr)
+{
+  <b>if</b> (iData == CData_Name) <b>return</b> <i class="string">"Michael"</i>;
+  <b>if</b> (iData == CData_Desc) <b>return</b> <i class="string">"Unschlagbar in allen Situationen."</i>;
+  <b>if</b> (iData == CData_Clonk) <b>return</b> PCMK;
+  <b>if</b> (iData == CData_Ammo) <b>return</b> [ [STAM, 60], [GRAM, 30], [MIAM, 8] ];
+  <b>if</b> (iData == CData_Items) <b>return</b> [ [ASTR, 1], [RTLR, 1], [C4PA, 2], [FAPK, 1] ];
+  <b>if</b> (iData == CData_Grenades) <b>return</b> [ [PGRN, 2], [FGRN, 2] ];
+  <b>if</b> (iData == CData_Facet) <b>return</b> 7;
+  <b>return</b> Default(iData, iPlr);
+}
+</pre>
+
+    <div class="Author">Limeox, November 2010</div>
+    <div class="Author">B_E, November 2010</div>
+  </body>
+</html>

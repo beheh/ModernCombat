@@ -1,0 +1,13 @@
+[DefCore]
+id=ARCR
+Version=4,9,10,7
+Name=ArtilleryCrosshair
+Category=C4D_StaticBack | C4D_IgnoreFoW | C4D_Foreground
+Width=25
+Height=25
+Offset=-12,-12
+Vertices=1
+VertexY=1
+Picture=0,0,25,25
+Timer=4
+TimerCall=Check

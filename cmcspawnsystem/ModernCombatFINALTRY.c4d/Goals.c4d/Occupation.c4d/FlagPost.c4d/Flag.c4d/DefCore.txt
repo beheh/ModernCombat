@@ -1,0 +1,16 @@
+[DefCore]
+id=OFLG
+Version=4,9,10,7
+Name=Flag
+Category=1
+Width=15
+Height=20
+Offset=-7,-10
+Value=100
+Mass=5
+Picture=200,0,80,67
+TimerCall=Wind
+Timer=10
+ContactIncinerate=0
+BlastIncinerate=0
+ColorByOwner=1

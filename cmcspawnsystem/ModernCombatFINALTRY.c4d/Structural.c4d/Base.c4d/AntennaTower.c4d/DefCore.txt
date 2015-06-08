@@ -1,0 +1,12 @@
+[DefCore]
+id=AATR
+Version=4,9,10,7
+Name=Antenna Tower
+Category=C4D_StaticBack
+Width=96
+Height=700
+Offset=-48,-350
+Mass=1500
+Picture=384,0,80,100
+SolidMask=192,0,96,700
+TopFace=288,0,96,700,0,0

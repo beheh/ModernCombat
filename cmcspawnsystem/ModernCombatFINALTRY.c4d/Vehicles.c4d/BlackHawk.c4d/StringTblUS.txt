@@ -1,0 +1,35 @@
+#Control
+CtrlLeft=Left
+CtrlRight=Right
+CtrlUp=Up
+CtrlDown=Down
+CtrlLeftD=Double left
+CtrlRightD=Double right
+CtrlDigD=Change seat
+CtrlUpD=Double up
+CtrlDownD=Double down
+CtrlThrow=Action
+
+#Seats
+Seats=Seats
+SeatOccupied=Seat already occupied.
+Exit=Exit
+ExitDesc=Disembark out of the helicopter.
+Pilot=Pilot
+PilotDesc=Pilot the helicopter.
+Gunner=Gunner
+GunnerDesc=Take control over the outside automatic cannon.
+Coordinator=Coordinator
+CoordinatorDesc=Control the rocketlauncher system with optical guided missiles.
+Passenger=Passenger
+PassengerDesc=A seat with rope to opt out.
+ExitRope=Rappel
+ExitRopeDesc=Rappel out of the helicopter.
+
+#Actions
+Flares=Flare Drop
+Smoke=Smokescreen
+HUD=Fade HUD in/out
+Spotlight=Spotlight
+Radio=Radio
+PilotRequired=Pilot required!

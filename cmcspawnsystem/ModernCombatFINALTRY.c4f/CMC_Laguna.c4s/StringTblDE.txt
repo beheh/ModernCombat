@@ -1,0 +1,17 @@
+CreatingInterior=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+CreatingDecoration=Dekoration wird plaziert...
+
+Team1=Invasoren
+Team2=Eurocorps
+
+Flag1=Leuchtturm
+Flag2=Klippenweg
+Flag3=Abwehrbasis
+Flag4=Landeplatz
+
+Target1=Radaranlage
+Target2=Kommunikationsserver
+Target3=Überwachungssystem
+Target4=Wasserfilter
+Target5=Generator

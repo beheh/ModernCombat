@@ -1,0 +1,1 @@
+Jeder Spieler kann von bestimmten Gegenständen nur eine begrenzte Menge gleichzeitig besitzen, unabhängig davon, wo sich diese befinden.

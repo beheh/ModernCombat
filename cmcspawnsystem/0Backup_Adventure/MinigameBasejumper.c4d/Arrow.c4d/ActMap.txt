@@ -1,0 +1,16 @@
+[Action]
+Name=Down
+Procedure=ATTACH
+Length=5
+Facet=0,0,20,30
+Delay=3
+NextAction=Up
+
+[Action]
+Name=Up
+Procedure=ATTACH
+Length=5
+Facet=0,0,20,30
+Reverse=1
+Delay=3
+NextAction=Down

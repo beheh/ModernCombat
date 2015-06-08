@@ -1,0 +1,25 @@
+// Targets
+
+TargetDestruction=Target <c %x>%s</c> has been destroyed!
+
+// Bomb
+
+Bomb=Bomb
+SearchingBomb=beeing searched
+BombIdle=in the open
+BombInPossession=in possession of %s
+BombPlacing=beeing armed by %s
+BombPlaced=armed
+BombSpawnDelay=Searching for the new bomb, <c ffff33>stand by</c>!
+BombSpawned=Bomb has been spotted, <c ffff33>get</c> it!
+BombLost=Bomb has been lost, <c ffff33>stand by</c> for the next bomb!
+TargetArmedAttacker=Bomb has been placed on target <c ffff33>%s</c>, defend it!
+TargetDefusedAttacker=Bomb on target <c ff0000>%s</c> has been defused, we must place a new one!
+TargetArmedDefender=The enemy has placed a bomb on target <c ff0000>%s</c>, defuse it now!
+TargetDefusedDefender=The bomb on target <c ffff33>%s</c> has been defused, good work!
+
+// Other
+
+TeamHasWon={{GBAS}} <c ffff33>Base Assault</c> - Round End|Team %s has <c ffff33>won</c> this battle!
+ChoosePoint=Choose an <c ffff33>access point</c>
+SpawnAt=at target <c ffff33>%s</c>

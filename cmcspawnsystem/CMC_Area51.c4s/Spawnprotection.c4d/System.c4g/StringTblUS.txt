@@ -1,0 +1,23 @@
+#ShockPaddles
+
+NotCharged=Loading {{%i}}!
+MsgReanimation=%s has revived %s
+
+#Weapon
+
+FireMode=Switch fire mode:
+FireTec=Change shooting technique:
+DescFireMode=Switch to %s
+DescFireTec=Switch to %s
+NotEnoughAmmo=Not enough {{%i}}!
+NotAbleToShoot=Not able to shoot here!
+Reloaded=Reloaded %dx {{%i}}.
+FireModeChanged=Fire mode: %s ({{%i}})
+Reload=Reload
+Empty=Empty
+FTMenu=Shooting Technique
+AmmoType=Ammo Type
+FireModeBack=Previous fire mode
+FireModeForward=Next fire mode
+FireTecBack=Previous shooting technique
+FireTecForward=Next shooting technique

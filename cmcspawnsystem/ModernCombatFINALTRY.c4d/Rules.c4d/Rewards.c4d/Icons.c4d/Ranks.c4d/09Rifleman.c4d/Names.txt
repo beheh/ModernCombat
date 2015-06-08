@@ -1,0 +1,2 @@
+DE:Schütze
+US:Rifleman

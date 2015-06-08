@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>ChooserRuleConfig - CMC Dokumentation</title>
+    <link rel="stylesheet" type="text/css" href="..\..\CSS.css">
+  </head>
+
+  <body>
+    <h1>ChooserRuleConfig</h1>
+
+    <p><b>Kategorie:</b> Calls</p>
+
+    <h2>Beschreibung</h2>
+    <div class="Text">Wird vom Regelw‰hler aufgerufen, um festzustellen, welche Regeln standardm‰ﬂig aktiviert sind.</div>
+    <div class="Text">Standardm‰ﬂig sind das Belohnungssystem (RWDS), Kein FF (NOFF), Arena (NODR), Waffen bleiben (WPST).</div>
+
+    <h2>Syntax</h2>
+    <div class="fnsyntax"><span class="type">public func</span> ChooserRuleConfig ()</div>
+
+    <h2>Beispiel</h2>
+<pre class="code"><b>public func</b> ChooserRuleConfig()
+{
+  <i class="string">//Fallschaden und Belohnungssystem sind Standard</i>
+  <b>return</b> [FDMG, RWDS];
+}</pre>
+
+    <div class="Author">Limeox, November 2010</div>
+  </body>
+</html>

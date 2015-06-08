@@ -1,0 +1,12 @@
+[DefCore]
+id=ENTR
+Version=4,9,10,7
+Name=Entrance
+Category=C4D_Vehicle
+Width=60
+Height=40
+Offset=-30,-10
+Entrance=-30,-15,60,30
+Picture=0,0,1,1
+Timer=1
+TimerCall=Timer

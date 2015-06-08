@@ -1,0 +1,15 @@
+[DefCore]
+id=SYSK
+Version=4,9,10,7
+Name=Supply Stock
+Category=C4D_Structure
+Width=100
+Height=61
+Offset=-50,-30
+Vertices=5
+VertexX=-50,50,0,50,50
+VertexY=30,-30,30,30,-30
+VertexFriction=100,100,100,100,100
+Mass=500
+Picture=100,0,100,61
+Exclusive=1

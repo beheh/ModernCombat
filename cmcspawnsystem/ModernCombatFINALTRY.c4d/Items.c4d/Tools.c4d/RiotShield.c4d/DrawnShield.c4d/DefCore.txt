@@ -1,0 +1,19 @@
+[DefCore]
+id=RSLH
+Version=4,9,10,7
+Name=Drawn Shield
+Category=C4D_Object
+Width=21
+Height=18
+Offset=-10,-11
+Mass=16
+Picture=0,0,21,18
+ColorByOwner=1
+Vertices=1
+NoStabilize=1
+VertexY=1
+VertexCNAT=64
+NoBurnDecay=1
+NoBurnDamage=1
+Timer=1
+TimerCall=Update

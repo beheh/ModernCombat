@@ -1,0 +1,10 @@
+[DefCore]
+id=GOCC
+Version=4,9,10,7
+Name=Occupation
+Category=C4D_Goal|C4D_StaticBack
+Width=1
+Height=1
+Picture=0,0,64,64
+Timer=5
+TimerCall=Update

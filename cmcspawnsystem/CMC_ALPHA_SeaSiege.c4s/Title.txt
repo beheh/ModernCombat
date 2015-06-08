@@ -1,0 +1,2 @@
+DE:CMC ALPHA - <c ffff33>Tropical Storm</c>
+US:CMC ALPHA - <c ffff33>Tropical Storm</c>

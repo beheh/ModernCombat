@@ -1,0 +1,9 @@
+CreatingFurniture=Creating furniture...
+CreatingEquipment=Placing equipment...
+
+Team1=Eurocorps
+Team2=Outlaws
+
+Flag1=West gate
+Flag2=Crash site
+Flag3=East gate

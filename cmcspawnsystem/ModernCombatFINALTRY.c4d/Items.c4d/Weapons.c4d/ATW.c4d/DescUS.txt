@@ -1,0 +1,3 @@
+A disposable anti-tank weapon, for short ATW, fires a single and effective armor-piercing missile.
+
+The missile does not support tracer darts and therefore needs to be guided manually into the intended target.

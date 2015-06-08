@@ -1,0 +1,12 @@
+[DefCore]
+id=_SPK
+Name=Spark
+Version=4,9,5,2
+Category=2
+Width=35
+Height=35
+Mass=10
+Offset=-18,-18
+Picture=0,0,35,35
+Vertices=1
+

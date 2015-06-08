@@ -1,0 +1,16 @@
+[Teams]
+TeamColors=1
+AllowTeamSwitch=0
+TeamDistribution=Host
+
+  [Team]
+  id=1
+  Name=$Team1$
+  Color=16776960
+  PlayerCount=1
+  Players=1
+
+  [Team]
+  id=2
+  Name=$Team2$
+  Color=33535

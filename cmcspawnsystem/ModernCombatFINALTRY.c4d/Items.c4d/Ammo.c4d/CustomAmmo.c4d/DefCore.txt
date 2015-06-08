@@ -1,0 +1,18 @@
+[DefCore]
+id=CUAM
+Version=4,9,10,7
+Name=Custom Ammo Box
+Category=C4D_Object
+Width=14
+Height=8
+Offset=-7,-4
+Vertices=4
+VertexX=6,0,0,-7
+VertexY=3,3,-3,3
+VertexFriction=70,70,50,70
+Value=15
+Mass=10
+Picture=14,0,100,100
+Rebuy=1
+Collectible=1
+Float=1

@@ -1,0 +1,2 @@
+Bullets=Explosive Rounds
+Auto=Automatic

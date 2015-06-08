@@ -1,0 +1,17 @@
+CreatingInterior=Creating furniture...
+CreatingEquipment=Placing equipment...
+CreatingDecoration=Placing decoration...
+
+MsgDoor=<c ff0000>Warning</c>: The security system is <c ffff33>rearranging</c> the door systems.
+
+Team1=Eurocorps
+Team2=Aggressors
+
+Flag1=West Shaft
+Flag2=Entrance
+Flag3=Depot
+Flag4=Radio Station
+Flag5=East Shaft
+
+Target1=Central Server
+Target2=Communication Server

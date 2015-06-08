@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <title>Waffen erstellen - CMC Dokumentation</title>
+    <link rel="stylesheet" type="text/css" href="..\CSS.css">
+  </head>
+
+  <body>
+    <h1>Waffen erstellen</h1>
+
+    <p><b>Kategorie:</b> Tutorial</p>
+
+    <h2>Script</h2>
+    <div class="Text">Neue Waffen sollten die Definition WPN2 inkludieren. Damit besitzt eine neue Waffe alle Funktionen wie zB verschiedene Feuermodi und -Techniken.</div>
+    <div class="Text">Daten wie zB Schaden der jeweiligen Feuermodi werden über die Funktionen FMData* abgefragt, Daten zu Feuertechniken über FMData*T*.</div>
+    <div class="Text">Ein Feuermodus kann mehrere Feuertechniken haben. Modi sind zB "Kugeln" und "Granaten", Schusstechniken zB "Stoßfeuer" oder "Einzelfeuer".</div>
+
+    <h2>FMData*, FMData*T*</h2>
+    <div class="Text">Die Funktionen verhalten sich prinzipiell gleich. Für den ersten Stern wird die Nummer des Feuermodus eingesetzt, für den zweiten die Nummer der Feuertechnik. Diese werden jeweils von 1 hochgezählt.</div>
+    <div class="Text">Es ist sinnvoll, gemeinsame Daten eines Modus (wie zB den Munitionstypen) in FMData* festzulegen und in FMData*T* diesen zurückzugeben. Dann müssen in FMData*T* nur die Daten angegeben werden, in denen sich die Techniken unterscheiden.</div>
+    <div class="Text">Es können per Default() Standardwerte zurückgegeben werden.</div>
+    <div class="fnsyntax"><span class="type">public func</span> FMData* (<span class="type">int</span> iData)</div>
+    <div class="fnsyntax"><span class="type">public func</span> FMData*T* (<span class="type">int</span> iData)</div>
+    <div class="parn">iData</div>
+    <div class="part">Eintrag, der abgefragt wird.</div>
+    
+    <h2>GetMCData</h2>
+    <div class="Text">Über diese Funktion werden Daten zum Kolbenschlag abgefragt.</div>
+    <div class="Text">Es können per inherited() Standardwerte zurückgegeben werden.</div>
+    <div class="fnsyntax"><span class="type">public func</span> GetMCData (<span class="type">int</span> iData)</div>
+    <div class="parn">iData</div>
+    <div class="part">Eintrag, der abgefragt wird.</div>
+
+    <h2>FM_Data-, FT_Data- und MC_Data-Konstanten</h2>
+    <div class="Text"><table>
+    <tr class="dark"><th>Konstante</th><th>Wert</th><th>Beschreibung</th></tr>
+    <tr><td>FM_Name</td><td>1</td><td>(String) Name des Feuermodus.</td></tr>
+    <tr class="dark"><td>FM_AmmoID</td><td>2</td><td>(C4ID) Verwendete Munition.</td></tr>
+    <tr><td>FM_AmmoLoad</td><td>3</td><td>(Int) Menge der Munition, die die Waffe maximal laden kann.</td></tr>
+    <tr class="dark"><td>FM_AmmoUsage</td><td>4</td><td>(Int) Menge der verbrauchten Munition pro AmmoRate Schüsse.</td></tr>
+    <tr><td>FM_AmmoRate</td><td>5</td><td>(Int) Alle AmmoRate Schüsse wird AmmoUsage Munition verbraucht.</td></tr>
+    <tr class="dark"><td>FM_Reload</td><td>6</td><td>(Int) Dauer des Nachladens in Frames.</td></tr>
+    <tr><td>FM_Recharge</td><td>7</td><td>(Int) Wartezeit zwischen zwei Schüssen in Frames.</td></tr>
+    <tr class="dark"><td>FM_Auto</td><td>8</td><td>(Bool) Automatikfeuer.</td></tr>
+    <tr><td>FM_Aim</td><td>9</td><td>(Bool) Waffe zielt.</td></tr>
+    <tr class="dark"><td>FM_Condition</td><td>10</td><td>(Bool) Bedingung für den Schussmodus.</td></tr>
+    <tr><td>FM_Icon</td><td>11</td><td>(C4ID) Icon, das im Schussmodusmenü angezeigt wird (nur Hazard).</td></tr>
+    <tr class="dark"><td>FM_Damage</td><td>12</td><td>(Int) Schaden bei Treffer.</td></tr>
+    <tr><td>FM_Slot</td><td>13</td><td>(Int) Slot des Feuermodus, sollte von 1 hochgezählt werden.</td></tr>
+    <tr class="dark"><td>FM_SingleReload</td><td>14</td><td>(Int) Zeit in Frames für ein einzelnes Nachladen bei Revolverwaffen. Diese Waffen können Munition nachladen, ohne die Waffe zuerst entladen zu müssen.</td></tr>
+    <tr><td>FM_PrepareReload</td><td>15</td><td>(Int) Verzögerung in Frames, bevor das eigentliche Nachladen beginnt (nur bei FM_SingleReload).</td></tr>
+    <tr class="dark"><td>FM_FinishReload</td><td>16</td><td>(Int) Verzögerung in Frames, nach der das Nachladen beendet ist (nur bei FM_SingleReload).</td></tr>
+    <tr><td>FM_BurstAmount</td><td>17</td><td>(Int) Anzahl Schüsse pro Stoßfeuer-Betätigung.</td></tr>
+    <tr class="dark"><td>FM_BurstRecharge</td><td>18</td><td>(Int) Zeit zwischen zwei Stoßfeuer-Schüssen in Frames.</td></tr>
+    <tr><td>FM_SpreadAdd</td><td>19</td><td>(Int) Streuung, die bei jedem Schuss hinzugerechnet wird.</td></tr>
+    <tr class="dark"><td>FM_StartSpread</td><td>20</td><td>(Int) Streuung bei Auswahl der Waffe.</td></tr>
+    <tr><td>FM_MaxSpread</td><td>21</td><td>(Int) Maximale Streuung.</td></tr>
+    <tr class="dark"><td>FM_UnSpread</td><td>22</td><td>(Int) Streuung, die über Zeit abgezogen wird.</td></tr>
+    <tr><td>FT_Name</td><td>23</td><td>(String) Name der Feuertechnik.</td></tr>
+    <tr class="dark"><td>FT_Icon</td><td>24</td><td>(C4ID) Icon, das im Schussmodusmenü angezeigt wird (momentan ohne Funktion).</td></tr>
+    <tr><td>FT_IconFacet</td><td>25</td><td>(Int) Iconfacet (momentan ohne Funktion).</td></tr>
+    <tr class="dark"><td>FT_Condition</td><td>26</td><td>(Bool) Bedingung für die Feuertechnik.</td></tr>
+    <tr><td>MC_CanStrike</td><td>27</td><td>(Bool) Mit der Waffe kann zugeschlagen werden.</td></tr>
+    <tr class="dark"><td>MC_Damage</td><td>28</td><td>(Int) Schaden, den die Waffe pro Schlag verursacht.</td></tr>
+    <tr><td>MC_Recharge</td><td>29</td><td>(Int) Zeit in Frames, die die Waffe für den Schlag benötigt und damit unbrauchbar ist.</td></tr>
+    <tr class="dark"><td>MC_Power</td><td>30</td><td>(Int) Stärke, mit der der Gegner geschleudert wird.</td></tr>
+    <tr><td>MC_Angle</td><td>31</td><td>(Int) Winkel, in dem der Gegner geschleudert wird.</td></tr>
+    </table></div>
+
+
+    <div class="Author">Limeox, November 2010</div>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+[DefCore]
+id=BTBG
+Version=4,9,10,7
+Name=Booby Trap Bag
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
+MaxUserSelect=5
+Width=8
+Height=8
+Offset=-4,-4
+Value=50
+Mass=20
+Picture=0,8,100,100
+Vertices=2
+VertexY=-4,3
+VertexFriction=90,90
+Rebuy=1
+Collectible=1
+Float=1

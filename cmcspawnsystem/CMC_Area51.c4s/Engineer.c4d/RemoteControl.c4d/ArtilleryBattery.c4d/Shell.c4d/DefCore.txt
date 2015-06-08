@@ -1,0 +1,16 @@
+[DefCore]
+id=ABLT
+Version=4,9,10,7
+Name=Shell
+Category=C4D_Vehicle
+Width=5
+Height=15
+Offset=-4,-7
+Vertices=2
+VertexY=7,-7
+VertexFriction=50,50
+Mass=50
+Picture=0,15,64,64
+Rotate=1
+Timer=1
+TimerCall=ResetRotation

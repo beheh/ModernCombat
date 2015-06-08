@@ -1,0 +1,3 @@
+The booby trap bag can be used to place booby traps which are used for securing routes or place traps.
+
+[Throw] to place a trap facing your movement direction or [Triple Stop] to adjust placement first by aiming.

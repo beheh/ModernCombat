@@ -1,0 +1,10 @@
+[DefCore]
+id=MNYS
+Version=4,9,10,7
+Name=Money Spawn
+Category=C4D_StaticBack
+Width=10
+Height=10
+Offset=-5,-5
+Picture=0,10,51,63
+Collectible=1

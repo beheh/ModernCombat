@@ -1,0 +1,2 @@
+DE:Ehrenband
+US:Ribbon

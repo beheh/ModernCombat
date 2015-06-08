@@ -1,0 +1,3 @@
+Can repair allied structures, equipment and vehicles as well as damage or defuse enemy objects. The blow torch automatically reloads used up fuel over time.
+
+[Throw] to switch on or off.

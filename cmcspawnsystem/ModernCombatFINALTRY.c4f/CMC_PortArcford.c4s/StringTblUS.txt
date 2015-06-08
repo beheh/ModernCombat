@@ -1,0 +1,18 @@
+CreatingInterior=Creating furniture...
+CreatingEquipment=Placing equipment...
+CreatingDecoration=Placing decoration...
+
+Team1=Aggressors
+Team2=Eurocorps
+
+Flag1=Plateau
+Flag2=Construction Side
+Flag3=Pipeline
+Flag4=Storage Place
+Flag5=Shipyard
+
+Target1=Motion Detector
+Target2=Transmitter
+Target3=Communication Server
+Target4=Billet
+Target5=Oil Filter

@@ -1,0 +1,13 @@
+[Particle]
+Name=RepairFlame
+MaxCount=400
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+Face=0,0,32,32,-16,-16
+Delay=0
+AlphaFade=40
+GravityAcc=0
+Additive=1
+RByV=2
+Attach=1

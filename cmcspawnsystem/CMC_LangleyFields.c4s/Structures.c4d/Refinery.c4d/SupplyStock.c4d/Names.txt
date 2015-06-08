@@ -1,0 +1,2 @@
+DE:Nachschublager
+US:Supply Stock

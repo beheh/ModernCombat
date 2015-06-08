@@ -1,0 +1,8 @@
+ResourceProcessInfo=Verarbeitung: %d Resourcen
+ResourceProcessRate=Einnahmen: %d,%03d Credits/Sekunde
+ResourceProcessInactive=<c 777777>Verarbeitung inaktiv</c>
+
+#MAV Kontrolle
+NoMAVFound=Kein MAV gefunden
+WaypointSetStock=Wegpunkt gesetzt (Nachschublager in Reichweite)
+WaypointSet=Wegpunkt gesetzt

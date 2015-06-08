@@ -1,0 +1,2 @@
+Bullets=Explosivkugeln
+Auto=Automatik

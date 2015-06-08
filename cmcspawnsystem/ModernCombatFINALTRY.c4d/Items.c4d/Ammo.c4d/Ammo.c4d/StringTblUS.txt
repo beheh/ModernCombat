@@ -1,0 +1,3 @@
+NotMoreAmmo=Ammo limit reached:|<c ff0000>%dx</c> {{%i}}
+Collected=%dx {{%i}} collected.
+EnoughAmmo=Target already has|enough {{%i}}.

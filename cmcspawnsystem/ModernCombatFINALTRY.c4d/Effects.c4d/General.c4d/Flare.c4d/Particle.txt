@@ -1,0 +1,10 @@
+[Particle]
+Name=Flare
+MaxCount=1000
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+Face=0,0,32,32,-15,-15
+AlphaFade=18
+Additive=1
+RByV=2

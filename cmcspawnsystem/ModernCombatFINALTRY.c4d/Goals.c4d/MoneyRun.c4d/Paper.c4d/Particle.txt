@@ -1,0 +1,13 @@
+[Particle]
+Name=Paper2
+MaxCount=200
+Face=0,0,12,12,-6,-6
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+AlphaFade=3
+WindDrift=25
+RByV=1
+GravityAcc=8
+VertexCount=1
+CollisionFn=Stop

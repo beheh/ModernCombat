@@ -1,0 +1,22 @@
+[DefCore]
+id=BPBT
+Version=4,9,10,7
+Name=Burned Patrol Boat
+Category=C4D_Vehicle
+MaxUserSelect=2
+Width=77
+Height=21
+Offset=-40,-11
+Value=8
+Mass=100
+Components=METL=1;
+Picture=0,0,77,21
+SolidMask=0,44,80,22
+BlastIncinerate=10
+Vertices=5
+VertexX=0,26,-27,26,-27
+VertexY=-1,9,9,10,10
+VertexCNAT=80,10,9,6,5
+VertexFriction=0,80,80,80,80
+Float=3
+Rotate=1

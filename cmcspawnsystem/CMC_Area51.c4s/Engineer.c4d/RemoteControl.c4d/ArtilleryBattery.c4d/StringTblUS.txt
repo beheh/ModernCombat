@@ -1,0 +1,3 @@
+Reloading=Artillery strike is beeing prepared.
+Destroyed=Artillery battery not operational.
+ArtilleryLaunch=<c ff0000>Warning</c>: <c %x>%s</c> has launched an <c ffff33>artillery strike</c>

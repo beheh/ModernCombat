@@ -1,0 +1,17 @@
+[DefCore]
+id=FIE2
+Version=4,9,10,7
+Name=Fire Extinguisher
+Category=C4D_StaticBack
+Width=6
+Height=12
+Offset=-3,-6
+Mass=20
+Picture=6,0,64,62
+Vertices=4
+Rotate=1
+VertexX=-3,3,-3,3
+VertexY=6,6,-6,-6
+VertexFriction=50,50,50,50
+Float=1
+NoStabilize=1

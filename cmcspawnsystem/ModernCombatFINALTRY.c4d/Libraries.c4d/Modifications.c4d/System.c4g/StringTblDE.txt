@@ -1,0 +1,61 @@
+#Clonk
+
+CtxStatistics=Statistiken
+CtrlMenuDesc=Menü
+DropItem=Objekt ablegen
+
+#Hazardclonk
+
+CtxGrenadeMenu=Granaten
+AmmoBag=Munitionsgürtel
+CtrlInventoryDesc=Inventar
+NoSpace=Inventar bereits belegt.
+CtxUnbuckleDesc=Ausrüstung ablegen
+CtxUnbuckleItem=%s ablegen
+CtxDetachAttachment=%s abnehmen
+AttachmentCollected=Waffenaufsatz <c ffff33>%s</c> aufgesammelt
+
+#QuickInventory
+
+QuickInventory=QuickInventar
+NextPage=Nächste Seite
+ContentCount=%d Objekt
+ContentsCount=%d Objekte
+PrimaryWeapons=Primärwaffen
+SecondaryWeapons=Sekundärwaffen
+Equipment=Ausrüstung
+Objects=Objekte
+Use=Benutzen
+
+#Einstellungen
+
+Settings=Einstellungen
+CtxQuickInventoryOn=QuickInventar
+CtxQuickInventoryOff=<c 777777>QuickInventar</c>
+CtxQuickInventoryDesc=Aktiviert das QuickInventar-Ringmenü, welches das traditionelle Durchwechseln des Inventars ersetzt.
+CtxHelpMessagesOn=Hilfen
+CtxHelpMessagesOff=<c 777777>Hilfen</c>
+CtxHelpMessagesDesc=Zeigt Hilfsnachrichten über dem Clonk.
+CtxInvLockOn=Inventarsperre
+CtxInvLockOff=<c 777777>Inventarsperre</c>
+CtxInvLockDesc=Verhindert das Ablegen von Waffen per Tastenbefehl und erweitert das Kontextmenü um einen Alternativbefehl zum Ablegen.
+CtxShorterDMOn=Kompaktes Schwerverletztenmenü
+CtxShorterDMOff=<c 777777>Kompaktes Schwerverletztenmenü</c>
+CtxShorterDMDesc=Verkleinert das Schwerverletztenmenü und blendet die meisten Zusatzinformationen aus.
+CtxRadioMusicOn=Radiomusik
+CtxRadioMusicOff=<c 777777>Radiomusik</c>
+CtxRadioMusicDesc=(De)Aktiviert Radiomusik für diesen Spieler (bei mehreren Spielern an einem Clienten ist die Musik deaktiviert, wenn alle gleicheres eingestellt haben).
+CtxResetData=Daten zurücksetzen
+CtxResetDataDesc=Gespeicherte Daten dauerhaft zurücksetzen.
+ResetDataInfo=Hier können bestimmte Daten zurückgesetzt werden lassen.
+ResetAll=Alle Daten
+ResetSettings=Clonkeinstellungen
+ResetStatistics=Statistiken
+ResetAchievements=Errungenschaften
+ResetAchInfo=Wirklich zurücksetzen?|<c 777777>Das endgültige Zurücksetzen erfolgt nach dem Rundenende.</c>
+ResetAchYes=Zurücksetzen
+ResetAchNo=Abbrechen
+ResetDone=Gewählte Daten wurden zurückgesetzt.
+
+#General
+Grenades=Granaten

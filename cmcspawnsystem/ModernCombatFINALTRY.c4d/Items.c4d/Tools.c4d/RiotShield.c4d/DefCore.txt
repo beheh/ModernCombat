@@ -1,0 +1,24 @@
+[DefCore]
+id=RSHL
+Version=4,9,10,7
+Name=Riot Shield
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
+MaxUserSelect=5
+Width=12
+Height=16
+Offset=-6,-8
+Value=40
+Mass=15
+Picture=12,0,64,64
+Vertices=4
+VertexX=-5,4,4,-5
+VertexY=-7,6,-7,6
+VertexFriction=60,60,60,60
+Rebuy=1
+Collectible=1
+CollectionLimit=1
+Rotate=1
+Float=1
+ColorByOwner=1
+Timer=1
+TimerCall=CheckChange

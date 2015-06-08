@@ -1,0 +1,15 @@
+[DefCore]
+id=LCAC
+Version=4,9,10,7
+Name=Automatic Cannon
+Category=3600
+Width=23
+Height=6
+Offset=-11,-3
+Value=150
+Mass=30
+Components=METL=6;
+Picture=0,6,138,136
+Vertices=1
+VertexY=+2
+VertexFriction=100

@@ -1,0 +1,2 @@
+DE:Fallschirm
+US:Parachute

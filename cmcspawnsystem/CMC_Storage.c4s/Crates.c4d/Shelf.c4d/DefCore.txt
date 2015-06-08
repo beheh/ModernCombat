@@ -1,0 +1,15 @@
+[DefCore]
+id=SHLF
+Name=Shelf
+Version=4,9,5,0
+Category=C4D_StaticBack
+Width=50
+Height=10
+Offset=-25,-5
+Value=50
+Mass=100
+Components=METL=4
+Picture=0,0,50,10
+SolidMask=0,0,50,10
+NoBurnDecay=1
+

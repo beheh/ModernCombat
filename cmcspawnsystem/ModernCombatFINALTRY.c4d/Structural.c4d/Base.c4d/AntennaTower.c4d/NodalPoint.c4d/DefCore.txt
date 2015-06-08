@@ -1,0 +1,12 @@
+[DefCore]
+id=NLPT
+Version=4,9,10,7
+Name=Nodal Point
+Category=C4D_StaticBack
+Width=6
+Height=6
+Offset=-3,-3
+Vertices=1
+VertexY=1
+VertexFriction=20
+Mass=10

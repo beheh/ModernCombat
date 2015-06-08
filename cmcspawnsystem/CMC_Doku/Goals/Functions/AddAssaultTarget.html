@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <title>AddAssaultTarget - CMC Dokumentation</title>
+	<link rel="stylesheet" type="text/css" href="..\..\CSS.css">
+  </head>
+  
+  <body>
+    <h1>AddAssaultTarget</h1>
+	
+	<p><b>Kategorie:</b> Ziele (global)</p>
+
+	<h2>Beschreibung</h2>
+	<div class="Text">Erstellt ein neues Zielobjekt. Wird für die Spielziele <a href="..\Assault.html">Assault</a> und <a href="..\BaseAssault.html">Base Assault</a> benötigt.</div>
+
+	<h2>Syntax</h2>
+	<div class="fnsyntax"><span class="type">bool</span> AddAssaultTarget (<span class="type">id</span> idDef, <span class="type">int</span> iX, <span class="type">int</span> iY, <span class="type">int</span> iMaxDamage, <span class="type">int</span> iTeam, <span class="type">string</span> szName, <span class="type">int</span> iIndex, <span class="type">array</span> aSpawns, <span class="type">bool</span> fNoBar);</div>
+
+	<h2>Parameter</h2>
+	<div class="parn">idDef:</div>
+	<div class="part">Gibt an, welche Bilddefinition das Zielobjekt verwenden soll.</div>
+	<div class="parn">iX:</div>
+	<div class="part">X-Position des neuen Zielobjekts.</div>
+	<div class="parn">iY:</div>
+	<div class="part">Y-Position des neuen Zielobjekts (Unterkante).</div>
+	<div class="parn">iMaxDamage:</div>
+	<div class="part">Maximalschaden, den das Zielobjekt aushält, bevor es zerstört wird.</div>
+	<div class="parn">iTeam:</div>
+	<div class="part">Teamnummer. Diesem Team gehört das Zielobjekt. Beim Spielziel Assault muss immer das Verteidigerteam angegeben werden.</div>
+	<div class="parn">[opt] szName:</div>
+	<div class="part">Name des neuen Zielobjekts. Wenn nicht angegeben, wird der Name von idDef verwendet.</div>
+	<div class="parn">iIndex:</div>
+	<div class="part">Index des neuen Zielobjekts. Muss angegeben werden und sollte für jedes Team neu von 0 hochgezählt werden. Wird ein Index für ein Team doppelt verwendet, wird das alte Objekt überschrieben.</div>
+	<div class="parn">aSpawns:</div>
+	<div class="part">Erwartet ein zwei- bzw. dreidimensionales Array. Kann bei Base Assault weggelassen werden.</div>
+	<div class="parn">[opt] fNoBar:</div>
+	<div class="part">Wenn wahr, wird unter dem Zielobjekt keine Statusleiste angezeigt.</div>
+
+	<h2>Anmerkung</h2>
+	<div class="Text">Die Handhabung unterscheidet sich leicht zwisschen den beiden Spielzielen. Bei <a href="..\Assault.html">Assault</a> darf nur ein einziges Team Zielobjekte erhalten. Dieses wird automatisch als Verteidigerteam eingestuft.</div>
+	<div class="Text">Anmerkung zu aSpawns: Für <a href="..\BaseAssault.html">Base Assault</a> wird ein zweidimensionales Array erwartet. Die erste Ebene enthält beliebig viele Spawnpunkte der Form [X, Y]. Spieler, die bei diesem Objekt einsteigen, starten zufällig an einer der Positionen. Wird nichts angegeben, starten sie an der Position des Zielobjekts. Für <a href="..\Assault.html">Assault</a> gelten ähnliche Regeln, allerdings wird eine Team-Dimension zwischengeschoben. Das Verteidigerteam erhält den ersten Index, das Angreiferteam den zweiten. Für ein Beispiel siehe Punkt Beispiel.</div>
+	<div class="Text">Die Funktion erstellt kein Objekt des Typs idDef. Es wird lediglich ein zentrales Zielobjekt erstellt, welches das Aussehen der Definition imitiert.</div>
+
+	<h2>Beispiel</h2>
+	<pre class="code">AddAssaultTarget(WIPF, 400, 400, 250, 1, "Knuddelwipf", 0, [ [ [100, 200], [300, 400] ], [ [100, 500], [500, 100] ] ]);</pre>
+	<div class="Text">Fügt ein Wipf-Zielobjekt an der Stelle 400, 400 für das Verteidigerteam Team 1 hinzu. Die Spawnpunkte sind für das Verteidigerteam zufällig 100, 200 oder 300, 400 und für das Angreiferteam 100, 500 oder 500, 100.</div>
+
+	<h2>Siehe auch</h2>
+	<div class="Text"><b>Objekte:</b> <a href="..\Assault.html">Assault</a>, <a href="..\BaseAssault.html">Base Assault</a></div>
+	<div class="Text"><b>Funktionen:</b> <a href="ConnectAssaultTargets.html">ConnectAssaultTargets</a>, <a href="GetAssaultTarget.html">GetAssaultTarget</a></div>
+	<div class="Text"><b>Calls:</b> <a href="..\Calls\OnAssaultTargetDestruction.html">OnAssaultTargetDestruction</a></div>
+
+	<div class="Author">Limeox, Oktober 2010</div>
+  </body>
+</html>

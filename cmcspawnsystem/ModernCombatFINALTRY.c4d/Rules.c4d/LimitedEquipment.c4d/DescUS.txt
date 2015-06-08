@@ -1,0 +1,1 @@
+Players can only own a limited amount of certain items no matter where they are.

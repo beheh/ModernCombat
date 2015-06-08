@@ -1,0 +1,1 @@
+Erstellt ein beliebiges Objekt an seiner Anfangsposition neu sobald es verbraucht, zerstört oder entfernt wurde.

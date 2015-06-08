@@ -1,0 +1,15 @@
+[DefCore]
+id=PTNK
+Version=4,9,10,7
+Name=Phosphor Tank
+Category=C4D_Structure
+Width=62
+Height=39
+Offset=-31,-19
+Vertices=6
+VertexX=-18,18,31,-31,19,21
+VertexY=19,19,0,0,-19,-19
+VertexFriction=100,100,100,100,100,100
+Mass=200
+Picture=0,0,65,39
+NoBurnDecay=1

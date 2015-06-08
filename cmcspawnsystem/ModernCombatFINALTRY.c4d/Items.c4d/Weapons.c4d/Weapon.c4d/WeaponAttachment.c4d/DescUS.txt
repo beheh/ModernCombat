@@ -1,0 +1,3 @@
+A box containing a weapon attachment.
+
+[Double Dig] to attach the attachment to a weapon. [Throw] to give to allies.

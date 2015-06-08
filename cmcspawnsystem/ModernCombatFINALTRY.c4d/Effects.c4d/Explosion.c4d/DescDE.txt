@@ -1,0 +1,1 @@
+Steuert Explosionen und deren Effekte.

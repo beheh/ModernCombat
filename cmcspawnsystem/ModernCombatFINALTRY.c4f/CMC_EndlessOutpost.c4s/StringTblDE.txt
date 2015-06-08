@@ -1,0 +1,19 @@
+CreatingInterior=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+CreatingDecoration=Dekoration wird plaziert...
+
+Team1=Sturmtruppe
+Team2=Basisbesatzung
+
+Flag1=Eingang
+Flag2=Lobby
+Flag3=Lagerhalle
+Flag4=Bürokomplex
+
+Target1=Steuerungseinheit
+Target2=Wasserfilter
+Target3=Lüftungssystem
+Target4=Energieumwandler
+Target5=Datenserver
+Target6=Zentralserver
+Target7=Wasserfilter

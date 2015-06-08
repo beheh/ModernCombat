@@ -1,0 +1,11 @@
+[DefCore]
+id=SADH
+Version=4,9,10,7
+Name=Satellite Dish
+Category=C4D_StaticBack
+Width=36
+Height=48
+Offset=-18,-24
+Mass=80
+Picture=36,0,48,82
+TopFace=0,0,36,48,0,0

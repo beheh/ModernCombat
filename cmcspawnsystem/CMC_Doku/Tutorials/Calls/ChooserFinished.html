@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>ChooserFinished - CMC Dokumentation</title>
+    <link rel="stylesheet" type="text/css" href="..\..\CSS.css">
+  </head>
+
+  <body>
+    <h1>ChooserFinished</h1>
+
+    <p><b>Kategorie:</b> Calls</p>
+
+    <h2>Beschreibung</h2>
+    <div class="Text">Wird aufgerufen, wenn die Regelwahl abgeschlossen wurde.</div>
+    <div class="Text">In diesem Aufruf sollte überprüft werden, welches Ziel und welche Regeln gewählt wurden, um das Szenario anzupassen. Außerdem sollte die überladene Funktion per inherited() ausgeführt werden.</div>
+
+    <h2>Syntax</h2>
+    <div class="fnsyntax"><span class="type">public func</span> ChooserFinished ()</div>
+
+    <h2>Beispiel</h2>
+<pre class="code"><b>public func</b> ChooserFinished()
+{
+  <i class="string">//Spielziel HTF: Flaggenposten erstellen</i>
+  <b>if</b> (FindObject(GHTF))
+    CreateObject(OFPL, 800, 300, NO_OWNER);  
+
+  <i class="string">//Überladene Funktion, entfernt ggf. Munition und relauncht alle Spieler</i>
+  inherited();
+}</pre>
+
+    <div class="Author">Limeox, November 2010</div>
+  </body>
+</html>

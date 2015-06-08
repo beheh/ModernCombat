@@ -1,0 +1,13 @@
+[DefCore]
+id=PLLT
+Version=4,9,10,7
+Name=Pallet
+Category=C4D_Vehicle
+Width=60
+Height=28
+Offset=-30,-28
+Mass=150
+Picture=60,0,61,46
+Vertices=1
+SolidMask=0,28,60,28
+TopFace=0,0,60,28,0,0

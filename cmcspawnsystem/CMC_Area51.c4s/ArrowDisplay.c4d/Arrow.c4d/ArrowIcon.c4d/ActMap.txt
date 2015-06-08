@@ -1,0 +1,13 @@
+[Action]
+Name=Computer
+Procedure=ATTACH
+Delay=1
+Facet=0,0,30,30
+NextAction=Computer
+
+[Action]
+Name=Transmitter
+Procedure=ATTACH
+Delay=1
+Facet=30,0,30,30
+NextAction=Transmitter

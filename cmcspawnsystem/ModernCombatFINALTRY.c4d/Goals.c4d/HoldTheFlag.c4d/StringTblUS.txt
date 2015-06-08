@@ -1,0 +1,17 @@
+// Flag post
+
+MsgFlagLost=Lost flag post <c ffff33>%s</c> to team <c %x>%s</c>!
+MsgCaptured=Team <c %x>%s</c> controls flag post <c ffff33>%s</c>!
+
+// Points
+
+TeamReachingGoal=<c ff0000>Warning</c>: Team %s needs only <c ffff33>%d</c> more points to win!
+TeamHasWon={{GHTF}} <c ffff33>Hold the Flag</c> - Round End|Team <c %x>%s</c> has <c ffff33>won</c> this battle!
+
+// Other
+
+MorePoints=More points
+LessPoints=Less points
+Finished=Finished
+Points=Points
+SbrdGoalPoints=Target Score

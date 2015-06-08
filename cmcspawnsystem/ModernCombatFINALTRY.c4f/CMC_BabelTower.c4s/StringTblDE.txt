@@ -1,0 +1,20 @@
+CreatingInterior=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+CreatingDecoration=Dekoration wird plaziert...
+
+MsgJetpack=<c 33ccff>Jetpacks</c> verfügbar, drücke [<c 33ccff>Doppelspringen</c>], [<c 33ccff>-links</c>] oder [<c 33ccff>-rechts</c>] für Boosts.
+MsgCollapse=<c ff0000>Achtung</c>: Der lokale Sendemast <c ffff33>stürzt ein</c>
+
+Team1=Technowipf
+Team2=Eurocorps
+
+Flag1=Turmspitze
+Flag2=Dachplattform
+Flag3=Lüftungssystem
+Flag4=Konferenzräume
+Flag5=Lobby
+
+Target1=Kommunikationsserver
+Target2=Datenserver
+Target3=Überwachungssystem
+Target4=Radaranlage

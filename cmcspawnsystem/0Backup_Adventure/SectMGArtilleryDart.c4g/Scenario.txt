@@ -1,0 +1,15 @@
+[Landscape]
+Vegetation=SHEL=3;SWD2=5;SWD1=5
+VegetationLevel=64,0,0,100
+InEarth=ROCK=2;BONE=1;SKUL=1
+InEarthLevel=65,0,0,100
+Sky=Default
+TopOpen=1
+Liquid=Water-Smooth
+NewStyleLandscape=2
+
+[Weather]
+Climate=0,0,0,100
+StartSeason=0,0,0,100
+YearSpeed=49,0,0,100
+Wind=1,100,-100,100

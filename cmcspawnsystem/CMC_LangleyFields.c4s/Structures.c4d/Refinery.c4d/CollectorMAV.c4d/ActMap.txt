@@ -1,0 +1,16 @@
+[Action]
+Name=Flying
+Facet=0,0,15,15
+Length=6
+NextAction=Flying
+
+[Action]
+Name=Wait
+Facet=0,0,15,15
+Length=6
+NextAction=Wait
+
+[Action]
+Name=Destroyed
+Facet=0,15,15,15
+NextAction=Hold

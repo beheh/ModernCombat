@@ -1,0 +1,3 @@
+Missiles=AG Missile
+Laser=Laser Control
+Reloaded=Jet in position!

@@ -1,0 +1,9 @@
+CreatingFurniture=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+
+Team1=Eurocorps
+Team2=Gesetzlose
+
+Flag1=Westliches Tor
+Flag2=Absturzstelle
+Flag3=Östliches Tor

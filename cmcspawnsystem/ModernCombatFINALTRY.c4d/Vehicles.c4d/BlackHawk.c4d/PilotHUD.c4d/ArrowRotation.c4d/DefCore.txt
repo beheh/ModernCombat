@@ -1,0 +1,12 @@
+[DefCore]
+id=BRTN
+Version=4,9,10,7
+Name=Rotation Display
+Category=C4D_StaticBack|C4D_Foreground|C4D_MouseIgnore|C4D_IgnoreFoW
+Width=63
+Height=17
+Offset=-32,-9
+Picture=0,0,63,17
+Rotate=1
+NoStabilize=1
+Oversize=1

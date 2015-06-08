@@ -1,0 +1,8 @@
+[Action]
+Name=Destroyed
+Procedure=NONE
+Directions=2
+Length=1
+Delay=0
+Facet=0,0,77,21,0,0
+FlipDir=1

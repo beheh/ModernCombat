@@ -1,0 +1,20 @@
+[DefCore]
+id=GSBL
+Version=4,9,10,7
+Name=Gas Bottle
+Category=C4D_Vehicle
+Width=8
+Height=21
+Offset=-4,-11
+Mass=25
+Picture=8,0,64,64
+Vertices=6
+Grab=1
+Rotate=1
+NoBurnDecay=1
+VertexX=-4,3,-4,3,-4,3
+VertexY=9,9,0,0,-9,-9
+VertexFriction=50,50,50,50
+AttractLightning=1
+Float=1
+NoStabilize=1

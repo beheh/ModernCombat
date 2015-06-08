@@ -1,0 +1,2 @@
+DE:Standardscript
+US:Default Script

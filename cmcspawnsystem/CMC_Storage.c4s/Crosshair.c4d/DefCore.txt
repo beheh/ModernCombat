@@ -1,0 +1,15 @@
+[DefCore]
+id=BUCR
+Version=4,9,8,2
+Name=BuildingCrosshair
+Category=C4D_Living | C4D_IgnoreFoW | C4D_Foreground
+Width=25
+Height=25
+Offset=-12,-12
+Timer=1
+TimerCall=Check
+CrewMember=1
+TemporaryCrew=1
+
+[Physical]
+Float=300

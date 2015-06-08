@@ -1,0 +1,2 @@
+DE:Explosivkiste
+US:Explosive Crate

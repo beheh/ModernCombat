@@ -1,0 +1,8 @@
+[DefCore]
+id=RG27
+Version=4,9,10,7
+Category=C4D_StaticBack
+Width=502
+Height=143
+Offset=-3,-3
+Picture=502,0,25,25

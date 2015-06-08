@@ -1,0 +1,1 @@
+A barbwire barricade which hinders enemies from advancing and also hurts them. Wears out as enemies go through it.

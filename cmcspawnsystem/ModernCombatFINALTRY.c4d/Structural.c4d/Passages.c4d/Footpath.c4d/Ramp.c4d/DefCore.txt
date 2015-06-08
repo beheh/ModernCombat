@@ -1,0 +1,11 @@
+[DefCore]
+id=MRMP
+Version=4,9,10,7
+Name=Ramp
+Category=C4D_StaticBack|C4D_MouseIgnore|C4D_Foreground
+Width=10
+Height=10
+Offset=-10,-10
+Picture=0,0,10,10
+Vertices=1
+VertexFriction=100

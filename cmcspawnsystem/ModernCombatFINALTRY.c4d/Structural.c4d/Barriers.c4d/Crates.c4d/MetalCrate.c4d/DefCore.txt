@@ -1,0 +1,17 @@
+[DefCore]
+id=MWCR
+Version=4,9,10,7
+Name=MetalCrate
+Category=C4D_Vehicle
+Width=24
+Height=18
+Offset=-12,-10
+Mass=40
+Picture=24,0,64,64
+SolidMask=0,20,20,20,3
+Vertices=2
+NoBurnDecay=1
+VertexX=6,-8
+VertexY=7,7
+VertexCNAT=10,9
+VertexFriction=200,200

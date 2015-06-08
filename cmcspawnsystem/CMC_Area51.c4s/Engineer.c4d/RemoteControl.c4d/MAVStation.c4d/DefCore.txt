@@ -1,0 +1,18 @@
+[DefCore]
+id=MVSN
+Version=4,9,8,2
+Name=MAV Station
+Category=C4D_Structure
+Width=24
+Height=30
+Value=90
+Mass=170
+Picture=24,0,34,56
+Offset=-12,-15
+Entrance=-9,0,19,18
+Vertices=5
+VertexX=-6,-12,11,-12,11
+VertexY=6,14,14,-3,-3
+VertexFriction=20,20,20,20,20
+VertexCNAT=0,0,0,0,0
+TopFace=0,30,24,30,0,0

@@ -1,0 +1,12 @@
+[Action]
+Name=Stand
+Procedure=NONE
+Length=3
+Facet=0,0,96,700
+
+[Action]
+Name=Crumble
+Procedure=NONE
+Length=3
+FacetBase=1
+Facet=96,0,96,700,0,0

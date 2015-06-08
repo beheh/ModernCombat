@@ -1,0 +1,2 @@
+DE:Verbandskiste
+US:Bandage Crate

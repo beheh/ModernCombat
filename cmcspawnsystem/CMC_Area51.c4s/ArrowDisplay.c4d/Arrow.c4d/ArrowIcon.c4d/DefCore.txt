@@ -1,0 +1,11 @@
+[DefCore]
+id=TVIC
+Name=TeamVis Icon
+Category=58720257
+Width=30
+Height=30
+Offset=-15,-15
+Picture=0,0,30,30
+NoStabilize=1
+Oversize=1
+Rotate=1

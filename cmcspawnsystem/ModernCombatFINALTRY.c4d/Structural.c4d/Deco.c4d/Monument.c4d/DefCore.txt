@@ -1,0 +1,15 @@
+[DefCore]
+id=MUMT
+Version=4,9,10,7
+Name=Monument
+Category=C4D_StaticBack
+MaxUserSelect=0
+Width=110
+Height=126
+Offset=-55,-63
+Mass=500
+Vertices=4
+VertexX=-50,50,-60,60
+VertexY=62,62,-60,-60
+VertexFriction=50,50,50,50
+Picture=0,0,110,126

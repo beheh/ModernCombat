@@ -1,0 +1,22 @@
+[DefCore]
+id=HBRL
+Version=4,9,10,7
+Name=Phosphor Barrel
+Category=C4D_Vehicle
+Width=10
+Height=16
+Offset=-5,-8
+Mass=30
+Picture=11,0,64,64
+Vertices=4
+Grab=1
+Rotate=1
+NoBurnDecay=1
+VertexX=-5,4,4,-5
+VertexY=-8,-8,7,7
+VertexCNAT=5,6,10,9
+VertexFriction=80,80,80,80
+AttractLightning=1
+Float=1
+Timer=1
+TimerCall=FloatUpright

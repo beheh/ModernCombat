@@ -1,0 +1,9 @@
+[DefCore]
+id=SM14
+Version=4,9,10,7
+Name=Symbol
+Category=C4D_StaticBack
+Width=24
+Height=24
+Offset=-12,-12
+Picture=0,0,24,24

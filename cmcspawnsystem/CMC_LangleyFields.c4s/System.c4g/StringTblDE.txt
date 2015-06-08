@@ -1,0 +1,29 @@
+TxtLorryisfull=Lore ist|voll.
+
+CtxBuilding=Baumenü
+BuildBuilding=Bauen
+RepairBuilding=Reparieren
+SellBuilding=Verkaufen
+Close=Schließen
+TechLevel=<c 00aa00>- Technikstufe %d -</c>
+
+TechLevelStart=Technikstufe 0
+TechLevel1=Technikstufe 1
+TechLevel2=Technikstufe 2
+TechLevel3=Technikstufe 3
+Back=Zurück
+
+MsgTechLevelBuildings=Technikstufe verfügt über folgende Gebäude:|
+True=Ja
+
+ErrWrongBuildingID=Ist kein gültiges CMC Gebäude!
+ErrNotEnoughMoney=Nicht genügend Geld!
+ErrNotAvailable=Technikstufe nicht erforscht!
+ErrBuildingRadius=Nicht im Bauradius!
+ErrNotEnoughSpace=Nicht genügend Platz!
+
+SellMenu=Verkaufsmenü
+SellBuildingInfo=Gebäude %s wirklich für <c ffff33>%d</c> Credits verkaufen?
+Yes=Ja
+No=Nein
+NoObjectToSell=Kein Gebäude zum Verkauf gefunden!

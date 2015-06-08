@@ -1,0 +1,5 @@
+TakeAmmo=Take ammunition
+NeededPoints=<c ff0000>%d</c> points needed to unpack.
+AmmoReceived=%dx {{%i}} received.
+NoSpace=Inventory is full.
+CantTake=Clonk can't unpack at the moment.

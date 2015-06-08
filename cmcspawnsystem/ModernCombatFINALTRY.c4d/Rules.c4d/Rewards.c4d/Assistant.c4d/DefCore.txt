@@ -1,0 +1,8 @@
+[DefCore]
+id=ARHL
+Version=4,9,10,7
+Name=Assistant
+Category=1
+Width=1
+Height=1
+Offset=0,0

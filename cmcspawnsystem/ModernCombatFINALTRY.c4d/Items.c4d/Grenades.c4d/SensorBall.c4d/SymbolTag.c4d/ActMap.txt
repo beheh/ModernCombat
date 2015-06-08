@@ -1,0 +1,8 @@
+[Action]
+Name=Attach
+Procedure=ATTACH
+Length=5
+Delay=2
+FacetBase=1
+NextAction=Hold
+Facet=0,0,25,25

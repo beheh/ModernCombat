@@ -1,0 +1,2 @@
+DE:CMC - <c ffff33>Endless Outpost</c>
+US:CMC - <c ffff33>Endless Outpost</c>

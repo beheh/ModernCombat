@@ -1,0 +1,103 @@
+Belohnungssystem
+
+Dieses System ermöglicht es Spieler und deren Leistung genauer bewerten zu können. Dazu werden Punkte und Ränge vergeben, welche am Ende der Runde ausgewertet und gespeichert werden.
+
+Standardpunkteliste:
+
+Im Gefecht:
+
+Kill					50		Gefechtspunkte		IC01
+Kill Assist				30		Gefechtspunkte		IC02
+Kill Serie				10		Gefechtspunkte		IC01
+Selbstmord				-30		Minuspunkte		IC07
+Teamkill				-80		Minuspunkte		IC06
+Entschärfung				20		Teampunkte		IC15
+
+Teamwork:
+
+Reanimation				50		Teampunkte		IC04
+Heilung					[Anzahl]/4	Teampunkte		IC05
+Dragnininjektion an Verbündeten		10		Teampunkte		IC05
+Munitionierung				[Anzahl]/3	Teampunkte		IC14
+Schildabwehr				10		Teampunkte		IC16
+Raketenabwehr				10		Teampunkte		IC16
+Kill Assist durch Blendung		10		Teampunkte		IC19
+Kill Assist durch Sichtung		10		Teampunkte		IC02
+
+Zerstörung:
+
+Strukturzerstörung			50		Gefechtspunkte		IC03
+
+Fahrzeuge:
+
+Fahrzeugzerstörung			50		Gefechtspunkte		IC03
+Beschädigung				10		Gefechtspunkte		IC18
+Projektilabwehr				10		Teampunkte		IC16
+Kill Assist aus Fahrzeug heraus		30		Teampunkte		IC02
+
+
+Peilsender:
+
+Peilsenderplazierung			10		Teampunkte		IC17
+Kill Assist durch Peilsender		30		Teampunkte		IC02
+
+Besitznahme:
+
+Flaggenpostenneutralisierung		10		Teampunkte		IC13
+Hilfe bei Flaggenpostenneutralisierung	10		Teampunkte		IC11
+Flaggenposteneroberung			50		Teampunkte		IC10
+Hilfe bei Flaggenposteneroberung	10		Teampunkte		IC11
+Flaggenpostenverteidigung		30		Teampunkte		IC12
+Flaggenpostenrückeroberung		30		Teampunkte		IC12
+
+Capture the Flag:
+
+Flaggendiebstahl			50		Teampunkte		IC08
+Flaggenrückeroberung			30		Teampunkte		IC09
+
+Hold the Flag (s.a. Besitznahme):
+
+Flaggenverteidigung			10		Teampunkte		IC12
+
+Assault / Base Assault:
+
+Zielobjektzerstörung			50		Teampunkte		IC03
+Hilfe bei Zielobjektzerstörung		30		Teampunkte		IC03
+Team-Zielobjektzerstörung		-50		Minuspunkte		IC03
+Hilfe bei Team-Zielobjektzerstörung	-30		Minuspunkte		IC03
+
+Spieler erhalten bei der ersten CMC Runde den Rang 0 in ihre Spielerdateien geschrieben. Die erspielten Punkte dienen dabei als Maßstab, umso mehr der Spieler Team- und Gefechtspunkte sammelt, umso höher steigt er im Rang auf.
+
+Standardrangliste:
+
+R00:       0
+R01:     225
+R02:     900
+R03:   2.000
+R04:   3.000
+R05:   5.000
+R06:   8.000
+R07:  11.000
+R08:  14.000
+R09:  18.000
+R10:  22.000
+R11:  27.000
+R12:  32.000
+R13:  38.000
+R14:  44.000
+R15:  50.000
+R16:  57.000
+R17:  65.000
+R18:  72.000
+R19:  81.000
+R20:  90.000
+R21:  99.000
+R22: 108.000
+R23: 119.000
+R24: 129.000
+R25: 140.000
+R26: 152.000
+R27: 164.000
+R28: 176.000
+R29: 189.000
+R30: 202.000

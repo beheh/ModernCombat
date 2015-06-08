@@ -1,0 +1,8 @@
+[DefCore]
+id=PBAR
+Version=4,9,10,7
+Category=1
+Width=10
+Height=25
+Offset=-1,-25
+Picture=0,0,10,25

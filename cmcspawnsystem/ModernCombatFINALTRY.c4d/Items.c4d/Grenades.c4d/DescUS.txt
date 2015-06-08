@@ -1,0 +1,3 @@
+Hand grenades with various content and functions.
+
+Grenades can be transfered into the grenade belt with [Double Dig]. [Throw] allows to activate and throw grenades.

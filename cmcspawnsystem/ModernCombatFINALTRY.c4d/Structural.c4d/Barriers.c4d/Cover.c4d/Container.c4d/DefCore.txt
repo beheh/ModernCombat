@@ -1,0 +1,15 @@
+[DefCore]
+id=CON1
+Version=4,9,10,7
+Name=Container
+Category=C4D_Structure
+Width=64
+Height=30
+Offset=-32,-15
+Vertices=2
+VertexX=33,-33
+VertexY=13,13
+VertexFriction=100,100
+Mass=2000
+SolidMask=0,0,64,29,0,0
+Picture=0,30,64,64

@@ -1,0 +1,8 @@
+[Action]
+Name=CursorCheck
+Procedure=NONE
+NextAction=CursorCheck
+FacetBase=1
+Delay=1
+Length=1
+StartCall=CursorCheck

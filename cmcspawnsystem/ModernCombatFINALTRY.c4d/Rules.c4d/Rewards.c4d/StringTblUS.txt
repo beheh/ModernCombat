@@ -1,0 +1,42 @@
+# Statistics 
+
+Stats=Statistics
+BattlePoints=<c 00dd00>%d</c> Battle Points
+TeamPoints=<c 00dd00>%d</c> Team Points
+KillCount=<c ffff33>%d</c> Kills
+DeathCount=<c ee0000>%d</c> Deaths
+AchievedAchievements=<c ffff33>%d</c> / %d Achievements
+NextRank=Current Rank: %s (%d)|Next Rank: %s (%d)
+YourRank=Current Rank: %s (%d)
+YouHaveBeenPromoted=%s has been promoted to <c ffff33>%s</c>!
+UntilRankUp=points until promotion
+
+# Achievements
+
+Ribbons=Ribbons
+Achievements=Achievements
+Showing=Page %d of %d
+NextPage=Next Page
+LastPage=Last Page
+Back=Back
+
+# Point Table
+
+PointTable=Point Table
+Points=Points
+
+# General
+
+AchievementNewUnlocked=<c %x>%s</c> unlocked the achievement <c ffff33>%s</c>
+Achievement=Achievement
+Achievements=Achievements
+AchievementsUnlocked=%d Achievements unlocked:
+AchievementLocked=<c 777777>You haven't unlock this achievement yet.</c>
+RibbonAwarded=<c %x>%s</c> has been awarded the ribbon <c ffff33>%s</c> from <c %x>%s</c>
+
+# Evaluation
+
+FirstLine=%s|Points: <c 777777>%d (+ %d)</c> <c ffbb00>%d</c>
+SecondLine=Battle: <c 00ff00>+%d</c>  Team: <c 00ff00>+%d</c>  Minus: <c ff0000>%d</c>
+PlayerLine={{KILLICON}}Kills: %d {{KAMB}}Deaths: %d {{IC01}}Points: %d
+InfoLine={{CXTX}} The scores have been saved.

@@ -1,0 +1,3 @@
+Die Sprengfallentasche erlaubt das Legen von Sprengfallen die dazu genutzt werden, Wege zu sichern oder Fallen aufzustellen.
+
+[Werfen] um eine Falle in Laufrichtung zu legen oder [Dreifachstopp], um sie zuvor im Zielmodus auszurichten.

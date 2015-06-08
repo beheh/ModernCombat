@@ -1,0 +1,4 @@
+Grenades=Granaten
+Explosive=Explosiv
+Cluster=Splitter
+Smoke=Rauch

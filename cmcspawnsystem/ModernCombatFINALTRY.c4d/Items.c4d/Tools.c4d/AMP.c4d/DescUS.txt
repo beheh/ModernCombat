@@ -1,0 +1,3 @@
+Contains all sorts of ammunition and replenishes its content over time.
+
+[Double Dig] to take out ammo boxes. The MTP automatically resupplies friendly units near by.

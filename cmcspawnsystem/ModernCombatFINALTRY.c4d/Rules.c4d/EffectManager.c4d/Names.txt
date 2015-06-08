@@ -1,0 +1,2 @@
+DE:Effektmanager
+US:Effect Manager

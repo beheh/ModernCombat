@@ -1,0 +1,3 @@
+Allows to control and deploy MAV drones on the battlefield.
+
+Press [Jump] in front of the station to enter.

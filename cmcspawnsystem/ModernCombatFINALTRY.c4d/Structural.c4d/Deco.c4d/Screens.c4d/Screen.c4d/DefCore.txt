@@ -1,0 +1,12 @@
+[DefCore]
+id=SCA1
+Version=4,9,10,7
+Name=Screen
+Category=C4D_StaticBack
+Width=40
+Height=40
+Offset=-20,-20
+Picture=0,0,40,40
+StretchGrowth=1
+IncompleteActivity=1
+Oversize=1

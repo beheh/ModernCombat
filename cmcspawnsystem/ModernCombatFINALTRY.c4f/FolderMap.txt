@@ -1,0 +1,164 @@
+[FolderMap]
+MinResX=640
+MinResY=480
+ScenInfoArea=739,99,223,418
+FullscreenBG=1
+
+	[Scenario]
+	File=Credits.c4f
+	Area=839,56,70,28
+	OverlayImage=Highlight.png
+
+
+	[Scenario]
+	File=Info.c4f
+	Area=919,56,40,28
+	OverlayImage=Highlight.png
+
+
+
+
+	[Scenario]
+	File=CMC_MacrossFrontier.c4s
+	Area=24,95,256,26
+	OverlayImage=OverlayMacrossFrontier.png
+
+
+	[Scenario]
+	File=CMC_BroadcastStation.c4s
+	Area=24,131,256,26
+	OverlayImage=OverlayBroadcastStation.png
+
+
+	[Scenario]
+	File=CMC_EndlessOutpost.c4s
+	Area=24,167,256,26
+	OverlayImage=OverlayEndlessOutpost.png
+
+
+	[Scenario]
+	File=CMC_BabelTower.c4s
+	Area=24,203,256,26
+	OverlayImage=OverlayBabelTower.png
+
+
+	[Scenario]
+	File=CMC_Dust.c4s
+	Area=24,239,256,26
+	OverlayImage=OverlayDust.png
+
+
+	[Scenario]
+	File=CMC_Yuki.c4s
+	Area=24,275,256,26
+	OverlayImage=OverlayYuki.png
+
+
+	[Scenario]
+	File=CMC_IslandStrike.c4s
+	Area=24,311,256,26
+	OverlayImage=OverlayIslandStrike.png
+
+
+	[Scenario]
+	File=CMC_AtlanticCrisis.c4s
+	Area=24,347,256,26
+	OverlayImage=OverlayAtlanticCrisis.png
+
+
+	[Scenario]
+	File=CMC_GroundZero.c4s
+	Area=24,383,256,26
+	OverlayImage=OverlayGroundZero.png
+
+
+	[Scenario]
+	File=CMC_Firewood.c4s
+	Area=24,419,256,26
+	OverlayImage=OverlayFirewood.png
+
+
+	[Scenario]
+	File=CMC_MagmaZone.c4s
+	Area=24,455,256,26
+	OverlayImage=OverlayMagmaZone.png
+
+
+	[Scenario]
+	File=CMC_BridgeOnslaught.c4s
+	Area=24,491,256,26
+	OverlayImage=OverlayBridgeOnslaught.png
+
+
+
+
+	[Scenario]
+	File=CMC_BlackThunder.c4s
+	Area=291,95,256,26
+	OverlayImage=OverlayBlackThunder.png
+
+
+	[Scenario]
+	File=CMC_Laguna.c4s
+	Area=291,131,256,26
+	OverlayImage=OverlayLaguna.png
+
+
+	[Scenario]
+	File=CMC_ColdCash.c4s
+	Area=291,167,256,26
+	OverlayImage=OverlayColdCash.png
+
+
+	[Scenario]
+	File=CMC_Oasis.c4s
+	Area=291,203,256,26
+	OverlayImage=OverlayOasis.png
+
+
+	[Scenario]
+	File=CMC_Base1337.c4s
+	Area=291,239,256,26
+	OverlayImage=OverlayBase1337.png
+
+
+	[Scenario]
+	File=CMC_FusionReactor.c4s
+	Area=291,275,256,26
+	OverlayImage=OverlayFusionReactor.png
+
+
+	[Scenario]
+	File=CMC_OperationMetro.c4s
+	Area=291,311,256,26
+	OverlayImage=OverlayOperationMetro.png
+
+
+	[Scenario]
+	File=CMC_PortArcford.c4s
+	Area=291,347,256,26
+	OverlayImage=OverlayPortArcford.png
+
+
+	[Scenario]
+	File=CMC_BaseJumping.c4s
+	Area=291,383,256,26
+	OverlayImage=OverlayBaseJumping.png
+
+
+	[Scenario]
+	File=CMC_InfinityIsland.c4s
+	Area=291,419,256,26
+	OverlayImage=OverlayInfinityIsland.png
+
+
+	[Scenario]
+	File=CMC_TwinPeaks.c4s
+	Area=291,455,256,26
+	OverlayImage=OverlayTwinPeaks.png
+
+
+	[Scenario]
+	File=CMC_CoastalResort.c4s
+	Area=291,491,256,26
+	OverlayImage=OverlayCoastalResort.png

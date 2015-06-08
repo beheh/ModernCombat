@@ -1,0 +1,6 @@
+NotEnoughMoney=Nicht genug Geld:|<c ff0000>%d</c>
+NoMAV=Kein MAV verfügbar!
+AddItem=Mit %s ausrüsten
+Updated=MAV mit <c ffff33>%s</c> modifiziert.
+EquipMAV=Wähle ein Item zum Ausrüsten:
+Nothing=nichts

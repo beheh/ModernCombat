@@ -1,0 +1,11 @@
+[DefCore]
+id=DOFO
+Version=4,9,10,7
+Name=Foggy Wind
+Category=C4D_StaticBack|C4D_Environment|C4D_MouseIgnore
+MaxUserSelect=1
+Width=1
+Height=1
+Picture=0,0,64,64
+Timer=5
+TimerCall=Timer

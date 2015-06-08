@@ -1,0 +1,2 @@
+BombCollected=<c ffff33>%s</c> hat die Sprengladung aufgenommen!
+BombDropped=<c ffff33>%s</c> hat die Sprengladung fallen gelassen!

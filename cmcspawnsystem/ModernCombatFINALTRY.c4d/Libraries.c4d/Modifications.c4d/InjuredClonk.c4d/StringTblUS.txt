@@ -1,0 +1,90 @@
+#DeathMenu
+Suicide=Suicide
+SuicideDesc=Gives the final death blow to the clonk.
+ReanimationBlocked=<c 777777>Reanimation is allowed</c> (%d)
+ReanimationAllow=Reanimation is allowed
+ReanimationDescAllow=Allow beeing reanimated by allies.
+ReanimationDisallow=<c 777777>Reanimation is disallowed</c>
+ReanimationDescDisallow=Reject beeing reanimated by allies.
+Statistics=Statistics
+EffectLevel=Effect level
+Settings=Settings
+DeathCounter=Death in <c ffff33>%d</c> seconds
+Killer=<c ffff33>Killer</c>
+Tip=<c ffff33>Tip</c>
+Points=<c ffff33>Points</c>
+NextTipp=Next tip
+NoShockPaddles=No shock paddles available!
+
+#Tips
+
+#General
+NONE0=You can find your grenades in the context menu under [<c 33ccff>Grenades</c>].
+NONE1=You can change your settings in the context menu under [<c 33ccff>Settings</c>].
+NONE2=<c 33ccff>QuickInventory</c> grants you alternative and fast inventory access.
+NONE3=If you have a weapon selected, press [<c 33ccff>Throw</c>] in front of an enemy to hit him with it.
+NONE4=Think highly of your <c 33ccff>environment</c> and use furniture against enemies or preventively destroy it.
+NONE5=Lay down by hitting [<c 33ccff>Double Stop</c> + <c 33ccff>Dig</c>] to take cover from enemy fire or to move through narrow spaces.
+NONE6=The <c 33ccff>Guard</c> order in the context menu allows your clonk to automatically search and reanimate friendly wounded, and that pretty fast.
+NONE7=Show medics that you do not want to be reanimated by clicking on <c 33ccff>Reanimation is allowed</c> in the context menu.
+NONE8=Pistols and revolvers are <c 33ccff>faster</c> drawn then any other weapon can be reloaded.
+NONE9=Chopper weaponary can be turned by tapping [<c 33ccff>Left</c>/<c 33ccff>Right</c>], stopped with [<c 33ccff>Stop</c>] and reloaded with [<c 33ccff>Jump</c>].
+NONE10=Punching an enemy with a gun while he is lying down will inflict [<c 33ccff>additional</c>] damage and also force him to stand up.
+NONE11=A MAV can be <c 33ccff>modified</c> with equipment, just choose an item when buying a MAV or touch it to put the item in.
+NONE12=Destroyed gun emplacements, MAV stations, bridges, artillery batteries and more can be repaired with a <c 33ccff>blow torch</c>.
+NONE13=Annoying player in the game and no host available? Type <c 33ccff>/votekick</c> to start a kick voting against that player.
+
+#Weapons
+ASTR0=Use <c 33ccff>single shots</c> to shoot effective bullets at enemies far away with the assault rifle.
+ASTR1=Use the assault rilfe <c 33ccff>grenade launcher</c> to get additional fire power.
+MNGN0=<c 33ccff>Machine guns</c> used while prone (as all weapons) can be used the longest without spraying to much.
+PSTL0=Use your <c 33ccff>pistol</c> while your primary weapon is reloading in order to keep on shooting.
+PSTL1=The pistols secondary fire mode shoots <c 33ccff>tracer darts</c> which mark enemies and guide friendly rockets into them.
+RTLR0=<c 33ccff>Rockets</c> are perfect for greater distances and against vehicles and structures.
+RTLR1=Ask your teammates to mark enemies with <c 33ccff>tracer darts</c> to support you.
+RTLR2=<c 33ccff>Guide</c> fired missiles by aiming in the corresponding direction using the rocket launcher.
+RTLR3=The <c 33ccff>second fire mode</c> of the rocket launcher fires unguided but twice as fast missiles.
+PPGN0=Use the pumpgun in <c 33ccff>close combat</c> to cause maximum damage.
+SGST0=<c 33ccff>Explosive grenades</c> do high damage at small range while <c 33ccff>frag grenades</c> pin down enemies.
+SMGN0=The submachine gun is the <c 33ccff>fastest</c> weapon equally to its ammo consumption.
+SMGN1=Use <c 33ccff>burst</c> for average distances or quick close combat attacks with submachine guns.
+ATWN0=The ATW is a <c 33ccff>disposable weapon</c> which means it is useless after its contained missile has been fired.
+ATWN1=The missile of an ATW causes great damage but is <c 33ccff>not compatible to tracer darts</c>.
+
+#Grenades
+NADE0=Throw <c 33ccff>activated</c> grenades as fast as possible, grenades exploding in your hand cause high damage.
+FGRN0=<c 33ccff>Well placed</c> field grenades can eliminate enemies or cause great damage, making it easy to kill them.
+FRAG0=Frag grenades cover a <c 33ccff>large area</c>.
+FRAG1=Shrapnels rebound from walls and therfore are deadly in <c 33ccff>narrow spaces</c>.
+PGRN0=Phosphor <c 33ccff>attaches</c> to clonks an burns them for a while.
+STUN0=Teammates are <c 33ccff>less</c> affected by stun grenades.
+STUN1=Throw multiple stun grenades to <c 33ccff>strengthen</c> the stun effect on the intended target.
+SGRN0=Smoke has a useful side effect that <c 33ccff>destroys</c> enemy tracer darts when deployed.
+SRBL0=The sensor ball marks enemies with a <c 33ccff>colored square</c>, making it dead easy to spot them.
+SRBL1=Sensor balls can not only detect enemy clonks, but also <c 33ccff>booby traps</c>, <c 33ccff>C4 charges</c>, <c 33ccff>missiles</c> and <c 33ccff>grenades</c>.
+
+#Equipment
+AMPK0=Hold the MTP in the hand to <c 33ccff>automatically</c> restock ammo of allies.
+BTBG0=You can also place booby traps on <c 33ccff>ceilings</c> and <c 33ccff>walls</c>.
+BTBG1=Place booby traps preferably <c 33ccff>hidden</c> at <c 33ccff>often used</c> places.
+BTBG2=Touch booby traps and tap [<c 33ccff>Jump</c>] to disarm them.
+C4PA0=You can place C4 while climbing on <c 33ccff>walls</c> or <c 33ccff>ceilings</c> or while <c 33ccff>crawling</c>.
+C4PA1=The further you are away from C4, the longer it takes to <c 33ccff>ignite</c> it.
+DGNN0=You can use dragnin on wounded allies by tapping [<c 33ccff>Throw</c>].
+DGNN1=The healing effect of dragnin stops if you <c 33ccff>take damage</c>.
+FAPK0=As a medic, tap [<c 33ccff>Throw</c>] to unpack dragnin out of a FAP.
+FAPK1=If you use an empty FAP it will be <c 33ccff>destroyed</c> when the carrier is not a medic.
+FAPK2=FAPs will slowly reload when carried by a <c 33ccff>medic</c>.
+FAPK3=The FAP can be refilled with <c 33ccff>bandage boxes</c> from bandage crates.
+RSHL0=The riot shield can also be used while <c 33ccff>crawling</c> and <c 33ccff>swimming</c>.
+RSHL1=Stand between the enemy and your allies while using the riot shield, <c 33ccff>protect</c> your team while they take down the enemy.
+RSHL2=The riot shield is <c 33ccff>useless</c> against explosive weapons, but you can keep them away a bit, <c 33ccff>reducing</c> the damage you take.
+RSHL3=The riot shield stabilizes you so that you <c 33ccff>can't fall down</c> while holding it.
+RSHL4=The riot shield can be deployed by pressing [<c 33ccff>Double Dig</c>] while standing.
+CDBT0=You can also shock <c 33ccff>enemies</c> with shock paddles.
+CDBT1=Revived clonks recover slowly, <c 33ccff>defend them</c> while that happens because damage will stop the healing effect.
+CUAM0=You can give packed ammo to allies by tapping [<c 33ccff>Throw</c>].
+BWTH0=Blow torches can also <c 33ccff>damage</c> enemy vehicles and structures.
+BWTH1=The blow torch will <c 33ccff>overheat</c> for a moment when it is completely emptied.
+BWTH2=Blow torches can <c 33ccff>destroy</c> locked doors and crates as well.
+BWTH3=Enemy euqipment like booby traps and C4 charges can be <c 33ccff>defused</c> by using blow torches.

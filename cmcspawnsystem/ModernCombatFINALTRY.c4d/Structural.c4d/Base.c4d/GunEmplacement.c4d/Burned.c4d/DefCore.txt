@@ -1,0 +1,15 @@
+[DefCore]
+id=_GTB
+Version=4,9,10,7
+Name=Burned Gun Emplacement
+Category=C4D_Structure
+Width=32
+Height=18
+Mass=170
+Picture=0,18,50,45
+Offset=-16,0
+Vertices=6
+VertexX=0,-16,-1,15,6,-6
+VertexY=6,17,17,17,8,8
+VertexFriction=20,20,20,20,20,20
+VertexCNAT=0,0,0,0,0,0

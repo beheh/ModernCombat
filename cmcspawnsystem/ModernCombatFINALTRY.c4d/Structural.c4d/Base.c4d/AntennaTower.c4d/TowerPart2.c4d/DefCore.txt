@@ -1,0 +1,15 @@
+[DefCore]
+id=ATR2
+Version=4,9,10,7
+Name=Tower Part
+Category=C4D_Structure
+Width=96
+Height=27
+Offset=-48,-14
+Mass=300
+Vertices=4
+VertexFriction=40,40
+VertexX=-48,48,-48,48
+VertexY=14,-14,-14,14
+Picture=96,0,80,80
+Rotate=1

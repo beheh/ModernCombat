@@ -1,0 +1,16 @@
+# Hauptmenü
+CreateVehicles=Fahrzeuge erstellen
+VehicleMenuDesc=Fahrzeuge erstellen
+BuyEquipment=Ausrüstung kaufen
+EquipmentMenuDesc=Ausrüstung kaufen
+
+#Ausrüstungsmenü
+EquipmentMenu=Ausrüstungsmenü
+ChooseCategory=Kategorie:
+CategoryWeapons=Waffen
+CategoryEquipment=Ausrüstungsgegenstände
+CategoryGrenades=Granaten
+
+VehicleMenu=Fahrzeugmenü
+
+Back=Zurück

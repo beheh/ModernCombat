@@ -1,0 +1,18 @@
+[DefCore]
+id=XWCR
+Version=4,9,10,7
+Name=Explosive Crate
+Category=C4D_Vehicle
+Width=24
+Height=18
+Offset=-12,-10
+Mass=30
+Picture=24,0,64,64
+SolidMask=0,20,20,20,3
+Vertices=2
+VertexX=6,-8
+VertexY=7,7
+VertexCNAT=10,9
+VertexFriction=200,200,200,200
+NoBurnDecay=1
+ContactIncinerate=4

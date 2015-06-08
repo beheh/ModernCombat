@@ -1,0 +1,11 @@
+[Action]
+Name=On
+Facet=0,15,20,15
+Delay=1
+NextAction=Hold
+
+[Action]
+Name=Broken
+Facet=0,30,20,15
+Delay=1
+NextAction=Hold

@@ -1,0 +1,15 @@
+CreatingInterior=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+CreatingDecoration=Dekoration wird plaziert...
+
+Team1=Eurocorps
+Team2=Aggressoren
+
+Flag1=Bahnsteig A
+Flag2=Bahnsteig B
+Flag3=Bahnsteig C
+Flag4=Bahnsteig D
+Flag5=Verkehrsknotenpunkt
+
+Target1=Datenserver
+Target2=Backup-Server

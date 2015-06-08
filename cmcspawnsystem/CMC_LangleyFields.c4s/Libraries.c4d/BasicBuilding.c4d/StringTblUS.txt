@@ -1,0 +1,24 @@
+UpgradeMenu=Upgrades
+BuyMenu=Buy
+Showing=Page %d of %d
+NextPage=Next page
+LastPage=Previous page
+NoUpgrades=No upgrades available.
+IsUpgrading=Upgrade: %s (%d / %d)
+ActiveUpgrades=Active upgrades:
+UpgradesToResearch=Researchable upgrades:
+Hitpoints=Damage: %d/%d
+
+#Kaufmenü
+GoToCart=Go to cart
+CartMenu=Cart
+CartIsEmpty=<c 777777>Cart is empty!</c>
+OrderInQueue=Order in queue.
+OrderQueuePosition=Position in queue: <c ffff33>%d</c>
+DeliveryOnTheWay=Order is delivered next!
+Total=Total:
+ProceedToCheckout=To checkout
+ProceedToCheckoutInactive=<c 777777>To checkout</c>
+CancelOrder=Cancel order
+BackToBuyMenu=Back to buy menu
+BackToMainMenu=Back to main menu

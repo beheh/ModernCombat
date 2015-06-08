@@ -1,0 +1,14 @@
+[Particle]
+Name=ConcreteSplinter
+MaxCount=500
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+CollisionFn=Stop
+Face=0,0,10,10,-5,-5
+Delay=0
+RByV=1
+GravityAcc=100
+VertexCount=1
+VertexY=50
+AlphaFade=1

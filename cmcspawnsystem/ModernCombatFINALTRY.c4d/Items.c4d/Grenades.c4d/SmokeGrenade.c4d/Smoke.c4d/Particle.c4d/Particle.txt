@@ -1,0 +1,14 @@
+[Particle]
+Name=SmokeGrenadeSmoke
+MaxCount=1000
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+CollisionFn=Stop
+Face=0,0,32,32,-16,-16
+#Repeats=1
+GravityAcc=0
+AlphaFade=3
+VertexCount=1
+#Attach=1
+WindDrift=25

@@ -1,0 +1,16 @@
+[FolderMap]
+MinResX=640
+MinResY=480
+ScenInfoArea=739,99,223,418
+FullscreenBG=1
+
+	[Scenario]
+	File=CMC_Skyscrapers.c4s
+	Area=24,95,256,26
+	OverlayImage=OverlaySkyscrapers.png
+
+
+	[Scenario]
+	File=CMC_Stylands.c4s
+	Area=24,131,256,26
+	OverlayImage=OverlayStylands.png

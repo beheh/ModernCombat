@@ -1,0 +1,6 @@
+[Action]
+Name=Attaching
+Procedure=FLOAT
+FacetBase=1
+Delay=4
+NextAction=Attaching

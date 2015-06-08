@@ -1,0 +1,13 @@
+[Particle]
+Name=BlastFlame
+MaxCount=800
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+Face=0,0,64,64,-32,-32
+Delay=0
+AlphaFade=14
+RByV=1
+GravityAcc=0
+#Additive=1
+CollisionFn=Stop

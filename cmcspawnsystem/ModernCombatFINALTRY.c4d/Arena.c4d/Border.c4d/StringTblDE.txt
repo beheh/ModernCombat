@@ -1,0 +1,1 @@
+Warning=Achtung, kehre zum Einsatzgebiet zurück!|Eliminierung in|<c ff0000>%d</c>

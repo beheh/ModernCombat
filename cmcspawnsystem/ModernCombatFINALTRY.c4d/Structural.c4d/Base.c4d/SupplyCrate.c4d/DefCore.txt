@@ -1,0 +1,23 @@
+[DefCore]
+id=AMCT
+Version=4,9,10,7
+Name=Supply Crate
+Category=C4D_Vehicle
+Width=24
+Height=18
+Offset=-13,-13
+Value=40
+Mass=30
+Components=METL=3;WOOD=2
+Picture=0,18,64,64
+Vertices=4
+NoBurnDecay=1
+Grab=2
+NoPushEnter=1
+GrabPutGet=3
+ContainBlast=1
+VertexX=-11,-11,8,8
+VertexY=-5,4,-5,4
+VertexCNAT=5,9,6,10
+VertexFriction=50,100,50,100
+ColorByOwner=1

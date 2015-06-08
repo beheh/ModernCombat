@@ -1,0 +1,15 @@
+CreatingInterior=Creating furniture...
+CreatingEquipment=Placing equipment...
+CreatingDecoration=Placing decoration...
+
+MsgCollapse=<c ff0000>Warning</c>: The local antenna tower <c ffff33>collapses</c>
+
+Team1=Eurocorps
+Team2=Aggressors
+
+Flag1=Eurocorps-Basis
+Flag2=Vorposten West
+Flag3=Sendemast
+Flag4=Vorposten Ost
+Flag5=Aggressoren-Basis
+Flag6=Trümmer

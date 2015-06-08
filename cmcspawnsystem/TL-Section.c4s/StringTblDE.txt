@@ -1,0 +1,13 @@
+CreatingFurniture=Szenario wird eingerichtet...
+
+TxtWelcome=<c 8888ff>General Michael:</c> Willkommen, Soldat! Dies ist das Eurocorps Ausbildungs- und Trainingscenter EAT-03. Das Trainingsgelände steht dir frei zur Verfügung. Wenn du ein bestimmtes Training machen willst, gehe in den Raum rechts neben dir und suche dir eins aus!
+TxtChoose=<c 8888ff>General Michael:</c> Hier kannst du auswählen, welche Trainingseinheiten du absolvieren willst. <c 44ff44>Grün</c> bedeutet, dass du bereits dieses Training abgeschlossen hast, <c ffff44>gelb</c>, dass es verfügbar ist, aber noch nicht geschafft wurde und <c 888888>grau</c> bedeutet, dass du dieses Training noch freigeschaltet werden muss.
+
+Ace_WellDone1=Ich denk, ich kann das so durchgehen lassen.
+Ace_WellDone2=Partizipant hat überlebt... check!
+Ace_WellDone3=Joa, passt.
+
+Mobility_I_1=<c ffb100>Waffentechniker Ace:</c> Los geht's mit dem ersten Mobilitäts-Training! Das Ziel ist es, rechts auf die Ebene zu kommen. Um dieses Ziel zu erreichen musst du Techniken wie den altbekannten Backjump, das Kriechen und den Walljump anwenden. Viel Glück!
+Mobility_I_2=<c ffb100>Waffentechniker Ace:</c> Oh mein Gott, sind sie verletzt? Das war nicht unsere Absicht, die Sprengfalle lag hier ganz zufällig rum!|| ...jedenfalls, da dürfte auch irgendwo eine Dragninspritze liegen, die sollte sie wieder fit machen.
+Mobility_I_3=<c ffb100>Waffentechniker Ace:</c> Um da unten wieder rauszukommen, musst du durch den engen Tunnel. Um zu kriechen, drücke [<c ffff00>doppelunten-graben</c>], mit [<c ffff00>oben</c>] kannst du wieder aufstehen.
+Mobility_I_4=<c ffb100>Waffentechniker Ace:</c> Bevor du da vorschnell runterspringst... Ich denke, ein normaler Mensch würde sich nicht von so einer Höhe stürzen.

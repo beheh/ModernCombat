@@ -1,0 +1,17 @@
+[DefCore]
+id=RDIO
+Version=4,9,10,7
+Name=Radio
+Category=C4D_Vehicle
+Width=11
+Height=16
+Offset=-6,-8
+Value=25
+Mass=15
+Components=METL=3
+Picture=0,16,60,48
+Vertices=5
+VertexX=-4,3,-4,2,-1
+VertexY=7,7,4,4,1
+VertexFriction=60,60,60,60
+Grab=2

@@ -1,0 +1,14 @@
+[DefCore]
+id=STNE
+Version=4,9,10,7
+Name=Stone
+Category=C4D_Object|C4D_SelectVegetation
+Width=32
+Height=32
+Offset=-16,-16
+Mass=200
+Vertices=4
+VertexFriction=100,100,100,100
+VertexX=-16,-16,16,16
+VertexY=0,15,0,15
+Picture=0,0,32,32

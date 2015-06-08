@@ -1,0 +1,18 @@
+CreatingInterior=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+CreatingDecoration=Dekoration wird plaziert...
+
+Team1=Aggressoren
+Team2=Eurocorps
+
+Flag1=Hochebene
+Flag2=Baustelle
+Flag3=Pipeline
+Flag4=Nachschublager
+Flag5=Werft
+
+Target1=Bewegungsmelder
+Target2=Sendeanlage
+Target3=Kommunikationsserver
+Target4=Truppenunterkunft
+Target5=Ölfilter

@@ -1,0 +1,15 @@
+[DefCore]
+id=HNG3
+Version=4,9,10,7
+Name=Steel Gate
+Category=C4D_StaticBack
+Width=10
+Height=60
+Offset=-5,-30
+Vertices=2
+VertexY=-30,30
+VertexFriction=100,100
+Mass=200
+Components=METL=7
+SolidMask=0,0,10,60,0,0
+Picture=0,60,64,64

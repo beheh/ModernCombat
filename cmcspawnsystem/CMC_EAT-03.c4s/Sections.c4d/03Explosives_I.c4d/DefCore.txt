@@ -1,0 +1,10 @@
+[DefCore]
+id=SE03
+Version=4,9,5
+Name=Explosives I
+Category=1
+Width=0
+Height=0
+Offset=0,0
+Picture=0,0,0,0
+ 

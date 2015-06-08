@@ -1,0 +1,15 @@
+[DefCore]
+id=ATRP
+Version=4,9,10,7
+Name=Tower Part
+Category=C4D_Structure
+Width=70
+Height=150
+Offset=-35,-75
+Mass=300
+Vertices=12
+VertexFriction=40,40,40,40
+VertexX=-17,-17,17,17,7,-7,-7,7,17,-17,17,-17
+VertexY=-75,75,-75,75,75,-75,75,-75,35,-35,-35,35
+Picture=350,0,100,100
+Rotate=1

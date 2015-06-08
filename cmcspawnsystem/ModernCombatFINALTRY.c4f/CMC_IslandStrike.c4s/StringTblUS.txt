@@ -1,0 +1,23 @@
+CreatingInterior=Creating furniture...
+CreatingEquipment=Placing equipment...
+CreatingDecoration=Placing decoration...
+
+Team1=Eurocorps
+Team2=Aggressors
+
+Flag1=Clarification Tower
+Flag2=West Coastguard
+Flag3=West Central Block
+Flag4=East Central Block
+Flag5=Dockyard
+Flag6=East Coastguard
+Flag7=Drilling Platform
+
+Target1=Radar Unit
+Target2=Communication Server
+Target3=Surveillance System
+Target4=Water Filter
+Target5=Generator
+Target6=Central Server
+Target7=Secondary Radar Unit
+Target8=Data Server

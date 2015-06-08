@@ -1,0 +1,15 @@
+[DefCore]
+id=MNI2
+Version=4,9,10,7
+Name=Monitor
+Category=C4D_Vehicle
+Width=17
+Height=14
+Offset=-8,-7
+Vertices=5
+VertexX=0,-6,6,-6,6
+VertexY=0,6,6,-6,-6
+VertexFriction=0,50,50,50,50
+Mass=10
+Picture=0,0,17,14
+Rotate=1

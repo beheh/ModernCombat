@@ -1,0 +1,13 @@
+CreatingInterior=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+CreatingDecoration=Dekoration wird plaziert...
+
+Team1=Eurocorps
+Team2=Wipfinalisten
+
+Flag1=Westliche Lagerhalle
+Flag2=Bohrplattform
+Flag3=Östliche Lagerhalle
+
+Target1=Kommunikationsserver
+Target2=Antenne

@@ -1,0 +1,16 @@
+[DefCore]
+id=SLGH
+Version=4,9,10,7
+Name=Street Light
+Category=C4D_StaticBack
+Width=40
+Height=60
+Offset=-20,-30
+Vertices=5
+VertexX=0,0,0,-18,18
+VertexY=-30,0,27,-27,-27
+VertexFriction=20,20,20,20,20
+Mass=100
+Picture=40,0,40,60
+AttractLightning=1
+Rotate=1

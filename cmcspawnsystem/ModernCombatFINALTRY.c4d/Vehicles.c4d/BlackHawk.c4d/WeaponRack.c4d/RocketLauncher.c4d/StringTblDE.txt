@@ -1,0 +1,2 @@
+Missiles=LR-Raketen
+Optical=Optisches Lenken

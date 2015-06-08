@@ -1,0 +1,1 @@
+Explosionen können Materialstrukturen nicht beschädigen, diese können je nach Szenario aber per Hand weggegraben werden.

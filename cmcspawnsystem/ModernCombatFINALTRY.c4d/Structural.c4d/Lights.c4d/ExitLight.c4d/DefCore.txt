@@ -1,0 +1,12 @@
+[DefCore]
+id=ETLT
+Version=4,9,10,7
+Name=Exit Light
+Category=C4D_StaticBack
+Width=20
+Height=15
+Offset=-10,-7
+Value=5
+Mass=2
+Components=ETLT=1
+Picture=20,0,64,64

@@ -1,0 +1,1 @@
+Shows status information about currently selected weaponry or equipment.

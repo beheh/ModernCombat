@@ -1,0 +1,2 @@
+DE:Deckung
+US:Cover

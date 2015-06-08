@@ -1,0 +1,175 @@
+body {
+font-family: Verdana, sans-serif;
+background-color: white;
+padding: 0;
+margin: 0;
+}
+body, table caption, h4, h5, h6, div, p, code {
+font-size: 13px;
+color: black;
+}
+img {
+margin-right: 5px;
+}
+img#cpem {
+align: right;
+float: right;
+margin: 0 0.5em 0.5em 1%;
+}
+h1, h2 {
+font-weight: bold;
+/*margin: oben rechts unten links */
+padding: 0 2% 0.25em 1%;
+margin: 1em 0 0.5em 0;
+text-indent: 0;
+border-bottom: 1px solid #667abe;
+}
+h1 {
+font-size: 22px;
+}
+h2 {
+font-size: 14px;
+}
+h3, h4, h5, h6, div.parn, div.part, p, div.text, div.fnsyntax, pre.code, dt, ul, div.author {
+margin: 0.5em 2% 0.5em 3%;
+}
+h3 {
+font-size: 14px;
+font-weight: bold;
+margin-top: 1.5em;
+}
+h3, h4, dt, div.parn {
+font-weight: bold;
+}
+dt, div.parn {
+margin-top: 1em;
+}
+h2 + h3, h2 + div.parn {
+margin-top: 0.5em;
+}
+h2 + dl {
+margin-top: -0.5em;
+}
+table caption {
+text-align: left;
+font-weight: bold;
+margin: 0.5em 0 0.5em 0;
+}
+h5, h6 {
+font-weight: normal;
+font-style: normal;
+margin-left: 6%;
+}
+div.fnsyntax {
+text-indent: -3%;
+margin-left: 6%;
+}
+div.author {
+text-align: right;
+font-style: italic;
+margin-right: 4%;
+}
+ul {
+padding: 0;
+}
+dd {
+margin: 0;
+}
+table {
+border: 1px solid #667abe;
+border-spacing: 0;
+margin: 0.5em 0 0.5em 0;
+}
+th, td {
+font-size: 11px;
+text-align: left;
+vertical-align: top;
+padding: 0.2em 0.5em;
+margin: 0;
+}
+th {
+font-weight: bold;
+}
+tr.dark, th {
+color: black;
+background-color: #f8f8f5;
+}
+tr.mark {
+background-color: Highlight;
+color: HighlightText;
+}
+tr.darkmark {
+background-color: Highlight;
+color: HighlightText;
+}
+code, div.fnsyntax, pre.code {
+font-family: "Dejavu Sans Mono", "BitStream Vera Sans Mono", "Courier New", "Lucida Console", Courier, monospace;
+}
+pre.code {
+display: block;
+white-space: -moz-pre-wrap; /* Gecko */
+white-space: -pre-wrap;     /* Opera 4 - 6 */
+white-space: -o-pre-wrap;   /* Opera >= 7 */
+white-space: pre-wrap;      /* CSS2.1 */
+word-wrap: break-word;      /* IE 5.5+ */
+padding: 0.5em;
+border: 1px dashed #667abe;
+color: black;
+background-color: #f8f8f5;
+}
+span.type, code b, pre.code b {
+font-weight: bold;
+color: navy;
+background-color: transparent;
+}
+code i.string, pre.code i.string  {
+font-style: normal;
+color: green;
+background-color: transparent;
+}
+ul.nav {
+border-bottom: 1px solid #667abe;
+border-top: 1px solid #667abe;
+padding: 0.6em 0.5em 0.7em 0.5em;
+margin: 5px 0em 1em 0em;
+text-align: center;
+font-size: 11px;
+}
+ul.nav li {
+margin: 0 1em 0.5em 1em;
+display: inline;
+}
+ul.nav li.fineprint {
+float: left;
+color: #999999;
+margin: 0 1em 0.5em 0;
+}
+ul.nav li.switchlang {
+float: right;
+color: #999999;
+margin: 0 1em 0.5em 0;
+}
+/*ul.nav {
+float: right;
+list-style-type: none;
+list-style-image: url(images/bullet_sheet.gif);
+list-style-position: inside;
+border: black 1px dashed;
+padding: 0.5em 1em;
+color: black;
+background-color: #fafafa;
+margin: 1em 0 1em 1em;
+}
+ul.nav li {
+font-size: 14px;
+padding: 0;
+margin: 0.5em 0 0.5em 0;
+}*/
+ul.nav a, ul.nav a.visited {
+/* align the text with the paper */
+/*position: relative;
+top: -3px;
+left: -3px;*/
+color: navy;
+text-decoration: none;
+}

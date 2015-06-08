@@ -1,0 +1,2 @@
+DE:Erweiterte Hitbox
+US:Augmented Hitbox

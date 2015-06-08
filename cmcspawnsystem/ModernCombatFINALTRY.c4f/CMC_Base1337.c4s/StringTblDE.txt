@@ -1,0 +1,20 @@
+CreatingInterior=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+CreatingDecoration=Dekoration wird plaziert...
+
+MsgCollapse=<c ff0000>Achtung</c>: Der lokale Sendemast <c ffff33>stürzt ein</c>
+
+Team1=Sturmtruppe
+Team2=Basisbesatzung
+
+Flag1=Ladezone
+Flag2=Sendemast
+Flag3=Anlegestelle
+Flag4=Lagerhalle
+Flag5=Belüftungsturbine
+Flag6=Küste
+
+Target1=Radaranlage
+Target2=Datenserver
+Target3=Überwachungssystem
+Target4=Lüftungssystem

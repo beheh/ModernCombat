@@ -1,0 +1,17 @@
+[DefCore]
+id=BBWE
+Version=4,9,10,7
+Name=Barbwire
+Category=C4D_Structure
+TimerCall=Check
+Timer=5
+Width=16
+Height=14
+Offset=-8,-7
+Vertices=6
+VertexX=3,-7,0,7,-7,7
+VertexY=-6,7,7,7,-7,-7
+VertexFriction=100,100,100,100,100,100
+Mass=30
+Picture=0,14,114,114
+Grab=2

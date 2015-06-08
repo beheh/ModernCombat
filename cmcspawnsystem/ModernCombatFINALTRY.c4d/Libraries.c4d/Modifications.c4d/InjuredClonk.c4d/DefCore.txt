@@ -1,0 +1,23 @@
+[DefCore]
+id=FKDT
+Version=4,9,10,7
+Name=Injured Clonk
+Category=C4D_Vehicle
+Width=16
+Height=20
+Offset=-8,-10
+Mass=0
+Picture=16,0,50,50
+Vertices=7
+VertexX=0,0,0,-2,2,-4,4
+VertexY=2,0,9,-3,-3,3,3
+VertexCNAT=0,4,8,1,2,1,2
+VertexFriction=70,70,70,70,70,70,70
+BorderBound=1
+Float=1
+Grab=1
+GrabPutGet=C4D_GrabGet|C4D_GrabPut
+NoSell=1
+ClosedContainer=2
+Timer=36
+TimerCall=DeathMenu

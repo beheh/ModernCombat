@@ -1,0 +1,1 @@
+Spot 20 enemy objects with sensor abilities.

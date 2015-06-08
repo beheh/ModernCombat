@@ -1,0 +1,12 @@
+CreatingInterior=Creating furniture...
+CreatingEquipment=Placing equipment...
+CreatingDecoration=Placing decoration...
+
+Team1=Eurocorps
+Team2=Aggressors
+
+Flag1=Eurocorps Base
+Flag2=West Outpost
+Flag3=Resort
+Flag4=East Outpost
+Flag5=Aggressors' Base

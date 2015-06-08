@@ -1,0 +1,21 @@
+CreatingInterior=Creating furniture...
+CreatingEquipment=Placing equipment...
+CreatingDecoration=Placing decoration...
+
+MsgParachute=<c 33ccff>Parachutes</c> available, press [<c 33ccff>Double Jump</c>] while falling to activate.
+MsgCollapse=<c ff0000>Warning</c>: The local antenna tower <c ffff33>collapses</c>
+
+Team1=Eurocorps
+Team2=Aggressors
+
+Flag1=West Watchtower
+Flag2=Landing Zone A
+Flag3=Eurocorps Base
+Flag4=Bunker Facility
+Flag5=Aggressors' Base
+Flag6=Landing Zone B
+Flag7=East Watchtower
+
+Target1=Energy Converter
+Target2=Control Unit
+Target3=Radar Unit

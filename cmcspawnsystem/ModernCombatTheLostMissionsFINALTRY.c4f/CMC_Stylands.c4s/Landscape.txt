@@ -1,0 +1,26 @@
+/* CMC Stylands */
+
+overlay Islands { grp=1; invert=1;
+  overlay { algo=bozo; a=10; invert=1; zoomX=50; zoomY=-10; turbulence=100000; } &
+  overlay { algo=rndchecker; a=4; rotate=125; zoomX=-20; zoomY=-20; turbulence=100; } &
+  overlay { x=5; y= 15; wdt=90; hgt=85; loosebounds=1; turbulence=10; };
+  };
+
+overlay InEarth { algo=bozo; a=1; turbulence=10000; };
+
+overlay AlterMat { algo=rndchecker; zoomX=-100; zoomY=-100; };
+
+map SkyLands {
+  Islands & overlay { mat=Earth; tex=Rough;
+    overlay { algo=border; a=3; b=3; turbulence=100; mat=Earth; tex=Smooth; oy=-1; };
+    overlay { algo=border; invert=1; a=1; b=1; turbulence=1000; mat=Water; tex=Smooth; };
+    overlay { algo=border; a=1; b=1; oy=1; mat=Earth; tex=Rough; };
+    AlterMat & overlay { algo=border; a=4; b=4; turbulence=10; mat=Earth; tex=Smooth; };
+    };
+
+  Islands & overlay { mat=Earth; tex=Rough;
+    overlay { algo=border; a=0; b=1; turbulence=100; mat=Sand; tex=Smooth; oy=1;
+      AlterMat { mat=Earth; tex=Rough; };
+      };
+    };
+  };

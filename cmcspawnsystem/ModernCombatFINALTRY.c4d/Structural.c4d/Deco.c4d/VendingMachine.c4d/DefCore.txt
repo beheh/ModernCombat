@@ -1,0 +1,15 @@
+[DefCore]
+id=VGMN
+Version=4,9,10,7
+Name=Vending Machine
+Category=C4D_Structure
+Width=30
+Height=40
+Offset=-15,-20
+Vertices=2
+VertexX=-15,13
+VertexY=19,19
+VertexFriction=100,100
+Picture=0,0,30,40
+StretchGrowth=1
+IncompleteActivity=1

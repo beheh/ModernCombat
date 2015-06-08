@@ -1,0 +1,6 @@
+[DefCore]
+id=CSTD
+Version=4,9,10,7
+Name=Default Script
+Category=C4D_StaticBack
+Picture=0,0,64,64

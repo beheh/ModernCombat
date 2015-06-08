@@ -1,0 +1,10 @@
+[DefCore]
+id=IHLT
+Version=4,9,10,7
+Name=Info Highlight
+Category=C4D_StaticBack|C4D_Parallax|C4D_Foreground|C4D_MouseIgnore|C4D_IgnoreFoW
+Width=350
+Height=350
+Offset=-150,-150
+Picture=0,0,350,350
+Rotate=1

@@ -1,0 +1,3 @@
+Jedes Team startet mit mehreren Zielobjekten die es zu verteidigen gilt. Das Ziel ist die Zerstörung aller gegnerischen Zielobjekte und deren Besatzung, um zu gewinnen.
+
+Ein Zielobjekt gilt als Einstiegspunkt, verliert ein Team alle eigenen Zielobjekte, können gefallene Teammitglieder nicht mehr beitreten.

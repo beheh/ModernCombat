@@ -1,0 +1,16 @@
+[DefCore]
+id=BDMV
+Version=4,9,10,7
+Name=Burned MAV
+Category=C4D_Vehicle
+Width=15
+Height=15
+Offset=-8,-8
+Mass=25
+Picture=15,0,52,52
+BorderBound=1
+Vertices=6
+VertexX=-1,-6,3,-8,6,-1
+VertexY=0,6,6,-4,-4,-8
+VertexFriction=0,80,80,80,80,80
+VertexCNAT=0,0,0,0,0,0

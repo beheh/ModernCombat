@@ -1,0 +1,7 @@
+Bullets=Kugeln
+Burst=Feuerstoﬂ
+Single=Einzeln
+Grenades=Granaten
+Explosive=Explosiv
+Cluster=Splitter
+Smoke=Rauch

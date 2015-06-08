@@ -1,0 +1,3 @@
+Ziel ist das Einnehmen sovieler Flaggenposten wie möglich, diese dienen dem Besitzerteam als Einstiegspunkte. Tickets repräsentieren die Respawns jedes Teams.
+
+Das Gegnerteam kann entweder mit der Entfernung aller Tickets durch Elimination gegnerischer Spieler bezwungen werden, oder indem ihm alle Flaggenposten genommen werden und alle Bedrohungen eliminiert, die dies ändern könnten.

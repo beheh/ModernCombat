@@ -1,0 +1,61 @@
+#Clonk
+
+CtxStatistics=Statistics
+CtrlMenuDesc=Menü
+DropItem=Drop Item
+
+#Hazardclonk
+
+CtxGrenadeMenu=Grenades
+AmmoBag=Ammobag
+CtrlInventoryDesc=Inventory
+NoSpace=Inventory is full.
+CtxUnbuckleDesc=Unbuckle Gear
+CtxUnbuckleItem=Unbuckle %s
+CtxDetachAttachment=Detach %s
+AttachmentCollected=Attachment <c ffff33>%s</c> collected
+
+#QuickInventory
+
+QuickInventory=QuickInventar
+NextPage=Next page
+ContentCount=%d item
+ContentsCount=%d items
+PrimaryWeapons=Primary weapons
+SecondaryWeapons=Secondary weapons
+Equipment=Equipment
+Objects=Objects
+Use=Benutzen
+
+#Settings
+
+Settings=Settings
+CtxQuickInventoryOn=QuickInventory
+CtxQuickInventoryOff=<c 777777>QuickInventory</c>
+CtxQuickInventoryDesc=Enables the QuickInventory ringmenu, replacing the traditional switching inside the inventory.
+CtxHelpMessagesOn=Help messages
+CtxHelpMessagesOff=<c 777777>Help messages</c>
+CtxHelpMessagesDesc=Shows help messages above clonks.
+CtxInvLockOn=Inventory Lock
+CtxInvLockOff=<c 777777>Inventory Lock</c>
+CtxInvLockDesc=Prevents dropping weapons by key command, instead, an additional context entry can be selected to do so.
+CtxShorterDMOn=Compact Injured Menu
+CtxShorterDMOff=<c 777777>Compact Injured Menu</c>
+CtxShorterDMDesc=Reduces the injured menu and hides additional information.
+CtxRadioMusicOn=Radio Music
+CtxRadioMusicOff=<c 777777>Radio Music</c>
+CtxRadioMusicDesc=(De)Activates radio music for this player (if there are multiple players on one client, the music is deactivated, if all players have chosen same).
+CtxResetData=Reset Data
+CtxResetDataDesc=Permanently reset saved data.
+ResetDataInfo=Reset selected data of your player file.
+ResetAll=All Data
+ResetSettings=Clonk Settings
+ResetStatistics=Statistics
+ResetAchievements=Achievements
+ResetAchInfo=Really reset?|<c 777777>The reset is completed after the round ends.</c>
+ResetAchYes=Reset
+ResetAchNo=Cancel
+ResetDone=Selected data has been reset.
+
+#General
+Grenades=Grenades

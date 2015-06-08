@@ -1,0 +1,18 @@
+[DefCore]
+id=BDGE
+Version=4,9,10,7
+Name=Bandage Box
+Category=C4D_Vehicle
+Width=10
+Height=5
+Offset=-5,-2
+Vertices=3
+VertexX=-5,0,4
+VertexY=2,-3,2
+VertexFriction=150,130,150
+Mass=5
+Picture=0,5,64,64
+Collectible=1
+Float=1
+ContactIncinerate=1
+NoBurnDecay=1

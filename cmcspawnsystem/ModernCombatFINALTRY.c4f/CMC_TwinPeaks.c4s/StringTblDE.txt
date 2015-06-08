@@ -1,0 +1,14 @@
+CreatingInterior=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+CreatingDecoration=Dekoration wird plaziert...
+
+MsgCollapse=<c ff0000>Achtung</c>: Der lokale Sendemast <c ffff33>stürzt ein</c>
+
+Team1=Aggressoren
+Team2=Eurocorps
+
+Flag1=Alphabasis West
+Flag2=Alphabasis Süd
+Flag3=Sendemast
+Flag4=Betabasis West
+Flag5=Betabasis Süd

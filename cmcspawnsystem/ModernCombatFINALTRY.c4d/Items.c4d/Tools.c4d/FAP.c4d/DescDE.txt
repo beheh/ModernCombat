@@ -1,0 +1,3 @@
+Enthält Medikamente zur Versorgung von verletzten Clonks und regeneriert den Inhalt mit der Zeit.
+
+[Doppelgraben] zum verwenden und [Werfen] um als Sanitäter Dragnin zu entnehmen. Das EHP heilt automatisch Verbündete in der Nähe.

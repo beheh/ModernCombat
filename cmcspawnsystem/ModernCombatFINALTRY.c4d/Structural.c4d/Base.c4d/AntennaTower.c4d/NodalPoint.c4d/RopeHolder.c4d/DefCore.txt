@@ -1,0 +1,10 @@
+[DefCore]
+id=REHR
+Version=4,9,10,7
+Name=Rope Holder
+Category=C4D_StaticBack
+Width=28
+Height=32
+Offset=-14,-16
+Picture=0,0,28,32
+Rotate=1

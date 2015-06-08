@@ -1,0 +1,29 @@
+TxtLorryisfull=Lorry is full!
+
+CtxBuilding=Buildmenu
+BuildBuilding=Build
+RepairBuilding=Repair
+SellBuilding=Sell
+Close=Close
+TechLevel=<c 00aa00>- Techlevel %d -</c>
+
+TechLevelStart=Techlevel 0
+TechLevel1=Techlevel 1
+TechLevel2=Techlevel 2
+TechLevel3=Techlevel 3
+Back=Back
+
+MsgTechLevelBuildings=Techlevel allows following buildings:|
+True=Yes
+
+ErrWrongBuildingID=Is no valid CMC Building!
+ErrNotEnoughMoney=Not enough money!
+ErrNotAvailable=Techlevel not researched!
+ErrBuildingRadius=Not in buildradius!
+ErrNotEnoughSpace=Not enough space!
+
+SellMenu=Sellmenu
+SellBuildingInfo=Sell building %s really for <c ffff33>%d</c> credits?
+Yes=Yes
+No=No
+NoObjectToSell=Found no building for selling!

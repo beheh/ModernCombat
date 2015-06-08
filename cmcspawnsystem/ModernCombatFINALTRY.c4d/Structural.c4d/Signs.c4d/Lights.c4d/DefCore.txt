@@ -1,0 +1,8 @@
+[DefCore]
+id=OLGH
+Version=4,9,10,7
+Name=Lights
+Category=1
+Width=1
+Height=1
+Picture=0,0,1,1

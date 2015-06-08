@@ -1,0 +1,2 @@
+NoFunds=Not enough funds!
+TooMuch=Too much explosives around!

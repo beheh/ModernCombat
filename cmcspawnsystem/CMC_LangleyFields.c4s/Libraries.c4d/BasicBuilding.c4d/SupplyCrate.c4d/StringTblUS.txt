@@ -1,0 +1,1 @@
+ContentsMoved=Contents were stored in %s!
