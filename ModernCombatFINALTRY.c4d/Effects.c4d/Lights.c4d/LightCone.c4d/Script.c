@@ -98,7 +98,7 @@ func SpotAndBlind(object pUser, int iAngle)
     var tag;
     if(tag = FindObject2(Find_ActionTarget(pObj), Find_ID(SM08), Find_Allied(GetController(pUser))))
     {
-      tag->~RefreshRemoveTimer();
+      tag->~RefreshRemoveTimer(this);
       continue;
     }
 
