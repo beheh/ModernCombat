@@ -1,0 +1,1 @@
+Repraesentiert einen Respawnpunkt.
