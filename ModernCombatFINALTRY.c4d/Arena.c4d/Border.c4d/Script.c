@@ -65,9 +65,8 @@ private func Check()
   for(var clonk in FindObjects(Find_InRect(x, y, xh, yh), Find_Or(Find_OCF(OCF_CrewMember), Find_Func("IsBorderTarget"))))
     if(!GetEffect("Border", clonk))
     {
-      if((fTeamAllow && GetPlayerTeam(GetOwner(clonk)) == iAllowedTeam) || Contained(clonk) && (id = GetID(Contained(clonk))) && (id == TIM1 || id == TIM2 || id == FKDT || id == RPCH))
+      if((fTeamAllow && GetPlayerTeam(GetOwner(clonk)) == iAllowedTeam) || Contained(clonk) && (id = GetID(Contained(clonk))) && (id == TIM1 || id == TIM2 || id == FKDT))
         continue;
-
       AddEffect("Border", clonk, 50, 35, this);
     }
   for(var flag in FindObjects(Find_InRect(x, y, xh, yh), Find_ID(FLA2), Find_Action("Lost")))

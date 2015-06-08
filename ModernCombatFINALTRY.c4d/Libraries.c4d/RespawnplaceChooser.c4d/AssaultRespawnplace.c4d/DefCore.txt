@@ -1,9 +1,0 @@
-[DefCore]
-id=ARSP
-Version=4,9,10,7
-Name=Assault respawnplace
-Category=1
-Width=1
-Height=1
-Picture=0,0,64,64
-CollectionLimit=0

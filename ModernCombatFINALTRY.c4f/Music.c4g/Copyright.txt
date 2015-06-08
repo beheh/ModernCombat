@@ -23,7 +23,3 @@ Command and Clonker (Clonk Addon)
 "CMC_Techno"
 "CMC_Titanium City"
 Star Empires (Clonk Addon)
-
-"RadioSong_7"
-"RadioSong_8"
-Rollercoaster Tycoon Soundtrack

@@ -32,7 +32,7 @@ static const BKHK_Seat_Gunner = 2;
 static const BKHK_Seat_Coordinator = 3;
 static const BKHK_Seat_Passenger1 = 4;
 static const BKHK_Seat_Passenger2 = 5;
-static const RDIO_TrackCount = 8;
+static const RDIO_TrackCount = 6;
 
 /* Callbacks */
 

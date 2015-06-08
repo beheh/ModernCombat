@@ -1,7 +1,7 @@
 [DefCore]
-id=RPCH
+id=OSPW
 Version=4,9,10,7
-Name=Respawnplace Chooser
+Name=Flag Chooser
 Category=1
 Width=1
 Height=1

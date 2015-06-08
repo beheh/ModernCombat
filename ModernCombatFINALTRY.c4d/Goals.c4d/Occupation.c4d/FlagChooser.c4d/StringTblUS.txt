@@ -1,0 +1,2 @@
+SpawnMenu=Choose a <c ffff33>access position</c>
+SpawnAt=on flag post <c ffff33>%s</c>

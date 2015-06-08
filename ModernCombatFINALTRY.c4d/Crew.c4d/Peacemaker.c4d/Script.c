@@ -2,51 +2,12 @@
 
 #strict 2
 #include HZCK
-#include CRSP
 
 static const PCMK_PortraitVersion = 160;
 
 public func WeaponCollectionLimit()	{return 3;}				//Anzahl Waffen im Inventar
 public func ObjectCollectionLimit()	{return 2;}				//Anzahl Objekte im Inventar
 public func DeathAnimationCount()	{return (GetID() == PCMK) && 6;}	//Anzahl Todesanimationen
-
-/* Spawnsystem */
-
-public func IsRespawnplace(object pClonk)	{return ((GetPlayerTeam(GetOwner()) == GetPlayerTeam(GetOwner(pClonk))) && (pClonk != this) && !Contained()) && GetAlive();}
-public func IsTeamRespawnplace(int iTeam)	{return false;}
-public func IsAvailable(object pClonk)		{return (!FindObject2(Find_Distance(200), Find_Hostile(GetOwner(pClonk))) && !GetEffect("Border", this) && _inherited(pClonk, ...));}
-public func IsViewable(object pClonk)		{return _inherited(pClonk, ...);}
-public func GetIconID(object pClonk)		{return GetID();}
-
-public func GetIcon(object pIcon, object pClonk)
-{
-  SetColorDw(RGBa(255, 255, 255, 0), pIcon);
-  SetGraphics("", pIcon, GetIconID(pClonk));
-  
-  return;
-}
-
-public func GetText(object pClonk)
-{
-  var clr;
-
-  if(IsAvailable(pClonk))
-    clr = RGB(255, 255, 255);
-  else
-  {
-    if(FindObject2(Find_Distance(200), Find_Hostile(GetOwner(pClonk))))
-      clr = RGB(255, 0, 0);
-    else
-      clr = RGB(119, 119, 119);
-  }
-
-  return Format("<c %x>%s</c>", clr, GetPlayerName(GetOwner(this)));
-}
-
-public func GetObjectTeam()
-{
-  return GetPlayerTeam(GetOwner());
-}
 
 
 /* Portrait-Updates */

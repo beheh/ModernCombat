@@ -5,7 +5,7 @@
 local fPlaying;
 local iTrack;
 
-static const RDIO_TrackCount = 8;
+static const RDIO_TrackCount = 6;
 
 protected func IsRadio()	{return true;}
 

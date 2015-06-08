@@ -2,18 +2,7 @@
 
 #strict 2
 
-#include CRSP
-
-local team,process,range,flag,bar,attacker,trend,capt,pAttackers,lastowner, iconState;
-
-static const BAR_FlagBar = 5;
-
-/* Spawnsystem */
-
-public func IsRespawnplace(object pClonk)	{return !FindObject(GHTF);}
-public func IsTeamRespawnplace(int iTeam)	{return !FindObject(GHTF);}
-public func IsAvailable(object pClonk)		{return ((GetTeam() == GetPlayerTeam(GetOwner(pClonk))) && IsFullyCaptured());}
-public func IsViewable(object pClonk)		{return (GetTeam() == GetPlayerTeam(GetOwner(pClonk)));}
+local team,process,range,flag,bar,attacker,spawnpoints,trend,capt,pAttackers,lastowner, iconState;
 
 public func GetAttacker()	{return attacker;}
 public func GetTeam()		{return team;}
@@ -23,19 +12,19 @@ public func GetRange()		{return range;}
 public func IsFullyCaptured()	{return capt;}
 public func IsFlagpole()	{return true;}
 
+static const BAR_FlagBar = 5;
 
 /* Initalisierung */
 
 public func Initialize()
 {
+  spawnpoints = CreateArray();
   lastowner = 0;
   Set();
   if(!flag)
     flag = CreateObject(OFLG);
   pAttackers = CreateArray();
   UpdateFlag();
-  
-  return _inherited(...);
 }
 
 /* Einstellungen */
@@ -52,6 +41,29 @@ public func Set(string szName, int iRange, int iSpeed)
 
   RemoveEffect("IntFlagpole",this);
   AddEffect("IntFlagpole",this,10,iSpeed,this);
+}
+
+/* Spawnpoints setzen */
+
+public func AddSpawnPoint(int iX, int iY, string szFunction)
+{
+  var i = GetLength(spawnpoints);
+  spawnpoints[i] = CreateArray();
+  spawnpoints[i][0] = AbsX(iX);
+  spawnpoints[i][1] = AbsY(iY);
+  spawnpoints[i][2] = szFunction;  
+}
+
+public func GetSpawnPoint(int &iX, int &iY, string &szFunction, int iPlr)
+{
+  if(!GetLength(spawnpoints))
+  {
+    iY = -30;
+    return;
+  }
+
+  var iX, iY, szFunction;
+  szFunction = GetBestSpawnpoint(spawnpoints, iPlr, iX, iY)[2];
 }
 
 /* Wird angegriffen */
@@ -364,6 +376,14 @@ public func MoveFlagpost(int iX, int iY, bool fNeutral, string szName)
   //Besitzer neutralisieren
   if(fNeutral)
     NoTeam();
+
+  //Spawnpunkte anpassen
+  var curX = GetX(), curY = GetY();
+  for(var i = 0; i < GetLength(spawnpoints); i++)
+  {
+    spawnpoints[i][0] -= iX - curX;
+    spawnpoints[i][1] -= iY - curY;
+  }
 
   //Verschieben und einblenden
   SetPosition(iX, iY);
