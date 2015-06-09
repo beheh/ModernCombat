@@ -1,0 +1,7 @@
+[Action]
+Name=Radar
+FacetBase=1
+Facet=50,0,27,14,12,0
+Delay=5
+Length=17
+NextAction=Radar
