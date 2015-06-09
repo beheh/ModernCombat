@@ -1,2 +1,2 @@
-DE:Transmitter
+DE:Sendeanlage
 US:Transmitter

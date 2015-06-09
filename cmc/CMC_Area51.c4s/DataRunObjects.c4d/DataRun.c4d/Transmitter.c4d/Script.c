@@ -1,11 +1,10 @@
-/*-- Transmitter --*/
+/*-- Sendeanlage --*/
 
 #strict 2
 
 local fDestroyed, bar, iPoints;
 
 public func IsDataTransmitter(bool fGoal)	{return true;}
-public func IsDestroyed()			{return fDestroyed;}
 public func MaxPoints()				{return 100;}
 public func PointsGain()			{return 1;}
 
@@ -24,6 +23,9 @@ protected func Initialize()
   //Dateneffekt
   AddEffect("GeneratePoints", this, 1, 3, this);
   SetPoints(MaxPoints());
+
+  //Effekt
+  SetAction("Radar");
 
   return true;
 }
@@ -91,7 +93,6 @@ public func SetPoints(int iAmount)
 
 local isTarget;
 
-//Punkte generieren
 public func FxGeneratePointsTimer(object pTarget, int iNr)
 {
   if(GetEffect("ConnectionInUse", pTarget))
@@ -120,7 +121,8 @@ public func FxGeneratePointsTimer(object pTarget, int iNr)
   return true;
 }
 
-//Verbindung wird von Computer belastet
+/* Computer verbunden */
+
 public func FxConnectionInUseTimer(object pTarget, int iNr)
 {
   //Downloadicon setzen
@@ -133,7 +135,7 @@ public func FxConnectionInUseTimer(object pTarget, int iNr)
 
 public func FxConnectionInUseStop(object pTarget, int iNr)
 {
-  //Icon resetten
+  //Icon zurücksetzen
   pTarget->UpdateBar();
 
   return;
@@ -144,15 +146,21 @@ public func FxConnectionInUseStop(object pTarget, int iNr)
 public func IsDownloading()	{return GetEffect("ConnectionInUse", this) && GetPoints();}
 
 /* Schaden */
-
+/*
 public func OnDmg()
 {
-  if(GetDamage() > 150 && !fDestroyed)
+  if(GetDamage() > MaxDamage() && !fDestroyed)
   {
     fDestroyed = true;
-    //DecoExplode();
     bar->SetIcon(0, SM02, 0, 11000, 32);
     ScheduleCall(this, "Repair", 35*30);
+
+    //Effekte
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",5,5,0,30,80,100,RGBa(255,255,255,120),RGBa(255,255,255,150));
+    CastParticles("SplinterGlass", 5, 35, 0, -20, 20, 20, RGBa(255,255,255,0), RGBa(255,255,255,0));
+    Sparks(7+Random(5), RGBa(255,255,150,100));
+    Sound("MetalPoleHit*.ogg");
+
   }
 
   return true;
@@ -166,3 +174,8 @@ public func Repair()
 
   return true;
 }
+
+public func IsDestroyed()			{return fDestroyed;}
+public func MaxDamage()				{return 150;}
+public func RepairSpeed()			{return 2;}
+*/
