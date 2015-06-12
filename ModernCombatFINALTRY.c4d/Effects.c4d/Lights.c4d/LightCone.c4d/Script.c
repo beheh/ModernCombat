@@ -14,6 +14,8 @@ public func IsLocked()		{return fLocked;}
 public func IsModernLight()	{return true;}
 
 
+/* Konfiguration */
+
 public func ChangeSizeXY()
 {
   if(IsLocked())
