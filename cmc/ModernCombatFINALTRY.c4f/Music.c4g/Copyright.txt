@@ -1,15 +1,12 @@
 Die folgenden Musiktitel stammen von ihren jeweiligen Künstlern / The following songs are from their respective artists:
 
-"Friendly Unit", "Getaway", "Moving Squad", "Offensive", "Slow Motion"
+"CMC_Friendly Unit", "CMC_Getaway", "CMC_Moving Squad", "CMC_Offensive", "CMC_Slow Motion"
 Kevin MacLeod
 
-"Eurocorps"
+"CMC_Eurocorps"
 Two Steps from Hell
 
-"RadioSong_6"
-Richard Wagner
-
-"Blue Ressort"
+"CMC_Blue Ressort"
 Bomberman 64 Soundtrack
 
 "CMC_Firehawk"
@@ -18,11 +15,14 @@ Bomberman 64 Soundtrack
 "CMC_Obsession"
 "CMC_Rock Go On"
 "CMC_Your Eyes"
-Command and Clonker (Clonk Addon)
+Command & Clonquer (Clonk Addon)
 
 "CMC_Techno"
 "CMC_Titanium City"
 Star Empires (Clonk Addon)
+
+"RadioSong_6"
+Richard Wagner
 
 "RadioSong_7"
 "RadioSong_8"
