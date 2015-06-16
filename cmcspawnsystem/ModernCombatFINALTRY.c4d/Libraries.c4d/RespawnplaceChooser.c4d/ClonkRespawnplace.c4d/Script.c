@@ -89,11 +89,11 @@ public func GetRespawnplaces()
   for(var obj in respawnobjects)
   {
 	arr[GetLength(arr)][0] = GetX(obj);
-	arr[GetLength(arr)][1] = GetY(obj);
+	arr[GetLength(arr)][1] = GetDefBottom(obj);
   }
 
   if(!GetLength(arr))
-    return [[GetX(), GetY()]];
+    return [[GetX(), GetDefBottom()]];
 
   return arr; 
 }
