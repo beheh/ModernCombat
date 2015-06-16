@@ -14,8 +14,8 @@ public func DeathAnimationCount()	{return (GetID() == PCMK) && 6;}	//Anzahl Tode
 
 public func IsRespawnplace(object pClonk)	{return ((GetPlayerTeam(GetOwner()) == GetPlayerTeam(GetOwner(pClonk))) && (pClonk != this) && !Contained()) && GetAlive();}
 public func IsTeamRespawnplace(int iTeam)	{return false;}
-public func IsAvailable(object pClonk)		{return (!FindObject2(Find_Distance(200), Find_Hostile(GetOwner(pClonk))) && !GetEffect("Border", this) && _inherited(pClonk, ...));}
-public func IsViewable(object pClonk)		{return _inherited(pClonk, ...);}
+public func IsAvailable(object pClonk)		{return (!FindObject2(Find_Distance(200), Find_Hostile(GetOwner(pClonk))) && !GetEffect("Border", this));}
+public func IsViewable(object pClonk)		{return true;}
 public func GetIconID(object pClonk)		{return GetID();}
 
 public func GetIcon(object pIcon, object pClonk)

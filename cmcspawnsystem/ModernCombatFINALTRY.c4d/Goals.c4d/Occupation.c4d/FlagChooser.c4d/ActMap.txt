@@ -1,7 +1,0 @@
-[Action]
-Name=Counter
-Procedure=NONE
-Facet=0,64,27,32,-13,-36
-NextAction=Hold
-Length=5
-Delay=0
