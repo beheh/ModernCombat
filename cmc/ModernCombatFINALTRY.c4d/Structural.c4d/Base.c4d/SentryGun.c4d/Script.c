@@ -628,7 +628,7 @@ func ValidTarget(object pT)
 
   if(!pT->~IsBulletTarget()) return;
 
-  if(!CheckEnemy(this, pT, true))	return;
+  if(!CheckEnemy(this, pT, true)) return;
 
   var ox = GetX(pT);
   var oy = GetY(pT);
