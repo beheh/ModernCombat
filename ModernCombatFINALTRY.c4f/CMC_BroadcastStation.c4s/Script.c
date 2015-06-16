@@ -291,6 +291,10 @@ func CreateDecoration()
   CreateObject(BOTL, 1290, 140, -1);
   CreateObject(BOTL, 1295, 140, -1);
 
+  //Papierstapel
+  CreateObject(PPSK, 220, 490, -1);
+  CreateObject(PPSK, 1275, 190, -1);
+
   //Apparaturen
   CreateObject(GADG, 660, 510, -1);
   CreateObject(GADG, 1340, 580, -1)->Set(1);

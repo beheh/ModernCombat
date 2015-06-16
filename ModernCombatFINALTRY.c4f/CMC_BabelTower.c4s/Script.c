@@ -609,26 +609,26 @@ func CreateDecoration()
   CreateObject(LCKR, 1250, 1610, -1);
 
   //Topfpflanzen
-  CreateObject(PLNT, 975, 700, -1);
-  CreateObject(PLNT, 1395, 700, -1);
+  CreateObject(PLT4, 975, 700, -1);
+  CreateObject(PLT4, 1395, 700, -1);
   CreateObject(PLT3, 1185, 870, -1);
-  CreateObject(PLNT, 980, 950, -1);
-  CreateObject(PLNT, 1390, 950, -1);
-  CreateObject(PLNT, 980, 1100, -1);
-  CreateObject(PLNT, 1390, 1100, -1);
+  CreateObject(PLT4, 980, 950, -1);
+  CreateObject(PLT4, 1390, 950, -1);
+  CreateObject(PLT4, 980, 1100, -1);
+  CreateObject(PLT4, 1390, 1100, -1);
   CreateObject(PLT3, 1120, 1120, -1);
   CreateObject(PLT3, 1250, 1120, -1);
-  CreateObject(PLNT, 980, 1250, -1);
-  CreateObject(PLNT, 1390, 1250, -1);
+  CreateObject(PLT4, 980, 1250, -1);
+  CreateObject(PLT4, 1390, 1250, -1);
   CreateObject(PLT3, 1150, 1560, -1);
   CreateObject(PLT3, 1220, 1560, -1);
   CreateObject(PLT3, 1015, 1610, -1);
   CreateObject(PLT3, 1355, 1610, -1);
-  CreateObject(PLNT, 990, 1690, -1);
+  CreateObject(PLT4, 990, 1690, -1);
   CreateObject(PLT3, 1220, 1690, -1);
-  CreateObject(PLNT, 1385, 1690, -1);
-  CreateObject(PLNT, 990, 1800, -1);
-  CreateObject(PLNT, 1385, 1800, -1);
+  CreateObject(PLT4, 1385, 1690, -1);
+  CreateObject(PLT4, 990, 1800, -1);
+  CreateObject(PLT4, 1385, 1800, -1);
   CreateObject(PLT3, 1000, 1940, -1);
   CreateObject(PLT3, 1165, 1920, -1);
   CreateObject(PLT3, 1205, 1920, -1);
@@ -693,6 +693,10 @@ func CreateDecoration()
   //Flaschen
   CreateObject(BOTL, 1370, 1490, -1);
   CreateObject(BOTL, 1140, 1678, -1);
+
+  //Papierstapel
+  CreateObject(PPSK, 1115, 1677, -1);
+  CreateObject(PPSK, 1130, 1677, -1);
 
   //Regale
   CreateObject(FRAM, 1345, 810, -1);
@@ -786,7 +790,7 @@ func OnPillarCollapseL1(int iPlr)
    DoDmg(200, DMG_Explosion, obj, 0, iPlr + 1);
 
   //Dekoration entfernen
-  for(var obj in FindObjects(Find_Or(Find_ID(PANE), Find_ID(PLNT)), Find_InRect(970,920,20,240)))
+  for(var obj in FindObjects(Find_Or(Find_ID(PANE), Find_ID(PLT4)), Find_InRect(970,920,20,240)))
    RemoveObject(obj);
 
   //Trümmer verschleudern
@@ -887,7 +891,7 @@ func OnPillarCollapseR1(int iPlr)
    DoDmg(200, DMG_Explosion, obj, 0, iPlr + 1);
 
   //Dekoration entfernen
-  for(var obj in FindObjects(Find_Or(Find_ID(PANE), Find_ID(PLNT)), Find_InRect(1380,920,20,240)))
+  for(var obj in FindObjects(Find_Or(Find_ID(PANE), Find_ID(PLT4)), Find_InRect(1380,920,20,240)))
    RemoveObject(obj);
 
   //Trümmer verschleudern

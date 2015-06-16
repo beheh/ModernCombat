@@ -479,6 +479,13 @@ func CreateDecoration()
   CreateObject(BOTL, 2975, 110, -1);
   CreateObject(BOTL, 2980, 110, -1);
 
+  //Papierstapel
+  CreateObject(PPSK, 1455, 510, -1);
+  CreateObject(PPSK, 1860, 320, -1);
+  CreateObject(PPSK, 1980, 290, -1);
+  CreateObject(PPSK, 2330, 97, -1);
+  CreateObject(PPSK, 3110, 355, -1);
+
   //Monitore
   CreateObject(MNI2, 1820, 308, -1);
   CreateObject(MNI2, 1900, 308, -1);
@@ -492,17 +499,17 @@ func CreateDecoration()
   CreateObject(GTBL, 2340, 110, -1);
 
   //Topfpflanzen
-  CreateObject(PLNT, 1220, 240, -1);
-  CreateObject(PLNT, 1220, 300, -1);
-  CreateObject(PLNT, 1220, 360, -1);
+  CreateObject(PLT4, 1220, 240, -1);
+  CreateObject(PLT4, 1220, 300, -1);
+  CreateObject(PLT4, 1220, 360, -1);
   CreateObject(PLT3, 1300, 430, -1);
   CreateObject(PLT3, 1360, 430, -1);
-  CreateObject(PLNT, 1800, 308, -1);
-  CreateObject(PLNT, 1855, 140, -1);
+  CreateObject(PLT4, 1800, 308, -1);
+  CreateObject(PLT4, 1855, 140, -1);
   CreateObject(PLT3, 1875, 320, -1);
-  CreateObject(PLNT, 2015, 278, -1);
+  CreateObject(PLT4, 2015, 278, -1);
   CreateObject(PLT3, 2340, 400, -1);
-  CreateObject(PLNT, 2355, 98, -1);
+  CreateObject(PLT4, 2355, 98, -1);
 
   //Geländer
   CreateObject(RAI1, -5, 450, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);

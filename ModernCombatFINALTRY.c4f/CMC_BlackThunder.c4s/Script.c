@@ -307,6 +307,13 @@ func CreateDecoration()
   CreateObject(ETLT, 1410, 655, -1);
   CreateObject(ETLT, 2830, 655, -1);
   CreateObject(ETLT, 3830, 540, -1);
+
+  //Papierstapel
+  CreateObject(PPSK, 370, 560, -1);
+  CreateObject(PPSK, 385, 560, -1);
+  CreateObject(PPSK, 3855, 560, -1);
+  CreateObject(PPSK, 3870, 560, -1);
+
 }
 
 /* Regelwähler */
