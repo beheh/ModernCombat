@@ -16,7 +16,7 @@ public func IsRespawnplace(object pClonk)	{return ((GetPlayerTeam(GetOwner()) ==
 public func IsTeamRespawnplace(int iTeam)	{return false;}
 public func IsAvailable(object pClonk)		{return (!FindObject2(Find_Distance(200), Find_Hostile(GetOwner(pClonk)), Find_OCF(OCF_CrewMember)) && !GetEffect("Border", this));}
 public func IsViewable(object pClonk)		{return true;}
-public func GetIconID(object pClonk)		{return GetID();}
+public func GetIconID(object pClonk)		{return SM27;} 
 
 public func GetIcon(object pIcon, object pClonk)
 {

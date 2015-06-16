@@ -15,7 +15,7 @@ public func IsViewable(object pClonk) { return true; }
 
 public func GetRespawnTime(object pClonk) { return 0; }
 public func GetNumber(object pClonk) { return 0; }
-public func GetIconID(object pClonk) { return SM16; }
+public func GetIconID(object pClonk) { return SM26; }
 
 public func GetIcon(object pIcon, object pClonk)
 {
