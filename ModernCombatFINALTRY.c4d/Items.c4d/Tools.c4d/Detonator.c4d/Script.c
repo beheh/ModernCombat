@@ -124,11 +124,13 @@ public func JoinPack(object pInto, object pMsgObj)
 {
   var i = _inherited(pInto, pMsgObj, ...);
   if(i)
-  {
     //C4 übertragen
     for (var obj in GetC4())
+    {
       obj->~SetPacket(pInto);
-  }
+      SetController(GetOwner(pInto), obj);
+    }
+
   pInto->~Check();
   Check();
   return i;
