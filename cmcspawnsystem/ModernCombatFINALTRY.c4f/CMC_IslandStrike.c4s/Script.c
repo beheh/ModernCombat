@@ -69,12 +69,14 @@ func CreateInterior()
   CreateObject(LADR, 5310, 637, -1)->Set(16);
   CreateObject(LADR, 5525, 636, -1)->Set(16);
   CreateObject(LADR, 6635, 534, -1)->Set(11);
+  CreateObject(LADR, 6805, 620, -1)->Set(7);
   CreateObject(LADR, 7240, 602, -1)->Set(8);
   CreateObject(LADR, 7280, 602, -1)->Set(8);
   CreateObject(LADR, 7320, 602, -1)->Set(8);
   CreateObject(LADR, 7365, 540, -1)->Set(12);
   CreateObject(LADR, 7425, 578, -1)->Set(14);
   CreateObject(LADR, 7670, 475, -1)->Set(6);
+  CreateObject(LADR, 6955, 605, -1)->Set(5);
 
   //Stahlbrücken
   CreateObject(_HBR, 5215, 512, -1)->SwitchMode();
@@ -140,12 +142,14 @@ func CreateInterior()
   CreateObject(MWCR, 5030, 570, -1)->AutoRespawn();
   CreateObject(MWCR, 5370, 570, -1)->AutoRespawn();
   CreateObject(MWCR, 7550, 610, -1)->AutoRespawn();
+  CreateObject(MWCR, 6820, 510, -1)->AutoRespawn();
 
   //Verbandskisten
   CreateObject(BECR, 1275, 500, -1)->AutoRespawn();
   CreateObject(BECR, 4400, 430, -1)->AutoRespawn();
   CreateObject(BECR, 5050, 570, -1)->AutoRespawn();
   CreateObject(BECR, 7325, 410, -1)->AutoRespawn();
+  CreateObject(BECR, 6850, 560, -1)->AutoRespawn();
 
   //Explosive Kisten
   CreateObject(XWCR, 5560, 500, -1)->AutoRespawn();
@@ -183,6 +187,9 @@ func CreateInterior()
   CreateObject(SFFG, 5120, 500, -1)->Set(5);
   CreateObject(SFFG, 5310, 450, -1)->Set(5);
   CreateObject(SFFG, 5310, 500, -1)->Set(5);
+  CreateObject(SFFG, 6850, 560, -1)->Set(4);
+  CreateObject(SFFG, 6850, 610, -1)->Set(4);
+  CreateObject(SFFG, 6910, 610, -1)->Set(4);
 
   //Haie
   CreateObject(SHRK, 100, 660, -1)->AutoRespawn();
@@ -478,15 +485,19 @@ func CreateDecoration()
 
   //Topfpflanzen
   CreateObject(PLT3, 1030, 640, -1);
-  CreateObject(PLNT, 1120, 625, -1);
-  CreateObject(PLNT, 2715, 610, -1);
-  CreateObject(PLNT, 6435, 610, -1);
+  CreateObject(PLT4, 1120, 625, -1);
+  CreateObject(PLT4, 2715, 610, -1);
+  CreateObject(PLT4, 6435, 610, -1);
 
   //Apparaturen
   CreateObject(GADG, 1135, 640, -1)->Set(1);
   CreateObject(GADG, 4340, 680, -1)->Set(2);
   CreateObject(GADG, 5810, 610, -1)->Set(1);
   CreateObject(GADG, 5820, 610, -1)->Set(1);
+
+  //Papierstapel
+  CreateObject(PPSK, 3710, 570, -1);
+  CreateObject(PPSK, 4310, 570, -1);
 
   //Orientierungslichter
   CreateObject(OLGH, 595, 540, -1)->Set(4, 15, 1, 1, 30);
@@ -736,8 +747,10 @@ public func ChooserFinished()
     //Leiter
     CreateObject(LADR, 525, 515, -1)->Set(15);
 
-    //Boden
-    DrawMaterialQuad("Wall-Bricks2", 7230,530, 7250,530, 7250,560, 7230,560);
+   //Leitern 
+   CreateObject(LADR, 525, 515, -1)->Set(15);
+   CreateObject(LADR, 6025, 450, -1)->Set(12);
+   CreateObject(LADR, 7700, 590, -1)->Set(13);
 
     //Objekte entfernen
     RemoveObject(aSelfDefense[0]);
@@ -763,18 +776,6 @@ public func ChooserFinished()
     CreateObject(LADR, 6805, 620, -1)->Set(7);
     CreateObject(LADR, 7700, 590, -1)->Set(13);
 
-    //Stahlbrücken
-    CreateObject(_HBR, 495, 622, -1);
-    CreateObject(_HBR, 635, 622, -1);
-    CreateObject(_HBR, 705, 622, -1);
-    CreateObject(_HBR, 775, 622, -1);
-    CreateObject(_HBR, 2125, 532, -1);
-    CreateObject(_HBR, 2195, 532, -1);
-    CreateObject(_HBR, 5230, 662, -1);
-    CreateObject(_HBR, 5300, 662, -1);
-    CreateObject(_HBR, 5370, 662, -1);
-    CreateObject(_HBR, 5440, 662, -1);
-
     //Gerüste
     CreateObject(SFFG, 570, 440, -1)->Set(5);
     CreateObject(SFFG, 570, 490, -1)->Set(2);
@@ -784,14 +785,13 @@ public func ChooserFinished()
     CreateObject(SFFG, 650, 540, -1)->Set(4);
     CreateObject(SFFG, 6850, 610, -1)->Set(4);
 
-    //Metallkisten
-    CreateObject(MWCR, 678, 440, -1);
-    CreateObject(MWCR, 678, 490, -1);
-    CreateObject(MWCR, 790, 610, -1);
-    CreateObject(MWCR, 990, 510, -1);
-    CreateObject(MWCR, 1070, 570, -1);
-    CreateObject(MWCR, 2219, 520, -1);
-    CreateObject(MWCR, 5400, 650, -1);
+   //Gerüste
+   CreateObject(SFFG, 570, 440, -1)->Set(5);
+   CreateObject(SFFG, 570, 490, -1)->Set(2);
+   CreateObject(SFFG, 570, 540, -1)->Set(3);
+   CreateObject(SFFG, 650, 440, -1)->Set(4);
+   CreateObject(SFFG, 650, 490, -1)->Set(4);
+   CreateObject(SFFG, 650, 540, -1)->Set(4);
 
     //Kisten
     CreateObject(WCR2, 630, 610, -1);
@@ -810,9 +810,11 @@ public func ChooserFinished()
     CreateObject(BECR, 5270, 650, -1);
     CreateObject(BECR, 6880, 560, -1)->AutoRespawn();
 
-    //Versorgungskiste (Dragnin)
-    var crate = CreateObject(AMCT, 560, 540, -1);
-    crate->Set(DGNN);
+   //Verbandskisten
+   CreateObject(BECR, 650, 610, -1);
+   CreateObject(BECR, 785, 592, -1);
+   CreateObject(BECR, 2120, 520, -1);
+   CreateObject(BECR, 5270, 650, -1);
 
     //Versorgungskiste (APW)
     crate = CreateObject(AMCT, 645, 490, -1);

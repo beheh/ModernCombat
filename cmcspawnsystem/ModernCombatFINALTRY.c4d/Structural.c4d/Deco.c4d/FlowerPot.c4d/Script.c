@@ -4,7 +4,7 @@
 
 local broken;
 
-private func PlantCount()	{return 5;}	//Anzahl Pflanzen (abzüglich 1)
+private func PlantCount()	{return 6;}	//Anzahl Pflanzen
 
 
 /* Initialisierung */

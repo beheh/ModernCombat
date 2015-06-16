@@ -402,6 +402,12 @@ func CreateDecoration()
   //Notausgangslichter
   CreateObject(ETLT, 1590, 850, -1);
   CreateObject(ETLT, 4140, 850, -1);
+
+  //Papierstapel
+  CreateObject(PPSK, 1675, 980, -1);
+  CreateObject(PPSK, 1695, 961, -1);
+  CreateObject(PPSK, 4035, 961, -1);
+  CreateObject(PPSK, 4055, 980, -1);
 }
 
 func CreateOptionalFeatures()

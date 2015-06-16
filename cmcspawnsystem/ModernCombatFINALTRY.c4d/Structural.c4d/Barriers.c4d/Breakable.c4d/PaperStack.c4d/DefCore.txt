@@ -1,0 +1,15 @@
+[DefCore]
+id=PPSK
+Version=4,9,10,7
+Name=Paper Stack
+Category=C4D_Vehicle
+Width=12
+Height=8
+Offset=-6,-4
+Vertices=4
+VertexX=-6,-5,5,6
+VertexY=4,-4,-4,4
+VertexFriction=100,100,100,100
+Mass=5
+Picture=0,8,68,50
+Rotate=1

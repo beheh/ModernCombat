@@ -626,9 +626,9 @@ func ValidTarget(object pT)
 
   if((GetOCF(pT) & OCF_Alive) && GetProcedure(pT) != "FLIGHT") return;
 
-  if(!IsBulletTarget()) return;
+  if(!pT->~IsBulletTarget()) return;
 
-  if(!CheckEnemy(this, pT, true))	return;
+  if(!CheckEnemy(this, pT, true)) return;
 
   var ox = GetX(pT);
   var oy = GetY(pT);
