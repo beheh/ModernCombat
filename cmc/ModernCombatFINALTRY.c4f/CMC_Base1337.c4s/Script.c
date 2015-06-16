@@ -434,6 +434,11 @@ func CreateDecoration()
   CreateObject(BOTL, 4005, 832, -1);
   CreateObject(BOTL, 4010, 832, -1);
 
+  //Papierstapel
+  CreateObject(PPSK, 940, 860, -1);
+  CreateObject(PPSK, 3025, 990, -1);
+  CreateObject(PPSK, 3930, 1117, -1);
+
   //Monitore
   CreateObject(MNI2, 3420, 912, -1);
   CreateObject(MNI2, 3990, 1118, -1);

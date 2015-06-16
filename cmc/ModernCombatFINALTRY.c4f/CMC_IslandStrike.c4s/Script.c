@@ -485,15 +485,19 @@ func CreateDecoration()
 
   //Topfpflanzen
   CreateObject(PLT3, 1030, 640, -1);
-  CreateObject(PLNT, 1120, 625, -1);
-  CreateObject(PLNT, 2715, 610, -1);
-  CreateObject(PLNT, 6435, 610, -1);
+  CreateObject(PLT4, 1120, 625, -1);
+  CreateObject(PLT4, 2715, 610, -1);
+  CreateObject(PLT4, 6435, 610, -1);
 
   //Apparaturen
   CreateObject(GADG, 1135, 640, -1)->Set(1);
   CreateObject(GADG, 4340, 680, -1)->Set(2);
   CreateObject(GADG, 5810, 610, -1)->Set(1);
   CreateObject(GADG, 5820, 610, -1)->Set(1);
+
+  //Papierstapel
+  CreateObject(PPSK, 3710, 570, -1);
+  CreateObject(PPSK, 4310, 570, -1);
 
   //Orientierungslichter
   CreateObject(OLGH, 595, 540, -1)->Set(4, 15, 1, 1, 30);

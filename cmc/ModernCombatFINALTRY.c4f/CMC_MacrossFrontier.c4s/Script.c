@@ -300,6 +300,11 @@ func CreateDecoration()
   CreateObject(GADG, 1190, 540, -1);
   CreateObject(GADG, 1540, 560, -1);
 
+  //Papierstapel
+  CreateObject(PPSK, 315,640, -1);
+  CreateObject(PPSK, 1145, 687, -1);
+  CreateObject(PPSK, 1640, 560, -1);
+
   //Straﬂenlichter
   CreateObject(SLGH, 640, 430, -1);
   CreateObject(SLGH, 1260, 350, -1);

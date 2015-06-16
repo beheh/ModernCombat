@@ -522,6 +522,9 @@ func CreateDecoration()
   CreateObject(BOTL, 1560, 412, -1);
   CreateObject(BOTL, 2380, 612, -1);
 
+  //Papierstapel
+  CreateObject(PPSK, 1515, 640, -1);
+
   //Dekoschleusen
   CreateObject(GAT1, 1275, 520, -1);
   CreateObject(GAT1, 1855, 520, -1);
