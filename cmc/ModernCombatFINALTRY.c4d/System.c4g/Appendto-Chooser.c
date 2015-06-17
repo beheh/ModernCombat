@@ -1062,7 +1062,7 @@ public func GetTeamCaptainCount()
 {
   var count = 0;
   for(var i = 0; i < GetLength(aTeamCaptains); i++)
-    if(aTeamCaptains[i])
+    if(aTeamCaptains[i] && GetPlayerID(aTeamCaptains[i]))
       count++;
 
   return count;
