@@ -76,6 +76,7 @@ Length=18
 Delay=1
 Facet=0,0,200,60
 NextAction=Fly
+Sound=APCE_IdleSystem.ogg
 
 [Action]
 Name=Stand
@@ -95,3 +96,4 @@ Delay=2
 Facet=0,120,200,60
 NextAction=Fly
 EndCall=ChangeDir
+Sound=APCE_IdleSystem.ogg

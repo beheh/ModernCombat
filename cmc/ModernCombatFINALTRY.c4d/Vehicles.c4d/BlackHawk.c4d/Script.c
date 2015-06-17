@@ -1636,7 +1636,6 @@ protected func FxEngineStart(object pTarget, int iNr, int iTemp)
   if(iTemp)
     return;
 
-  Sound(SoundIdle(), false, pTarget, 100, 0, +1);
   EchoLoop(SoundIdleEcho(), +1);
 
   return true;
@@ -1647,7 +1646,6 @@ protected func FxEngineStop(object pTarget, int iNr, int iReason, bool fTemp)
   if(fTemp)
     return true;
 
-  Sound(SoundIdle(), false, pTarget, 100, 0, -1);
   EchoLoop(SoundIdleEcho(), -1);
 
   return true;
@@ -1735,7 +1733,6 @@ protected func FxEngineTimer(object Target, int EffectNumber, int EffectTime)
   SetYDir(GetYDir(Target, 95) + av, Target, 100);
   SetXDir(GetXDir(Target, 95) + ah, Target, 100);
 
-  Sound(SoundIdle(), false, Target, 100, 0, +1);
   EchoLoop(SoundIdleEcho(), +1);
 
   return true;
