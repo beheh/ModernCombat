@@ -2,6 +2,7 @@
 
 #strict 2
 
+#include SCA1
 
 /* Initialisierung */
 

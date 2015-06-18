@@ -5,6 +5,7 @@ NextAction=Scan
 Delay=6
 Length=38
 Facet=0,0,60,40
+EndCall=PickClip
 
 [Action]
 Name=Scan2
@@ -13,6 +14,7 @@ NextAction=Scan2
 Delay=6
 Length=22
 Facet=0,40,60,40
+EndCall=PickClip
 
 [Action]
 Name=Clonk
@@ -29,6 +31,7 @@ NextAction=Clonk
 Delay=200
 Length=1
 Facet=2700,80,60,40
+EndCall=PickClip
 
 [Action]
 Name=Wompf
@@ -45,6 +48,7 @@ NextAction=Wompf
 Delay=200
 Length=1
 Facet=1560,120,60,40
+EndCall=PickClip
 
 [Action]
 Name=News
@@ -157,3 +161,4 @@ NextAction=News
 Delay=200
 Length=1
 Facet=3720,160,60,40
+EndCall=PickClip
