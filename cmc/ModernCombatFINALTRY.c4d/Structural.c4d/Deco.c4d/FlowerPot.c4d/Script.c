@@ -32,7 +32,7 @@ protected func Damage()
   SetSpeed(RandomX(-10,10),-20);
 
   //Effekte
-  Sound("PotBreak.ogg");
+  Sound("CeramicBreak*.ogg");
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("GrassBlade",RandomX(6,8),10,0,-30,100,150,RGB(255,255,255),RGBa(255,255,255,130));
   CreateParticle("HalfPot", -2, 0, -10-Random(5), -2, 65, RGBa(255,255,255,0));
   CreateParticle("HalfPot",  4, 0,  10+Random(5), -2, 65, RGBa(255,255,255,0));
