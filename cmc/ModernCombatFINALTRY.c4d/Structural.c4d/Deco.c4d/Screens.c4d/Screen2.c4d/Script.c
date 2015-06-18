@@ -4,7 +4,6 @@
 
 #include SCA1
 
-
 /* Initialisierung */
 
 func Initialize()
