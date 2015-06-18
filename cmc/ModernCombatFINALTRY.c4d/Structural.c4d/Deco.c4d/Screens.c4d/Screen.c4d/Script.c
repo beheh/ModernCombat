@@ -14,11 +14,12 @@ func Initialize()
 
 /* Clips festlegen */
 
-local clips;
+local clips, lastclip;
 
-public func SetClips(array aClips)
-{
+public func SetClips(array aClips) {
   clips = aClips;
+
+  lastclip = -1;
 
   //Ersten Clip auswählen
   PickClip();
@@ -26,18 +27,21 @@ public func SetClips(array aClips)
   return true;
 }
 
-/* Zufälligen Clip wählen */
-
-public func PickClip()
-{
+public func PickClip() {
   if(!clips)
     return;
 
-  var clip = clips[Random(GetLength(clips))];
+  var r = Random(GetLength(clips) - 1);
+  if(lastclip == -1 || r >= lastclip)
+    r += 1;
+
+  var clip = clips[r];
   if(GetType(clip) == C4V_Int)
     SetAction(Format("Clip%02d", clip));
   else
     SetAction(clip);
+
+  lastclip = r;
 
   return true;
 }
