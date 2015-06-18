@@ -358,14 +358,26 @@ func CreateDecoration()
   CreateObject(TOIC, 4600, 790, -1);
 
   //Topfpflanzen
+  CreateObject(PLT4, 3155, 930, -1);
+  CreateObject(PLT4, 3850, 610, -1);
+  CreateObject(PLT4, 3850, 730, -1);
   CreateObject(PLT3, 3880, 900, -1);
   CreateObject(PLT3, 3950, 900, -1);
+  CreateObject(PLT4, 3980, 670, -1);
   CreateObject(PLT3, 4070, 900, -1);
   CreateObject(PLT3, 4095, 790, -1);
+  CreateObject(PLT4, 4100, 840, -1);
+  CreateObject(PLT4, 4210, 790, -1);
+  CreateObject(PLT4, 4280, 790, -1);
+  CreateObject(PLT4, 4390, 840, -1);
   CreateObject(PLT3, 4395, 790, -1);
   CreateObject(PLT3, 4420, 900, -1);
+  CreateObject(PLT4, 4510, 670, -1);
   CreateObject(PLT3, 4540, 900, -1);
   CreateObject(PLT3, 4610, 900, -1);
+  CreateObject(PLT4, 4640, 610, -1);
+  CreateObject(PLT4, 4640, 730, -1);
+  CreateObject(PLT4, 5335, 930, -1);
 
   //Betten
   CreateObject(BED2, 3962, 610, -1);
@@ -494,6 +506,12 @@ func CreateDecoration()
   CreateObject(ENGT, 3100, 890, -1);
   CreateObject(ENGT, 5390, 890, -1);
   CreateObject(ENGT, 6255, 900, -1);
+
+  //Papierstapel
+  CreateObject(PPSK, 3855, 670, -1);
+  CreateObject(PPSK, 3860, 790, -1);
+  CreateObject(PPSK, 4630, 790, -1);
+  CreateObject(PPSK, 4635, 670, -1);
 }
 
 func CreateOptionalFeatures()
@@ -571,7 +589,7 @@ func OnPillarCollapseL(int iPlr)
    DoDmg(200, DMG_Explosion, obj, 0, iPlr + 1);
 
   //Dekoration entfernen
-  for(var obj in FindObjects(Find_Or(Find_ID(HA4K), Find_ID(GDDR), Find_ID(PANE), Find_ID(BED2), Find_ID(WSHB), Find_ID(TOIC), Find_ID(LADR), Find_ID(LTBL)), Find_InRect(3840, 550, 150, 270)))
+  for(var obj in FindObjects(Find_Or(Find_ID(HA4K), Find_ID(GDDR), Find_ID(PANE), Find_ID(BED2), Find_ID(WSHB), Find_ID(TOIC), Find_ID(PPSK), Find_ID(PLT4), Find_ID(LADR), Find_ID(LTBL)), Find_InRect(3840, 550, 150, 270)))
    RemoveObject(obj);
 
   //Türverbindung entfernen
@@ -650,7 +668,7 @@ func OnPillarCollapseR(int iPlr)
    DoDmg(200, DMG_Explosion, obj, 0, iPlr + 1);
 
   //Dekoration entfernen
-  for(var obj in FindObjects(Find_Or(Find_ID(HA4K), Find_ID(GDDR), Find_ID(PANE), Find_ID(BED2), Find_ID(WSHB), Find_ID(TOIC), Find_ID(LADR), Find_ID(LTBL)), Find_InRect(4500, 550, 150, 270)))
+  for(var obj in FindObjects(Find_Or(Find_ID(HA4K), Find_ID(GDDR), Find_ID(PANE), Find_ID(BED2), Find_ID(WSHB), Find_ID(TOIC), Find_ID(PPSK), Find_ID(PLT4), Find_ID(LADR), Find_ID(LTBL)), Find_InRect(4500, 550, 150, 270)))
    RemoveObject(obj);
 
   //Türverbindung entfernen
