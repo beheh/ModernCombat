@@ -5,6 +5,7 @@ NextAction=Eurocorps
 Delay=2
 Length=37
 Facet=0,0,40,40
+EndCall=PickClip
 
 [Action]
 Name=Grenade
@@ -13,6 +14,7 @@ NextAction=Grenade
 Delay=3
 Length=60
 Facet=0,40,40,40
+EndCall=PickClip
 
 [Action]
 Name=Medic
@@ -77,6 +79,7 @@ NextAction=Medic
 Delay=4
 Length=18
 Facet=2240,80,40,40
+EndCall=PickClip
 
 [Action]
 Name=CMC
@@ -165,3 +168,4 @@ NextAction=CMC
 Delay=4
 Length=25
 Facet=3000,120,40,40
+EndCall=PickClip

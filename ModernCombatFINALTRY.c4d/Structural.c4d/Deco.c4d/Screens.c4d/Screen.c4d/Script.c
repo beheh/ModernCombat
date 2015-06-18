@@ -12,6 +12,32 @@ func Initialize()
   AddFrame();
 }
 
+/* Clips festlegen */
+
+local clips;
+
+public func SetClips(array aClips) {
+	clips = aClips;
+	
+	//Ersten Clip auswählen
+	PickClip();
+	
+	return true;
+}
+
+public func PickClip() {
+	if(!clips)
+		return;
+	
+	var clip = clips[Random(GetLength(clips))];
+	if(GetType(clip) == C4V_Int)
+		SetAction(Format("Clip%02d", clip));
+	else
+		SetAction(clip);
+	
+	return true;
+}
+
 /* Serialisierung */
 
 public func Serialize(array& extra)
