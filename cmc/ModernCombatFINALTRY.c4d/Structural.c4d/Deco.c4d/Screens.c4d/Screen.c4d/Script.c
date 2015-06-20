@@ -31,9 +31,14 @@ public func PickClip() {
   if(!clips)
     return;
 
-  var r = Random(GetLength(clips) - 1);
-  if(lastclip == -1 || r >= lastclip)
-    r += 1;
+  var r = 0;
+
+  if(GetLength(clips) > 1)
+  {
+    var r = Random(GetLength(clips) - 1);
+    if(lastclip == -1 || r >= lastclip)
+      r += 1;
+  }
 
   var clip = clips[r];
   if(GetType(clip) == C4V_Int)
