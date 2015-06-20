@@ -35,8 +35,8 @@ public func PickClip() {
 
   if(GetLength(clips) > 1)
   {
-    var r = Random(GetLength(clips) - 1);
-    if(lastclip == -1 || r >= lastclip)
+    r = Random(GetLength(clips) - 1);
+    if(r >= lastclip)
       r += 1;
   }
 
