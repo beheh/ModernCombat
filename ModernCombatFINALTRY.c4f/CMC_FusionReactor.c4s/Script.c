@@ -401,8 +401,8 @@ func CreateDecoration()
   CreateObject(SCA1, 435, 290, -1)->SetAction("CMC");
   CreateObject(SCR3, 790, 230, -1);
   CreateObject(SCR3, 790, 910, -1);
-  CreateObject(SCA2, 595, 315, -1)->SetAction("Clonk");
-  CreateObject(SCA2, 1235, 315, -1)->SetAction("Wompf");
+  CreateObject(SCA2, 595, 315, -1)->SetClips([8,9,10,11]);
+  CreateObject(SCA2, 1235, 315, -1)->SetClips([8,9,10,11]);
   CreateObject(SCR3, 1040, 230, -1);
   CreateObject(SCR3, 1040, 910, -1);
   CreateObject(SCA1, 1395, 290, -1)->SetAction("Medic");

@@ -376,10 +376,10 @@ func CreateDecoration()
   CreateObject(ENGT, 2630, 940, -1);
 
   //Bildschirme
-  CreateObject(SCA2, 460, 1425, -1)->SetAction("Scan2");
+  CreateObject(SCA2, 460, 1425, -1)->SetClips([13]);
   CreateObject(SCA1, 1465, 915, -1)->SetAction("Grenade");
   CreateObject(SCA1, 1615, 915, -1)->SetAction("Medic");
-  CreateObject(SCA2, 2620, 1425, -1)->SetAction("Scan");
+  CreateObject(SCA2, 2620, 1425, -1)->SetClips([12]);
 
   //Straßenlichter
   CreateObject(SLGH, 400, 1490, -1)->TurnOff();

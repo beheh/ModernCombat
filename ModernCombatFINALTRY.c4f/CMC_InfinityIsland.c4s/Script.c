@@ -349,7 +349,7 @@ func CreateDecoration()
   CreateObject(MNI2, 1690, 1152, -1);
 
   //Bildschirm
-  CreateObject(SCA2, 1535, 1095, -1);
+  CreateObject(SCA2, 1535, 1095, -1)->SetClips([12]);
 
   //Jetwrack
   CreateObject(_JW1, 5390, 1340, -1)->SetR(-20);

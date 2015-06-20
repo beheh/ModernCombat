@@ -666,7 +666,7 @@ func CreateDecoration()
   CreateObject(ENGT, 1185, 1370, -1);
 
   //Bildschirme
-  CreateObject(SCA2, 1185, 810, -1)->SetAction("News");
+  CreateObject(SCA2, 1185, 810, -1);
   CreateObject(SCR3, 1130, 840, -1);
   CreateObject(SCR3, 1240, 840, -1)->SetPhase(10);
   CreateObject(SCA1, 1015, 1460, -1);
