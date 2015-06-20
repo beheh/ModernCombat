@@ -313,6 +313,7 @@ func CreateDecoration()
   //Bildschirme
   var screen = CreateObject(SCA2, 630, 660, -1);
   screen->SetClrModulation(RGB(255,255,255));
+  screen->SetClips([12]);
   CreateObject(SCR3, 1465, 725, -1);
 
   //Orientierungslichter

@@ -418,8 +418,8 @@ func CreateDecoration()
   CreateObject(CLGH, 4575, 815, -1);
 
   //Bildschirme
-  CreateObject(SCA2, 3915, 870, -1)->SetAction("News");
-  CreateObject(SCA2, 4575, 870, -1)->SetAction("News10");
+  CreateObject(SCA2, 3915, 870, -1);
+  CreateObject(SCA2, 4575, 870, -1);
 
   //Jetwrack
   CreateObject(_JW1, 3070, 1360, -1)->SetR(60);

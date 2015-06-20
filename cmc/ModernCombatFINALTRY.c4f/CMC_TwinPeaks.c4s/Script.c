@@ -346,8 +346,8 @@ func CreateDecoration()
   CreateObject(RAI3, 4495, 700, -1)->SetRail([1,1]);
 
   //Bildschirme
-  CreateObject(SCA2, 1155, 873, -1)->SetAction("News");
-  CreateObject(SCA2, 4575, 873, -1)->SetAction("News");
+  CreateObject(SCA2, 1155, 873, -1);
+  CreateObject(SCA2, 4575, 873, -1);
 
   //Verbrannte Burgen
   CreateObject(CSB2, 1465, 1270, -1)->SetR(-2);

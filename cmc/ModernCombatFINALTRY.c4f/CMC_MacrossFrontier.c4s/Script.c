@@ -406,8 +406,8 @@ func CreateDecoration()
   screen->SetClrModulation(RGB(255,255,255));
   screen = CreateObject(SCR3, 470, 600, -1);
   screen->SetClrModulation(RGB(255,255,255));
-  CreateObject(SCA2, 913, 525, -1)->SetAction("Scan2");
-  CreateObject(SCA2, 1038, 525, -1);
+  CreateObject(SCA2, 913, 525, -1)->SetClips([13]);
+  CreateObject(SCA2, 1038, 525, -1)->SetClips([12]);
   screen = CreateObject(SCR3, 1480, 520, -1);
   screen->SetClrModulation(RGB(255,255,255));
   screen = CreateObject(SCR3, 1650, 520, -1);
