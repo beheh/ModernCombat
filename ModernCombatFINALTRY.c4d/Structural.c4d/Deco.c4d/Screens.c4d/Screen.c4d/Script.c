@@ -9,6 +9,7 @@ func Initialize()
 {
   //Standardanimation
   SetAction("Eurocorps");
+  //Rahmen erstellen
   AddFrame();
 }
 
@@ -16,7 +17,8 @@ func Initialize()
 
 local clips, lastclip;
 
-public func SetClips(array aClips) {
+public func SetClips(array aClips)
+{
   clips = aClips;
 
   lastclip = -1;
@@ -27,12 +29,17 @@ public func SetClips(array aClips) {
   return true;
 }
 
-public func PickClip() {
+/* Clip auswählen */
+
+public func PickClip()
+{
+  //Keine Clips: Nichts unternehmen
   if(!clips)
     return;
 
   var r = 0;
 
+  //Zufällig auswählen wenn mehr als ein Clip
   if(GetLength(clips) > 1)
   {
     r = Random(GetLength(clips) - 1);
@@ -40,6 +47,7 @@ public func PickClip() {
       r += 1;
   }
 
+  //Clip starten
   var clip = clips[r];
   if(GetType(clip) == C4V_Int)
     SetAction(Format("Clip%02d", clip));
@@ -55,6 +63,5 @@ public func PickClip() {
 
 public func Serialize(array& extra)
 {
-  if(GetAction() != "Eurocorps")
-    extra[GetLength(extra)] = Format("SetAction(%s)",GetAction());
+  extra[GetLength(extra)] = Format("SetAction(%s)",GetAction());
 }

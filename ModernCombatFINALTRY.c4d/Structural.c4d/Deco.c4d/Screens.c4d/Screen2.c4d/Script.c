@@ -1,7 +1,6 @@
 /*-- Bildschirm --*/
 
 #strict 2
-
 #include SCA1
 
 
@@ -9,15 +8,8 @@
 
 func Initialize()
 {
-  //Standardanimation
-  SetAction("Scan");
+  //Standardclips setzen
+  SetClips([1,2,3,4,5,6,7]);
+  //Rahmen erstellen
   AddFrame();
-}
-
-/* Serialisierung */
-
-public func Serialize(array& extra)
-{
-if(GetAction() != "Scan")
-    extra[GetLength(extra)] = Format("SetAction(%s)",GetAction());
 }
