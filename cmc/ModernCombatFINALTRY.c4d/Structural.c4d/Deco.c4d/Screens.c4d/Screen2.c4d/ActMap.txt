@@ -19,6 +19,7 @@ Facet=480,0,60,40
 [Action]
 Name=Clip01_3
 Procedure=NONE
+NextAction=Clip01
 Delay=4
 Length=7
 Facet=540,0,60,40
@@ -45,6 +46,7 @@ Facet=240,40,60,40
 [Action]
 Name=Clip02_3
 Procedure=NONE
+NextAction=Clip02
 Delay=4
 Length=4
 Facet=300,40,60,40
@@ -71,6 +73,7 @@ Facet=240,80,60,40
 [Action]
 Name=Clip03_3
 Procedure=NONE
+NextAction=Clip03
 Delay=4
 Length=4
 Facet=300,80,60,40
@@ -97,6 +100,7 @@ Facet=240,120,60,40
 [Action]
 Name=Clip04_3
 Procedure=NONE
+NextAction=Clip04
 Delay=4
 Length=4
 Facet=300,120,60,40
@@ -123,6 +127,7 @@ Facet=240,160,60,40
 [Action]
 Name=Clip05_3
 Procedure=NONE
+NextAction=Clip05
 Delay=4
 Length=4
 Facet=300,160,60,40
@@ -149,6 +154,7 @@ Facet=240,200,60,40
 [Action]
 Name=Clip06_3
 Procedure=NONE
+NextAction=Clip06
 Delay=4
 Length=4
 Facet=300,200,60,40
@@ -207,6 +213,7 @@ Facet=1320,240,60,40
 [Action]
 Name=Clip07_7
 Procedure=NONE
+NextAction=Clip07
 Delay=6
 Length=4
 Facet=1380,240,60,40
@@ -233,6 +240,7 @@ Facet=2760,280,60,40
 [Action]
 Name=Clip08_3
 Procedure=NONE
+NextAction=Clip08
 Delay=4
 Length=8
 Facet=2820,280,60,40
@@ -259,6 +267,7 @@ Facet=1560,320,60,40
 [Action]
 Name=Clip09_3
 Procedure=NONE
+NextAction=Clip09
 Delay=4
 Length=10
 Facet=1620,320,60,40
@@ -285,6 +294,7 @@ Facet=1980,360,60,40
 [Action]
 Name=Clip10_3
 Procedure=NONE
+NextAction=Clip10
 Delay=4
 Length=9
 Facet=2040,360,60,40
@@ -327,6 +337,7 @@ Facet=1320,400,60,40
 [Action]
 Name=Clip11_5
 Procedure=NONE
+NextAction=Clip11
 Delay=4
 Length=4
 Facet=1380,400,60,40
@@ -337,6 +348,7 @@ EndCall=PickClip
 [Action]
 Name=Clip12
 Procedure=NONE
+NextAction=Clip12
 Delay=6
 Length=38
 Facet=0,440,60,40
@@ -347,6 +359,7 @@ EndCall=PickClip
 [Action]
 Name=Clip13
 Procedure=NONE
+NextAction=Clip13
 Delay=6
 Length=22
 Facet=0,480,60,40
