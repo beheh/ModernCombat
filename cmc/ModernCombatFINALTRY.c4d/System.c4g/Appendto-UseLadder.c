@@ -159,6 +159,10 @@ protected func FxScalingLadderTimer(object pTarget, int iEffectNumber)
   var iLastY = GetY();
   var iPhase = GetPhase();
   var fSliding = EffectVar(1, pTarget, iEffectNumber);
+  if(fSliding && !CanSlideLadder()) {
+    Sound("LADR_Slide.ogg", 0, this, 40, 0, -1);
+    fSliding = EffectVar(1, pTarget, iEffectNumber) = 0;
+  }
   if(GetComDir() == COMD_Up)
   {
     iPosY -= iStep;
