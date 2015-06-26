@@ -252,6 +252,9 @@ func CreateInterior()
   //Wasseroberfläche ebnen
   DrawMaterialQuad("Water",540,1230,700,1230,700,1235,540,1235,1);
 
+  //Tunnel ebnen
+  DrawMaterialQuad("Tunnel-SMOOTH",1210,930,1280,930,1280,940,1210,940,1);
+
   //Sounds
 
   //Möven
