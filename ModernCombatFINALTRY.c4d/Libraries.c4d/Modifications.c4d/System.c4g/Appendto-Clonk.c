@@ -91,6 +91,13 @@ public func HurtSounds(int iDmg, int iType)
 {
   if(iDmg <= 0) return;
 
+  //Sound ermitteln
+  //Minimalschaden
+  if(iDmg <= 2)
+  {
+    Sound("ClonkSmallPain*.ogg", 0, 0,0, GetOwner()+1);
+    return;
+  }
   //Projektile
   if(iType == DMG_Projectile)
   {
@@ -98,7 +105,7 @@ public func HurtSounds(int iDmg, int iType)
       Sound("ClonkPain*.ogg");
     return;
   }
-  //Flammen
+  //Feuer
   if(iType == DMG_Fire)
   {
     if(!Random(BoundBy(3-iDmg,0,3)))
@@ -936,6 +943,8 @@ public func DeathSound(object pTarget)
 {
   if(!pTarget) pTarget = this;
   if(!pTarget) return;
+
+  //Todesschrei
   Sound("ClonkDie*.ogg", false, pTarget);
 }
 
