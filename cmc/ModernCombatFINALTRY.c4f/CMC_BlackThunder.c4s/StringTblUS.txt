@@ -10,3 +10,8 @@ Flag2=West Depot
 Flag3=East Depot
 Flag4=Eurocorps Airbase
 Flag5=Shooter Bunker
+
+Target1=Radar Unit
+Target2=Control Unit
+Target3=Blackhawk Wreck
+Target4=Apache Wreck

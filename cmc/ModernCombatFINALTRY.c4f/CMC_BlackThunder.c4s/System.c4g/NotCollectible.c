@@ -4,6 +4,7 @@
 
 #strict 2
 #appendto DBRD
+#appendto SNKE
 
 
 public func RejectEntrance()

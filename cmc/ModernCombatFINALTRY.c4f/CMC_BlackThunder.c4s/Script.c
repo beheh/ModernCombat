@@ -44,6 +44,7 @@ func CreateInterior()
 
   CreateObject(LADR, 460, 545, -1)->Set(13);
   CreateObject(LADR, 790, 750, -1)->Set(19);
+  CreateObject(LADR, 1078, 750, -1)->Set(10);
   CreateObject(LADR, 1220, 1178, -1)->Set(41, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
   CreateObject(LADR, 1250, 844, -1)->Set(27);
   CreateObject(LADR, 1374, 640, -1)->Set(6);
@@ -56,6 +57,7 @@ func CreateInterior()
   CreateObject(LADR, 2866, 640, -1)->Set(6);
   CreateObject(LADR, 2990, 844, -1)->Set(27);
   CreateObject(LADR, 3020, 1178, -1)->Set(41, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
+  CreateObject(LADR, 3162, 750, -1)->Set(10);
   CreateObject(LADR, 3450, 750, -1)->Set(19);
   CreateObject(LADR, 3780, 545, -1)->Set(13);
 
@@ -76,6 +78,8 @@ func CreateInterior()
   CreateObject(HA4K, 3780, 503, -1);
 
   //Gerüste
+  CreateObject(SFFG, 970, 1220, -1)->Set(4);
+  CreateObject(SFFG, 1030, 1220, -1)->Set(4);
   CreateObject(SFFG, 1580, 770, -1)->Set(2);
   CreateObject(SFFG, 1580, 820, -1)->Set(4);
   CreateObject(SFFG, 1660, 820, -1)->Set(4);
@@ -87,6 +91,8 @@ func CreateInterior()
   CreateObject(SFFG, 2580, 820, -1)->Set(4);
   CreateObject(SFFG, 2660, 770, -1)->Set(3);
   CreateObject(SFFG, 2660, 820, -1)->Set(4);
+  CreateObject(SFFG, 3165, 1290, -1)->Set(4);
+  CreateObject(SFFG, 3225, 1290, -1)->Set(4);
 
   //Schutztüren
   CreateObject(GDDR, 1125, 670, -1);
@@ -101,7 +107,7 @@ func CreateInterior()
   CreateObject(SBBA, 440, 440, -1)->Right();
   CreateObject(SBBA, 711, 760, -1);
   CreateObject(SBBA, 780, 760, -1)->Right();
-
+  CreateObject(SBBA, 1055, 1170, -1)->Right();
   CreateObject(SBBA, 1101, 670, -1);
   CreateObject(SBBA, 1101, 760, -1);
   CreateObject(SBBA, 1350, 850, -1)->Right();
@@ -120,7 +126,7 @@ func CreateInterior()
   CreateObject(SBBA, 2891, 850, -1);
   CreateObject(SBBA, 3140, 670, -1)->Right();
   CreateObject(SBBA, 3140, 760, -1)->Right();
-
+  CreateObject(SBBA, 3140, 1240, -1);
   CreateObject(SBBA, 3461, 760, -1);
   CreateObject(SBBA, 3530, 760, -1)->Right();
   CreateObject(SBBA, 3801, 440, -1);
@@ -149,6 +155,17 @@ func CreateInterior()
   CreateObject(SNPT, 1930, 1170, -1)->Light();
   CreateObject(SGNP, 2960, 1210, -1);
   CreateObject(SNPT, 3710, 1280, -1)->Light();
+
+  //Steine
+  CreateObject(STNE, 220, 1210, -1)->Set(7);
+  CreateObject(STNE, 1440, 1190, -1)->Set(3);
+  CreateObject(STNE, 2685, 1220, -1)->Set(3);
+  CreateObject(STNE, 4120, 1250, -1)->Set(1);
+
+  //Schlangen
+  CreateObject(SNKE, 145, 1260, -1)->AutoRespawn();
+  CreateObject(SNKE, 1535, 1240, -1)->AutoRespawn();
+  CreateObject(SNKE, 2730, 1240, -1)->AutoRespawn();
 
   //Grenze
   CreateObject(BRDR, 0, 1110, -1)->Set(3);
@@ -241,6 +258,13 @@ func CreateDecoration()
   //Geländer
   CreateObject(RAI3, 350, 560, -1)->SetRail([1,1]);
   CreateObject(RAI1, 630, 590, -1)->SetRail([1,1,1,1,1,1,1,1]);
+  CreateObject(RAI3, 705, 1220, -1)->SetRail([3]);
+  var rail = CreateObject(RAI1, 719, 1220, -1);
+  rail->SetCategory(C4D_StaticBack);
+  rail->SetRail([3,1,1,3]);
+  for(var i = 0; i <= 4; i++)
+   rail->SetClrModulation(RGB(200, 200, 200), this, i);
+  CreateObject(RAI3, 760, 1220, -1)->SetRail([3]);
   CreateObject(RAI3, 1090, 670, -1);
   CreateObject(RAI1, 1125, 620, -1)->SetRail([1,1,1,1,1,1]);
   CreateObject(RAI1, 1255, 620, -1);
@@ -253,6 +277,13 @@ func CreateDecoration()
   CreateObject(RAI1, 3000, 620, -1)->SetRail([1,1,1,1,1,1]);
   CreateObject(RAI3, 3120, 670, -1);
   CreateObject(RAI1, 3460, 590, -1)->SetRail([1,1,1,1,1,1,1,1]);
+  CreateObject(RAI3, 3475, 1310, -1)->SetRail([3]);
+  var rail = CreateObject(RAI1, 3489, 1310, -1);
+  rail->SetCategory(C4D_StaticBack);
+  rail->SetRail([3,1,1,3]);
+  for(var i = 0; i <= 4; i++)
+   rail->SetClrModulation(RGB(200, 200, 200), this, i);
+  CreateObject(RAI3, 3530, 1310, -1)->SetRail([3]);
   CreateObject(RAI3, 3847, 560, -1)->SetRail([1,1]);
 
   //Bildschirm
@@ -295,6 +326,86 @@ func CreateDecoration()
   CreateObject(OLGH, 2120, 700, -1)->Set(2, 30, 1, 1, 30);
   CreateObject(OLGH, 3040, 620, -1)->Set(4, 15, 1, 1, 30);
   CreateObject(OLGH, 3540, 590, -1)->Set(4, 15, 1, 1, 30);
+
+  //Wald
+  CreateObject(TRE4,371,1238,-1);
+  CreateObject(TRE4,408,1266,-1)->SetCon(55);
+  CreateObject(BSH2,411,1267,-1)->SetCon(25);
+  CreateObject(TRE4,418,1268,-1);
+  CreateObject(TRE4,430,1267,-1);
+  CreateObject(TRE4,430,1268,-1)->SetCon(44);
+  CreateObject(TRE4,497,1255,-1);
+  CreateObject(TRE2,558,1220,-1);
+  CreateObject(TRE4,578,1208,-1);
+  CreateObject(TRE4,588,1199,-1);
+  CreateObject(BSH2,658,1196,-1)->SetCon(41);
+  CreateObject(BSH2,1100,1207,-1)->SetR(-24);
+  CreateObject(BSH2,1105,1204,-1);
+  CreateObject(TRE4,1116,1206,-1)->SetCon(60);
+  CreateObject(BSH2,1132,1206,-1);
+  CreateObject(BSH2,1137,1207,-1)->SetCon(43);
+  CreateObject(TRE4,1162,1207,-1)->SetCon(22);
+  CreateObject(TRE4,1164,1204,-1);
+  CreateObject(BSH2,1165,1204,-1);
+  CreateObject(TRE4,1191,1206,-1);
+  CreateObject(TRE4,1192,1207,-1)->SetCon(47);
+  CreateObject(BSH2,1197,1205,-1);
+  CreateObject(BSH2,1207,1206,-1);
+  CreateObject(BSH2,1218,1206,-1);
+  CreateObject(BSH2,1250,1208,-1)->SetCon(55);
+  CreateObject(TRE4,1253,1206,-1)->SetCon(1);
+  CreateObject(TRE1,1269,1208,-1);
+  CreateObject(BSH2,1317,1240,-1);
+  CreateObject(BSH2,1325,1235,-1);
+  CreateObject(BSH2,1336,1230,-1);
+  CreateObject(TRE4,1338,1228,-1);
+  CreateObject(TRE4,1335,1232,-1)->SetCon(5);
+  CreateObject(TRE4,1357,1225,-1);
+  CreateObject(TRE4,1376,1216,-1)->SetCon(3);
+  CreateObject(TRE1,1390,1208,-1);
+  CreateObject(TRE1,1405,1205,-1);
+  CreateObject(BSH2,1416,1200,-1);
+  CreateObject(BSH2,1420,1197,-1);
+  CreateObject(TRE1,1432,1198,-1);
+  CreateObject(BSH2,1435,1197,-1)->SetCon(42);
+  CreateObject(BSH2,1445,1198,-1);
+  CreateObject(BSH2,1458,1196,-1)->SetCon(37);
+  CreateObject(TRE2,1469,1197,-1);
+  CreateObject(TRE3,1938,1175,-1);
+  CreateObject(BSH2,1948,1177,-1)->SetCon(12);
+  CreateObject(TRE3,2020,1216,-1);
+  CreateObject(TRE4,2025,1216,-1)->SetCon(53);
+  CreateObject(BSH2,2026,1216,-1);
+  CreateObject(TRE4,2031,1219,-1)->SetCon(51);
+  CreateObject(BSH2,2041,1226,-1);
+  CreateObject(BSH2,2044,1227,-1)->SetCon(56);
+  CreateObject(TRE4,2060,1237,-1);
+  CreateObject(TRE4,2066,1253,-1)->SetCon(48);
+  CreateObject(TRE1,2084,1175,-1);
+  CreateObject(TRE1,2089,1177,-1)->SetCon(7);
+  CreateObject(BSH2,2098,1176,-1)->SetCon(20);
+  CreateObject(BSH2,2103,1179,-1)->SetCon(27);
+  CreateObject(TRE1,2124,1177,-1);
+  CreateObject(TRE1,2153,1180,-1);
+  CreateObject(BSH2,2755,1264,-1);
+  CreateObject(BSH2,2756,1265,-1);
+  CreateObject(BSH2,2931,1226,-1);
+  CreateObject(TRE4,2963,1218,-1);
+  CreateObject(TRE4,2986,1218,-1)->SetCon(48);
+  CreateObject(TRE4,3014,1217,-1);
+  CreateObject(TRE3,3016,1216,-1);
+  CreateObject(TRE4,3041,1218,-1);
+  CreateObject(TRE1,3042,1220,-1)->SetCon(49);
+  CreateObject(TRE4,3044,1220,-1)->SetCon(49);
+  CreateObject(TRE4,3051,1228,-1);
+  CreateObject(BSH2,3052,1229,-1);
+  CreateObject(TRE4,3071,1249,-1)->SetCon(22);
+  CreateObject(BSH2,3091,1267,-1);
+  CreateObject(BSH2,3111,1278,-1);
+  CreateObject(BSH2,3593,1294,-1);
+  CreateObject(TRE1,3645,1286,-1);
+  CreateObject(BSH2,3788,1286,-1);
+  CreateObject(BSH2,3872,1227,-1)->SetCon(41);
 
   //Straßenlichter
   CreateObject(SLGH, 750, 590, -1);
@@ -407,6 +518,76 @@ public func ChooserFinished()
    AddMoneySpawn(2120, 680, [15]);
    AddMoneySpawn(2950, 840, [15]);
    AddMoneySpawn(3470, 750, [20]);
+  }
+
+  //Base Assault-Spielziel
+  if(FindObject(GBAS))
+  {
+   //Zielobjekte
+   AddAssaultTarget(RADR, 490, 500, 400, 1, "$Target1$", 0, [[460, 750], [585, 690], [770, 760]]);
+   AddAssaultTarget(CMSN, 1410, 590, 400, 1, "$Target2$", 1, [[1135, 760], [1290, 850]]);
+   AddAssaultTarget(BHWK, 1240, 1200, 400, 1, "$Target3$", 2, [[790, 1220], [940, 1220]]);
+   AddAssaultTarget(AEWK, 3000, 1210, 400, 2, "$Target4$", 3, [[3255, 1290], [3405, 1270]]);
+   AddAssaultTarget(CMSN, 2830, 590, 400, 2, "$Target2$", 4, [[2950, 850], [3105, 760]]);
+   AddAssaultTarget(RADR, 3750, 500, 400, 2, "$Target1$", 5, [[3470, 760], [3655, 690], [3780, 750]]);
+
+   //Sprengsatz-Spawn
+   SetupBombSpawnpoint([[2120, 690],[2120, 850], [2120, 1170]]);
+
+   //Verbandskisten
+   CreateObject(BECR, 940, 1170, -1)->AutoRespawn();
+   CreateObject(BECR, 3255, 1240, -1)->AutoRespawn();
+
+   //Versorgungskisten (APW)
+   var crate = CreateObject(AMCT, 1320, 850, -1);
+   crate->Set(ATWN);
+   crate = CreateObject(AMCT, 2920, 850, -1);
+   crate->Set(ATWN);
+
+   //Geschützstellungen
+   CreateObject(GNET, 970, 1170, -1)->Set(LCAC,0,1);
+   CreateObject(GNET, 1580, 1250, -1)->Set(SATW);
+   CreateObject(GNET, 2120, 690, -1)->Set(LCAC,0,1);
+   CreateObject(GNET, 2840, 1280, -1)->Set(SATW);
+   CreateObject(GNET, 3225, 1240, -1)->Set(LCAC,0,1);
+
+   //Sprungschanzen
+   CreateObject(JMPD, 740, 1240, -1)->Set(117, -15);
+   CreateObject(JMPD, 3510, 1330, -1)->Set(130, 12);
+
+   //Türverbindung deaktivieren
+   for(var obj in FindObjects(Find_Or(Find_ID(ROOM), Find_ID(GAT1)), Find_InRect(1280, 790, 1680, 60)))
+   {
+    obj->Lock();
+    obj->SetAction("Idle");
+    obj->SetClrModulation(RGBa(100,100,100,5));
+   }
+
+   //Objekte entfernen
+   for(var obj in FindObjects(Find_Or(Find_ID(SFFG), Find_ID(FENC)), Find_InRect(1540, 720, 160, 100)))
+    RemoveObject(obj);
+   for(var obj in FindObjects(Find_Or(Find_ID(SFFG), Find_ID(FENC)), Find_InRect(2540, 720, 160, 100)))
+    RemoveObject(obj);
+   for(var obj in FindObjects(Find_Or(Find_ID(SNPT), Find_ID(SGNP)), Find_InRect(240, 1090, 3500, 180)))
+    RemoveObject(obj);
+   RemoveObject(FindObject2(Find_ID(GNET),Find_InRect(1380, 560, 60, 30)));
+   RemoveObject(FindObject2(Find_ID(GNET),Find_InRect(2800, 560, 60, 30)));
+   RemoveObject(aArtillery[0]);
+   RemoveAll(BRDR);
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Kugeln
+    PlaceSpawnpoint(ABOX, 710, 1215);
+    PlaceSpawnpoint(ABOX, 3540, 1305);
+
+    //Gewehrgranaten
+    PlaceSpawnpoint(GBOX, 2010, 845);
+
+    //Raketen
+    PlaceSpawnpoint(MBOX, 2230, 845);
+   }
   }
 
   //HTF-Spielziel

@@ -10,3 +10,8 @@ Flag2=Westliches Depot
 Flag3=Östliches Depot
 Flag4=Eurocorps Luftwaffenbasis
 Flag5=Schützenbunker
+
+Target1=Radaranlage
+Target2=Steuerungseinheit
+Target3=Blackhawk-Wrack
+Target4=Apache-Wrack
