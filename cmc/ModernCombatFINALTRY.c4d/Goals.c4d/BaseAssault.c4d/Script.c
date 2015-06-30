@@ -5,7 +5,7 @@
 
 public func RejectChoosedClassInfo()	{return true;}
 
-static const GBAS_BombRespawnDelay = 420;		//Zeit bis Neuspawn
+static const GBAS_BombRespawnDelay = 540;		//Zeit bis Neuspawn
 static const GBAS_BombRespawnTimer = 720;		//Zeit bis Selbstzerstörung wenn im Freien
 
 local fGameOver;
