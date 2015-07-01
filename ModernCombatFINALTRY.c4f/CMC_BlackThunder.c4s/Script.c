@@ -166,9 +166,7 @@ func CreateInterior()
   CreateObject(SNKE, 145, 1260, -1)->AutoRespawn();
   CreateObject(SNKE, 1535, 1240, -1)->AutoRespawn();
   CreateObject(SNKE, 2730, 1240, -1)->AutoRespawn();
-
-  //Grenze
-  CreateObject(BRDR, 0, 1110, -1)->Set(3);
+  CreateObject(SNKE, 3980, 1280, -1)->AutoRespawn();
 
   //Verbundene Räume
   var doorw = CreateObject(ROOM, 740, 760, -1);
@@ -403,8 +401,10 @@ func CreateDecoration()
   CreateObject(BSH2,3091,1267,-1);
   CreateObject(BSH2,3111,1278,-1);
   CreateObject(BSH2,3593,1294,-1);
-  CreateObject(TRE1,3645,1286,-1);
-  CreateObject(BSH2,3788,1286,-1);
+  CreateObject(TRE1,3620,1270,-1);
+  CreateObject(BSH2,3740,1286,-1);
+  CreateObject(BSH2,3760,1286,-1);
+  CreateObject(TRE1,3750,1286,-1);
   CreateObject(BSH2,3872,1227,-1)->SetCon(41);
 
   //Straßenlichter
@@ -504,6 +504,9 @@ public func ChooserFinished()
     aFlag[3]->Set("$Flag4$",0,2);
    }
 
+   //Grenze
+   CreateObject(BRDR, 0, 1110, -1)->Set(3);
+
    //Objekte entfernen
    RemoveObject(FindObject2(Find_ID(SNPT),Find_InRect(590, 500, 50, 50)));
    RemoveObject(FindObject2(Find_ID(SNPT),Find_InRect(3570, 500, 50, 50)));
@@ -518,6 +521,9 @@ public func ChooserFinished()
    AddMoneySpawn(2120, 680, [15]);
    AddMoneySpawn(2950, 840, [15]);
    AddMoneySpawn(3470, 750, [20]);
+
+   //Grenze
+   CreateObject(BRDR, 0, 1110, -1)->Set(3);
   }
 
   //Base Assault-Spielziel
@@ -573,7 +579,6 @@ public func ChooserFinished()
    RemoveObject(FindObject2(Find_ID(GNET),Find_InRect(1380, 560, 60, 30)));
    RemoveObject(FindObject2(Find_ID(GNET),Find_InRect(2800, 560, 60, 30)));
    RemoveObject(aArtillery[0]);
-   RemoveAll(BRDR);
 
    //Zusätzliche Munition
    if(!FindObject(NOAM))
@@ -600,6 +605,9 @@ public func ChooserFinished()
    //Teamgrenzen
    CreateObject(BRDR, 1760, 0, -1)->Set(0,1,0,1,1);
    CreateObject(BRDR, 2480, 0, -1)->Set(1,1,0,1,2);
+
+   //Grenze
+   CreateObject(BRDR, 0, 1110, -1)->Set(3);
 
    //Selbstschussanlagen
    var selfdef = CreateObject(SEGU, 1135, 620, -1);
