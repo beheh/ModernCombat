@@ -1,1 +1,1 @@
-Freely placeable szenario objects.
+Freely placeable scenario objects.

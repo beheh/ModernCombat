@@ -937,7 +937,7 @@ public func SwitchDeathMenuMode(object pCaller)
 {
   SetPlrExtraData(GetOwner(), "CMC_DeathMenuMode", !ShorterDeathMenu());
   Sound("Click", 1, 0,0, GetOwner()+1);
-  ContextSettings(pCaller); 
+  ContextSettings(pCaller);
 }
 
 public func SwitchRadioMusicMode(object pCaller)
@@ -2071,11 +2071,13 @@ private func StopWallJump()
 
 protected func BackFlip()
 {
+  SetComDir(!GetComDir());
+  ScheduleCall(0, "BackFlipBoost", 1, 1);
+
+  //Effekte
   Sound("ClonkAction*.ogg");
   Sound("ClonkStep*.ogg", 0, 0, 50);
   Sound("ClonkRustle*.ogg", 0, 0, 25);
-  SetComDir(!GetComDir());
-  ScheduleCall(0, "BackFlipBoost", 1, 1);
 }
 
 /* Agilität */
@@ -2224,10 +2226,12 @@ public func ReleaseLadderStop()
 {
   if(ReleaseLadder(-20*(GetDir()*2-1)))
   {
+    ScheduleCall(0, "BackFlipBoost", 1, 1);
+
+    //Effekte
     Sound("ClonkAction*.ogg");
     Sound("ClonkStep*.ogg", 0, 0, 25);
     Sound("ClonkRustle*.ogg", 0, 0, 25);
-    ScheduleCall(0, "BackFlipBoost", 1, 1);
   }
 }
 
@@ -2287,8 +2291,16 @@ public func StartCrawling()
 public func StopCrawling()
 {
   if(!IsCrawling() || !CanStandUp2()) return false;
+
+  //Position anpassen
   SetXDir();
-  return SetAction("FlatUp"); 
+
+  //Effekte
+  Sound("ClonkVestRustle*.ogg", 0, 0, 50);
+  Sound("ClonkRustle*.ogg", 0, 0, 25);
+
+  //Aktion setzen
+  return SetAction("FlatUp");
 }
 
 /* Checks */
@@ -2340,22 +2352,22 @@ protected func StartCrawl()
 protected func CheckCrawlFall()
 {
   if(CanStandUp())
-   SetAction("FlatUp"); 
+    SetAction("FlatUp");
   else
   {
-   if(Abs(GetXDir()) < 2)
-   {
-    var x;
-    if(!GBackSolid(-4,4-5))
-     x--;
-    if(!GBackSolid(+4,4-5))
-     x++;
-
-    if(x)
+    if(Abs(GetXDir()) < 2)
     {
-     SetXDir(x*10);
+      var x;
+      if(!GBackSolid(-4,4-5))
+        x--;
+      if(!GBackSolid(+4,4-5))
+        x++;
+
+      if(x)
+      {
+        SetXDir(x*10);
+      }
     }
-   }
   }
 }
 
@@ -2369,25 +2381,27 @@ protected func AbortCrawl()
   if(act == "Tumble") return SetAction("Crawl");	//Bei Objekttreffern liegen bleiben
   if(act == "Walk")   return SetAction("Crawl");	//Walk-Aktion unterdrücken
 
+  //Zielen-Aktion beibehalten wenn nicht gesetzt
   if(act != "AimCrawl" && WildcardMatch(act, "Aim*"))
   {
-   SetAction("AimCrawl");
-   return 1;
+    SetAction("AimCrawl");
+    return 1;
   }
 
+  //Clonk führt Sprung-Aktion aus?
   if(WildcardMatch(act, "*Jump*"))
   {
+    //Kriechen-Effekt entfernen und Clonk anhalten und umdrehen
     RemoveEffect("Crawl", this);
     if(GetDir() == DIR_Left)
       SetDir(DIR_Right);
     else
       SetDir(DIR_Left);
-
     SetComDir(COMD_Stop);
 
+    //Position anpassen und nach greifbaren Kanten prüfen
     SetXDir();
     AddEffect("IntCrawl2Scale",this,10,1,this);
-
     var i = 10;
     var dir = -(GetDir()*2-1);
     SetPosition(GetX()+dir,GetY()+8+3);
@@ -2398,16 +2412,28 @@ protected func AbortCrawl()
       SetPosition(GetX()+dir,GetY());
     }
 
+    //Bei Feststecken Unstuck-Effekt ausführen
     if(Stuck()) AutoUnstuck(this,0,-10);
 
-    //SetPosition(GetX()+(GetDir()*2-1)*-4,GetY()+8+5);
+    //Effekte
+    Sound("ClonkVestRustle*.ogg", 0, 0, 50);
+    Sound("ClonkRustle*.ogg", 0, 0, 25);
+
+    //Kletteraktion setzen
     SetAction("Scale");
     return 1;
   }
+
+  //Abbruch wenn weiterhin liegend
   if(IsCrawling())  return;
-  //Shape und Vertices zurücksetzen
+
+  //Ansonsten Shape und Vertices zurücksetzen
   RemoveEffect("Crawl", this);
-  SetAction("FlatUp"); 
+  SetAction("FlatUp");
+
+  //Effekte
+  Sound("ClonkVestRustle*.ogg", 0, 0, 50);
+  Sound("ClonkRustle*.ogg", 0, 0, 25);
 }
 
 private func UpdateVertices()
