@@ -143,7 +143,7 @@ private func SortByActTime(object pExclude)
   //Überschüssige Einträge entfernen
   for(var i = 0;i < GetLength(aSymbols);i++)
   {
-    SetPosition(IconSize()+5,70+i*IconSize(),aSymbols[i]);
+    SetPosition(IconSize()+22,69+i*IconSize(),aSymbols[i]);
 
     if(i > MaxInfos())
       RemoveEffect("IntEventInfo",aSymbols[i]);
