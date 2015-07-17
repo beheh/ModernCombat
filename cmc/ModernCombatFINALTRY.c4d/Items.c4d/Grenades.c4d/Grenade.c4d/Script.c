@@ -48,7 +48,7 @@ func HitObject(object pObj)
     return;
 
   if(pObj->~IsClonk())
-    Sound("BodyFall*.ogg");
+    Sound("ClonkRustle*.ogg");
 
   ObjectSetAction(pObj, "Tumble");
   SetXDir(GetXDir(pObj)+GetXDir()/3,pObj);

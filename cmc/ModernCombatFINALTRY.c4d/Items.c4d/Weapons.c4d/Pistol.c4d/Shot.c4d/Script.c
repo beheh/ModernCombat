@@ -207,7 +207,7 @@ public func OnHitLandscape(int iX, int iY)
   //Aufprall auf Material?
   if(GBackSolid(iX,iY))
   {
-    //Material und dessen Farbe bestimmen
+    //Material und dessen Farbe ermitteln
     var mat = GetMaterial(iX,iY);
     var rand = Random(3);
     rgb = RGB(GetMaterialColor(mat,rand,0),
@@ -217,26 +217,26 @@ public func OnHitLandscape(int iX, int iY)
     //Material grabbar?
     if(GetMaterialVal("DigFree", "Material", mat))
     {
-      //Material weggraben und versprühen
-      CastPXS(MaterialName(mat), 20, 40, iX, iY);
+      //Material am Aufprallort entfernen und versprühen
       DigFree(GetX()+iX, GetY()+iY, 5);
+      CastPXS(MaterialName(mat), 20, 40, iX, iY);
 
-      //Sounds
+      //Aufprallgeräusche
       Sound("BulletHitSoft*.ogg", 0, tmp);
-      Sound("Crumble*.ogg", 0, tmp);
+      Sound("Crumble*.ogg", 0, tmp, RandomX(40,80));
     }
     else
     {
-      //Sounds
+      //Aufprallgeräusche
       Sound("BulletHit*.ogg", 0, tmp);
-      Sound("Crumble*.ogg", 0, tmp);
+      Sound("Crumble*.ogg", 0, tmp, RandomX(40,80));
     }
   }
   else
   {
-    //Sounds
+    //Aufprallgeräusche
     Sound("BulletHit*.ogg", 0, tmp);
-    Sound("Crumble*.ogg", 0, tmp);
+    Sound("Crumble*.ogg", 0, tmp, RandomX(40,80));
   }
 
   //Aufpralleffekte
@@ -274,7 +274,7 @@ public func OnBulletHit(object pObject, int iX, int iY)
   //Zu treffendes Objekt vorhanden?
   if(pObject)
   {
-    //Soundeffekt
+    //Treffergeräusch
     var tmp = CreateObject(TIM1, iX, iY, NO_OWNER);
     Sound("BulletImpact*.ogg", 0, tmp);
     RemoveObject(tmp);
@@ -552,12 +552,14 @@ public func HitLiquid(int iStartX, int iStartY, int iLiqX, int iLiqY)
   var angle = Angle(iStartX, iStartY, iLiqX, iLiqY);
   var x = AbsX(iLiqX), y = AbsY(iLiqY);
   var temp = CreateObject(TIM1, x, y, NO_OWNER);
-
   var mat = GetMaterial(x, y+1);
-  CreateParticle("Splash", x, y, +Sin(angle, 500), -Cos(angle, 500), 180, RGB(GetMaterialColor(mat), GetMaterialColor(mat, 0, 1), GetMaterialColor(mat, 0, 2)), temp);
-  Splash(x, y+1, 15);
+
+  //Aufprallgeräusch
   Sound("BulletHitWater*.ogg", false, temp, 50);
 
+  //Aufpralleffekte
+  CreateParticle("Splash", x, y, +Sin(angle, 500), -Cos(angle, 500), 180, RGB(GetMaterialColor(mat), GetMaterialColor(mat, 0, 1), GetMaterialColor(mat, 0, 2)), temp);
+  Splash(x, y+1, 15);
   for(var i = 0; i < 5; i++)
   {
     var bubble = CreateObject(FXU1, x, y+2, NO_OWNER);
