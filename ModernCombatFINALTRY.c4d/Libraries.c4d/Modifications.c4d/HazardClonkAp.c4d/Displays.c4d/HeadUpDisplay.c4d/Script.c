@@ -24,7 +24,7 @@ public func ColorLow()		{return RGB(255, 150, 0);}
 protected func Initialize()
 {
   //Am unteren, linken Bildschirmrand positionieren
-  SetPosition(155, -80); 
+  SetPosition(161, -80); 
 
   //Zähler-Munitionswert setzen
   CharsWAmmo = [CreateObject(HCHA, -106, 3, GetOwner()), CreateObject(HCHA, -86, 3, GetOwner()), CreateObject(HCHA, -66, 3, GetOwner())];

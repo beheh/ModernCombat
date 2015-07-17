@@ -95,7 +95,7 @@ protected func Attach(id iItem, object pUser)
   var pWeapon = FindContents(iItem, pUser);
   if(!pWeapon) return false;
 
-  //Ausgebauter Waffenaufsatz selbst wieder anbringen
+  //Abgenommenen Waffenaufsatz selbst wieder anbringen
   SetAttachment(pWeapon->SetAttachment(iAttachment));
 
   //Sound
