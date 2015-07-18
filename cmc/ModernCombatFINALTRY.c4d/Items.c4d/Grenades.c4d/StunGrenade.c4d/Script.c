@@ -88,7 +88,10 @@ public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, in
 
   //Blendung stark genug: Dann auch hörbar
   if(intensity > 38)
+  {
     Sound("STUN_Bang.ogg", false, pTarget, 100, GetOwner(pTarget)+1);
+    Sound("STUN_EarRinging*.ogg", false, pTarget, RandomX(80,100), GetOwner(pTarget)+1);
+  }
 
   //Stärke berechnen und Blendung erstellen
   var a = BoundBy(intensity,0,255);
