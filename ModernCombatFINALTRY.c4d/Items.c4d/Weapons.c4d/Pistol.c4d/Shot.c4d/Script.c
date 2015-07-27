@@ -590,20 +590,23 @@ public func GetKillIcon()
 
 public func BulletParticle()
 {
+  //Waffe kann Effekte unterdrücken
   if(fNoTrail) return;
-  //if(!Random(25-Min(GetCon()/4,25))) return;
 
-  var l = Distance(lx,ly)-20;//-hinten
-  if(l < 40) return;//hinten + vorne
-  //if(Random((200-Min(l,200))) < 100) return;
-
-  var p = 20+Random(l-20);
+  //Distanz zu Aufprallort ermitteln
+  var l = Distance(lx,ly)-32;
+  //Bei zu kurzer Entfernung abbrechen
+  if(l < 64) return;
+  //Position des Effekts ermitteln
+  var p = 20+Random(l-70);
   var s = 30+Random(10);
-
-  CreateParticle("BulletTail",lx*p/l,ly*p/l,
-                             +Sin(GetR(),s),
-                             -Cos(GetR(),s),
-                             (200*GetCon()/100)*5,GlowColor(iTime));
+  //Partikel erstellen
+  CreateParticle("BulletTail",
+  		lx*p/l,
+  		ly*p/l,
+  		+Sin(GetR(),s)*4,
+  		-Cos(GetR(),s)*4,
+  		(RandomX(200,300)*GetCon()/100)*5,GlowColor(iTime));
 }
 
 global func GetShooter(object weapon)
