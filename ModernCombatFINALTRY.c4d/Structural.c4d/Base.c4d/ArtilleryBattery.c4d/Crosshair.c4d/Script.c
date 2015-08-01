@@ -20,8 +20,8 @@ public func Set(object pObj)
   //Besitzer-Clonk übernehmen
   pClonk = pObj;
 
-  //Animation bei Einstellung
-  SetAction("Attach",this);
+  //Animieren
+  SetAction("Ping",this);
 
   return true;
 }
