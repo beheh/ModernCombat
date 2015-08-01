@@ -1,1 +1,1 @@
-Crosshair for targeting.
+Crosshair for locking onto targets.

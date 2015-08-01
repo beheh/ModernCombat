@@ -153,7 +153,7 @@ func ControlDig(object pByObj)
 
   if (SimFlight2(iX, iY, iXDir, iYDir))
   {
-    var target = CreateObject(ARCR, iX, iY, GetOwner(pByObj));
+    var target = CreateObject(ACRH, iX, iY, GetOwner(pByObj));
     SetVisibility(VIS_Owner, target);
     SetPlrView(GetOwner(pByObj), target);
     target->Set(pByObj);

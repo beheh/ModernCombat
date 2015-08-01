@@ -1,7 +1,7 @@
 [DefCore]
-id=ARCR
+id=ACRH
 Version=4,9,10,7
-Name=ArtilleryCrosshair
+Name=Artillery Crosshair
 Category=C4D_StaticBack | C4D_IgnoreFoW | C4D_Foreground
 Width=25
 Height=25
