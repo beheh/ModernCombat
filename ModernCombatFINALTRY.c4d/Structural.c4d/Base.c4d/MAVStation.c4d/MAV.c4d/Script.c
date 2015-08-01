@@ -1161,7 +1161,7 @@ private func InitAim()
     RemoveObject(crosshair);
 
   //Besitzer setzen
-  crosshair = CreateObject(HCRH, 0, 0, GetOwner(this));
+  crosshair = CreateObject(VCRH, 0, 0, GetOwner(this));
   crosshair->Init(this);
 
   if(cur_Attachment)

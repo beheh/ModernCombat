@@ -286,7 +286,7 @@ private func InitAim()
     RemoveObject(Crosshair);
 
   //Besitzer wird in Init gesetzt
-  Crosshair = CreateObject(HCRH);
+  Crosshair = CreateObject(VCRH);
   Crosshair->Init(this());
   Crosshair->SetAngle(AimAngle());
 } 

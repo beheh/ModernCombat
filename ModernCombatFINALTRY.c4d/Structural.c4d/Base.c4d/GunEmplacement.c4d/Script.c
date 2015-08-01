@@ -573,7 +573,7 @@ private func InitAim()
     RemoveObject(crosshair);
 
   //Besitzer setzen
-  crosshair = CreateObject(HCRH, 0, 0, GetOwner(GetUser()));
+  crosshair = CreateObject(VCRH, 0, 0, GetOwner(GetUser()));
   crosshair->Init(this);
 
   if(AimAngle()+GetR() >= 360)
