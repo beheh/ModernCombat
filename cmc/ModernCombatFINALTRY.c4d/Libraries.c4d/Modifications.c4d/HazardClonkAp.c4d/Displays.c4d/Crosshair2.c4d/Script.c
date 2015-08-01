@@ -1,0 +1,4 @@
+/*-- Fahrzeugfadenkreuz --*/
+
+#strict
+#include HCRH
