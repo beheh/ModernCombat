@@ -366,6 +366,11 @@ func RejectCollect(id id, object pObj)
   AddWare(id, 0);
 }
 
+/* AI Funktionen aus Hazard, nicht implementiert */
+public func GetBuyableWaresFor(string szCallback, int player) {	return; }
+public func DoBuyItem(id Item, int iPlr, object pClonk) { return; }
+
+
 /* Serialisierung */
 
 public func Serialize(array& extra)
