@@ -1,4 +1,4 @@
-/*-- Ziel --*/
+/*-- Artilleriefadenkreuz --*/
 
 #strict 2
 
@@ -9,13 +9,20 @@ local fActive, pArtillery, pClonk;
 
 public func Construction(object pByObj)
 {
+  //Host-Artillerie übernehmen
   pArtillery = pByObj;
+
   return true;
 }
 
 public func Set(object pObj)
 {
+  //Besitzer-Clonk übernehmen
   pClonk = pObj;
+
+  //Animation bei Einstellung
+  SetAction("Attach",this);
+
   return true;
 }
 

@@ -1,2 +1,2 @@
-DE:Fadenkreuz
-US:Cross-Hair
+DE:Artilleriefadenkreuz
+US:Artillery Crosshair

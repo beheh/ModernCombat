@@ -12,10 +12,7 @@ static const CH_Spread_Prec = 10;
 public func NoWarp()	{return true;}
 
 
-protected func GetUser()
-{
-  return target;
-}
+/* Initialisierung */
 
 func Initialize()
 {
@@ -23,6 +20,11 @@ func Initialize()
   InitGraphics();
   
   return 1;
+}
+
+protected func GetUser()
+{
+  return target;
 }
 
 protected func Check()
@@ -78,8 +80,6 @@ public func Set(object pTarget)
   SetOwner(GetOwner(pTarget));
   SetAction("Attach",pTarget);
   target = pTarget;
-  //Schedule(Format("SetVisibility(%d)",VIS_Owner),1,0,this);
-  //SetVisibility(VIS_None);
   SetVisibility(VIS_Owner);
   Check();
 }
