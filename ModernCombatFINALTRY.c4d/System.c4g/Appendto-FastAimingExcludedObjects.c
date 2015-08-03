@@ -1,7 +1,8 @@
-/*-- Anfassbare Objekte, vor denen man nicht schnell Zielen koennen darf --*/
+/*-- Ausnahmen für schnelles Zielen --*/
+
+//Vor bestimmten Objekten kann nicht mehr schnell gezielt werden.
 
 #strict 2
+#appendto LIFT#appendto LFTP
 
-#appendto LFTP
-
-public func NoFastAiming() { return 1; }
+public func NoFastAiming()	{return 1;}

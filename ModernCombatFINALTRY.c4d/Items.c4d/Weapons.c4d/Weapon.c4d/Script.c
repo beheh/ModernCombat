@@ -460,7 +460,7 @@ public func GetCharge()
   return charge;
 }
 
-private func Recharge()    // Wartezeit zwischen zwei SchÃ¼ssen
+private func Recharge()	//Wartezeit zwischen zwei Sch�ssen
 {
   var rechargetime = GetFMData(FM_Recharge);
   AddEffect("Recharge", this(), 1, 1+Max(1, rechargetime), this());
