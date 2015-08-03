@@ -6,7 +6,6 @@
 
 #appendto *
 
-
 /* Steuerung */
 
 public func ControlDown(object pObj)
@@ -49,7 +48,7 @@ public func ControlUpdate(object pObj, int comdir, bool dig, bool throw)
 
 public func Grabbed(object pByObject, bool fGrab)
 {
-  if(pByObject && fGrab)
+  if(pByObject && fGrab && !this()->~NoFastAiming())
     AddEffect("IntWasGrabbed", pByObject, 100, 10);
 
   return _inherited(pByObject, fGrab, ...);
