@@ -18,7 +18,7 @@ public func SelectionTime()	{return 36;}	//Anwahlzeit
 
 func PermittedAtts()
 {
-  return AT_ExtendedMag | AT_Bayonet | AT_Laserpointer | AT_Flashlight;
+  return AT_ExtendedMag | AT_Bayonet | AT_Flashlight;
 }
 
 /* Nahkampfangriff */
@@ -38,21 +38,21 @@ public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Bullets$";
 
-  if(data == FM_AmmoID)		return STAM;						//ID der Munition
-  if(data == FM_AmmoLoad)	return 30 + (iAttachment == AT_ExtendedMag)*6;		//Magazingröße
+  if(data == FM_AmmoID)		return STAM;					//ID der Munition
+  if(data == FM_AmmoLoad)	return 30 + (iAttachment == AT_ExtendedMag)*6;	//Magazingröße
 
-  if(data == FM_Reload)		return 90 + (iAttachment == AT_ExtendedMag)*16;		//Zeit für Nachladen
-  if(data == FM_Recharge)	return 13;						//Zeit bis erneut geschossen werden kann
+  if(data == FM_Reload)		return 90 + (iAttachment == AT_ExtendedMag)*16;	//Zeit für Nachladen
+  if(data == FM_Recharge)	return 13;					//Zeit bis erneut geschossen werden kann
 
-  if(data == FM_Auto)		return false;						//Kein Automatikfeuer
+  if(data == FM_Auto)		return false;					//Kein Automatikfeuer
 
-  if(data == FM_Damage)		return 14;						//Schadenswert
+  if(data == FM_Damage)		return 14;					//Schadenswert
 
-  if(data == FM_Slot)		return 1;						//Slot des Feuermodus
+  if(data == FM_Slot)		return 1;					//Slot des Feuermodus
 
-  if(data == FM_SpreadAdd)	return 50 - (iAttachment == AT_Laserpointer)*8;		//Bei jedem Schuss hinzuzuaddierende Streuung
-  if(data == FM_StartSpread)	return 100 - (iAttachment == AT_Laserpointer)*20;	//Bei Auswahl der Waffe gesetzte Streuung
-  if(data == FM_MaxSpread)	return 450 - (iAttachment == AT_Laserpointer)*150;	//Maximaler Streuungswert
+  if(data == FM_SpreadAdd)	return 60;					//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 100;					//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 450;					//Maximaler Streuungswert
 
   return Default(data);
 }
@@ -254,35 +254,6 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
 
   //Patronenhülse vorhanden
   casing = 1;
-}
-
-/* Laserpointer */
-
-func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
-{
-  if(firemode == 2)
-  {
-    if(pBeam) RemoveObject(pBeam);
-    if(pLaser) RemoveObject(pLaser);
-
-    //Nutzer festlegen
-    var user = this->~GetUser();
-    var x, y, z;
-    if(!user || !user->~IsClonk() || !user->WeaponAt(x, y, z) || !user->IsAiming() || Contents(0, user) != this || iAttachment != AT_Laserpointer)
-    {
-      RemoveTrajectory(pTarget);
-      return;
-    }
-
-    var iAngle = EffectVar(1, user, GetEffect("ShowWeapon", user));
-    var empty = IsReloading() || !GetCharge();
-    AddTrajectory(pTarget, GetX(pTarget), GetY(pTarget), Sin(iAngle, 90), -Cos(iAngle, 90), 35*3, RGB(255*empty, 255*(!empty), 0));
-  }
-  else
-  {
-    RemoveTrajectory(pTarget);
-    return _inherited(pTarget, iEffectNumber, iEffectTime, ...);
-  }
 }
 
 /* Handeffekt */
