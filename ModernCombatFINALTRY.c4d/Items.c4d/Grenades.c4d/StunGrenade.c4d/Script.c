@@ -146,7 +146,7 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
     if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i))))
       continue;
 
-    if(Contained(pCursor))
+    if(Contained(pCursor) && !(Contained(pCursor)->~GetPilot() == pCursor))
       continue;
 
     var srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
