@@ -136,37 +136,38 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
     rgb->SetAlpha(255 - a);
   }
 
-  //Blendungsicon anhängen
-  for(var i = 0; i < GetPlayerCount(); i++)
-  {
-    if(i == GetOwner(pTarget))
-      continue;
-
-    var pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
-    if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i))))
-      continue;
-
-    if(Contained(pCursor) && !(Contained(pCursor)->~GetPilot() == pCursor))
-      continue;
-
-    var srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
-
-    if((srgb && srgb->GetAlpha() < 50) || (Contained() && a < 1))
+  if(!Contained(pTarget))
+    //Blendungsicon anhängen
+    for(var i = 0; i < GetPlayerCount(); i++)
     {
-      CustomMessage("@", pTarget, GetPlayerByIndex(i));
-      continue;
-    }
+      if(i == GetOwner(pTarget))
+        continue;
 
-    srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerSmoke, pCursor);
+      var pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
+      if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i))))
+        continue;
 
-    if(srgb && srgb->GetAlpha() < 200)
-    {
-      CustomMessage("@", pTarget, GetPlayerByIndex(i));
-      continue;
-    }
+      if(Contained(pCursor) && !(Contained(pCursor)->~GetPilot() == pCursor))
+        continue;
 
-    CustomMessage(Format("<c %x>{{SM07}}</c>%d", RGBa(255,255,255,BoundBy(a, 1, 254)), a), pTarget, GetPlayerByIndex(i));
-  }
+      var srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
+ 
+      if(srgb && srgb->GetAlpha() < 50)
+      {
+        CustomMessage("@", pTarget, GetPlayerByIndex(i));
+        continue;
+      }
+
+      srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerSmoke, pCursor);
+
+      if(srgb && srgb->GetAlpha() < 200)
+      {
+        CustomMessage("@", pTarget, GetPlayerByIndex(i));
+        continue;
+      }
+  
+      CustomMessage(Format("<c %x>{{SM07}}</c>%d", RGBa(255,255,255,BoundBy(a, 1, 254)), a), pTarget, GetPlayerByIndex(i));
+    }  
 }
 
 public func FxIntFlashbangStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
