@@ -123,6 +123,9 @@ static const Flashlight_MaxAlpha = 180;
 
 public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
 {
+  if(GetEffect("IntFlashbang", pTarget))
+    return;
+
   var rgb = EffectVar(0, pTarget, iNr);
   var distAlpha = EffectVar(4, pTarget, iNr);
 
