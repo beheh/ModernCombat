@@ -132,7 +132,7 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
   var a = rgb->GetAlpha();
 
   if(a < Flashlight_MinAlpha)
-    return;
+    return -1;
 
   if(--EffectVar(1, pTarget, iNr) <= 0)
     rgb->DoAlpha(-5, distAlpha, 255);
@@ -140,11 +140,11 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
     rgb->DoAlpha(+18, Min(rgb->GetAlpha()+18, distAlpha), 255);
 
   if(!rgb)
-    return;
+    return -1;
 
   a = rgb->GetAlpha();
 
-  if(!GetEffect("IntFlashbang", pTarget) && !Contained())
+  if(!GetEffect("IntFlashbang", pTarget) || !Contained())
   {
     for(var i = 0; i < GetPlayerCount(); i++)
     {
