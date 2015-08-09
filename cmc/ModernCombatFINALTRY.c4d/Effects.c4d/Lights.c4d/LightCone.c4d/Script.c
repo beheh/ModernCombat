@@ -144,7 +144,7 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
 
   a = rgb->GetAlpha();
 
-  if(!GetEffect("IntFlashbang", pTarget) || !Contained())
+  if(!GetEffect("IntFlashbang", pTarget) && !Contained())
   {
     for(var i = 0; i < GetPlayerCount(); i++)
     {
