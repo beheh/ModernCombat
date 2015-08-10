@@ -1,0 +1,6 @@
+[Action]
+Name=Broken
+Facet=48,0,48,12,0,0
+Delay=1
+Length=3
+NextAction=Hold

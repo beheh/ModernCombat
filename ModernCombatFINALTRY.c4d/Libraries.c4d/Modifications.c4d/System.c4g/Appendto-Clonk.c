@@ -93,7 +93,7 @@ public func HurtSounds(int iDmg, int iType)
 
   //Sound ermitteln
   //Minimalschaden
-  if(iDmg <= 2)
+  if(iDmg <= RandomX(2,8))
   {
     Sound("ClonkSmallPain*.ogg", 0, 0,0, GetOwner()+1);
     return;
@@ -198,7 +198,7 @@ public func OnHit(int iChange, int iType, object pFrom)
   //Geräusche machen
   if(!IsFakeDeath() && GetAlive())
   {
-    HurtSounds(iChange, iType);
+    //HurtSounds(iChange, iType);
   }
 
   //Achievement
@@ -322,8 +322,8 @@ func Hit2(int xDir, int yDir)
     DoAchievementProgress(1, AC56, GetOwner());
 
   //Sound
-  if(GetAlive(this))
-    Sound("ClonkPain*.ogg");
+  //if(GetAlive(this))
+  //  Sound("ClonkPain*.ogg");
 
   return _inherited(xDir,yDir,...);
 }
