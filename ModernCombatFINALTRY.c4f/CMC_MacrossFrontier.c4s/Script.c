@@ -3,6 +3,8 @@
 #strict 2
 #include CSTD
 
+static aDoorWay;
+
 func RecommendedGoals()	{return [GHTF, GTDM];}	//Spielzielempfehlung
 
 
@@ -14,6 +16,8 @@ func Initialize()
   SetWaitingMusic();
   //Himmelparallaxität
   SetSkyParallax(1,50,15);
+  //Türverbindungen
+  aDoorWay = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -214,8 +218,9 @@ func CreateInterior()
   ->Set(autod);
 
   //Verbundene Räume
-  var doorw = CreateObject(GAT1, 976, 510, -1);
-  CreateObject(ROOM, 1095, 700, -1)->Connect(doorw);
+  aDoorWay[00] = CreateObject(GAT1, 976, 510, -1);
+  aDoorWay[01] = CreateObject(ROOM, 1095, 700, -1);
+  aDoorWay[00]->Connect(aDoorWay[01]);
 
   //Grenzen
   CreateObject(BRDR, 260, 0, -1)->Set(0);
@@ -279,7 +284,7 @@ func CreateDecoration()
   CreateObject(TCCN, 1310, 580, -1)->Light();
   CreateObject(TCCN, 1340, 570, -1)->Light();
 
-  //Tisch
+  //Glastisch
   CreateObject(GTBL, 1135, 700, -1);
 
   //Labortische

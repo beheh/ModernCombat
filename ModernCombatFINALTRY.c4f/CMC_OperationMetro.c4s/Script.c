@@ -3,7 +3,7 @@
 #strict 2
 #include CSTD
 
-static aFlag,aStationary;
+static aFlag,aStationary,aDoorWay;
 
 func RecommendedGoals()			{return [GASS, GMNR];}	//Spielzielempfehlung
 public func AssaultDefenderTeam()	{return 2;}		//Verteidigerteam bei Assault
@@ -21,6 +21,8 @@ func Initialize()
   aFlag = [];
   //Geschützstellungen
   aStationary = [];
+  //Türverbindungen
+  aDoorWay = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -286,11 +288,19 @@ func CreateInterior()
   CreateObject(GDDR, 1350, 440, -1)->Lock();
   CreateObject(GDDR, 3890, 440, -1)->Lock();
 
+  //Gitter
+  CreateObject(GTNG, 1763, 300, -1);
+  CreateObject(GTNG, 2237, 300, -1);
+  CreateObject(GTNG, 3003, 300, -1);
+  CreateObject(GTNG, 3477, 300, -1);
+
   //Verbundene Räume
-  var doorw = CreateObject(ROOM, 1200, 300, -1);
-  CreateObject(ROOM, 1200, 440, -1)->Connect(doorw);
-  doorw = CreateObject(ROOM, 4040, 300, -1);
-  CreateObject(ROOM, 4040, 440, -1)->Connect(doorw);
+  aDoorWay[00] = CreateObject(ROOM, 1200, 300, -1);
+  aDoorWay[01] = CreateObject(ROOM, 1200, 440, -1);
+  aDoorWay[00]->Connect(aDoorWay[01]);
+  aDoorWay[02] = CreateObject(ROOM, 4040, 300, -1);
+  aDoorWay[03] = CreateObject(ROOM, 4040, 440, -1);
+  aDoorWay[02]->Connect(aDoorWay[03]);
 
   //Sounds
 

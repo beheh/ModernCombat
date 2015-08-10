@@ -3,7 +3,7 @@
 #strict 2
 #include CSTD
 
-static aFlag;
+static aFlag,aDoorWay;
 
 func RecommendedGoals()	{return [GOCC, GHTF];}	//Spielzielempfehlung
 
@@ -18,6 +18,8 @@ func Initialize()
   SetGamma(RGB(7,6,0),RGB(152,147,128),RGB(255,254,236));
   //Flaggen
   aFlag = [];
+  //Türverbindungen
+  aDoorWay = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -201,10 +203,12 @@ func CreateInterior()
   CreateObject(BRDR, 6205, 0, -1)->Set(1);
 
   //Verbundene Räume
-  var doorw = CreateObject(GAT1, 2030, 690, -1);
-  CreateObject(ROM2, 1545, 580, -1)->Connect(doorw);
-  doorw = CreateObject(GAT1, 4800, 690, -1);
-  CreateObject(ROM2, 5285, 580, -1)->Connect(doorw);
+  aDoorWay[00] = CreateObject(GAT1, 2030, 690, -1);
+  aDoorWay[01] = CreateObject(ROM2, 1545, 580, -1);
+  aDoorWay[00]->Connect(aDoorWay[01]);
+  aDoorWay[02] = CreateObject(GAT1, 4800, 690, -1);
+  aDoorWay[03] = CreateObject(ROM2, 5285, 580, -1);
+  aDoorWay[02]->Connect(aDoorWay[03]);
 
   //Sounds
 

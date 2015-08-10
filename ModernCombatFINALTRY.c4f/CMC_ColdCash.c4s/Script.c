@@ -92,6 +92,12 @@ func CreateInterior()
   CreateObject(GDDR, 4110, 510, -1);
   CreateObject(GDDR, 4250, 510, -1);
 
+  //Gitter
+  CreateObject(GTNG, 1375, 540, -1);
+  CreateObject(GTNG, 1605, 540, -1);
+  CreateObject(GTNG, 3935, 540, -1);
+  CreateObject(GTNG, 4165, 540, -1);
+
   //Metallkisten
   CreateObject(MWCR, 1530, 510, -1)->AutoRespawn();
   CreateObject(MWCR, 4010, 510, -1)->AutoRespawn();

@@ -3,7 +3,7 @@
 #strict 2
 #include CSTD
 
-static aFlag;
+static aFlag,aDoorWay;
 
 public func SpecificEquipment()	{return [[PPAR, 1]];}	//Zusatzausrüstung: Fallschirmrucksack
 func RecommendedGoals()		{return [GOCC,GMNR];}	//Spielzielempfehlung
@@ -17,6 +17,8 @@ func Initialize()
   SetWaitingMusic();
   //Flaggen
   aFlag = [];
+  //Türverbindungen
+  aDoorWay = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -198,10 +200,12 @@ func CreateInterior()
   CreateObject(PTNK, 2270, 1570, -1)->AutoRespawn();
 
   //Verbundene Räume
-  var doorw = CreateObject(GAT1, 770, 420, -1);
-  CreateObject(ROOM, 665, 1570, -1)->Connect(doorw);
-  var doorw = CreateObject(GAT1, 2310, 420, -1);
-  CreateObject(ROOM, 2415, 1570, -1)->Connect(doorw);
+  aDoorWay[00] = CreateObject(GAT1, 770, 420, -1);
+  aDoorWay[01] = CreateObject(ROOM, 665, 1570, -1);
+  aDoorWay[00]->Connect(aDoorWay[01]);
+  aDoorWay[02] = CreateObject(GAT1, 2310, 420, -1);
+  aDoorWay[03] = CreateObject(ROOM, 2415, 1570, -1);
+  aDoorWay[02]->Connect(aDoorWay[03]);
 
   //Sonne umplatzieren
   FindObject(LENS)->SetPosition(1570,390);
