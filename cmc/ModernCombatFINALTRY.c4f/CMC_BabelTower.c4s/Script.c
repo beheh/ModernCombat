@@ -296,6 +296,7 @@ func CreateInterior()
   CreateObject(PANE, 972, 1081, -1);
   CreateObject(PANE, 972, 1110, -1);
   CreateObject(PANE, 972, 1160, -1);
+  CreateObject(PAN2, 1115, 1256, -1);
   CreateObject(PANE, 972, 1320, -1);
   CreateObject(PANE, 972, 1370, -1);
   CreateObject(PANE, 972, 1440, -1);
@@ -303,6 +304,7 @@ func CreateInterior()
   CreateObject(PANE, 972, 1690, -1);
   CreateObject(PANE, 972, 1750, -1);
   CreateObject(PANE, 972, 1800, -1);
+  CreateObject(PAN2, 1015, 1806, -1);
   CreateObject(PANE, 972, 1850, -1);
 
   //Rechts
@@ -312,6 +314,7 @@ func CreateInterior()
   CreateObject(PANE, 1398, 1081, -1);
   CreateObject(PANE, 1398, 1110, -1);
   CreateObject(PANE, 1398, 1160, -1);
+  CreateObject(PAN2, 1255, 1256, -1);
   CreateObject(PANE, 1398, 1320, -1);
   CreateObject(PANE, 1398, 1370, -1);
   CreateObject(PANE, 1398, 1440, -1);
@@ -319,12 +322,8 @@ func CreateInterior()
   CreateObject(PANE, 1398, 1690, -1);
   CreateObject(PANE, 1398, 1750, -1);
   CreateObject(PANE, 1398, 1800, -1);
-  CreateObject(PANE, 1398, 1850, -1);
-
-  CreateObject(PAN2, 1015, 1806, -1);
-  CreateObject(PAN2, 1115, 1256, -1);
-  CreateObject(PAN2, 1255, 1256, -1);
   CreateObject(PAN2, 1355, 1806, -1);
+  CreateObject(PANE, 1398, 1850, -1);
 
   //Kiste
   CreateObject(WCR2, 1255, 870, -1)->AutoRespawn();
@@ -718,7 +717,7 @@ func CreateDecoration()
   CreateObject(FIE2, 1090, 1245, -1);
   CreateObject(FIE2, 1280, 1245, -1);
 
-  //Tisch
+  //Glastisch
   CreateObject(GTBL, 1130, 1690, -1);
 
   //Schilder

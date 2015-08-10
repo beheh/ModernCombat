@@ -3,7 +3,7 @@
 #strict 2
 #include CSTD
 
-static aFlag,aStationary,aSelfDefense,aArtillery;
+static aFlag,aStationary,aSelfDefense,aArtillery,aDoorWay;
 
 func RecommendedGoals()			{return [GOCC, GASS];}	//Spielzielempfehlung
 public func AssaultDefenderTeam()	{return 2;}		//Verteidigerteam bei Assault
@@ -27,6 +27,8 @@ func Initialize()
   aSelfDefense = [];
   //Artillerie
   aArtillery = [];
+  //Türverbindungen
+  aDoorWay = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -246,6 +248,12 @@ func CreateInterior()
   CreateObject(GDDR, 6500, 510, -1);
   CreateObject(GDDR, 7320, 460, -1);
 
+  //Gitter
+  CreateObject(GTNG, 933, 620, -1);
+  CreateObject(GTNG, 1198, 610, -1);
+  CreateObject(GTNG, 2640, 600, -1);
+  CreateObject(GTNG, 6510, 600, -1);
+
   //Sandsackbarrieren
   CreateObject(SBBA, 1380, 540, -1)->Right();
   CreateObject(SBBA, 1690, 540, -1)->Right();
@@ -292,12 +300,14 @@ func CreateInterior()
   CreateObject(CRN1, 4000, 459, -1)->Set(42);
 
   //Verbundene Räume
-  var doorw = CreateObject(GAT1, 3845, 785, -1);
-  doorw->SetClrModulation(RGB(125,125,205));
-  CreateObject(GAT1, 3830, 625, -1)->Connect(doorw);
-  doorw = CreateObject(GAT1, 4200, 785, -1);
-  doorw->SetClrModulation(RGB(125,125,205));
-  CreateObject(GAT1, 4215, 615, -1)->Connect(doorw);
+  aDoorWay[00] = CreateObject(GAT1, 3845, 785, -1);
+  aDoorWay[00]->SetClrModulation(RGB(125,125,205));
+  aDoorWay[01] = CreateObject(GAT1, 3830, 625, -1);
+  aDoorWay[00]->Connect(aDoorWay[01]);
+  aDoorWay[02] = CreateObject(GAT1, 4200, 785, -1);
+  aDoorWay[02]->SetClrModulation(RGB(125,125,205));
+  aDoorWay[03] = CreateObject(GAT1, 4215, 615, -1);
+  aDoorWay[02]->Connect(aDoorWay[03]);
 
   //Sonne umplatzieren
   FindObject(LENS)->SetPosition(4165,100);
@@ -587,7 +597,7 @@ func CreateDecoration()
   CreateObject(ENGT, 7190, 605, -1);
   CreateObject(ENGT, 7390, 605, -1);
 
-  //Tische
+  //Glastische
   CreateObject(GTBL, 1105, 640, -1);
 }
 
@@ -825,10 +835,12 @@ public func ChooserFinished()
    sign->Set("Turret");
 
    //Verbundene Räume
-   var doorw = CreateObject(GAT1, 2960, 433, -1);
-   CreateObject(ROOM, 3570, 510, -1)->Connect(doorw);
-   doorw = CreateObject(GAT1, 6095, 415, -1);
-   CreateObject(ROOM, 5735, 500, -1)->Connect(doorw);
+   aDoorWay[04] = CreateObject(GAT1, 2960, 433, -1);
+   aDoorWay[05] = CreateObject(ROOM, 3570, 510, -1);
+   aDoorWay[04]->Connect(aDoorWay[05]);
+   aDoorWay[06] = CreateObject(GAT1, 6095, 415, -1);
+   aDoorWay[07] = CreateObject(ROOM, 5735, 500, -1);
+   aDoorWay[06]->Connect(aDoorWay[07]);
 
    //Geschützstellungen
    CreateObject(GNET, 2560, 440, -1)->Set(SATW,-90);

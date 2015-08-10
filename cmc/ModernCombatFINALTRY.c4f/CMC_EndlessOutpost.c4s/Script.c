@@ -146,6 +146,9 @@ func CreateInterior()
   CreateObject(GDDR, 2915, 410, -1)->SetColorDw(HSL(40, 210, 100, 127));
   CreateObject(GDDR, 2915, 500, -1)->SetColorDw(HSL(40, 210, 100, 127));
 
+  //Gitter
+  CreateObject(GTNG, 2137, 70, -1);
+
   //Hydrauliktüren
   CreateObject(SEDR,2470, 110,-1)->Lock();
   CreateObject(SEDR,2960, 410,-1)->Lock();
@@ -467,6 +470,9 @@ func CreateDecoration()
   screen->SetClrModulation(RGB(00,150,250));
   screen->SetPhase(15);
 
+  //Glastisch
+  CreateObject(GTBL, 2340, 110, -1);
+
   //Labortische
   CreateObject(LTBL,1810, 320, -1);
   CreateObject(LTBL,1910, 320, -1);
@@ -495,9 +501,6 @@ func CreateDecoration()
   CreateObject(MNI2, 2690, 518, -1);
   CreateObject(MNI2, 2705, 518, -1)->Off();
   CreateObject(MNI2, 2955, 92, -1);
-
-  //Tisch
-  CreateObject(GTBL, 2340, 110, -1);
 
   //Topfpflanzen
   CreateObject(PLT4, 1220, 240, -1);

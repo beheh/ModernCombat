@@ -3,7 +3,7 @@
 #strict 2
 #include CSTD
 
-static aFlag,aSelfDefense;
+static aFlag,aSelfDefense,aDoorWay;
 
 func RecommendedGoals()	{return [GOCC, GHTF];}	//Spielzielempfehlung
 
@@ -20,6 +20,8 @@ func Initialize()
   aFlag = [];
   //Selbstschussanlagen
   aSelfDefense = [];
+  //Türverbindungen
+  aDoorWay = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -297,11 +299,12 @@ func CreateInterior()
   CreateObject(PLLT, 1750, 880, -1);
 
   //Verbundene Räume
-  var doorw = CreateObject(ROOM, 865, 120, -1);
-  CreateObject(ROOM, 855, 1070, -1)->Connect(doorw);
-
-  var doorw = CreateObject(ROOM, 965, 120, -1);
-  CreateObject(ROOM, 975, 1070, -1)->Connect(doorw);
+  aDoorWay[00] = CreateObject(ROOM, 865, 120, -1);
+  aDoorWay[01] = CreateObject(ROOM, 855, 1070, -1);
+  aDoorWay[00]->Connect(aDoorWay[01]);
+  aDoorWay[02] = CreateObject(ROOM, 965, 120, -1);
+  aDoorWay[03] = CreateObject(ROOM, 975, 1070, -1);
+  aDoorWay[02]->Connect(aDoorWay[03]);
 
   //Selbstschussanlagen
   aSelfDefense[0] = CreateObject(SEGU, 358, 832, -1);
