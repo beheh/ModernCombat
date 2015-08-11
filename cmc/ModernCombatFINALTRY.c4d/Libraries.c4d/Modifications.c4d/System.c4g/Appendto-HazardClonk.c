@@ -874,6 +874,10 @@ protected func ContextHelpMessagesOff()
   SelectMenuItem(1, Par());
 }
 
+/* Ammodrop wird nicht benoetigt */
+
+protected func ContextDropAmmo(object pCaller) { return; }
+
 /* Einstellungen */
 
 protected func ContextSettings(object pCaller)
