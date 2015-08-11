@@ -17,7 +17,7 @@ public func IsBulletTarget(id def)
 
 public func Damage()
 {
-  if(GetDamage() > 30 && !damaged)
+  if(GetDamage() > 20 && !damaged)
     Shatter();
   if(GetDamage() > MaxDamage())
   {
