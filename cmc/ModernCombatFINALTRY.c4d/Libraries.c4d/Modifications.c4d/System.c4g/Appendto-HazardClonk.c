@@ -876,7 +876,14 @@ protected func ContextHelpMessagesOff()
 
 /* Ammodrop wird nicht benoetigt */
 
-protected func ContextDropAmmo(object pCaller) { return; }
+
+protected func ContextDropAmmo(object pCaller)
+{
+  [0|Image=STAP|Condition=NoContext]
+  return;
+}
+
+public func AmmoBagContextCheck() { return; }
 
 /* Einstellungen */
 
