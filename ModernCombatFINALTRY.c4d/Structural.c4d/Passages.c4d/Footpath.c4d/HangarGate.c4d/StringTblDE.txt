@@ -1,0 +1,3 @@
+Left=Nach links
+Right=Nach rechts
+Stop=Stop

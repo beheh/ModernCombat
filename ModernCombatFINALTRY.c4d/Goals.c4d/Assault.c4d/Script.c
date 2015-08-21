@@ -594,7 +594,7 @@ public func UpdateScoreboard()
   SetScoreboardData(SBRD_Caption, GASS_Name, Format("<c %x>$Targets$</c>", GetTeamColor(iDefender)));
   SetScoreboardData(SBRD_Caption, GASS_Count, Format("<c %x>%d</c>", GetTeamColor(iDefender), ObjectCount2(Find_InArray(aTargets[iDefender]))), 0);
 
-  //Zeile für das nächste Ziel
+  //Ziele für das nächste Ziel
   if(obj)
   {
     //Ziel und zusammenhängende Ziele anzeigen
