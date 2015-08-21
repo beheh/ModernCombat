@@ -1,0 +1,20 @@
+[DefCore]
+id=HNG4
+Version=4,9,10,7
+Name=Hangar Gate
+Category=C4D_Vehicle
+Width=160
+Height=8
+Offset=-80,-4
+Vertices=2
+VertexX=-80,79
+VertexY=-2,-2
+VertexCNAT=1,2
+VertexFriction=100,100
+Mass=600
+SolidMask=0,8,160,8
+Picture=0,0,160,8
+ContactCalls=1
+
+[Physical]
+Float=200

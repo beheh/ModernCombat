@@ -24,6 +24,7 @@ public func Set(int iSize)
 
 func Hit(int iXDir, int iYDir)
 {
+  //Effekte
   if(GetCon() >= 140)
     Sound("CasingBigHit*.ogg",false,0,0,0,0,0,300);
   else
