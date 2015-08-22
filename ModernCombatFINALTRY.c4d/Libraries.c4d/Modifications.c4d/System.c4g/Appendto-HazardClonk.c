@@ -874,8 +874,7 @@ protected func ContextHelpMessagesOff()
   SelectMenuItem(1, Par());
 }
 
-/* Ammodrop wird nicht benoetigt */
-
+/* Munition ablegen-Kontextmenü deaktivieren */
 
 protected func ContextDropAmmo(object pCaller)
 {
@@ -883,7 +882,7 @@ protected func ContextDropAmmo(object pCaller)
   return;
 }
 
-public func AmmoBagContextCheck() { return; }
+public func AmmoBagContextCheck()	{return;}
 
 /* Einstellungen */
 
