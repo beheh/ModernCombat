@@ -207,14 +207,14 @@ public func OnHitLandscape(int iX, int iY)
   //Aufprall auf Material?
   if(GBackSolid(iX,iY))
   {
-    //Material und dessen Farbe ermitteln
+    //Farbe des Materials ermitteln
     var mat = GetMaterial(iX,iY);
     var rand = Random(3);
     rgb = RGB(GetMaterialColor(mat,rand,0),
     		GetMaterialColor(mat,rand,1),
     		GetMaterialColor(mat,rand,2));
 
-    //Material grabbar?
+    //Material grabbar: Kleine Menge entfernen und verschleudern
     if(GetMaterialVal("DigFree", "Material", mat))
     {
       //Material am Aufprallort entfernen und versprühen
@@ -274,19 +274,24 @@ public func OnBulletHit(object pObject, int iX, int iY)
   //Zu treffendes Objekt vorhanden?
   if(pObject)
   {
-    //Treffergeräusch
-    var tmp = CreateObject(TIM1, iX, iY, NO_OWNER);
+    //Allgemeines Treffergeräusch
+    var tmp = CreateObject(TIM1, iX, iY, NO_OWNER);	//Sound-Objekt
     Sound("BulletImpact*.ogg", 0, tmp);
+
+    //Bei Lebewesen: Treffergeräusch für dessen Besitzer
+    if(GetOCF(pObject) & OCF_Living)
+      Sound("BulletHitIndicator*.ogg", 0, tmp, 0, GetOwner(pObject)+1);
+
     RemoveObject(tmp);
   }
 
-  //Lebewesen erhalten keine zusätzlichen Effekte
+  //Bei Lebewesen: Keine weiteren Effekte
   if(GetOCF(pObject) & OCF_Living)
     return;
 
-  //Partikel verschleudern
+  //Effekte
   var iAngle, iSpeed, iSize;
-
+  //Funken
   for( var i = 0; i < 3 * GetCon() / 10; ++i)
   {
     iAngle = GetR() - 200 + Random(41);
@@ -294,20 +299,19 @@ public func OnBulletHit(object pObject, int iX, int iY)
     iSize = Random(31) + 10;
     CreateParticle("Frazzle", iX + Sin(iAngle, 2), iY - Cos(iAngle, 2), Sin(iAngle, iSpeed), -Cos(iAngle, iSpeed), iSize, GlowColor(iTime));
   }
-
   var alphamod, sizemod, iColor = GlowColor(iTime);
   CalcLight(alphamod, sizemod);
-
   var r, g, b, a;
   SplitRGBaValue(iColor, r, g, b, a);
   iColor = RGBa(r, g, b, Min(a + alphamod, 255));
-
+  //Aufprallfunke
   if(GetEffectData(EFSM_BulletEffects) > 0)
     CreateParticle("Flare", iX, iY, Random(201)- 100, Random(201) - 100, GetCon() * sizemod / 20, iColor);
 }
 
 public func BulletStrike(object pObj)
 {
+  //Schaden für getroffenes Objekt errechnen
   if(pObj)
     if(iAttachment != AT_Silencer)
       DoDmg(iDamage, DMG_Projectile, pObj, 0, 0, 0, iAttachment);
@@ -322,6 +326,7 @@ public func BulletStrike(object pObj)
       //Message(Format("%d red: %d step: %d dist: %d", newDamage, ((iDamage * step) / x), step, Distance(GetX(), GetY(), GetX(pObj), GetY(pObj))), pObj);
       DoDmg(newDamage, DMG_Projectile, pObj, 0, 0, 0, iAttachment);
     }
+
   return true;
 }
 
