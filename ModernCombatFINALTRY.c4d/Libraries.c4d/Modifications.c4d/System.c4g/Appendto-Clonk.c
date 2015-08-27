@@ -68,8 +68,11 @@ public func Incineration()
   Extinguish();
 
   //Sound
-  if(GetAlive()) 
+  if(GetAlive() && !GetEffect("SoundDelay", this))
+  {
+    AddEffect("SoundDelay", this, 1, 25, this);
     Sound("ClonkBurn*.ogg");
+  }
 
   //Schadenseffekt setzen sofern lebendig
   if(IsFakeDeath()) return;
@@ -81,7 +84,7 @@ public func Incineration()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(!IsFakeDeath() && GetAlive() && iDmg > 0)
+  if(!IsFakeDeath() && GetAlive() && iDmg > 0 && !GetEffect("SoundDelay", this))
     HurtSounds(iDmg, iType);
 
   return _inherited(iDmg, iType, ...);
@@ -98,6 +101,10 @@ public func HurtSounds(int iDmg, int iType)
     Sound("ClonkSmallPain*.ogg", 0, 0,0, GetOwner()+1);
     return;
   }
+
+  //Sounds direkt aufeinander verhindern
+  AddEffect("SoundDelay", this, 1, 25, this);
+
   //Projektile
   if(iType == DMG_Projectile)
   {
@@ -195,12 +202,6 @@ public func DoHitPoints(int iPoints)
 
 public func OnHit(int iChange, int iType, object pFrom)
 {
-  //Geräusche machen
-  if(!IsFakeDeath() && GetAlive())
-  {
-    //HurtSounds(iChange, iType);
-  }
-
   //Achievement
   ScheduleCall(this, "DoHitPoints", 1, 0, iChange);	
 
@@ -320,10 +321,6 @@ func Hit2(int xDir, int yDir)
   //Achievement-Fortschritt (Totally Planned)
   if((prevEnergy-GetEnergy()) * 100000 / GetPhysical("Energy") >= 80 && GetEnergy() * 100000 / GetPhysical("Energy") < 5 && GetAlive(this) && GetID(Contained()) != FKDT)
     DoAchievementProgress(1, AC56, GetOwner());
-
-  //Sound
-  //if(GetAlive(this))
-  //  Sound("ClonkPain*.ogg");
 
   return _inherited(xDir,yDir,...);
 }
