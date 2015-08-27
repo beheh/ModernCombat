@@ -1,6 +1,6 @@
 Die folgenden Musiktitel stammen von ihren jeweiligen Künstlern / The following songs are from their respective artists:
 
-"CMC_Friendly Unit", "CMC_Getaway", "CMC_Moving Squad", "CMC_Offensive", "CMC_Slow Motion"
+"CMC_Getaway"
 Kevin MacLeod
 
 "CMC_Eurocorps"
@@ -17,7 +17,7 @@ Bomberman 64 Soundtrack
 "CMC_Your Eyes"
 Command & Clonquer (Clonk Addon)
 
-"CMC_Techno"
+"CMC_Drone in Flight"
 "CMC_Titanium City"
 Star Empires (Clonk Addon)
 
