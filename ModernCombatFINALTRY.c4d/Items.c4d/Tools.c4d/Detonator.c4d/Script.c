@@ -103,7 +103,7 @@ public func Activate(object pActivator)
   for (var c4 in GetC4())
   {
     SetController(GetOwner(pActivator), c4);
-    ScheduleCall(c4, "Trigger", 10); 
+    ScheduleCall(c4, "Trigger", Max(ObjectDistance(c4) / 10, 1));
   }
 
   //Effekte
@@ -130,7 +130,6 @@ public func JoinPack(object pInto, object pMsgObj)
       obj->~SetPacket(pInto);
       SetController(GetOwner(pInto), obj);
     }
-
   pInto->~Check();
   Check();
   return i;
