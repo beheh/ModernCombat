@@ -69,8 +69,8 @@ public func FxSightStart(object pTarget,int iEffectNumber, int iTemp)
   var aSight = CreateArray(SightHelperCnt());
   for(var i = 0; i < SightHelperCnt(); i++)
   {
-    if(aSight[i]) RemoveObject(aSight[i]);//Reset.
-    aSight[i] = CreateObject(SHLP,0,0,GetOwner(pTarget));//Erstellen.
+    if(aSight[i]) RemoveObject(aSight[i]);			//Zurücksetzen
+    aSight[i] = CreateObject(SHLP,0,0,GetOwner(pTarget));	//Erstellen
     aSight[i]->SetController(GetOwner(pTarget));
   }
 

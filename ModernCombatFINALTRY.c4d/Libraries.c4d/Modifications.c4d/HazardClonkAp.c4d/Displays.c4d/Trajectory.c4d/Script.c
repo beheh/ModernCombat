@@ -16,7 +16,7 @@ protected func Initialize()
 
 global func AddTrajectory(object pObj, int iX, int iY, int iXDir, int iYDir, int iRange, int iColor)
 {
-  //Eventuelle alte Flugbahn entfernen
+  //Alte Flugbahn entfernen falls vorhanden
   RemoveTrajectory(pObj);
   //Neues Flugbahnobjekt erzeugen
   var pTrajectory = CreateObject(TRTY, GetX(pObj)-GetX(), GetY(pObj)-GetY(), GetOwner(pObj));

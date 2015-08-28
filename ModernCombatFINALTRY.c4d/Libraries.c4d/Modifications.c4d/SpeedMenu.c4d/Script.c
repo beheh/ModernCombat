@@ -17,7 +17,7 @@ local aItemTitle;		//Titel
 local aItemFunc;		//Funktion
 local aItemPar;			//Parameter
 local aItemId;			//ID
-local aItemBackground;	//Hintergrund
+local aItemBackground;		//Hintergrund
 
 /* globale Funktionen */
 
@@ -62,7 +62,7 @@ global func GetSpeedMenu(object pCommandObject)
   return pMenu;
 }
 
-/* Allgemeines */
+/* Initialisierung */
 
 protected func Initialize()
 {
@@ -75,6 +75,8 @@ protected func Initialize()
   aBottomInfo = [];
   SetVisibility(VIS_None); 
 }
+
+/* Allgemeines */
 
 public func Create(object pCommandObject, object pMenuObj)
 {
