@@ -51,9 +51,9 @@ public func FMData1(int data)
 
   if(data == FM_Damage)		return 20;						//Schadenswert
 
-  if(data == FM_SpreadAdd)	return 200 - (iAttachment == AT_Laserpointer)*10;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_SpreadAdd)	return 270 - (iAttachment == AT_Laserpointer)*5;	//Bei jedem Schuss hinzuzuaddierende Streuung
   if(data == FM_StartSpread)	return 80 - (iAttachment == AT_Laserpointer)*20;	//Bei Auswahl der Waffe gesetzte Streuung
-  if(data == FM_MaxSpread)	return 400 - (iAttachment == AT_Laserpointer)*150;	//Maximaler Streuungswert
+  if(data == FM_MaxSpread)	return 400 - (iAttachment == AT_Laserpointer)*50;	//Maximaler Streuungswert
 
   return Default(data);
 }
@@ -69,7 +69,7 @@ public func FMData1T1(int data)
 
 public func Fire1T1()
 {
-  LaunchGrenade(ESHL, 100+Random(40),Contained()->~AimAngle(0,0,true));
+  LaunchGrenade(ESHL, 120,Contained()->~AimAngle(0,0,true));
 }
 
 public func BotData1(int data)
@@ -92,7 +92,7 @@ public func FMData1T2(int data)
 
 public func Fire1T2()
 {
-  LaunchGrenade(FSHL, 100+Random(40),Contained()->~AimAngle(0,0,true));
+  LaunchGrenade(FSHL, 120,Contained()->~AimAngle(0,0,true));
 }
 
 public func BotData2(int data)
@@ -114,7 +114,7 @@ public func FMData1T3(int data)
 
 public func Fire1T3()
 {
-  LaunchGrenade(SSHL, 100+Random(40),Contained()->~AimAngle(0,0,true));
+  LaunchGrenade(SSHL, 120,Contained()->~AimAngle(0,0,true));
 }
 
 public func BotData3(int data)
@@ -128,7 +128,7 @@ public func BotData3(int data)
 public func LaunchGrenade(id idg, int speed, int angle, int mode)
 {
   //Austritt bestimmen
-  var user = GetUser();
+  var user = Contained();
   var dir = GetDir(user)*2-1;
   var x,y;
   user->WeaponEnd(x,y);
@@ -142,7 +142,7 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   //Granate abfeuern
   var grenade=CreateObject(idg, x, y, GetController(user));
   SetController(GetController(user), grenade);
-  grenade->Launch(xdir+GetXDir(user)/5, ydir/*+GetYDir(user)/4*/, GetFMData(FM_Damage,2),0,0,0,iAttachment,user);
+  grenade->Launch(xdir+GetXDir(user)/5, ydir/*+GetYDir(user)/4*/, GetFMData(FM_Damage,2), 0, 0, 0, iAttachment, user);
 
   //Sicht auf Granate wenn der Schütze zielt
   if(!(user->~IsMachine()) && user->~IsAiming())
