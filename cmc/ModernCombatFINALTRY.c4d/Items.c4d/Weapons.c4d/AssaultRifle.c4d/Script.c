@@ -210,7 +210,7 @@ public func Fire2T3()
 public func LaunchGrenade(id idg, int speed, int angle, int mode)
 {
   //Austritt bestimmen
-  var user = Contained();
+  var user = GetUser();
   var dir = GetDir(user)*2-1;
   var x,y;
   user->WeaponEnd(x,y);
