@@ -20,7 +20,7 @@ public func Initialize()
   return _inherited(...);
 }
 
-/* Abschließfunktion */
+/* Sperren und Öffnen */
 
 public func Lock()
 {
@@ -30,6 +30,31 @@ public func Lock()
 public func Unlock()
 {
   lock = false;
+}
+
+/* Versiegelung */
+
+public func SealEntrance(int iRemove, int iNoEffects)
+{
+  //Effekte
+  if(!iNoEffects)
+  {
+    DecoExplode(20,0,1);
+    Sound("StructureHit*.ogg");
+  }
+
+  //Inhalte evakuieren und Eingang entfernen oder sperren
+  if(iRemove)
+    RemoveObject(this, true);
+  else
+  {
+    Lock();
+    SetAction("Idle");
+    SetClrModulation(RGBa(100,100,100,5));
+    var pContent;
+    while(pContent = Contents(0, this))
+      Exit(pContent);
+  }
 }
 
 /* Türverbindung */
