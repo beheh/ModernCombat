@@ -3,7 +3,7 @@
 #strict 2
 #include CSTD
 
-static aFlag,aSelfDefense,aStationary,aTowerInterior,doorw,pRoom;
+static aFlag,aSelfDefense,aStationary,aTowerInterior,aDoorWay;
 
 func RecommendedGoals()			{return [GOCC, GASS];}	//Spielzielempfehlung
 public func AssaultDefenderTeam()	{return 2;}		//Verteidigerteam bei Assault
@@ -27,6 +27,8 @@ func Initialize()
   aSelfDefense = [];
   //Turmobjekte
   aTowerInterior = [];
+  //Türverbindungen
+  aDoorWay = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -231,9 +233,9 @@ func CreateInterior()
   tower->AddNode(3955, 550, 0, CreateObject(REHR, 3942, 560, -1), -40, 2);
 
   //Verbundene Räume
-  doorw = CreateObject(GAT1, 3670, 455, -1);
-  pRoom = CreateObject(ROOM, 4125, 640, -1);
-  pRoom->Connect(doorw);
+  aDoorWay[00] = CreateObject(GAT3, 3670, 455, -1);
+  aDoorWay[01] = CreateObject(ROOM, 4125, 640, -1);
+  aDoorWay[00]->Connect(aDoorWay[01]);
 
   //Wasseroberfläche ebnen
   DrawMaterialQuad("Water",1761,1270,2380,1270,2380,1271,1766,1271,1);
@@ -497,15 +499,8 @@ func OnTowerCollapse()
   if(aTowerInterior[1]) aTowerInterior[1]->DecoExplode(30);
 
   //Türverbindung entfernen
-  doorw->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
-  RemoveObject(doorw, true);
-  pRoom->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
-  pRoom->Lock();
-  pRoom->SetAction("Idle");
-  pRoom->SetClrModulation(RGBa(100,100,100,5));
-  var pContent;
-  while(pContent = Contents(0, pRoom))
-   pRoom->Exit(pContent);
+  aDoorWay[00]->SealEntrance(1);
+  aDoorWay[01]->SealEntrance();
 }
 
 /* Bei Flaggenübernahme */
@@ -526,7 +521,7 @@ public func ChooserFinished()
   inherited();
 
   //Starttitel und Musikliste zusammenstellen
-  SetPlayList("CMC_Blue Ressort.ogg;CMC_Deep Universe.ogg;CMC_Eurocorps.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Matrix.ogg;CMC_Moving Squad.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Offensive.ogg;CMC_Rock Go On.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_Techno.ogg;CMC_Titanium City.ogg;CMC_Your Eyes.ogg");
+  SetPlayList("CMC_Back in the Earth.ogg;CMC_Blue Ressort.ogg;CMC_Breaching.ogg;CMC_Deep Universe.ogg;CMC_Drone in Flight.ogg;CMC_Enemy Approaching.ogg;CMC_Eurocorps.ogg;CMC_Firehawk.ogg;CMC_Getaway.ogg;CMC_Grenade.ogg;CMC_Locked and Loaded.ogg;CMC_Matrix.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Offensive.ogg;CMC_Rock Go On.ogg;CMC_Titanium City.ogg;CMC_Toward the Flag.ogg;CMC_Your Eyes.ogg");
   Music("CMC_Blue Ressort.ogg");
 
   //Teams abfragen

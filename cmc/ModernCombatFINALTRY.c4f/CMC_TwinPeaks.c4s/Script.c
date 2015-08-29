@@ -3,7 +3,7 @@
 #strict 2
 #include CSTD
 
-static aFlag,aSelfDefense,aTowerInterior,doorw1,doorw2,pRoom1,pRoom2;
+static aFlag,aSelfDefense,aTowerInterior,aDoorWay;
 
 public func SpecificEquipment()	{return [[PPAR, 1]];}	//Zusatzausrüstung: Fallschirmrucksack
 func RecommendedGoals()		{return [GOCC,GHTF];}	//Spielzielempfehlung
@@ -21,6 +21,8 @@ func Initialize()
   aSelfDefense = [];
   //Turmobjekte
   aTowerInterior = [];
+  //Türverbindungen
+  aDoorWay = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -101,6 +103,10 @@ func CreateInterior()
   CreateObject(GDDR, 1265, 780, -1);
   CreateObject(GDDR, 4465, 780, -1)->SetColorDw(HSL(145, 210, 100, 127));
   CreateObject(GDDR, 4565, 780, -1)->SetColorDw(HSL(145, 210, 100, 127));
+
+  //Gitter
+  CreateObject(GTNG, 1197, 950, -1);
+  CreateObject(GTNG, 4533, 950, -1);
 
   //Sandsackbarrieren
   CreateObject(SBBA, 1390, 780, -1);
@@ -188,16 +194,18 @@ func CreateInterior()
   tower->AddNode(3970, 1055, 1, CreateObject(REHR, 3965, 1070, -1),-90,2);
 
   //Verbundene Räume
-  var doorw = CreateObject(GAT1, 1260, 960, -1);
-  CreateObject(ROOM, 1245, 1370, -1)->Connect(doorw);
-  doorw1 = CreateObject(GAT1, 2865, 900, -1);
-  pRoom1 = CreateObject(ROOM, 2865, 1470, -1);
-  pRoom1->Connect(doorw1);
-  doorw2 = CreateObject(GAT1, 2865, 700, -1);
-  pRoom2 = CreateObject(ROOM, 2865, 933, -1);
-  pRoom2->Connect(doorw2);
-  var doorw = CreateObject(GAT1, 4470, 960, -1);
-  CreateObject(ROOM, 4485, 1370, -1)->Connect(doorw);
+  aDoorWay[00] = CreateObject(GAT1, 1260, 960, -1);
+  aDoorWay[01] = CreateObject(ROOM, 1245, 1370, -1);
+  aDoorWay[00]->Connect(aDoorWay[01]);
+  aDoorWay[02] = CreateObject(GAT3, 2865, 900, -1);
+  aDoorWay[03] = CreateObject(ROOM, 2865, 1470, -1);
+  aDoorWay[02]->Connect(aDoorWay[03]);
+  aDoorWay[04] = CreateObject(GAT3, 2865, 700, -1);
+  aDoorWay[05] = CreateObject(ROOM, 2865, 933, -1);
+  aDoorWay[04]->Connect(aDoorWay[05]);
+  aDoorWay[06] = CreateObject(GAT1, 4470, 960, -1);
+  aDoorWay[07] = CreateObject(ROOM, 4485, 1370, -1);
+  aDoorWay[06]->Connect(aDoorWay[07]);
 
   //Sounds
 
@@ -434,20 +442,11 @@ func OnTowerCollapse()
   if(aTowerInterior[1]) aTowerInterior[1]->DecoExplode(30);
   if(aTowerInterior[2]) aTowerInterior[2]->DecoExplode(30);
 
-  //Türverbindung entfernen
-  doorw1->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
-  RemoveObject(doorw1, true);
-  pRoom1->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
-  pRoom1->Lock();
-  pRoom1->SetAction("Idle");
-  pRoom1->SetClrModulation(RGBa(100,100,100,5));
-  var pContent;
-  while(pContent = Contents(0, pRoom1))
-   pRoom1->Exit(pContent);
-  doorw2->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
-  RemoveObject(doorw2, true);
-  pRoom2->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
-  RemoveObject(pRoom2, true);
+  //Türverbindungen entfernen
+  aDoorWay[02]->SealEntrance(1);
+  aDoorWay[03]->SealEntrance();
+  aDoorWay[04]->SealEntrance(1);
+  aDoorWay[05]->SealEntrance(1);
 }
 
 /* Bei Flaggenübernahme */
@@ -486,7 +485,7 @@ public func ChooserFinished()
   inherited();
 
   //Starttitel und Musikliste zusammenstellen
-  SetPlayList("CMC_Deep Universe.ogg;CMC_Eurocorps.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Matrix.ogg;CMC_Moving Squad.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Offensive.ogg;CMC_Rock Go On.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_Techno.ogg;CMC_Titanium City.ogg;CMC_Your Eyes.ogg");
+  SetPlayList("CMC_Back in the Earth.ogg;CMC_Breaching.ogg;CMC_Deep Universe.ogg;CMC_Drone in Flight.ogg;CMC_Enemy Approaching.ogg;CMC_Eurocorps.ogg;CMC_Firehawk.ogg;CMC_Getaway.ogg;CMC_Grenade.ogg;CMC_Locked and Loaded.ogg;CMC_Matrix.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Offensive.ogg;CMC_Rock Go On.ogg;CMC_Titanium City.ogg;CMC_Toward the Flag.ogg;CMC_Your Eyes.ogg");
   Music("CMC_Rock Go On.ogg");
 
   //Teams abfragen
