@@ -279,7 +279,7 @@ public func OnBulletHit(object pObject, int iX, int iY)
     Sound("BulletImpact*.ogg", 0, tmp);
 
     //Bei Lebewesen: Treffergeräusch für dessen Besitzer
-    if(GetOCF(pObject) & OCF_Living && GetOCF(pObject) & OCF_CrewMember && GetOwner != NO_OWNER)
+    if((GetOCF(pObject) & OCF_Living) && (GetOCF(pObject) & OCF_CrewMember) && ( GetOwner() != NO_OWNER))
       Sound("BulletHitIndicator*.ogg", 0, tmp, 0, GetOwner(pObject)+1);
 
     RemoveObject(tmp);
