@@ -3,7 +3,7 @@
 #strict 2
 #include CSTD
 
-static aFlag,aArtillery;
+static aFlag,aArtillery,aDoorWay;
 
 public func SpecificEquipment()	{return [[PPAR, 1]];}	//Zusatzausrüstung: Fallschirmrucksack
 func RecommendedGoals()		{return [GOCC, GHTF];}	//Spielzielempfehlung
@@ -23,6 +23,8 @@ func Initialize()
   aFlag = [];
   //Artillerie
   aArtillery = [];
+  //Türverbindungen
+  aDoorWay = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -169,16 +171,21 @@ func CreateInterior()
   CreateObject(SNKE, 3980, 1280, -1)->AutoRespawn();
 
   //Verbundene Räume
-  var doorw = CreateObject(ROOM, 740, 760, -1);
-  CreateObject(ROOM, 1160, 760, -1)->Connect(doorw);
+  aDoorWay[00] = CreateObject(ROOM, 740, 760, -1);
+  aDoorWay[01] = CreateObject(ROOM, 1160, 760, -1);
+  aDoorWay[00]->Connect(aDoorWay[01]);
 
-  doorw = CreateObject(GAT1, 1320, 810, -1);
-  CreateObject(ROOM, 1980, 850, -1)->Connect(doorw);
-  doorw = CreateObject(GAT1, 2920, 810, -1);
-  CreateObject(ROOM, 2260, 850, -1)->Connect(doorw);
+  aDoorWay[02] = CreateObject(GAT1, 1320, 810, -1);
+  aDoorWay[03] = CreateObject(ROOM, 1980, 850, -1);
+  aDoorWay[02]->Connect(aDoorWay[03]);
 
-  var doorw = CreateObject(ROOM, 3500, 760, -1);
-  CreateObject(ROOM, 3080, 760, -1)->Connect(doorw);
+  aDoorWay[04] = CreateObject(GAT1, 2920, 810, -1);
+  aDoorWay[05] = CreateObject(ROOM, 2260, 850, -1);
+  aDoorWay[04]->Connect(aDoorWay[05]);
+
+  aDoorWay[06] = CreateObject(ROOM, 3500, 760, -1);
+  aDoorWay[07] = CreateObject(ROOM, 3080, 760, -1);
+  aDoorWay[06]->Connect(aDoorWay[07]);
 
   //Sounds
 
@@ -434,7 +441,7 @@ public func ChooserFinished()
   inherited();
 
   //Starttitel und Musikliste zusammenstellen
-  SetPlayList("CMC_Deep Universe.ogg;CMC_Eurocorps.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Matrix.ogg;CMC_Moving Squad.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Offensive.ogg;CMC_Rock Go On.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_Techno.ogg;CMC_Titanium City.ogg;CMC_Your Eyes.ogg");
+  SetPlayList("CMC_Back in the Earth.ogg;CMC_Breaching.ogg;CMC_Deep Universe.ogg;CMC_Drone in Flight.ogg;CMC_Enemy Approaching.ogg;CMC_Eurocorps.ogg;CMC_Firehawk.ogg;CMC_Getaway.ogg;CMC_Grenade.ogg;CMC_Locked and Loaded.ogg;CMC_Matrix.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Offensive.ogg;CMC_Rock Go On.ogg;CMC_Titanium City.ogg;CMC_Toward the Flag.ogg;CMC_Your Eyes.ogg");
   Music("CMC_Getaway.ogg");
 
   //Teams abfragen
@@ -561,13 +568,11 @@ public func ChooserFinished()
    CreateObject(JMPD, 740, 1240, -1)->Set(117, -15);
    CreateObject(JMPD, 3510, 1330, -1)->Set(130, 12);
 
-   //Türverbindung deaktivieren
-   for(var obj in FindObjects(Find_Or(Find_ID(ROOM), Find_ID(GAT1)), Find_InRect(1280, 790, 1680, 60)))
-   {
-    obj->Lock();
-    obj->SetAction("Idle");
-    obj->SetClrModulation(RGBa(100,100,100,5));
-   }
+   //Türverbindungen entfernen
+   aDoorWay[02]->SealEntrance();
+   aDoorWay[03]->SealEntrance();
+   aDoorWay[04]->SealEntrance();
+   aDoorWay[05]->SealEntrance();
 
    //Objekte entfernen
    for(var obj in FindObjects(Find_Or(Find_ID(SFFG), Find_ID(FENC)), Find_InRect(1540, 720, 160, 100)))

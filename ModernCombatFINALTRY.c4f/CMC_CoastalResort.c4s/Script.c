@@ -3,7 +3,7 @@
 #strict 2
 #include CSTD
 
-static aFlag,aSelfDefense,doorw1,doorw2,pRoom1,pRoom2,aLights,iLightsCounter;
+static aFlag,aSelfDefense,aLights,iLightsCounter,aDoorWay;
 
 func RecommendedGoals()			{return [GOCC, GBAS];}	//Spielzielempfehlung
 public func AssaultDefenderTeam()	{return 2;}		//Verteidigerteam bei Assault
@@ -21,6 +21,8 @@ func Initialize()
   aFlag = [];
   //Selbstschussanlagen
   aSelfDefense = [];
+  //Türverbindungen
+  aDoorWay = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -212,16 +214,18 @@ func CreateInterior()
    RemoveObject(obj);
 
   //Verbundene Räume
-  doorw1 = CreateObject(GAT1, 3915, 525, -1);
-  pRoom1 = CreateObject(ROOM, 3100, 940, -1);
-  pRoom1->Connect(doorw1);
-  var doorw = CreateObject(ROM2, 3915, 900, -1);
-  CreateObject(ROM2, 3960, 790, -1)->Connect(doorw);
-  doorw = CreateObject(ROM2, 4575, 900, -1);
-  CreateObject(ROM2, 4530, 790, -1)->Connect(doorw);
-  doorw2 = CreateObject(GAT1, 4575, 525, -1);
-  pRoom2 = CreateObject(ROOM, 5390, 940, -1);
-  pRoom2->Connect(doorw2);
+  aDoorWay[00] = CreateObject(GAT1, 3915, 525, -1);
+  aDoorWay[01] = CreateObject(ROOM, 3100, 940, -1);
+  aDoorWay[00]->Connect(aDoorWay[01]);
+  aDoorWay[02] = CreateObject(ROM2, 3915, 900, -1);
+  aDoorWay[03] = CreateObject(ROM2, 3960, 790, -1);
+  aDoorWay[02]->Connect(aDoorWay[03]);
+  aDoorWay[04] = CreateObject(ROM2, 4575, 900, -1);
+  aDoorWay[05] = CreateObject(ROM2, 4530, 790, -1);
+  aDoorWay[04]->Connect(aDoorWay[05]);
+  aDoorWay[04] = CreateObject(GAT1, 4575, 525, -1);
+  aDoorWay[05] = CreateObject(ROOM, 5390, 940, -1);
+  aDoorWay[04]->Connect(aDoorWay[05]);
 
   //Säulen
   CreateObject(PILR, 3910, 980, -1)->Set("PreparePillarCollapseL");
@@ -593,15 +597,8 @@ func OnPillarCollapseL(int iPlr)
    RemoveObject(obj);
 
   //Türverbindung entfernen
-  doorw1->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
-  RemoveObject(doorw1, true);
-  pRoom1->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
-  pRoom1->Lock();
-  pRoom1->SetAction("Idle");
-  pRoom1->SetClrModulation(RGBa(100,100,100,5));
-  var pContent;
-  while(pContent = Contents(0, pRoom1))
-   pRoom1->Exit(pContent);
+  aDoorWay[00]->SealEntrance(1);
+  aDoorWay[01]->SealEntrance();
 
   //Trümmer verschleudern
   var debris = CreateObject(DBRS, 3915,560, iPlr);
@@ -672,15 +669,8 @@ func OnPillarCollapseR(int iPlr)
    RemoveObject(obj);
 
   //Türverbindung entfernen
-  doorw2->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
-  RemoveObject(doorw2, true);
-  pRoom2->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
-  pRoom2->Lock();
-  pRoom2->SetAction("Idle");
-  pRoom2->SetClrModulation(RGBa(100,100,100,5));
-  var pContent;
-  while(pContent = Contents(0, pRoom2))
-   pRoom2->Exit(pContent);
+  aDoorWay[04]->SealEntrance(1);
+  aDoorWay[05]->SealEntrance();
 
   //Trümmer verschleudern
   var debris = CreateObject(DBRS, 4575,560, iPlr);
@@ -788,7 +778,7 @@ public func ChooserFinished()
   inherited();
 
   //Starttitel und Musikliste zusammenstellen
-  SetPlayList("CMC_Blue Ressort.ogg;CMC_Deep Universe.ogg;CMC_Eurocorps.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Matrix.ogg;CMC_Moving Squad.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Offensive.ogg;CMC_Rock Go On.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_Techno.ogg;CMC_Titanium City.ogg;CMC_Your Eyes.ogg");
+  SetPlayList("CMC_Back in the Earth.ogg;CMC_Blue Ressort.ogg;CMC_Breaching.ogg;CMC_Deep Universe.ogg;CMC_Drone in Flight.ogg;CMC_Enemy Approaching.ogg;CMC_Eurocorps.ogg;CMC_Firehawk.ogg;CMC_Getaway.ogg;CMC_Grenade.ogg;CMC_Locked and Loaded.ogg;CMC_Matrix.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Offensive.ogg;CMC_Rock Go On.ogg;CMC_Titanium City.ogg;CMC_Toward the Flag.ogg;CMC_Your Eyes.ogg");
   Music("CMC_Blue Ressort.ogg");
 
   //Teams abfragen
