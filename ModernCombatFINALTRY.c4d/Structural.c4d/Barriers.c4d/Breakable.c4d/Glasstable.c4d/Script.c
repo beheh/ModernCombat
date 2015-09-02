@@ -4,6 +4,7 @@
 
 local damaged;
 
+public func IsMeleeTarget()		{return true;}
 public func IsCraneGrabable()		{return 1;}
 public func MaxDamage()			{return 40;}
 public func IsBulletTarget(id def)
@@ -14,6 +15,18 @@ public func IsBulletTarget(id def)
 
 
 /* Zerstörung */
+
+public func MeleeHit(pFrom)
+{
+  DoDamage(20);
+
+  //Effekte
+  CastSmoke("Smoke3",5,10,-20,0,20,150);
+  CastSmoke("Smoke3",5,10,20,0,20,150);
+  Sound("DoorKick.ogg",0,0,50);
+
+  return true;
+}
 
 public func Damage()
 {
