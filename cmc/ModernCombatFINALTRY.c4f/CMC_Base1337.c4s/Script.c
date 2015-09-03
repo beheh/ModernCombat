@@ -120,6 +120,7 @@ func CreateInterior()
   CreateObject(MWCR, 3040, 800, -1)->AutoRespawn();
   CreateObject(MWCR, 3420, 930, -1)->AutoRespawn();
   CreateObject(MWCR, 3790, 832, -1)->AutoRespawn();
+  CreateObject(MWCR, 3795, 1160, -1)->AutoRespawn();
   CreateObject(MWCR, 3810, 832, -1);
   CreateObject(MWCR, 3830, 832, -1);
   CreateObject(MWCR, 3830, 1040, -1);
@@ -531,29 +532,38 @@ func FlagCaptured(object pPoint, int iTeam)
 }
 
 /* Bei Relaunch */
- 
+
 public func OnClassSelection(object pClonk, int iTeam)
 {
   //Assault-Spielziel
   if(FindObject(GASS))
-  {
    if(GetPlayerTeam(GetOwner(pClonk)) == 1)
-   {
     if(!GetAssaultTarget(2))
-    {
-     AddEffect("IntPara", pClonk, 1, 1);
-     AddEffect("Flying", pClonk, 101, 5);
-     Sound("Airstrike2", 0, pClonk);
-    }
-   }
-  }
+     AddEffect("SpawnParachute", pClonk, 1, 10);
 }
- 
-global func FxIntParaTimer(object pTarget)
+
+/* Fallschirmeffekt */
+
+global func FxSpawnParachuteTimer(object pTarget)
 {
+  //Ziel im Freien?
   if(!Contained(pTarget))
+  {
+   //Ziel ist festem Boden zu nahe: Abbruch
+   var x = GetX(pTarget), y = GetY(pTarget), xdir = GetXDir(pTarget, 100), ydir = GetYDir(pTarget, 100);
+   SimFlight(x, y, xdir, ydir, 0, 0, 0, 100);
+   if(Distance(xdir, ydir) < 700)
+    return -1;
+
+   //Ansonsten Fallschirm erstellen
    CreateObject(PARA,0,0,GetOwner(pTarget))->Set(pTarget);
-  return -1;
+
+   //Effekt
+   Sound("Airstrike2", 0, pTarget);
+
+   return -1;
+  }
+  //Ansonsten abwarten
 }
 
 /* Regelwähler */
@@ -740,6 +750,9 @@ public func ChooserFinished()
    CreateObject(LADR, 3920, 1108, -1)->Set(16);
    CreateObject(LADR, 4105, 1076, -1)->Set(11);
 
+   //Boden
+   DrawMaterialQuad("Wall-Stripes", 3740,1040, 3770,1040, 3770,1050, 3740,1050);
+
    //Metallkisten
    CreateObject(MWCR, 3510, 920, -1);
    CreateObject(MWCR, 3830, 1004, -1);
@@ -780,7 +793,7 @@ public func ChooserFinished()
    aStationary[2] -> Set(0,-90,1);
 
    //MAV-Station
-   CreateObject(MVSN, 3690, 1180, -1)->Set(3515,600,1);
+   CreateObject(MVSN, 3900, 1040, -1)->Set(3515,600,1);
 
    //Helikopter und Hinweisschilder
    if(!FindObject(NOHC))
