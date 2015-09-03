@@ -23,7 +23,7 @@ public func ReadyToFire()		{return 1;}								//Allzeit bereit
 public func IsAiming()			{return true;}								//Geschütz immer am Zielen
 public func IsThreat()			{return pController;}							//Status
 public func UpdateCharge()		{return 1;}
-public func BonusPointCondition()	{return false;}								//Bonuspunkte macht der BlackHawk 
+public func BonusPointCondition()	{return false;}								//Keine Bonuspunkte (übernimmt der Blackhawk)
 public func IsWeaponRack()		{return 1;}
 public func IsRepairable()		{return false;}
 
@@ -65,21 +65,21 @@ public func SetGunner(pObj)
 
 public func Arm(id idWeapon)
 {
-  //Crash-Vermeidung
+  //Waffe existiert?
   if(!idWeapon) return;
   if(!GetName(0, idWeapon)) return;
 
-  //Ausrüsten mit idWeapon
+  //Waffe erstellen und ausrüsten
   var pWeapon = CreateObject(idWeapon, 0, 0, GetOwner());
   Enter(this,pWeapon);
-   
+
   //Ordnern
   SetObjectOrder(this, pWeapon, 1);
   aim_angle = 180;
   cur_Attachment = pWeapon;
   LocalN("controller", pWeapon) = this;
   Reload();
-  
+
   //Effekt
   AddEffect("ShowWeapon", this, 20, 1, this);
 }
@@ -88,8 +88,8 @@ public func Disarm()
 {
   while(Contents())
   {
-   last_id = GetID(Contents());
-   RemoveObject(Contents());
+    last_id = GetID(Contents());
+    RemoveObject(Contents());
   }
   RemoveEffect("ShowWeapon", this);
 }
@@ -97,7 +97,7 @@ public func Disarm()
 public func StopAutoFire()
 {
   //An Waffe weiterleiten
-  if (cur_Attachment)
+  if(cur_Attachment)
     return cur_Attachment->~StopAutoFire(...);
 }
 
@@ -263,8 +263,9 @@ protected func FxIntTimerTimer(object pTarget, int iEffect, int iTime)
     }
 }
 
-public func OnEmpty() {
-	Reload();
+public func OnEmpty()
+{
+  Reload();
 }
 
 private func Reload()

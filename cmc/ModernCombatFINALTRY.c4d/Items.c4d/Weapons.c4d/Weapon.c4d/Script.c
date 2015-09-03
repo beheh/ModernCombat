@@ -1277,15 +1277,13 @@ public func ResumeReload(iSlot)
 
 private func Reloaded(caller,slot,amount)
 {
-  //Munitionsart identifizieren
+  //Munitionsart und -menge ermitteln
   var ammoid = GetFMData(FM_AmmoID);
-  
-  //Munitionsmenge feststellen
   amount = Min(amount,MaxReloadAmount(caller));
-  
-  //Munitionsmenge an Waffe übergeben
+
+  //Waffe mit Munition laden
   DoAmmo2(slot, ammoid, amount, this);
-  //Munition aus Clonk entfernen
+  //Munition des Nutzers verbrauchen
   DoAmmo(ammoid, -amount, caller);
 
   //Hinweisnachricht ausgeben (Nachgelandene Munition)
@@ -2349,6 +2347,20 @@ global func SABulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int 
 
   //Patronenhülse erstellen
   return ammoid->CustomBulletCasing(GetX()+iX,GetY()+iY,iXDir,iYDir,iSize,iColor);
+}
+
+/* Hilfsnachrichten ausgeben */
+
+global func HelpMessage(int iPlr, string szMsg, object pTarget, a,b,c,d,e,f,g)
+{
+  //Nur ausgeben wenn der Spieler diese nicht per Einstellungen deaktiviert hat
+  if(GetPlrExtraData(iPlr, "Hazard_NoHelpMsg")) return;
+
+  //Nicht ausgeben wenn der Empfänger kein gültiger Spieler ist
+  if(GetOwner(pTarget) == NO_OWNER) return;
+
+  //Nachricht ausgeben
+  return(PlayerMessage(iPlr, szMsg, pTarget, a,b,c,d,e,f,g));
 }
 
 /* Waffe aufgenommen */
