@@ -481,17 +481,31 @@ public func OnClassSelection(object pClonk)
 {
   //LMS/MR-Spielziel
   if(FindObject(GLMS) || FindObject(GMNR))
-  {
-   AddEffect("IntPara", pClonk, 1, 1);
-   AddEffect("Flying", pClonk, 101, 5);
-   Sound("Airstrike2", 0, pClonk);
-  }
+   AddEffect("SpawnParachute", pClonk, 1, 10);
 }
  
-global func FxIntParaTimer(object pTarget)
+/* Fallschirmeffekt */
+
+global func FxSpawnParachuteTimer(object pTarget)
 {
-  CreateObject(PARA,0,0,GetOwner(pTarget))->Set(pTarget);
-  return -1;
+  //Ziel im Freien?
+  if(!Contained(pTarget))
+  {
+   //Ziel ist festem Boden zu nahe: Abbruch
+   var x = GetX(pTarget), y = GetY(pTarget), xdir = GetXDir(pTarget, 100), ydir = GetYDir(pTarget, 100);
+   SimFlight(x, y, xdir, ydir, 0, 0, 0, 100);
+   if(Distance(xdir, ydir) < 700)
+    return -1;
+
+   //Ansonsten Fallschirm erstellen
+   CreateObject(PARA,0,0,GetOwner(pTarget))->Set(pTarget);
+
+   //Effekt
+   Sound("Airstrike2", 0, pTarget);
+
+   return -1;
+  }
+  //Ansonsten abwarten
 }
 
 /* Regelwähler */
