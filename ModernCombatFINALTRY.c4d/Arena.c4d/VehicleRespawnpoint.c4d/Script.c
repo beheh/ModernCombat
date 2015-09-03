@@ -68,12 +68,16 @@ global func FxIntVehicleSpawn4KSpawn(object pTarget, int iEffectNumber)
   if(FindObject2(Find_AtRect(x-2, y-2, wdt+4, hgt+4), Find_Func("BlockVehicleSpawn")))
     return;
 
+  //Fahrzeug innerhalb des Fahrzeugspawns erstellen
   pVehicle = CreateContents(id, pTarget);
+  //Fahrzeug vorerst unsichtbar
+  pVehicle->SetVisibility(VIS_None);
+
   SetDir(EffectVar(2,pTarget,iEffectNumber), pVehicle);
   if(EffectVar(4, pTarget, iEffectNumber))
   {
     EffectVar(4, pTarget, iEffectNumber) = false;
-    Exit(pVehicle);
+    SpawnEffect(pVehicle);
   }
   else
   {
@@ -266,5 +270,9 @@ global func FxIntVehicleUnusedDamaging(object pTarget, int iEffectNumber)
 
 global func SpawnEffect(object pObj)
 {
+  //Fahrzeug verzögert sichtbar machen um Drehungen zu verschleiern
+  Schedule("SetVisibility(VIS_All)",5,0,pObj);
+
+  //Fahrzeug auswerfen
   Exit(pObj);
 }
