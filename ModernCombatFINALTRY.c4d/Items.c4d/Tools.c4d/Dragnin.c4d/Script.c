@@ -90,7 +90,7 @@ func Activate(object pByObj)
   return 1;
 }
 
-public func ControlDigDouble(object pByObj) 
+public func ControlDigDouble(object pByObj)
 {
   return Activate(pByObj);
 }

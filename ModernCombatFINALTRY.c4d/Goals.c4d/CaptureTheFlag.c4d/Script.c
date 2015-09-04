@@ -1,9 +1,11 @@
-/*-- CTF --*/
+/*-- Capture the Flag --*/
 
 #strict 2
 #include TEAM
 
 public func GoalExtraValue()	{return iWinScore;}	//Spielzielinformationen an Scoreboard weitergeben
+
+local aFlagCarrier;
 
 public func ChooserFinished()
 {
@@ -17,7 +19,7 @@ public func ChooserFinished()
   return _inherited(...);
 }
 
-local aFlagCarrier;
+/* Initialisierung */
 
 protected func Initialize()
 {
@@ -30,15 +32,16 @@ protected func Initialize()
   }
   iWinScore = 1;
   aFlagCarrier = CreateArray();
+
   return(_inherited());
 }
 
-public func GetHUDInfo(int player, object hud) {
-	
-	var team = GetPlayerTeam(player);
+public func GetHUDInfo(int player, object hud)
+{
+  var team = GetPlayerTeam(player);
 	if(team < 1) return(inherited(player));
 	var ourFlag = GetFriendlyFlag(player);
-	
+
 	// Flag stolen?
 	if(ourFlag->GetCarrier()) {
 		// stolen

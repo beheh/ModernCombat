@@ -185,10 +185,13 @@ global func FxFadeOut4KStart(target, no, temp, speed)
 {
   EffectVar(0, target, no) = 0;
 
-  if(GetEffect("FadeIn4K", target)) {
+  if(GetEffect("FadeIn4K", target))
+  {
     EffectVar(1, target, no) = EffectVar(1, target, GetEffect("FadeIn4K", target));
     RemoveEffect("FadeIn4K", target);
-  } else {
+  }
+  else
+  {
     EffectVar(1, target, no) = Max(speed,1);
   }
 

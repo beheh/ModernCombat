@@ -60,7 +60,7 @@ public func Activate(object pCaller)
   //Falsche Aktion?
   if(!WildcardMatch(GetAction(pCaller), "*Walk*"))
     return true;
-  
+
   //Clonk anhalten
   SetComDir(COMD_Stop, pCaller);
   //Heilen

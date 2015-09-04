@@ -218,7 +218,7 @@ public func Activate(object pClonk)
   }
 }
 
-public func ControlDigDouble(object pClonk) 
+public func ControlDigDouble(object pClonk)
 {
   return Activate(pClonk);
 }

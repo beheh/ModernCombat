@@ -81,7 +81,7 @@ protected func Sense()
   {
     //Nur feindliche Objekte markieren
     if(!Hostile(GetController(), GetController(pObj)))
-	    continue;
+      continue;
 
     //Beep
     Beep();
