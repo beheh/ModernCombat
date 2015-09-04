@@ -190,7 +190,7 @@ public func ControlThrow(pByObject)
   return true;
 }
 
-public func Activate(pClonk)
+public func Activate(object pClonk)
 {
   //Hinweis bei fehlendem Inhalt
   if(charge <= 0)
@@ -216,6 +216,11 @@ public func Activate(pClonk)
   {
     RemoveEffect("RepairObjects", this);
   }
+}
+
+public func ControlDigDouble(object pClonk) 
+{
+  return Activate(pClonk);
 }
 
 /* Reparatureffekt */

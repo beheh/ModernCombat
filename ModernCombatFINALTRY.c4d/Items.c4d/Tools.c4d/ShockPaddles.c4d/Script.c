@@ -56,13 +56,18 @@ public func ControlThrow(pByObject)
   return true;
 }
 
-public func Activate(pClonk)
+public func Activate(object pClonk)
 {
   if(Use(pClonk))
   {
     ScheduleCall(0, "Beep", 20);
     return SetAction("Reload");
   }
+}
+
+public func ControlDigDouble(object pCaller)
+{
+  return Activate(pCaller);
 }
 
 func Use(caller)

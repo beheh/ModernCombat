@@ -175,7 +175,7 @@ public func Throw()
 
 /* Granatengürtel */
 
-public func Activate(pCaller)
+public func Activate(object pCaller)
 {
   //Granate in den Granatengürtel des Clonks lagern
   pCaller->~StoreGrenade(this);
@@ -186,7 +186,12 @@ public func Activate(pCaller)
   return true;
 }
 
-public func AI_IdleInventory(pCaller)
+public func ControlDigDouble(object pCaller)
+{
+  return Activate(pCaller);
+}
+
+public func AI_IdleInventory(object pCaller)
 {
   return Activate(pCaller);
 }

@@ -46,6 +46,11 @@ protected func Activate(object pClonk)
   AttachmentMenu(pClonk);
 }
 
+protected func ControlDigDouble(object pClonk) 
+{
+  return Activate(pClonk);
+}
+
 /* Menü */
 
 protected func AttachmentMenu(object pByObj)
