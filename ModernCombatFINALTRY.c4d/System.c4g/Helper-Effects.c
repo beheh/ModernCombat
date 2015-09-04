@@ -47,9 +47,9 @@ global func FxIntUnstuck4KTimer(object pTarget, int iEffectNumber, int iEffectTi
     return -1;
 
   var iXDir = EffectVar(0, pTarget, iEffectNumber),
-  iYDir = EffectVar(1, pTarget, iEffectNumber),
-  iXCache = EffectVar(3, pTarget, iEffectNumber),
-  iYCache = EffectVar(4, pTarget, iEffectNumber);
+      iYDir = EffectVar(1, pTarget, iEffectNumber),
+      iXCache = EffectVar(3, pTarget, iEffectNumber),
+      iYCache = EffectVar(4, pTarget, iEffectNumber);
 
   if(iEffectTime > 12)
   {
@@ -76,9 +76,9 @@ global func FxIntUnstuck4KTimer(object pTarget, int iEffectNumber, int iEffectTi
 
   EffectVar(3, pTarget, iEffectNumber) = iXCache;
   EffectVar(4, pTarget, iEffectNumber) = iYCache;
-  
+
   SetPosition(GetX(pTarget)  + iXDir,
-  GetY(pTarget) + iYDir);
+      GetY(pTarget) + iYDir);
 
   return;
 }
@@ -184,7 +184,14 @@ global func SetSpeedSecure(iMaxSpeed,pTarget)
 global func FxFadeOut4KStart(target, no, temp, speed)
 {
   EffectVar(0, target, no) = 0;
-  EffectVar(1, target, no) = Max(speed,1);
+
+  if(GetEffect("FadeIn4K", target)) {
+    EffectVar(1, target, no) = EffectVar(1, target, GetEffect("FadeIn4K", target));
+    RemoveEffect("FadeIn4K", target);
+  } else {
+    EffectVar(1, target, no) = Max(speed,1);
+  }
+
   if(!GetClrModulation(target))
     EffectVar(2, target, no) = RGB(255,255,255);
   else
