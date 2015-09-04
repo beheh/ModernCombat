@@ -133,6 +133,7 @@ func FxDragninHealStart(object pTarget, int iEffectNumber, int iTemp, int iHealA
   SetPhysical("Scale", GetPhysical("Scale", 2, pTarget)/3, 3, pTarget);
   SetPhysical("Hangle", GetPhysical("Hangle", 2, pTarget)/3, 3, pTarget);
   SetPhysical("Swim", GetPhysical("Swim", 2, pTarget)/3, 3, pTarget);
+  SetPhysical("Dig", GetPhysical("Dig", 2, pTarget)/3, 3, pTarget);
   ScreenRGB(pTarget,RGBa(0, 230, 255, 190), 80, 3,false, SR4K_LayerMedicament, 200);
 }
 
@@ -186,6 +187,7 @@ public func FxDragninHealStop(object pTarget, no, reason, temp)
   ResetPhysical(pTarget, "Scale");
   ResetPhysical(pTarget, "Hangle");
   ResetPhysical(pTarget, "Swim");
+  ResetPhysical(pTarget, "Dig");
 }
 
 /* Sounds */
