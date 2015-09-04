@@ -134,6 +134,7 @@ public func JoinPack(object pInto, object pMsgObj)
     {
       obj->~SetPacket(pInto);
       SetController(GetOwner(pInto), obj);
+      SetOwner(GetOwner(pInto), obj);
     }
   pInto->~Check();
   Check();

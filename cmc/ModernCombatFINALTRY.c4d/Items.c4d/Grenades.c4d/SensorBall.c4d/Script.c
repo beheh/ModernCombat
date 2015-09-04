@@ -80,7 +80,8 @@ protected func Sense()
   for (var pObj in aList)
   {
     //Nur feindliche Objekte markieren
-    if(!Hostile(GetController(), GetController(pObj))) continue;
+    if(!Hostile(GetController(), GetController(pObj)))
+	    continue;
 
     //Beep
     Beep();
