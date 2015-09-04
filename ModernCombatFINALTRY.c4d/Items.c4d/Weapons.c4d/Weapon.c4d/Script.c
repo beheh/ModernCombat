@@ -6,65 +6,65 @@
 local stopauto,firemode,shooting,ratecount,stopburst;
 local iAttachment,pLaser,pBeam,pLight;
 
-local aSlot_Type;			//Munitionstyp
-local aSlot_Amount;			//Munitionsmenge
-local aFM_FireTec;			//Feuertechnik
+local aSlot_Type;      //Munitionstyp
+local aSlot_Amount;      //Munitionsmenge
+local aFM_FireTec;      //Feuertechnik
 
 
 //Info: Bei neuer FM_DATA muss MaxFMDataCount() entsprechend angepasst werden
-static const FM_Slot		= 13;	//Slot des Feuermodus
-static const FM_SingleReload	= 14;	//Zeit des einzelnen Nachladens bei Revolversystemen (z.B. für Schrotflinten)
-static const FM_PrepareReload	= 15;	//Zeit bevor das eigentliche Nachladen beginnt (nur interessant wenn auch FM_SingleReload benutzt wird)
-static const FM_FinishReload	= 16;	//Zeit nach dem Nachladen (nur interessant wenn auch FM_SingleReload benutzt wird)
-static const FM_BurstAmount	= 17;	//Anzahl Schussabrufe pro Burst
-static const FM_BurstRecharge	= 18;	//Zeit zwischen einzelnen Bursts
-static const FM_ProjectileID	= 36;	//ID des verschossenen Projektils
+static const FM_Slot    = 13;  //Slot des Feuermodus
+static const FM_SingleReload  = 14;  //Zeit des einzelnen Nachladens bei Revolversystemen (z.B. für Schrotflinten)
+static const FM_PrepareReload  = 15;  //Zeit bevor das eigentliche Nachladen beginnt (nur interessant wenn auch FM_SingleReload benutzt wird)
+static const FM_FinishReload  = 16;  //Zeit nach dem Nachladen (nur interessant wenn auch FM_SingleReload benutzt wird)
+static const FM_BurstAmount  = 17;  //Anzahl Schussabrufe pro Burst
+static const FM_BurstRecharge  = 18;  //Zeit zwischen einzelnen Bursts
+static const FM_ProjectileID  = 36;  //ID des verschossenen Projektils
 
-static const FM_SpreadAdd	= 19;	//Bei jedem Schuss hinzuzuaddierende Streuung
-static const FM_StartSpread	= 20;	//Bei Auswahl der Waffe gesetzte Streuung
-static const FM_MaxSpread	= 21;	//Maximaler Streuungswert
-static const FM_UnSpread	= 22;	//Bei jedem Schuss abzuziehende Streuung
-static const FM_NoAmmoModify	= 23;	//Kein Ent-/Nachladen möglich
-static const FM_MinSpread	= 33;	//Kleinstmögliche Streuung
+static const FM_SpreadAdd  = 19;  //Bei jedem Schuss hinzuzuaddierende Streuung
+static const FM_StartSpread  = 20;  //Bei Auswahl der Waffe gesetzte Streuung
+static const FM_MaxSpread  = 21;  //Maximaler Streuungswert
+static const FM_UnSpread  = 22;  //Bei jedem Schuss abzuziehende Streuung
+static const FM_NoAmmoModify  = 23;  //Kein Ent-/Nachladen möglich
+static const FM_MinSpread  = 33;  //Kleinstmögliche Streuung
 
-static const FM_MultiHit	= 34;  //Anzahl möglicher Treffer pro Kugel
-static const FM_MultiHitReduce	= 35;  //Schadensreduzierung pro Treffer
+static const FM_MultiHit  = 34;  //Anzahl möglicher Treffer pro Kugel
+static const FM_MultiHitReduce  = 35;  //Schadensreduzierung pro Treffer
 
-static const FT_Name		= 24;	//Name der Feuertechnik
-static const FT_Icon		= 25;	//Icondefinition der Feuertechnik
-static const FT_IconFacet	= 26;	//Facet, siehe AddMenuItem
-static const FT_Condition	= 27;	//Wie FM_Condition, für Feuertechniken
+static const FT_Name    = 24;  //Name der Feuertechnik
+static const FT_Icon    = 25;  //Icondefinition der Feuertechnik
+static const FT_IconFacet  = 26;  //Facet, siehe AddMenuItem
+static const FT_Condition  = 27;  //Wie FM_Condition, für Feuertechniken
 
-static const MC_CanStrike	= 28;	//Waffe kann Kolbenschlag ausführen
-static const MC_Damage		= 29;	//Schaden eines Kolbenschlages
-static const MC_Recharge	= 30;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
-static const MC_Power		= 31;	//Wie weit das Ziel durch Kolbenschläge geschleudert wird
-static const MC_Angle		= 32;	//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
+static const MC_CanStrike  = 28;  //Waffe kann Kolbenschlag ausführen
+static const MC_Damage    = 29;  //Schaden eines Kolbenschlages
+static const MC_Recharge  = 30;  //Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
+static const MC_Power    = 31;  //Wie weit das Ziel durch Kolbenschläge geschleudert wird
+static const MC_Angle    = 32;  //Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
 
-static const BOT_Precision	= 105;	//Bestimmt die nötige Winkeldifferenz zwischen Zielwinkel und Winkel von Bot und Zielobjekt
+static const BOT_Precision  = 105;  //Bestimmt die nötige Winkeldifferenz zwischen Zielwinkel und Winkel von Bot und Zielobjekt
 
-static const AT_NoAttachment	= 0;	//Kein Waffenaufsatz
-static const AT_ExtendedMag	= 1;	//Erweitertes Magazin
-static const AT_Bayonet		= 2;	//Bajonett
-static const AT_Laserpointer	= 4;	//Laserpointer
-static const AT_Silencer	= 8;	//Schalldämpfer
-static const AT_Flashlight	= 16;	//Taschenlampe
+static const AT_NoAttachment  = 0;  //Kein Waffenaufsatz
+static const AT_ExtendedMag  = 1;  //Erweitertes Magazin
+static const AT_Bayonet    = 2;  //Bajonett
+static const AT_Laserpointer  = 4;  //Laserpointer
+static const AT_Silencer  = 8;  //Schalldämpfer
+static const AT_Flashlight  = 16;  //Taschenlampe
 
-public func MaxFMDataCount()		{return 36;}			//Anzahl FM/FT-Datentypen
-public func IsWeapon2()			{return true;}			//Nutzt/inkludiert neues Waffensystem WPN2
-public func IsPrimaryWeapon()		{return true;}			//Standard für QuickInventory
-public func NoWeaponChoice()		{return GetID() == WPN2;}
+public func MaxFMDataCount()    {return 36;}      //Anzahl FM/FT-Datentypen
+public func IsWeapon2()      {return true;}      //Nutzt/inkludiert neues Waffensystem WPN2
+public func IsPrimaryWeapon()    {return true;}      //Standard für QuickInventory
+public func NoWeaponChoice()    {return GetID() == WPN2;}
 
-public func OnSelectFT(int iFireMode, int iFireTec, int iLastFireTec)	{}
-public func OnSingleReloadStart(int iSlot)				{}
-public func OnSingleReloadStop(int iSlot)				{}
-public func OnPrepareReloadStop(int iSlot)				{}
-public func OnFinishReloadStart(int iSlot)				{}
-public func OnFireStop(int iSlot)					{}
-public func NeedBotControl()						{return false;}	//KI-Kontrolle
+public func OnSelectFT(int iFireMode, int iFireTec, int iLastFireTec)  {}
+public func OnSingleReloadStart(int iSlot)        {}
+public func OnSingleReloadStop(int iSlot)        {}
+public func OnPrepareReloadStop(int iSlot)        {}
+public func OnFinishReloadStart(int iSlot)        {}
+public func OnFireStop(int iSlot)          {}
+public func NeedBotControl()            {return false;}  //KI-Kontrolle
 
-public func GetPathFreeX()	{return;}	//Waffenspezifische X-Koordinaten-Anrechnung für den Projektilaustritt
-public func GetPathFreeY()	{return;}	//Waffenspezifische Y-Koordinaten-Anrechnung für den Projektilaustritt
+public func GetPathFreeX()  {return;}  //Waffenspezifische X-Koordinaten-Anrechnung für den Projektilaustritt
+public func GetPathFreeY()  {return;}  //Waffenspezifische Y-Koordinaten-Anrechnung für den Projektilaustritt
 
 
 /*----- Initialisierung -----*/
@@ -92,12 +92,12 @@ protected func Initialize()
 
 public func Default(int data)
 {
-  if(data == FT_Name)		return;
-  if(data == FT_Condition)	return true;
-  if(data == FM_Slot)		return;
-  if(data == BOT_Precision)	return 180;
-  if(data == FM_MultiHit)	return 1;
-  if(data == FM_MultiHitReduce)	return 100;
+  if(data == FT_Name)    return;
+  if(data == FT_Condition)  return true;
+  if(data == FM_Slot)    return;
+  if(data == BOT_Precision)  return 180;
+  if(data == FM_MultiHit)  return 1;
+  if(data == FM_MultiHitReduce)  return 100;
   return inherited(data);
 }
 
@@ -460,7 +460,7 @@ public func GetCharge()
   return charge;
 }
 
-private func Recharge()	//Wartezeit zwischen zwei Schüssen
+private func Recharge()  //Wartezeit zwischen zwei Schüssen
 {
   var rechargetime = GetFMData(FM_Recharge);
   AddEffect("Recharge", this(), 1, 1+Max(1, rechargetime), this());
@@ -767,7 +767,7 @@ public func ControlThrow(caller)
       }
     }
 
-  if(!fWait && GetMCData(MC_CanStrike) && !caller->~IsAiming() && (GetFMData(FM_Aim) == 0 || GetUser()->~IsAiming() || GetUser()->~AimOverride()))
+  if(!fWait && GetMCData(MC_CanStrike) && (WildcardMatch(GetAction(caller), "*Walk*") || WildcardMatch(GetAction(caller), "*Swim*") || WildcardMatch(GetAction(caller), "*Jump*")) && !caller->~IsAiming() && (GetFMData(FM_Aim) == 0 || GetUser()->~IsAiming() || GetUser()->~AimOverride()))
   {
     var dir = GetDir(GetUser());
 
@@ -885,7 +885,7 @@ public func ControlThrow(caller)
       {
         Reload();
       }
-      //Nicht genügend Munition
+    //Nicht genügend Munition
       else
       {
         //Unmöglichkeit des Nachladens angeben
@@ -905,7 +905,7 @@ public func ControlThrow(caller)
       {
         Reload();
       }
-      //Nicht genügend Munition
+    //Nicht genügend Munition
       else
       {
         //Unmöglichkeit des Nachladens angeben
@@ -1427,8 +1427,8 @@ public func UpdateFMDataCache()
   return true;
 }
 
-public func GetFMDataCache()		{return aCachedFMData;}
-public func GetDynFMDataCache()		{return aCachedFMDataDyn;}
+public func GetFMDataCache()    {return aCachedFMData;}
+public func GetDynFMDataCache()    {return aCachedFMDataDyn;}
 
 public func GetFMData(int data, int i, int t)
 {
@@ -1464,6 +1464,26 @@ public func GetFMData(int data, int i, int t)
 
   if(ammoid == STAP)
     value = ammoid->~FMMod(data,value);
+
+  /*var effect,user = GetUser(),j;
+    while(effect = GetEffect("*Bonus*",this,j) || j == 0)
+    {
+    j++;
+    if(!GetEffect("*Bonus*",this,effect,1))
+    continue;
+    var tval = EffectCall(this,effect,"FMData",data,value);
+    if(tval)
+    value = tval;
+    }
+    if(user)
+    {
+    for(var i; i <= GetEffectCount("*Bonus*",user); i++)
+    {
+    var tval = EffectCall(user,GetEffect("*Bonus*",user,i-1),"FMData",data,value,i);
+    if(tval)
+    value = tval;
+    }
+    }*/
 
   return value;
 }
@@ -1506,11 +1526,11 @@ protected func FxStrikeRechargeStop()
 
 public func GetMCData(int data)
 {
-  if(data == MC_CanStrike)	return 1;	//Waffe kann Kolbenschlag ausführen
-  if(data == MC_Damage)		return 20;	//Schaden eines Kolbenschlages
-  if(data == MC_Recharge)	return 40;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
-  if(data == MC_Power)		return 20;	//Wie weit das Ziel durch Kolbenschläge geschleudert wird
-  if(data == MC_Angle)		return 45;	//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
+  if(data == MC_CanStrike)  return 1;  //Waffe kann Kolbenschlag ausführen
+  if(data == MC_Damage)    return 20;  //Schaden eines Kolbenschlages
+  if(data == MC_Recharge)  return 40;  //Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
+  if(data == MC_Power)    return 20;  //Wie weit das Ziel durch Kolbenschläge geschleudert wird
+  if(data == MC_Angle)    return 45;  //Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
 }
 
 /*----- Feuertechniken (z.B. Einzel-, Stoß-, Dauerfeuer...) -----*/
@@ -1554,8 +1574,8 @@ public func SetFireTec(int iFT,int iFM, bool bNoCalls)
   //diverse sachen aktualisieren
   ratecount = GetFMData(FM_AmmoRate, iFM);
 
-  if(GetFMData(FM_Auto, iFM, iFT))
-    if(!GetEffect("Recharge", this))
+  if (GetFMData(FM_Auto, iFM, iFT))
+    if (!GetEffect("Recharge", this))
       stopauto = false;
     else
       AddEffect("ForceNoStop", this);
@@ -1600,9 +1620,9 @@ private func GetSpreadAdd()
   var iSpreadAdd = GetFMData(FM_SpreadAdd);
   var pUser = this->~GetUser();
   var iModificator = pUser->~GetSpreadFactor();
-  if(iModificator != 0)	//Falls Callback vorhanden
+  if(iModificator != 0)  //Falls Callback vorhanden
   {
-    iSpreadAdd = iSpreadAdd * iModificator / 1000;	//Multiplikativ einbeziehen
+    iSpreadAdd = iSpreadAdd * iModificator / 1000;  //Multiplikativ einbeziehen
   }
   return iSpreadAdd;
 }
@@ -1697,9 +1717,9 @@ func SetAttachment(int iValue)
   if(iValue && !(PermittedAtts() & iValue)) return -1;
 
   //Eventuell vorhandene Effekte entfernen
-  if(GetEffect("LaserDot", this))	RemoveEffect("LaserDot", this);
-  if(GetEffect("Silencer", this))	RemoveEffect("Silencer", this);
-  if(GetEffect("Flashlight", this))	RemoveEffect("Flashlight", this);
+  if(GetEffect("LaserDot", this))  RemoveEffect("LaserDot", this);
+  if(GetEffect("Silencer", this))  RemoveEffect("Silencer", this);
+  if(GetEffect("Flashlight", this))  RemoveEffect("Flashlight", this);
   RemoveTrajectory(this);
 
   //Feuermodus zurücksetzen
@@ -1711,9 +1731,9 @@ func SetAttachment(int iValue)
   //Eventuell entsprechenden Effekt setzen
   var iTemp = iAttachment;
   iAttachment = iValue;
-  if(iAttachment == AT_Laserpointer)	AddEffect("LaserDot", this, 1, 1, this);
-  if(iAttachment == AT_Silencer)	AddEffect("Silencer", this, 1, 1, this);
-  if(iAttachment == AT_Flashlight)	AddEffect("Flashlight", this, 1, 1, this);
+  if(iAttachment == AT_Laserpointer)  AddEffect("LaserDot", this, 1, 1, this);
+  if(iAttachment == AT_Silencer)  AddEffect("Silencer", this, 1, 1, this);
+  if(iAttachment == AT_Flashlight)  AddEffect("Flashlight", this, 1, 1, this);
 
   //Waffenaufsatz-Symbol setzen
   SetGraphics(0,0,AttachmentIcon(iAttachment),2,GFXOV_MODE_Picture);
@@ -1730,9 +1750,9 @@ func SetAttachment(int iValue)
 
 /* Taschenlampe */
 
-public func SensorDistance()		{return 200;}
-public func BlindEffectDistance()	{return 150;}
-public func FlashlightAngle()		{return 30;}
+public func SensorDistance()    {return 200;}
+public func BlindEffectDistance()  {return 150;}
+public func FlashlightAngle()    {return 30;}
 
 public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
 {
@@ -1864,7 +1884,7 @@ public func FxFlashlightStop(object pTarget, int iNr, int iReason, bool fTemp)
 
 /* Laserpointer */
 
-static const WPN2_ATLaserpointer_Range = 800;	//Laserreichweite
+static const WPN2_ATLaserpointer_Range = 800;  //Laserreichweite
 
 func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
@@ -1913,18 +1933,18 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
     var pEnemy;
     pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), 
-    	Find_NoContainer(),
-    	Find_Or(Find_Func("IsSmoking"), 
-    		Find_And(Find_Func("CheckEnemy", 0, this, 0, xPos,yPos),
-    			Find_Or(Find_OCF(OCF_Alive),
-    				Find_Func("IsBulletTarget", GetID(), this, this)
-    			)
-    		)
-    	),
-    	Find_Exclude(user),
-    	Find_Or(Find_Not(Find_Func("UseOwnHitbox")), Find_Func("BulletHitboxCheck", xPos, yPos, x, y)),
-    	Sort_Func("SHTX_SortDistance",xPos, yPos, x, y, iAngle, this)
-    );
+        Find_NoContainer(),
+        Find_Or(Find_Func("IsSmoking"), 
+          Find_And(Find_Func("CheckEnemy", 0, this, 0, xPos,yPos),
+            Find_Or(Find_OCF(OCF_Alive),
+              Find_Func("IsBulletTarget", GetID(), this, this)
+                   )
+            )
+               ),
+        Find_Exclude(user),
+        Find_Or(Find_Not(Find_Func("UseOwnHitbox")), Find_Func("BulletHitboxCheck", xPos, yPos, x, y)),
+        Sort_Func("SHTX_SortDistance",xPos, yPos, x, y, iAngle, this)
+        );
 
     //Feinderkennung
     if(pEnemy)
@@ -2014,7 +2034,7 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
               x = Sin(iAngle, temp) + xPos;
               y = -Cos(iAngle, temp) + yPos;
             }
-            //Sonst prüfen, ob ein Punkt an der X- oder der Y-Kante näher am Objektmittelpunkt ist und den richtigen wählen
+          //Sonst prüfen, ob ein Punkt an der X- oder der Y-Kante näher am Objektmittelpunkt ist und den richtigen wählen
             else
             {
               var temp = (yOff - yPos) * 1000 / (-Cos(iAngle, 1000));
@@ -2037,20 +2057,20 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
               }
             }
 
-        /*
+          /*
           //Wenn der Winkel zur am nächsten liegenden Ecke des Objekts größer ist als 180 und kleiner als der aktuelle Winkel oder kleiner als 180 und größer als der aktuelle Winkel, dann setze x und y so:
           if((Angle(xPos, yPos, xOff, yOff) >= 180 && Angle(xPos, yPos, xOff, yOff) < iAngle) || (Angle(xPos, yPos, xOff, yOff) <= 180 && Angle(xPos, yPos, xOff, yOff) > iAngle))
           {
-            x = Sin(iAngle, (yOff - yPos) * 1000 / (-Cos(iAngle, 1000))) + xPos;
-            y = -Cos(iAngle, (yOff - yPos) * 1000 / (-Cos(iAngle, 1000))) + yPos;
+          x = Sin(iAngle, (yOff - yPos) * 1000 / (-Cos(iAngle, 1000))) + xPos;
+          y = -Cos(iAngle, (yOff - yPos) * 1000 / (-Cos(iAngle, 1000))) + yPos;
           }
           //Sonst setze x und y so:
           else
           {
-            x = Sin(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + xPos;
-            y = -Cos(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + yPos;
+          x = Sin(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + xPos;
+          y = -Cos(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + yPos;
           }
-        */
+          */
         }
       }
     }
@@ -2206,11 +2226,11 @@ global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime)
   //Ausrichtung nach Blickrichtung des Clonks
   //Variablen für die Transformation
 
-  var width, height;		//Breiten- und Höhenverzerrung der Waffe
-  var xskew, yskew;		//Zerrung der Waffe, wird zur Rotation gebraucht
-  var size;			//Größe der Waffe in der Hand: 1000 = 100%
+  var width, height;    //Breiten- und Höhenverzerrung der Waffe
+  var xskew, yskew;    //Zerrung der Waffe, wird zur Rotation gebraucht
+  var size;      //Größe der Waffe in der Hand: 1000 = 100%
   //Variablen für die Position
-  var dir;			//Richtung, in die das Objekt schaut
+  var dir;      //Richtung, in die das Objekt schaut
 
   //schnell noch Rotation dazurechnen oder so!
   if(GetEffect("StrikeRecharge", obj))
@@ -2233,7 +2253,7 @@ global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime)
   if (!dodraw && 90*dir+r == EffectVar(1, pTarget, iNumber) && GetAction(pTarget) == EffectVar(8, pTarget, iNumber) && GetDir(pTarget) == EffectVar(7, pTarget, iNumber))
     return;
 
-  var xfact = size * obj->~HandX();	//Attach-Punkte dazurechnen
+  var xfact = size * obj->~HandX();  //Attach-Punkte dazurechnen
   var yfact = size * obj->~HandY();
 
   xoff += Cos(r,xfact)/1000 + dir*Sin(r,yfact)/1000;
@@ -2249,8 +2269,8 @@ global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime)
   xoff *= dir;
 
   //Waffe
-  SetObjDrawTransform(1000,xskew,xoff,yskew,1000,yoff, pTarget, WeaponDrawLayer);	//Position
-  SetObjDrawTransform(width,xskew,0,yskew,height,0, obj);				//Größe und Rotation
+  SetObjDrawTransform(1000,xskew,xoff,yskew,1000,yoff, pTarget, WeaponDrawLayer);  //Position
+  SetObjDrawTransform(width,xskew,0,yskew,height,0, obj);        //Größe und Rotation
 
   //Daten
   var w = GetDefCoreVal("Width",0,id)/2;
