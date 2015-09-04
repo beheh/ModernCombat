@@ -4,6 +4,7 @@
 
 local target;
 
+public func IsConsole()			{return true;}
 public func IsMachine()			{return 1;}
 public func GetRealRepairableObject()	{return target;}
 public func IsFakeRepairable(int iPlr)
