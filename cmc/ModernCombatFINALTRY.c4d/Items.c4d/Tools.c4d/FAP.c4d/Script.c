@@ -59,15 +59,18 @@ public func Activate(object pCaller)
   }
   //Falsche Aktion?
   if(!WildcardMatch(GetAction(pCaller), "*Walk*"))
-  {
-    PlayerMessage(GetOwner(pCaller), "$CantHeal$", pCaller);
     return true;
-  }
+  
   //Clonk anhalten
   SetComDir(COMD_Stop, pCaller);
   //Heilen
   AddEffect("FAPHeal", this, 250, 2, this);
   return true;
+}
+
+public func ControlDigDouble(object pCaller)
+{
+  return Activate(pCaller);
 }
 
 /* Dragnin entnehmen */

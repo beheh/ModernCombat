@@ -118,6 +118,11 @@ public func Activate(object pActivator)
   }
 }
 
+public func ControlDigDouble(object pCaller)
+{
+  return Activate(pCaller);
+}
+
 /* Zusammenlegen */
 
 public func JoinPack(object pInto, object pMsgObj)

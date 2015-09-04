@@ -30,6 +30,11 @@ protected func Activate(object pObj)
   return TransferAmmo(pObj);
 }
 
+protected func ControlDigDouble(object pObj)
+{
+  return Activate(pObj);
+}
+
 private func OnTransfer()	{}
 
 public func MayTransfer(object pObj)
