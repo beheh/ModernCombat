@@ -6,7 +6,7 @@
 local hitcnt, size, trail_len, iAttachment, iStartFrame, bNoFFChecks;
 
 public func IsSpecialAmmo()	{return false;}
-public func TumbleTime()	{return 10;}	//Dauer des Zeitfensters in denen Splitter tumblen lassen
+public func TumbleTime()	{return 10;}		//Zeitfenster in dem Splitter Clonks umwerfen
 public func CheckFF()		{return !bNoFFChecks;}
 
 
@@ -53,7 +53,7 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
   SetAction("Travel");
 
   //Sicherheitscheck, ob der Splitter nicht sofort verschwindet
-  if(!self) return ;
+  if(!self) return;
 
   SetXDir(+Sin(iAngle,iSpeed));
   SetYDir(-Cos(iAngle,iSpeed));
@@ -165,7 +165,7 @@ private func HitObject(object pObject)
 {
   if(shooter && pObject)
     if(pObject == shooter)
-      return false;//>:O
+      return false;
 
   if(BulletStrike(pObject))
   {
@@ -196,8 +196,9 @@ private func HitLandscape()
 
 public func OnHitLandscape()
 {
-  Sound("BulletHit*.ogg");
-  Sound("Crumble*.ogg");
+  //Effekt
+  if(GetActTime() > 10)
+    Sound("Crumble*.ogg",0,0,RandomX(50,100));
 }
 
 public func BulletStrike(object pObj)
@@ -239,10 +240,8 @@ public func FxIntShrapnelHitTimer()	{return -1;}
 public func OnShrapnelHit(object pObject, int iX, int iY)
 {
   if(pObject)
-  {
     if(Distance(lx,ly) > 20)
-      Sound("SharpnelImpact*.ogg");
-  }
+      Sound("SharpnelImpact*.ogg",0,0,RandomX(75,100));
 }
 
 /* Effekt für Trefferüberprüfung */
@@ -273,7 +272,6 @@ public func FxHitCheckStart(object target, int effect, int temp, object byObj, b
 public func FxHitCheckTimer(object target, int effect, int time)
 {
   var obj;
-  // Oh man. :O
   var oldx = EffectVar(0, target, effect);
   var oldy = EffectVar(1, target, effect);
   var newx = GetX(target);
@@ -369,10 +367,12 @@ public func Ricochet(int iX, int iY)
     oldtrail->SetPosition(GetX()+iX,GetY()+iY);
     oldtrail->SetXDir();
     oldtrail->SetYDir();
-    //oldtrail->RemoveObject();
+
     return true;
   }
 }
+
+/* Entfernung */
 
 public func Remove(int iRemoveTime)
 {
