@@ -6,7 +6,7 @@ local target,id;
 local xdir,ydir,r;
 local frames,distance;
 
-public func IsSpawnpoint()  {return true;}
+public func IsSpawnpoint()	{return true;}
 
 
 /* Globale Aufruffunktion */
@@ -127,9 +127,9 @@ func Respawn()
   //Sofern das Objekt nicht über SolidMask verfügt: Freimachen wenn feststeckend
   if(!GetDefCoreVal("SolidMask",0,GetID(obj),3)) return;
   for(var o in obj->FindObjects(Find_InRect(-GetObjWidth(obj)/2,-GetObjHeight(obj),GetObjWidth(obj),GetObjHeight(obj)),
-        Find_Category(C4D_Vehicle | C4D_Living | C4D_Object),
-        Find_NoContainer(),
-        Find_Exclude(obj)))
+  				Find_Category(C4D_Vehicle | C4D_Living | C4D_Object),
+  				Find_NoContainer(),
+  				Find_Exclude(obj)))
   {
     AutoUnstuck4K(o);
   }

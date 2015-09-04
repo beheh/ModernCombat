@@ -1,2 +1,2 @@
-DE:Capture the flag
-US:Capture the flag
+DE:Capture the Flag
+US:Capture the Flag
