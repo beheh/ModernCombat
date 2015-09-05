@@ -4,7 +4,7 @@
 
 local damaged;
 
-public func IsMeleeTarget()		{return true;}
+public func IsMeleeTarget()		{if(!damaged) return true;}
 public func IsCraneGrabable()		{return 1;}
 public func MaxDamage()			{return 40;}
 public func IsBulletTarget(id def)
