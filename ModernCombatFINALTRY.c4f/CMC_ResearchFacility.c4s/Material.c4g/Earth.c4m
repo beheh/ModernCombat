@@ -1,0 +1,13 @@
+[Material]
+Name=Earth
+Color=72,40,08,92,56,20,116,72,36
+Shape=2
+Density=50
+Friction=80
+DigFree=1
+MaxAirSpeed=20
+MaxSlide=1
+Corrode=75
+Soil=1
+Placement=30
+TextureOverlay=Smooth

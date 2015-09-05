@@ -1,0 +1,22 @@
+CreatingInterior=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+CreatingDecoration=Dekoration wird plaziert...
+
+Team1=Eurocorps
+Team2=Empire
+
+Flag1=Quartiere
+Flag2=Kontrollturm
+Flag3=Generatorraum
+Flag4=Fahrzeughalle
+Flag5=Lobby
+Flag6=Lagerhalle
+
+Target1=Steuerungseinheit
+Target2=Datenserver
+Target3=Lüftungssystem
+Target4=Notstromaggregat
+Target5=Treibstofftank
+Target6=Anreicherungsanlage
+Target7=Notstromgenerator
+Target8=Generator

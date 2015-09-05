@@ -1,0 +1,22 @@
+CreatingInterior=Creating furniture...
+CreatingEquipment=Placing equipment...
+CreatingDecoration=Placing decoration...
+
+Team1=Eurocorps
+Team2=Empire
+
+Flag1=Quarters
+Flag2=Control Tower
+Flag3=Generator Room
+Flag4=Vehicle Hall
+Flag5=Lobby
+Flag6=Storage Depot
+
+Target1=Control Unit
+Target2=Data Server
+Target3=Cooling System
+Target4=Emergency Generator
+Target5=Fuel Tank
+Target6=Enrichment Facility
+Target7=Emergency Generator
+Target8=Generator
