@@ -117,10 +117,10 @@ func CreateInterior()
   CreateObject(SBBA, 1430, 590, -1)->Right();
   CreateObject(SBBA, 1470, 670, -1)->Right();
 
-  CreateObject(SBBA, 1953, 850, -1);
+  CreateObject(SBBA, 1923, 850, -1);
   CreateObject(SBBA, 1961, 750, -1);
   CreateObject(SBBA, 2280, 750, -1)->Right();
-  CreateObject(SBBA, 2288, 850, -1)->Right();
+  CreateObject(SBBA, 2318, 850, -1)->Right();
 
   CreateObject(SBBA, 2771, 670, -1);
   CreateObject(SBBA, 2811, 590, -1);
@@ -429,6 +429,12 @@ func CreateDecoration()
   //Papierstapel
   CreateObject(PPSK, 370, 560, -1);
   CreateObject(PPSK, 385, 560, -1);
+  CreateObject(PPSK, 1930, 850, -1);
+  CreateObject(PPSK, 1940, 850, -1);
+  CreateObject(PPSK, 1960, 850, -1);
+  CreateObject(PPSK, 2280, 850, -1);
+  CreateObject(PPSK, 2300, 850, -1);
+  CreateObject(PPSK, 2310, 850, -1);
   CreateObject(PPSK, 3855, 560, -1);
   CreateObject(PPSK, 3870, 560, -1);
 
@@ -593,10 +599,10 @@ public func ChooserFinished()
     PlaceSpawnpoint(ABOX, 3540, 1305);
 
     //Gewehrgranaten
-    PlaceSpawnpoint(GBOX, 2010, 845);
+    PlaceSpawnpoint(GBOX, 1940, 845);
 
     //Raketen
-    PlaceSpawnpoint(MBOX, 2230, 845);
+    PlaceSpawnpoint(MBOX, 2300, 845);
    }
   }
 
@@ -629,10 +635,10 @@ public func ChooserFinished()
    if(!FindObject(NOAM))
    {
     //Gewehrgranaten
-    PlaceSpawnpoint(GBOX, 2010, 845);
+    PlaceSpawnpoint(GBOX, 1940, 845);
 
     //Raketen
-    PlaceSpawnpoint(MBOX, 2230, 845);
+    PlaceSpawnpoint(MBOX, 2300, 845);
    }
   }
 }
