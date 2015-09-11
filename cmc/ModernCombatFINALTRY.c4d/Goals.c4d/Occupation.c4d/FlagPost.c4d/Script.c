@@ -4,18 +4,19 @@
 
 local team, process, range, flag, bar, attacker, spawnpoints, trend, capt, pAttackers, lastowner, iconState, flagvalue;
 
-public func GetAttacker()	{return attacker;}
-public func GetTeam()		{return team;}
-public func GetProcess()	{return process;}
-public func GetTrend()		{return trend;}
-public func GetRange()		{return range;}
-public func GetFlagValue()	{return flagvalue;}
-public func SetFlagValue(int iValue) {flagvalue = iValue;}
-public func IsFullyCaptured()	{return capt;}
-public func IsFlagpole()	{return true;}
+public func GetAttacker()		{return attacker;}
+public func GetTeam()			{return team;}
+public func GetProcess()		{return process;}
+public func GetTrend()			{return trend;}
+public func GetRange()			{return range;}
+public func GetFlagValue()		{return flagvalue;}
+public func SetFlagValue(int iValue)	{flagvalue = iValue;}
+public func IsFullyCaptured()		{return capt;}
+public func IsFlagpole()		{return true;}
 public func IsSpawnable()	{return true;}
 
 static const BAR_FlagBar = 5;
+
 
 /* Initalisierung */
 
