@@ -16,7 +16,7 @@ public func IsConfigurable()		{return true;}
 public func GoalExtraValue()		{return iStartTickets;}	//Spielzielinformationen an Scoreboard weitergeben
 public func CustomSpawnSystem()		{return true;}
 public func RejectChoosedClassInfo()	{return true;}
-global func GetOccupationTimerSpeed()	{return 1;}
+global func GetOccupationTimerSpeed()	{return 10;}
 
 
 /* Initialisierung */
