@@ -90,7 +90,11 @@ global func GetMinArrayVal(array arArray, bool fPos)
 
 global func GetMaxArrayVal(array arArray, bool fPos)
 {
-  var highest = 0; var pos;
+  if(!arArray)
+    return -1;
+
+  var highest = arArray[0]; 
+  var pos = -1;
   for(var i = 0; i < GetLength(arArray); i++)
   {
     if(arArray[i] > highest)
