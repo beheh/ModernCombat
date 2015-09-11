@@ -16,7 +16,7 @@ public func IsConfigurable()		{return true;}
 public func GoalExtraValue()		{return iStartTickets;}	//Spielzielinformationen an Scoreboard weitergeben
 public func CustomSpawnSystem()		{return true;}
 public func RejectChoosedClassInfo()	{return true;}
-global func GetOccupationTimerSpeed()	{return 30;}
+global func GetOccupationTimerSpeed()	{return 30;}		//Standard-Timer-Geschwindigkeit
 
 
 /* Initialisierung */
@@ -62,13 +62,10 @@ public func ChooserFinished()
 
   //Ticketalarm an Ticketzahl anpassen
   if(iStartTickets < 4)
-  {
     iWarningTickets = 0;
-  }
   else
-  {
     iWarningTickets = Max(iStartTickets/4, 5);
-  }
+
   //Bei Klassenwahl Spawnsystem anpassen
   if(!FindObject(MCSL))
     ScheduleCall(0,"CreateSpawners",1);
@@ -592,7 +589,6 @@ public func FxOccupationGameTimer(object pTarget, int iEffectNumber, int iEffect
     {
       decrease *= GetOccupationTimerSpeed();
       decrease = decrease / GetLength(GetFlags());
-      Log("%d", decrease);
       aTeamTimers[i] += decrease;
       if(aTeamTimers[i] <= 0)
       {

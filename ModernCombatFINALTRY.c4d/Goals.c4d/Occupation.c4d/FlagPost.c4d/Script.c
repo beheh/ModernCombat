@@ -128,7 +128,7 @@ protected func Timer()
   var iOld = trend;
   trend = 0;
 
-  //Zuvor gespeicherte Clonks in Reichweite prüfen
+  //Zuvor gespeicherte Clonks in Reichweite auf Aktualität prüfen
   var del;
   var clonks = FindObjects(Find_Distance(range),Find_OCF(OCF_Alive),Find_NoContainer());
   for(var pClonk in pAttackers)
@@ -153,9 +153,11 @@ protected func Timer()
 
   var aFriends = CreateArray();
   var aEnemies = CreateArray();
+
+  //Passende Clonks in Reichweite ermitteln
   var clonks = FindObjects(Find_Distance(range),Find_OCF(OCF_Alive),Find_NoContainer());
 
-  //Passende Clonks in Reichweite als Feinde oder Verbündete zählen
+  //Gefundene Clonks als Feinde oder Verbündete einstufen
   for(clonk in clonks)
   {
     if(GetOwner(clonk) == NO_OWNER) continue;
