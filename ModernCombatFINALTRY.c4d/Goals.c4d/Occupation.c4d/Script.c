@@ -305,7 +305,7 @@ private func UpdateScoreboard()
 
   if(i != 1)
   {
-    SetScoreboardData(i, GOCC_IconColumn, "{{FLNT}}");
+    SetScoreboardData(i, GOCC_IconColumn, "");
     SetScoreboardData(i, GOCC_FlagColumn, "{{CLNK}}", base+1);
     SetScoreboardData(i, GOCC_TimerColumn, " ");
     SetScoreboardData(i, GOCC_ProgressColumn, "{{SM03}}");
