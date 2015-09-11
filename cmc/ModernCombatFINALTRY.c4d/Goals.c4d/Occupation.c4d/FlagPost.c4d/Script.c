@@ -12,8 +12,12 @@ public func GetRange()			{return range;}
 public func GetFlagValue()		{return flagvalue;}
 public func SetFlagValue(int iValue)	{flagvalue = iValue;}
 public func IsFullyCaptured()		{return capt;}
-public func IsFlagpole()		{return true;}
-public func IsSpawnable()	{return true;}
+
+public func StandardRange()		{return 100;}		//Standardreichweite
+public func StandardSpeed()		{return 10;}		//Standardeinnahmegeschwindigkeit
+
+public func IsFlagpole()		{return true;}		//Ist ein Flaggenposten
+public func IsSpawnable()		{return true;}		//Einstiegspunkt
 
 static const BAR_FlagBar = 5;
 
@@ -23,11 +27,16 @@ static const BAR_FlagBar = 5;
 public func Initialize()
 {
   spawnpoints = CreateArray();
+  pAttackers = CreateArray();
+
+  //Anfangs neutral
   lastowner = 0;
+  //Standardwerte setzen
   Set();
+  //Flagge erstellen
   if(!flag)
     flag = CreateObject(OFLG);
-  pAttackers = CreateArray();
+  //HUD-Anzeige erstmals einrichten
   UpdateFlag();
 }
 
@@ -35,21 +44,26 @@ public func Initialize()
 
 public func Set(string szName, int iRange, int iSpeed, int iValue)
 {
+  //Name setzen
   if(!szName) szName = "Alpha";
   SetName(szName);
 
-  if(!iRange) iRange = 100;
+  //Reichweite setzen
+  if(!iRange) iRange = StandardRange();
   range = iRange;
 
-  if(!iSpeed) iSpeed = 10;
+  //Einnahmegeschwindigkeit setzen
+  if(!iSpeed) iSpeed = StandardSpeed();
 
+  //!INFO
   flagvalue = iValue;
 
+  //Prüfungseffekt einrichten
   RemoveEffect("IntFlagpole",this);
   AddEffect("IntFlagpole",this,10,iSpeed,this);
 }
 
-/* Spawnpoints setzen */
+/* Spawnpoint-Konfiguration */
 
 public func AddSpawnPoint(int iX, int iY, string szFunction)
 {
@@ -57,7 +71,7 @@ public func AddSpawnPoint(int iX, int iY, string szFunction)
   spawnpoints[i] = CreateArray();
   spawnpoints[i][0] = AbsX(iX);
   spawnpoints[i][1] = AbsY(iY);
-  spawnpoints[i][2] = szFunction;  
+  spawnpoints[i][2] = szFunction;
 }
 
 public func GetSpawnPoint(int &iX, int &iY, string &szFunction, int iPlr)
@@ -72,7 +86,7 @@ public func GetSpawnPoint(int &iX, int &iY, string &szFunction, int iPlr)
   szFunction = GetBestSpawnpoint(spawnpoints, iPlr, iX, iY)[2];
 }
 
-/* Wird angegriffen */
+/* Flaggenzustände */
 
 public func IsAttacked()
 {
@@ -82,6 +96,7 @@ public func IsAttacked()
     if(GetPlayerTeam(GetOwner(clonk)) != team)
       return true;
   }
+
   return false;
 }
 
@@ -95,7 +110,7 @@ protected func ResetAttackers()
   pAttackers = CreateArray();
 }
 
-/* Timer */
+/* Prüfungseffekt und -timer */
 
 public func FxIntFlagpoleTimer(object pTarget)
 {
@@ -109,11 +124,11 @@ protected func Timer()
 {
   var enemys,friends,opposition;
 
+  //Momentanen Zustand speichern
   var iOld = trend;
-
   trend = 0;
 
-  //Alle vorhanden?
+  //Zuvor gespeicherte Clonks in Reichweite prüfen
   var del;
   var clonks = FindObjects(Find_Distance(range),Find_OCF(OCF_Alive),Find_NoContainer());
   for(var pClonk in pAttackers)
@@ -123,11 +138,12 @@ protected func Timer()
     {
       if(clonk == pClonk)
       {
+        //Clonk vorhanden: Eintrag beibehalten
         del = false;
         break;
       }
     }
-    //Nein: Entfernen
+    //Clonk nicht vorhanden: Eintrag entfernen
     if(del)
       pAttackers[FindInArray4K(pAttackers, pClonk)] = 0;
   }
@@ -139,6 +155,7 @@ protected func Timer()
   var aEnemies = CreateArray();
   var clonks = FindObjects(Find_Distance(range),Find_OCF(OCF_Alive),Find_NoContainer());
 
+  //Passende Clonks in Reichweite als Feinde oder Verbündete zählen
   for(clonk in clonks)
   {
     if(GetOwner(clonk) == NO_OWNER) continue;
@@ -159,12 +176,11 @@ protected func Timer()
   }
   attacker = opposition;
 
+  //Zustandsänderung ermitteln
   if(enemys && !friends)
     DoProcess(opposition,Min(enemys,3));
-
   if(!enemys && friends)
     DoProcess(team,Min(friends,3));
-
   if((!enemys) == (!friends))
   {
     if(!friends)
