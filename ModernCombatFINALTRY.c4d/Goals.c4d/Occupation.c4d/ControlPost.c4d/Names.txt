@@ -1,2 +1,2 @@
-DE:Flaggenposten
-US:Flag Post
+DE:Kontrollpunkt
+US:Control Point

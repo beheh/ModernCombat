@@ -1,7 +1,7 @@
 [DefCore]
 id=OCPL
 Version=4,9,10,7
-Name=Control Post
+Name=Control Point
 Category=1
 Width=50
 Height=80
