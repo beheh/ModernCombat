@@ -13,6 +13,7 @@ public func GetFlagValue()	{return flagvalue;}
 public func SetFlagValue(int iValue) {flagvalue = iValue;}
 public func IsFullyCaptured()	{return capt;}
 public func IsFlagpole()	{return true;}
+public func IsSpawnable()	{return true;}
 
 static const BAR_FlagBar = 5;
 

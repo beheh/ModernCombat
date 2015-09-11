@@ -109,6 +109,11 @@ global func GetFlags()
   return FindObjects(Find_Func("IsFlagpole"));
 }
 
+global func GetSpawnableFlags()
+{
+  return FindObjects(Find_And(Find_Func("IsFlagpole"), Find_Func("IsSpawnable")));
+}
+
 global func CreateFlagpole(int iX, int iY, string szName, int iRange, int iSpeed)
 {
   var point = CreateObject(OFPL, iX, iY, NO_OWNER);
