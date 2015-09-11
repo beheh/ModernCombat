@@ -16,7 +16,7 @@ public func IsConfigurable()		{return true;}
 public func GoalExtraValue()		{return iStartTickets;}	//Spielzielinformationen an Scoreboard weitergeben
 public func CustomSpawnSystem()		{return true;}
 public func RejectChoosedClassInfo()	{return true;}
-global func GetOccupationTimerSpeed()	{return 10;}
+global func GetOccupationTimerSpeed()	{return 30;}
 
 
 /* Initialisierung */
@@ -591,6 +591,8 @@ public func FxOccupationGameTimer(object pTarget, int iEffectNumber, int iEffect
     if(decrease < 0)
     {
       decrease *= GetOccupationTimerSpeed();
+      decrease = decrease / GetLength(GetFlags());
+      Log("%d", decrease);
       aTeamTimers[i] += decrease;
       if(aTeamTimers[i] <= 0)
       {
