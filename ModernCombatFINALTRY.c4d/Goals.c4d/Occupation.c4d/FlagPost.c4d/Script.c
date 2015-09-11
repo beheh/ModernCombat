@@ -2,13 +2,15 @@
 
 #strict 2
 
-local team,process,range,flag,bar,attacker,spawnpoints,trend,capt,pAttackers,lastowner, iconState;
+local team, process, range, flag, bar, attacker, spawnpoints, trend, capt, pAttackers, lastowner, iconState, flagvalue;
 
 public func GetAttacker()	{return attacker;}
 public func GetTeam()		{return team;}
 public func GetProcess()	{return process;}
 public func GetTrend()		{return trend;}
 public func GetRange()		{return range;}
+public func GetFlagValue()	{return flagvalue;}
+public func SetFlagValue(int iValue) {flagvalue = iValue;}
 public func IsFullyCaptured()	{return capt;}
 public func IsFlagpole()	{return true;}
 
@@ -29,7 +31,7 @@ public func Initialize()
 
 /* Einstellungen */
 
-public func Set(string szName, int iRange, int iSpeed)
+public func Set(string szName, int iRange, int iSpeed, int iValue)
 {
   if(!szName) szName = "Alpha";
   SetName(szName);
@@ -38,6 +40,8 @@ public func Set(string szName, int iRange, int iSpeed)
   range = iRange;
 
   if(!iSpeed) iSpeed = 10;
+
+  flagvalue = iValue;
 
   RemoveEffect("IntFlagpole",this);
   AddEffect("IntFlagpole",this,10,iSpeed,this);

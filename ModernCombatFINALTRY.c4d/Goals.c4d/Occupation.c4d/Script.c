@@ -6,6 +6,7 @@
 local iStartTickets;
 local iWarningTickets;
 local aTicket;
+local aTeamTimers;
 
 static const GOCC_Horizontal		= 1;
 static const GOCC_Vertical		= 2;
@@ -15,7 +16,7 @@ public func IsConfigurable()		{return true;}
 public func GoalExtraValue()		{return iStartTickets;}	//Spielzielinformationen an Scoreboard weitergeben
 public func CustomSpawnSystem()		{return true;}
 public func RejectChoosedClassInfo()	{return true;}
-
+global func GetOccupationTimerSpeed()	{return 1;}
 
 /* Initialisierung */
 
@@ -73,7 +74,7 @@ public func ChooserFinished()
 
   //Tickets verteilen
   for(var i = 0; i < GetTeamCount(); i++)
-    DoTickets(GetTeamByIndex(i), iStartTickets);
+    DoTickets(GetTeamByIndex(i), iStartTickets); 
 
   //Scoreboards und Spielzielhinweise erstellen
   for(var i = 0; i < GetPlayerCount(); i++)
@@ -82,6 +83,8 @@ public func ChooserFinished()
     CreateObject(TK01, 0, 0, GetPlayerByIndex(i));
     Sound("Info_Round.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
   }
+  
+  Schedule("AddEffect(\"OccupationGame\", this, 100, 1, this, GOCC);", 1, 0, this);
 }
 
 public func CreateSpawners()
@@ -101,24 +104,9 @@ public func GetDirection()
   return GOCC_Horizontal;
 }
 
-public func GetFlags()
+global func GetFlags()
 {
-  var list = [];
-  var iPos = 0;
-  for(var pFlag in FindObjects(Find_Func("IsFlagpole")))
-  {
-    if(GetDirection() == GOCC_Horizontal)
-      iPos = GetX(pFlag);
-    if(GetDirection() == GOCC_Vertical)
-      iPos = GetY(pFlag);
-    list[iPos] = pFlag;
-  }
-  var pFlags = [];
-  for(var pFlag in list)
-  {
-    if(pFlag) pFlags[GetLength(pFlags)] = pFlag;
-  }
-  return pFlags;
+  return FindObjects(Find_Func("IsFlagpole"));
 }
 
 global func CreateFlagpole(int iX, int iY, string szName, int iRange, int iSpeed)
@@ -128,9 +116,17 @@ global func CreateFlagpole(int iX, int iY, string szName, int iRange, int iSpeed
   return point;
 }
 
-/* Flaggen */
+global func GetTeamFlags(int iTeam) {
+  var result = [];
 
-public func GetFlagCount(int iTeam, bool bCountBlankFlags)
+  for(flag in GetFlags())
+    if(flag->GetTeam() == iTeam)
+      result[GetLength(result)] = flag;
+
+  return result;
+}
+
+global func GetFlagCount(int iTeam, bool bCountBlankFlags)
 {
   var count = 0;
   for(var flag in FindObjects(Find_Func("IsFlagpole")))
@@ -151,6 +147,20 @@ public func GetFlagCount(int iTeam, bool bCountBlankFlags)
     }
     count++;
   }
+  return count;
+}
+
+global func GetEnemyFlagCount(int iTeam) {
+  var count = 0;
+  
+  if(!iTeam)
+    return 0;
+
+  for(var flag in FindObjects(Find_Func("IsFlagpole"))) {
+    if(HostileTeam(iTeam, flag->GetTeam()))
+      count++;
+  }
+
   return count;
 }
 
@@ -220,8 +230,10 @@ private func ChangeStartTickets(id dummy, int iChange)
 
 /* Scoreboard */
 
-static const GOCC_FlagColumn		= 1;
-static const GOCC_ProgressColumn	= 2;
+static const GOCC_IconColumn		= 1;
+static const GOCC_FlagColumn		= 2;
+static const GOCC_TimerColumn		= 3;
+static const GOCC_ProgressColumn	= 4;
 
 protected func InitScoreboard()
 {  
@@ -234,7 +246,9 @@ protected func InitScoreboard()
   SetScoreboardData(SBRD_Caption, SBRD_Caption, Format("%s",GetName()), SBRD_Caption);
 
   //Spaltentitel
+  SetScoreboardData(SBRD_Caption, GOCC_IconColumn, " ", SBRD_Caption);
   SetScoreboardData(SBRD_Caption, GOCC_FlagColumn, "{{SM21}}", SBRD_Caption);
+  SetScoreboardData(SBRD_Caption, GOCC_TimerColumn, " ", SBRD_Caption);
   SetScoreboardData(SBRD_Caption, GOCC_ProgressColumn, "{{SM02}}", SBRD_Caption);
 
   UpdateScoreboard();
@@ -247,33 +261,45 @@ private func UpdateScoreboard()
   //Wird noch eingestellt
   if(FindObject(CHOS)) return;
 
-  //Flaggenposten
   var i = 0;
-  var data;
+  var data, base;
+
+  //Entsprechend der Ausrichtung des Szenarios sortieren
+  if(GetDirection() == GOCC_Horizontal)
+    base = LandscapeWidth();
+  if(GetDirection() == GOCC_Vertical)
+    base = LandscapeHeight();
+
+  //Flaggenposten
   for(var flag in GetFlags())
   {
     //Textfarbe ermitteln
-    var color = GetTeamColor(flag->GetTeam()),
-    prog = flag->GetProcess();
-    color = RGBa(Interpolate2(255, GetRGBaValue(color, 1), prog, 100), Interpolate2(255, GetRGBaValue(color, 2), prog, 100), Interpolate2(255, GetRGBaValue(color, 3), prog, 100));
+    var color = GetTeamColor(flag->GetTeam()), 
+	prog = flag->GetProcess();
+
+    color = RGBa(Interpolate2(255, GetRGBaValue(color, 1), prog, 100), 
+		 Interpolate2(255, GetRGBaValue(color, 2), prog, 100), 
+		 Interpolate2(255, GetRGBaValue(color, 3), prog, 100));
+
     //Entsprechend der Ausrichtung des Szenarios sortieren
     if(GetDirection() == GOCC_Horizontal)
       data = GetX(flag);
     if(GetDirection() == GOCC_Vertical)
       data = GetY(flag);
+
+    SetScoreboardData(i, GOCC_IconColumn, Format(" ")); 
     SetScoreboardData(i, GOCC_FlagColumn, Format("<c %x>%s</c>", color, GetName(flag)), data);
-    SetScoreboardData(i, GOCC_ProgressColumn, Format("<c %x>%d%</c>", color, flag->GetProcess()), flag->GetProcess());
+    SetScoreboardData(i, GOCC_TimerColumn, Format(" "));
+    SetScoreboardData(i, GOCC_ProgressColumn, Format("<c %x>%d%</c>", color, flag->GetProcess()));
     i++;
   }
-  var base;
-  if(GetDirection() == GOCC_Horizontal)
-    base = LandscapeWidth();
-  if(GetDirection() == GOCC_Vertical)
-    base = LandscapeHeight();
+
   if(i != 1)
   {
-    SetScoreboardData(i, GOCC_FlagColumn, " ", base+1);
-    SetScoreboardData(i, GOCC_ProgressColumn, " ", base+1);
+    SetScoreboardData(i, GOCC_IconColumn, "{{FLNT}}");
+    SetScoreboardData(i, GOCC_FlagColumn, "{{CLNK}}", base+1);
+    SetScoreboardData(i, GOCC_TimerColumn, " ");
+    SetScoreboardData(i, GOCC_ProgressColumn, "{{SM03}}");
     i++;
   }
 
@@ -283,17 +309,25 @@ private func UpdateScoreboard()
     var iTeam = GetTeamByIndex(j);
     if(TeamAlive(iTeam))
     {
-      SetScoreboardData(i, GOCC_FlagColumn, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam)), base+2+GetFlagCount()-GetFlagCount(iTeam));
-      SetScoreboardData(i, GOCC_ProgressColumn, Format("%d {{SM03}}", GetTickets(iTeam)), base+2+iStartTickets-GetTickets(iTeam));
+      if(GetHighestTeam() == iTeam)
+        SetScoreboardData(i, GOCC_IconColumn, "{{WIPF}}");
+      else
+        SetScoreboardData(i, GOCC_IconColumn, " ");
+      SetScoreboardData(i, GOCC_FlagColumn, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam)), base+2+GetTickets(iTeam));
+      SetScoreboardData(i, GOCC_TimerColumn, Format("<c %x>%d</c>", GetTeamColor(iTeam), GetTeamTimer(iTeam)));
+      SetScoreboardData(i, GOCC_ProgressColumn, Format("%d", GetTickets(iTeam)));
     }
     else
     {
+      SetScoreboardData(i, GOCC_IconColumn, 0);
       SetScoreboardData(i, GOCC_FlagColumn, 0);
+      SetScoreboardData(i, GOCC_TimerColumn, 0);
       SetScoreboardData(i, GOCC_ProgressColumn, 0);
     }
     i++;
   }
-  SortScoreboard(1);
+
+  SortScoreboard(GOCC_FlagColumn);
 }
 
 /* GameCalls */
@@ -397,6 +431,18 @@ public func TicketChange(int iTeam, int iChange)
 {
   DoTickets(iChange);
   UpdateScoreboard(iTeam);
+}
+
+public func GetTeamTimer(int iTeam) 
+{
+  if(!aTeamTimers)
+    return;
+
+  return (aTeamTimers[iTeam-1] / 100);
+}
+
+public func GetHighestTeam() {
+  return GetMaxArrayVal(aTicket, true) + 1;
 }
 
 public func GetTickets(int iTeam)
@@ -510,6 +556,38 @@ public func IsFulfilled()
   }
 }
 
+public func FxOccupationGameStart(object pTarget, int iEffectNumber) {
+  aTeamTimers = [];
+
+  for(var i = 0; i < GetTeamCount(); i++)
+    aTeamTimers[i] = 10000;
+
+  if(!GetLength(GetFlags())) {
+    fFulfilled = true;
+    Log("ERROR: No valuable flags found! Aborting!");
+    return -1;
+  }
+
+  return 1;
+}
+
+public func FxOccupationGameTimer(object pTarget, int iEffectNumber, int iEffectTime) {
+  for(var i = 0; i < GetTeamCount(); i++) {
+    var decrease = GetFlagCount(i+1) - GetEnemyFlagCount(i+1);
+    if(decrease < 0) {
+      decrease *= GetOccupationTimerSpeed();
+      aTeamTimers[i] += decrease;
+      if(aTeamTimers[i] <= 0) {
+	aTicket[i] -= 1;
+        aTeamTimers[i] = 10000;
+	UpdateScoreboard();
+      }
+    }
+  }
+
+  return;
+}
+
 private func TeamAlive(int iTeam)
 {
   var alive = [], poles = [];
@@ -519,6 +597,11 @@ private func TeamAlive(int iTeam)
   if(FindObject(CHOS))
   {
     return GetTeamPlayerCount(iTeam);
+  }
+  //Team ausloeschen, falls Ticketzahl 0
+  if(aTicket[i-1] == 0) {
+    EliminateTeam(i);
+    return false;
   }
 
   //Zwei Siegbedingungen: Alle Spieler eines Teams eliminiert und alle Flaggen des Teams eingenommen
@@ -669,23 +752,10 @@ protected func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTea
   //Geld verteilen
   Money(iPlr, pCrew, iMurdererPlr);
   
-  //Tickets
-  if(GetTickets(iTeam) <= 0)
-  {
-    if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
-    GameCall("ForceObservation",iPlr);
-    return;
-  }
   if(GetWinningTeam() > 0 && GetWinningTeam() != iTeam)
   {
     if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
     return;
-  }
-
-  //Check ob noch am Leben
-  if(!TeamAlive(iTeam))
-  {
-    return EliminatePlayer(iPlr);
   }
 
   DoTickets(iTeam,-1);
@@ -696,6 +766,15 @@ protected func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTea
   //Flagge anfokussieren
   DoFlag(iTeam, iPlr);
 }
+
+public func OnClassSelection(object pClonk, int iClass)
+{
+  if(FindObject(CHOS))
+    return;
+
+  CreateGOCCSpawner(pClonk, iClass);
+}
+
 
 public func DoFlag(int iTeam, int iPlr)
 {
@@ -721,15 +800,6 @@ private func RemovePlayer(int iPlr)
   UpdateHUDs();
   aDeath[iPlr] = 0;
   aKill[iPlr] = 0;
-}
-
-
-public func OnClassSelection(object pClonk, int iClass)
-{
-  if(FindObject(CHOS))
-    return;
-
-  CreateGOCCSpawner(pClonk, iClass);
 }
 
 /* Ungenutzte Funktionen */

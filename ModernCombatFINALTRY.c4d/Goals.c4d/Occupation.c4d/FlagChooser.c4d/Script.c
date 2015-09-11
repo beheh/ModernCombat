@@ -26,47 +26,6 @@ global func CreateGOCCSpawner(object pCrew, int iChoosedClass)
   return spawner;
 }
 
-public func FxIntSpawnCounterStart(object pTarget, int iEffectNumber, int iTemp)
-{
-  SetVisibility(VIS_Owner);
-  //Speichern
-  EffectVar(0, pTarget, iEffectNumber) = GetCategory(pTarget);
-  SetCategory(C4D_Foreground, pTarget);
-  //Zählen
-  SetAction("Counter");
-  return 1;
-}
-
-public func FxIntSpawnCounterTimer(object pTarget, int iEffectNumber, int iEffectTime)
-{
-  if(!pTarget)
-    return -1;
-
-  var crew = Contents(0, pTarget);
-  Sound("Select.ogg",false,crew,100,GetOwner(crew)+1);
-
-  if(iEffectTime >= 35*5)
-  {
-    pTarget->Spawn();
-    return -1;
-  }
-  else
-  {
-    SetPhase(iEffectTime/35);
-  }
-
-  return 1;
-}
-
-public func FxIntSpawnCounterStop(object pTarget, int iEffectNumber, int iTemp,iFrames)
-{
-  //Und wieder laden
-  SetCategory(EffectVar(0, pTarget, iEffectNumber), pTarget);
-  //Normale Action
-  SetAction("Idle");
-  return 1;
-}
-
 local spawn,flagpoles,selection,oldvisrange,oldvisstate;
 
 protected func Collection2(object pObject)
@@ -186,7 +145,7 @@ func SpawnOk()
 
   spawn = 1;
   CloseMenu(Contents());
-  AddEffect ("IntSpawnCounter",this,200,35,this);
+  Spawn();
 }
 
 public func ContainedLeft()	{return 1;}
