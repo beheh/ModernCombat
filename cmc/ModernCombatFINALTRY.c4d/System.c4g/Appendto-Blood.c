@@ -11,6 +11,10 @@
 
 public func OnHit(int iDmg, int iType, object pFrom)
 {
+  //Lebewesen nicht im Freien: Keine Effekte
+  if(Contained(this))
+    return;
+
   //Zu niedrige Schadenswerte ignorieren
   if(iDmg <= 0)
     return;
