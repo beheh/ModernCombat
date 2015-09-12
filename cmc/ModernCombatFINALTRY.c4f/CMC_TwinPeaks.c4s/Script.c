@@ -455,26 +455,26 @@ func FlagCaptured(object pPoint, int iTeam)
 {
   if(pPoint == aFlag[0])
   {
-   aSelfDefense[0]->SetTeam(iTeam);
-   aSelfDefense[2]->SetTeam(iTeam);
+    aSelfDefense[0]->SetTeam(iTeam);
+    aSelfDefense[2]->SetTeam(iTeam);
   }
 
   if(pPoint == aFlag[1])
   {
-   aSelfDefense[1]->SetTeam(iTeam);
-   aSelfDefense[3]->SetTeam(iTeam);
+    aSelfDefense[1]->SetTeam(iTeam);
+    aSelfDefense[3]->SetTeam(iTeam);
   }
 
   if(pPoint == aFlag[3])
   {
-   aSelfDefense[4]->SetTeam(iTeam);
-   aSelfDefense[7]->SetTeam(iTeam);
+    aSelfDefense[4]->SetTeam(iTeam);
+    aSelfDefense[7]->SetTeam(iTeam);
   }
 
   if(pPoint == aFlag[4])
   {
-   aSelfDefense[5]->SetTeam(iTeam);
-   aSelfDefense[6]->SetTeam(iTeam);
+    aSelfDefense[5]->SetTeam(iTeam);
+    aSelfDefense[6]->SetTeam(iTeam);
   }
 }
 
@@ -491,230 +491,230 @@ public func ChooserFinished()
   //Teams abfragen
   var aTeams = [false,false,false,false,false];
   for(var i = 0; i < GetPlayerCount(); i++)
-   aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
+    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
   //Helikopter und Hinweisschilder
   if(!FindObject(NOBH))
   {
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1395,1330,-1),70*21);
-   SetupVehicleSpawn([APCE],DIR_Right,CreateObject(VSPW,2096,790,-1),70*21);
-   SetupVehicleSpawn([APCE],DIR_Left,CreateObject(VSPW,3636,790,-1),70*21);
-   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4335,1330,-1),70*21);
+    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1395,1330,-1),70*21);
+    SetupVehicleSpawn([APCE],DIR_Right,CreateObject(VSPW,2096,790,-1),70*21);
+    SetupVehicleSpawn([APCE],DIR_Left,CreateObject(VSPW,3636,790,-1),70*21);
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4335,1330,-1),70*21);
 
-   var sign = CreateObject(SNPT, 1405, 1360, -1);
-   sign->SetAction("Sign3");
-   sign->Light();
-   sign = CreateObject(SNPT, 4325, 1360, -1);
-   sign->SetAction("Sign3");
-   sign->Light();
-   sign = CreateObject(SGNP, 1875, 840, -1);
-   sign->SetMode(1);
-   sign->Set("Helicopter");
-   sign = CreateObject(SGNP, 3855, 840, -1);
-   sign->SetMode(1);
-   sign->Set("Helicopter");
+    var sign = CreateObject(SNPT, 1405, 1360, -1);
+    sign->SetAction("Sign3");
+    sign->Light();
+    sign = CreateObject(SNPT, 4325, 1360, -1);
+    sign->SetAction("Sign3");
+    sign->Light();
+    sign = CreateObject(SGNP, 1875, 840, -1);
+    sign->SetMode(1);
+    sign->Set("Helicopter");
+    sign = CreateObject(SGNP, 3855, 840, -1);
+    sign->SetMode(1);
+    sign->Set("Helicopter");
   }
 
-  //OP-Spielziel
+  //OCC-Spielziel
   if(FindObject(GOCC))
   {
-   //Flaggenposten
-   aFlag[0] = CreateObject(OFPL,1405,780,NO_OWNER);
-   aFlag[0] -> AddSpawnPoint(1180,770);
-   aFlag[0] -> AddSpawnPoint(1180,880);
-   aFlag[0] -> AddSpawnPoint(1270,880);
-   if(aTeams[1] == true)
-   {
-    aFlag[0]->Set("$Flag1$",100,2);
-    aFlag[0]->Capture(1,1);
-   }
-   else
-   {
-    aFlag[0]->Set("$Flag1$",0,2);
-   }
+    //Flaggenposten
+    aFlag[0] = CreateObject(OFPL,1405,780,NO_OWNER);
+    aFlag[0] -> AddSpawnPoint(1180,770);
+    aFlag[0] -> AddSpawnPoint(1180,880);
+    aFlag[0] -> AddSpawnPoint(1270,880);
+    if(aTeams[1] == true)
+    {
+      aFlag[0]->Set("$Flag1$",0,4);
+      aFlag[0]->Capture(1,1);
+    }
+    else
+    {
+      aFlag[0]->Set("$Flag1$");
+    }
 
-   aFlag[1] = CreateObject(OFPL,2075,820,NO_OWNER);
-   aFlag[1] -> AddSpawnPoint(1560,970);
-   aFlag[1] -> AddSpawnPoint(1650,880);
-   aFlag[1] -> AddSpawnPoint(1650,970);
-   aFlag[1]->Set("$Flag2$",0,2);
+    aFlag[1] = CreateObject(OFPL,2075,820,NO_OWNER);
+    aFlag[1] -> AddSpawnPoint(1560,970);
+    aFlag[1] -> AddSpawnPoint(1650,880);
+    aFlag[1] -> AddSpawnPoint(1650,970);
+    aFlag[1]->Set("$Flag2$");
 
-   aFlag[2] = CreateObject(OFPL,2865,1310,NO_OWNER);
-   aFlag[2] -> AddSpawnPoint(2730,1450);
-   aFlag[2] -> AddSpawnPoint(2840,1460);
-   aFlag[2] -> AddSpawnPoint(2890,1460);
-   aFlag[2] -> AddSpawnPoint(3000,1450);
-   aFlag[2]->Set("$Flag3$",0,2);
+    aFlag[2] = CreateObject(OFPL,2865,1310,NO_OWNER);
+    aFlag[2] -> AddSpawnPoint(2730,1450);
+    aFlag[2] -> AddSpawnPoint(2840,1460);
+    aFlag[2] -> AddSpawnPoint(2890,1460);
+    aFlag[2] -> AddSpawnPoint(3000,1450);
+    aFlag[2]->Set("$Flag3$");
 
-   aFlag[3] = CreateObject(OFPL,3655,820,NO_OWNER);
-   aFlag[3] -> AddSpawnPoint(4080,970);
-   aFlag[3] -> AddSpawnPoint(4080,880);
-   aFlag[3] -> AddSpawnPoint(4170,970);
-   aFlag[3]->Set("$Flag4$",0,2);
+    aFlag[3] = CreateObject(OFPL,3655,820,NO_OWNER);
+    aFlag[3] -> AddSpawnPoint(4080,970);
+    aFlag[3] -> AddSpawnPoint(4080,880);
+    aFlag[3] -> AddSpawnPoint(4170,970);
+    aFlag[3]->Set("$Flag4$");
 
-   aFlag[4] = CreateObject(OFPL,4325,780,NO_OWNER);
-   aFlag[4] -> AddSpawnPoint(4460,880);
-   aFlag[4] -> AddSpawnPoint(4550,880);
-   aFlag[4] -> AddSpawnPoint(4550,770);
-   if(aTeams[2] == true)
-   {
-    aFlag[4]->Set("$Flag5$",100,2);
-    aFlag[4]->Capture(2,1);
-   }
-   else
-   {
-    aFlag[4]->Set("$Flag5$",0,2);
-   }
+    aFlag[4] = CreateObject(OFPL,4325,780,NO_OWNER);
+    aFlag[4] -> AddSpawnPoint(4460,880);
+    aFlag[4] -> AddSpawnPoint(4550,880);
+    aFlag[4] -> AddSpawnPoint(4550,770);
+    if(aTeams[2] == true)
+    {
+      aFlag[4]->Set("$Flag5$",0,4);
+      aFlag[4]->Capture(2,1);
+    }
+    else
+    {
+      aFlag[4]->Set("$Flag5$");
+    }
 
-   //Versorgungskiste (APW)
-   var crate = CreateObject(AMCT, 2865, 1350, -1);
-   crate->Set(ATWN);
+    //Versorgungskiste (APW)
+    var crate = CreateObject(AMCT, 2865, 1350, -1);
+    crate->Set(ATWN);
 
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-   {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1); aSelfDefense[2]->SetTeam(1); aSelfDefense[3]->SetTeam(1);}
-   if(aTeams[2] == true)
-   {aSelfDefense[4]->SetTeam(2); aSelfDefense[5]->SetTeam(2); aSelfDefense[6]->SetTeam(2); aSelfDefense[7]->SetTeam(2);}
+    //SSA Besitzer setzen
+    if(aTeams[1] == true)
+    {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1); aSelfDefense[2]->SetTeam(1); aSelfDefense[3]->SetTeam(1);}
+    if(aTeams[2] == true)
+    {aSelfDefense[4]->SetTeam(2); aSelfDefense[5]->SetTeam(2); aSelfDefense[6]->SetTeam(2); aSelfDefense[7]->SetTeam(2);}
 
-   //SSA aktivieren
-   aSelfDefense[0]->TurnOn();
-   aSelfDefense[1]->TurnOn();
-   aSelfDefense[2]->TurnOn();
-   aSelfDefense[3]->TurnOn();
-   aSelfDefense[4]->TurnOn();
-   aSelfDefense[5]->TurnOn();
-   aSelfDefense[6]->TurnOn();
-   aSelfDefense[7]->TurnOn();
+    //SSA aktivieren
+    aSelfDefense[0]->TurnOn();
+    aSelfDefense[1]->TurnOn();
+    aSelfDefense[2]->TurnOn();
+    aSelfDefense[3]->TurnOn();
+    aSelfDefense[4]->TurnOn();
+    aSelfDefense[5]->TurnOn();
+    aSelfDefense[6]->TurnOn();
+    aSelfDefense[7]->TurnOn();
   }
 
   //HTF-Spielziel
   if(FindObject(GHTF))
   {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 2865, 1310, -1);
-   flag->~Set("$Flag3$");
+    //Flaggenposten
+    var flag = CreateObject(OFPL, 2865, 1310, -1);
+    flag->~Set("$Flag3$");
 
-   //Teamgrenzen
-   CreateObject(BRDR, 2180, 0, -1)->Set(0,1,0,1,1);
-   CreateObject(BRDR, 3550, 0, -1)->Set(1,1,0,1,2);
+    //Teamgrenzen
+    CreateObject(BRDR, 2180, 0, -1)->Set(0,1,0,1,1);
+    CreateObject(BRDR, 3550, 0, -1)->Set(1,1,0,1,2);
 
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Kugeln
-    PlaceSpawnpoint(ABOX, 2840, 1465);
+    //Zusätzliche Munition
+    if(!FindObject(NOAM))
+    {
+      //Kugeln
+      PlaceSpawnpoint(ABOX, 2840, 1465);
 
-    //Gewehrgranaten
-    PlaceSpawnpoint(GBOX, 2890, 1465);
-   }
+      //Gewehrgranaten
+      PlaceSpawnpoint(GBOX, 2890, 1465);
+    }
 
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-    aSelfDefense[3]->SetTeam(1);
-   if(aTeams[2] == true)
-    aSelfDefense[4]->SetTeam(2);
+    //SSA Besitzer setzen
+    if(aTeams[1] == true)
+      aSelfDefense[3]->SetTeam(1);
+    if(aTeams[2] == true)
+      aSelfDefense[4]->SetTeam(2);
 
-   //SSA aktivieren
-   aSelfDefense[3]->TurnOn();
-   aSelfDefense[4]->TurnOn();
+    //SSA aktivieren
+    aSelfDefense[3]->TurnOn();
+    aSelfDefense[4]->TurnOn();
 
-   //Objekte entfernen
-   RemoveObject(aSelfDefense[0]);
-   RemoveObject(aSelfDefense[1]);
-   RemoveObject(aSelfDefense[2]);
-   RemoveObject(aSelfDefense[5]);
-   RemoveObject(aSelfDefense[6]);
-   RemoveObject(aSelfDefense[7]);
+    //Objekte entfernen
+    RemoveObject(aSelfDefense[0]);
+    RemoveObject(aSelfDefense[1]);
+    RemoveObject(aSelfDefense[2]);
+    RemoveObject(aSelfDefense[5]);
+    RemoveObject(aSelfDefense[6]);
+    RemoveObject(aSelfDefense[7]);
   }
 
   //MR-Spielziel
   if(FindObject(GMNR))
   {
-   //Geldsäcke
-   AddMoneySpawn(2200, 885, [15]);
-   AddMoneySpawn(2740, 1465, [20]);
-   AddMoneySpawn(2990, 1465, [20]);
-   AddMoneySpawn(3530, 885, [15]);
+    //Geldsäcke
+    AddMoneySpawn(2200, 885, [15]);
+    AddMoneySpawn(2740, 1465, [20]);
+    AddMoneySpawn(2990, 1465, [20]);
+    AddMoneySpawn(3530, 885, [15]);
 
-   //Teamgrenzen
-   CreateObject(BRDR, 1820, 0, -1)->Set(0,1,0,1,1);
-   CreateObject(BRDR, 3910, 0, -1)->Set(1,1,0,1,2);
+    //Teamgrenzen
+    CreateObject(BRDR, 1820, 0, -1)->Set(0,1,0,1,1);
+    CreateObject(BRDR, 3910, 0, -1)->Set(1,1,0,1,2);
 
-   //Automat
-   var store = CreateObject(WPVM,2865, 1310,-1);
-   store->AddWare(C4PA,10);
-   store->AddWare(FAPK,10);
-   store->AddWare(CDBT,10);
-   store->AddWare(BWTH,10);
-   store->AddWare(RSHL,10);
-   store->AddWare(ATWN,20);
-   store->AddWare(FGRN,20);
-   store->AddWare(FRAG,20);
-   store->AddWare(PGRN,20);
-   store->AddWare(SGRN,20);
-   store->AddWare(STUN,20);
-   store->AddWare(SRBL,20);
+    //Automat
+    var store = CreateObject(WPVM,2865, 1310,-1);
+    store->AddWare(C4PA,10);
+    store->AddWare(FAPK,10);
+    store->AddWare(CDBT,10);
+    store->AddWare(BWTH,10);
+    store->AddWare(RSHL,10);
+    store->AddWare(ATWN,20);
+    store->AddWare(FGRN,20);
+    store->AddWare(FRAG,20);
+    store->AddWare(PGRN,20);
+    store->AddWare(SGRN,20);
+    store->AddWare(STUN,20);
+    store->AddWare(SRBL,20);
 
-   //Versorgungskiste (APW)
-   var crate = CreateObject(AMCT, 2865, 1350, -1);
-   crate->Set(ATWN);
+    //Versorgungskiste (APW)
+    var crate = CreateObject(AMCT, 2865, 1350, -1);
+    crate->Set(ATWN);
 
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-    aSelfDefense[3]->SetTeam(1);
-   if(aTeams[2] == true)
-    aSelfDefense[4]->SetTeam(2);
+    //SSA Besitzer setzen
+    if(aTeams[1] == true)
+      aSelfDefense[3]->SetTeam(1);
+    if(aTeams[2] == true)
+      aSelfDefense[4]->SetTeam(2);
 
-   //SSA aktivieren
-   aSelfDefense[3]->TurnOn();
-   aSelfDefense[4]->TurnOn();
+    //SSA aktivieren
+    aSelfDefense[3]->TurnOn();
+    aSelfDefense[4]->TurnOn();
 
-   //Objekte entfernen
-   RemoveObject(aSelfDefense[0]);
-   RemoveObject(aSelfDefense[1]);
-   RemoveObject(aSelfDefense[2]);
-   RemoveObject(aSelfDefense[5]);
-   RemoveObject(aSelfDefense[6]);
-   RemoveObject(aSelfDefense[7]);
+    //Objekte entfernen
+    RemoveObject(aSelfDefense[0]);
+    RemoveObject(aSelfDefense[1]);
+    RemoveObject(aSelfDefense[2]);
+    RemoveObject(aSelfDefense[5]);
+    RemoveObject(aSelfDefense[6]);
+    RemoveObject(aSelfDefense[7]);
   }
 
   //LMS-Spielziel
   if(FindObject(GLMS))
   {
-   //Automat
-   var store = CreateObject(WPVM,2865, 1310,-1);
-   store->AddWare(C4PA,10);
-   store->AddWare(FAPK,10);
-   store->AddWare(CDBT,10);
-   store->AddWare(BWTH,10);
-   store->AddWare(RSHL,10);
-   store->AddWare(ATWN,20);
-   store->AddWare(FGRN,20);
-   store->AddWare(FRAG,20);
-   store->AddWare(PGRN,20);
-   store->AddWare(SGRN,20);
-   store->AddWare(STUN,20);
-   store->AddWare(SRBL,20);
+    //Automat
+    var store = CreateObject(WPVM,2865, 1310,-1);
+    store->AddWare(C4PA,10);
+    store->AddWare(FAPK,10);
+    store->AddWare(CDBT,10);
+    store->AddWare(BWTH,10);
+    store->AddWare(RSHL,10);
+    store->AddWare(ATWN,20);
+    store->AddWare(FGRN,20);
+    store->AddWare(FRAG,20);
+    store->AddWare(PGRN,20);
+    store->AddWare(SGRN,20);
+    store->AddWare(STUN,20);
+    store->AddWare(SRBL,20);
 
-   //Versorgungskiste (APW)
-   var crate = CreateObject(AMCT, 2865, 1350, -1);
-   crate->Set(ATWN);
+    //Versorgungskiste (APW)
+    var crate = CreateObject(AMCT, 2865, 1350, -1);
+    crate->Set(ATWN);
 
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-   {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1); aSelfDefense[2]->SetTeam(1); aSelfDefense[3]->SetTeam(1);}
-   if(aTeams[2] == true)
-   {aSelfDefense[4]->SetTeam(2); aSelfDefense[5]->SetTeam(2); aSelfDefense[6]->SetTeam(2); aSelfDefense[7]->SetTeam(2);}
+    //SSA Besitzer setzen
+    if(aTeams[1] == true)
+    {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1); aSelfDefense[2]->SetTeam(1); aSelfDefense[3]->SetTeam(1);}
+    if(aTeams[2] == true)
+    {aSelfDefense[4]->SetTeam(2); aSelfDefense[5]->SetTeam(2); aSelfDefense[6]->SetTeam(2); aSelfDefense[7]->SetTeam(2);}
 
-   //SSA aktivieren
-   aSelfDefense[0]->TurnOn();
-   aSelfDefense[1]->TurnOn();
-   aSelfDefense[2]->TurnOn();
-   aSelfDefense[3]->TurnOn();
-   aSelfDefense[4]->TurnOn();
-   aSelfDefense[5]->TurnOn();
-   aSelfDefense[6]->TurnOn();
-   aSelfDefense[7]->TurnOn();
+    //SSA aktivieren
+    aSelfDefense[0]->TurnOn();
+    aSelfDefense[1]->TurnOn();
+    aSelfDefense[2]->TurnOn();
+    aSelfDefense[3]->TurnOn();
+    aSelfDefense[4]->TurnOn();
+    aSelfDefense[5]->TurnOn();
+    aSelfDefense[6]->TurnOn();
+    aSelfDefense[7]->TurnOn();
   }
 }
 
@@ -725,21 +725,17 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //Startsicht
   if(!g_chooserFinished)
   {
-   iX = 2865; iY = 1135;
-   return 1;
+    iX = 2865; iY = 1135;
+    return 1;
   }
 
   //HTF/MR/LMS-Spielziel
   if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GLMS))
   {
-   if(iTeam == 1)
-   {
-    return [[1140, 880], [1270, 880], [1655, 970]];
-   }
-   if(iTeam == 2)
-   {
-    return [[4070, 970], [4460, 880], [4590, 880]];
-   }
-   return 1;
+    if(iTeam == 1)
+      return [[1140, 880], [1270, 880], [1655, 970]];
+    if(iTeam == 2)
+      return [[4070, 970], [4460, 880], [4590, 880]];
+    return 1;
   }
 }

@@ -555,20 +555,16 @@ func CreateDecoration()
 func FlagCaptured(object pPoint, int iTeam)
 {
   if(pPoint == aFlag[0])
-   aSelfDefense[3]->SetTeam(iTeam);
+    aSelfDefense[3]->SetTeam(iTeam);
 
   if(pPoint == aFlag[1])
-  {
-   aSelfDefense[0]->SetTeam(iTeam);
-  }
+    aSelfDefense[0]->SetTeam(iTeam);
 
   if(pPoint == aFlag[3])
-  {
-   aSelfDefense[1]->SetTeam(iTeam);
-  }
+    aSelfDefense[1]->SetTeam(iTeam);
 
   if(pPoint == aFlag[4])
-   aSelfDefense[2]->SetTeam(iTeam);
+    aSelfDefense[2]->SetTeam(iTeam);
 }
 
 /* Regelwähler */
@@ -584,7 +580,7 @@ public func ChooserFinished()
   //Teams abfragen
   var aTeams = [false,false,false,false,false];
   for(var i = 0; i < GetPlayerCount(); i++)
-   aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
+    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
   //SSA Besitzer setzen
   if(aTeams[1] == true)
@@ -602,130 +598,125 @@ public func ChooserFinished()
   aSelfDefense[2]->TurnOn();
   aSelfDefense[3]->TurnOn();
 
-  //OP-Spielziel
+  //OC-Spielziel
   if(FindObject(GOCC))
   {
-   //Flaggenposten
-   aFlag[0] = CreateObject(OFPL,505,330,NO_OWNER);
-   aFlag[0] -> AddSpawnPoint(380, 290);
-   aFlag[0] -> AddSpawnPoint(685, 290);
-   aFlag[0] -> AddSpawnPoint(625, 320);
-   if(aTeams[4] == true)
-   {
-    aFlag[0]->Set("$Flag1$",100,2);
-    aFlag[0]->Capture(4,1);
-   }
-   else
-   {
-    aFlag[0]->Set("$Flag1$",0,2);
-   }
+    //Flaggenposten
+    aFlag[0] = CreateObject(OFPL,505,330,NO_OWNER);
+    aFlag[0] -> AddSpawnPoint(380, 290);
+    aFlag[0] -> AddSpawnPoint(685, 290);
+    aFlag[0] -> AddSpawnPoint(625, 320);
+    if(aTeams[4] == true)
+    {
+      aFlag[0]->Set("$Flag1$",0,4);
+      aFlag[0]->Capture(4,1);
+    }
+    else
+    {
+      aFlag[0]->Set("$Flag1$");
+    }
 
-   aFlag[1] = CreateObject(OFPL,565,860,NO_OWNER);
-   aFlag[1] -> AddSpawnPoint(325, 870);
-   aFlag[1] -> AddSpawnPoint(685, 850);
-   aFlag[1] -> AddSpawnPoint(630, 850);
-   if(aTeams[1] == true)
-   {
-    aFlag[1]->Set("$Flag2$",100,2);
-    aFlag[1]->Capture(1,1);
-   }
-   else
-   {
-    aFlag[1]->Set("$Flag2$",0,2);
-   }
+    aFlag[1] = CreateObject(OFPL,565,860,NO_OWNER);
+    aFlag[1] -> AddSpawnPoint(325, 870);
+    aFlag[1] -> AddSpawnPoint(685, 850);
+    aFlag[1] -> AddSpawnPoint(630, 850);
+    if(aTeams[1] == true)
+    {
+      aFlag[1]->Set("$Flag2$",0,4);
+      aFlag[1]->Capture(1,1);
+    }
+    else
+    {
+      aFlag[1]->Set("$Flag2$");
+    }
 
-   aFlag[2] = CreateObject(OFPL,915,590,NO_OWNER);
-   aFlag[2] -> AddSpawnPoint(800, 680);
-   aFlag[2] -> AddSpawnPoint(1030, 680);
-   aFlag[2]->Set("$Flag3$",150,2);
+    aFlag[2] = CreateObject(OFPL,915,590,NO_OWNER);
+    aFlag[2] -> AddSpawnPoint(800, 680);
+    aFlag[2] -> AddSpawnPoint(1030, 680);
+    aFlag[2]->Set("$Flag3$");
 
-   aFlag[3] = CreateObject(OFPL,1325,330,NO_OWNER);
-   aFlag[3] -> AddSpawnPoint(1450, 290);
-   aFlag[3] -> AddSpawnPoint(1145, 290);
-   aFlag[3] -> AddSpawnPoint(1205, 320);
-   if(aTeams[2] == true)
-   {
-    aFlag[3]->Set("$Flag5$",100,2);
-    aFlag[3]->Capture(2,1);
-   }
-   else
-   {
-    aFlag[3]->Set("$Flag5$",0,2);
-   }
+    aFlag[3] = CreateObject(OFPL,1325,330,NO_OWNER);
+    aFlag[3] -> AddSpawnPoint(1450, 290);
+    aFlag[3] -> AddSpawnPoint(1145, 290);
+    aFlag[3] -> AddSpawnPoint(1205, 320);
+    if(aTeams[2] == true)
+    {
+      aFlag[3]->Set("$Flag5$",0,4);
+      aFlag[3]->Capture(2,1);
+    }
+    else
+    {
+      aFlag[3]->Set("$Flag5$");
+    }
 
-   aFlag[4] = CreateObject(OFPL,1260,860,NO_OWNER);
-   aFlag[4] -> AddSpawnPoint(1505, 870);
-   aFlag[4] -> AddSpawnPoint(1145, 850);
-   aFlag[4] -> AddSpawnPoint(1205, 850);
-   if(aTeams[3] == true)
-   {
-    aFlag[4]->Set("$Flag4$",100,2);
-    aFlag[4]->Capture(3,1);
-   }
-   else
-   {
-    aFlag[4]->Set("$Flag4$",0,2);
-   }
+    aFlag[4] = CreateObject(OFPL,1260,860,NO_OWNER);
+    aFlag[4] -> AddSpawnPoint(1505, 870);
+    aFlag[4] -> AddSpawnPoint(1145, 850);
+    aFlag[4] -> AddSpawnPoint(1205, 850);
+    if(aTeams[3] == true)
+    {
+      aFlag[4]->Set("$Flag4$",0,4);
+      aFlag[4]->Capture(3,1);
+    }
+    else
+    {
+      aFlag[4]->Set("$Flag4$");
+    }
 
-   //Alarmleuchten
-   //Flaggenposten 1
-   var warn = CreateObject(ALGH, 655, 210, -1);
-   warn->SetR(-180);
-   AddGOCCWarnEffect(warn,aFlag[0]);
-   warn = CreateObject(ALGH, 555, 280, -1);
-   warn->SetR(-180);
-   AddGOCCWarnEffect(warn,aFlag[0]);
+    //Alarmleuchten
+    var warn = CreateObject(ALGH, 655, 210, -1);
+    warn->SetR(-180);
+    AddGOCCWarnEffect(warn,aFlag[0]);
+    warn = CreateObject(ALGH, 555, 280, -1);
+    warn->SetR(-180);
+    AddGOCCWarnEffect(warn,aFlag[0]);
 
-   //Flaggenposten 2
-   warn = CreateObject(ALGH, 575, 780, -1);
-   warn->SetR(-180);
-   AddGOCCWarnEffect(warn,aFlag[1]);
-   warn = CreateObject(ALGH, 700, 890, -1);
-   warn->SetR(-180);
-   AddGOCCWarnEffect(warn,aFlag[1]);
+    warn = CreateObject(ALGH, 575, 780, -1);
+    warn->SetR(-180);
+    AddGOCCWarnEffect(warn,aFlag[1]);
+    warn = CreateObject(ALGH, 700, 890, -1);
+    warn->SetR(-180);
+    AddGOCCWarnEffect(warn,aFlag[1]);
 
-   //Flaggenposten 3
-   warn = CreateObject(ALGH, 790, 610, -1);
-   warn->SetR(-180);
-   AddGOCCWarnEffect(warn,aFlag[2]);
-   warn = CreateObject(ALGH, 1040, 610, -1);
-   warn->SetR(-180);
-   AddGOCCWarnEffect(warn,aFlag[2]);
+    warn = CreateObject(ALGH, 790, 610, -1);
+    warn->SetR(-180);
+    AddGOCCWarnEffect(warn,aFlag[2]);
+    warn = CreateObject(ALGH, 1040, 610, -1);
+    warn->SetR(-180);
+    AddGOCCWarnEffect(warn,aFlag[2]);
 
-   //Flaggenposten 4
-   warn = CreateObject(ALGH, 1175, 210, -1);
-   warn->SetR(-180);
-   AddGOCCWarnEffect(warn,aFlag[3]);
-   warn = CreateObject(ALGH, 1275, 280, -1);
-   warn->SetR(-180);
-   AddGOCCWarnEffect(warn,aFlag[3]);
+    warn = CreateObject(ALGH, 1175, 210, -1);
+    warn->SetR(-180);
+    AddGOCCWarnEffect(warn,aFlag[3]);
+    warn = CreateObject(ALGH, 1275, 280, -1);
+    warn->SetR(-180);
+    AddGOCCWarnEffect(warn,aFlag[3]);
 
-   //Flaggenposten 5
-   warn = CreateObject(ALGH, 1255, 780, -1);
-   warn->SetR(-180);
-   AddGOCCWarnEffect(warn,aFlag[4]);
-   warn = CreateObject(ALGH, 1130, 890, -1);
-   warn->SetR(-180);
-   AddGOCCWarnEffect(warn,aFlag[4]);
+    warn = CreateObject(ALGH, 1255, 780, -1);
+    warn->SetR(-180);
+    AddGOCCWarnEffect(warn,aFlag[4]);
+    warn = CreateObject(ALGH, 1130, 890, -1);
+    warn->SetR(-180);
+    AddGOCCWarnEffect(warn,aFlag[4]);
   }
 
   //HTF-Spielziel
   if(FindObject(GHTF))
   {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 915,590, -1);
-   flag->~Set("$Flag3$",150);
+    //Flaggenposten
+    var flag = CreateObject(OFPL, 915,590, -1);
+    flag->~Set("$Flag3$",150);
   }
 
   //MR-Spielziel
   if(FindObject(GMNR))
   {
-   //Geldsäcke
-   AddMoneySpawn(450, 585, [15]);
-   AddMoneySpawn(915, 225, [15]);
-   AddMoneySpawn(915, 580, [20]);
-   AddMoneySpawn(915, 925, [15]);
-   AddMoneySpawn(1380, 585, [15]);
+    //Geldsäcke
+    AddMoneySpawn(450, 585, [15]);
+    AddMoneySpawn(915, 225, [15]);
+    AddMoneySpawn(915, 580, [20]);
+    AddMoneySpawn(915, 925, [15]);
+    AddMoneySpawn(1380, 585, [15]);
   }
 }
 
@@ -736,29 +727,21 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //Startsicht
   if(!g_chooserFinished)
   {
-   iX = 915; iY = 730;
-   return 1;
+    iX = 915; iY = 730;
+    return 1;
   }
 
   //HTF/MR/LMS/DM-Spielziel
   if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM))
   {
-   if(iTeam == 1)
-   {
-    return [[320, 870], [685, 850]];
-   }
-   if(iTeam == 2)
-   {
-    return [[1450, 290], [1200, 320]];
-   }
-   if(iTeam == 3)
-   {
-    return [[1145, 850], [1510, 870]];
-   }
-   if(iTeam == 4)
-   {
-    return [[380, 290], [620, 320]];
-   }
-   return 1;
+    if(iTeam == 1)
+      return [[320, 870], [685, 850]];
+    if(iTeam == 2)
+      return [[1450, 290], [1200, 320]];
+    if(iTeam == 3)
+      return [[1145, 850], [1510, 870]];
+    if(iTeam == 4)
+      return [[380, 290], [620, 320]];
+    return 1;
   }
 }

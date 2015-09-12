@@ -41,12 +41,9 @@ func CreateInterior()
   CreateObject(LADR, 190, 690, -1)->Set(24);
   CreateObject(LADR, 430, 488, -1)->Set(15);
   CreateObject(LADR, 570, 692, -1)->Set(22);
-
   CreateObject(LADR, 810, 420, -1)->Set(9);
-
   CreateObject(LADR, 940, 400, -1)->Set(20);
   CreateObject(LADR, 1025, 315, -1)->Set(20);
-
   CreateObject(LADR, 1050, 798, -1)->Set(10);
   CreateObject(LADR, 1145, 190, -1)->Set(5);
   CreateObject(LADR, 1360, 572, -1)->Set(33);
@@ -404,8 +401,8 @@ func PreparePillarCollapse(int iPlr)
   //Lampen ausschalten
   for(var obj in FindObjects(Find_ID(CLGH), Find_InRect(270,620,200,10)))
   {
-   obj->Damage();
-   obj->TurnOff();
+    obj->Damage();
+    obj->TurnOff();
   }
 
   //Zerstörung planen
@@ -431,11 +428,11 @@ func OnPillarCollapse(int iPlr)
 
   //Lebewesen verletzen
   for(var obj in FindObjects(Find_OCF(OCF_Alive), Find_InRect(240,620,280,10)))
-   DoDmg(200, DMG_Explosion, obj, 0, iPlr + 1);
+    DoDmg(200, DMG_Explosion, obj, 0, iPlr + 1);
 
   //Lampen entfernen
   for(var obj in FindObjects(Find_ID(CLGH), Find_InRect(270,620,200,10)))
-   RemoveObject(obj);
+    RemoveObject(obj);
 
   //Trümmer verschleudern
   var debris = CreateObject(DBRS, 280,630, iPlr);
@@ -471,11 +468,11 @@ public func ChooserFinished()
   //MR-Spielziel
   if(FindObject(GMNR))
   {
-   //Geldsäcke
-   AddMoneySpawn(490, 355, [20]);
-   AddMoneySpawn(850, 705, [20]);
-   AddMoneySpawn(1090, 145, [20]);
-   AddMoneySpawn(1320, 845, [20]);
+    //Geldsäcke
+    AddMoneySpawn(490, 355, [20]);
+    AddMoneySpawn(850, 705, [20]);
+    AddMoneySpawn(1090, 145, [20]);
+    AddMoneySpawn(1320, 845, [20]);
   }
 }
 
@@ -486,30 +483,23 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //Startsicht
   if(!g_chooserFinished)
   {
-   iX = 875; iY = 630;
-   return 1;
+    iX = 875; iY = 630;
+    return 1;
   }
 
   //MR/LMS/DM-Spielziel
   if(FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM))
   {
-   //Gesonderte Spawnpoints bei 2 Teams
-   if(GetActiveTeamCount() == 2)
-   {
-    if(iTeam == GetActiveTeamByIndex(0))
+    //Gesonderte Spawnpoints bei 2 Teams
+    if(GetActiveTeamCount() == 2)
     {
-     return [[210, 480], [260, 700], [520, 490]];
-    }
-    if(iTeam == GetActiveTeamByIndex(1))
-    {
-     return [[1535, 300], [1635, 240], [1690, 420]];
+      if(iTeam == GetActiveTeamByIndex(0))
+        return [[210, 480], [260, 700], [520, 490]];
+      if(iTeam == GetActiveTeamByIndex(1))
+        return [[1535, 300], [1635, 240], [1690, 420]];
     }
     return 1;
-   }
-   else
-   {
-    return [[210, 480], [260, 700], [595, 410], [1155, 180], [1525, 650], [1635, 240], [1690, 420]];
-   }
-   return 1;
   }
+  else
+    return [[210, 480], [260, 700], [595, 410], [1155, 180], [1525, 650], [1635, 240], [1690, 420]];
 }

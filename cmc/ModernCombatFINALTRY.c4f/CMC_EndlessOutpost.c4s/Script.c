@@ -308,25 +308,25 @@ func CreateInterior()
 
   //Hydrauliküren
   aDoor[00] = CreateObject(SEDR,1625, 560,-1);
-   aDoor[00]->Lock();
+  aDoor[00]->Lock();
   aDoor[01] = CreateObject(SEDR,1645, 430,-1);
-   aDoor[01]->Lock();
+  aDoor[01]->Lock();
   aDoor[02] = CreateObject(SEDR,1755, 260,-1);
-   aDoor[02]->Lock();
+  aDoor[02]->Lock();
   aDoor[03] = CreateObject(SEDR,1850, 200,-1);
-   aDoor[03]->Lock();
+  aDoor[03]->Lock();
   aDoor[04] = CreateObject(HNG2,1835,140,-1);
 
   aDoor[05] = CreateObject(HNG2,1755,550,-1);
   aDoor[06] = CreateObject(HA4K, 1840, 323, -1);
-   aDoor[06]->Lock();
+  aDoor[06]->Lock();
   aDoor[07] = CreateObject(HA4K, 2050, 293, -1);
-   aDoor[07]->Lock();
+  aDoor[07]->Lock();
 
   aDoor[08] = CreateObject(SEDR,2250,110,-1);
-   aDoor[08]->Lock();
+  aDoor[08]->Lock();
   aDoor[09] = CreateObject(HA4K, 2270, 493, -1);
-   aDoor[09]->Lock();
+  aDoor[09]->Lock();
   aDoor[10] = CreateObject(HNG2,2305,490,-1);
 
   //Lampen
@@ -743,10 +743,10 @@ func CreateOptionalFeatures()
 func FlagCaptured(object pPoint, int iTeam)
 {
   if(pPoint == aFlag[1])
-   aSelfDefense[0]->SetTeam(iTeam);
+    aSelfDefense[0]->SetTeam(iTeam);
 
   if(pPoint == aFlag[2])
-   aSelfDefense[1]->SetTeam(iTeam);
+    aSelfDefense[1]->SetTeam(iTeam);
 }
 
 /* Regelwähler */
@@ -762,230 +762,230 @@ public func ChooserFinished()
   //Teams abfragen
   var aTeams = [false,false,false,false,false];
   for(var i = 0; i < GetPlayerCount(); i++)
-   aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
+    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //OP-Spielziel
+  //OCC-Spielziel
   if(FindObject(GOCC))
   {
-   //Flaggenposten
-   aFlag[0] = CreateObject(OFPL,630,422,NO_OWNER);
-   aFlag[0] -> AddSpawnPoint(440,340);
-   aFlag[0] -> AddSpawnPoint(520,640);
-   aFlag[0] -> AddSpawnPoint(800,640);
-   if(aTeams[1] == true)
-   {
-    aFlag[0]->Set("$Flag1$",100,2);
-    aFlag[0]->Capture(1,1);
-   }
-   else
-   {
-    aFlag[0]->Set("$Flag1$",0,2);
-   }
+    //Flaggenposten
+    aFlag[0] = CreateObject(OFPL,630,422,NO_OWNER);
+    aFlag[0] -> AddSpawnPoint(440,340);
+    aFlag[0] -> AddSpawnPoint(520,640);
+    aFlag[0] -> AddSpawnPoint(800,640);
+    if(aTeams[1] == true)
+    {
+      aFlag[0]->Set("$Flag1$",0,4);
+      aFlag[0]->Capture(1,1);
+    }
+    else
+    {
+      aFlag[0]->Set("$Flag1$");
+    }
 
-   aFlag[1] = CreateObject(OFPL,1330,430,NO_OWNER);
-   aFlag[1] -> AddSpawnPoint(1330,150);
-   aFlag[1] -> AddSpawnPoint(1450,190);
-   aFlag[1] -> AddSpawnPoint(1540,190);
-   aFlag[1]->Set("$Flag2$",0,2);
+    aFlag[1] = CreateObject(OFPL,1330,430,NO_OWNER);
+    aFlag[1] -> AddSpawnPoint(1330,150);
+    aFlag[1] -> AddSpawnPoint(1450,190);
+    aFlag[1] -> AddSpawnPoint(1540,190);
+    aFlag[1]->Set("$Flag2$");
 
-   aFlag[2] = CreateObject(OFPL,2070,493,NO_OWNER);
-   aFlag[2] -> AddSpawnPoint(2340,390);
-   aFlag[2] -> AddSpawnPoint(2380,390);
-   aFlag[2] -> AddSpawnPoint(2180,480);
-   aFlag[2]->Set("$Flag3$",0,2);
+    aFlag[2] = CreateObject(OFPL,2070,493,NO_OWNER);
+    aFlag[2] -> AddSpawnPoint(2340,390);
+    aFlag[2] -> AddSpawnPoint(2380,390);
+    aFlag[2] -> AddSpawnPoint(2180,480);
+    aFlag[2]->Set("$Flag3$");
 
-   aFlag[3] = CreateObject(OFPL,1985,290,NO_OWNER);
-   aFlag[3] -> AddSpawnPoint(2230,310);
-   aFlag[3] -> AddSpawnPoint(2020,60);
-   aFlag[3] -> AddSpawnPoint(2190,100);
-   if(aTeams[2] == true)
-   {
-    aFlag[3]->Set("$Flag4$",100,2);
-    aFlag[3]->Capture(2,1);
-   }
-   else
-   {
-    aFlag[3]->Set("$Flag4$",0,2);
-   }
+    aFlag[3] = CreateObject(OFPL,1985,290,NO_OWNER);
+    aFlag[3] -> AddSpawnPoint(2230,310);
+    aFlag[3] -> AddSpawnPoint(2020,60);
+    aFlag[3] -> AddSpawnPoint(2190,100);
+    if(aTeams[2] == true)
+    {
+      aFlag[3]->Set("$Flag4$",0,4);
+      aFlag[3]->Capture(2,1);
+    }
+    else
+    {
+      aFlag[3]->Set("$Flag4$");
+    }
 
-   //Grenzen setzen
-   CreateObject(BRDR, 360, 0, -1)->Set(0);
-   CreateObject(BRDR, 2410, 0, -1)->Set(1);
+    //Grenzen setzen
+    CreateObject(BRDR, 360, 0, -1)->Set(0);
+    CreateObject(BRDR, 2410, 0, -1)->Set(1);
 
-   //Türen öffnen
-   aDoor[00]->Open();
-   aDoor[01]->Open();
-   aDoor[02]->Open();
-   aDoor[03]->Open();
-   aDoor[04]->Open();
+    //Türen öffnen
+    aDoor[00]->Open();
+    aDoor[01]->Open();
+    aDoor[02]->Open();
+    aDoor[03]->Open();
+    aDoor[04]->Open();
 
-   aDoor[05]->Open();
-   aDoor[06]->Unlock();
-   aDoor[07]->Unlock();
+    aDoor[05]->Open();
+    aDoor[06]->Unlock();
+    aDoor[07]->Unlock();
 
-   //Objekt entfernen
-   RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1480, 240, 40, 40)));
+    //Objekt entfernen
+    RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1480, 240, 40, 40)));
 
-   //Geschützstellungen
-   CreateObject(GNET, 605, 350, -1)->Set(0,90,1);
-   CreateObject(GNET, 2090, 210, -1)->Set(0,-90,1);
+    //Geschützstellungen
+    CreateObject(GNET, 605, 350, -1)->Set(0,90,1);
+    CreateObject(GNET, 2090, 210, -1)->Set(0,-90,1);
 
-   //Hinweisschilder
-   var sign = CreateObject(SGNP, 1180, 410, -1);
-   sign->SetMode(1);
-   sign->Set("Turret");
-   sign = CreateObject(SGNP, 1810, 550, -1);
-   sign->SetMode(1);
-   sign->Set("Turret");
+    //Hinweisschilder
+    var sign = CreateObject(SGNP, 1180, 410, -1);
+    sign->SetMode(1);
+    sign->Set("Turret");
+    sign = CreateObject(SGNP, 1810, 550, -1);
+    sign->SetMode(1);
+    sign->Set("Turret");
 
-   //Konsole erstellen
-   CreateObject(CONS, 2210, 485, -1)->Set(aSelfDefense[1]);
+    //Konsole erstellen
+    CreateObject(CONS, 2210, 485, -1)->Set(aSelfDefense[1]);
 
-   //Leitern
-   CreateObject(LADR, 1815, 173, -1)->Set(12);
-   CreateObject(LADR, 2050, 457, -1)->Set(20);
-   CreateObject(LADR, 2105, 190, -1)->Set(9);
+    //Leitern
+    CreateObject(LADR, 1815, 173, -1)->Set(12);
+    CreateObject(LADR, 2050, 457, -1)->Set(20);
+    CreateObject(LADR, 2105, 190, -1)->Set(9);
 
-   //Metallkisten
-   CreateObject(MWCR, 2130, 490, -1);
-   CreateObject(MWCR, 2150, 490, -1);
-   CreateObject(MWCR, 2260, 490, -1);
-   CreateObject(MWCR, 2280, 454, -1);
-   CreateObject(MWCR, 2280, 472, -1);
-   CreateObject(MWCR, 2280, 490, -1);
+    //Metallkisten
+    CreateObject(MWCR, 2130, 490, -1);
+    CreateObject(MWCR, 2150, 490, -1);
+    CreateObject(MWCR, 2260, 490, -1);
+    CreateObject(MWCR, 2280, 454, -1);
+    CreateObject(MWCR, 2280, 472, -1);
+    CreateObject(MWCR, 2280, 490, -1);
 
-   //Kisten
-   CreateObject(WCR2, 1140, 410, -1);
-   CreateObject(WCR2, 1160, 410, -1);
-   CreateObject(WCR2, 1710, 180, -1);
-   CreateObject(WCR2, 2140, 472, -1);
+    //Kisten
+    CreateObject(WCR2, 1140, 410, -1);
+    CreateObject(WCR2, 1160, 410, -1);
+    CreateObject(WCR2, 1710, 180, -1);
+    CreateObject(WCR2, 2140, 472, -1);
 
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Raketen
-    PlaceSpawnpoint(MBOX, 1230, 155);
-    PlaceSpawnpoint(MBOX, 1830, 385);
+    //Zusätzliche Munition
+    if(!FindObject(NOAM))
+    {
+      //Raketen
+      PlaceSpawnpoint(MBOX, 1230, 155);
+      PlaceSpawnpoint(MBOX, 1830, 385);
 
-    //Gewehrgranaten
-    PlaceSpawnpoint(GBOX, 1930, 545);
-   }
+      //Gewehrgranaten
+      PlaceSpawnpoint(GBOX, 1930, 545);
+    }
   }
 
-  //Assault-Spielziel
+  //AS-Spielziel
   if(FindObject(GASS))
   {
-   //Zielobjekte
-   AddAssaultTarget(CCP2, 1330, 430, 30*30, 2, "$Target1$", 0, [[[1450, 200], [1550, 200], [1650, 200]], [[530, 350], [570, 350], [570, 450]]]);
-   AddAssaultTarget(PMP2, 1550, 560, 30*30, 2, "$Target2$", 1, [[[1450, 200], [1550, 200], [1650, 200]], [[530, 350], [570, 350], [570, 450]]]);
-   AddAssaultTarget(CMSN, 2265, 320, 30*30, 2, "$Target3$", 2, [[[1940, 70], [2410, 110], [2450, 110]], [[1510, 260], [1530, 360],[1530, 430]]]);
-   AddAssaultTarget(LBPC, 2080, 493, 30*30, 2, "$Target4$", 3, [[[2150, 210], [2210, 110], [2250, 320]], [[1450, 200], [1400, 180], [1510, 260]]]);
-   AddAssaultTarget(CCP2, 2580, 510, 25*30, 2, "$Target5$", 4, [[[2280, 110], [2450, 110]], [[1955, 550], [1870, 522], [1820, 390]]]);
-   AddAssaultTarget(LBPC, 2600, 320, 30*30, 2, "$Target4$", 5, [[[2280, 110], [2450, 110]], [[1955, 550], [1870, 522], [1820, 390]]]);
-   AddAssaultTarget(CMSN, 2750, 210, 25*30, 2, "$Target6$", 6, [[[2280, 110], [2450, 110]], [[1955, 550], [1870, 522], [1820, 390]]]);
-   AddAssaultTarget(GSTA, 2860, 320, 25*30, 2, "$Target7$", 7, [[[2280, 110], [2450, 110]], [[1955, 550], [1870, 522], [1820, 390]]]);
-   AddAssaultTarget(CCP1, 2855, 500, 25*30, 2, "$Target1$", 8, [[[2280, 110], [2450, 110]], [[1955, 550], [1870, 522], [1820, 390]]]);
+    //Zielobjekte
+    AddAssaultTarget(CCP2, 1330, 430, 30*30, 2, "$Target1$", 0, [[[1450, 200], [1550, 200], [1650, 200]], [[530, 350], [570, 350], [570, 450]]]);
+    AddAssaultTarget(PMP2, 1550, 560, 30*30, 2, "$Target2$", 1, [[[1450, 200], [1550, 200], [1650, 200]], [[530, 350], [570, 350], [570, 450]]]);
+    AddAssaultTarget(CMSN, 2265, 320, 30*30, 2, "$Target3$", 2, [[[1940, 70], [2410, 110], [2450, 110]], [[1510, 260], [1530, 360],[1530, 430]]]);
+    AddAssaultTarget(LBPC, 2080, 493, 30*30, 2, "$Target4$", 3, [[[2150, 210], [2210, 110], [2250, 320]], [[1450, 200], [1400, 180], [1510, 260]]]);
+    AddAssaultTarget(CCP2, 2580, 510, 25*30, 2, "$Target5$", 4, [[[2280, 110], [2450, 110]], [[1955, 550], [1870, 522], [1820, 390]]]);
+    AddAssaultTarget(LBPC, 2600, 320, 30*30, 2, "$Target4$", 5, [[[2280, 110], [2450, 110]], [[1955, 550], [1870, 522], [1820, 390]]]);
+    AddAssaultTarget(CMSN, 2750, 210, 25*30, 2, "$Target6$", 6, [[[2280, 110], [2450, 110]], [[1955, 550], [1870, 522], [1820, 390]]]);
+    AddAssaultTarget(GSTA, 2860, 320, 25*30, 2, "$Target7$", 7, [[[2280, 110], [2450, 110]], [[1955, 550], [1870, 522], [1820, 390]]]);
+    AddAssaultTarget(CCP1, 2855, 500, 25*30, 2, "$Target1$", 8, [[[2280, 110], [2450, 110]], [[1955, 550], [1870, 522], [1820, 390]]]);
 
-   //Ziele verbinden
-   ConnectAssaultTargets([0, 1]);
-   ConnectAssaultTargets([4, 5, 6, 7, 8]);
+    //Ziele verbinden
+    ConnectAssaultTargets([0, 1]);
+    ConnectAssaultTargets([4, 5, 6, 7, 8]);
 
-   //Grenze setzen
-   CreateObject(BRDR, 360, 0, -1)->Set(0);
+    //Grenze setzen
+    CreateObject(BRDR, 360, 0, -1)->Set(0);
 
-   //SSA Besitzer setzen
-   if(aTeams[2] == true)
-   {aSelfDefense[0]->SetTeam(2); aSelfDefense[1]->SetTeam(2);}
+    //SSA Besitzer setzen
+    if(aTeams[2] == true)
+    {aSelfDefense[0]->SetTeam(2); aSelfDefense[1]->SetTeam(2);}
 
-   //SSA anschalten
-   aSelfDefense[0]->TurnOn();
-   aSelfDefense[1]->TurnOn();
+    //SSA anschalten
+    aSelfDefense[0]->TurnOn();
+    aSelfDefense[1]->TurnOn();
 
-   //Konsole
-   CreateObject(CONS, 1835, 540, -1)->Set(aSelfDefense[1]);
+    //Konsole
+    CreateObject(CONS, 1835, 540, -1)->Set(aSelfDefense[1]);
 
-   //Geschützstellungen
-   CreateObject(GNET, 605, 350, -1)->Set(0,90,1);
-   aStationary[0] = CreateObject(GNET, 1210, 360, -1);
-   aStationary[0] -> Set(0,-90);
-   aStationary[1] = CreateObject(GNET, 2090, 210, -1);
-   aStationary[1] -> Set(0,-90);
-   aStationary[2] = CreateObject(GNET, 2130, 490, -1);
-   aStationary[2] -> Set(0,-90,1);
-   aStationary[3] = CreateObject(GNET, 2815, 450, -1);
-   aStationary[3] -> Set(0,-90);
+    //Geschützstellungen
+    CreateObject(GNET, 605, 350, -1)->Set(0,90,1);
+    aStationary[0] = CreateObject(GNET, 1210, 360, -1);
+    aStationary[0]->Set(0,-90);
+    aStationary[1] = CreateObject(GNET, 2090, 210, -1);
+    aStationary[1]->Set(0,-90);
+    aStationary[2] = CreateObject(GNET, 2130, 490, -1);
+    aStationary[2]->Set(0,-90,1);
+    aStationary[3] = CreateObject(GNET, 2815, 450, -1);
+    aStationary[3]->Set(0,-90);
 
-   //Versorgungskiste (APW)
-   var crate = CreateObject(AMCT, 1340, 160, -1);
-   crate->Set(ATWN);
+    //Versorgungskiste (APW)
+    var crate = CreateObject(AMCT, 1340, 160, -1);
+    crate->Set(ATWN);
 
-   //Hinweisschilder
-   var sign = CreateObject(SGNP, 1180, 410, -1);
-   sign->SetMode(1);
-   sign->Set("Turret");
-   sign = CreateObject(SGNP, 1810, 550, -1);
-   sign->SetMode(1);
-   sign->Set("Turret");
+    //Hinweisschilder
+    var sign = CreateObject(SGNP, 1180, 410, -1);
+    sign->SetMode(1);
+    sign->Set("Turret");
+    sign = CreateObject(SGNP, 1810, 550, -1);
+    sign->SetMode(1);
+    sign->Set("Turret");
 
-   //Objekte entfernen
-   RemoveObject(FindObject2(Find_ID(PANE),Find_InRect(1200, 330, 805, 360)));
-   RemoveObject(FindObject2(Find_ID(BECR),Find_InRect(2800, 430, 20, 20)));
+    //Objekte entfernen
+    RemoveObject(FindObject2(Find_ID(PANE),Find_InRect(1200, 330, 805, 360)));
+    RemoveObject(FindObject2(Find_ID(BECR),Find_InRect(2800, 430, 20, 20)));
   }
 
   //LMS/DM-Spielziel
   if(FindObject(GLMS) || FindObject(GTDM))
   {
-   //Grenzen setzen
-   CreateObject(BRDR, 360, 0, -1)->Set(0);
-   CreateObject(BRDR, 2410, 0, -1)->Set(1);
+    //Grenzen setzen
+    CreateObject(BRDR, 360, 0, -1)->Set(0);
+    CreateObject(BRDR, 2410, 0, -1)->Set(1);
 
-   //Türen öffnen
-   aDoor[00]->Open();
-   aDoor[01]->Open();
-   aDoor[02]->Open();
-   aDoor[03]->Open();
-   aDoor[04]->Open();
+    //Türen öffnen
+    aDoor[00]->Open();
+    aDoor[01]->Open();
+    aDoor[02]->Open();
+    aDoor[03]->Open();
+    aDoor[04]->Open();
 
-   aDoor[05]->Open();
-   aDoor[06]->Unlock();
-   aDoor[07]->Unlock();
+    aDoor[05]->Open();
+    aDoor[06]->Unlock();
+    aDoor[07]->Unlock();
 
-   //Objekte entfernen
-   RemoveObject(aSelfDefense[0]);
-   RemoveObject(aSelfDefense[1]);
-   RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1480, 240, 40, 40)));
+    //Objekte entfernen
+    RemoveObject(aSelfDefense[0]);
+    RemoveObject(aSelfDefense[1]);
+    RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1480, 240, 40, 40)));
 
-   //Geschützstellungen
-   CreateObject(GNET, 605, 350, -1)->Set(0,90,1);
-   CreateObject(GNET, 2090, 210, -1)->Set(0,-90,1);
+    //Geschützstellungen
+    CreateObject(GNET, 605, 350, -1)->Set(0,90,1);
+    CreateObject(GNET, 2090, 210, -1)->Set(0,-90,1);
 
-   //Leiter
-   CreateObject(LADR, 2050, 457, -1)->Set(20);
+    //Leiter
+    CreateObject(LADR, 2050, 457, -1)->Set(20);
 
-   //Metallkisten
-   CreateObject(MWCR, 2130, 490, -1);
-   CreateObject(MWCR, 2150, 490, -1);
-   CreateObject(MWCR, 2260, 490, -1);
-   CreateObject(MWCR, 2280, 454, -1);
-   CreateObject(MWCR, 2280, 472, -1);
-   CreateObject(MWCR, 2280, 490, -1);
+    //Metallkisten
+    CreateObject(MWCR, 2130, 490, -1);
+    CreateObject(MWCR, 2150, 490, -1);
+    CreateObject(MWCR, 2260, 490, -1);
+    CreateObject(MWCR, 2280, 454, -1);
+    CreateObject(MWCR, 2280, 472, -1);
+    CreateObject(MWCR, 2280, 490, -1);
 
-   //Kisten
-   CreateObject(WCR2, 1140, 410, -1);
-   CreateObject(WCR2, 1160, 410, -1);
-   CreateObject(WCR2, 1710, 180, -1);
-   CreateObject(WCR2, 2140, 472, -1);
+    //Kisten
+    CreateObject(WCR2, 1140, 410, -1);
+    CreateObject(WCR2, 1160, 410, -1);
+    CreateObject(WCR2, 1710, 180, -1);
+    CreateObject(WCR2, 2140, 472, -1);
 
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Raketen
-    PlaceSpawnpoint(MBOX, 1230, 155);
-    PlaceSpawnpoint(MBOX, 1830, 385);
+    //Zusätzliche Munition
+    if(!FindObject(NOAM))
+    {
+      //Raketen
+      PlaceSpawnpoint(MBOX, 1230, 155);
+      PlaceSpawnpoint(MBOX, 1830, 385);
 
-    //Gewehrgranaten
-    PlaceSpawnpoint(GBOX, 1930, 545);
-   }
+      //Gewehrgranaten
+      PlaceSpawnpoint(GBOX, 1930, 545);
+    }
   }
 }
 
@@ -996,229 +996,229 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   //Ziel 1 und 2
   if(!iIndex || iIndex == 1)
   {
-   if(fConnectedDestroyed)
-   {
-    //Teamgrenze setzen
-    FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),1700,0,1,1);
-
-    //Rauch
-    CreateParticle("GunSmoke",1325,340,0,-10,350,1);
-    Smoke(925, 340, 30);
-
-    //Türen öffnen
-    aDoor[00]->Open();
-    aDoor[01]->Open();
-    aDoor[02]->Open();
-    aDoor[03]->Open();
-    aDoor[04]->Open();
-    aDoor[08]->Open();
-
-    //SSA zerstören
-    aSelfDefense[0]->Disarm();
-    DecoExplode(30, aSelfDefense[0]);
-
-    //Geschützstellung entfernen
-    aStationary[0]->DecoExplode(30);
-
-    //Lampen ausschalten
-    for(var obj in FindObjects(Find_Or(Find_ID(BLGH), Find_ID(CLGH), Find_ID(LLGH), Find_ID(ETLT)), Find_InRect(1250,210,470,280)))
+    if(fConnectedDestroyed)
     {
-     obj->EMPShock();
-     obj->TurnOff();
+      //Teamgrenze setzen
+      FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),1700,0,1,1);
+
+      //Rauch
+      CreateParticle("GunSmoke",1325,340,0,-10,350,1);
+      Smoke(925, 340, 30);
+
+      //Türen öffnen
+      aDoor[00]->Open();
+      aDoor[01]->Open();
+      aDoor[02]->Open();
+      aDoor[03]->Open();
+      aDoor[04]->Open();
+      aDoor[08]->Open();
+
+      //SSA zerstören
+      aSelfDefense[0]->Disarm();
+      DecoExplode(30, aSelfDefense[0]);
+
+      //Geschützstellung entfernen
+      aStationary[0]->DecoExplode(30);
+
+      //Lampen ausschalten
+      for(var obj in FindObjects(Find_Or(Find_ID(BLGH), Find_ID(CLGH), Find_ID(LLGH), Find_ID(ETLT)), Find_InRect(1250,210,470,280)))
+      {
+        obj->EMPShock();
+        obj->TurnOff();
+      }
     }
-   }
   }
 
   //Ziel 3
   if(iIndex == 2)
   {
-   //Grenze neu setzen
-   RemoveAll(BRDR);
-   CreateObject(BRDR, 1100, 0, -1)->Set(0,1);
+    //Grenze neu setzen
+    RemoveAll(BRDR);
+    CreateObject(BRDR, 1100, 0, -1)->Set(0,1);
 
-   //Teamgrenze setzen
-   FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),0,440,3,1);
+    //Teamgrenze setzen
+    FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),0,440,3,1);
 
-   //Rauch
-   CreateParticle("GunSmoke",2220,170,0,-10,200,1);
-   Smoke(2225, 170, 30);
-   CreateParticle("GunSmoke",2245,170,0,-10,250,1);
-   CreateParticle("GunSmoke",2260,170,0,-10,190,1);
-   Smoke(2270, 170, 30);
-   CreateParticle("GunSmoke",2280,170,0,-10,210,1);
-   CreateParticle("GunSmoke",2285,170,0,-10,270,1);
+    //Rauch
+    CreateParticle("GunSmoke",2220,170,0,-10,200,1);
+    Smoke(2225, 170, 30);
+    CreateParticle("GunSmoke",2245,170,0,-10,250,1);
+    CreateParticle("GunSmoke",2260,170,0,-10,190,1);
+    Smoke(2270, 170, 30);
+    CreateParticle("GunSmoke",2280,170,0,-10,210,1);
+    CreateParticle("GunSmoke",2285,170,0,-10,270,1);
 
-   CreateParticle("GunSmoke",2225,290,0,-10,260,1);
-   Smoke(2230, 290, 30);
-   CreateParticle("GunSmoke",2245,290,0,-10,220,1);
-   CreateParticle("GunSmoke",2255,290,0,-10,240,1);
-   CreateParticle("GunSmoke",2275,290,0,-10,230,1);
-   Smoke(2270, 1880, 30);
-   CreateParticle("GunSmoke",2300,290,0,-10,210,1);
+    CreateParticle("GunSmoke",2225,290,0,-10,260,1);
+    Smoke(2230, 290, 30);
+    CreateParticle("GunSmoke",2245,290,0,-10,220,1);
+    CreateParticle("GunSmoke",2255,290,0,-10,240,1);
+    CreateParticle("GunSmoke",2275,290,0,-10,230,1);
+    Smoke(2270, 1880, 30);
+    CreateParticle("GunSmoke",2300,290,0,-10,210,1);
 
-   //Objekt entfernen
-   FindObject(MVNT)->DecoExplode(30);
+    //Objekt entfernen
+    FindObject(MVNT)->DecoExplode(30);
 
-   //Türen öffnen
-   aDoor[05]->Open();
-   aDoor[06]->Unlock();
-   aDoor[07]->Unlock();
+    //Türen öffnen
+    aDoor[05]->Open();
+    aDoor[06]->Unlock();
+    aDoor[07]->Unlock();
 
-   //Geschützstellung entfernen
-   aStationary[1]->DecoExplode(30);
+    //Geschützstellung entfernen
+    aStationary[1]->DecoExplode(30);
 
-   //Lampen ausschalten
-   for(var obj in FindObjects(Find_Or(Find_ID(BLGH), Find_ID(STLH), Find_ID(ETLT)), Find_InRect(1820,80,460,200)))
-   {
-    obj->EMPShock();
-    obj->TurnOff();
-   }
+    //Lampen ausschalten
+    for(var obj in FindObjects(Find_Or(Find_ID(BLGH), Find_ID(STLH), Find_ID(ETLT)), Find_InRect(1820,80,460,200)))
+    {
+      obj->EMPShock();
+      obj->TurnOff();
+    }
 
-   //Risse
-   CreateObject(FAUD, 2240, 280, -1);
-   CreateObject(FAUD, 2245, 170, -1);
-   CreateObject(FAUD, 2250, 225, -1);
-   CreateObject(FAUD, 2290, 290, -1);
-   CreateObject(FAUD, 2300, 180, -1);
+    //Risse
+    CreateObject(FAUD, 2240, 280, -1);
+    CreateObject(FAUD, 2245, 170, -1);
+    CreateObject(FAUD, 2250, 225, -1);
+    CreateObject(FAUD, 2290, 290, -1);
+    CreateObject(FAUD, 2300, 180, -1);
   }
 
   //Ziel 4
   if(iIndex == 3)
   {
-   //Grenze neu setzen
-   RemoveAll(BRDR);
-   CreateObject(BRDR, 1580, 0, -1)->Set(0,1);
+    //Grenze neu setzen
+    RemoveAll(BRDR);
+    CreateObject(BRDR, 1580, 0, -1)->Set(0,1);
 
-   //Teamgrenze setzen
-   FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),2320,0,1,1);
+    //Teamgrenze setzen
+    FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),2320,0,1,1);
 
-   //Rauch
-   CreateParticle("GunSmoke",1830,435,0,-10,350,1);
-   Smoke(1830, 435, 30);
-   CreateParticle("GunSmoke",2050,435,0,-10,350,1);
-   Smoke(2050, 435, 30);
-   CreateParticle("GunSmoke",2270,435,0,-10,350,1);
-   Smoke(2270, 435, 30);
+    //Rauch
+    CreateParticle("GunSmoke",1830,435,0,-10,350,1);
+    Smoke(1830, 435, 30);
+    CreateParticle("GunSmoke",2050,435,0,-10,350,1);
+    Smoke(2050, 435, 30);
+    CreateParticle("GunSmoke",2270,435,0,-10,350,1);
+    Smoke(2270, 435, 30);
 
-   //Türen öffnen
-   aDoor[09]->Unlock();
-   aDoor[10]->Open();
-   aDoor[11]->Open();
+    //Türen öffnen
+    aDoor[09]->Unlock();
+    aDoor[10]->Open();
+    aDoor[11]->Open();
 
-   //SSA zerstören
-   aSelfDefense[1]->Disarm();
-   DecoExplode(30, aSelfDefense[1]);
+    //SSA zerstören
+    aSelfDefense[1]->Disarm();
+    DecoExplode(30, aSelfDefense[1]);
 
-   //Geschützstellung entfernen
-   aStationary[2]->DecoExplode(30);
+    //Geschützstellung entfernen
+    aStationary[2]->DecoExplode(30);
 
-   //Lampen ausschalten
-   for(var obj in FindObjects(Find_Or(Find_ID(BLGH), Find_ID(STLH)), Find_InRect(1910,340,460,110)))
-   {
-    obj->EMPShock();
-    obj->TurnOff();
-   }
+    //Lampen ausschalten
+    for(var obj in FindObjects(Find_Or(Find_ID(BLGH), Find_ID(STLH)), Find_InRect(1910,340,460,110)))
+    {
+      obj->EMPShock();
+      obj->TurnOff();
+    }
 
-   //Lampen einschalten
-   for(var obj in FindObjects(Find_ID(ALGH), Find_InRect(2580,120,40,240)))
-    obj->TurnOn();
+    //Lampen einschalten
+    for(var obj in FindObjects(Find_ID(ALGH), Find_InRect(2580,120,40,240)))
+      obj->TurnOn();
 
-   //Risse
-   CreateObject(FAUD, 2150, 470, -1);
-   CreateObject(FAUD, 2205, 430, -1);
-   CreateObject(FAUD, 2260, 460, -1);
+    //Risse
+    CreateObject(FAUD, 2150, 470, -1);
+    CreateObject(FAUD, 2205, 430, -1);
+    CreateObject(FAUD, 2260, 460, -1);
   }
 
   //Ziel 5
   if(iIndex == 4)
   {
-   //Risse
-   CreateObject(FAUD, 2540, 490, -1);
-   CreateObject(FAUD, 2585, 470, -1);
-   CreateObject(FAUD, 2600, 520, -1);
-   CreateObject(FAUD, 2620, 495, -1);
-   CreateObject(FAUD, 2660, 485, -1);
+    //Risse
+    CreateObject(FAUD, 2540, 490, -1);
+    CreateObject(FAUD, 2585, 470, -1);
+    CreateObject(FAUD, 2600, 520, -1);
+    CreateObject(FAUD, 2620, 495, -1);
+    CreateObject(FAUD, 2660, 485, -1);
 
-   //Rauch
-   CreateParticle("GunSmoke",2530,510,0,-10,450,1);
-   CreateParticle("GunSmoke",2560,510,0,-10,450,1);
-   CreateParticle("GunSmoke",2590,510,0,-10,450,1);
-   CreateParticle("GunSmoke",2530,520,0,-10,250,1);
-   CreateParticle("GunSmoke",2560,520,-10,250,1);
-   CreateParticle("GunSmoke",2590,520,0,-10,250,1);
-   Smoke(2580, 490, 50);
+    //Rauch
+    CreateParticle("GunSmoke",2530,510,0,-10,450,1);
+    CreateParticle("GunSmoke",2560,510,0,-10,450,1);
+    CreateParticle("GunSmoke",2590,510,0,-10,450,1);
+    CreateParticle("GunSmoke",2530,520,0,-10,250,1);
+    CreateParticle("GunSmoke",2560,520,-10,250,1);
+    CreateParticle("GunSmoke",2590,520,0,-10,250,1);
+    Smoke(2580, 490, 50);
   }
 
   //Ziel 6
   if(iIndex == 5)
   {
-   //Risse
-   CreateObject(FAUD, 2550, 290, -1);
-   CreateObject(FAUD, 2600, 310, -1);
+    //Risse
+    CreateObject(FAUD, 2550, 290, -1);
+    CreateObject(FAUD, 2600, 310, -1);
 
-   //Rauch
-   CreateParticle("GunSmoke",2565,320,0,-10,450,1);
-   CreateParticle("GunSmoke",2595,320,0,-10,450,1);
-   CreateParticle("GunSmoke",2625,320,0,-10,450,1);
+    //Rauch
+    CreateParticle("GunSmoke",2565,320,0,-10,450,1);
+    CreateParticle("GunSmoke",2595,320,0,-10,450,1);
+    CreateParticle("GunSmoke",2625,320,0,-10,450,1);
 
-   CreateParticle("GunSmoke",2565,330,0,-10,250,1);
-   CreateParticle("GunSmoke",2595,330,0,-10,250,1);
-   CreateParticle("GunSmoke",2625,330,0,-10,250,1);
-   Smoke(2600, 305, 50);
+    CreateParticle("GunSmoke",2565,330,0,-10,250,1);
+    CreateParticle("GunSmoke",2595,330,0,-10,250,1);
+    CreateParticle("GunSmoke",2625,330,0,-10,250,1);
+    Smoke(2600, 305, 50);
   }
 
   //Ziel 7
   if(iIndex == 6)
   {
-   //Risse
-   CreateObject(FAUD, 2700, 215, -1);
-   CreateObject(FAUD, 2805, 270, -1);
+    //Risse
+    CreateObject(FAUD, 2700, 215, -1);
+    CreateObject(FAUD, 2805, 270, -1);
 
-   //Rauch
-   CreateParticle("GunSmoke",2730,210,0,-10,450,1);
-   CreateParticle("GunSmoke",2750,210,0,-10,450,1);
-   CreateParticle("GunSmoke",2770,210,0,-10,450,1);
+    //Rauch
+    CreateParticle("GunSmoke",2730,210,0,-10,450,1);
+    CreateParticle("GunSmoke",2750,210,0,-10,450,1);
+    CreateParticle("GunSmoke",2770,210,0,-10,450,1);
 
-   CreateParticle("GunSmoke",2730,230,0,-10,250,1);
-   CreateParticle("GunSmoke",2750,230,0,-10,250,1);
-   CreateParticle("GunSmoke",2770,230,0,-10,250,1);
-   Smoke(2755, 210, 50);
+    CreateParticle("GunSmoke",2730,230,0,-10,250,1);
+    CreateParticle("GunSmoke",2750,230,0,-10,250,1);
+    CreateParticle("GunSmoke",2770,230,0,-10,250,1);
+    Smoke(2755, 210, 50);
   }
 
   //Ziel 8
   if(iIndex == 7)
   {
-   //Risse
-   CreateObject(FAUD, 2850, 325, -1);
-   CreateObject(FAUD, 2870, 410, -1);
+    //Risse
+    CreateObject(FAUD, 2850, 325, -1);
+    CreateObject(FAUD, 2870, 410, -1);
 
-   //Rauch
-   CreateParticle("GunSmoke",2800,320,0,-10,450,1);
-   CreateParticle("GunSmoke",2830,320,0,-10,450,1);
-   CreateParticle("GunSmoke",2860,320,0,-10,450,1);
+    //Rauch
+    CreateParticle("GunSmoke",2800,320,0,-10,450,1);
+    CreateParticle("GunSmoke",2830,320,0,-10,450,1);
+    CreateParticle("GunSmoke",2860,320,0,-10,450,1);
 
-   CreateParticle("GunSmoke",2800,330,0,-10,250,1);
-   CreateParticle("GunSmoke",2830,330,0,-10,250,1);
-   CreateParticle("GunSmoke",2860,330,0,-10,250,1);
-   Smoke(2840, 310, 50);
+    CreateParticle("GunSmoke",2800,330,0,-10,250,1);
+    CreateParticle("GunSmoke",2830,330,0,-10,250,1);
+    CreateParticle("GunSmoke",2860,330,0,-10,250,1);
+    Smoke(2840, 310, 50);
   }
 
   //Ziel 9
   if(iIndex == 8)
   {
-   //Risse
-   CreateObject(FAUD, 2810, 500, -1);
-   CreateObject(FAUD, 2860, 510, -1);
+    //Risse
+    CreateObject(FAUD, 2810, 500, -1);
+    CreateObject(FAUD, 2860, 510, -1);
 
-   //Rauch
-   CreateParticle("GunSmoke",2810,500,0,-10,450,1);
-   CreateParticle("GunSmoke",2840,500,0,-10,450,1);
-   CreateParticle("GunSmoke",2870,500,0,-10,450,1);
+    //Rauch
+    CreateParticle("GunSmoke",2810,500,0,-10,450,1);
+    CreateParticle("GunSmoke",2840,500,0,-10,450,1);
+    CreateParticle("GunSmoke",2870,500,0,-10,450,1);
 
-   CreateParticle("GunSmoke",2810,510,0,-10,250,1);
-   CreateParticle("GunSmoke",2840,510,0,-10,250,1);
-   CreateParticle("GunSmoke",2870,510,0,-10,250,1);
-   Smoke(2855, 490, 50);
+    CreateParticle("GunSmoke",2810,510,0,-10,250,1);
+    CreateParticle("GunSmoke",2840,510,0,-10,250,1);
+    CreateParticle("GunSmoke",2870,510,0,-10,250,1);
+    Smoke(2855, 490, 50);
   }
 }
 
@@ -1229,8 +1229,8 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //Startsicht
   if(!g_chooserFinished)
   {
-   iX =1160; iY = 300;
-   return 1;
+    iX =1160; iY = 300;
+    return 1;
   }
 
   //Assault-Spielziel
@@ -1240,14 +1240,10 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //LMS/DM-Spielziel
   if(FindObject(GLMS) || FindObject(GTDM))
   {
-   if(iTeam == 1)
-   {
-    return [[520, 340], [520, 440]];
-   }
-   if(iTeam == 2)
-   {
-    return [[2140, 200], [2140, 280]];
-   }
-   return 1;
+    if(iTeam == 1)
+      return [[520, 340], [520, 440]];
+    if(iTeam == 2)
+      return [[2140, 200], [2140, 280]];
+    return 1;
   }
 }

@@ -218,7 +218,7 @@ func CreateInterior()
 
   //Seegras und Muscheln entfernen
   for(var obj in FindObjects(Find_Or(Find_ID(SWD1), Find_ID(SWD2), Find_ID(SHEL)), Find_InRect(1280, 370, 3450, 280)))
-   RemoveObject(obj);
+    RemoveObject(obj);
 
   //Wasseroberfläche ebnen
   DrawMaterialQuad("Water",1631,610,4379,610,4379,615,1631,615,1);
@@ -428,13 +428,13 @@ func CreateOptionalFeatures()
   //Hintergründe
   var back = CreateObject(BD03,700,800,-1);
   if(FindObject(STRM))
-   back->SetClrModulation(RGBa(50,50,50,5));
+    back->SetClrModulation(RGBa(50,50,50,5));
   back = CreateObject(BD03,1700,700,-1);
   if(FindObject(STRM))
-   back->SetClrModulation(RGBa(50,50,50,5));
+    back->SetClrModulation(RGBa(50,50,50,5));
   back = CreateObject(BD03,3000,800,-1);
   if(FindObject(STRM))
-   back->SetClrModulation(RGBa(50,50,50,5));
+    back->SetClrModulation(RGBa(50,50,50,5));
 }
 
 /* Sturmerstellung */
@@ -446,7 +446,7 @@ func FormStorm()
 
   //Dunkelheit erhöhen
   if(GetDarkness() < 3)
-   FadeDarkness(3,60);
+    FadeDarkness(3,60);
 
   //Hintergründe verdunkeln
   var back = FindObjects(Find_Func("IsDeco"));
@@ -508,7 +508,7 @@ public func ChooserFinished()
   //Teams abfragen
   var aTeams = [false,false,false,false,false];
   for(var i = 0; i < GetPlayerCount(); i++)
-   aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
+    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
   //Zeitverzögertes Gewitter
   Schedule("GameCall(\"FormStorm\")", RandomX(4000,8000));
@@ -516,156 +516,152 @@ public func ChooserFinished()
   //Helikopter und Hinweisschilder
   if(!FindObject(NOHC))
   {
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1655,370,-1),100*21);
-   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4355,370,-1),100*21);
+    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1655,370,-1),100*21);
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4355,370,-1),100*21);
 
-   var sign = CreateObject(SGNP, 1600, 400, -1);
-   sign->SetMode(1);
-   sign->Set("Helicopter");
-   sign = CreateObject(SGNP, 4410, 400, -1);
-   sign->SetMode(1);
-   sign->Set("Helicopter");
+    var sign = CreateObject(SGNP, 1600, 400, -1);
+    sign->SetMode(1);
+    sign->Set("Helicopter");
+    sign = CreateObject(SGNP, 4410, 400, -1);
+    sign->SetMode(1);
+    sign->Set("Helicopter");
   }
 
-  //OP-Spielziel
+  //OCC-Spielziel
   if(FindObject(GOCC))
   {
-   //Flaggenposten
-   aFlag[0] = CreateObject(OFPL,1320,500,NO_OWNER);
-   aFlag[0] -> AddSpawnPoint(1500, 590);
-   aFlag[0] -> AddSpawnPoint(1600, 390);
-   aFlag[0] -> AddSpawnPoint(1670, 530);
-   if(aTeams[1] == true)
-   {
-    aFlag[0]->Set("$Flag1$",100,2);
-    aFlag[0]->Capture(1,1);
-   }
-   else
-   {
-    aFlag[0]->Set("$Flag1$",0,2);
-   }
+    //Flaggenposten
+    aFlag[0] = CreateObject(OFPL,1320,500,NO_OWNER);
+    aFlag[0] -> AddSpawnPoint(1500, 590);
+    aFlag[0] -> AddSpawnPoint(1600, 390);
+    aFlag[0] -> AddSpawnPoint(1670, 530);
+    if(aTeams[1] == true)
+    {
+      aFlag[0]->Set("$Flag1$",0,4);
+      aFlag[0]->Capture(1,1);
+    }
+    else
+      aFlag[0]->Set("$Flag1$");
 
-   aFlag[1] = CreateObject(OFPL,2990,380,NO_OWNER);
-   aFlag[1] -> AddSpawnPoint(2890,520);
-   aFlag[1] -> AddSpawnPoint(3040,450);
-   aFlag[1] -> AddSpawnPoint(3090,520);
-   aFlag[1]->Set("$Flag2$",0,2);
+    aFlag[1] = CreateObject(OFPL,2990,380,NO_OWNER);
+    aFlag[1] -> AddSpawnPoint(2890,520);
+    aFlag[1] -> AddSpawnPoint(3040,450);
+    aFlag[1] -> AddSpawnPoint(3090,520);
+    aFlag[1]->Set("$Flag2$");
 
-   aFlag[2] = CreateObject(OFPL,4685,500,NO_OWNER);
-   aFlag[2] -> AddSpawnPoint(4340, 530);
-   aFlag[2] -> AddSpawnPoint(4410, 390);
-   aFlag[2] -> AddSpawnPoint(4510, 590);
-   if(aTeams[2] == true)
-   {
-    aFlag[2]->Set("$Flag3$",100,2);
-    aFlag[2]->Capture(2,1);
-   }
-   else
-   {
-    aFlag[2]->Set("$Flag3$",0,2);
-   }
+    aFlag[2] = CreateObject(OFPL,4685,500,NO_OWNER);
+    aFlag[2] -> AddSpawnPoint(4340, 530);
+    aFlag[2] -> AddSpawnPoint(4410, 390);
+    aFlag[2] -> AddSpawnPoint(4510, 590);
+    if(aTeams[2] == true)
+    {
+      aFlag[2]->Set("$Flag3$",0,4);
+      aFlag[2]->Capture(2,1);
+    }
+    else
+      aFlag[2]->Set("$Flag3$");
 
-   //MAV-Stationen
-   CreateObject(MVSN, 1350, 500, -1)->Set(1520,530,1);
-   CreateObject(MVSN, 4660, 500, -1)->Set(4490,530,1);
+    //MAV-Stationen
+    CreateObject(MVSN, 1350, 500, -1)->Set(1520,530,1);
+    CreateObject(MVSN, 4660, 500, -1)->Set(4490,530,1);
   }
 
-  //Base Assault-Spielziel
+  //BAS-Spielziel
   if(FindObject(GBAS))
   {
-   //Strukturen
-   AddAssaultTarget(RADR, 1919, 600, 350, 1, "$Target1$", 0, [[1360,500], [1420,520], [1600,400]]);
-   AddAssaultTarget(CMSN, 2470, 600, 350, 1, "$Target2$", 1, [[2185,520], [2270,520]]);
-   AddAssaultTarget(CMSN, 3540, 600, 350, 2, "$Target2$", 2, [[3740,520], [3825,520]]);
-   AddAssaultTarget(RADR, 4089, 600, 350, 2, "$Target1$", 3, [[4410,400], [4590,520], [4650,500]]);
+    //Strukturen
+    AddAssaultTarget(RADR, 1919, 600, 350, 1, "$Target1$", 0, [[1360,500], [1420,520], [1600,400]]);
+    AddAssaultTarget(CMSN, 2470, 600, 350, 1, "$Target2$", 1, [[2185,520], [2270,520]]);
+    AddAssaultTarget(CMSN, 3540, 600, 350, 2, "$Target2$", 2, [[3740,520], [3825,520]]);
+    AddAssaultTarget(RADR, 4089, 600, 350, 2, "$Target1$", 3, [[4410,400], [4590,520], [4650,500]]);
 
-   //Sprengsatz-Spawn
-   SetupBombSpawnpoint([[2990, 380],[2990,530]]);
+    //Sprengsatz-Spawn
+    SetupBombSpawnpoint([[2990, 380],[2990,530]]);
 
-   //Boden
-   DrawMaterialQuad("BackWall-Stripes", 1900,600, 1940,600, 1940,610, 1900,610);
-   DrawMaterialQuad("BackWall-Metal2", 2420,600, 2490,600, 2490,610, 2420,610);
-   DrawMaterialQuad("BackWall-Metal2", 3520,600, 3580,600, 3580,610, 3520,610);
-   DrawMaterialQuad("BackWall-Stripes", 4070,600, 4110,600, 4110,610, 4070,610);
+    //Boden
+    DrawMaterialQuad("BackWall-Stripes", 1900,600, 1940,600, 1940,610, 1900,610);
+    DrawMaterialQuad("BackWall-Metal2", 2420,600, 2490,600, 2490,610, 2420,610);
+    DrawMaterialQuad("BackWall-Metal2", 3520,600, 3580,600, 3580,610, 3520,610);
+    DrawMaterialQuad("BackWall-Stripes", 4070,600, 4110,600, 4110,610, 4070,610);
   }
 
   //HTF-Spielziel
   if(FindObject(GHTF))
   {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 2990, 380, -1);
-   flag->~Set("$Flag2$");
+    //Flaggenposten
+    var flag = CreateObject(OFPL, 2990, 380, -1);
+    flag->~Set("$Flag2$");
 
-   //Teamgrenzen
-   CreateObject(BRDR, 2000, 0, -1)->Set(0,1,0,1,1);
-   CreateObject(BRDR, 4010, 0, -1)->Set(1,1,0,1,2);
+    //Teamgrenzen
+    CreateObject(BRDR, 2000, 0, -1)->Set(0,1,0,1,1);
+    CreateObject(BRDR, 4010, 0, -1)->Set(1,1,0,1,2);
 
-   //MAV-Stationen
-   CreateObject(MVSN, 1350, 500, -1)->Set(1520,530,1);
-   CreateObject(MVSN, 4660, 500, -1)->Set(4490,530,1);
+    //MAV-Stationen
+    CreateObject(MVSN, 1350, 500, -1)->Set(1520,530,1);
+    CreateObject(MVSN, 4660, 500, -1)->Set(4490,530,1);
 
-   //Selbstschussanlagen
-   var selfdef = CreateObject(SEGU, 1690, 540, -1);
-   selfdef->Set(0,1,1,180,0,2100);
-   selfdef->SetTeam(1);
-   selfdef = CreateObject(SEGU, 4320, 540, -1);
-   selfdef->Set(0,1,1,180,3910);
-   selfdef->SetTeam(2);
+    //Selbstschussanlagen
+    var selfdef = CreateObject(SEGU, 1690, 540, -1);
+    selfdef->Set(0,1,1,180,0,2100);
+    selfdef->SetTeam(1);
+    selfdef = CreateObject(SEGU, 4320, 540, -1);
+    selfdef->Set(0,1,1,180,3910);
+    selfdef->SetTeam(2);
 
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Versorgungskiste (Kugeln)
-    var crate = CreateObject(AMCT, 2965, 460, -1);
-    crate->Set(ABOX);
-   }
+    //Zusätzliche Munition
+    if(!FindObject(NOAM))
+    {
+      //Versorgungskiste (Kugeln)
+      var crate = CreateObject(AMCT, 2965, 460, -1);
+      crate->Set(ABOX);
+    }
   }
 
   //MR-Spielziel
   if(FindObject(GMNR))
   {
-   //Geldsäcke
-   AddMoneySpawn(2360, 510, [20]);
-   AddMoneySpawn(2785, 450, [20]);
-   AddMoneySpawn(3195, 450, [20]);
-   AddMoneySpawn(3650, 510, [20]);
+    //Geldsäcke
+    AddMoneySpawn(2360, 510, [20]);
+    AddMoneySpawn(2785, 450, [20]);
+    AddMoneySpawn(3195, 450, [20]);
+    AddMoneySpawn(3650, 510, [20]);
 
-   //Teamgrenzen
-   CreateObject(BRDR, 2000, 0, -1)->Set(0,1,0,1,1);
-   CreateObject(BRDR, 4010, 0, -1)->Set(1,1,0,1,2);
+    //Teamgrenzen
+    CreateObject(BRDR, 2000, 0, -1)->Set(0,1,0,1,1);
+    CreateObject(BRDR, 4010, 0, -1)->Set(1,1,0,1,2);
 
-   //MAV-Stationen
-   CreateObject(MVSN, 1350, 500, -1)->Set(1520,530,1);
-   CreateObject(MVSN, 4660, 500, -1)->Set(4490,530,1);
+    //MAV-Stationen
+    CreateObject(MVSN, 1350, 500, -1)->Set(1520,530,1);
+    CreateObject(MVSN, 4660, 500, -1)->Set(4490,530,1);
 
-   //Selbstschussanlagen
-   var selfdef = CreateObject(SEGU, 1690, 540, -1);
-   selfdef->Set(0,1,1,180,0,2100);
-   selfdef->SetTeam(1);
-   selfdef = CreateObject(SEGU, 4320, 540, -1);
-   selfdef->Set(0,1,1,180,3910);
-   selfdef->SetTeam(2);
+    //Selbstschussanlagen
+    var selfdef = CreateObject(SEGU, 1690, 540, -1);
+    selfdef->Set(0,1,1,180,0,2100);
+    selfdef->SetTeam(1);
+    selfdef = CreateObject(SEGU, 4320, 540, -1);
+    selfdef->Set(0,1,1,180,3910);
+    selfdef->SetTeam(2);
   }
 
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
-   //Flaggen
-   if(aTeams[1] == true)
-   {CreateFlag(1,1520,600,GetTeamColor(1));}
-   if(aTeams[2] == true)
-   {CreateFlag(2,4490,600,GetTeamColor(2));}
+    //Flaggen
+    if(aTeams[1] == true)
+    {CreateFlag(1,1520,600,GetTeamColor(1));}
+    if(aTeams[2] == true)
+    {CreateFlag(2,4490,600,GetTeamColor(2));}
 
-   //MAV-Station
-   CreateObject(MVSN, 2990, 380, -1)->Set(2960,380,1);
+    //MAV-Station
+    CreateObject(MVSN, 2990, 380, -1)->Set(2960,380,1);
   }
 
   //LMS/DM-Spielziel
   if(FindObject(GLMS) || FindObject(GTDM))
   {
-   //MAV-Stationen
-   CreateObject(MVSN, 1350, 500, -1)->Set(1520,530,1);
-   CreateObject(MVSN, 4660, 500, -1)->Set(4490,530,1);
+    //MAV-Stationen
+    CreateObject(MVSN, 1350, 500, -1)->Set(1520,530,1);
+    CreateObject(MVSN, 4660, 500, -1)->Set(4490,530,1);
   }
 }
 
@@ -676,20 +672,16 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //Startsicht
   if(!g_chooserFinished)
   {
-   iX = 2990; iY = 440;
-   return 1;
+    iX = 2990; iY = 440;
+    return 1;
   }
 
   //HTF/MR/CTF/LMS/DM-Spielziel
   if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GCTF) || FindObject(GLMS) || FindObject(GTDM))
   {
-   if(iTeam == 1)
-   {
-    return [[1320, 490], [1600, 390], [1620, 520]];
-   }
-   if(iTeam == 2)
-   {
-    return [[4390, 520], [4410, 390], [4690, 490]];
-   }
+    if(iTeam == 1)
+      return [[1320, 490], [1600, 390], [1620, 520]];
+    if(iTeam == 2)
+      return [[4390, 520], [4410, 390], [4690, 490]];
   }
 }

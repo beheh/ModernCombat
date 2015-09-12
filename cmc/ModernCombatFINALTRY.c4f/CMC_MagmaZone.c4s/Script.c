@@ -237,7 +237,7 @@ func CreateDecoration()
 func FlagCaptured(object pPoint, int iTeam)
 {
   if(pPoint == aFlag[2])
-   aSelfDefense[0]->SetTeam(iTeam);
+    aSelfDefense[0]->SetTeam(iTeam);
 }
 
 /* Regelwähler */
@@ -253,159 +253,159 @@ public func ChooserFinished()
   //Teams abfragen
   var aTeams = [false,false,false,false,false];
   for(var i = 0; i < GetPlayerCount(); i++)
-   aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
+    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
   //Sprungschanzen
   if(FindObject(FDMG))
   {
-   CreateObject(JMPD, 1585, 460, -1)->Set(40, -20);
-   CreateObject(JMPD, 1890, 370, -1)->Set(75, -80);
+    CreateObject(JMPD, 1585, 460, -1)->Set(40, -20);
+    CreateObject(JMPD, 1890, 370, -1)->Set(75, -80);
   }
   else
   {
-   CreateObject(JMPD, 1890, 370, -1)->Set(85, -80);
+    CreateObject(JMPD, 1890, 370, -1)->Set(85, -80);
   }
 
-  //OP-Spielziel
+  //OCC-Spielziel
   if(FindObject(GOCC))
   {
-   //Flaggenposten
-   aFlag[0] = CreateObject(OFPL,365,300,NO_OWNER);
-   aFlag[0] -> AddSpawnPoint(500,490);
-   aFlag[0] -> AddSpawnPoint(555,450);
-   aFlag[0] -> AddSpawnPoint(745,340);
-   if(aTeams[1] == true)
-   {
-    aFlag[0]->Set("$Flag1$",100,2);
-    aFlag[0]->Capture(1,1);
-   }
-   else
-   {
-    aFlag[0]->Set("$Flag1$",0,2);
-   }
+    //Flaggenposten
+    aFlag[0] = CreateObject(OFPL,365,300,NO_OWNER);
+    aFlag[0] -> AddSpawnPoint(500,490);
+    aFlag[0] -> AddSpawnPoint(555,450);
+    aFlag[0] -> AddSpawnPoint(745,340);
+    if(aTeams[1] == true)
+    {
+      aFlag[0]->Set("$Flag1$",0,4);
+      aFlag[0]->Capture(1,1);
+    }
+    else
+    {
+      aFlag[0]->Set("$Flag1$");
+    }
 
-   aFlag[1] = CreateObject(OFPL,980,390,NO_OWNER);
-   aFlag[1] -> AddSpawnPoint(930,510);
-   aFlag[1] -> AddSpawnPoint(1025,570);
-   aFlag[1] -> AddSpawnPoint(1085,480);
-   aFlag[1]->Set("$Flag2$",0,2);
+    aFlag[1] = CreateObject(OFPL,980,390,NO_OWNER);
+    aFlag[1] -> AddSpawnPoint(930,510);
+    aFlag[1] -> AddSpawnPoint(1025,570);
+    aFlag[1] -> AddSpawnPoint(1085,480);
+    aFlag[1]->Set("$Flag2$");
 
-   aFlag[2] = CreateObject(OFPL,1575,460,NO_OWNER);
-   aFlag[2] -> AddSpawnPoint(1485,540);
-   aFlag[2] -> AddSpawnPoint(1595,540);
-   aFlag[2] -> AddSpawnPoint(1405,410);
-   aFlag[2]->Set("$Flag3$",0,2);
+    aFlag[2] = CreateObject(OFPL,1575,460,NO_OWNER);
+    aFlag[2] -> AddSpawnPoint(1485,540);
+    aFlag[2] -> AddSpawnPoint(1595,540);
+    aFlag[2] -> AddSpawnPoint(1405,410);
+    aFlag[2]->Set("$Flag3$");
 
-   aFlag[3] = CreateObject(OFPL,1905,330,NO_OWNER);
-   aFlag[3] -> AddSpawnPoint(1865,150);
-   aFlag[3] -> AddSpawnPoint(1990,130);
-   aFlag[3]->Set("$Flag4$",0,2);
+    aFlag[3] = CreateObject(OFPL,1905,330,NO_OWNER);
+    aFlag[3] -> AddSpawnPoint(1865,150);
+    aFlag[3] -> AddSpawnPoint(1990,130);
+    aFlag[3]->Set("$Flag4$");
 
-   aFlag[4] = CreateObject(OFPL,2355,560,NO_OWNER);
-   aFlag[3] -> AddSpawnPoint(2055,440);
-   aFlag[4] -> AddSpawnPoint(2180,510);
-   aFlag[4] -> AddSpawnPoint(2290,470);
-   aFlag[4]->Set("$Flag5$",0,2);
+    aFlag[4] = CreateObject(OFPL,2355,560,NO_OWNER);
+    aFlag[3] -> AddSpawnPoint(2055,440);
+    aFlag[4] -> AddSpawnPoint(2180,510);
+    aFlag[4] -> AddSpawnPoint(2290,470);
+    aFlag[4]->Set("$Flag5$");
 
-   aFlag[5] = CreateObject(OFPL,2455,210,NO_OWNER);
-   aFlag[5] -> AddSpawnPoint(2200,300);
-   aFlag[5] -> AddSpawnPoint(2300,300);
-   aFlag[5] -> AddSpawnPoint(2340,300);
-   if(aTeams[2] == true)
-   {
-    aFlag[5]->Set("$Flag6$",100,2);
-    aFlag[5]->Capture(2,1);
-   }
-   else
-   {
-    aFlag[5]->Set("$Flag6$",0,2);
-   }
+    aFlag[5] = CreateObject(OFPL,2455,210,NO_OWNER);
+    aFlag[5] -> AddSpawnPoint(2200,300);
+    aFlag[5] -> AddSpawnPoint(2300,300);
+    aFlag[5] -> AddSpawnPoint(2340,300);
+    if(aTeams[2] == true)
+    {
+      aFlag[5]->Set("$Flag6$",0,4);
+      aFlag[5]->Capture(2,1);
+    }
+    else
+    {
+      aFlag[5]->Set("$Flag6$");
+    }
 
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Versorgungskiste (Kugeln)
-    var crate = CreateObject(AMCT, 445, 550, -1);
-    crate->Set(ABOX);
-    crate = CreateObject(AMCT, 1515, 460, -1);
-    crate->Set(ABOX);
-    crate = CreateObject(AMCT, 2275, 560, -1);
-    crate->Set(ABOX);
-   }
+    //Zusätzliche Munition
+    if(!FindObject(NOAM))
+    {
+      //Versorgungskiste (Kugeln)
+      var crate = CreateObject(AMCT, 445, 550, -1);
+      crate->Set(ABOX);
+      crate = CreateObject(AMCT, 1515, 460, -1);
+      crate->Set(ABOX);
+      crate = CreateObject(AMCT, 2275, 560, -1);
+      crate->Set(ABOX);
+    }
   }
 
-  //Base Assault-Spielziel
+  //BAS-Spielziel
   if(FindObject(GBAS))
   {
-   //Strukturen
-   AddAssaultTarget(CCP2, 390, 300, 350, 1, "$Target1$", 0, [[475, 570], [550, 460], [635, 620]]);
-   AddAssaultTarget(GSTA, 980, 390, 350, 1, "$Target2$", 1, [[720, 350], [805, 520], [1030, 650]]);
-   AddAssaultTarget(CMSN, 1040, 260, 350, 1, "$Target3$", 2, [[810, 140], [815, 300], [1070, 130]]);
-   AddAssaultTarget(CMSN, 1865, 160, 350, 2, "$Target3$", 3, [[2065, 255], [2130, 310], [2150, 140]]);
-   AddAssaultTarget(GSTA, 1910, 330, 350, 2, "$Target2$", 4, [[1815, 500], [2020, 450], [2170, 300]]);
-   AddAssaultTarget(CCP2, 2345, 240, 350, 2, "$Target1$", 5, [[2150, 140], [2300, 480], [2350, 560]]);
+    //Strukturen
+    AddAssaultTarget(CCP2, 390, 300, 350, 1, "$Target1$", 0, [[475, 570], [550, 460], [635, 620]]);
+    AddAssaultTarget(GSTA, 980, 390, 350, 1, "$Target2$", 1, [[720, 350], [805, 520], [1030, 650]]);
+    AddAssaultTarget(CMSN, 1040, 260, 350, 1, "$Target3$", 2, [[810, 140], [815, 300], [1070, 130]]);
+    AddAssaultTarget(CMSN, 1865, 160, 350, 2, "$Target3$", 3, [[2065, 255], [2130, 310], [2150, 140]]);
+    AddAssaultTarget(GSTA, 1910, 330, 350, 2, "$Target2$", 4, [[1815, 500], [2020, 450], [2170, 300]]);
+    AddAssaultTarget(CCP2, 2345, 240, 350, 2, "$Target1$", 5, [[2150, 140], [2300, 480], [2350, 560]]);
 
-   //Sprengsatz-Spawn
-   SetupBombSpawnpoint([[1520, 300],[1520,340],[1560,460]]);
+    //Sprengsatz-Spawn
+    SetupBombSpawnpoint([[1520, 300],[1520,340],[1560,460]]);
 
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Versorgungskiste (Kugeln)
-    var crate = CreateObject(AMCT, 445, 550, -1);
-    crate->Set(ABOX);
-    crate = CreateObject(AMCT, 1515, 460, -1);
-    crate->Set(ABOX);
-    crate = CreateObject(AMCT, 2275, 560, -1);
-    crate->Set(ABOX);
-   }
+    //Zusätzliche Munition
+    if(!FindObject(NOAM))
+    {
+      //Versorgungskiste (Kugeln)
+      var crate = CreateObject(AMCT, 445, 550, -1);
+      crate->Set(ABOX);
+      crate = CreateObject(AMCT, 1515, 460, -1);
+      crate->Set(ABOX);
+      crate = CreateObject(AMCT, 2275, 560, -1);
+      crate->Set(ABOX);
+    }
   }
 
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
-   //Flaggen
-   if(aTeams[1] == true)
-   {CreateFlag(1,655,330,GetTeamColor(1));}
-   if(aTeams[2] == true)
-   {CreateFlag(2,2210,310,GetTeamColor(2));}
+    //Flaggen
+    if(aTeams[1] == true)
+    {CreateFlag(1,655,330,GetTeamColor(1));}
+    if(aTeams[2] == true)
+    {CreateFlag(2,2210,310,GetTeamColor(2));}
 
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Versorgungskiste (Kugeln)
-    var crate = CreateObject(AMCT, 805, 520, -1);
-    crate->Set(ABOX);
-    crate = CreateObject(AMCT, 2025, 450, -1);
-    crate->Set(ABOX);
-   }
+    //Zusätzliche Munition
+    if(!FindObject(NOAM))
+    {
+      //Versorgungskiste (Kugeln)
+      var crate = CreateObject(AMCT, 805, 520, -1);
+      crate->Set(ABOX);
+      crate = CreateObject(AMCT, 2025, 450, -1);
+      crate->Set(ABOX);
+    }
   }
 
   //LMS/DM-Spielziel
   if(FindObject(GLMS) || FindObject(GTDM))
   {
-   //Grenzen setzen
-   CreateObject(BRDR, 710, 0, -1)->Set(0);
-   CreateObject(BRDR, 2165, 0, -1)->Set(1);
+    //Grenzen setzen
+    CreateObject(BRDR, 710, 0, -1)->Set(0);
+    CreateObject(BRDR, 2165, 0, -1)->Set(1);
 
-   //Hinweisschilder
-   CreateObject(SGNP, 725, 350, -1);
-   CreateObject(SGNP, 785, 650, -1);
-   CreateObject(SGNP, 760, 530, -1);
-   CreateObject(SGNP, 860, 150, -1);
-   CreateObject(SGNP, 2050, 130, -1);
-   CreateObject(SGNP, 2050, 450, -1);
-   CreateObject(SGNP, 2160, 300, -1);
+    //Hinweisschilder
+    CreateObject(SGNP, 725, 350, -1);
+    CreateObject(SGNP, 785, 650, -1);
+    CreateObject(SGNP, 760, 530, -1);
+    CreateObject(SGNP, 860, 150, -1);
+    CreateObject(SGNP, 2050, 130, -1);
+    CreateObject(SGNP, 2050, 450, -1);
+    CreateObject(SGNP, 2160, 300, -1);
 
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Versorgungskiste (Kugeln)
-    var crate = CreateObject(AMCT, 805, 520, -1);
-    crate->Set(ABOX);
-    crate = CreateObject(AMCT, 2025, 450, -1);
-    crate->Set(ABOX);
-   }
+    //Zusätzliche Munition
+    if(!FindObject(NOAM))
+    {
+      //Versorgungskiste (Kugeln)
+      var crate = CreateObject(AMCT, 805, 520, -1);
+      crate->Set(ABOX);
+      crate = CreateObject(AMCT, 2025, 450, -1);
+      crate->Set(ABOX);
+    }
   }
 }
 
@@ -416,35 +416,27 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //Startsicht
   if(!g_chooserFinished)
   {
-   iX = 1745; iY = 350;
-   return 1;
+    iX = 1745; iY = 350;
+    return 1;
   }
 
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
-   if(iTeam == 1)
-   {
-    return [[350, 290], [420, 290]];
-   }
-   if(iTeam == 2)
-   {
-    return [[2355, 230], [2450, 200]];
-   }
-   return 1;
+    if(iTeam == 1)
+      return [[350, 290], [420, 290]];
+    if(iTeam == 2)
+      return [[2355, 230], [2450, 200]];
+    return 1;
   }
 
   //LMS/DM-Spielziel
   if(FindObject(GLMS) || FindObject(GTDM))
   {
-   if(iTeam == 1)
-   {
-    return [[835, 280], [885, 390]];
-   }
-   if(iTeam == 2)
-   {
-    return [[2025, 350], [2045, 230]];
-   }
-   return 1;
+    if(iTeam == 1)
+      return [[835, 280], [885, 390]];
+    if(iTeam == 2)
+      return [[2025, 350], [2045, 230]];
+    return 1;
   }
 }
