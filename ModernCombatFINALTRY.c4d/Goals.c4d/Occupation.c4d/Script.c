@@ -11,7 +11,7 @@ local aTeamTimers;
 static const GOCC_Horizontal		= 1;
 static const GOCC_Vertical		= 2;
 
-private func StartTickets()		{return 15;}		//Standardticketzahl
+private func StartTickets()		{return 30;}		//Standardticketzahl
 public func IsConfigurable()		{return true;}
 public func GoalExtraValue()		{return iStartTickets;}	//Spielzielinformationen an Scoreboard weitergeben
 public func CustomSpawnSystem()		{return true;}
@@ -303,8 +303,8 @@ private func UpdateScoreboard()
   if(i != 1)
   {
     SetScoreboardData(i, GOCC_IconColumn, "");
-    SetScoreboardData(i, GOCC_FlagColumn, "{{CLNK}}", base+1);
-    SetScoreboardData(i, GOCC_TimerColumn, " ");
+    SetScoreboardData(i, GOCC_FlagColumn, "{{SM26}}", base+1);
+    SetScoreboardData(i, GOCC_TimerColumn, "{{SM27}}");
     SetScoreboardData(i, GOCC_ProgressColumn, "{{SM03}}");
     i++;
   }
@@ -316,11 +316,11 @@ private func UpdateScoreboard()
     if(TeamAlive(iTeam))
     {
       if(GetHighestTeam() == iTeam)
-        SetScoreboardData(i, GOCC_IconColumn, "{{WIPF}}");
+        SetScoreboardData(i, GOCC_IconColumn, "{{SM14}}");
       else
         SetScoreboardData(i, GOCC_IconColumn, " ");
       SetScoreboardData(i, GOCC_FlagColumn, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam)), base+2+GetTickets(iTeam));
-      SetScoreboardData(i, GOCC_TimerColumn, Format("<c %x>%d</c>", GetTeamColor(iTeam), GetTeamTimer(iTeam)));
+      SetScoreboardData(i, GOCC_TimerColumn, Format("<c 777777>%d</c>", GetTeamTimer(iTeam)));
       SetScoreboardData(i, GOCC_ProgressColumn, Format("%d", GetTickets(iTeam)));
     }
     else
