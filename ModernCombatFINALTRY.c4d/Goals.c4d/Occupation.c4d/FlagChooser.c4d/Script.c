@@ -42,7 +42,7 @@ protected func Collection2(object pObject)
 
   if(!flagpoles)
   {
-    flagpoles = FindObject(GOCC)->GetSpawnableFlags();
+    flagpoles = FindObject(GOCC)->GetSortedFlags();
     if(!flagpoles) {
       ErrorLog("Couldn't find any flags");
       GameOver();
