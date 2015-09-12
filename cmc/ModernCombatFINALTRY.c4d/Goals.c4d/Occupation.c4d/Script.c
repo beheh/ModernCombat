@@ -306,7 +306,12 @@ private func UpdateScoreboard()
   if(i != 1)
   {
     SetScoreboardData(i, GOCC_IconColumn, "");
-    SetScoreboardData(i, GOCC_FlagColumn, "{{SM26}}", base+1);
+    SetScoreboardData(i, GOCC_FlagColumn, " ", base+1);
+    SetScoreboardData(i, GOCC_TimerColumn, " ");
+    SetScoreboardData(i, GOCC_ProgressColumn, " ");
+    i++;	  
+    SetScoreboardData(i, GOCC_IconColumn, "");
+    SetScoreboardData(i, GOCC_FlagColumn, "{{SM26}}", base+2);
     SetScoreboardData(i, GOCC_TimerColumn, "{{SM27}}");
     SetScoreboardData(i, GOCC_ProgressColumn, "{{SM03}}");
     i++;
@@ -322,7 +327,7 @@ private func UpdateScoreboard()
         SetScoreboardData(i, GOCC_IconColumn, "{{SM14}}");
       else
         SetScoreboardData(i, GOCC_IconColumn, " ");
-      SetScoreboardData(i, GOCC_FlagColumn, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam)), base+2+GetTickets(iTeam));
+      SetScoreboardData(i, GOCC_FlagColumn, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam)), base+3+GetTickets(iTeam));
       SetScoreboardData(i, GOCC_TimerColumn, Format("<c 777777>%d</c>", GetTeamTimer(iTeam)));
       SetScoreboardData(i, GOCC_ProgressColumn, Format("%d", GetTickets(iTeam)));
     }
