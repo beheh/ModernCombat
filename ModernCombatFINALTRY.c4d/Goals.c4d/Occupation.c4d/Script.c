@@ -458,10 +458,15 @@ public func GetTeamTimer(int iTeam)
 public func GetHighestTeams()
 {
   var result = [];
-  var highest = GetMaxArrayVal(aTicket, false, true);
+  var flagcounts = [];
 
-  for(var i = 0; i < GetLength(aTicket); i++)
-    if(aTicket[i] == highest)
+  for(var i = 0; i < GetTeamCount(); i++)
+    flagcounts[i] = GetFlagCount(i+1);
+
+  var highest = GetMaxArrayVal(flagcounts, false, true);
+
+  for(var i = 0; i < GetLength(flagcounts); i++)
+    if(flagcounts[i] == highest)
       result[GetLength(result)] = i + 1;
 
   return result;
