@@ -7,7 +7,7 @@
 
 /* Zufalls-Array wiedergeben */
 
-global func RandomIndex4K(array ids)
+global func RandomArrayIndex(array ids)
 {
   return(ids[Random(GetLength(ids))]);
 }
@@ -15,23 +15,28 @@ global func RandomIndex4K(array ids)
 /* Findet das erste Vorlommen von v im Array a und gibt die Position zurück */
 //Wenn nichts gefinden wurde wird -1 zurückgegeben.
 
-global func FindInArray4K(array a, v)
+global func FindInArray(array a, v)
+{
+  return GetIndexOf(v, a);
+}
+
+global func ArrayContains(array a, v)
 {
   return GetIndexOf(v, a);
 }
 
 /* Entfernen leerer Einträge */
 
-global func CleanArray4K(array &a)
+global func CleanArray(array &a)
 {
   for(var i = GetLength(a)-1; i >= 0; i--)
     if(!a[i])
-      DelArrayItem4K(a,i);
+      DelArrayItem(a,i);
 }
 
 /* Entfernung eines bestimmten Eintrags innerhalb eines Arrays */
 
-global func DelArrayItem4K(array &a, int i)
+global func DelArrayItem(array &a, int i)
 {
   a[i] = 0;
 
@@ -45,7 +50,7 @@ global func DelArrayItem4K(array &a, int i)
 
 /* Fügt einem Item ein Array hinzu */
 
-global func AddArrayItem4K(array &a, int i, v)
+global func AddArrayItem(array &a, int i, v)
 {
   SetLength (a,GetLength(a)+1);
 
@@ -57,7 +62,7 @@ global func AddArrayItem4K(array &a, int i, v)
   a[i] = v;
 }
 
-global func AddArray4K(array &aSource, array &aDestination)
+global func AddArray(array &aSource, array &aDestination)
 {
   var s = GetLength(aSource);
   var d = GetLength(aDestination);
@@ -69,14 +74,19 @@ global func AddArray4K(array &aSource, array &aDestination)
 
 /** Gibt den höchsten / niedrigsten Wert eines Arrays zurück **/
 
-global func GetMinArrayVal(array arArray, bool fPos)
+global func GetMinArrayVal(array a, bool fPos, bool fEqual)
 {
-  var lowest; var pos; var fFirst = true;
-  for(var i = 0; i < GetLength(arArray); i++)
+  if(!fEqual)
+    var lowest = a[0];
+  else
+    var lowest = 0;
+  var pos; 
+  var fFirst = true;
+  for(var i = 0; i < GetLength(a); i++)
   {
-    if(fFirst || arArray[i] < lowest)
+    if(fFirst || a[i] < lowest)
     {
-      lowest = arArray[i];
+      lowest = a[i];
       pos = i;
       fFirst = false;
     }
@@ -88,18 +98,22 @@ global func GetMinArrayVal(array arArray, bool fPos)
   return lowest;
 }
 
-global func GetMaxArrayVal(array arArray, bool fPos)
+global func GetMaxArrayVal(array a, bool fPos, bool fEqual)
 {
-  if(!arArray)
+  if(!a)
     return -1;
 
-  var highest = arArray[0];
+  if(!fEqual)
+    var highest = a[0];
+  else
+    var highest = 0;
+
   var pos = -1;
-  for(var i = 0; i < GetLength(arArray); i++)
+  for(var i = 0; i < GetLength(a); i++)
   {
-    if(arArray[i] > highest)
+    if(a[i] > highest)
     {
-      highest = arArray[i];
+      highest = a[i];
       pos = i;
     }
   }
@@ -109,3 +123,11 @@ global func GetMaxArrayVal(array arArray, bool fPos)
 
   return highest;
 }
+
+/* alte Syntax fuer Abwaertskompatibilitaet */
+global func RandomIndex4K(array ids) { return RandomArrayIndex(ids); }
+global func FindInArray4K(array a, v) { return FindInArray(a, v); }
+global func CleanArray4K(array &a) { return CleanArray(a); }
+global func DelArrayItem4K(array &a, int i) { return DelArrayItem(a, i); }
+global func AddArrayItem4K(array &a, int i, v) { return AddArrayItem(a, i, v); }
+global func AddArray4K(array &aSrc, array &aDst) { return AddArray(aSrc, aDst); }
