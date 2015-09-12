@@ -1,11 +1,14 @@
-/*-- erweiterte Sortierfunktionen fuer FindObject{s,2} --*/
+/*-- Erweiterte Sortierfunktionen für FindObject{s,2} --*/
 
 #strict 2
 
-global func Sort_XPosition() {
+
+global func Sort_XPosition()
+{
   return GetX();
 }
 
-global func Sort_YPosition() {
+global func Sort_YPosition()
+{
   return GetY();
 }

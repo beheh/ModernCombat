@@ -309,7 +309,7 @@ private func UpdateScoreboard()
     SetScoreboardData(i, GOCC_FlagColumn, " ", base+1);
     SetScoreboardData(i, GOCC_TimerColumn, " ");
     SetScoreboardData(i, GOCC_ProgressColumn, " ");
-    i++;	  
+    i++;
     SetScoreboardData(i, GOCC_IconColumn, "");
     SetScoreboardData(i, GOCC_FlagColumn, "{{SM26}}", base+2);
     SetScoreboardData(i, GOCC_TimerColumn, "{{SM27}}");
