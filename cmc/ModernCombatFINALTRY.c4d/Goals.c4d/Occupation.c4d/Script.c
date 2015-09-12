@@ -315,7 +315,7 @@ private func UpdateScoreboard()
     var iTeam = GetTeamByIndex(j);
     if(TeamAlive(iTeam))
     {
-      if(GetHighestTeam() == iTeam)
+      if(GetIndexOf(iTeam, GetHighestTeams()) != -1)
         SetScoreboardData(i, GOCC_IconColumn, "{{SM14}}");
       else
         SetScoreboardData(i, GOCC_IconColumn, " ");
@@ -447,9 +447,16 @@ public func GetTeamTimer(int iTeam)
   return (aTeamTimers[iTeam-1] / 100);
 }
 
-public func GetHighestTeam()
+public func GetHighestTeams()
 {
-  return GetMaxArrayVal(aTicket, true) + 1;
+  var result = [];
+  var highest = GetMaxArrayVal(aTicket, false, true);
+
+  for(var i = 0; i < GetLength(aTicket); i++) 
+    if(aTicket[i] == highest)	  
+      result[GetLength(result)] = i + 1;
+
+  return result;
 }
 
 public func GetTickets(int iTeam)
