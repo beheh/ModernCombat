@@ -40,7 +40,6 @@ func CreateInterior()
   DrawMaterialQuad("Earth-ROUGH", 2490, 678, 2510, 678, 2490, 680, 2510, 680, 1);
   DrawMaterialQuad("Granite-ROCK", 2680, 678, 2750, 678, 2680, 680, 2750, 680, 1);
   DrawMaterialQuad("Rock-Ridge", 2890, 678, 3010, 678, 2890, 680, 3010, 680, 1);
-
   DrawMaterialQuad("Rock-Ridge", 3820, 678, 3940, 678, 3820, 680, 3940, 680, 1);
   DrawMaterialQuad("Granite-ROCK", 4080, 678, 4150, 678, 4080, 680, 4150, 680, 1);
   DrawMaterialQuad("Earth-ROUGH", 4320, 678, 4340, 678, 4320, 680, 4340, 680, 1);
@@ -355,98 +354,98 @@ public func ChooserFinished()
   //Teams abfragen
   var aTeams = [false,false,false,false,false];
   for(var i = 0; i < GetPlayerCount(); i++)
-   aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
+    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
   //Helikopter und Hinweisschilder
   if(!FindObject(NOHC))
   {
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,855,570,-1),90*21);
-   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5975,570,-1),90*21);
+    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,855,570,-1),90*21);
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5975,570,-1),90*21);
 
-   var sign = CreateObject(SGNP, 940, 600, -1);
-   sign->SetMode(1);
-   sign->Set("Helicopter");
-   sign = CreateObject(SGNP, 5890, 600, -1);
-   sign->SetMode(1);
-   sign->Set("Helicopter");
+    var sign = CreateObject(SGNP, 940, 600, -1);
+    sign->SetMode(1);
+    sign->Set("Helicopter");
+    sign = CreateObject(SGNP, 5890, 600, -1);
+    sign->SetMode(1);
+    sign->Set("Helicopter");
   }
 
-  //OP-Spielziel
+  //OCC-Spielziel
   if(FindObject(GOCC))
   {
-   //Flaggenposten
-   aFlag[0] = CreateObject(OFPL,1570,580,NO_OWNER);
-   aFlag[0] -> AddSpawnPoint(670,610);
-   aFlag[0] -> AddSpawnPoint(1130,620);
-   if(aTeams[1] == true)
-   {
-    aFlag[0]->Set("$Flag1$",100,2);
-    aFlag[0]->Capture(1,1);
-   }
-   else
-   {
-    aFlag[0]->Set("$Flag1$",0,2);
-   }
+    //Flaggenposten
+    aFlag[0] = CreateObject(OFPL,1570,580,NO_OWNER);
+    aFlag[0] -> AddSpawnPoint(670,610);
+    aFlag[0] -> AddSpawnPoint(1130,620);
+    if(aTeams[1] == true)
+    {
+      aFlag[0]->Set("$Flag1$",0,4);
+      aFlag[0]->Capture(1,1);
+    }
+    else
+    {
+      aFlag[0]->Set("$Flag1$");
+    }
 
-   aFlag[1] = CreateObject(OFPL,2675,630,NO_OWNER);
-   aFlag[1] -> AddSpawnPoint(2580,520);
-   aFlag[1] -> AddSpawnPoint(2500,670);
-   aFlag[1] -> AddSpawnPoint(2540,470);
-   aFlag[1]->Set("$Flag2$",0,2);
+    aFlag[1] = CreateObject(OFPL,2675,630,NO_OWNER);
+    aFlag[1] -> AddSpawnPoint(2580,520);
+    aFlag[1] -> AddSpawnPoint(2500,670);
+    aFlag[1] -> AddSpawnPoint(2540,470);
+    aFlag[1]->Set("$Flag2$");
 
-   aFlag[2] = CreateObject(OFPL,3415,480,NO_OWNER);
-   aFlag[2] -> AddSpawnPoint(3270,710);
-   aFlag[2] -> AddSpawnPoint(3560,710);
-   aFlag[2]->Set("$Flag3$",0,2);
+    aFlag[2] = CreateObject(OFPL,3415,480,NO_OWNER);
+    aFlag[2] -> AddSpawnPoint(3270,710);
+    aFlag[2] -> AddSpawnPoint(3560,710);
+    aFlag[2]->Set("$Flag3$");
 
-   aFlag[3] = CreateObject(OFPL,4155,630,NO_OWNER);
-   aFlag[3] -> AddSpawnPoint(4250,520);
-   aFlag[3] -> AddSpawnPoint(4330,670);
-   aFlag[3] -> AddSpawnPoint(4290,470);
-   aFlag[3]->Set("$Flag4$",0,2);
+    aFlag[3] = CreateObject(OFPL,4155,630,NO_OWNER);
+    aFlag[3] -> AddSpawnPoint(4250,520);
+    aFlag[3] -> AddSpawnPoint(4330,670);
+    aFlag[3] -> AddSpawnPoint(4290,470);
+    aFlag[3]->Set("$Flag4$");
 
-   aFlag[4] = CreateObject(OFPL,5260,580,NO_OWNER);
-   aFlag[4] -> AddSpawnPoint(5710,620);
-   aFlag[4] -> AddSpawnPoint(6160,610);
-   if(aTeams[2] == true)
-   {
-    aFlag[4]->Set("$Flag5$",100,2);
-    aFlag[4]->Capture(2,1);
-   }
-   else
-   {
-    aFlag[4]->Set("$Flag5$",0,2);
-   }
+    aFlag[4] = CreateObject(OFPL,5260,580,NO_OWNER);
+    aFlag[4] -> AddSpawnPoint(5710,620);
+    aFlag[4] -> AddSpawnPoint(6160,610);
+    if(aTeams[2] == true)
+    {
+      aFlag[4]->Set("$Flag5$",0,4);
+      aFlag[4]->Capture(2,1);
+    }
+    else
+    {
+      aFlag[4]->Set("$Flag5$");
+    }
   }
 
   //HTF-Spielziel
   if(FindObject(GHTF))
   {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 3415, 480, -1);
-   flag->~Set("$Flag3$");
+    //Flaggenposten
+    var flag = CreateObject(OFPL, 3415, 480, -1);
+    flag->~Set("$Flag3$");
 
-   //Teamgrenzen
-   CreateObject(BRDR, 2490, 0, -1)->Set(0,1,0,1,1);
-   CreateObject(BRDR, 4340, 0, -1)->Set(1,1,0,1,2);
+    //Teamgrenzen
+    CreateObject(BRDR, 2490, 0, -1)->Set(0,1,0,1,1);
+    CreateObject(BRDR, 4340, 0, -1)->Set(1,1,0,1,2);
 
-   //Selbstschussanlagen
-   var selfdef = CreateObject(SEGU, 2035, 610, -1);
-   selfdef->Set(0,1,1,180,0,2500);
-   selfdef->SetTeam(1);
-   selfdef = CreateObject(SEGU, 4795, 610, -1);
-   selfdef->Set(0,1,1,180,4330);
-   selfdef->SetTeam(2);
+    //Selbstschussanlagen
+    var selfdef = CreateObject(SEGU, 2035, 610, -1);
+    selfdef->Set(0,1,1,180,0,2500);
+    selfdef->SetTeam(1);
+    selfdef = CreateObject(SEGU, 4795, 610, -1);
+    selfdef->Set(0,1,1,180,4330);
+    selfdef->SetTeam(2);
   }
 
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
-   //Flaggen
-   if(aTeams[1] == true)
-   {CreateFlag(1,2030,610,GetTeamColor(1));}
-   if(aTeams[2] == true)
-   {CreateFlag(2,4800,610,GetTeamColor(2));}
+    //Flaggen
+    if(aTeams[1] == true)
+    {CreateFlag(1,2030,610,GetTeamColor(1));}
+    if(aTeams[2] == true)
+    {CreateFlag(2,4800,610,GetTeamColor(2));}
   }
 }
 
@@ -457,21 +456,17 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //Startsicht
   if(!g_chooserFinished)
   {
-   iX = 3415; iY = 360;
-   return 1;
+    iX = 3415; iY = 360;
+    return 1;
   }
 
   //HTF/CTF/LMS/DM-Spielziel
   if(FindObject(GHTF) || FindObject(GCTF) || FindObject(GLMS) || FindObject(GTDM))
   {
-   if(iTeam == 1)
-   {
-    return [[1440, 450], [1440, 540], [1560, 570]];
-   }
-   if(iTeam == 2)
-   {
-    return [[5270, 570], [5390, 450], [5390, 540]];
-   }
-   return 1;
+    if(iTeam == 1)
+      return [[1440, 450], [1440, 540], [1560, 570]];
+    if(iTeam == 2)
+      return [[5270, 570], [5390, 450], [5390, 540]];
+    return 1;
   }
 }

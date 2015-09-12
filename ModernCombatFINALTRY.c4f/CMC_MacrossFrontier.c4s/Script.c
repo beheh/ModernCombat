@@ -210,12 +210,10 @@ func CreateInterior()
   //Tore und Konsolen
   var autod = CreateObject(HNG3, 810, 540, -1);
   autod->Open();
-  CreateObject(CONS, 670, 540, -1)
-  ->Set(autod);
+  CreateObject(CONS, 670, 540, -1)->Set(autod);
   var autod = CreateObject(HNG3, 1140, 460, -1);
   autod->Open();
-  CreateObject(CONS, 1280, 460, -1)
-  ->Set(autod);
+  CreateObject(CONS, 1280, 460, -1)->Set(autod);
 
   //Verbundene Räume
   aDoorWay[00] = CreateObject(GAT1, 976, 510, -1);
@@ -449,51 +447,31 @@ public func ChooserFinished()
   //HTF-Spielziel
   if(FindObject(GHTF))
   {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 995,560, -1);
-   flag->~Set("$Flag1$");
+    //Flaggenposten
+    var flag = CreateObject(OFPL, 995,560, -1);
+    flag->~Set("$Flag1$");
 
-   //Objekte entfernen
-   RemoveAll(JPTP);
-   RemoveAll(JMPD);
+    //Objekte entfernen
+    RemoveAll(JPTP);
+    RemoveAll(JMPD);
 
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Versorgungskiste (Kugeln)
-    var crate = CreateObject(AMCT, 960, 640, -1);
-    crate->Set(ABOX);
-   }
+    //Zusätzliche Munition
+    if(!FindObject(NOAM))
+    {
+      //Versorgungskiste (Kugeln)
+      var crate = CreateObject(AMCT, 960, 640, -1);
+      crate->Set(ABOX);
+    }
   }
 
   //MR-Spielziel
   if(FindObject(GMNR))
   {
-   //Hinweisschilder
-   var sign = CreateObject(SGNP, 760, 680, -1);
-   sign->SetMode(1);
-   sign->Set("Turret");
-   var sign = CreateObject(SGNP, 1190, 600, -1);
-   sign->SetMode(1);
-   sign->Set("Turret");
-
-   //Geldsäcke
-   AddMoneySpawn(810, 440, [20]);
-   AddMoneySpawn(980, 250, [20]);
-   AddMoneySpawn(1010, 630, [20]);
-   AddMoneySpawn(1140, 360, [20]);
-  }
-
-  //LMS/DM-Spielziel
-  if(FindObject(GLMS) || FindObject(GTDM))
-  {
-   //Hinweisschilder
-   var sign = CreateObject(SGNP, 760, 680, -1);
-   sign->SetMode(1);
-   sign->Set("Turret");
-   var sign = CreateObject(SGNP, 1190, 600, -1);
-   sign->SetMode(1);
-   sign->Set("Turret");
+    //Geldsäcke
+    AddMoneySpawn(810, 440, [20]);
+    AddMoneySpawn(980, 250, [20]);
+    AddMoneySpawn(1010, 630, [20]);
+    AddMoneySpawn(1140, 360, [20]);
   }
 }
 
@@ -504,51 +482,39 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //Startsicht
   if(!g_chooserFinished)
   {
-   iX = 985; iY = 550;
-   return 1;
+    iX = 985; iY = 550;
+    return 1;
   }
 
   //HTF-Spielziel
   if(FindObject(GHTF))
   {
-   //Gesonderte Spawnpoints bei 2 Teams
-   if(GetActiveTeamCount() == 2)
-   {
-    if(iTeam == GetActiveTeamByIndex(0))
+    //Gesonderte Spawnpoints bei 2 Teams
+    if(GetActiveTeamCount() == 2)
     {
-     return [[420, 400], [420, 630], [450, 340]];
-    }
-    if(iTeam == GetActiveTeamByIndex(1))
-    {
-     return [[1465, 285], [1495, 320], [1530, 550]];
+      if(iTeam == GetActiveTeamByIndex(0))
+        return [[420, 400], [420, 630], [450, 340]];
+      if(iTeam == GetActiveTeamByIndex(1))
+        return [[1465, 285], [1495, 320], [1530, 550]];
     }
     return 1;
-   }
-   else
-   {
-    return [[540, 420], [540, 540], [540, 630], [1410, 340], [1410, 460], [1410, 550]];
-   }
   }
+  else
+    return [[540, 420], [540, 540], [540, 630], [1410, 340], [1410, 460], [1410, 550]];
 
   //MR/LMS/DM-Spielziel
   if(FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM))
   {
-   //Gesonderte Spawnpoints bei 2 Teams
-   if(GetActiveTeamCount() == 2)
-   {
-    if(iTeam == GetActiveTeamByIndex(0))
+    //Gesonderte Spawnpoints bei 2 Teams
+    if(GetActiveTeamCount() == 2)
     {
-     return [[420, 400], [420, 630], [450, 340]];
+      if(iTeam == GetActiveTeamByIndex(0))
+        return [[420, 400], [420, 630], [450, 340]];
+      if(iTeam == GetActiveTeamByIndex(1))
+        return [[1465, 285], [1495, 320], [1530, 550]];
+      return 1;
     }
-    if(iTeam == GetActiveTeamByIndex(1))
-    {
-     return [[1465, 285], [1495, 320], [1530, 550]];
-    }
-    return 1;
-   }
-   else
-   {
-    return [[540, 540], [550, 630], [730, 610], [1220, 530], [1420, 460], [1400, 550]];
-   }
+    else
+      return [[540, 540], [550, 630], [730, 610], [1220, 530], [1420, 460], [1400, 550]];
   }
 }

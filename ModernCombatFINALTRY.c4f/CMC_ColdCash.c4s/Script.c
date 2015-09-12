@@ -301,148 +301,148 @@ public func ChooserFinished()
   //Teams abfragen
   var aTeams = [false,false,false,false,false];
   for(var i = 0; i < GetPlayerCount(); i++)
-   aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
+    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
   //Helikopter und Hinweisschilder
   if(!FindObject(NOHC))
   {
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21);
+    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21);
 
-   CreateObject(SGNP, 2655, 550, -1)->Set("Helicopter");
-   CreateObject(SGNP, 2885, 550, -1)->Set("Helicopter");
+    CreateObject(SGNP, 2655, 550, -1)->Set("Helicopter");
+    CreateObject(SGNP, 2885, 550, -1)->Set("Helicopter");
   }
 
-  //OP-Spielziel
+  //OCC-Spielziel
   if(FindObject(GOCC))
   {
-   //Flaggenposten
-   aFlag[0] = CreateObject(OFPL,1480,510,NO_OWNER);
-   aFlag[0] -> AddSpawnPoint(1100, 570);
-   aFlag[0] -> AddSpawnPoint(1250, 570);
-   if(aTeams[1] == true)
-   {
-    aFlag[0]->Set("$Flag1$",100,2);
-    aFlag[0]->Capture(1,1);
-   }
-   else
-   {
-    aFlag[0]->Set("$Flag1$",0,2);
-   }
+    //Flaggenposten
+    aFlag[0] = CreateObject(OFPL,1480,510,NO_OWNER);
+    aFlag[0] -> AddSpawnPoint(1100, 570);
+    aFlag[0] -> AddSpawnPoint(1250, 570);
+    if(aTeams[1] == true)
+    {
+      aFlag[0]->Set("$Flag1$",0,4);
+      aFlag[0]->Capture(1,1);
+    }
+    else
+    {
+      aFlag[0]->Set("$Flag1$");
+    }
 
-   aFlag[1] = CreateObject(OFPL,2770,630,NO_OWNER);
-   aFlag[1] -> AddSpawnPoint(2710,500);
-   aFlag[1] -> AddSpawnPoint(2745,530);
-   aFlag[1] -> AddSpawnPoint(2830,500);
-   aFlag[1]->Set("$Flag2$",0,2);
+    aFlag[1] = CreateObject(OFPL,2770,630,NO_OWNER);
+    aFlag[1] -> AddSpawnPoint(2710,500);
+    aFlag[1] -> AddSpawnPoint(2745,530);
+    aFlag[1] -> AddSpawnPoint(2830,500);
+    aFlag[1]->Set("$Flag2$");
 
-   aFlag[2] = CreateObject(OFPL,4060,510,NO_OWNER);
-   aFlag[2] -> AddSpawnPoint(4290, 570);
-   aFlag[2] -> AddSpawnPoint(4440, 570);
-   if(aTeams[2] == true)
-   {
-    aFlag[2]->Set("$Flag3$",100,2);
-    aFlag[2]->Capture(2,1);
-   }
-   else
-   {
-    aFlag[2]->Set("$Flag3$",0,2);
-   }
+    aFlag[2] = CreateObject(OFPL,4060,510,NO_OWNER);
+    aFlag[2] -> AddSpawnPoint(4290, 570);
+    aFlag[2] -> AddSpawnPoint(4440, 570);
+    if(aTeams[2] == true)
+    {
+      aFlag[2]->Set("$Flag3$",0,4);
+      aFlag[2]->Capture(2,1);
+    }
+    else
+    {
+      aFlag[2]->Set("$Flag3$");
+    }
 
-   //Geschützstellungen
-   CreateObject(GNET, 1520, 360, -1)->Set(SATW,90);
-   CreateObject(GNET, 4020, 360, -1)->Set(SATW,-90);
+    //Geschützstellungen
+    CreateObject(GNET, 1520, 360, -1)->Set(SATW,90);
+    CreateObject(GNET, 4020, 360, -1)->Set(SATW,-90);
   }
 
-  //Base Assault-Spielziel
+  //BAS-Spielziel
   if(FindObject(GBAS))
   {
-   //Zielobjekte
-   AddAssaultTarget(CMSN, 1490, 510, 350, 1, "$Target1$", 0, [[1165, 540], [1370, 360], [1485, 360]]);
-   AddAssaultTarget(RADR, 2180, 460, 350, 1, "$Target2$", 1, [[1750, 600], [1930, 620], [1915, 570]]);
+    //Zielobjekte
+    AddAssaultTarget(CMSN, 1490, 510, 350, 1, "$Target1$", 0, [[1165, 540], [1370, 360], [1485, 360]]);
+    AddAssaultTarget(RADR, 2180, 460, 350, 1, "$Target2$", 1, [[1750, 600], [1930, 620], [1915, 570]]);
 
-   AddAssaultTarget(RADR, 3360, 460, 350, 2, "$Target2$", 2, [[3790, 600], [3610, 620], [3625, 570]]);
-   AddAssaultTarget(CMSN, 4050, 510, 350, 2, "$Target1$", 3, [[4050, 360], [4170, 360], [4370, 540]]);
+    AddAssaultTarget(RADR, 3360, 460, 350, 2, "$Target2$", 2, [[3790, 600], [3610, 620], [3625, 570]]);
+    AddAssaultTarget(CMSN, 4050, 510, 350, 2, "$Target1$", 3, [[4050, 360], [4170, 360], [4370, 540]]);
 
-   //Sprengsatz-Spawn
-   SetupBombSpawnpoint([[2770, 540],[2770,630]]);
+    //Sprengsatz-Spawn
+    SetupBombSpawnpoint([[2770, 540],[2770,630]]);
 
-   //Geschützstellungen
-   CreateObject(GNET, 1520, 360, -1)->Set(LCAC);
-   CreateObject(GNET, 4020, 360, -1)->Set(LCAC);
+    //Geschützstellungen
+    CreateObject(GNET, 1520, 360, -1)->Set(LCAC);
+    CreateObject(GNET, 4020, 360, -1)->Set(LCAC);
   }
 
   //HTF-Spielziel
   if(FindObject(GHTF))
   {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 2770, 630, -1);
-   flag->~Set("$Flag2$");
+    //Flaggenposten
+    var flag = CreateObject(OFPL, 2770, 630, -1);
+    flag->~Set("$Flag2$");
 
-   //Teamgrenzen
-   CreateObject(BRDR, 1910, 0, -1)->Set(0,1,0,1,1);
-   CreateObject(BRDR, 3630, 0, -1)->Set(1,1,0,1,2);
+    //Teamgrenzen
+    CreateObject(BRDR, 1910, 0, -1)->Set(0,1,0,1,1);
+    CreateObject(BRDR, 3630, 0, -1)->Set(1,1,0,1,2);
 
-   //Geschützstellungen
-   CreateObject(GNET, 1520, 360, -1)->Set(SATW,90);
-   CreateObject(GNET, 4020, 360, -1)->Set(SATW,-90);
+    //Geschützstellungen
+    CreateObject(GNET, 1520, 360, -1)->Set(SATW,90);
+    CreateObject(GNET, 4020, 360, -1)->Set(SATW,-90);
 
-   //Selbstschussanlagen
-   var selfdef = CreateObject(SEGU, 1740, 510, -1);
-   selfdef->Set(0,1,1,180,0,2150);
-   selfdef->SetTeam(1);
-   selfdef = CreateObject(SEGU, 3800, 510, -1);
-   selfdef->Set(0,1,1,180,3390);
-   selfdef->SetTeam(2);
+    //Selbstschussanlagen
+    var selfdef = CreateObject(SEGU, 1740, 510, -1);
+    selfdef->Set(0,1,1,180,0,2150);
+    selfdef->SetTeam(1);
+    selfdef = CreateObject(SEGU, 3800, 510, -1);
+    selfdef->Set(0,1,1,180,3390);
+    selfdef->SetTeam(2);
 
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Versorgungskiste (Kugeln)
-    var crate = CreateObject(AMCT, 2680, 650, -1);
-    crate->Set(ABOX);
+    //Zusätzliche Munition
+    if(!FindObject(NOAM))
+    {
+      //Versorgungskiste (Kugeln)
+      var crate = CreateObject(AMCT, 2680, 650, -1);
+      crate->Set(ABOX);
 
-    //Raketen
-    PlaceSpawnpoint(MBOX, 2860, 645);
-   }
+      //Raketen
+      PlaceSpawnpoint(MBOX, 2860, 645);
+    }
   }
 
   //MR-Spielziel
   if(FindObject(GMNR))
   {
-   //Geldsäcke
-   AddMoneySpawn(2180, 455, [30]);
-   AddMoneySpawn(2770, 625, [30]);
-   AddMoneySpawn(3360, 455, [30]);
+    //Geldsäcke
+    AddMoneySpawn(2180, 455, [30]);
+    AddMoneySpawn(2770, 625, [30]);
+    AddMoneySpawn(3360, 455, [30]);
 
-   //Teamgrenzen
-   CreateObject(BRDR, 1910, 0, -1)->Set(0,1,0,1,1);
-   CreateObject(BRDR, 3630, 0, -1)->Set(1,1,0,1,2);
+    //Teamgrenzen
+    CreateObject(BRDR, 1910, 0, -1)->Set(0,1,0,1,1);
+    CreateObject(BRDR, 3630, 0, -1)->Set(1,1,0,1,2);
 
-   //Geschützstellungen
-   CreateObject(GNET, 1520, 360, -1)->Set(SATW,90);
-   CreateObject(GNET, 4020, 360, -1)->Set(SATW,-90);
+    //Geschützstellungen
+    CreateObject(GNET, 1520, 360, -1)->Set(SATW,90);
+    CreateObject(GNET, 4020, 360, -1)->Set(SATW,-90);
   }
 
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
-   //Flaggen
-   if(aTeams[1] == true)
-   {CreateFlag(1,1480,510,GetTeamColor(1));}
-   if(aTeams[2] == true)
-   {CreateFlag(2,4060,510,GetTeamColor(2));}
+    //Flaggen
+    if(aTeams[1] == true)
+    {CreateFlag(1,1480,510,GetTeamColor(1));}
+    if(aTeams[2] == true)
+    {CreateFlag(2,4060,510,GetTeamColor(2));}
 
-   //Geschützstellungen
-   CreateObject(GNET, 1520, 360, -1)->Set(SATW,90);
-   CreateObject(GNET, 4020, 360, -1)->Set(SATW,-90);
+    //Geschützstellungen
+    CreateObject(GNET, 1520, 360, -1)->Set(SATW,90);
+    CreateObject(GNET, 4020, 360, -1)->Set(SATW,-90);
   }
 
   //LMS/DM-Spielziel
   if(FindObject(GLMS) || FindObject(GTDM))
   {
-   //Geschützstellungen
-   CreateObject(GNET, 1520, 360, -1)->Set(SATW,90);
-   CreateObject(GNET, 4020, 360, -1)->Set(SATW,-90);
+    //Geschützstellungen
+    CreateObject(GNET, 1520, 360, -1)->Set(SATW,90);
+    CreateObject(GNET, 4020, 360, -1)->Set(SATW,-90);
   }
 }
 
@@ -453,21 +453,17 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //Startsicht
   if(!g_chooserFinished)
   {
-   iX = 2770; iY = 420;
-   return 1;
+    iX = 2770; iY = 420;
+    return 1;
   }
 
   //HTF/MR/CTF/LMS/DM-Spielziel
   if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GCTF) || FindObject(GLMS) || FindObject(GTDM))
   {
-   if(iTeam == 1)
-   {
-    return [[1220, 460], [1370, 350]];
-   }
-   if(iTeam == 2)
-   {
-    return [[4170, 350], [4320, 460]];
-   }
-   return 1;
+    if(iTeam == 1)
+      return [[1220, 460], [1370, 350]];
+    if(iTeam == 2)
+      return [[4170, 350], [4320, 460]];
+    return 1;
   }
 }

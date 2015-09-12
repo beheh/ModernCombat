@@ -223,7 +223,7 @@ func CreateInterior()
 
   //Seegras und Muscheln entfernen
   for(var obj in FindObjects(Find_Or(Find_ID(SWD1), Find_ID(SWD2), Find_ID(SHEL)), Find_InRect(1250, 1270, 1150, 35)))
-   RemoveObject(obj);
+    RemoveObject(obj);
 
   //Sendemast
   var tower = CreateObject(AATR, 3670, 850, -1);
@@ -509,8 +509,8 @@ func FlagCaptured(object pPoint, int iTeam)
 {
   if(pPoint == aFlag[0])
   {
-   aSelfDefense[0]->SetTeam(iTeam);
-   aSelfDefense[1]->SetTeam(iTeam);
+    aSelfDefense[0]->SetTeam(iTeam);
+    aSelfDefense[1]->SetTeam(iTeam);
   }
 }
 
@@ -527,396 +527,396 @@ public func ChooserFinished()
   //Teams abfragen
   var aTeams = [false,false,false,false,false];
   for(var i = 0; i < GetPlayerCount(); i++)
-   aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
+    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //OP-Spielziel
+  //OCC-Spielziel
   if(FindObject(GOCC))
   {
-   //Flaggenposten
-   aFlag[0] = CreateObject(OFPL,2320,1280,NO_OWNER);
-   aFlag[0] -> AddSpawnPoint(1615,1100);
-   aFlag[0] -> AddSpawnPoint(1645,1160);
-   aFlag[0] -> AddSpawnPoint(1645,1250);
-   if(aTeams[1] == true)
-   {
-    aFlag[0]->Set("$Flag1$",100,2);
-    aFlag[0]->Capture(1,1);
-   }
-   else
-   {
-    aFlag[0]->Set("$Flag1$",0,2);
-   }
+    //Flaggenposten
+    aFlag[0] = CreateObject(OFPL,2320,1280,NO_OWNER);
+    aFlag[0] -> AddSpawnPoint(1615,1100);
+    aFlag[0] -> AddSpawnPoint(1645,1160);
+    aFlag[0] -> AddSpawnPoint(1645,1250);
+    if(aTeams[1] == true)
+    {
+      aFlag[0]->Set("$Flag1$",0,4);
+      aFlag[0]->Capture(1,1);
+    }
+    else
+    {
+      aFlag[0]->Set("$Flag1$");
+    }
 
-   aFlag[1] = CreateObject(OFPL,3470,890,NO_OWNER);
-   aFlag[1] -> AddSpawnPoint(3785,980);
-   aFlag[1] -> AddSpawnPoint(3805,1070);
-   aFlag[1] -> AddSpawnPoint(3710,1040);
-   aFlag[1]->Set("$Flag2$",0,2);
+    aFlag[1] = CreateObject(OFPL,3470,890,NO_OWNER);
+    aFlag[1] -> AddSpawnPoint(3785,980);
+    aFlag[1] -> AddSpawnPoint(3805,1070);
+    aFlag[1] -> AddSpawnPoint(3710,1040);
+    aFlag[1]->Set("$Flag2$");
 
-   aFlag[2] = CreateObject(OFPL,4010,530,NO_OWNER);
-   aFlag[2] -> AddSpawnPoint(4085,640);
-   aFlag[2] -> AddSpawnPoint(4265,720);
-   aFlag[2] -> AddSpawnPoint(4305,830);
-   aFlag[2]->Set("$Flag3$",0,2);
+    aFlag[2] = CreateObject(OFPL,4010,530,NO_OWNER);
+    aFlag[2] -> AddSpawnPoint(4085,640);
+    aFlag[2] -> AddSpawnPoint(4265,720);
+    aFlag[2] -> AddSpawnPoint(4305,830);
+    aFlag[2]->Set("$Flag3$");
 
-   aFlag[3] = CreateObject(OFPL,4760,1090,NO_OWNER);
-   aFlag[3] -> AddSpawnPoint(4715,1230);
-   aFlag[3] -> AddSpawnPoint(4805,1200);
-   aFlag[3] -> AddSpawnPoint(4995,1230);
-   if(aTeams[2] == true)
-   {
-    aFlag[3]->Set("$Flag4$",100,2);
-    aFlag[3]->Capture(2,1);
-   }
-   else
-   {
-    aFlag[3]->Set("$Flag4$",0,2);
-   }
+    aFlag[3] = CreateObject(OFPL,4760,1090,NO_OWNER);
+    aFlag[3] -> AddSpawnPoint(4715,1230);
+    aFlag[3] -> AddSpawnPoint(4805,1200);
+    aFlag[3] -> AddSpawnPoint(4995,1230);
+    if(aTeams[2] == true)
+    {
+      aFlag[3]->Set("$Flag4$",0,4);
+      aFlag[3]->Capture(2,1);
+    }
+    else
+    {
+      aFlag[3]->Set("$Flag4$");
+    }
 
-   //Objekte entfernen
-   RemoveObject(FindObject2(Find_ID(XTNK),Find_InRect(1450, 1220, 60, 40)));
-   RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(1479, 1258, 2, 2)));
+    //Objekte entfernen
+    RemoveObject(FindObject2(Find_ID(XTNK),Find_InRect(1450, 1220, 60, 40)));
+    RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(1479, 1258, 2, 2)));
 
-   //Automat
-   var store = CreateObject(WPVM,1480, 1260,-1);
-   store->AddWare(C4PA,10);
-   store->AddWare(FAPK,10);
-   store->AddWare(CDBT,10);
-   store->AddWare(BWTH,10);
-   store->AddWare(RSHL,10);
-   store->AddWare(ATWN,20);
-   store->AddWare(FGRN,20);
-   store->AddWare(FRAG,20);
-   store->AddWare(PGRN,20);
-   store->AddWare(SGRN,20);
-   store->AddWare(STUN,20);
-   store->AddWare(SRBL,20);
+    //Automat
+    var store = CreateObject(WPVM,1480, 1260,-1);
+    store->AddWare(C4PA,10);
+    store->AddWare(FAPK,10);
+    store->AddWare(CDBT,10);
+    store->AddWare(BWTH,10);
+    store->AddWare(RSHL,10);
+    store->AddWare(ATWN,20);
+    store->AddWare(FGRN,20);
+    store->AddWare(FRAG,20);
+    store->AddWare(PGRN,20);
+    store->AddWare(SGRN,20);
+    store->AddWare(STUN,20);
+    store->AddWare(SRBL,20);
 
-   //Geschützstellungen
-   CreateObject(GNET, 1795, 1142, -1)->Set(SATW);
-   CreateObject(GNET, 2380, 1140, -1)->Set(SATW,90,1);
-   CreateObject(GNET, 3880, 660, -1)->Set(SATW,-90,1);
-   CreateObject(GNET, 4310, 720, -1)->Set(SATW,90,1);
-   CreateObject(GNET, 5060, 1170, -1)->Set(SATW,0,1);
-   aTowerInterior[0] = CreateObject(GNET, 3640, 473, -1);
-   aTowerInterior[0] -> Set(SATW,-90);
-   aTowerInterior[1] = CreateObject(GNET, 3700, 473, -1);
-   aTowerInterior[1] -> Set(SATW,90);
+    //Geschützstellungen
+    CreateObject(GNET, 1795, 1142, -1)->Set(SATW);
+    CreateObject(GNET, 2380, 1140, -1)->Set(SATW,90,1);
+    CreateObject(GNET, 3880, 660, -1)->Set(SATW,-90,1);
+    CreateObject(GNET, 4310, 720, -1)->Set(SATW,90,1);
+    CreateObject(GNET, 5060, 1170, -1)->Set(SATW,0,1);
+    aTowerInterior[0] = CreateObject(GNET, 3640, 473, -1);
+    aTowerInterior[0] -> Set(SATW,-90);
+    aTowerInterior[1] = CreateObject(GNET, 3700, 473, -1);
+    aTowerInterior[1] -> Set(SATW,90);
 
-   //MAV-Station
-   CreateObject(MVSN, 4170, 580, -1)->Set(4170,530,1);
+    //MAV-Station
+    CreateObject(MVSN, 4170, 580, -1)->Set(4170,530,1);
 
-   //Gerüst
-   CreateObject(SFFG, 4170, 580, -1)->Set(4);
+    //Gerüst
+    CreateObject(SFFG, 4170, 580, -1)->Set(4);
 
-   //Helikopter und Hinweisschild
-   if(!FindObject(NOHC))
-   {
-    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1970,1140,-1),100*21);
-    SetupVehicleSpawn([APCE],DIR_Right,CreateObject(VSPW,2135,1140,-1),100*21);
-    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5495,1200,-1),100*21);
+    //Helikopter und Hinweisschild
+    if(!FindObject(NOHC))
+    {
+      SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1970,1140,-1),100*21);
+      SetupVehicleSpawn([APCE],DIR_Right,CreateObject(VSPW,2135,1140,-1),100*21);
+      SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5495,1200,-1),100*21);
 
-    var sign = CreateObject(SGNP, 1640, 1170, -1);
-    sign->SetMode(1);
-    sign->Set("Helicopter");
-    CreateObject(SGNP, 5405, 1270, -1)->Set("Helicopter");
-   }
+      var sign = CreateObject(SGNP, 1640, 1170, -1);
+      sign->SetMode(1);
+      sign->Set("Helicopter");
+      CreateObject(SGNP, 5405, 1270, -1)->Set("Helicopter");
+    }
 
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-   {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1);}
+    //SSA Besitzer setzen
+    if(aTeams[1] == true)
+    {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1);}
 
-   //SSA aktivieren
-   aSelfDefense[0]->TurnOn();
-   aSelfDefense[1]->TurnOn();
+    //SSA aktivieren
+    aSelfDefense[0]->TurnOn();
+    aSelfDefense[1]->TurnOn();
 
-   //Grenzen setzen
-   CreateObject(BRDR, 910, 0, -1)->Set(0);
-   CreateObject(BRDR, 5970, 0, -1)->Set(1);
+    //Grenzen setzen
+    CreateObject(BRDR, 910, 0, -1)->Set(0);
+    CreateObject(BRDR, 5970, 0, -1)->Set(1);
 
-   //Hinweisschilder
-   CreateObject(SGNP, 830, 1220, -1);
-   CreateObject(SGNP, 6010, 1210, -1);
+    //Hinweisschilder
+    CreateObject(SGNP, 830, 1220, -1);
+    CreateObject(SGNP, 6010, 1210, -1);
 
-   //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1821,1269,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1904,1269,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4150,1269,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1269,-1),50*21);
+    //Patrouillenboote
+    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1821,1269,-1),50*21);
+    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1904,1269,-1),50*21);
+    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4150,1269,-1),50*21);
+    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1269,-1),50*21);
   }
 
-  //Assault-Spielziel
+  //AS-Spielziel
   if(FindObject(GASS))
   {
-   //Zielobjekte
-   AddAssaultTarget(GSTA, 3260, 1210, 30*30, 2, "$Target1$", 0, [[[3550, 1278], [3690, 850], [3755, 800]], [[1640, 1260], [1660, 1170], [2120, 1170]]]);
-   AddAssaultTarget(GSTA, 3700, 1050, 30*30, 2, "$Target1$", 1, [[[3550, 1278], [3690, 850], [3755, 800]], [[1640, 1260], [1660, 1170], [2120, 1170]]]);
-   AddAssaultTarget(RADR, 4010, 530, 30*30, 2, "$Target2$", 2, [[[4300, 970], [4465, 1050], [4530, 911]], [[1640, 1260], [1660, 1170], [2120, 1170]]]);
-   AddAssaultTarget(CMSN, 4245, 820, 30*30, 2, "$Target3$", 3, [[[4300, 970], [4465, 1050], [4530, 911]], [[1640, 1260], [1660, 1170], [2120, 1170]]]);
-   AddAssaultTarget(HUT3, 4760, 1090, 30*30, 2, "$Target4$", 4, [[[4995, 1240], [5105, 1190], [5280, 1260]], [[3690, 850], [3805, 790], [3890, 660]]]);
-   AddAssaultTarget(CMSN, 4710, 1240, 30*30, 2, "$Target5$", 5, [[[4995, 1240], [5105, 1190], [5280, 1260]], [[3690, 850], [3805, 790], [3890, 660]]]);
-   AddAssaultTarget(LBPC, 4180, 1270, 30*30, 2, "$Target3$", 6, [[[4995, 1240], [5105, 1190], [5280, 1260]], [[3690, 850], [3805, 790], [3890, 660]]]);
+    //Zielobjekte
+    AddAssaultTarget(GSTA, 3260, 1210, 30*30, 2, "$Target1$", 0, [[[3550, 1278], [3690, 850], [3755, 800]], [[1640, 1260], [1660, 1170], [2120, 1170]]]);
+    AddAssaultTarget(GSTA, 3700, 1050, 30*30, 2, "$Target1$", 1, [[[3550, 1278], [3690, 850], [3755, 800]], [[1640, 1260], [1660, 1170], [2120, 1170]]]);
+    AddAssaultTarget(RADR, 4010, 530, 30*30, 2, "$Target2$", 2, [[[4300, 970], [4465, 1050], [4530, 911]], [[1640, 1260], [1660, 1170], [2120, 1170]]]);
+    AddAssaultTarget(CMSN, 4245, 820, 30*30, 2, "$Target3$", 3, [[[4300, 970], [4465, 1050], [4530, 911]], [[1640, 1260], [1660, 1170], [2120, 1170]]]);
+    AddAssaultTarget(HUT3, 4760, 1090, 30*30, 2, "$Target4$", 4, [[[4995, 1240], [5105, 1190], [5280, 1260]], [[3690, 850], [3805, 790], [3890, 660]]]);
+    AddAssaultTarget(CMSN, 4710, 1240, 30*30, 2, "$Target5$", 5, [[[4995, 1240], [5105, 1190], [5280, 1260]], [[3690, 850], [3805, 790], [3890, 660]]]);
+    AddAssaultTarget(LBPC, 4180, 1270, 30*30, 2, "$Target3$", 6, [[[4995, 1240], [5105, 1190], [5280, 1260]], [[3690, 850], [3805, 790], [3890, 660]]]);
 
-   //Ziele verbinden
-   ConnectAssaultTargets([0, 1]);
-   ConnectAssaultTargets([2, 3]);
-   ConnectAssaultTargets([4, 5, 6]);
+    //Ziele verbinden
+    ConnectAssaultTargets([0, 1]);
+    ConnectAssaultTargets([2, 3]);
+    ConnectAssaultTargets([4, 5, 6]);
 
-   //Leitern
-   CreateObject(LADR, 4310, 670, -1)->Set(15, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
-   CreateObject(LADR, 4330, 715, -1)->Set(5, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
+    //Leitern
+    CreateObject(LADR, 4310, 670, -1)->Set(15, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
+    CreateObject(LADR, 4330, 715, -1)->Set(5, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
 
-   //Container
-   CreateObject(CON1, 4215, 582, -1);
-   CreateObject(CON1, 4265, 582, -1);
-   CreateObject(CON1, 4280, 610, -1)->SetPerspective(2);
+    //Container
+    CreateObject(CON1, 4215, 582, -1);
+    CreateObject(CON1, 4265, 582, -1);
+    CreateObject(CON1, 4280, 610, -1)->SetPerspective(2);
 
-   //Metallkisten
-   CreateObject(MWCR, 4290, 720, -1);
-   CreateObject(MWCR, 4300, 702, -1);
-   CreateObject(MWCR, 4310, 720, -1);
+    //Metallkisten
+    CreateObject(MWCR, 4290, 720, -1);
+    CreateObject(MWCR, 4300, 702, -1);
+    CreateObject(MWCR, 4310, 720, -1);
 
-   //Steine
-   CreateObject(STNE, 3710, 1300, -1)->Set(2);
-   CreateObject(STNE, 3760, 1310, -1)->Set(3);
-   CreateObject(STNE, 3820, 1215, -1)->Set(1);
-   CreateObject(STNE, 3770, 1288, -1)->Set(3);
-   CreateObject(STNE, 3835, 1340, -1);
-   CreateObject(STNE, 3890, 1300, -1)->Set(3);
+    //Steine
+    CreateObject(STNE, 3710, 1300, -1)->Set(2);
+    CreateObject(STNE, 3760, 1310, -1)->Set(3);
+    CreateObject(STNE, 3820, 1215, -1)->Set(1);
+    CreateObject(STNE, 3770, 1288, -1)->Set(3);
+    CreateObject(STNE, 3835, 1340, -1);
+    CreateObject(STNE, 3890, 1300, -1)->Set(3);
 
-   //Boden
-   DrawMaterialQuad("Wall-Stripes", 4130,1270, 4230,1270, 4230,1280, 4130,1280);
+    //Boden
+    DrawMaterialQuad("Wall-Stripes", 4130,1270, 4230,1270, 4230,1280, 4130,1280);
 
-   //Erde
-   Schedule("CastPXS(\"Earth\", 1250, 10, 3820, 1280)", 15, 8);
+    //Erde
+    Schedule("CastPXS(\"Earth\", 1250, 10, 3820, 1280)", 15, 8);
 
-   //Rauch
-   Schedule("CastSmoke(\"Smoke3\", 2,30,3820,1270,1000,1200,RGBa(150,40,0,0))", 10, 8);
-   Schedule("CastSmoke(\"GunSmoke\", 2, 50, 3820, 1270, 1000, 1500, RGBa(250, 250, 250, 0))", 10, 8);
+    //Rauch
+    Schedule("CastSmoke(\"Smoke3\", 2,30,3820,1270,1000,1200,RGBa(150,40,0,0))", 10, 8);
+    Schedule("CastSmoke(\"GunSmoke\", 2, 50, 3820, 1270, 1000, 1500, RGBa(250, 250, 250, 0))", 10, 8);
 
-   //Sound
-   Sound("Blast3");
-   Sound("Earthquake");
+    //Sound
+    Sound("Blast3");
+    Sound("Earthquake");
 
-   //Grenzen setzen
-   CreateObject(BRDR, 910, 0, -1)->Set(0);
-   CreateObject(BRDR, 3900, 0, -1)->Set(1,1);
-   CreateObject(BRDR, 0, 700, -1)->Set(2,1);
+    //Grenzen setzen
+    CreateObject(BRDR, 910, 0, -1)->Set(0);
+    CreateObject(BRDR, 3900, 0, -1)->Set(1,1);
+    CreateObject(BRDR, 0, 700, -1)->Set(2,1);
 
-   //Hinweisschilder
-   CreateObject(SGNP, 830, 1220, -1);
-   CreateObject(SGNP, 6010, 1210, -1);
+    //Hinweisschilder
+    CreateObject(SGNP, 830, 1220, -1);
+    CreateObject(SGNP, 6010, 1210, -1);
 
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-   {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1);}
+    //SSA Besitzer setzen
+    if(aTeams[1] == true)
+    {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1);}
 
-   //SSA aktivieren
-   aSelfDefense[0]->TurnOn();
-   aSelfDefense[1]->TurnOn();
+    //SSA aktivieren
+    aSelfDefense[0]->TurnOn();
+    aSelfDefense[1]->TurnOn();
 
-   //Versorgungskiste (APW)
-   var crate = CreateObject(AMCT, 5540, 1230, -1);
-   crate->Set(ATWN);
+    //Versorgungskiste (APW)
+    var crate = CreateObject(AMCT, 5540, 1230, -1);
+    crate->Set(ATWN);
 
-   //Geschützstellungen
-   aStationary[0] = CreateObject(GNET, 1795, 1141, -1);
-   aStationary[0] -> Set(0,90,1);
-   aStationary[1] = CreateObject(GNET, 3410, 1130, -1);
-   aStationary[1] -> Set(0,-90,1);
-   aStationary[2] = CreateObject(GNET, 3460, 890, -1);
-   aStationary[2] -> Set(SATW,-90,1);
-   aStationary[3] = CreateObject(GNET, 3880, 660, -1);
-   aStationary[3] -> Set(SATW,-90);
-   aStationary[4] = CreateObject(GNET, 5060, 1170, -1);
-   aStationary[4] -> Set(SATW);
-   aTowerInterior[0] = CreateObject(GNET, 3640, 473, -1);
-   aTowerInterior[0] -> Set(SATW,-90);
-   aTowerInterior[1] = CreateObject(GNET, 3700, 473, -1);
-   aTowerInterior[1] -> Set(SATW,90);
+    //Geschützstellungen
+    aStationary[0] = CreateObject(GNET, 1795, 1141, -1);
+    aStationary[0]->Set(0,90,1);
+    aStationary[1] = CreateObject(GNET, 3410, 1130, -1);
+    aStationary[1]->Set(0,-90,1);
+    aStationary[2] = CreateObject(GNET, 3460, 890, -1);
+    aStationary[2]->Set(SATW,-90,1);
+    aStationary[3] = CreateObject(GNET, 3880, 660, -1);
+    aStationary[3]->Set(SATW,-90);
+    aStationary[4] = CreateObject(GNET, 5060, 1170, -1);
+    aStationary[4]->Set(SATW);
+    aTowerInterior[0] = CreateObject(GNET, 3640, 473, -1);
+    aTowerInterior[0]->Set(SATW,-90);
+    aTowerInterior[1] = CreateObject(GNET, 3700, 473, -1);
+    aTowerInterior[1]->Set(SATW,90);
 
-   //MAV-Station
-   CreateObject(MVSN, 4805, 1210, -1)->Set(4885,1165,1);
+    //MAV-Station
+    CreateObject(MVSN, 4805, 1210, -1)->Set(4885,1165,1);
 
-   //Helikopter und Hinweisschilder
-   if(!FindObject(NOHC))
-   {
-    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1970,1140,-1),50*21);
-    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5495,1200,-1),50*21);
+    //Helikopter und Hinweisschilder
+    if(!FindObject(NOHC))
+    {
+      SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1970,1140,-1),50*21);
+      SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5495,1200,-1),50*21);
 
-    var sign = CreateObject(SGNP, 1640, 1170, -1);
-    sign->SetMode(1);
-    sign->Set("Helicopter");
-    CreateObject(SGNP, 5405, 1270, -1)->Set("Helicopter");
-   }
+      var sign = CreateObject(SGNP, 1640, 1170, -1);
+      sign->SetMode(1);
+      sign->Set("Helicopter");
+      CreateObject(SGNP, 5405, 1270, -1)->Set("Helicopter");
+    }
 
-   //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1821,1269,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1904,1269,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,3610,1269,-1),50*21);
+    //Patrouillenboote
+    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1821,1269,-1),50*21);
+    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1904,1269,-1),50*21);
+    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,3610,1269,-1),50*21);
 
-   //Objekt entfernen
-   RemoveObject(FindObject2(Find_ID(LADR),Find_InRect(4230, 580, 20, 200)));
+    //Objekt entfernen
+    RemoveObject(FindObject2(Find_ID(LADR),Find_InRect(4230, 580, 20, 200)));
   }
 
   //HTF-Spielziel
   if(FindObject(GHTF))
   {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 4010,530, -1);
-   flag->~Set("$Flag3$");
+    //Flaggenposten
+    var flag = CreateObject(OFPL, 4010,530, -1);
+    flag->~Set("$Flag3$");
 
-   //Grenzen setzen
-   CreateObject(BRDR, 2890, 0, -1)->Set(0);
-   CreateObject(BRDR, 6010, 0, -1)->Set(1);
+    //Grenzen setzen
+    CreateObject(BRDR, 2890, 0, -1)->Set(0);
+    CreateObject(BRDR, 6010, 0, -1)->Set(1);
 
-   //Teamgrenzen
-   CreateObject(BRDR, 3620, 0, -1)->Set(0,1,0,1,1);
-   CreateObject(BRDR, 4600, 0, -1)->Set(1,1,0,1,2);
+    //Teamgrenzen
+    CreateObject(BRDR, 3620, 0, -1)->Set(0,1,0,1,1);
+    CreateObject(BRDR, 4600, 0, -1)->Set(1,1,0,1,2);
 
-   //Selbstschussanlagen
-   var selfdef = CreateObject(SEGU, 3085, 1230, -1);
-   selfdef->Set(0,1,1,180,0,3430);
-   selfdef->SetTeam(1);
-   selfdef = CreateObject(SEGU, 5450, 1230, -1);
-   selfdef->Set(0,1,1,180,4850);
-   selfdef->SetTeam(2);
+    //Selbstschussanlagen
+    var selfdef = CreateObject(SEGU, 3085, 1230, -1);
+    selfdef->Set(0,1,1,180,0,3430);
+    selfdef->SetTeam(1);
+    selfdef = CreateObject(SEGU, 5450, 1230, -1);
+    selfdef->Set(0,1,1,180,4850);
+    selfdef->SetTeam(2);
 
-   //Geschützstellungen
-   CreateObject(GNET, 3260, 1210, -1)->Set(LCAC);
-   CreateObject(GNET, 5060, 1170, -1)->Set(LCAC);
+    //Geschützstellungen
+    CreateObject(GNET, 3260, 1210, -1)->Set(LCAC);
+    CreateObject(GNET, 5060, 1170, -1)->Set(LCAC);
 
-   //Hinweisschild
-   CreateObject(SGNP, 6010, 1210, -1);
+    //Hinweisschild
+    CreateObject(SGNP, 6010, 1210, -1);
 
-   //Leitern
-   CreateObject(LADR, 2965, 1267, -1)->Set(4);
-   CreateObject(LADR, 3115, 1267, -1)->Set(4);
+    //Leitern
+    CreateObject(LADR, 2965, 1267, -1)->Set(4);
+    CreateObject(LADR, 3115, 1267, -1)->Set(4);
 
-   //Gerüste
-   CreateObject(SFFG, 3010, 1280, -1)->Set(4);
-   var plat = CreateObject(SFFG, 3010, 1330, -1);
-   plat->Set(5);
-   plat->SetClrModulation(RGB(125,125,250));
-   CreateObject(SFFG, 3070, 1280, -1)->Set(4);
-   plat = CreateObject(SFFG, 3070, 1330, -1);
-   plat->Set(5);
-   plat->SetClrModulation(RGB(125,125,250));
+    //Gerüste
+    CreateObject(SFFG, 3010, 1280, -1)->Set(4);
+    var plat = CreateObject(SFFG, 3010, 1330, -1);
+    plat->Set(5);
+    plat->SetClrModulation(RGB(125,125,250));
+    CreateObject(SFFG, 3070, 1280, -1)->Set(4);
+    plat = CreateObject(SFFG, 3070, 1330, -1);
+    plat->Set(5);
+    plat->SetClrModulation(RGB(125,125,250));
 
-   //Boje
-   CreateObject(BUOY, 2890, 1293,  -1);
+    //Boje
+    CreateObject(BUOY, 2890, 1293,  -1);
 
-   //Büsche
-   CreateObject(BSH2, 3030, 1260, -1);
-   CreateObject(BSH2, 3050, 1275, -1);
+    //Büsche
+    CreateObject(BSH2, 3030, 1260, -1);
+    CreateObject(BSH2, 3050, 1275, -1);
 
-   //Helikopter und Hinweisschilder
-   if(!FindObject(NOHC))
-   {
-    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,3045,1200,-1),50*21);
-    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5495,1200,-1),50*21);
+    //Helikopter und Hinweisschilder
+    if(!FindObject(NOHC))
+    {
+      SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,3045,1200,-1),50*21);
+      SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5495,1200,-1),50*21);
 
-    CreateObject(SGNP, 3160, 1280, -1)->Set("Helicopter");
-    CreateObject(SGNP, 5405, 1270, -1)->Set("Helicopter");
-   }
+      CreateObject(SGNP, 3160, 1280, -1)->Set("Helicopter");
+      CreateObject(SGNP, 5405, 1270, -1)->Set("Helicopter");
+    }
 
-   //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1269,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1269,-1),50*21);
+    //Patrouillenboote
+    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1269,-1),50*21);
+    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1269,-1),50*21);
   }
 
   //MR-Spielziel
   if(FindObject(GMNR))
   {
-   //Geldsäcke
-   AddMoneySpawn(3780, 980, [20]);
-   AddMoneySpawn(4040, 1270, [20]);
-   AddMoneySpawn(4080, 550, [20]);
-   AddMoneySpawn(4480, 930, [20]);
+    //Geldsäcke
+    AddMoneySpawn(3780, 980, [20]);
+    AddMoneySpawn(4040, 1270, [20]);
+    AddMoneySpawn(4080, 550, [20]);
+    AddMoneySpawn(4480, 930, [20]);
 
-   //Grenzen setzen
-   CreateObject(BRDR, 3130, 0, -1)->Set(0);
-   CreateObject(BRDR, 5310, 0, -1)->Set(1);
+    //Grenzen setzen
+    CreateObject(BRDR, 3130, 0, -1)->Set(0);
+    CreateObject(BRDR, 5310, 0, -1)->Set(1);
 
-   //Hinweisschilder
-   CreateObject(SGNP, 3160, 1280, -1);
-   CreateObject(SGNP, 3260, 1210, -1);
-   CreateObject(SGNP, 3420, 1130, -1);
-   CreateObject(SGNP, 5065, 1170, -1);
-   CreateObject(SGNP, 5100, 1250, -1);
-   CreateObject(SGNP, 5180, 1240, -1);
+    //Hinweisschilder
+    CreateObject(SGNP, 3160, 1280, -1);
+    CreateObject(SGNP, 3260, 1210, -1);
+    CreateObject(SGNP, 3420, 1130, -1);
+    CreateObject(SGNP, 5065, 1170, -1);
+    CreateObject(SGNP, 5100, 1250, -1);
+    CreateObject(SGNP, 5180, 1240, -1);
 
-   //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1269,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1269,-1),50*21);
+    //Patrouillenboote
+    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1269,-1),50*21);
+    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1269,-1),50*21);
   }
 
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
-   //Flaggen
-   if(aTeams[1] == true)
-   {CreateFlag(1,3710,1050,GetTeamColor(1));}
-   if(aTeams[2] == true)
-   {CreateFlag(2,4480,940,GetTeamColor(2));}
+    //Flaggen
+    if(aTeams[1] == true)
+      {CreateFlag(1,3710,1050,GetTeamColor(1));}
+    if(aTeams[2] == true)
+      {CreateFlag(2,4480,940,GetTeamColor(2));}
 
-   //Erde
-   Schedule("CastPXS(\"Earth\", 1250, 10, 3960, 1090)", 10, 2);
-   Schedule("CastPXS(\"Earth\", 1250, 10, 4250, 1060)", 10, 4);
+    //Erde
+    Schedule("CastPXS(\"Earth\", 1250, 10, 3960, 1090)", 10, 2);
+    Schedule("CastPXS(\"Earth\", 1250, 10, 4250, 1060)", 10, 4);
 
-   //Rauch
-   Schedule("CastSmoke(\"Smoke3\", 2,30,3980,1090,1000,1200,RGBa(150,40,0,0))", 10, 8);
-   Schedule("CastSmoke(\"Smoke3\", 2,30,4250,1060,1000,1200,RGBa(150,40,0,0))", 10, 8);
-   Schedule("CastSmoke(\"GunSmoke\", 2, 50, 3980, 1090, 1000, 1500, RGBa(250, 250, 250, 0))", 10, 8);
-   Schedule("CastSmoke(\"GunSmoke\", 2, 50, 4250, 1060, 1000, 1500, RGBa(250, 250, 250, 0))", 10, 8);
+    //Rauch
+    Schedule("CastSmoke(\"Smoke3\", 2,30,3980,1090,1000,1200,RGBa(150,40,0,0))", 10, 8);
+    Schedule("CastSmoke(\"Smoke3\", 2,30,4250,1060,1000,1200,RGBa(150,40,0,0))", 10, 8);
+    Schedule("CastSmoke(\"GunSmoke\", 2, 50, 3980, 1090, 1000, 1500, RGBa(250, 250, 250, 0))", 10, 8);
+    Schedule("CastSmoke(\"GunSmoke\", 2, 50, 4250, 1060, 1000, 1500, RGBa(250, 250, 250, 0))", 10, 8);
 
-   //Sound
-   Sound("Blast3");
-   Sound("Earthquake");
+    //Sound
+    Sound("Blast3");
+    Sound("Earthquake");
 
-   //Grenzen setzen
-   CreateObject(BRDR, 3130, 0, -1)->Set(0);
-   CreateObject(BRDR, 5310, 0, -1)->Set(1);
+    //Grenzen setzen
+    CreateObject(BRDR, 3130, 0, -1)->Set(0);
+    CreateObject(BRDR, 5310, 0, -1)->Set(1);
 
-   //Container
-   CreateObject(CON1, 4420, 860, -1);
-   CreateObject(CON1, 4420, 889, -1)->SetPerspective(2);
-   CreateObject(CON1, 4125, 640, -1)->SetPerspective(2);
+    //Container
+    CreateObject(CON1, 4420, 860, -1);
+    CreateObject(CON1, 4420, 889, -1)->SetPerspective(2);
+    CreateObject(CON1, 4125, 640, -1)->SetPerspective(2);
 
-   //Hinweisschilder
-   CreateObject(SGNP, 3160, 1280, -1);
-   CreateObject(SGNP, 3260, 1210, -1);
-   CreateObject(SGNP, 3420, 1130, -1);
-   CreateObject(SGNP, 5065, 1170, -1);
-   CreateObject(SGNP, 5100, 1250, -1);
-   CreateObject(SGNP, 5180, 1240, -1);
+    //Hinweisschilder
+    CreateObject(SGNP, 3160, 1280, -1);
+    CreateObject(SGNP, 3260, 1210, -1);
+    CreateObject(SGNP, 3420, 1130, -1);
+    CreateObject(SGNP, 5065, 1170, -1);
+    CreateObject(SGNP, 5100, 1250, -1);
+    CreateObject(SGNP, 5180, 1240, -1);
 
-   //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1269,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1269,-1),50*21);
+    //Patrouillenboote
+    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1269,-1),50*21);
+    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1269,-1),50*21);
 
-   //Spawnpoint entfernen
-   RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(4119, 1069, 2, 2)));
+    //Spawnpoint entfernen
+    RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(4119, 1069, 2, 2)));
   }
 
   //LMS/DM-Spielziel
   if(FindObject(GLMS) || FindObject(GTDM))
   {
-   //Grenzen setzen
-   CreateObject(BRDR, 3130, 0, -1)->Set(0);
-   CreateObject(BRDR, 5310, 0, -1)->Set(1);
+    //Grenzen setzen
+    CreateObject(BRDR, 3130, 0, -1)->Set(0);
+    CreateObject(BRDR, 5310, 0, -1)->Set(1);
 
-   //Hinweisschilder
-   CreateObject(SGNP, 3160, 1280, -1);
-   CreateObject(SGNP, 3260, 1210, -1);
-   CreateObject(SGNP, 3420, 1130, -1);
-   CreateObject(SGNP, 5065, 1170, -1);
-   CreateObject(SGNP, 5100, 1250, -1);
-   CreateObject(SGNP, 5180, 1240, -1);
+    //Hinweisschilder
+    CreateObject(SGNP, 3160, 1280, -1);
+    CreateObject(SGNP, 3260, 1210, -1);
+    CreateObject(SGNP, 3420, 1130, -1);
+    CreateObject(SGNP, 5065, 1170, -1);
+    CreateObject(SGNP, 5100, 1250, -1);
+    CreateObject(SGNP, 5180, 1240, -1);
 
-   //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1269,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1269,-1),50*21);
+    //Patrouillenboote
+    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1269,-1),50*21);
+    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1269,-1),50*21);
   }
 }
 
@@ -927,52 +927,52 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   //Ziel 1 und 2
   if(!iIndex || iIndex == 1)
   {
-   if(fConnectedDestroyed)
-   {
-    //Grenze neu setzen
-    RemoveAll(BRDR);
-    CreateObject(BRDR, 910, 0, -1)->Set(0,1);
-    CreateObject(BRDR, 4580, 0, -1)->Set(1,1);
+    if(fConnectedDestroyed)
+    {
+      //Grenze neu setzen
+      RemoveAll(BRDR);
+      CreateObject(BRDR, 910, 0, -1)->Set(0,1);
+      CreateObject(BRDR, 4580, 0, -1)->Set(1,1);
 
-    //Teamgrenze setzen
-    FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),3760,0,1,1);
+      //Teamgrenze setzen
+      FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),3760,0,1,1);
 
-    //Geschützstellungen entfernen
-    aStationary[1]->DecoExplode(30);
-    aStationary[2]->DecoExplode(30);
-   }
+      //Geschützstellungen entfernen
+      aStationary[1]->DecoExplode(30);
+      aStationary[2]->DecoExplode(30);
+    }
   }
 
   //Ziel 3 und 4
   if(iIndex == 2 || iIndex == 3)
   {
-   if(fConnectedDestroyed)
-   {
-    //Grenze neu setzen
-    RemoveAll(BRDR);
-    CreateObject(BRDR, 910, 0, -1)->Set(0,1);
-    CreateObject(BRDR, 5970, 0, -1)->Set(1,1);
+    if(fConnectedDestroyed)
+    {
+      //Grenze neu setzen
+      RemoveAll(BRDR);
+      CreateObject(BRDR, 910, 0, -1)->Set(0,1);
+      CreateObject(BRDR, 5970, 0, -1)->Set(1,1);
 
-    //Teamgrenze setzen
-    FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),4370,0,1,1);
+      //Teamgrenze setzen
+      FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),4370,0,1,1);
 
-    //Spawnpoints entfernen
-    RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(1969, 1139, 2, 2)));
-    RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(3609,1279, 2, 2)));
+      //Spawnpoints entfernen
+      RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(1969, 1139, 2, 2)));
+      RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(3609,1279, 2, 2)));
 
-    //Geschützstellung entfernen
-    aStationary[3]->DecoExplode(30);
-   }
+      //Geschützstellung entfernen
+      aStationary[3]->DecoExplode(30);
+    }
   }
 
   //Ziel 5, 6 und 7
   if(iIndex == 4 || iIndex == 5 || iIndex == 6)
   {
-   if(fConnectedDestroyed)
-   {
-    //Geschützstellung entfernen
-    aStationary[4]->DecoExplode(30);
-   }
+    if(fConnectedDestroyed)
+    {
+      //Geschützstellung entfernen
+      aStationary[4]->DecoExplode(30);
+    }
   }
 }
 
@@ -983,21 +983,17 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //Startsicht
   if(!g_chooserFinished)
   {
-   iX = 3730; iY = 740;
-   return 1;
+    iX = 3730; iY = 740;
+    return 1;
   }
 
   //HTF/MR/CTF/LMS/DM-Spielziel
   if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GCTF) || FindObject(GLMS) || FindObject(GTDM))
   {
-   if(iTeam == 1)
-   {
-    return [[3150, 1270], [3315, 1210], [3380, 1270], [3420, 1120], [3550, 1270]];
-   }
-   if(iTeam == 2)
-   {
-    return [[4720, 1230], [4810, 1200], [4820, 1090], [4890, 1160]];
-   }
-   return 1;
+    if(iTeam == 1)
+      return [[3150, 1270], [3315, 1210], [3380, 1270], [3420, 1120], [3550, 1270]];
+    if(iTeam == 2)
+      return [[4720, 1230], [4810, 1200], [4820, 1090], [4890, 1160]];
+    return 1;
   }
 }

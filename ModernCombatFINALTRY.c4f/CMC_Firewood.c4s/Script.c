@@ -356,97 +356,97 @@ public func ChooserFinished()
   //Teams abfragen
   var aTeams = [false,false,false,false,false];
   for(var i = 0; i < GetPlayerCount(); i++)
-   aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
+    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //OP-Spielziel
+  //OCC-Spielziel
   if(FindObject(GOCC))
   {
-   //Flaggenposten
-   aFlag[0] = CreateObject(OFPL,465,300,NO_OWNER);
-   aFlag[0] -> AddSpawnPoint(190,380);
-   aFlag[0] -> AddSpawnPoint(430,380);
-   aFlag[0] -> AddSpawnPoint(660,380);
-   if(aTeams[1] == true)
-   {
-    aFlag[0]->Set("$Flag1$",100,2);
-    aFlag[0]->Capture(1,1);
-   }
-   else
-   {
-    aFlag[0]->Set("$Flag1$",0,2);
-   }
+    //Flaggenposten
+    aFlag[0] = CreateObject(OFPL,465,300,NO_OWNER);
+    aFlag[0] -> AddSpawnPoint(190,380);
+    aFlag[0] -> AddSpawnPoint(430,380);
+    aFlag[0] -> AddSpawnPoint(660,380);
+    if(aTeams[1] == true)
+    {
+      aFlag[0]->Set("$Flag1$",0,4);
+      aFlag[0]->Capture(1,1);
+    }
+    else
+    {
+      aFlag[0]->Set("$Flag1$");
+    }
 
-   aFlag[1] = CreateObject(OFPL,1115,510,NO_OWNER);
-   aFlag[1] -> AddSpawnPoint(945,450);
-   aFlag[1] -> AddSpawnPoint(1035,400);
-   aFlag[1] -> AddSpawnPoint(1265,560);
-   aFlag[1]->Set("$Flag2$",0,2);
+    aFlag[1] = CreateObject(OFPL,1115,510,NO_OWNER);
+    aFlag[1] -> AddSpawnPoint(945,450);
+    aFlag[1] -> AddSpawnPoint(1035,400);
+    aFlag[1] -> AddSpawnPoint(1265,560);
+    aFlag[1]->Set("$Flag2$");
 
-   aFlag[2] = CreateObject(OFPL,1639,100,NO_OWNER);
-   aFlag[2] -> AddSpawnPoint(1425,250);
-   aFlag[2] -> AddSpawnPoint(1665,200);
-   aFlag[2] -> AddSpawnPoint(1855,250);
-   if(aTeams[3] == true)
-   {
-    aFlag[2]->Set("$Flag3$",100,2);
-    aFlag[2]->Capture(3,1);
-   }
-   else
-   {
-    aFlag[2]->Set("$Flag3$",0,2);
-   }
+    aFlag[2] = CreateObject(OFPL,1639,100,NO_OWNER);
+    aFlag[2] -> AddSpawnPoint(1425,250);
+    aFlag[2] -> AddSpawnPoint(1665,200);
+    aFlag[2] -> AddSpawnPoint(1855,250);
+    if(aTeams[3] == true)
+    {
+      aFlag[2]->Set("$Flag3$",0,4);
+      aFlag[2]->Capture(3,1);
+    }
+    else
+    {
+      aFlag[2]->Set("$Flag3$");
+    }
 
-   aFlag[3] = CreateObject(OFPL,1641,520,NO_OWNER);
-   aFlag[3] -> AddSpawnPoint(1465,370);
-   aFlag[3] -> AddSpawnPoint(1580,390);
-   aFlag[3] -> AddSpawnPoint(1700,390);
-   aFlag[3] -> AddSpawnPoint(1815,370);
-   if(aTeams[4] == true)
-   {
-    aFlag[3]->Set("$Flag4$",100,2);
-    aFlag[3]->Capture(4,1);
-   }
-   else
-   {
-    aFlag[3]->Set("$Flag4$",0,2);
-   }
+    aFlag[3] = CreateObject(OFPL,1641,520,NO_OWNER);
+    aFlag[3] -> AddSpawnPoint(1465,370);
+    aFlag[3] -> AddSpawnPoint(1580,390);
+    aFlag[3] -> AddSpawnPoint(1700,390);
+    aFlag[3] -> AddSpawnPoint(1815,370);
+    if(aTeams[4] == true)
+    {
+      aFlag[3]->Set("$Flag4$",0,4);
+      aFlag[3]->Capture(4,1);
+    }
+    else
+    {
+      aFlag[3]->Set("$Flag4$");
+    }
 
-   aFlag[4] = CreateObject(OFPL,2165,510,NO_OWNER);
-   aFlag[4] -> AddSpawnPoint(2245,400);
-   aFlag[4] -> AddSpawnPoint(2355,460);
-   aFlag[4] -> AddSpawnPoint(2015,560);
-   aFlag[4]->Set("$Flag5$",0,2);
+    aFlag[4] = CreateObject(OFPL,2165,510,NO_OWNER);
+    aFlag[4] -> AddSpawnPoint(2245,400);
+    aFlag[4] -> AddSpawnPoint(2355,460);
+    aFlag[4] -> AddSpawnPoint(2015,560);
+    aFlag[4]->Set("$Flag5$");
 
-   aFlag[5] = CreateObject(OFPL,2810,300,NO_OWNER);
-   aFlag[5] -> AddSpawnPoint(2620,380);
-   aFlag[5] -> AddSpawnPoint(2850,380);
-   aFlag[5] -> AddSpawnPoint(3090,380);
-   if(aTeams[2] == true)
-   {
-    aFlag[5]->Set("$Flag6$",100,2);
-    aFlag[5]->Capture(2,1);
-   }
-   else
-   {
-    aFlag[5]->Set("$Flag6$",0,2);
-   }
+    aFlag[5] = CreateObject(OFPL,2810,300,NO_OWNER);
+    aFlag[5] -> AddSpawnPoint(2620,380);
+    aFlag[5] -> AddSpawnPoint(2850,380);
+    aFlag[5] -> AddSpawnPoint(3090,380);
+    if(aTeams[2] == true)
+    {
+      aFlag[5]->Set("$Flag6$",0,4);
+      aFlag[5]->Capture(2,1);
+    }
+    else
+    {
+      aFlag[5]->Set("$Flag6$");
+    }
   }
 
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
-   //Flaggen
-   if(aTeams[1] == true)
-   {CreateFlag(1,465,300,GetTeamColor(1));}
-   if(aTeams[2] == true)
-   {CreateFlag(2,2810,300,GetTeamColor(2));}
-   if(aTeams[3] == true)
-   {CreateFlag(3,1640,100,GetTeamColor(3));}
-   if(aTeams[4] == true)
-   {CreateFlag(4,1640,580,GetTeamColor(4));}
+    //Flaggen
+    if(aTeams[1] == true)
+    {CreateFlag(1,465,300,GetTeamColor(1));}
+    if(aTeams[2] == true)
+    {CreateFlag(2,2810,300,GetTeamColor(2));}
+    if(aTeams[3] == true)
+    {CreateFlag(3,1640,100,GetTeamColor(3));}
+    if(aTeams[4] == true)
+    {CreateFlag(4,1640,580,GetTeamColor(4));}
 
-   //Objekt entfernen
-   RemoveObject(FindObject2(Find_ID(SPNP),Find_InRect(1620, 550, 40, 30)));
+    //Objekt entfernen
+    RemoveObject(FindObject2(Find_ID(SPNP),Find_InRect(1620, 550, 40, 30)));
   }
 }
 
@@ -457,51 +457,35 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //Startsicht
   if(!g_chooserFinished)
   {
-   iX = 1640; iY = 210;
-   return 1;
+    iX = 1640; iY = 210;
+    return 1;
   }
 
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
-   if(iTeam == 1)
-   {
-    return [[90, 440], [225, 530]];
-   }
-   if(iTeam == 2)
-   {
-    return [[3055, 530], [3190, 440]];
-   }
-   if(iTeam == 3)
-   {
-    return [[1535, 200], [1745, 200]];
-   }
-   if(iTeam == 4)
-   {
-    return [[1460, 370], [1820, 370]];
-   }
-   return 1;
+    if(iTeam == 1)
+      return [[90, 440], [225, 530]];
+    if(iTeam == 2)
+      return [[3055, 530], [3190, 440]];
+    if(iTeam == 3)
+      return [[1535, 200], [1745, 200]];
+    if(iTeam == 4)
+      return [[1460, 370], [1820, 370]];
+    return 1;
   }
 
   //LMS/DM-Spielziel
   if(FindObject(GLMS) || FindObject(GTDM))
   {
-   if(iTeam == 1)
-   {
-    return [[370, 300], [450, 380]];
-   }
-   if(iTeam == 2)
-   {
-    return [[2830, 380], [2900, 300]];
-   }
-   if(iTeam == 3)
-   {
-    return [[1490, 110], [1790, 110]];
-   }
-   if(iTeam == 4)
-   {
-    return [[1555, 400], [1725, 400]];
-   }
-   return 1;
+    if(iTeam == 1)
+      return [[370, 300], [450, 380]];
+    if(iTeam == 2)
+      return [[2830, 380], [2900, 300]];
+    if(iTeam == 3)
+      return [[1490, 110], [1790, 110]];
+    if(iTeam == 4)
+      return [[1555, 400], [1725, 400]];
+    return 1;
   }
 }

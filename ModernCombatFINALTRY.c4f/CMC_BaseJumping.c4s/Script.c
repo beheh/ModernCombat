@@ -481,7 +481,7 @@ public func OnClassSelection(object pClonk)
 {
   //LMS/MR-Spielziel
   if(FindObject(GLMS) || FindObject(GMNR))
-   AddEffect("SpawnParachute", pClonk, 1, 10);
+    AddEffect("SpawnParachute", pClonk, 1, 10);
 }
  
 /* Fallschirmeffekt */
@@ -491,19 +491,19 @@ global func FxSpawnParachuteTimer(object pTarget)
   //Ziel im Freien?
   if(!Contained(pTarget))
   {
-   //Ziel ist festem Boden zu nahe: Abbruch
-   var x = GetX(pTarget), y = GetY(pTarget), xdir = GetXDir(pTarget, 100), ydir = GetYDir(pTarget, 100);
-   SimFlight(x, y, xdir, ydir, 0, 0, 0, 100);
-   if(Distance(xdir, ydir) < 700)
+    //Ziel ist festem Boden zu nahe: Abbruch
+    var x = GetX(pTarget), y = GetY(pTarget), xdir = GetXDir(pTarget, 100), ydir = GetYDir(pTarget, 100);
+    SimFlight(x, y, xdir, ydir, 0, 0, 0, 100);
+    if(Distance(xdir, ydir) < 700)
+      return -1;
+
+    //Ansonsten Fallschirm erstellen
+    CreateObject(PARA,0,0,GetOwner(pTarget))->Set(pTarget);
+
+    //Effekt
+    Sound("Airstrike2", 0, pTarget);
+
     return -1;
-
-   //Ansonsten Fallschirm erstellen
-   CreateObject(PARA,0,0,GetOwner(pTarget))->Set(pTarget);
-
-   //Effekt
-   Sound("Airstrike2", 0, pTarget);
-
-   return -1;
   }
   //Ansonsten abwarten
 }
@@ -520,152 +520,152 @@ public func ChooserFinished()
 
   //Verzögerte Hinweisnachricht ausgeben
   if(!FindObject(FDMG))
-   Schedule("EventInfo4K(0,Format(\"$MsgParachute$\"),PPAR, 0, 0, 0, \"Info_Event.ogg\");", 100);
+    Schedule("EventInfo4K(0,Format(\"$MsgParachute$\"),PPAR, 0, 0, 0, \"Info_Event.ogg\");", 100);
 
   //Teams abfragen
   var aTeams = [false,false,false,false,false];
   for(var i = 0; i < GetPlayerCount(); i++)
-   aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
+    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
   //Helikopter und Hinweisschilder
   if(!FindObject(NOHC))
   {
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,440,1460,-1),100*21);
-   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2640,1460,-1),100*21);
+    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,440,1460,-1),100*21);
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2640,1460,-1),100*21);
 
-   CreateObject(SNPT, 575, 1490, -1)->SetAction("Sign3");
-   CreateObject(SNPT, 2505, 1490, -1)->SetAction("Sign3");
+    CreateObject(SNPT, 575, 1490, -1)->SetAction("Sign3");
+    CreateObject(SNPT, 2505, 1490, -1)->SetAction("Sign3");
   }
 
-  //OP-Spielziel
+  //OCC-Spielziel
   if(FindObject(GOCC))
   {
-   //Flaggenposten
-   aFlag[0] = CreateObject(OFPL,450,850,NO_OWNER);
-   aFlag[0] -> AddSpawnPoint(390, 930);
-   aFlag[0] -> AddSpawnPoint(540, 930);
-   aFlag[0] -> AddSpawnPoint(610, 940);
-   aFlag[0]->Set("$Flag1$",0,2);
+    //Flaggenposten
+    aFlag[0] = CreateObject(OFPL,450,850,NO_OWNER);
+    aFlag[0] -> AddSpawnPoint(390, 930);
+    aFlag[0] -> AddSpawnPoint(540, 930);
+    aFlag[0] -> AddSpawnPoint(610, 940);
+    aFlag[0]->Set("$Flag1$");
 
-   aFlag[1] = CreateObject(OFPL,840,1570,NO_OWNER);
-   aFlag[1] -> AddSpawnPoint(740, 1480);
-   aFlag[1] -> AddSpawnPoint(575, 1480);
-   aFlag[1] -> AddSpawnPoint(615, 1560);
-   aFlag[1]->Set("$Flag2$",0,2);
+    aFlag[1] = CreateObject(OFPL,840,1570,NO_OWNER);
+    aFlag[1] -> AddSpawnPoint(740, 1480);
+    aFlag[1] -> AddSpawnPoint(575, 1480);
+    aFlag[1] -> AddSpawnPoint(615, 1560);
+    aFlag[1]->Set("$Flag2$");
 
-   aFlag[2] = CreateObject(OFPL,1210,330,NO_OWNER);
-   aFlag[2] -> AddSpawnPoint(720,280);
-   aFlag[2] -> AddSpawnPoint(760,240);
-   aFlag[2] -> AddSpawnPoint(990,430);
-   if(aTeams[1] == true)
-   {
-    aFlag[2]->Set("$Flag3$",100,2);
-    aFlag[2]->Capture(1,1);
-   }
-   else
-   {
-    aFlag[2]->Set("$Flag3$",0,2);
-   }
+    aFlag[2] = CreateObject(OFPL,1210,330,NO_OWNER);
+    aFlag[2] -> AddSpawnPoint(720,280);
+    aFlag[2] -> AddSpawnPoint(760,240);
+    aFlag[2] -> AddSpawnPoint(990,430);
+    if(aTeams[1] == true)
+    {
+      aFlag[2]->Set("$Flag3$",0,4);
+      aFlag[2]->Capture(1,1);
+    }
+    else
+    {
+      aFlag[2]->Set("$Flag3$");
+    }
 
-   aFlag[3] = CreateObject(OFPL,1540,780,NO_OWNER);
-   aFlag[3] -> AddSpawnPoint(1290, 930);
-   aFlag[3] -> AddSpawnPoint(1510, 910);
-   aFlag[3] -> AddSpawnPoint(1570, 910);
-   aFlag[3] -> AddSpawnPoint(1790, 930);
-   aFlag[3]->Set("$Flag4$",0,2);
+    aFlag[3] = CreateObject(OFPL,1540,780,NO_OWNER);
+    aFlag[3] -> AddSpawnPoint(1290, 930);
+    aFlag[3] -> AddSpawnPoint(1510, 910);
+    aFlag[3] -> AddSpawnPoint(1570, 910);
+    aFlag[3] -> AddSpawnPoint(1790, 930);
+    aFlag[3]->Set("$Flag4$");
 
-   aFlag[4] = CreateObject(OFPL,1870,330,NO_OWNER);
-   aFlag[4] -> AddSpawnPoint(2090,430);
-   aFlag[4] -> AddSpawnPoint(2360,280);
-   aFlag[4] -> AddSpawnPoint(2320,240);
-   if(aTeams[2] == true)
-   {
-    aFlag[4]->Set("$Flag5$",100,2);
-    aFlag[4]->Capture(2,1);
-   }
-   else
-   {
-    aFlag[4]->Set("$Flag5$",0,2);
-   }
+    aFlag[4] = CreateObject(OFPL,1870,330,NO_OWNER);
+    aFlag[4] -> AddSpawnPoint(2090,430);
+    aFlag[4] -> AddSpawnPoint(2360,280);
+    aFlag[4] -> AddSpawnPoint(2320,240);
+    if(aTeams[2] == true)
+    {
+      aFlag[4]->Set("$Flag5$",0,4);
+      aFlag[4]->Capture(2,1);
+    }
+    else
+    {
+      aFlag[4]->Set("$Flag5$");
+    }
 
-   aFlag[5] = CreateObject(OFPL,2240,1570,NO_OWNER);
-   aFlag[5] -> AddSpawnPoint(2340, 1480);
-   aFlag[5] -> AddSpawnPoint(2505, 1480);
-   aFlag[5] -> AddSpawnPoint(2465, 1560);
-   aFlag[5]->Set("$Flag6$",0,2);
+    aFlag[5] = CreateObject(OFPL,2240,1570,NO_OWNER);
+    aFlag[5] -> AddSpawnPoint(2340, 1480);
+    aFlag[5] -> AddSpawnPoint(2505, 1480);
+    aFlag[5] -> AddSpawnPoint(2465, 1560);
+    aFlag[5]->Set("$Flag6$");
 
-   aFlag[6] = CreateObject(OFPL,2630,850,NO_OWNER);
-   aFlag[6] -> AddSpawnPoint(2470, 940);
-   aFlag[6] -> AddSpawnPoint(2540, 930);
-   aFlag[6] -> AddSpawnPoint(2690, 930);
-   aFlag[6]->Set("$Flag7$",0,2);
+    aFlag[6] = CreateObject(OFPL,2630,850,NO_OWNER);
+    aFlag[6] -> AddSpawnPoint(2470, 940);
+    aFlag[6] -> AddSpawnPoint(2540, 930);
+    aFlag[6] -> AddSpawnPoint(2690, 930);
+    aFlag[6]->Set("$Flag7$");
   }
 
-  //Base Assault-Spielziel
+  //BAS-Spielziel
   if(FindObject(GBAS))
   {
-   //Zielobjekte
-   AddAssaultTarget(LBPC, 450, 850, 350, 1, "$Target1$", 0, [[540, 940], [615, 950]]);
-   AddAssaultTarget(CMSN, 1060, 1570, 350, 1, "$Target2$", 1, [[600, 1490], [625, 1570], [720, 1490]]);
-   AddAssaultTarget(RADR, 1210, 330, 350, 1, "$Target3$", 2, [[720, 250], [760, 290], [740, 440]]);
-   AddAssaultTarget(RADR, 1870, 330, 350, 2, "$Target3$", 3, [[2340, 440], [2360, 250], [2320, 290]]);
-   AddAssaultTarget(CMSN, 2020, 1570, 350, 2, "$Target2$", 4, [[2360, 1490], [2455, 1570], [2480, 1490]]);
-   AddAssaultTarget(LBPC, 2630, 850, 350, 2, "$Target1$", 5, [[2465, 950], [2540, 940]]);
+    //Zielobjekte
+    AddAssaultTarget(LBPC, 450, 850, 350, 1, "$Target1$", 0, [[540, 940], [615, 950]]);
+    AddAssaultTarget(CMSN, 1060, 1570, 350, 1, "$Target2$", 1, [[600, 1490], [625, 1570], [720, 1490]]);
+    AddAssaultTarget(RADR, 1210, 330, 350, 1, "$Target3$", 2, [[720, 250], [760, 290], [740, 440]]);
+    AddAssaultTarget(RADR, 1870, 330, 350, 2, "$Target3$", 3, [[2340, 440], [2360, 250], [2320, 290]]);
+    AddAssaultTarget(CMSN, 2020, 1570, 350, 2, "$Target2$", 4, [[2360, 1490], [2455, 1570], [2480, 1490]]);
+    AddAssaultTarget(LBPC, 2630, 850, 350, 2, "$Target1$", 5, [[2465, 950], [2540, 940]]);
 
-   //Sprengsatz-Spawn
-   SetupBombSpawnpoint([[1540, 780],[1540,920]]);
+    //Sprengsatz-Spawn
+    SetupBombSpawnpoint([[1540, 780],[1540,920]]);
 
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Raketen
-    PlaceSpawnpoint(MBOX, 1570, 915);
-   }
+    //Zusätzliche Munition
+    if(!FindObject(NOAM))
+    {
+      //Raketen
+      PlaceSpawnpoint(MBOX, 1570, 915);
+    }
 
-   //Objekte entfernen
-   RemoveObject(FindObject2(Find_ID(MNI2),Find_InRect(1520, 880, 30, 40)));
-   RemoveObject(FindObject2(Find_ID(BECR),Find_InRect(1520, 880, 30, 40)));
-   RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(1520, 880, 30, 40)));
+    //Objekte entfernen
+    RemoveObject(FindObject2(Find_ID(MNI2),Find_InRect(1520, 880, 30, 40)));
+    RemoveObject(FindObject2(Find_ID(BECR),Find_InRect(1520, 880, 30, 40)));
+    RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(1520, 880, 30, 40)));
   }
 
   //HTF-Spielziel
   if(FindObject(GHTF))
   {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 1540,780, -1);
-   flag->~Set("$Flag4$");
+    //Flaggenposten
+    var flag = CreateObject(OFPL, 1540,780, -1);
+    flag->~Set("$Flag4$");
 
-   //Teamgrenzen
-   CreateObject(BRDR, 1050, 0, -1)->Set(0,1,0,1,1);
-   CreateObject(BRDR, 2030, 0, -1)->Set(1,1,0,1,2);
+    //Teamgrenzen
+    CreateObject(BRDR, 1050, 0, -1)->Set(0,1,0,1,1);
+    CreateObject(BRDR, 2030, 0, -1)->Set(1,1,0,1,2);
 
-   //Selbstschussanlagen
-   var selfdef = CreateObject(SEGU, 740, 1490, -1);
-   selfdef->Set(0,1,1,180);
-   selfdef->SetTeam(1);
-   selfdef = CreateObject(SEGU, 2340, 1490, -1);
-   selfdef->Set(0,1,1,180);
-   selfdef->SetTeam(2);
+    //Selbstschussanlagen
+    var selfdef = CreateObject(SEGU, 740, 1490, -1);
+    selfdef->Set(0,1,1,180);
+    selfdef->SetTeam(1);
+    selfdef = CreateObject(SEGU, 2340, 1490, -1);
+    selfdef->Set(0,1,1,180);
+    selfdef->SetTeam(2);
 
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Raketen
-    PlaceSpawnpoint(MBOX, 1570, 915);
-   }
+    //Zusätzliche Munition
+    if(!FindObject(NOAM))
+    {
+      //Raketen
+      PlaceSpawnpoint(MBOX, 1570, 915);
+    }
   }
 
   //MR-Spielziel
   if(FindObject(GMNR))
   {
-   //Geldsäcke
-   AddMoneySpawn(475, 330, [15]);
-   AddMoneySpawn(770, 1560, [20]);
-   AddMoneySpawn(1430, 400, [15]);
-   AddMoneySpawn(1540, 770, [15]);
-   AddMoneySpawn(1650, 400, [15]);
-   AddMoneySpawn(2310, 1560, [20]);
-   AddMoneySpawn(2605, 330, [15]);
+    //Geldsäcke
+    AddMoneySpawn(475, 330, [15]);
+    AddMoneySpawn(770, 1560, [20]);
+    AddMoneySpawn(1430, 400, [15]);
+    AddMoneySpawn(1540, 770, [15]);
+    AddMoneySpawn(1650, 400, [15]);
+    AddMoneySpawn(2310, 1560, [20]);
+    AddMoneySpawn(2605, 330, [15]);
   }
 }
 
@@ -676,35 +676,27 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //Startsicht
   if(!g_chooserFinished)
   {
-   iX =1540; iY = 490;
-   return 1;
+    iX =1540; iY = 490;
+    return 1;
   }
 
   //HTF-Spielziel
   if(FindObject(GHTF))
   {
-   if(iTeam == 1)
-   {
-    return [[600, 1480], [625, 1560], [860, 1560]];
-   }
-   if(iTeam == 2)
-   {
-    return [[2480, 1480], [2455, 1560], [2220, 1560]];
-   }
-   return 1;
+    if(iTeam == 1)
+      return [[600, 1480], [625, 1560], [860, 1560]];
+    if(iTeam == 2)
+      return [[2480, 1480], [2455, 1560], [2220, 1560]];
+    return 1;
   }
 
   //MR/LMS-Spielziel
   if(FindObject(GMNR) || FindObject(GLMS))
   {
-   if(iTeam == 1)
-   {
-    return [[685, 0], [920, 0], [1205, 0]];
-   }
-   if(iTeam == 2)
-   {
-    return [[2395, 0], [2150, 0], [1865, 0]];
-   }
-   return 1;
+    if(iTeam == 1)
+      return [[685, 0], [920, 0], [1205, 0]];
+    if(iTeam == 2)
+      return [[2395, 0], [2150, 0], [1865, 0]];
+    return 1;
   }
 }
