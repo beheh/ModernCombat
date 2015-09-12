@@ -2,19 +2,17 @@
 
 #strict 2
 
-local team, process, range, flag, bar, attacker, spawnpoints, trend, capt, pAttackers, lastowner, iconState, flagvalue;
+local team, process, range, flag, bar, attacker, spawnpoints, trend, capt, pAttackers, lastowner, iconState;
 
 public func GetAttacker()		{return attacker;}
 public func GetTeam()			{return team;}
 public func GetProcess()		{return process;}
 public func GetTrend()			{return trend;}
 public func GetRange()			{return range;}
-public func GetFlagValue()		{return flagvalue;}
-public func SetFlagValue(int iValue)	{flagvalue = iValue;}
 public func IsFullyCaptured()		{return capt;}
 
 public func StandardRange()		{return 100;}		//Standardreichweite
-public func StandardSpeed()		{return 10;}		//Standardeinnahmegeschwindigkeit
+public func StandardSpeed()		{return 2;}		//Standardeinnahmegeschwindigkeit
 
 public func IsFlagpole()		{return true;}		//Ist ein Flaggenposten
 public func IsSpawnable()		{return true;}		//Einstiegspunkt
@@ -54,9 +52,6 @@ public func Set(string szName, int iRange, int iSpeed, int iValue)
 
   //Einnahmegeschwindigkeit setzen
   if(!iSpeed) iSpeed = StandardSpeed();
-
-  //!INFO
-  flagvalue = iValue;
 
   //Prüfungseffekt einrichten
   RemoveEffect("IntFlagpole",this);
@@ -179,10 +174,13 @@ protected func Timer()
   attacker = opposition;
 
   //Zustandsänderung ermitteln
+  //Nur Feinde: Flaggenneutralisierung vorrantreiben
   if(enemys && !friends)
     DoProcess(opposition,Min(enemys,3));
+  //Nur Verbündete: Flaggeneroberung vorrantreiben
   if(!enemys && friends)
     DoProcess(team,Min(friends,3));
+
   if((!enemys) == (!friends))
   {
     if(!friends)
@@ -265,10 +263,13 @@ public func NoTeam()
   UpdateFlag();
 }
 
+/* Flaggenkonfiguration */
+
 public func UpdateFlag()
 {
   if(!flag) return;
 
+  //Kein Statusbalken vorhanden: Erstellen
   if(!bar)
   {
     bar = CreateObject(SBAR, 0, 0, -1);
@@ -278,6 +279,8 @@ public func UpdateFlag()
     bar->Update(0, true, true);
     iconState = 0;
   }
+
+  //Entsprechend dem Besitzer färben
   if(team)
   {
     SetColorDw(RGB(0,0,0), flag);
@@ -294,16 +297,20 @@ public func UpdateFlag()
     SetColorDw(RGB(255, 255, 255), flag);
   }
 
+  //Flaggenposition aktualisieren
   SetFlagPos(process);
 }
 
 protected func SetFlagPos(int iPercentage)
 {
   if(!flag) return;
+
   var iMaximum = GetDefHeight() - GetDefHeight(GetID(flag));
   var iHeight = iPercentage * iMaximum / 100 + GetDefHeight(GetID(flag))/2;
   SetPosition(GetX(),GetY() - iHeight, flag);
 }
+
+/* Einnahme/Neutralisierung umsetzen */
 
 public func DoProcess(int iTeam, int iAmount)
 {
