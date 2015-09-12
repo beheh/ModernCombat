@@ -102,14 +102,17 @@ public func GetDirection()
   return GOCC_Horizontal;
 }
 
+public func GetSortedFlags()
+{
+  if(GetDirection() == GOCC_Horizontal)
+    return FindObjects(Find_Func("IsFlagpole"), Sort_Func("Sort_XPosition"));
+  else
+    return FindObjects(Find_Func("IsFlagpole"), Sort_Func("Sort_YPosition"));
+}
+
 global func GetFlags()
 {
   return FindObjects(Find_Func("IsFlagpole"));
-}
-
-global func GetSpawnableFlags()
-{
-  return FindObjects(Find_And(Find_Func("IsFlagpole"), Find_Func("IsSpawnable")));
 }
 
 global func CreateFlagpole(int iX, int iY, string szName, int iRange, int iSpeed)
