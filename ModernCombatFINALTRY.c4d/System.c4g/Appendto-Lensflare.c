@@ -115,9 +115,10 @@ private func SunFree(object pTo)
   return PathFree(this->GetX(), this->GetY(), pTo->GetX(), pTo->GetY());
 }
 
-global func SetSunPosition(int x, int y) 
+global func SetSunPosition(int x, int y)
 {
-  for(var lens in FindObjects(Find_ID(LENS))) {
+  for(var lens in FindObjects(Find_ID(LENS)))
+  {
     LocalN("iSunX", lens) = x;
     LocalN("iSunY", lens) = y;
     SetPosition(x, y, lens);

@@ -124,10 +124,11 @@ global func GetMaxArrayVal(array a, bool fPos, bool fEqual)
   return highest;
 }
 
-/* alte Syntax fuer Abwaertskompatibilitaet */
-global func RandomIndex4K(array ids) { return RandomArrayIndex(ids); }
-global func FindInArray4K(array a, v) { return FindInArray(a, v); }
-global func CleanArray4K(array &a) { return CleanArray(a); }
-global func DelArrayItem4K(array &a, int i) { return DelArrayItem(a, i); }
-global func AddArrayItem4K(array &a, int i, v) { return AddArrayItem(a, i, v); }
-global func AddArray4K(array &aSrc, array &aDst) { return AddArray(aSrc, aDst); }
+/* Alte Syntax für Abwärtskompatibilität */
+
+global func RandomIndex4K(array ids)			{return RandomArrayIndex(ids);}
+global func FindInArray4K(array a, v)			{return FindInArray(a, v);}
+global func CleanArray4K(array &a)			{return CleanArray(a);}
+global func DelArrayItem4K(array &a, int i)		{return DelArrayItem(a, i);}
+global func AddArrayItem4K(array &a, int i, v)		{return AddArrayItem(a, i, v);}
+global func AddArray4K(array &aSrc, array &aDst)	{return AddArray(aSrc, aDst);}

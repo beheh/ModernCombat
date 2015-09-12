@@ -452,8 +452,8 @@ public func GetHighestTeams()
   var result = [];
   var highest = GetMaxArrayVal(aTicket, false, true);
 
-  for(var i = 0; i < GetLength(aTicket); i++) 
-    if(aTicket[i] == highest)	  
+  for(var i = 0; i < GetLength(aTicket); i++)
+    if(aTicket[i] == highest)
       result[GetLength(result)] = i + 1;
 
   return result;
