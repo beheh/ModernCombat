@@ -3,7 +3,7 @@
 #strict 2
 #include CSTD
 
-static aFlag,aStationary,aSelfDefense,aDoor,aLights,iLightsCounter,aDoorWay;
+static aFlag,aStationary,aSelfDefense,aDoor,aDoorWay;
 
 func RecommendedGoals()			{return [GASS, GHTF];}	//Spielzielempfehlung
 public func AssaultDefenderTeam()	{return 2;}		//Verteidigerteam bei Assault
@@ -1172,8 +1172,8 @@ func FlagCaptured(object pPoint, int iTeam)
 func PowerSupplyOn()
 {
   //Lichter einschalten
-  if(g_chooserFinished)
-   LightsOn();
+  for(var light in FindObjects(Find_Func("IsLamp")))
+    light->~TurnOn();
 
   return 1;
 }
@@ -1181,47 +1181,10 @@ func PowerSupplyOn()
 func PowerSupplyOff()
 {
   //Lichter ausschalten
-  LightsOff();
+  for(var light in FindObjects(Find_Func("IsLamp")))
+    light->~TurnOff();
 
   return 1;
-}
-
-/* Lichtverwaltung */
-
-func LightsOff()
-{
-  aLights = [];
-  for(var light in FindObjects(Find_Func("IsLamp"), Sort_Func("Lamp_SortX")))
-    light->~TurnOff();
-}
-
-func LightsOn()
-{
-  aLights = FindObjects(Find_Func("IsLamp"), Sort_Func("Lamp_SortX"));
-  iLightsCounter = 0;
-  if(aLights[iLightsCounter])
-    Schedule("LightsOnHelper();", 50);
-  else
-    return -1;
-}
-
-global func Lamp_SortX()
-{
-  return GetX();
-}
-
-func LightsOnHelper()
-{
-  while(!aLights[iLightsCounter])
-    if(iLightsCounter >= GetLength(aLights) - 1)
-      return;
-    else
-      iLightsCounter++;
-
-  aLights[iLightsCounter]->~TurnOn();
-  aLights[iLightsCounter] = 0;
-
-  Schedule("LightsOnHelper();", 50);
 }
 
 /* Bei Relaunch */
@@ -1558,7 +1521,7 @@ public func ChooserFinished()
     aSelfDefense[1]->TurnOn();
 
     //Alle Lampen deaktivieren
-    LightsOff();
+    PowerSupplyOff();
 
     //Lampen einschalten
     for(var obj in FindObjects(Find_Or(Find_ID(ETLT), Find_ID(STLH), Find_ID(BLGH), Find_ID(CLGH)), Find_InRect(250,80,1090,670)))
