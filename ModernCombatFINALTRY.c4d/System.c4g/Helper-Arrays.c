@@ -22,7 +22,7 @@ global func FindInArray(array a, v)
 
 global func ArrayContains(array a, v)
 {
-  return GetIndexOf(v, a);
+  return GetIndexOf(v, a) + 1;
 }
 
 /* Entfernen leerer Einträge */
