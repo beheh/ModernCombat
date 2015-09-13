@@ -6,7 +6,12 @@
 #appendto LENS
 
 local fixed;
+local fSun;
 
+public func IsSun() 
+{
+  return fSun;
+}
 
 public func IsMaster()
 {
@@ -53,6 +58,23 @@ public func InitializePlayer(int iPlr)
 }
 
 /* Flare-Verwaltung */
+
+// Initialisierung als Haupt-Lenseflare
+public func InitializeLenseflare()
+{ 
+	// Position speichern
+	iSunX = GetX(); iSunY = GetY();
+	SetCategory(C4D_StaticBack | C4D_Background | C4D_MouseIgnore);
+	aFlares = CreateArray(LenseflareCount());
+	for(var i = 0; i < LenseflareCount(); i++)
+	{
+		aFlares[i] = CreateObject(GetID(), 0, 0, GetOwner());
+		SetCategory(C4D_StaticBack | C4D_MouseIgnore | C4D_Foreground, aFlares[i]);
+		ObjectSetAction(aFlares[i],Format("Fleck%d",i%14));
+	}
+	SetAction("ManageFlares");
+	fSun = true;
+}
 
 protected func ManageFlares()
 {
@@ -121,7 +143,9 @@ global func SetSunPosition(int x, int y)
   {
     LocalN("iSunX", lens) = x;
     LocalN("iSunY", lens) = y;
-    SetPosition(x, y, lens);
+    if(lens->~IsSun())
+      SetPosition(x, y, lens);
   }
+  
   return;
 }
