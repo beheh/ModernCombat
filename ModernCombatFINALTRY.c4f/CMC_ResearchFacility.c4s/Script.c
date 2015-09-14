@@ -1240,12 +1240,12 @@ public func ChooserFinished()
   //OCC-Spielziel
   if(FindObject(GOCC))
   {
-    //Flaggen
+    //Flaggenposten
     aFlag[0] = CreateObject(OFPL,550,920,NO_OWNER);
     aFlag[0] -> AddSpawnPoint(420,730);
     aFlag[0] -> AddSpawnPoint(875,730);
     aFlag[0] -> AddSpawnPoint(1020,820);
-    aFlag[0]->Set("$Flag1$",200);
+    aFlag[0]->Set("$Flag1$");
 
     aFlag[1] = CreateObject(OFPL,1250,190,NO_OWNER);
     aFlag[1] -> AddSpawnPoint(365,100);
@@ -1253,12 +1253,12 @@ public func ChooserFinished()
     aFlag[1] -> AddSpawnPoint(625,80);
     if(aTeams[1] == true)
     {
-      aFlag[1]->Set("$Flag2$",200,4);
+      aFlag[1]->Set("$Flag2$",0,4);
       aFlag[1]->Capture(1,1);
     }
     else
     {
-      aFlag[1]->Set("$Flag2$",200);
+      aFlag[1]->Set("$Flag2$");
     }
 
     aFlag[2] = CreateObject(OFPL,1635,1890,NO_OWNER);
@@ -1266,13 +1266,13 @@ public func ChooserFinished()
     aFlag[2] -> AddSpawnPoint(2145,1770);
     aFlag[2] -> AddSpawnPoint(2295,1810);
     aFlag[2] -> AddSpawnPoint(2485,1810);
-    aFlag[2]->Set("$Flag3$",180);
+    aFlag[2]->Set("$Flag3$");
 
     aFlag[3] = CreateObject(OFPL,1765,820,NO_OWNER);
     aFlag[3] -> AddSpawnPoint(1470,500);
     aFlag[3] -> AddSpawnPoint(2070,490);
     aFlag[3] -> AddSpawnPoint(2300,540);
-    aFlag[3]->Set("$Flag4$",180);
+    aFlag[3]->Set("$Flag4$");
 
     aFlag[4] = CreateObject(OFPL,2730,270,NO_OWNER);
     aFlag[4] -> AddSpawnPoint(2560,130);
@@ -1280,19 +1280,19 @@ public func ChooserFinished()
     aFlag[4] -> AddSpawnPoint(3040,90);
     if(aTeams[2] == true)
     {
-      aFlag[4]->Set("$Flag5$",200,4);
+      aFlag[4]->Set("$Flag5$",0,4);
       aFlag[4]->Capture(2,1);
     }
     else
     {
-      aFlag[4]->Set("$Flag5$",200);
+      aFlag[4]->Set("$Flag5$");
     }
 
     aFlag[5] = CreateObject(OFPL,2860,1100,NO_OWNER);
     aFlag[5] -> AddSpawnPoint(2780,900);
     aFlag[5] -> AddSpawnPoint(3080,730);
     aFlag[5] -> AddSpawnPoint(3320,1090);
-    aFlag[5]->Set("$Flag6$",200);
+    aFlag[5]->Set("$Flag6$");
 
     //Grenzen setzen
     CreateObject(BRDR, 210, 0, -1)->Set(0);

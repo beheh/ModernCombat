@@ -14,7 +14,7 @@ Definition4=Fantasy.c4d\Structures.c4d\MagicWorkshop.c4d\Burned.c4d
 
 [Game]
 StructNeedEnergy=0
-Goals=GLMS=10;GHTF=1;GMNR=4;GBAS=1;GOCC=1
+Goals=GLMS=10;GMNR=4;GHTF=1;GBAS=1;GOCC=1
 Rules=MCSL=1;CHOS=1
 
 [Player1]

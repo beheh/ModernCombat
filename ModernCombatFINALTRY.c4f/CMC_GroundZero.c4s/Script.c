@@ -469,7 +469,7 @@ public func ChooserFinished()
     aFlag[2] -> AddSpawnPoint(1390,410);
     aFlag[2] -> AddSpawnPoint(2010,410);
     aFlag[2] -> AddSpawnPoint(2040,310);
-    aFlag[2]->Set("$Flag3$");
+    aFlag[2]->Set("$Flag3$",72);
 
     aFlag[3] = CreateObject(OFPL,2320,450,NO_OWNER);
     aFlag[3] -> AddSpawnPoint(2460,250);
@@ -554,7 +554,7 @@ public func ChooserFinished()
   {
     //Flaggenposten
     var flag = CreateObject(OFPL, 1700,420, -1);
-    flag->~Set("$Flag3$");
+    flag->~Set("$Flag3$",72);
 
     //Grenzen setzen
     CreateObject(BRDR, 740, 0, -1)->Set(0);
