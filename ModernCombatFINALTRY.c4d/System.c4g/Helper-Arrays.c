@@ -2,8 +2,8 @@
 
 //Erweitert Arrays um zusätzliche Funktionen.
 
-
 #strict 2
+
 
 /* Zufalls-Array wiedergeben */
 
