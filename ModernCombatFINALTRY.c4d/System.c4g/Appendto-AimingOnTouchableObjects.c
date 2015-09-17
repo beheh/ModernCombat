@@ -3,8 +3,8 @@
 //Erleichtert das Zielen per [Dreifachstopp] vor anfassbaren Objekten.
 
 #strict 2
-
 #appendto *
+
 
 /* Steuerung */
 

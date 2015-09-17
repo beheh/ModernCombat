@@ -3,7 +3,6 @@
 //Optionale Objekte können von der Arena-Regel ignoriert werden, indem diese "NoArenaRemove" wiedergeben.
 
 #strict 2
-
 #appendto NODR
 
 

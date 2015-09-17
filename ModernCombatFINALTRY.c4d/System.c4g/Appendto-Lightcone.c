@@ -3,7 +3,6 @@
 //Modifiziert den hazard-eigenen Lichtkegel für CMC.
 
 #strict 2
-
 #appendto LGHC
 
 local fAlpha, iAlpha;

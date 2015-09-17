@@ -3,7 +3,6 @@
 //Waffen bleiben-Regel aktualisiert die Sichtbarkeit von respawnenden Items für beitretende Spieler.
 
 #strict 2
-
 #appendto WPST
 
 

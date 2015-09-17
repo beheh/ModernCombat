@@ -3,7 +3,6 @@
 //Jumpad-Kompatibilität mit Fallschirmen und Wandsprung.
 
 #strict 2
-
 #appendto JPTP
 
 

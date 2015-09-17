@@ -3,7 +3,6 @@
 //Erweitert die Spielregelwahl und erlaubt unter anderem Voreinstellungen der Regeln innerhalb eines Szenarios.
 
 #strict 2
-
 #appendto CHOS
 
 local iEffectCount;

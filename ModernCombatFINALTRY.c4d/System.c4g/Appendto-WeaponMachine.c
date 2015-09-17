@@ -3,7 +3,6 @@
 //Automaten können auch getragene Objekte verkaufen.
 
 #strict 2
-
 #appendto WPVM
 
 

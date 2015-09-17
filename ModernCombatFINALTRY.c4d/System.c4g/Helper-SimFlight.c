@@ -7,6 +7,7 @@
 static const SIM_Precision = 1000;
 static const SIM_StepPrecision = 2;
 
+
 global func SimFlight2(int &iX, int &iY, int &iXDir, int &iYDir, int iPrecision)
 {
   var iPX, iPY;

@@ -3,7 +3,6 @@
 //Erweitert die Düsternis im Zusammenhang mit der "Eingeschränkte Sicht"-Regel.
 
 #strict 2
-
 #appendto DARK
 
 
