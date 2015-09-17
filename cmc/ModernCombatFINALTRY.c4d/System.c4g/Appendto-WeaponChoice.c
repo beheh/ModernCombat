@@ -3,7 +3,6 @@
 //Die Waffenwahl Regel ist aus technischen Gründen nicht mehr wählbar, wenn bereits die Klassenwahl aktiv ist.
 
 #strict 2
-
 #appendto WPCH
 
 public func IsChooseable()	{return;}

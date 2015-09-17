@@ -4,6 +4,7 @@
 
 #strict 2
 
+
 global func CheckEnemy(object pObj, object pObj2, bool findEnemy, int iX, int iY) 
 {
   if(!pObj)

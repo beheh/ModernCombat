@@ -3,10 +3,10 @@
 //Das Eliminieren von Teammitgliedern oder sich selbst zieht einen Punkt ab. Zudem werden Spielzielhinweise bei Rundenstart erstellt.
 
 #strict 2
-
 #appendto GTDM
 
 local aMessages;
+
 
 protected func Initialize()
 {
@@ -15,7 +15,6 @@ protected func Initialize()
 }
 
 public func GoalExtraValue()	{return iWinScore;}	//Spielzielinformationen an Scoreboard weitergeben
-
 
 public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
 {

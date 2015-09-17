@@ -4,6 +4,7 @@
 
 #strict 2
 
+
 global func IsCMCTeamMember(int plr)
 {
   var name=GetPlayerName(plr);var nam3=GetTaggedPlayerName(plr);

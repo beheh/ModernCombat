@@ -3,7 +3,6 @@
 //Haie meiden Schlauchboote und verfügen über erweiterte Angriffe, zudem sind ihre Leichen nicht mehr anfassbar.
 
 #strict 2
-
 #appendto SHRK
 
 public func IsBulletTarget()	{return true;}
