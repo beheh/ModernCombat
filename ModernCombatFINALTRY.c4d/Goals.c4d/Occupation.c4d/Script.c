@@ -542,7 +542,7 @@ public func IsFulfilled()
   var iWinningTeam = GetWinningTeam();
 
   //Existiert nurnoch ein Team, gewinnt es
-  if(iWinningTeam > 0)
+  if(iWinningTeam > 0 || !GetFlags())
   {
     //Teameliminierung
     for(var i = 0; i < GetTeamCount(); i++)
@@ -590,18 +590,14 @@ public func FxOccupationGameStart(object pTarget, int iEffectNumber)
   for(var i = 0; i < GetTeamCount(); i++)
     aTeamTimers[i] = 10000;
 
-  if(!GetLength(GetFlags()))
-  {
-    fFulfilled = true;
-    Log("ERROR: No valuable flags found! Aborting!");
-    return -1;
-  }
-
   return 1;
 }
 
 public func FxOccupationGameTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
+  if(!GetFlags())
+    return -1;
+
   for(var i = 0; i < GetTeamCount(); i++)
   {
     var decrease = GetFlagCount(i+1) - GetEnemyFlagCount(i+1);
