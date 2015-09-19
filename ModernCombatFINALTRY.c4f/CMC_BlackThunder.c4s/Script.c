@@ -135,6 +135,10 @@ func CreateInterior()
   CreateObject(SBBA, 3840, 440, -1)->Right();
   CreateObject(SBBA, 3880, 560, -1)->Right();
 
+  //Sprungschanzen
+  CreateObject(JMPD, 740, 1240, -1)->Set(117, -15);
+  CreateObject(JMPD, 3510, 1330, -1)->Set(130, 12);
+
   //Verbandskisten
   CreateObject(BECR, 420, 560, -1)->AutoRespawn();
   CreateObject(BECR, 3810, 560, -1)->AutoRespawn();
@@ -569,10 +573,6 @@ public func ChooserFinished()
     CreateObject(GNET, 2120, 690, -1)->Set(LCAC,0,1);
     CreateObject(GNET, 2840, 1280, -1)->Set(SATW);
     CreateObject(GNET, 3225, 1240, -1)->Set(LCAC,0,1);
-
-    //Sprungschanzen
-    CreateObject(JMPD, 740, 1240, -1)->Set(117, -15);
-    CreateObject(JMPD, 3510, 1330, -1)->Set(130, 12);
 
     //Türverbindungen entfernen
     aDoorWay[02]->SealEntrance();
