@@ -162,6 +162,12 @@ func CreateInterior()
   CreateObject(SGNP, 2960, 1210, -1);
   CreateObject(SNPT, 3710, 1280, -1)->Light();
 
+  //Banner
+  CreateObject(BANR, 355, 560, -1)->SetClrModulation(RGB(255,0,0));
+  CreateObject(BANR, 1770, 770, -1)->SetClrModulation(RGB(255,0,0));
+  CreateObject(BANR, 2470, 770, -1)->SetClrModulation(RGB(50,50,255));
+  CreateObject(BANR, 3880, 560, -1)->SetClrModulation(RGB(50,50,255));
+
   //Steine
   CreateObject(STNE, 220, 1210, -1)->Set(7);
   CreateObject(STNE, 1440, 1190, -1)->Set(3);
@@ -556,6 +562,12 @@ public func ChooserFinished()
 
     //Sprengsatz-Spawn
     SetupBombSpawnpoint([[2120, 690],[2120, 850], [2120, 1170]]);
+
+    //Leitern
+    CreateObject(LADR, 1580, 920, -1)->Set(24);
+    CreateObject(LADR, 1680, 920, -1)->Set(24);
+    CreateObject(LADR, 2560, 920, -1)->Set(24);
+    CreateObject(LADR, 2660, 920, -1)->Set(24);
 
     //Verbandskisten
     CreateObject(BECR, 940, 1170, -1)->AutoRespawn();
