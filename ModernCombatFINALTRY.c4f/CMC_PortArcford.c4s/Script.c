@@ -321,7 +321,10 @@ public func OnClassSelection(object pClonk, int iTeam)
   if(FindObject(GASS))
     if(GetPlayerTeam(GetOwner(pClonk)) == 1)
       if(GetAssaultTarget(0,1) || GetAssaultTarget(1,1))
+      {
         AddEffect("SpawnParachute", pClonk, 1, 10);
+        AddEffect("Flying", pClonk, 101, 5);
+      }
 }
 
 /* Fallschirmeffekt */

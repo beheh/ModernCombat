@@ -481,7 +481,10 @@ public func OnClassSelection(object pClonk)
 {
   //LMS/MR-Spielziel
   if(FindObject(GLMS) || FindObject(GMNR))
+  {
     AddEffect("SpawnParachute", pClonk, 1, 10);
+    AddEffect("Flying", pClonk, 101, 5);
+  }
 }
  
 /* Fallschirmeffekt */
