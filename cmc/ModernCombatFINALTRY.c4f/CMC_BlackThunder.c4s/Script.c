@@ -564,10 +564,10 @@ public func ChooserFinished()
     SetupBombSpawnpoint([[2120, 690],[2120, 850], [2120, 1170]]);
 
     //Leitern
-    CreateObject(LADR, 1580, 920, -1)->Set(24);
-    CreateObject(LADR, 1680, 920, -1)->Set(24);
-    CreateObject(LADR, 2560, 920, -1)->Set(24);
-    CreateObject(LADR, 2660, 920, -1)->Set(24);
+    CreateObject(LADR, 1550, 780, -1)->Set(18);
+    CreateObject(LADR, 1680, 740, -1)->Set(13);
+    CreateObject(LADR, 2560, 740, -1)->Set(13);
+    CreateObject(LADR, 2690, 780, -1)->Set(18);
 
     //Verbandskisten
     CreateObject(BECR, 940, 1170, -1)->AutoRespawn();
@@ -602,6 +602,16 @@ public func ChooserFinished()
     RemoveObject(FindObject2(Find_ID(GNET),Find_InRect(1380, 560, 60, 30)));
     RemoveObject(FindObject2(Find_ID(GNET),Find_InRect(2800, 560, 60, 30)));
     RemoveObject(aArtillery[0]);
+
+    //Gerüste
+    CreateObject(SFFG, 1550, 770, -1)->Set(5);
+    CreateObject(SFFG, 1550, 820, -1)->Set(5);
+    CreateObject(SFFG, 1680, 770, -1)->Set(5);
+    CreateObject(SFFG, 1680, 820, -1)->Set(5);
+    CreateObject(SFFG, 2560, 770, -1)->Set(5);
+    CreateObject(SFFG, 2560, 820, -1)->Set(5);
+    CreateObject(SFFG, 2690, 770, -1)->Set(5);
+    CreateObject(SFFG, 2690, 820, -1)->Set(5);
 
     //Zusätzliche Munition
     if(!FindObject(NOAM))
