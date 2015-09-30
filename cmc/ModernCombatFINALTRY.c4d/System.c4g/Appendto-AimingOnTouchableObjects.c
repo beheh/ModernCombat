@@ -14,7 +14,7 @@ public func ControlDown(object pObj)
     return(_inherited(pObj, ...));
 
   //bei Dreifachstop loslassen und Zielen
-  if(pObj && GetEffect("IntWasGrabbed", pObj) && Contents(0, pObj))
+  if(pObj && pObj->~BetterAiming() && GetEffect("IntWasGrabbed", pObj) && Contents(0, pObj))
   {
     pObj->SetAction("Walk");
     if(pObj->~ReadyToSquatAim())
@@ -33,7 +33,7 @@ public func ControlUpdate(object pObj, int comdir, bool dig, bool throw)
     return(_inherited(pObj, comdir, dig, throw, ...));
 
   //bei Dreifachstop loslassen und Zielen
-  if(pObj && GetEffect("IntWasGrabbed", pObj) && Contents(0, pObj))
+  if(pObj && pObj->~BetterAiming() && GetEffect("IntWasGrabbed", pObj) && Contents(0, pObj))
   {
     pObj->SetAction("Walk");
     if(pObj->~ReadyToSquatAim())
