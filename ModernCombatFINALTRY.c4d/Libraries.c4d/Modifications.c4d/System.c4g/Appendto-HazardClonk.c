@@ -913,6 +913,12 @@ protected func ContextSettings(object pCaller)
   else
     AddMenuItem("$CtxInvLockOff$", Format("SwitchInventoryLockMode(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller, 0, 0, "$CtxInvLockDesc$");
 
+  //Triplestop Aiming
+  if(pCaller->BetterAiming())
+    AddMenuItem("$CtxBetterAimingOn$", Format("SwitchBetterAiming(Object(%d))", ObjectNumber(pCaller)), WPN2, pCaller, 0, 0, "$CtxBetterAiming$");
+  else
+    AddMenuItem("$CtxBetterAimingOff$", Format("SwitchBetterAiming(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller, 0, 0, "$CtxBetterAiming$");    
+
   //Kompakt-Death-Menü
   if(pCaller->ShorterDeathMenu())
     AddMenuItem("$CtxShorterDMOn$", Format("SwitchDeathMenuMode(Object(%d))", ObjectNumber(pCaller)), FKDT, pCaller, 0, 0, "$CtxShorterDMDesc$");
@@ -942,6 +948,7 @@ public func SwitchInventoryLockMode(object pCaller)
 
 public func ShorterDeathMenu()	{return GetPlrExtraData(GetOwner(), "CMC_DeathMenuMode");}
 public func RadioMusicAct()	{return !GetPlrExtraData(GetOwner(), "CMC_RadioMusicMode");}	//CMC_RadioMusicMode = Wenn 0: an, wenn 1: aus
+public func BetterAiming()	{return !GetPlrExtraData(GetOwner(), "CMC_NoBetterAiming");}
 
 public func SwitchDeathMenuMode(object pCaller)
 {
@@ -963,6 +970,13 @@ public func SwitchRadioMusicMode(object pCaller)
     for(var radio in FindObjects(Find_Func("IsRadio")))
       radio->StartSong(GetOwner()+1);
   ContextSettings(pCaller);
+}
+
+public func SwitchBetterAiming(object pCaller)
+{
+  SetPlrExtraData(GetOwner(), "CMC_NoBetterAiming", BetterAiming());
+  Sound("Click", 1, 0,0, GetOwner()+1);
+  ContextSettings(pCaller);  
 }
 
 /* Objekt ablegen */
