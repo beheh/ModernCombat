@@ -109,7 +109,7 @@ protected func ActivateEntrance(object pObj)
   if(pObj->~IsClonk())
     pObj->SetAction("Walk");
 
-  if(GetEffect("NoDoorEntrance", pObj) && !GetEffect("Move2Door", pObj))
+  if(!GetEffect("Move2Door", pObj))
   {
     CloseEntrance();
     return false;
