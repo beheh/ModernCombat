@@ -286,9 +286,8 @@ private func UpdateScoreboard()
     var color = GetTeamColor(flag->GetTeam()),
     prog = flag->GetProcess();
 
-    color = RGBa(Interpolate2(255, GetRGBaValue(color, 1), prog, 100),
-    Interpolate2(255, GetRGBaValue(color, 2), prog, 100), 
-    Interpolate2(255, GetRGBaValue(color, 3), prog, 100));
+    if(!flag->~IsFullyCaptured())
+      color = RGB(255,255,255);
 
     //Entsprechend der Ausrichtung des Szenarios sortieren
     if(GetDirection() == GOCC_Horizontal)
