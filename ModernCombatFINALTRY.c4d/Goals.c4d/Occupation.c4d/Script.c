@@ -142,7 +142,7 @@ global func GetFlagCount(int iTeam, bool bCountBlankFlags)
     {
       if(bCountBlankFlags)
       {
-        if(flag->GetTeam())
+        if(flag->GetTeam() || !flag->~IsFullyCaptured())
           if(flag->GetTeam() != iTeam)
             continue;
       }
@@ -166,7 +166,7 @@ global func GetEnemyFlagCount(int iTeam)
 
   for(var flag in FindObjects(Find_Func("IsFlagpole")))
   {
-    if(HostileTeam(iTeam, flag->GetTeam()))
+    if(HostileTeam(iTeam, flag->GetTeam()) && flag->~IsFullyCaptured())
       count++;
   }
 
