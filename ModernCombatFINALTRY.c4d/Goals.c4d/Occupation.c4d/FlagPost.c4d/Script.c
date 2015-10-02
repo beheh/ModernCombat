@@ -2,7 +2,7 @@
 
 #strict 2
 
-local team, process, range, flag, bar, attacker, spawnpoints, trend, capt, pAttackers, lastowner, iconState;
+local team, process, range, flag, bar, attacker, spawnpoints, trend, capt, pAttackers, lastowner, iconState, captureradiusmarker;
 
 public func GetAttacker()		{return attacker;}
 public func GetTeam()			{return team;}
@@ -115,6 +115,25 @@ public func FxIntFlagpoleTimer(object pTarget)
   return;
 }
 
+/* Umkreis-Effekt */
+
+protected func ShowCaptureRadius(object pTarget)
+{
+  //Kreis-Symbol erstellen
+  var obj = CreateObject(SM09, 0, 0, -1);
+  obj->Set(pTarget);
+
+  //Symbolgröße anpassen
+  var wdt = StandardRange() * 2000 / GetDefWidth(SM09);
+
+  //Symbol konfigurieren
+  obj->SetObjDrawTransform(wdt, 0, 0, 0, wdt, 0);
+  obj->SetGraphics("Big");
+  obj->SetColorDw(RGB(255,0,0));
+
+  return obj;
+}
+
 protected func Timer()
 {
   var enemys,friends,opposition;
@@ -180,6 +199,15 @@ protected func Timer()
   //Nur Verbündete: Flaggeneroberung vorrantreiben
   if(!enemys && friends)
     DoProcess(team,Min(friends,3));
+
+  if(enemys)
+  {
+    if(!captureradiusmarker)
+      captureradiusmarker = ShowCaptureRadius(this);
+  }
+  else
+    if(captureradiusmarker)
+      RemoveObject(captureradiusmarker);
 
   if((!enemys) == (!friends))
   {
