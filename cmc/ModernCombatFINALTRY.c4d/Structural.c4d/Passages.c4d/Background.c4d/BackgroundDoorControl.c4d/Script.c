@@ -109,12 +109,6 @@ protected func ActivateEntrance(object pObj)
   if(pObj->~IsClonk())
     pObj->SetAction("Walk");
 
-  if(!GetEffect("Move2Door", pObj))
-  {
-    CloseEntrance();
-    return false;
-  }
-
   if(lock) return false;
   return _inherited(pObj, ...);
 }
@@ -126,7 +120,6 @@ protected func RejectCollect(id objID, object pObj)
     PlayerMessage(GetOwner(pObj), "$Restricted$", pObj);
     return true;
   }
-  if(GetEffect("NoDoorEntrance", pObj) && !GetEffect("Move2Door", pObj)) return true;
   if(pObj->~IsWeapon() || pObj->~IsGrenade() || pObj->~IsEquipment()) return true;
 
   return false;
