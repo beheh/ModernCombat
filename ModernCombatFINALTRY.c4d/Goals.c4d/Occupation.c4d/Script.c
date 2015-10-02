@@ -273,13 +273,13 @@ private func UpdateScoreboard()
   var i = 0;
   var data, base;
 
-  //Entsprechend der Ausrichtung des Szenarios sortieren
+  //Szenarioausrichtung ermitteln
   if(GetDirection() == GOCC_Horizontal)
     base = LandscapeWidth();
   if(GetDirection() == GOCC_Vertical)
     base = LandscapeHeight();
 
-  //Flaggenposten
+  //Flaggenposten auflisten
   for(var flag in GetFlags())
   {
     //Teamfarbe und Flaggenzustand ermitteln
@@ -294,7 +294,8 @@ private func UpdateScoreboard()
     Interpolate2(255, GetRGBaValue(teamclr, 2), prog, 100), 
     Interpolate2(255, GetRGBaValue(teamclr, 3), prog, 100));
 
-    //Entsprechend der Ausrichtung des Szenarios sortieren    if(GetDirection() == GOCC_Horizontal)
+    //Entsprechend der Ausrichtung des Szenarios sortieren
+    if(GetDirection() == GOCC_Horizontal)
       data = GetX(flag);
     if(GetDirection() == GOCC_Vertical)
       data = GetY(flag);
@@ -306,6 +307,7 @@ private func UpdateScoreboard()
     i++;
   }
 
+  //Leerzeile und Spaltentitel
   if(i != 1)
   {
     SetScoreboardData(i, GOCC_IconColumn, "");
@@ -320,7 +322,7 @@ private func UpdateScoreboard()
     i++;
   }
 
-  //Tickets
+  //Teams und deren Timer und Tickets auflisten
   for(var j = 0; j < GetTeamCount(); j++)
   {
     var iTeam = GetTeamByIndex(j);
