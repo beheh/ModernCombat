@@ -282,23 +282,27 @@ private func UpdateScoreboard()
   //Flaggenposten
   for(var flag in GetFlags())
   {
-    //Textfarbe ermitteln
-    var color = GetTeamColor(flag->GetTeam()),
+    //Teamfarbe und Flaggenzustand ermitteln
+    var teamclr = GetTeamColor(flag->GetTeam()),
     prog = flag->GetProcess();
-
+    //Färbung je nach Zustand
     if(!flag->~IsFullyCaptured())
-      color = RGB(255,255,255);
+      var nameclr = RGB(255,255,255);
+    else
+      var nameclr = teamclr;
+    var percentclr = RGBa(Interpolate2(255, GetRGBaValue(teamclr, 1), prog, 100),
+    Interpolate2(255, GetRGBaValue(teamclr, 2), prog, 100), 
+    Interpolate2(255, GetRGBaValue(teamclr, 3), prog, 100));
 
-    //Entsprechend der Ausrichtung des Szenarios sortieren
-    if(GetDirection() == GOCC_Horizontal)
+    //Entsprechend der Ausrichtung des Szenarios sortieren    if(GetDirection() == GOCC_Horizontal)
       data = GetX(flag);
     if(GetDirection() == GOCC_Vertical)
       data = GetY(flag);
 
     SetScoreboardData(i, GOCC_IconColumn, Format(" "));
-    SetScoreboardData(i, GOCC_FlagColumn, Format("<c %x>%s</c>", color, GetName(flag)), data);
+    SetScoreboardData(i, GOCC_FlagColumn, Format("<c %x>%s</c>", nameclr, GetName(flag)), data);
     SetScoreboardData(i, GOCC_TimerColumn, Format(" "));
-    SetScoreboardData(i, GOCC_ProgressColumn, Format("<c %x>%d%</c>", color, flag->GetProcess()));
+    SetScoreboardData(i, GOCC_ProgressColumn, Format("<c %x>%d%</c>", percentclr, flag->GetProcess()));
     i++;
   }
 

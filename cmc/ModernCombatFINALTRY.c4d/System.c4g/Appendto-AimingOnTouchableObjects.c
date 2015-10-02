@@ -1,6 +1,6 @@
 /*-- Zielen vor anfassbaren Objekten --*/
 
-//Erleichtert das Zielen per [Dreifachstopp] vor anfassbaren Objekten.
+//Erleichtert das Zielen per [Dreifachstopp] vor anfassbaren Objekten, sofern der Spieler es für sich in den Einstellungen aktiviert hat.
 
 #strict 2
 #appendto *
@@ -13,7 +13,7 @@ public func ControlDown(object pObj)
   if(!(GetOCF() & OCF_Grab) || !pObj)
     return(_inherited(pObj, ...));
 
-  //bei Dreifachstop loslassen und Zielen
+  //Bei Dreifachstop loslassen und Zielen
   if(pObj && pObj->~BetterAiming() && GetEffect("IntWasGrabbed", pObj) && Contents(0, pObj))
   {
     pObj->SetAction("Walk");
@@ -32,7 +32,7 @@ public func ControlUpdate(object pObj, int comdir, bool dig, bool throw)
   if(!pObj || (comdir != 5) || !(GetOCF() & OCF_Grab))
     return(_inherited(pObj, comdir, dig, throw, ...));
 
-  //bei Dreifachstop loslassen und Zielen
+  //Bei Dreifachstop loslassen und Zielen
   if(pObj && pObj->~BetterAiming() && GetEffect("IntWasGrabbed", pObj) && Contents(0, pObj))
   {
     pObj->SetAction("Walk");

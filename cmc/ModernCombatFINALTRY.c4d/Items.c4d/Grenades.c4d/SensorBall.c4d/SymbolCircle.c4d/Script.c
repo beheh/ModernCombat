@@ -21,8 +21,9 @@ public func Set(object target, bool nofadeout)
 
   //Sichtbarkeit gegenüber Verbündeten
   SetVisibility(VIS_Allies | VIS_Owner);
-  
-  if(!nofadeout) 
+
+  //Bei Anfrage ausblenden
+  if(!nofadeout)
     return this;
 
   //Ausfaden
