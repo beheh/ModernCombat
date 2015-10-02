@@ -37,17 +37,15 @@ protected func Initialize()
 {
   _inherited(...);
 
-  //Schadenseffekt einfügen
-  if(!GetEffect("DmgCheck",this))
-    AddEffect("DmgCheck",this,1,0);
-
   //Assistkiller initialisieren
   ResetAssist();
-
-  //Fake Death-Effekt einfügen
+  //Schadenseffekt
+  if(!GetEffect("DmgCheck",this))
+    AddEffect("DmgCheck",this,1,0);
+  //Fake Death-Effekt falls spielerkontrolliert und keine KI
   if(IsClonk() && (GetOwner() != NO_OWNER) && (GetPlayerType(GetOwner()) != C4PT_Script))
     AddEffect("FakeDeath",this,10,0,this);
-
+  //Killassist-Effekt
   AddEffect("AssistDmgReduction", this, 1, 0, this);
 }
 
@@ -66,13 +64,6 @@ public func Incineration()
 {
   //Clonk sofort löschen
   Extinguish();
-
-  //Sound
-  if(GetAlive() && !GetEffect("SoundDelay", this))
-  {
-    AddEffect("SoundDelay", this, 1, 25, this);
-    Sound("ClonkBurn*.ogg");
-  }
 
   //Schadenseffekt setzen sofern lebendig
   if(IsFakeDeath()) return;
