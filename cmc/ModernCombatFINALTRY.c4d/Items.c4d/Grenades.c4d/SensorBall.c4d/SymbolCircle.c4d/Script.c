@@ -7,7 +7,7 @@ local obj,time,starttime;
 
 /* Einstellung */
 
-public func Set(object target)
+public func Set(object target, bool nofadeout)
 {
   obj = target;
 
@@ -21,10 +21,15 @@ public func Set(object target)
 
   //Sichtbarkeit gegenüber Verbündeten
   SetVisibility(VIS_Allies | VIS_Owner);
+  
+  if(!nofadeout) 
+    return this;
 
   //Ausfaden
   FadeOut();
 
   //Entfernung planen
   Schedule("RemoveObject()", 80);
+
+  return;
 }
