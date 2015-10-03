@@ -239,10 +239,9 @@ private func ChangeStartTickets(id dummy, int iChange)
 
 /* Scoreboard */
 
-static const GOCC_IconColumn		= 1;
-static const GOCC_FlagColumn		= 2;
-static const GOCC_TimerColumn		= 3;
-static const GOCC_ProgressColumn	= 4;
+static const GOCC_FlagColumn		= 1;
+static const GOCC_TimerColumn		= 2;
+static const GOCC_ProgressColumn	= 3;
 
 protected func InitScoreboard()
 {  
@@ -255,7 +254,6 @@ protected func InitScoreboard()
   SetScoreboardData(SBRD_Caption, SBRD_Caption, Format("%s",GetName()), SBRD_Caption);
 
   //Spaltentitel
-  SetScoreboardData(SBRD_Caption, GOCC_IconColumn, " ", SBRD_Caption);
   SetScoreboardData(SBRD_Caption, GOCC_FlagColumn, "{{SM21}}", SBRD_Caption);
   SetScoreboardData(SBRD_Caption, GOCC_TimerColumn, " ", SBRD_Caption);
   SetScoreboardData(SBRD_Caption, GOCC_ProgressColumn, "{{SM02}}", SBRD_Caption);
@@ -300,7 +298,6 @@ private func UpdateScoreboard()
     if(GetDirection() == GOCC_Vertical)
       data = GetY(flag);
 
-    SetScoreboardData(i, GOCC_IconColumn, Format(" "));
     SetScoreboardData(i, GOCC_FlagColumn, Format("<c %x>%s</c>", nameclr, GetName(flag)), data);
     SetScoreboardData(i, GOCC_TimerColumn, Format(" "));
     SetScoreboardData(i, GOCC_ProgressColumn, Format("<c %x>%d%</c>", percentclr, flag->GetProcess()));
@@ -310,12 +307,10 @@ private func UpdateScoreboard()
   //Leerzeile und Spaltentitel
   if(i != 1)
   {
-    SetScoreboardData(i, GOCC_IconColumn, "");
     SetScoreboardData(i, GOCC_FlagColumn, " ", base+1);
     SetScoreboardData(i, GOCC_TimerColumn, " ");
     SetScoreboardData(i, GOCC_ProgressColumn, " ");
     i++;
-    SetScoreboardData(i, GOCC_IconColumn, "");
     SetScoreboardData(i, GOCC_FlagColumn, "{{SM26}}", base+2);
     SetScoreboardData(i, GOCC_TimerColumn, "{{SM27}}");
     SetScoreboardData(i, GOCC_ProgressColumn, "{{SM03}}");
@@ -328,17 +323,12 @@ private func UpdateScoreboard()
     var iTeam = GetTeamByIndex(j);
     if(TeamAlive(iTeam))
     {
-      if(GetIndexOf(iTeam, GetHighestTeams()) != -1)
-        SetScoreboardData(i, GOCC_IconColumn, "{{SM14}}");
-      else
-        SetScoreboardData(i, GOCC_IconColumn, " ");
       SetScoreboardData(i, GOCC_FlagColumn, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam)), base+3+GetTickets(iTeam));
       SetScoreboardData(i, GOCC_TimerColumn, Format("<c 777777>%d</c>", GetTeamTimer(iTeam)));
       SetScoreboardData(i, GOCC_ProgressColumn, Format("%d", GetTickets(iTeam)));
     }
     else
     {
-      SetScoreboardData(i, GOCC_IconColumn, 0);
       SetScoreboardData(i, GOCC_FlagColumn, 0);
       SetScoreboardData(i, GOCC_TimerColumn, 0);
       SetScoreboardData(i, GOCC_ProgressColumn, 0);
