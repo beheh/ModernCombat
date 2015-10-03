@@ -22,6 +22,11 @@ protected func Initialize()
   aSpawn = [];
 }
 
+protected func Activate(int iPlr)
+{
+  return MessageWindow(GetDesc(), iPlr);
+}
+
 protected func ChooserFinished()
 {
   AddEffect("IntGoal", this, 1, 5, this);
@@ -125,11 +130,6 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   }
 
   return true;
-}
-
-protected func Activate(int iPlr)
-{
-  return MessageWindow(GetDesc(), iPlr);
 }
 
 /* Assault-Effekt */

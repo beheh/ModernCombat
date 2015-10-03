@@ -28,6 +28,11 @@ protected func Initialize()
   return true;
 }
 
+protected func Activate(iPlr)
+{
+  return MessageWindow(GetDesc(), iPlr);
+}
+
 public func ChooserFinished()
 {
   aMoney = [];
@@ -76,22 +81,42 @@ private func ConfigFinished()
     chos->OpenMenu();
 }
 
+/* Hostmenü */
+
 private func OpenGoalMenu(id dummy, int iSelection)
 {
   var pClonk = GetCursor(iChoosedPlr);
   CreateMenu(GetID(),pClonk,0,0,0,0,1);
 
-  AddMenuItem(" ", "OpenGoalMenu", GetID(), pClonk, iGoal, 0, " ");
-  AddMenuItem("$MoreCredits$", "ChangeCredits", CHOS, pClonk, 0, +100, "$MoreCredits$",2,1);
-  AddMenuItem("$LessCredits$", "ChangeCredits", CHOS, pClonk, 0, -100, "$LessCredits$",2,2);
-  AddMenuItem("$Finished$", "ConfigFinished", CHOS, pClonk,0,0,"$Finished$",2,3);
+  //Credit-Anzeige
+  AddMenuItem(" ", 0, IC20, pClonk, iGoal);
+
+  //Credit-Limits ermitteln
+  var uplimit = 1000; var downlimit = 100;
+  if(GetLeague())
+  {
+    uplimit = 500; downlimit = 200;
+  }
+
+  //Mehr Credits
+  if(iGoal < uplimit)
+    AddMenuItem("$MoreCredits$", "ChangeCredits", GOCC, pClonk, 0, +100, "$MoreCredits$",2,1); else
+    AddMenuItem("<c 777777>$MoreCredits$</c>", "ChangeCredits", GOCC, pClonk, 0, +100, "$MoreCredits$",2,1);
+
+  //Weniger Credits
+  if(iGoal > downlimit)
+    AddMenuItem("$LessCredits$", "ChangeCredits", GOCC, pClonk, 0, -100, "$LessCredits$",2,2); else
+    AddMenuItem("<c 777777>$LessCredits$</c>", "ChangeCredits", GOCC, pClonk, 0, -100, "$LessCredits$",2,2);
+
+  //Fertig
+  AddMenuItem("$Finished$", "ConfigFinished", GOCC, pClonk,0,0,"$Finished$",2,3);
 
   SelectMenuItem(iSelection, pClonk);
 }
 
 private func ChangeCredits(id dummy, int iChange)
 {
-  //Zu erreichenden Punktestand verändern (maximal 1000 (normal) oder 500 (Liga))
+  //Zu erreichenden Punktestand verändern
   if(!GetLeague())
     iGoal = BoundBy(iGoal + iChange,100,1000);
   else
@@ -451,17 +476,6 @@ public func IsFulfilled()
   }
 
   return false;
-}
-
-protected func Activate(int iPlr)
-{
-  if(FindObject(CHOS))
-    return MessageWindow(GetDesc(this), iPlr);
-
-  var iIndex = iPlr;
-  if (Teams())
-    iIndex = GetPlayerTeam(iPlr);
-  return MessageWindow(Format("$MsgGoalUnfulfilled$", aMoney[iIndex], iGoal), iPlr);
 }
 
 /* Ungenutze Funktionen */

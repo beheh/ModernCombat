@@ -1,31 +1,37 @@
+// Target
+
+TargetArmedAttacker=Bomb has been placed on target <c ffff33>%s</c>, defend it!
+TargetDefusedAttacker=Bomb on target <c ff0000>%s</c> has been defused, we must place a new one!
+TargetArmedDefender=The enemy has placed a bomb on target <c ff0000>%s</c>, defuse it now!
+TargetDefusedDefender=The bomb on target <c ffff33>%s</c> has been defused, good work!
+TargetDestruction=Target <c %x>%s</c> has been destroyed!
+
 // Attackers
 
 DestroyLastStation=Only <c ffff33>one</c> target left to win!
 MsgTicketsLow=<c ff0000>Warning</c>: Our reinforcements are running low, only <c ffff33>%d</c> left!
 MsgNoTickets=<c ff0000>Warning</c>: Our reinforcements are <c ff0000>exhausted</c>!
-AttackersWon={{GASS}} <c ffff33>Assault</c> - Round End|The <c ffff33>attacker team</c> has <c ffff33>won</c> this battle!
 TicketLossWarningAttacker=The enemy is <c ff0000>dominating</c> the battle, we need to attack the targets!
 TicketLossAttacker=We <c ff0000>lost</c> some reinforcements! We need to attack the targets right now!
-TargetArmedAttacker=Bomb has been placed on target <c ffff33>%s</c>, defend it!
-TargetDefusedAttacker=Bomb on target <c ff0000>%s</c> has been defused, we must place a new one!
-AttackerDominate=The attackers are dominating
 MsgRegroup=We have <c ffff33>taken</c> the position, get ready to advance!
 MsgForward=The next enemy position has been localised, <c ffff33>advance</c>!
 
 // Defenders
 
 DefendLastStation=<c ff0000>Warning</c>: This is our <c ff0000>last</c> target!
-DefendersWon={{GASS}} <c ffff33>Assault</c> - Round End|The <c ffff33>defender team</c> has <c ffff33>won</c> this battle!
 TicketLossWarningDefender=We are <c ffff33>dominating</c> the battle, continue defending the targets!
 TicketLossDefender=The enemy <c ffff33>lost</c> reinforcements, keep it up!
-TargetArmedDefender=The enemy has placed a bomb on target <c ff0000>%s</c>, defuse it now!
-TargetDefusedDefender=The bomb on target <c ffff33>%s</c> has been defused, good work!
-DefenderDominate=The defenders are dominating
 MsgFallBack=Our position has been <c ff0000>overrun</c>, fall back!
 MsgDefend=Enemy units are on the move to our location, <c ffff33>stand by</c>!
 
-// Other
+// Scoreboard
 
+AttackerDominate=The attackers are dominating
+DefenderDominate=The defenders are dominating
 Targets=Targets
 Attackers=Attackers
-TargetDestruction=Target <c %x>%s</c> has been destroyed!
+
+// End of round
+
+AttackersWon={{GASS}} <c ffff33>Assault</c> - Round End|The <c ffff33>attacker team</c> has <c ffff33>won</c> this battle!
+DefendersWon={{GASS}} <c ffff33>Assault</c> - Round End|The <c ffff33>defender team</c> has <c ffff33>won</c> this battle!
