@@ -7,17 +7,6 @@ public func GoalExtraValue()	{return iWinScore;}	//Spielzielinformationen an Sco
 
 local aFlagCarrier;
 
-public func ChooserFinished()
-{
-  //Spielzielhinweise erstellen
-  for(var i = 0; i < GetPlayerCount(); i++)
-  {
-    DoScoreboardShow(1, GetPlayerByIndex(i) + 1);
-    CreateObject(TK06, 0, 0, GetPlayerByIndex(i));
-    Sound("Info_Round.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
-  }
-  return _inherited(...);
-}
 
 /* Initialisierung */
 
@@ -34,6 +23,23 @@ protected func Initialize()
   aFlagCarrier = CreateArray();
 
   return(_inherited());
+}
+
+protected func Activate(int iPlr)
+{
+  return MessageWindow(GetDesc(), iPlr);
+}
+
+public func ChooserFinished()
+{
+  //Spielzielhinweise erstellen
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
+    DoScoreboardShow(1, GetPlayerByIndex(i) + 1);
+    CreateObject(TK06, 0, 0, GetPlayerByIndex(i));
+    Sound("Info_Round.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
+  }
+  return _inherited(...);
 }
 
 public func GetHUDInfo(int player, object hud)

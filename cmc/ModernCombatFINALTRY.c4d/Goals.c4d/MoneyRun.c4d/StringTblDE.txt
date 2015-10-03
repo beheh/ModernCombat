@@ -1,10 +1,19 @@
-TeamHasWon={{GMNR}} <c ffff33>Money Run</c> - Rundenende|Team <c %x>%s</c> hat diese Schlacht <c ffff33>gewonnen</c>!
-PlayerHasWon={{GMNR}} <c ffff33>Money Run</c> - Rundenende|<c %x>%s</c> hat diese Schlacht <c ffff33>gewonnen</c>!
-MsgGoalUnfulfilled=Dein Team hat momentan %d Credits, Ziel ist das Sichern von %d.
-Points=Credits
+// Scoreboard
+
 Goal=Zielbetrag
+
+// Hostmenü
+
 MoreCredits=mehr Credits
 LessCredits=weniger Credits
 Finished=Fertig
+
+// Rundenende
+
+TeamHasWon={{GMNR}} <c ffff33>Money Run</c> - Rundenende|Team <c %x>%s</c> hat diese Schlacht <c ffff33>gewonnen</c>!
+PlayerHasWon={{GMNR}} <c ffff33>Money Run</c> - Rundenende|<c %x>%s</c> hat diese Schlacht <c ffff33>gewonnen</c>!
+
+// Sonstiges
+
 EnemyTeamIsWinning=<c ff0000>Achtung</c>: Team %s hat fast genug Credits gesammelt!
 EnemyPlayerIsWinning=<c ff0000>Achtung</c>: %s hat fast genug Credits gesammelt!

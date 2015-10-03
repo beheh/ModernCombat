@@ -1,31 +1,37 @@
+// Zielobjekt
+
+TargetArmedAttacker=Sprengladung wurde an Zielobjekt <c ffff33>%s</c> platziert, verteidigt es!
+TargetDefusedAttacker=Sprengladung an Zielobjekt <c ff0000>%s</c> wurde entschärft, wir müssen eine neue setzen!
+TargetArmedDefender=Sprengladung wurde an Zielobjekt <c ff0000>%s</c> platziert, entschärft sie!
+TargetDefusedDefender=Sprengladung an Zielobjekt <c ffff33>%s</c> wurde entschärft, gute Arbeit!
+TargetDestruction=Das Zielobjekt <c %x>%s</c> wurde zerstört!
+
 // Angreifer
 
 DestroyLastStation=Uns fehlt nur noch <c ffff33>ein</c> Zielobjekt zum Sieg!
 MsgTicketsLow=<c ff0000>Achtung</c>: Unsere Verstärkung geht zu Neige, nur noch <c ffff33>%d</c> übrig!
 MsgNoTickets=<c ff0000>Achtung</c>: Unsere Verstärkung ist <c ff0000>aufgebraucht</c>!
-AttackersWon={{GASS}} <c ffff33>Assault</c> - Rundenende|Das <c ffff33>Angreifer-Team</c> hat diese Schlacht <c ffff33>gewonnen</c>!
 TicketLossWarningAttacker=Der Feind <c ff0000>dominiert</c> die Schlacht, wir müssen die Zielobjekte angreifen!
 TicketLossAttacker=Wir haben an Verstärkung <c ff0000>verloren</c>! Wir müssen die Zielobjekte jetzt sofort angreifen!
-TargetArmedAttacker=Sprengladung wurde an Zielobjekt <c ffff33>%s</c> platziert, verteidigt es!
-TargetDefusedAttacker=Sprengladung an Zielobjekt <c ff0000>%s</c> wurde entschärft, wir müssen eine neue setzen!
-AttackerDominate=Die Angreifer dominieren
 MsgRegroup=Wir haben die Stellung <c ffff33>eingenommen</c>, bereitmachen zum Vorrücken!
 MsgForward=Die nächste feindliche Stellung wurde lokalisiert, <c ffff33>Ausrücken</c>!
 
 // Verteidiger
 
 DefendLastStation=<c ff0000>Achtung</c>: Das ist unser <c ff0000>letztes</c> Zielobjekt!
-DefendersWon={{GASS}} <c ffff33>Assault</c> - Rundenende|Das <c ffff33>Verteidiger-Team</c> hat diese Schlacht <c ffff33>gewonnen</c>!
 TicketLossWarningDefender=Wir <c ffff33>dominieren</c> die Schlacht, lasst weiterhin keinen an die Zielobjekte!
 TicketLossDefender=Der Feind hat an Verstärkung <c ffff33>verloren</c>, nicht nachlassen!
-TargetArmedDefender=Sprengladung wurde an Zielobjekt <c ff0000>%s</c> platziert, entschärft sie!
-TargetDefusedDefender=Sprengladung an Zielobjekt <c ffff33>%s</c> wurde entschärft, gute Arbeit!
-DefenderDominate=Die Verteidiger dominieren
 MsgFallBack=Unsere Stellung wurde <c ff0000>überrannt</c>, zieht euch zurück!
 MsgDefend=Feindliche Einheiten nähern sich unserer Position, <c ffff33>bereithalten</c>!
 
-// Sonstiges
+// Scoreboard
 
-Targets=Zielobjekte
+AttackerDominate=Die Angreifer dominieren
+DefenderDominate=Die Verteidiger dominieren
 Attackers=Angreifer
-TargetDestruction=Das Zielobjekt <c %x>%s</c> wurde zerstört!
+Targets=Zielobjekte
+
+// Rundenende
+
+AttackersWon={{GASS}} <c ffff33>Assault</c> - Rundenende|Das <c ffff33>Angreifer-Team</c> hat diese Schlacht <c ffff33>gewonnen</c>!
+DefendersWon={{GASS}} <c ffff33>Assault</c> - Rundenende|Das <c ffff33>Verteidiger-Team</c> hat diese Schlacht <c ffff33>gewonnen</c>!

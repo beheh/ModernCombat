@@ -202,7 +202,8 @@ protected func Timer()
 
   if(enemys)
   {
-    if(!captureradiusmarker && noenemys) {
+    if(!captureradiusmarker && noenemys)
+    {
       captureradiusmarker = ShowCaptureRadius(this);
       noenemys = false;
     }
@@ -210,11 +211,11 @@ protected func Timer()
   else
     noenemys = true;
 
-  if(friends) 
+  if(friends)
   {
-    if(!captureradiusmarker && nofriends && process < 100) 
+    if(!captureradiusmarker && nofriends && process < 100)
       captureradiusmarker = ShowCaptureRadius(this);
-    
+
     nofriends = false;
   }
   else
