@@ -23,7 +23,7 @@ public func Set(object target, bool nofadeout)
   SetVisibility(VIS_Allies | VIS_Owner);
 
   //Bei Anfrage ausblenden
-  if(!nofadeout)
+  if(nofadeout)
     return this;
 
   //Ausfaden
