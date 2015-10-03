@@ -121,7 +121,7 @@ protected func ShowCaptureRadius(object pTarget)
 {
   //Kreis-Symbol erstellen
   var obj = CreateObject(SM09, 0, 0, -1);
-  obj->Set(pTarget);
+  obj->Set(pTarget, 1);
 
   //Symbolgröße anpassen
   var wdt = StandardRange() * 2000 / GetDefWidth(SM09);
