@@ -285,7 +285,7 @@ public func UpdateScoreboard()
 
   SetScoreboardData(i, GHTF_FlagColumn, Format("<c %x>%s</c>", nameclr, GetName(pFlag)));
   SetScoreboardData(i, GHTF_ProgressColumn, Format("{{%i}}", icon), GHTF_FlagRow-i);
-  SetScoreboardData(i, GHTF_PointsColumn, Format("<c %x>%d%</c>", percentclr, prog), GHTF_FlagRow-i);
+  SetScoreboardData(i, GHTF_PointsColumn, Format("<c %x>%d</c>", percentclr, prog), GHTF_FlagRow-i);
 
   i++;
 
@@ -328,9 +328,9 @@ public func UpdateScoreboard()
       SetScoreboardData(i, GHTF_FlagColumn, Format("<c %x>%s</c>", GetTeamFlagColor(iTeam), GetTeamName(iTeam)));
 
       if(j == pFlag->~GetTeam())
-        SetScoreboardData(i, GHTF_ProgressColumn, Format("<c %x>%d%</c>", GetTeamFlagColor(iTeam), iProgress), iProgress);
+        SetScoreboardData(i, GHTF_ProgressColumn, Format("<c %x>%d</c>", RGB(128, 128, 128), iProgress), iProgress);
       else
-        SetScoreboardData(i, GHTF_ProgressColumn, Format("<c %x>%d%</c>", RGB(128, 128, 128), 0), 0);
+        SetScoreboardData(i, GHTF_ProgressColumn, Format("<c %x>%d</c>", RGB(128, 128, 128), 0), 0);
 
       SetScoreboardData(i, GHTF_PointsColumn, Format("<c %x>%d</c>", GetTeamFlagColor(iTeam), aTeamPoints[iTeam]), aTeamPoints[iTeam]);
     }
