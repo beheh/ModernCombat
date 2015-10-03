@@ -2,7 +2,7 @@
 
 #strict 2
 
-local team, process, range, flag, bar, attacker, spawnpoints, trend, capt, pAttackers, lastowner, iconState, captureradiusmarker;
+local team, process, range, flag, bar, attacker, spawnpoints, trend, capt, pAttackers, lastowner, iconState, captureradiusmarker, noenemys, nofriends;
 
 public func GetAttacker()		{return attacker;}
 public func GetTeam()			{return team;}
@@ -121,7 +121,7 @@ protected func ShowCaptureRadius(object pTarget)
 {
   //Kreis-Symbol erstellen
   var obj = CreateObject(SM09, 0, 0, -1);
-  obj->Set(pTarget, 1);
+  obj->Set(pTarget);
 
   //Symbolgröße anpassen
   var wdt = StandardRange() * 2000 / GetDefWidth(SM09);
@@ -202,12 +202,23 @@ protected func Timer()
 
   if(enemys)
   {
-    if(!captureradiusmarker)
+    if(!captureradiusmarker && noenemys) {
       captureradiusmarker = ShowCaptureRadius(this);
+      noenemys = false;
+    }
   }
   else
-    if(captureradiusmarker)
-      RemoveObject(captureradiusmarker);
+    noenemys = true;
+
+  if(friends) 
+  {
+    if(!captureradiusmarker && nofriends && process < 100) 
+      captureradiusmarker = ShowCaptureRadius(this);
+    
+    nofriends = false;
+  }
+  else
+    nofriends = true;
 
   if((!enemys) == (!friends))
   {
