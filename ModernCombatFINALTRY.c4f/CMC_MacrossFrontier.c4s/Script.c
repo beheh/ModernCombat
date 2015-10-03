@@ -496,11 +496,11 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
         return [[420, 400], [420, 630], [450, 340]];
       if(iTeam == GetActiveTeamByIndex(1))
         return [[1465, 285], [1495, 320], [1530, 550]];
+      return 1;
     }
-    return 1;
+    else
+      return [[540, 420], [540, 540], [540, 630], [1410, 340], [1410, 460], [1410, 550]];
   }
-  else
-    return [[540, 420], [540, 540], [540, 630], [1410, 340], [1410, 460], [1410, 550]];
 
   //MR/LMS/DM-Spielziel
   if(FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM))
