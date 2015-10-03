@@ -32,28 +32,7 @@ protected func Initialize()
 
 public func Activate(iPlr)
 {
-  var szText = "";
-  if(GetWinningTeam() > 0)
-  {
-    if(GetWinningTeam() == GetPlayerTeam(iPlr))
-    {
-      szText = "$MsgGoalFulfilled$";
-    }
-    else
-    {
-      szText = "$MsgGoalLost$";
-    }
-  }
-  else
-  {
-    //Alle Teamtickets anzeigen
-    for(var i = 0; i < GetTeamCount(); i++)
-    {
-      var iTeam = GetTeamByIndex(i);
-      if(TeamAlive(iTeam)) szText = Format("%s<c %x>%s</c>: %d $Tickets$|", szText, GetTeamColor(iTeam), GetTeamName(iTeam), GetTickets(iTeam));
-    }
-  }
-  return MessageWindow(szText ,iPlr);
+  return MessageWindow(GetDesc(), iPlr);
 }
 
 public func ChooserFinished()
@@ -209,31 +188,53 @@ private func ConfigFinished()
     chos->OpenMenu();
 }
 
+/* Hostmenü */
+
 private func OpenGoalMenu(id dummy, int iSelection)
 {
   var pClonk = GetCursor(iChoosedPlr);
   CreateMenu(GetID(),pClonk,0,0,0,0,1);
 
-  AddMenuItem(" ", "OpenGoalMenu", GetID(), pClonk, iStartTickets, 0, " ");
-  AddMenuItem("$MoreTickets$", "ChangeStartTickets", CHOS, pClonk, 0, +1, "$MoreTickets$",2,1);
-  AddMenuItem("$LessTickets$", "ChangeStartTickets", CHOS, pClonk, 0, -1, "$LessTickets$",2,2);
-  AddMenuItem("$Finished$", "ConfigFinished", CHOS, pClonk,0,0,"$Finished$",2,3);
+  //Ticketanzeige
+  AddMenuItem("$Tickets$", 0, SM03, pClonk, iStartTickets);
+
+  //Ticketlimits ermitteln
+  var uplimit = 100; var downlimit = 5;
+  if(GetLeague())
+  {
+    uplimit = 40; downlimit = 10;
+  }
+
+  //Mehr Tickets
+  if(iStartTickets < uplimit)
+    AddMenuItem("$MoreTickets$", "ChangeStartTickets", GetID(), pClonk, 0, +5, "$MoreTickets$",2,1); else
+    AddMenuItem("<c 777777>$MoreTickets$</c>", "ChangeStartTickets", GetID(), pClonk, 0, +5, "$MoreTickets$",2,1);
+
+  //Weniger Tickets
+  if(iStartTickets > downlimit)
+    AddMenuItem("$LessTickets$", "ChangeStartTickets", GetID(), pClonk, 0, -5, "$LessTickets$",2,2); else
+    AddMenuItem("<c 777777>$LessTickets$</c>", "ChangeStartTickets", GetID(), pClonk, 0, -5, "$LessTickets$",2,2);
+
+  //Fertig
+  AddMenuItem("$Finished$", "ConfigFinished", GetID(), pClonk,0,0,"$Finished$",2,3);
 
   SelectMenuItem(iSelection, pClonk);
 }
 
 private func ChangeStartTickets(id dummy, int iChange)
 {
-  //Zu erreichenden Punktestand verändern (maximal 100 (normal) oder 32 (Liga) Tickets)
-  if(!GetLeague())
-    iStartTickets = BoundBy(iStartTickets+iChange,0,100);
-  else
-    iStartTickets = BoundBy(iStartTickets+iChange,10,32);
   //Sound
-  Sound("Grab", 1,0,0,1);
-  //Menü wieder öffnen
+  Sound("Grab",1,0,0,1);
+
+  //Ticketstand verändern
+  if(!GetLeague())
+    iStartTickets = BoundBy(iStartTickets+iChange,5,100);
+  else
+    iStartTickets = BoundBy(iStartTickets+iChange,10,40);
+
+  //Menü erneut öffnen
   var iSel = 1;
-  if(iChange == -1) iSel = 2;
+  if(iChange < 0) iSel = 2;
   OpenGoalMenu(0, iSel);
 }
 
@@ -254,7 +255,7 @@ protected func InitScoreboard()
   SetScoreboardData(SBRD_Caption, SBRD_Caption, Format("%s",GetName()), SBRD_Caption);
 
   //Spaltentitel
-  SetScoreboardData(SBRD_Caption, GOCC_FlagColumn, "{{SM21}}", SBRD_Caption);
+  SetScoreboardData(SBRD_Caption, GOCC_FlagColumn, "{{IC12}}", SBRD_Caption);
   SetScoreboardData(SBRD_Caption, GOCC_TimerColumn, " ", SBRD_Caption);
   SetScoreboardData(SBRD_Caption, GOCC_ProgressColumn, "{{SM02}}", SBRD_Caption);
 
@@ -430,7 +431,7 @@ public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegain
     }
   }
   //Eventnachricht: Flaggenposten erobert
-  EventInfo4K(0, Format("$MsgCaptured$", GetTeamColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), SM22, 0, GetTeamColor(iTeam), 0, "Info_Objective.ogg");
+  EventInfo4K(0, Format("$MsgFlagCaptured$", GetTeamColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), SM22, 0, GetTeamColor(iTeam), 0, "Info_Objective.ogg");
   UpdateScoreboard();
 }
 
