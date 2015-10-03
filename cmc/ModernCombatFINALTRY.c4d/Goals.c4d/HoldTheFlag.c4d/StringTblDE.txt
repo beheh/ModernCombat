@@ -8,10 +8,13 @@ MsgCaptured=Team <c %x>%s</c> kontrolliert Flaggenposten <c ffff33>%s</c>!
 TeamReachingGoal=<c ff0000>Achtung</c>: Team %s fehlen nur noch <c ffff33>%d</c> Punkte zum Sieg!
 TeamHasWon={{GHTF}} <c ffff33>Hold the Flag</c> - Rundenende|Team <c %x>%s</c> hat diese Schlacht <c ffff33>gewonnen</c>!
 
-// Sonstiges
+// Hostmenü
 
+Points=Punkte
 MorePoints=Mehr Punkte
 LessPoints=Weniger Punkte
 Finished=Fertig
-Points=Punkte
+
+// Sonstiges
+
 SbrdGoalPoints=Zielpunktzahl

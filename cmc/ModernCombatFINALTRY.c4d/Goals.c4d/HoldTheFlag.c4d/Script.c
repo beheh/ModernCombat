@@ -20,6 +20,11 @@ protected func Initialize()
   aDeath = [];
 }
 
+public func Activate(iPlr)
+{
+  return MessageWindow(GetDesc(), iPlr);
+}
+
 public func ChooserFinished()
 {
   aTeamPoints = [];
@@ -65,30 +70,51 @@ private func ConfigFinished()
     chos->OpenMenu();
 }
 
+/* Hostmenü */
+
 private func OpenGoalMenu(id dummy, int iSelection)
 {
   var pClonk = GetCursor(iChoosedPlr);
   CreateMenu(GetID(),pClonk,0,0,0,0,1);
 
-  AddMenuItem(" ", "OpenGoalMenu", GetID(), pClonk, iGoal, 0, " ");
-  AddMenuItem("$MorePoints$", "ChangeWinpoints", CHOS, pClonk, 0, +1, "$MorePoints$",2,1);
-  AddMenuItem("$LessPoints$", "ChangeWinpoints", CHOS, pClonk, 0, -1, "$LessPoints$",2,2);
-  AddMenuItem("$Finished$", "ConfigFinished", CHOS, pClonk,0,0,"$Finished$",2,3);
+  //Punkteanzeige
+  AddMenuItem("$Points$", 0, IC12, pClonk, iGoal);
+
+  //Punktelimits ermitteln
+  var uplimit = 40; var downlimit = 5;
+  if(GetLeague())
+  {
+    uplimit = 30; downlimit = 5;
+  }
+
+  //Mehr Punkte
+  if(iGoal < uplimit)
+    AddMenuItem("$MorePoints$", "ChangeWinpoints", GOCC, pClonk, 0, +1, "$MorePoints$",2,1); else
+    AddMenuItem("<c 777777>$MorePoints$</c>", "ChangeWinpoints", GOCC, pClonk, 0, +1, "$MorePoints$",2,1);
+
+  //Weniger Punkte
+  if(iGoal > downlimit)
+    AddMenuItem("$LessPoints$", "ChangeWinpoints", GOCC, pClonk, 0, -1, "$MorePoints$",2,2); else
+    AddMenuItem("<c 777777>$LessPoints$</c>", "ChangeWinpoints", GOCC, pClonk, 0, -1, "$MorePoints$",2,2);
+
+  //Fertig
+  AddMenuItem("$Finished$", "ConfigFinished", GOCC, pClonk,0,0,"$Finished$",2,3);
 
   SelectMenuItem(iSelection, pClonk);
 }
 
 private func ChangeWinpoints(id dummy, int iChange)
 {
-  //Zu erreichenden Punktestand verändern (maximal 100 (normal) oder 25 (Liga) Punkte)
-  if(!GetLeague())
-    iGoal = BoundBy(iGoal+iChange,1,100);
-  else
-    iGoal = BoundBy(iGoal+iChange,10,25);
-
   //Sound
   Sound("Grab", 1,0,0,1);
-  //Menü wieder öffnen
+
+  //Zu erreichenden Punktezahl verändern
+  if(!GetLeague())
+    iGoal = BoundBy(iGoal+iChange,5,40);
+  else
+    iGoal = BoundBy(iGoal+iChange,5,30);
+
+  //Menü erneut öffnen
   var iSel = 1;
   if(iChange == -1) iSel = 2;
   OpenGoalMenu(0, iSel);
@@ -146,11 +172,6 @@ protected func FxIntAddProgressTimer()
 }
 
 /* Zeug */
-
-protected func Activate(iPlr)
-{
-  return MessageWindow(GetDesc(), iPlr);
-}
 
 public func IsTeamGoal()		{return 1;}
 

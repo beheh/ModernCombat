@@ -1,22 +1,20 @@
 // Flag post
 
 MsgFlagLost=Lost flag post <c ffff33>%s</c> to team <c %x>%s</c>!
-MsgCaptured=Team <c %x>%s</c> controls flag post <c ffff33>%s</c>!
+MsgFlagCaptured=Team <c %x>%s</c> controls flag post <c ffff33>%s</c>!
 
 // Tickets
 
 MsgTicketsLow=<c ff0000>Warning</c>: Our reinforcements are running low, only <c ffff33>%d</c> left!
 MsgNoTickets=<c ff0000>Warning</c>: Our reinforcements are <c ff0000>exhausted</c>!
 
-// Other
+// Host menu
 
-MsgGoalFulfilled=We have a winner!
-Score=Points
-MsgGoalLost=Your team has lost.
-TeamHasWon={{GOCC}} <c ffff33>Occupation</c> - Round End|Team <c %x>%s</c> has <c ffff33>won</c> this battle!
-Kills=Kills
-Death=Death
+Tickets=Tickets
 MoreTickets=more Tickets
 LessTickets=less Tickets
 Finished=Finished
-Tickets=Tickets
+
+// End of round
+
+TeamHasWon={{GOCC}} <c ffff33>Occupation</c> - Round End|Team <c %x>%s</c> has <c ffff33>won</c> this battle!
