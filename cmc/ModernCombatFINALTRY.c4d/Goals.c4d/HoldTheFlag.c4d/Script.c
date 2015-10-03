@@ -235,78 +235,111 @@ public func FlagCaptured(object pFlagPole, int iTeam, array aAttackers, bool fRe
 
 /* Scoreboard */
 
-static const GHTF_Name = SBRD_Caption;
-static const GHTF_Points = 0;
-static const GHTF_Progress = 1;
+static const GHTF_FlagColumn = 1;
+static const GHTF_ProgressColumn = 2;
+static const GHTF_PointsColumn = 3;
 static const GHTF_FlagRow = 1024;
 
-public func UpdateScoreboard()
+public func InitScoreboard() 
 {
   //Wird noch eingestellt
   if(FindObject(CHOS)) return;
 
+  UpdateHUDs();
+
   //Titelzeile
-  SetScoreboardData(SBRD_Caption, GHTF_Name, GetName());
+  SetScoreboardData(SBRD_Caption, SBRD_Caption, Format("%s",GetName()), SBRD_Caption);
 
   //Spaltentitel
-  SetScoreboardData(SBRD_Caption, GHTF_Points, "{{GHTF}}");
-  SetScoreboardData(SBRD_Caption, GHTF_Progress, "{{SM02}}");
+  SetScoreboardData(SBRD_Caption, GHTF_FlagColumn, "{{GHTF}}", SBRD_Caption);
+  SetScoreboardData(SBRD_Caption, GHTF_ProgressColumn, " ", SBRD_Caption);
+  SetScoreboardData(SBRD_Caption, GHTF_PointsColumn, "{{SM02}}", SBRD_Caption);
+
+  UpdateScoreboard();
+}
+
+public func UpdateScoreboard()
+{
+  //Wird noch eingestellt
+  if(FindObject(CHOS) || !pFlag) return;
+
+  //Zeileniterator
+  var i = 0;
 
   //Teamfarbe und Flaggenzustand ermitteln
   var teamclr = GetTeamFlagColor(pFlag->GetTeam()),
   prog = pFlag->GetProcess();
-  //Färbung je nach Zustand
+  var percentclr = InterpolateRGBa3(RGBa(255, 255, 255), teamclr, prog, 100);
+
+  //Flaggennamenfarbe ermitteln
   if(!pFlag->~IsFullyCaptured())
     var nameclr = RGB(255,255,255);
   else
     var nameclr = teamclr;
-  var percentclr = InterpolateRGBa3(RGBa(255, 255, 255), teamclr, prog, 100);
-
-  //Flaggenpostenname und -zustand
-  SetScoreboardData(GHTF_FlagRow, GHTF_Name, Format("<c %x>%s</c>", nameclr, GetName(pFlag)));
-  SetScoreboardData(GHTF_FlagRow, GHTF_Progress, Format("<c %x>%d%</c>", percentclr, prog), GHTF_FlagRow);
+    
+  //Flaggenicon ermitteln
   var icon, trend = pFlag->GetTrend();
   if(!trend)		icon = SM21;	//Keine Aktivität
   if(trend == -1)	icon = SM23;	//Angriff
   if(trend == 1)	icon = SM22;	//Verteidigung
-  SetScoreboardData(GHTF_FlagRow, GHTF_Points, Format("{{%i}}", icon), GHTF_FlagRow-1);
+
+  SetScoreboardData(i, GHTF_FlagColumn, Format("<c %x>%s</c>", nameclr, GetName(pFlag)));
+  SetScoreboardData(i, GHTF_ProgressColumn, Format("{{%i}}", icon), GHTF_FlagRow-i);
+  SetScoreboardData(i, GHTF_PointsColumn, Format("<c %x>%d%</c>", percentclr, prog), GHTF_FlagRow-i);
+
+  i++;
 
   //Leere Zeile
-  SetScoreboardData(GHTF_FlagRow-1, GHTF_Progress, "", GHTF_FlagRow-1);
-  SetScoreboardData(GHTF_FlagRow-1, GHTF_Points, "", GHTF_FlagRow-1);
+  SetScoreboardData(i, GHTF_FlagColumn, " ");
+  SetScoreboardData(i, GHTF_ProgressColumn, " ", GHTF_FlagRow-i);
+  SetScoreboardData(i, GHTF_PointsColumn, " ", GHTF_FlagRow-i);
+
+  i++;
 
   //Benötigte Punktzahl
-  SetScoreboardData(GHTF_FlagRow-2, GHTF_Name, "$SbrdGoalPoints$", GHTF_FlagRow-1);
-  SetScoreboardData(GHTF_FlagRow-2, GHTF_Points, Format("%d", iGoal), GHTF_FlagRow-1);
+  SetScoreboardData(i, GHTF_FlagColumn, "$SbrdGoalPoints$");
+  SetScoreboardData(i, GHTF_ProgressColumn, " ", GHTF_FlagRow-i);
+  SetScoreboardData(i, GHTF_PointsColumn, Format("%d", iGoal), GHTF_FlagRow-i);
 
-  //Alle Teams
-  var iFlagTeam = pFlag->~GetTeam();
-  for(var i, j; i < GetTeamCount(); j++)
+  i++;
+
+  //Leere Zeile
+  SetScoreboardData(i, GHTF_FlagColumn, " ");
+  SetScoreboardData(i, GHTF_ProgressColumn, " ", GHTF_FlagRow-i);
+  SetScoreboardData(i, GHTF_PointsColumn, " ", GHTF_FlagRow-i);
+
+  i++;
+
+  //Icons
+  SetScoreboardData(i, GHTF_FlagColumn, "{{ROCK}}");
+  SetScoreboardData(i, GHTF_ProgressColumn, "{{FLNT}}", GHTF_FlagRow-i);
+  SetScoreboardData(i, GHTF_PointsColumn, "{{BKHK}}", GHTF_FlagRow-i);
+
+  i++;
+
+  for(var j = 0; j < GetTeamCount(); j++)
   {
-    //Team gibts. Hochzählen
-    if(GetTeamName(j))
-      i++;
-    //Team gibts nicht oder keine Spieler drin
-    if(!GetTeamName(j) || !GetTeamPlayerCount(j))
+    var iTeam = GetTeamByIndex(j);
+
+    if(GetTeamName(iTeam) && GetTeamPlayerCount(iTeam))
     {
-      SetScoreboardData(j, GHTF_Name);
-      SetScoreboardData(j, GHTF_Points);
-      SetScoreboardData(j, GHTF_Progress);
-      continue;
+      i++;
+
+      SetScoreboardData(i, GHTF_FlagColumn, Format("<c %x>%s</c>", GetTeamFlagColor(iTeam), GetTeamName(iTeam)));
+
+      if(j == pFlag->~GetTeam())
+        SetScoreboardData(i, GHTF_ProgressColumn, Format("<c %x>%d%</c>", GetTeamFlagColor(iTeam), iProgress), iProgress);
+      else
+        SetScoreboardData(i, GHTF_ProgressColumn, Format("<c %x>%d%</c>", RGB(128, 128, 128), 0), 0);
+
+      SetScoreboardData(i, GHTF_PointsColumn, Format("<c %x>%d</c>", GetTeamFlagColor(iTeam), aTeamPoints[iTeam]), aTeamPoints[iTeam]);
     }
-    SetScoreboardData(j, GHTF_Name, Format("<c %x>%s</c>", GetTeamFlagColor(j), GetTeamName(j)));
-    SetScoreboardData(j, GHTF_Points, Format("<c %x>%d</c>", GetTeamFlagColor(j), aTeamPoints[j]), aTeamPoints[j]);
-    //Team hat die Flagge
-    if(j == iFlagTeam)
-      SetScoreboardData(j, GHTF_Progress, Format("<c %x>%02d%</c>", GetTeamFlagColor(j), iProgress), iProgress);
-    else
-      SetScoreboardData(j, GHTF_Progress, Format("<c %x>00%</c>", GetTeamFlagColor(j)), -1);
   }
 
-  //So... Erstmal nach Flaggenstatus sortieren
-  SortScoreboard(GHTF_Progress, true);
+  //Nach Progress sortieren
+  SortScoreboard(GHTF_ProgressColumn, true);
   //Und dann nochmal nach Punkten. Damit bei gleicher Punktzahl das Team vorne ist, das gerade die Flagge hält
-  SortScoreboard(GHTF_Points, true);
+  SortScoreboard(GHTF_PointsColumn, true);
 }
 
 public func GetTeamFlagColor(int iTeam)
@@ -383,7 +416,6 @@ private func TeamGetScore(int iTeam)
 
 /* Ungenutze Funktionen */
 
-private func InitScoreboard()							{}
 private func InitMultiplayerTeam(int iTeam)					{}
 private func RemoveMultiplayerTeam(int iTeam)					{}
 private func InitSingleplayerTeam(int iPlr)					{}
