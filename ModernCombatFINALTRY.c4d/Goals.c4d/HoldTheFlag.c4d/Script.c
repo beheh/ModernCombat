@@ -251,7 +251,7 @@ public func InitScoreboard()
   SetScoreboardData(SBRD_Caption, SBRD_Caption, Format("%s",GetName()), SBRD_Caption);
 
   //Spaltentitel
-  SetScoreboardData(SBRD_Caption, GHTF_FlagColumn, "{{GHTF}}", SBRD_Caption);
+  SetScoreboardData(SBRD_Caption, GHTF_FlagColumn, "{{IC12}}", SBRD_Caption);
   SetScoreboardData(SBRD_Caption, GHTF_ProgressColumn, " ", SBRD_Caption);
   SetScoreboardData(SBRD_Caption, GHTF_PointsColumn, "{{SM02}}", SBRD_Caption);
 
@@ -311,9 +311,9 @@ public func UpdateScoreboard()
   i++;
 
   //Icons
-  SetScoreboardData(i, GHTF_FlagColumn, "{{ROCK}}");
-  SetScoreboardData(i, GHTF_ProgressColumn, "{{FLNT}}", GHTF_FlagRow-i);
-  SetScoreboardData(i, GHTF_PointsColumn, "{{BKHK}}", GHTF_FlagRow-i);
+  SetScoreboardData(i, GHTF_FlagColumn, "{{SM26}}");
+  SetScoreboardData(i, GHTF_ProgressColumn, "{{SM27}}", GHTF_FlagRow-i);
+  SetScoreboardData(i, GHTF_PointsColumn, "{{IC09}}", GHTF_FlagRow-i);
 
   i++;
 
