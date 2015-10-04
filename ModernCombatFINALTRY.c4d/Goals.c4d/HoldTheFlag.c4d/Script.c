@@ -243,7 +243,7 @@ static const GHTF_FlagRow = 1024;
 public func InitScoreboard() 
 {
   //Wird noch eingestellt
-  if(FindObject(CHOS)) return;
+  if(FindObject(CHOS) || IsFulfilled()) return;
 
   UpdateHUDs();
 
@@ -261,7 +261,7 @@ public func InitScoreboard()
 public func UpdateScoreboard()
 {
   //Wird noch eingestellt
-  if(FindObject(CHOS) || !pFlag) return;
+  if(FindObject(CHOS) || !pFlag || IsFulfilled()) return;
 
   //Zeileniterator
   var i = 0;
@@ -327,7 +327,7 @@ public func UpdateScoreboard()
 
       SetScoreboardData(i, GHTF_FlagColumn, Format("<c %x>%s</c>", GetTeamFlagColor(iTeam), GetTeamName(iTeam)));
 
-      if(j == pFlag->~GetTeam())
+      if(iTeam == pFlag->~GetTeam())
         SetScoreboardData(i, GHTF_ProgressColumn, Format("<c %x>%d</c>", RGB(128, 128, 128), iProgress), iProgress);
       else
         SetScoreboardData(i, GHTF_ProgressColumn, Format("<c %x>%d</c>", RGB(128, 128, 128), 0), 0);
@@ -337,9 +337,9 @@ public func UpdateScoreboard()
   }
 
   //Nach Progress sortieren
-  SortScoreboard(GHTF_ProgressColumn, true);
+  //SortScoreboard(GHTF_ProgressColumn, true);
   //Und dann nochmal nach Punkten. Damit bei gleicher Punktzahl das Team vorne ist, das gerade die Flagge hält
-  SortScoreboard(GHTF_PointsColumn, true);
+  //SortScoreboard(GHTF_PointsColumn, true);
 }
 
 public func GetTeamFlagColor(int iTeam)

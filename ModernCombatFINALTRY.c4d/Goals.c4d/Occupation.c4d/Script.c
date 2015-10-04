@@ -247,7 +247,7 @@ static const GOCC_ProgressColumn	= 3;
 protected func InitScoreboard()
 {  
   //Wird noch eingestellt
-  if(FindObject(CHOS)) return;
+  if(FindObject(CHOS) || IsFulfilled()) return;
 
   UpdateHUDs();
 
@@ -267,7 +267,7 @@ protected func InitScoreboard()
 private func UpdateScoreboard()
 {
   //Wird noch eingestellt
-  if(FindObject(CHOS)) return;
+  if(FindObject(CHOS) || IsFulfilled()) return;
 
   var i = 0;
   var data, base;
