@@ -336,10 +336,12 @@ public func UpdateScoreboard()
     }
   }
 
+  /*
   //Nach Progress sortieren
-  //SortScoreboard(GHTF_ProgressColumn, true);
+  SortScoreboard(GHTF_ProgressColumn, true);
   //Und dann nochmal nach Punkten. Damit bei gleicher Punktzahl das Team vorne ist, das gerade die Flagge hält
-  //SortScoreboard(GHTF_PointsColumn, true);
+  SortScoreboard(GHTF_PointsColumn, true);
+  */
 }
 
 public func GetTeamFlagColor(int iTeam)

@@ -447,7 +447,6 @@ func CreateDecoration()
   CreateObject(PPSK, 2310, 850, -1);
   CreateObject(PPSK, 3855, 560, -1);
   CreateObject(PPSK, 3870, 560, -1);
-
 }
 
 /* Regelwähler */
