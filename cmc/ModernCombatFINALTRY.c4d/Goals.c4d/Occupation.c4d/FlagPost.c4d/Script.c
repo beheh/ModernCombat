@@ -85,7 +85,7 @@ public func GetSpawnPoint(int &iX, int &iY, string &szFunction, int iPlr)
 
 public func IsAttacked()
 {
-  for(clonk in FindObjects(Find_Distance(range),Find_OCF(OCF_Alive), Find_NoContainer()))
+  for(clonk in FindObjects(Find_Distance(range),Find_OCF(OCF_Alive)))
   {
     if(GetOwner(clonk) == NO_OWNER) continue;
     if(GetPlayerTeam(GetOwner(clonk)) != team)
@@ -144,7 +144,7 @@ protected func Timer()
 
   //Zuvor gespeicherte Clonks in Reichweite auf Aktualität prüfen
   var del;
-  var clonks = FindObjects(Find_Distance(range),Find_OCF(OCF_Alive),Find_NoContainer());
+  var clonks = FindObjects(Find_Distance(range),Find_OCF(OCF_Alive));
   for(var pClonk in pAttackers)
   {
     del = true;
@@ -169,7 +169,7 @@ protected func Timer()
   var aEnemies = CreateArray();
 
   //Passende Clonks in Reichweite ermitteln
-  var clonks = FindObjects(Find_Distance(range),Find_OCF(OCF_Alive),Find_NoContainer());
+  var clonks = FindObjects(Find_Distance(range),Find_OCF(OCF_Alive));
 
   //Gefundene Clonks als Feinde oder Verbündete einstufen
   for(clonk in clonks)
@@ -177,7 +177,6 @@ protected func Timer()
     if(GetOwner(clonk) == NO_OWNER) continue;
     if(!GetPlayerName(GetOwner(clonk)) || !GetPlayerTeam(GetOwner(clonk))) continue;
     if(!PathFree4K(GetX(this()),GetY(this())-GetDefHeight(GetID())/2,GetX(clonk),GetY(clonk),4)) continue;
-    if(Contained(clonk)) continue;
     if(GetPlayerTeam(GetOwner(clonk)) == team)
     {
       friends++;
