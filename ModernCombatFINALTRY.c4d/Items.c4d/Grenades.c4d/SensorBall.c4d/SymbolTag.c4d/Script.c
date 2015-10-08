@@ -27,8 +27,8 @@ public func Set(object target, object host, bool fClonk, int remove_time, string
   //Besitzer setzen
   SetOwner(GetOwner(pHost));
 
-  //Farbe
-  SetColor(RGB(255,255,255), this);
+  //Standardfarbe: Weiß
+  SetColorDw(RGB(255,255,255), this);
 
   //Sichtbarkeit gegenüber Verbündeten
   SetVisibility(VIS_Allies | VIS_Owner);

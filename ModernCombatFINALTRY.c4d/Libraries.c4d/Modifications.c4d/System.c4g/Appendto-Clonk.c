@@ -89,7 +89,7 @@ public func HurtSounds(int iDmg, int iType)
   //Minimalschaden
   if(iDmg <= RandomX(2,8))
   {
-    Sound("ClonkSmallPain*.ogg", 0, 0,0, GetOwner()+1);
+    Sound("ClonkSmallPain*.ogg", 0, 0, 0, GetOwner()+1);
     return;
   }
 
