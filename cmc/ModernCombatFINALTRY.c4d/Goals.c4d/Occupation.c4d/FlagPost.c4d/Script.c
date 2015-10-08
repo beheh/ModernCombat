@@ -129,7 +129,6 @@ protected func ShowCaptureRadius(object pTarget)
   //Symbol konfigurieren
   obj->SetObjDrawTransform(wdt, 0, 0, 0, wdt, 0);
   obj->SetGraphics("Big");
-  obj->SetColorDw(RGB(255,0,0));
 
   return obj;
 }

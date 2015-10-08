@@ -24,38 +24,42 @@ public func Fused()
   //Zu blendende Objekte suchen
   for(var obj in FindObjects(Find_OCF(OCF_CrewMember),Find_Distance(250)))
   {
-    //Ziel verschachtelt: Auslassen, es sei denn, der Container ist ein Helikopter
+    //Ziel verschachtelt aber nicht in einem Helikopter oder Ziel kein Clonk: Abbruch
     if(Contained(obj) && !Contained(obj)->~IsHelicopter())
       continue;
 
-    //Intensität errechnen
-    var intensity = ((400-ObjectDistance(this,obj))*600/250)/2;
-
-  if(intensity <= 0)
-    continue;
-
-    //Ziel ein Clonk?
-    if(obj->~IsClonk())
+    //Entfernung zum Clonk berechnen
+    if(ObjectDistance(this, obj) > 50)
     {
-      //Freie Sicht zum Clonk?
+      //Weiter als 50px entfernt: Nur blenden wenn freies Sichtfeld
       if(!PathFree(GetX(),GetY(),GetX(obj),GetY(obj)-8))
         continue;
-
-      //Clonk freundlich: Intensität halbieren
-      if(!Hostile(GetOwner(obj), GetOwner(GetUser())))
-        intensity = intensity/2;
-    }
-    else
-    {
-      if(!PathFree(GetX(),GetY(),GetX(obj),GetY(obj))) continue;
     }
 
-    //Vorhandenen Blendeffekt des Ziels aktualisieren oder neuen anhängen
+    //Blendwert errechnen
+    var intensity = ((400-ObjectDistance(this,obj))*600/250)/2;
+    //Blendwert 0 oder weniger: Abbruch
+    if(intensity <= 0)
+      continue;
+    //Clonk ist verbündet: Blendwert halbieren
+    if(!Hostile(GetOwner(obj), GetOwner(GetUser())))
+      intensity = intensity/2;
+
+    //Blendeffekt am Clonk erstellen oder vorhandenen aktualisieren
     var effect = GetEffect("IntFlashbang", obj);
     if(!effect)
-      AddEffect("IntFlashbang",obj,1,1,0,GetID(), intensity, GetOwner(GetUser()));
+      AddEffect("IntFlashbang",obj,10,1,0,GetID(), intensity, GetOwner(GetUser()));
     else
       EffectVar(0, obj, effect) += intensity;
+
+    //Blendung stark genug: Soundeffekte am Clonk
+    if(intensity > 38)
+    {
+      if(!GetEffect("SoundDelay", obj))
+        Sound("ClonkSmallPain*.ogg", 0, obj, 100, GetOwner(obj)+1);
+      Sound("STUN_Bang*.ogg", false, obj, 100, GetOwner(obj)+1);
+      Sound("STUN_EarRinging*.ogg", false, obj, 100, GetOwner(obj)+1);
+    }
   }
 
   //Effekte
@@ -75,27 +79,19 @@ public func Fused()
 
 /* Blendeffekt */
 
-public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, intensity, owner)
+public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, intensity)
 {
   if(iTemp)
     return;
 
-  //Keine Intensität?
+  //Blendwert übernehmen, bei 0 abbrechen
   if(!intensity)
     return -1;
-
   EffectVar(0,pTarget,iEffectNumber) = intensity;
 
-  //Blendung stark genug: Dann auch hörbar
-  if(intensity > 38)
-  {
-    Sound("STUN_Bang.ogg", false, pTarget, 100, GetOwner(pTarget)+1);
-    Sound("STUN_EarRinging*.ogg", false, pTarget, RandomX(80,100), GetOwner(pTarget)+1);
-  }
-
-  //Stärke berechnen und Blendung erstellen
+  //Blendwert in Alphawert umwandeln
   var a = BoundBy(intensity,0,255);
-
+  //Blendobjekt erstellen und speichern sowie Alphawert setzen
   var flash = ScreenRGB(pTarget,RGB(255,255,255), 0, 0, false, SR4K_LayerLight);
   flash->SetAlpha(255-a);
   if(!flash)
@@ -106,68 +102,60 @@ public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, in
 
 public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
+  //Kein Blendobjekt vorhanden: Abbruch
   var rgb = EffectVar(1,pTarget,iEffectNumber);
   if(!rgb)
     return -1;
 
-  var i = EffectVar(0, pTarget, iEffectNumber);
-
-  //Keine Blendung mehr: Abbruch
-  if(i <= 0)
-    return -1;
-
-  //"Überblendung" verhindern
-  if(i > 850)
-    i = 850;
-
-  //Blendung senken
-  i -= 2;
-  EffectVar(0, pTarget, iEffectNumber) = i;
-
-  //Taschenlampen-Blendung beachten
-  var a = rgb->GetAlpha();
-  var eff = GetEffect("FlashlightBlindness", pTarget);
-  if(eff && EffectVar(1, pTarget, eff) > 0 && a >= Flashlight_MinAlpha)
-  {
-  }
+  //Aktuellen Blendwert ermitteln
+  var i;
+  if(--EffectVar(0, pTarget, iEffectNumber) >= 100)
+    i = EffectVar(0, pTarget, iEffectNumber);
   else
-  {
-    a = BoundBy(i, 0, 255);
-    rgb->SetAlpha(255 - a);
-  }
+    //Aktuelle Intensität anhand des ScreenRGB-Alphawerts ermitteln
+    i = ((255-rgb->~GetAlpha()) * 100 / 255)-1;
 
-  if(!Contained(pTarget))
-    //Blendungsicon anhängen
+  if(i <= 0) return -1;
+
+  var a = BoundBy(255-(i*255/100)-1,0,255);
+  rgb->SetAlpha(a);
+
+  var val, num, pCursor, c, flag;
+  if(!Contained())
+  {
+    var a = rgb->~GetAlpha(), c;
     for(var i = 0; i < GetPlayerCount(); i++)
     {
-      if(i == GetOwner(pTarget))
-        continue;
-
       var pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
-      if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i))))
+      if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i)))) 
         continue;
 
-      if(Contained(pCursor) && !(Contained(pCursor)->~GetPilot() == pCursor))
+      if(Contained(pCursor))
         continue;
 
-      var srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
- 
-      if(srgb && srgb->GetAlpha() < 50)
+      var flash = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
+      var val = 0;
+
+      if(flash)
       {
-        CustomMessage("@", pTarget, GetPlayerByIndex(i));
-        continue;
-      }
+        val = flash->~GetAlpha();
 
-      srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerSmoke, pCursor);
-
-      if(srgb && srgb->GetAlpha() < 200)
-      {
-        CustomMessage("@", pTarget, GetPlayerByIndex(i));
-        continue;
+        if(val > 127)
+          val = 255-val;
       }
-  
-      CustomMessage(Format("<c %x>{{SM07}}</c>%d", RGBa(255,255,255,BoundBy(a, 1, 254)), a), pTarget, GetPlayerByIndex(i));
-    }  
+      else
+        val = 255-a;
+
+      var flag = 0;
+      if(c != 0)
+        flag = MSG_Multiple;
+
+      CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(val, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag); 
+      c++;
+    }
+  }
+  else
+    Message("@", pTarget);
 }
 
 public func FxIntFlashbangStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)

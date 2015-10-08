@@ -16,8 +16,8 @@ public func Set(object target, bool nofadeout)
   SetVertex(0,1,GetVertex(0,0,target));
   SetAction("Attach",target);
 
-  //Farbe
-  SetColor(RGB(255,255,255), this);
+  //Standardfarbe: Weiß
+  SetColorDw(RGB(255,255,255), this);
 
   //Sichtbarkeit gegenüber Verbündeten
   SetVisibility(VIS_Allies | VIS_Owner);

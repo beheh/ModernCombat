@@ -115,7 +115,7 @@ public func FxFlashlightBlindnessStart(object pTarget, int iNr, temp)
     return;
 
   EffectVar(0, pTarget, iNr) = ScreenRGB(pTarget, RGBa(255, 255, 255, 254), 0, 0, false, SR4K_LayerLight);
-  EffectVar(5, pTarget, iNr) = 0;
+  EffectVar(1, pTarget, iNr) = 6;
 }
 
 static const Flashlight_MinAlpha = 80;
@@ -123,64 +123,70 @@ static const Flashlight_MaxAlpha = 180;
 
 public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
 {
-  if(GetEffect("IntFlashbang", pTarget))
-    return;
-
   var rgb = EffectVar(0, pTarget, iNr);
-  var distAlpha = EffectVar(4, pTarget, iNr);
+  var pUser = EffectVar(2, pTarget, iNr);
+  var iBlindDistance = EffectVar(3, pTarget, iNr);
+  var distAlpha = EffectVar(4, pTarget, iNr) = Max(Flashlight_MinAlpha, (Flashlight_MaxAlpha * Distance(GetX(pTarget), GetY(pTarget), GetX(pUser), GetY(pUser))) / iBlindDistance);
 
   if(!rgb)
     rgb = EffectVar(0, pTarget, iNr) = ScreenRGB(pTarget, RGBa(255, 255, 255, 254), 0, 0, false, SR4K_LayerLight);
 
-  var a = rgb->GetAlpha();
-
-  if(a < Flashlight_MinAlpha)
-    return -1;
+  if(rgb->GetAlpha() < Flashlight_MinAlpha)
+    return;
 
   if(--EffectVar(1, pTarget, iNr) <= 0)
+  {
+    if(GetEffect("IntFlashbang", pTarget))
+      return;
+
     rgb->DoAlpha(-5, distAlpha, 255);
+  }
   else
     rgb->DoAlpha(+18, Min(rgb->GetAlpha()+18, distAlpha), 255);
 
   if(!rgb)
     return -1;
 
-  a = rgb->GetAlpha();
-
-  if(!GetEffect("IntFlashbang", pTarget) && !Contained())
+  if(!GetEffect("IntFlashbang", pTarget))
   {
-    for(var i = 0; i < GetPlayerCount(); i++)
+    if(!Contained() && rgb)
     {
-      if(i == GetOwner(pTarget))
-      continue;
-
-      var pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
-      if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i))))
-        continue;
-
-      if(Contained(pCursor))
-        continue;
-
-      var srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
-
-      if(srgb && srgb->GetAlpha() < 50)
+      var a = rgb->~GetAlpha(), c;
+      for(var i = 0; i < GetPlayerCount(); i++)
       {
-        CustomMessage("@", pTarget, GetPlayerByIndex(i));
-        continue;
+        var pCursor = GetCursor(GetPlayerByIndex(i));
+        if(!pCursor)
+          continue;
+        
+        pCursor = pCursor->~GetRealCursor();
+        if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i))))
+          continue;
+
+        if(Contained(pCursor))
+          continue;
+
+        var srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
+        var val;
+
+        if(srgb)
+          val = srgb->~GetAlpha();
+
+        if(val && 255-a >= val)
+          val = 255 - val;
+        else
+          val = 255 - a;
+
+        var flag = 0;
+        if(c != 0)
+          flag = MSG_Multiple;
+
+        CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(val, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag); 
+        c++;
+        }
       }
-
-      srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerSmoke, pCursor);
-
-      if(srgb && srgb->GetAlpha() < 200) 
-      {
-        CustomMessage("@", pTarget, GetPlayerByIndex(i));
-        continue;
-      }
-
-      CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(255 - a, 1, 254))), pTarget, GetPlayerByIndex(i));
+      else
+        Message("@", pTarget); 
     }
-  }
-
   return true;
 }
 
