@@ -124,17 +124,9 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
 
   //Alphawert des Blendobjekts aktualisieren
   var a = flash->GetAlpha();
-  var eff = GetEffect("FlashlightBlindness", pTarget);
-  //Taschenlampen-Blendung beachten
-  if(eff && EffectVar(1, pTarget, eff) > 0 && a >= Flashlight_MinAlpha)
-  {
-  }
-  else
-  {
-    //Blendobjekt aktualisieren
-    a = BoundBy(intensity, 0, 255);
-    flash->SetAlpha(255 - a);
-  }
+  //Blendobjekt aktualisieren
+  a = BoundBy(intensity, 0, 255);
+  flash->SetAlpha(255 - a);
 
   //Blendicon-Konfiguration für jeden Spieler getrennt
   var inum;
