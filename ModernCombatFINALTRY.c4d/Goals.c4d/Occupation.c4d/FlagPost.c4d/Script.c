@@ -87,6 +87,7 @@ public func IsAttacked()
 {
   for(clonk in FindObjects(Find_Distance(range),Find_OCF(OCF_Alive)))
   {
+    if(Contained(clonk) && !Contained(clonk)->~IsHelicopter()) continue;
     if(GetOwner(clonk) == NO_OWNER) continue;
     if(GetPlayerTeam(GetOwner(clonk)) != team)
       return true;
@@ -151,6 +152,8 @@ protected func Timer()
     {
       if(clonk == pClonk)
       {
+        if(Contained(pClonk) && !Contained(pClonk)->~IsHelicopter()) continue;
+
         //Clonk vorhanden: Eintrag beibehalten
         del = false;
         break;
@@ -173,6 +176,7 @@ protected func Timer()
   //Gefundene Clonks als Feinde oder Verbündete einstufen
   for(clonk in clonks)
   {
+    if(Contained(clonk) && !Contained(clonk)->~IsHelicopter()) continue;
     if(GetOwner(clonk) == NO_OWNER) continue;
     if(!GetPlayerName(GetOwner(clonk)) || !GetPlayerTeam(GetOwner(clonk))) continue;
     if(!PathFree4K(GetX(this()),GetY(this())-GetDefHeight(GetID())/2,GetX(clonk),GetY(clonk),4)) continue;
