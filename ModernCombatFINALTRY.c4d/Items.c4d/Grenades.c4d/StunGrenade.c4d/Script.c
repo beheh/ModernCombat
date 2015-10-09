@@ -105,7 +105,7 @@ public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, in
 
 public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  //Kein Blendobjekt vorhanden: Abbruch
+  //Kein Blendobjekt vorhanden: Neues erstellen
   var flash = EffectVar(1,pTarget,iEffectNumber);
   if(!flash)
   {
@@ -125,11 +125,10 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
   intensity -= 2;
   EffectVar(0, pTarget, iEffectNumber) = intensity;
 
-  //Alphawert des Blendobjekts aktualisieren
+  //Neuen Alphawert des Blendobjekts ermitteln
   var a = flash->GetAlpha();
-  //Blendobjekt aktualisieren
   a = BoundBy(intensity, 0, 255);
-  flash->SetAlpha(255 - a);
+  //Blendobjekt aktualisieren  flash->SetAlpha(255 - a);
 
   //Blendicon-Konfiguration für jeden Spieler getrennt
   var inum;

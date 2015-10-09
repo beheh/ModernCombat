@@ -162,4 +162,3 @@ public func FxFlashlightBlindnessRefresh(object pTarget, int iNr, object pUser, 
   EffectVar(4, pTarget, iNr) = iDistAlpha;
   return true;
 }
-
