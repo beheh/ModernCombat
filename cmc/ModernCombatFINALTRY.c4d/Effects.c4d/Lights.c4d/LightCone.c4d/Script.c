@@ -163,10 +163,3 @@ public func FxFlashlightBlindnessRefresh(object pTarget, int iNr, object pUser, 
   return true;
 }
 
-public func FxFlashlightBlindnessStop(object pTarget, int iNr)
-{
-  if(EffectVar(0, pTarget, iNr))
-    RemoveObject(EffectVar(0, pTarget, iNr));
-
-  return true;
-}
