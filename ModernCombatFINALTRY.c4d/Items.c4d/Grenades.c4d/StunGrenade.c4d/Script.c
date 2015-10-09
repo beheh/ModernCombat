@@ -108,7 +108,10 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
   //Kein Blendobjekt vorhanden: Abbruch
   var flash = EffectVar(1,pTarget,iEffectNumber);
   if(!flash)
-    return -1;
+  {
+    flash = ScreenRGB(pTarget,RGB(255,255,255), 0, 0, false, SR4K_LayerLight);
+    EffectVar(1,pTarget,iEffectNumber) = flash;
+  }
 
   //Aktuellen Blendwert ermitteln
   var intensity = EffectVar(0, pTarget, iEffectNumber);
@@ -173,12 +176,6 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
       CustomMessage("{{SM07}}", pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag);
     inum++;
   }
-}
-
-public func FxIntFlashbangStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
-{
-  if(EffectVar(1,pTarget,iEffectNumber))
-    RemoveObject(EffectVar(1,pTarget,iEffectNumber));
 }
 
 /* Schaden */
