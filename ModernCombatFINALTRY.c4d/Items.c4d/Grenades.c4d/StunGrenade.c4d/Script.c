@@ -16,7 +16,7 @@ public func Fuse()
 {
   Sound("STUN_Activate.ogg");
   SetGraphics("Active");
-  return AddEffect ("IntFuse",this,200,1,this);
+  return AddEffect("IntFuse",this,200,1,this);
 }
 
 public func Fused()
@@ -25,7 +25,7 @@ public func Fused()
   for(var obj in FindObjects(Find_OCF(OCF_CrewMember),Find_Distance(250)))
   {
     //Ziel verschachtelt aber nicht in einem Helikopter oder Ziel kein Clonk: Abbruch
-    if(Contained(obj) && !Contained(obj)->~IsHelicopter())
+    if(Contained(obj) && !Contained(obj)->~IsHelicopter()  || !obj->~IsClonk())
       continue;
 
     //Entfernung zum Clonk berechnen
@@ -48,7 +48,7 @@ public func Fused()
     //Blendeffekt am Clonk erstellen oder vorhandenen aktualisieren
     var effect = GetEffect("IntFlashbang", obj);
     if(!effect)
-      AddEffect("IntFlashbang",obj,10,1,0,GetID(), intensity, GetOwner(GetUser()));
+      AddEffect("IntFlashbang",obj,100,1,0,GetID(), intensity);
     else
       EffectVar(0, obj, effect) += intensity;
 
@@ -56,7 +56,10 @@ public func Fused()
     if(intensity > 38)
     {
       if(!GetEffect("SoundDelay", obj))
+      {
+        AddEffect("SoundDelay", this, 1, 25, obj);
         Sound("ClonkSmallPain*.ogg", 0, obj, 100, GetOwner(obj)+1);
+      }
       Sound("STUN_Bang*.ogg", false, obj, 100, GetOwner(obj)+1);
       Sound("STUN_EarRinging*.ogg", false, obj, 100, GetOwner(obj)+1);
     }
@@ -89,11 +92,11 @@ public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, in
     return -1;
   EffectVar(0,pTarget,iEffectNumber) = intensity;
 
-  //Blendwert in Alphawert umwandeln
+  //Blendwert ermitteln
   var a = BoundBy(intensity,0,255);
-  //Blendobjekt erstellen und speichern sowie Alphawert setzen
+  //Blendobjekt erstellen, Alphawert setzen und speichern
   var flash = ScreenRGB(pTarget,RGB(255,255,255), 0, 0, false, SR4K_LayerLight);
-  flash->SetAlpha(255-a);
+  flash->SetAlpha(255 - a);
   if(!flash)
     return -1;
   else
@@ -103,59 +106,81 @@ public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, in
 public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   //Kein Blendobjekt vorhanden: Abbruch
-  var rgb = EffectVar(1,pTarget,iEffectNumber);
-  if(!rgb)
+  var flash = EffectVar(1,pTarget,iEffectNumber);
+  if(!flash)
     return -1;
 
   //Aktuellen Blendwert ermitteln
-  var i;
-  if(--EffectVar(0, pTarget, iEffectNumber) >= 100)
-    i = EffectVar(0, pTarget, iEffectNumber);
-  else
-    //Aktuelle Intensität anhand des ScreenRGB-Alphawerts ermitteln
-    i = ((255-rgb->~GetAlpha()) * 100 / 255)-1;
+  var intensity = EffectVar(0, pTarget, iEffectNumber);
+  //Blendwert gleich 0: Abbruch
+  if(intensity <= 0)
+    return -1;
+  //Zu hohen Blendwert deckeln
+  if(intensity > 850)
+    intensity = 850;
+  //Blendwert um 2 senken
+  intensity -= 2;
+  EffectVar(0, pTarget, iEffectNumber) = intensity;
 
-  if(i <= 0) return -1;
-
-  var a = BoundBy(255-(i*255/100)-1,0,255);
-  rgb->SetAlpha(a);
-
-  var val, num, pCursor, c, flag;
-  if(!Contained())
+  //Alphawert des Blendobjekts aktualisieren
+  var a = flash->GetAlpha();
+  var eff = GetEffect("FlashlightBlindness", pTarget);
+  //Taschenlampen-Blendung beachten
+  if(eff && EffectVar(1, pTarget, eff) > 0 && a >= Flashlight_MinAlpha)
   {
-    var a = rgb->~GetAlpha(), c;
-    for(var i = 0; i < GetPlayerCount(); i++)
-    {
-      var pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
-      if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i)))) 
-        continue;
-
-      if(Contained(pCursor))
-        continue;
-
-      var flash = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
-      var val = 0;
-
-      if(flash)
-      {
-        val = flash->~GetAlpha();
-
-        if(val > 127)
-          val = 255-val;
-      }
-      else
-        val = 255-a;
-
-      var flag = 0;
-      if(c != 0)
-        flag = MSG_Multiple;
-
-      CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(val, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag); 
-      c++;
-    }
   }
   else
-    Message("@", pTarget);
+  {
+    //Blendobjekt aktualisieren
+    a = BoundBy(intensity, 0, 255);
+    flash->SetAlpha(255 - a);
+  }
+
+  //Blendicon-Konfiguration für jeden Spieler getrennt
+  var inum;
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
+    //Spieler, der den geblendeten Clonk steuert, auslassen
+    if(i == GetOwner(pTarget))
+      continue;
+
+    //Geblendeter Clonk befindet sich in Rauch: Keine Icons setzen
+    var srgb = GetScreenRGB(GetPlayerByIndex(GetOwner(pTarget)), SR4K_LayerSmoke, pTarget);
+    if(srgb && srgb->GetAlpha() < 200)
+      continue;
+
+    //Spieler hat keinen Clonk oder dieser nicht sein Besitz: Abbruch
+    var pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
+    if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i))))
+      continue;
+
+    //Clonk verschachtelt und kein Pilot: Abbruch
+    if(Contained(pCursor) && !(Contained(pCursor)->~GetPilot() == pCursor))
+      continue;
+
+    //Clonk des Spielers ist durch Blendgranate geblendet: Kein Icon anzeigen
+    var srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
+    if(srgb && srgb->GetAlpha() < 40)
+      continue;
+    //Clonk des Spielers ist durch Rauch geblendet: Abbruch
+    srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerSmoke, pCursor);
+    if(srgb && srgb->GetAlpha() < 200)
+      continue;
+
+    //Bei mehreren Icons vorhergehende nicht entfernen
+    var flag = 0;
+    if(inum != 0)
+      flag = MSG_Multiple;
+
+    //Ansonsten Icon setzen
+    if(!Contained(pTarget))
+      //Geblendeter im Freien: Icon gibt Blendungsgrad wieder
+      CustomMessage(Format("<c %x>{{SM07}}</c>%d", RGBa(255,255,255,BoundBy(a, 1, 254)), a), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag);
+    else
+      //Ansonsten nur allgemeines Icon anzeigen
+      CustomMessage("{{SM07}}", pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag);
+    inum++;
+  }
 }
 
 public func FxIntFlashbangStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
