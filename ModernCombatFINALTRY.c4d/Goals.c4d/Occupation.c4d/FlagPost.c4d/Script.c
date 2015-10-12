@@ -125,7 +125,7 @@ protected func ShowCaptureRadius(object pTarget)
   obj->Set(pTarget);
 
   //Symbolgröße anpassen
-  var wdt = StandardRange() * 2000 / GetDefWidth(SM09);
+  var wdt = range * 2000 / GetDefWidth(SM09);
 
   //Symbol konfigurieren
   obj->SetObjDrawTransform(wdt, 0, 0, 0, wdt, 0);
