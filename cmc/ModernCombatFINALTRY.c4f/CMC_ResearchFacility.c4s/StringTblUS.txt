@@ -3,7 +3,7 @@ CreatingEquipment=Placing equipment...
 CreatingDecoration=Placing decoration...
 
 Team1=Eurocorps
-Team2=Empire
+Team2=Aggressors
 
 Flag1=Quarters
 Flag2=Control Tower
