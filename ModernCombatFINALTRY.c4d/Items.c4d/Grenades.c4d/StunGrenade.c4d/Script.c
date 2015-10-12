@@ -128,7 +128,8 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
   //Neuen Alphawert des Blendobjekts ermitteln
   var a = flash->GetAlpha();
   a = BoundBy(intensity, 0, 255);
-  //Blendobjekt aktualisieren  flash->SetAlpha(255 - a);
+  //Blendobjekt aktualisieren
+  flash->SetAlpha(255 - a);
 
   //Blendicon-Konfiguration für jeden Spieler getrennt
   var inum;
@@ -141,25 +142,38 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
     //Geblendeter Clonk befindet sich in Rauch: Keine Icons setzen
     var srgb = GetScreenRGB(GetPlayerByIndex(GetOwner(pTarget)), SR4K_LayerSmoke, pTarget);
     if(srgb && srgb->GetAlpha() < 200)
+    {
+      Message("@", pTarget, GetPlayerByIndex(i));
       continue;
+    }
 
     //Spieler hat keinen Clonk oder dieser nicht sein Besitz: Abbruch
     var pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
     if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i))))
+    {
+      Message("@", pTarget, GetPlayerByIndex(i));
       continue;
+    }
 
-    //Clonk verschachtelt und kein Pilot: Abbruch
+    //Clonk des Spielers verschachtelt und kein Pilot: Abbruch
     if(Contained(pCursor) && !(Contained(pCursor)->~GetPilot() == pCursor))
+    {
+      Message("@", pTarget, GetPlayerByIndex(i));
       continue;
+    }
 
-    //Clonk des Spielers ist durch Blendgranate geblendet: Kein Icon anzeigen
+    //Clonk des Spielers ist durch Blendgranate geblendet: Abbruch
     var srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
     if(srgb && srgb->GetAlpha() < 40)
       continue;
+
     //Clonk des Spielers ist durch Rauch geblendet: Abbruch
     srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerSmoke, pCursor);
     if(srgb && srgb->GetAlpha() < 200)
+    {
+      Message("@", pTarget, GetPlayerByIndex(i));
       continue;
+    }
 
     //Bei mehreren Icons vorhergehende nicht entfernen
     var flag = 0;
@@ -168,8 +182,13 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
 
     //Ansonsten Icon setzen
     if(!Contained(pTarget))
+    {
       //Geblendeter im Freien: Icon gibt Blendungsgrad wieder
-      CustomMessage(Format("<c %x>{{SM07}}</c>%d", RGBa(255,255,255,BoundBy(a, 1, 254)), a), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag);
+      if(intensity > 220)
+        CustomMessage(Format("<c %x>{{SM28}}</c>", RGBa(255,255,255,BoundBy(a, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag);
+      else
+        CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(a, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag);
+    }
     else
       //Ansonsten nur allgemeines Icon anzeigen
       CustomMessage("{{SM07}}", pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag);
