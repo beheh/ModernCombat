@@ -1,2 +1,2 @@
-DE:CMC - <c ffff33>Forschungsstation</c>
+DE:CMC - <c ffff33>Research Facility</c>
 US:CMC - <c ffff33>Research Facility</c>
