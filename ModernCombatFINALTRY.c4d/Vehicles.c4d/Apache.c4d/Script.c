@@ -119,25 +119,35 @@ protected func ContainedUp(object ByObj)
   {
     if(GetY() < 80)
       return;
-    //Autopilot aus
+    //Autopilot stoppen
     ResetAutopilot();
-    //Startup-Sequence
-    if (!throttle && (GetAction() == "Stand"))
+    //Helikopter inaktiv: Hochfahren
+    if(!throttle && (GetAction() == "Stand"))
       SetAction("EngineStartUp");
-    if(GetAction() == "EngineShutDown")
+    //Helikopter am herunterfahren: Aktion umkehren und Steuerung sperren
+    if(!enginelock)
     {
-      SetAction("EngineStartUp3");
-      StartEngine();
+      if(GetAction() == "EngineShutDown")
+      {
+        SetAction("EngineStartUp3");
+        StartEngine();
+        enginelock = 1;
+      }
+      if(GetAction() == "EngineShutDown2")
+      {
+        SetAction("EngineStartUp2");
+        StartEngine();
+        enginelock = 1;
+      }
+      if(GetAction() == "EngineShutDown3")
+      {
+        SetAction("EngineStartUp");
+        StartEngine();
+        enginelock = 1;
+      }
     }
-    if(GetAction() == "EngineShutDown2")
-    {
-      SetAction("EngineStartUp2");
-      StartEngine();
-    }
-    if(GetAction() == "EngineShutDown3")
-      SetAction("EngineStartUp");
 
-    //Schub geben
+    //Schub erhöhen
     if(!GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())))
     {
       if(GetAction() == "Fly" || GetAction() == "Turn")
@@ -151,6 +161,7 @@ protected func ContainedUp(object ByObj)
 
   //Schütze
   if (ByObj == GetGunner())
+    //Waffe nachladen
     pMGStation->~ControlUp(ByObj);
 
   return true;
@@ -163,12 +174,34 @@ protected func ContainedDown(object ByObj)
   //Pilot
   if (ByObj == GetPilot())
   {
-    //Autopilot aus
+    //Autopilot stoppen
     ResetAutopilot();
-    //Motor aus
-    if(!throttle && (GetAction() == "Fly" || GetAction() == "EngineStartUp") && GetContact(0, -1, CNAT_Bottom))
+    //Helikopter aktiv: Herunterfahren
+    if(!throttle && (GetAction() == "Fly") && GetContact(0, -1, CNAT_Bottom))
       SetAction("EngineShutDown");
-    //Vom Gas weg
+    //Helikopter am hochfahren: Aktion umkehren und Steuerung sperren
+    if(!enginelock)
+    {
+      if(GetAction() == "EngineStartUp")
+      {
+        SetAction("EngineShutDown3");
+        StopEngine();
+        enginelock = 1;
+      }
+      if(GetAction() == "EngineStartUp2")
+      {
+        SetAction("EngineShutDown2");
+        StopEngine();
+        enginelock = 1;
+      }
+      if(GetAction() == "EngineStartUp3")
+      {
+        SetAction("EngineShutDown");
+        StopEngine();
+        enginelock = 1;
+      }
+    }
+    //Schub verringern
     if(GetAction() == "Fly" || GetAction() == "Turn")
       if(GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())))
         AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), -BKHK_ThrottleSpeed);
@@ -178,6 +211,7 @@ protected func ContainedDown(object ByObj)
 
   //Schütze
   if(ByObj == GetGunner())
+    //Waffenbewegung stoppen
     pMGStation->~ControlDown(ByObj);
 
   return true;
@@ -188,15 +222,37 @@ protected func ContainedDownDouble(object ByObj)
   [$CtrlDownD$]
 
   //Pilot
-  if (ByObj == GetPilot())
+  if(ByObj == GetPilot())
   {
-    //Autopilot aus
+    //Autopilot stoppen
     ResetAutopilot();
-    //Motor aus
-    if (throttle == 0 && (GetAction() == "Fly" || GetAction() == "EngineStartUp") && GetContact(0, -1, CNAT_Bottom))
+    //Helikopter aktiv: Herunterfahren
+    if(throttle == 0 && (GetAction() == "Fly") && GetContact(0, -1, CNAT_Bottom))
       SetAction("EngineShutDown");
-    //Vom Gas weg
-    if (GetAction() == "Fly")
+    //Helikopter am hochfahren: Aktion umkehren und Steuerung sperren
+    if(!enginelock)
+    {
+      if(GetAction() == "EngineStartUp")
+      {
+        SetAction("EngineShutDown3");
+        StopEngine();
+        enginelock = 1;
+      }
+      if(GetAction() == "EngineStartUp2")
+      {
+        SetAction("EngineShutDown2");
+        StopEngine();
+        enginelock = 1;
+      }
+      if(GetAction() == "EngineStartUp3")
+      {
+        SetAction("EngineShutDown");
+        StopEngine();
+        enginelock = 1;
+      }
+    }
+    //Schub verringern
+    if(GetAction() == "Fly")
       throttle = BoundBy(throttle - BKHK_ThrottleSpeed*2, 0, 170);
   }
 
@@ -210,8 +266,9 @@ protected func ContainedLeft(object ByObj)
   //Pilot
   if (ByObj == GetPilot())
   {
-    //Autopilot aus
+    //Autopilot stoppen
     ResetAutopilot();
+    //Helikopter neigen
     if (GetAction() == "Fly" || GetAction() == "Turn")
       if(GetPlrCoreJumpAndRunControl(GetController(ByObj)))
         rotation = -BKHK_MaxRotation;
@@ -221,6 +278,7 @@ protected func ContainedLeft(object ByObj)
 
   //Schütze
   if(ByObj == GetGunner())
+    //Waffe bewegen
     pMGStation->~ControlLeft(ByObj);
 
   return true;
@@ -233,8 +291,9 @@ protected func ContainedRight(object ByObj, fRelease)
   //Pilot
   if (ByObj == GetPilot())
   {
-    //Autopilot aus
+    //Autopilot stoppen
     ResetAutopilot();
+    //Helikopter neigen
     if(fRelease)
       rotation = GetR();
     else 
@@ -247,6 +306,7 @@ protected func ContainedRight(object ByObj, fRelease)
 
   //Schütze
   if(ByObj == GetGunner())
+    //Waffe bewegen
     pMGStation->~ControlRight(ByObj);
 
   return true;
@@ -258,8 +318,9 @@ protected func ContainedLeftDouble(object ByObj)
   //Pilot
   if (ByObj == GetPilot())
   {
-    //Autopilot aus
+    //Autopilot stoppen
     ResetAutopilot();
+    //Helikopter neigen
     if (GetDir() && GetAction() == "Fly")
       if (GetAction() == "Turn" || GetContact(this, -1))
         return true;
@@ -269,6 +330,7 @@ protected func ContainedLeftDouble(object ByObj)
 
   //Schütze
   if(ByObj == GetGunner())
+    //Waffe bewegen
     pMGStation->~ControlLeftDouble(ByObj);
 
   return true;
@@ -281,8 +343,9 @@ protected func ContainedRightDouble(object ByObj)
   //Pilot
   if (ByObj == GetPilot())
   {
-    //Autopilot aus
+    //Autopilot stoppen
     ResetAutopilot();
+    //Helikopter neigen
     if (!GetDir() && GetAction() == "Fly")
       if (GetAction() == "Turn" || GetContact(this, -1))
         return true;
@@ -292,6 +355,7 @@ protected func ContainedRightDouble(object ByObj)
 
   //Schütze
   if(ByObj == GetGunner())
+    //Waffe bewegen
     pMGStation->~ControlRightDouble(ByObj);
 
   return true;
