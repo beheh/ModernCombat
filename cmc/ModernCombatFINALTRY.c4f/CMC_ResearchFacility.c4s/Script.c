@@ -3,7 +3,7 @@
 #strict 2
 #include CSTD
 
-static aFlag,aStationary,aSelfDefense,aDoor,aDoorWay;
+static aFlag,aStationary,aSelfDefense,aDoor,aDoorWay,aFlagPosition;
 
 func RecommendedGoals()			{return [GASS, GHTF];}	//Spielzielempfehlung
 public func AssaultDefenderTeam()	{return 2;}		//Verteidigerteam bei Assault
@@ -72,12 +72,15 @@ func CreateInterior()
   CreateObject(LADR, 840, 534, -1)->Set(37);
   CreateObject(LADR, 870, 984, -1)->Set(7);
   CreateObject(LADR, 1020, 522, -1)->Set(13);
+  CreateObject(LADR, 1105, 133, -1)->Set(6);
   CreateObject(LADR, 1110, 988, -1)->Set(50);
   CreateObject(LADR, 1020, 1750, -1)->Set(49);
   CreateObject(LADR, 1130, 1346, -1)->Set(41);
   CreateObject(LADR, 1175, 1907, -1)->Set(11);
   CreateObject(LADR, 1240, 1344, -1)->Set(131);
+  CreateObject(LADR, 1307, 153, -1)->Set(6);
   CreateObject(LADR, 1320, 1772, -1)->Set(3);
+  CreateObject(LADR, 1367, 253, -1)->Set(6);
   CreateObject(LADR, 1420, 790, -1)->Set(20);
   CreateObject(LADR, 1460, 988, -1)->Set(5);
   CreateObject(LADR, 1520, 702, -1)->Set(9);
@@ -150,6 +153,7 @@ func CreateInterior()
   aDoor[08] = CreateObject(HA4K, 3150, 1303, -1);
   CreateObject(HA4K, 2270, 553, -1);
   CreateObject(HA4K, 2270, 1023, -1);
+  CreateObject(HA4K, 2400, 553, -1);
   CreateObject(HA4K, 2400, 1233, -1);
   CreateObject(HA4K, 2410, 743, -1);
   CreateObject(HA4K, 2410, 913, -1);
@@ -1372,6 +1376,10 @@ public func ChooserFinished()
     CreateObject(SGNP, 3370, 30, -1);
     CreateObject(SGNP, 3590, 70, -1);
 
+    //Versorgungskisten (APW)
+    CreateObject(AMCT, 305, 1010, -1)->Set(ATWN);
+    CreateObject(AMCT, 3160, 1100, -1)->Set(ATWN);
+
     //Zusätzliche Munition
     if(!FindObject(NOAM))
     {
@@ -1552,9 +1560,13 @@ public func ChooserFinished()
   //HTF-Spielziel
   if(FindObject(GHTF))
   {
+    //Script starten
+    ScriptGo(1);
+    aFlagPosition = 2;
+
     //Flaggenposten
-    var flag = CreateObject(OFPL, 1765,820, -1);
-    flag->~Set("$Flag4$");
+    aFlag[0] = CreateObject(OFPL, 1765,820, -1);
+    aFlag[0]->~Set("$Flag4$");
 
     //Teamgrenzen
     CreateObject(BRDR, 1310, 0, -1)->Set(0,1,0,1,1);
@@ -1564,6 +1576,14 @@ public func ChooserFinished()
     CreateObject(BRDR, 760, 0, -1)->Set(0);
     CreateObject(BRDR, 2900, 0, -1)->Set(1);
     CreateObject(BRDR, 0, 1120, -1)->Set(3);
+
+    //Leitern
+    CreateObject(LADR, 1660, 510, -1)->Set(6);
+    CreateObject(LADR, 1871, 510, -1)->Set(6);
+
+    //Sandsackbarrieren
+    CreateObject(SBBA, 1676, 460, -1);
+    CreateObject(SBBA, 1850, 460, -1)->Right();
 
     //Aufzüge
     CreateObject(LFTP, 785, 244, -1)->SetLimits(235,1320);
@@ -1605,6 +1625,9 @@ public func ChooserFinished()
     aDoorWay[32] = CreateObject(GAT1, 2575, 90, -1);
     aDoorWay[33] = CreateObject(GAT3, 2245, 1050, -1);
     aDoorWay[32]->Connect(aDoorWay[33]);
+    aDoorWay[35] = CreateObject(ROOM, 2750, 740, -1);
+    aDoorWay[36] = CreateObject(ROOM, 2520, 1100, -1);
+    aDoorWay[35]->Connect(aDoorWay[36]);
 
     //Bodenluken
     CreateObject(HA4K, 1130, 1113, -1)->Lock();
@@ -1618,9 +1641,6 @@ public func ChooserFinished()
     CreateObject(GNET, 1290, 100, -1)->Set(SATW,90);
     CreateObject(GNET, 2560, 140, -1)->Set(SATW,-90);
     CreateObject(GNET, 2580, 1100, -1)->Set(SATW,-90);
-
-    //Konsole für Selbstschussanlage
-    CreateObject(CONS, 1765, 515, -1)->Set(aSelfDefense[0]);
 
     //Hinweisschilder
     var sign = CreateObject(SGNP, 730, 230, -1);
@@ -1641,14 +1661,32 @@ public func ChooserFinished()
     sign->SetMode(1);
     CreateObject(SGNP, 2950, 90, -1);
 
+    //Gerüste
+    CreateObject(SFFG, 1705, 510, -1)->Set(4);
+    CreateObject(SFFG, 1765, 410, -1)->Set(4);
+    CreateObject(SFFG, 1765, 460, -1)->Set(5);
+    CreateObject(SFFG, 1765, 510, -1)->Set(5);
+    CreateObject(SFFG, 1825, 510, -1)->Set(4);
+
+    //Gerüst anpassen
+    for(var obj in FindObjects(Find_ID(SFFG), Find_InRect(1740,1020,50,50)))
+      obj->Set(5);
+
     //Türverbindungen entfernen
     RemoveObject(aDoorWay[0]);
     RemoveObject(aDoorWay[1]);
     RemoveObject(aDoorWay[8]);
     RemoveObject(aDoorWay[9]);
 
-    //Objekt entfernen
+    //Objekte entfernen
+    RemoveObject(aSelfDefense[0]);
     RemoveObject(aSelfDefense[1]);
+
+    //Versorgungskiste (Revolver)
+    CreateObject(AMCT, 865, 230, -1)->Set(RVLR);
+
+    //Versorgungskiste (APW)
+    CreateObject(AMCT, 2900, 270, -1)->Set(ATWN);
 
     //Zusätzliche Munition
     if(!FindObject(NOAM))
@@ -1763,6 +1801,10 @@ public func ChooserFinished()
     //Objekte entfernen
     RemoveObject(aSelfDefense[0]);
     RemoveObject(aSelfDefense[1]);
+
+    //Versorgungskisten (APW)
+    CreateObject(AMCT, 305, 1010, -1)->Set(ATWN);
+    CreateObject(AMCT, 3320, 1100, -1)->Set(ATWN);
 
     //Zusätzliche Munition
     if(!FindObject(NOAM))
@@ -2029,4 +2071,62 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
       return [[2560, 130], [2590, 260], [2760, 90], [2900, 260], [3025, 90]];
     return 1;
   }
+}
+
+/* Flaggensteuerung */
+
+protected func Script250()
+{
+  EventInfo4K(0,Format("$MsgFlagChanging$"),SM21, 0, 0, 0, "Info_Objective.ogg");
+  aFlag[0]->AddSmokeEffect4K(80);
+}
+
+protected func Script300()
+{
+  EventInfo4K(0,Format("$MsgFlagChanged$"),SM21, 0, 0, 0, "Info_Objective.ogg");
+
+  RemoveEffect("IntWreckSmoke4K",aFlag[0]);
+  if(aFlagPosition == 1)
+  {
+    if(!Random(2))
+    {
+      aFlag[0]->MoveFlagpost(1765,820,0,"$Flag4$");
+      aFlagPosition = 2;
+    }
+    else
+    {
+      aFlag[0]->MoveFlagpost(1765,1063,0,"$Flag4$");
+      aFlagPosition = 3;
+    }
+  }
+  else
+  if(aFlagPosition == 2)
+  {
+    if(!Random(2))
+    {
+      aFlag[0]->MoveFlagpost(1765,520,0,"$Flag4$");
+      aFlagPosition = 1;
+    }
+    else
+    {
+      aFlag[0]->MoveFlagpost(1765,1063,0,"$Flag4$");
+      aFlagPosition = 3;
+    }
+  }
+  else
+  if(aFlagPosition == 3)
+  {
+    if(!Random(2))
+    {
+      aFlag[0]->MoveFlagpost(1765,520,0,"$Flag4$");
+      aFlagPosition = 1;
+    }
+    else
+    {
+      aFlag[0]->MoveFlagpost(1765,820,0,"$Flag4$");
+      aFlagPosition = 2;
+    }
+  }
+
+  goto(0);
 }

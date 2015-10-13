@@ -2,6 +2,9 @@ CreatingInterior=Szenario wird eingerichtet...
 CreatingEquipment=Ausrüstung wird plaziert...
 CreatingDecoration=Dekoration wird plaziert...
 
+MsgFlagChanging=<c ff0000>Achtung</c>: Neuer Flaggenposten wird <c ffff33>gesucht</c>!
+MsgFlagChanged=<c ffff33>Neuer Flaggenposten</c> wurde gesichtet!
+
 Team1=Eurocorps
 Team2=Aggressoren
 
@@ -20,3 +23,4 @@ Target5=Treibstofftank
 Target6=Anreicherungsanlage
 Target7=Notstromgenerator
 Target8=Generator
+
