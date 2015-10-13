@@ -4,7 +4,7 @@
 #include NADE
 
 public func Color()		{return RGB(255,255,0);}	//Farbe
-public func ContainedDamage()	{return 120;}			//Schaden bei Detonation innerhalb eines Objekts
+public func ContainedDamage()	{return 80;}			//Schaden bei Detonation innerhalb eines Objekts
 
 
 /* Aktivierung */
@@ -25,8 +25,9 @@ func Fused()
   //Effekte
   Sparks(30,RGB(255,128));
   CreateParticle("Blast",0,0,0,0,200,RGB(255,255,128));
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",6,8,0,0,80,200,RGBa(255,255,255,120),RGBa(255,255,255,150));
-  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",8,200,0,0,45,20,RGB(40,20,20));
+  CastSmoke("Smoke3",6,12,0,0,80,200,RGBa(255,255,255,120),RGBa(255,255,255,150));
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",8,200,0,0,25,50,RGB(40,20,20));
   Sound("GrenadeExplosion*.ogg");
+
   RemoveObject();
 }
