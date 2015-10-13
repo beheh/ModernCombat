@@ -12,6 +12,7 @@ local fRadioPlaying, iRadioTrack;
 local iWarningSound;
 local iRotorSpeed;
 local pEntrance;
+local enginelock;
 
 static const BKHK_ThrottleSpeed = 5;
 static const BKHK_RotationSpeed = 1;
@@ -448,25 +449,34 @@ protected func ContainedUp(object ByObj)
   {
     if(GetY() < 80)
       return;
-    //Autopilot aus
+    //Autopilot stoppen
     ResetAutopilot();
-    //Startup-Sequence
+    //Helikopter inaktiv: Hochfahren
     if(!throttle && (GetAction() == "Stand"))
       SetAction("EngineStartUp");
-    if(GetAction() == "EngineShutDown")
+    //Helikopter am herunterfahren: Aktion umkehren und Steuerung sperren
+    if(!enginelock)
     {
-      SetAction("EngineStartUp3");
-      StartEngine();
+      if(GetAction() == "EngineShutDown")
+      {
+        SetAction("EngineStartUp3");
+        StartEngine();
+        enginelock = 1;
+      }
+      if(GetAction() == "EngineShutDown2")
+      {
+        SetAction("EngineStartUp2");
+        StartEngine();
+        enginelock = 1;
+      }
+      if(GetAction() == "EngineShutDown3")
+      {
+        SetAction("EngineStartUp");
+        StartEngine();
+        enginelock = 1;
+      }
     }
-    if(GetAction() == "EngineShutDown2")
-    {
-      SetAction("EngineStartUp2");
-      StartEngine();
-    }
-    if(GetAction() == "EngineShutDown3")
-      SetAction("EngineStartUp");
-
-    //Schub geben
+    //Schub erhöhen
     if(!GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())))
     {
       if(GetAction() == "Fly" || GetAction() == "Turn")
@@ -480,9 +490,12 @@ protected func ContainedUp(object ByObj)
 
   //Schütze
   if(ByObj == GetGunner())
+    //Waffe nachladen
     pMGStation->~ControlUp(ByObj);
+
   //Koordinator
   if(ByObj == GetCoordinator())
+    //Waffe nachladen
     pRocketStation->~ControlUp(ByObj);
 
   return true;
@@ -495,12 +508,34 @@ protected func ContainedDown(object ByObj)
   //Pilot
   if(ByObj == GetPilot())
   {
-    //Autopilot aus
+    //Autopilot stoppen
     ResetAutopilot();
-    //Motor aus
-    if(!throttle && (GetAction() == "Fly" || GetAction() == "EngineStartUp") && GetContact(0, -1, CNAT_Bottom))
-      SetAction("EngineShutDown"); 
-    //Vom Gas weg
+    //Helikopter aktiv: Herunterfahren
+    if(!throttle && (GetAction() == "Fly") && GetContact(0, -1, CNAT_Bottom))
+      SetAction("EngineShutDown");
+    //Helikopter am hochfahren: Aktion umkehren und Steuerung sperren
+    if(!enginelock)
+    {
+      if(GetAction() == "EngineStartUp")
+      {
+        SetAction("EngineShutDown3");
+        StopEngine();
+        enginelock = 1;
+      }
+      if(GetAction() == "EngineStartUp2")
+      {
+        SetAction("EngineShutDown2");
+        StopEngine();
+        enginelock = 1;
+      }
+      if(GetAction() == "EngineStartUp3")
+      {
+        SetAction("EngineShutDown");
+        StopEngine();
+        enginelock = 1;
+      }
+    }
+    //Schub verringern
     if(GetAction() == "Fly" || GetAction() == "Turn")
       if(GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())))
         AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), -BKHK_ThrottleSpeed);
@@ -510,9 +545,12 @@ protected func ContainedDown(object ByObj)
 
   //Schütze
   if(ByObj == GetGunner())
+    //Waffenbewegung stoppen
     pMGStation->~ControlDown(ByObj);
+
   //Koordinator
   if(ByObj == GetCoordinator())
+    //Waffenbewegung stoppen
     pRocketStation->~ControlDown(ByObj);
 
   return true;
@@ -543,27 +581,39 @@ protected func ContainedUpDouble(object ByObj)
   {
     if(GetY() < 80)
       return;
-    //Autopilot aus
+    //Autopilot stoppen
     ResetAutopilot();
+    //Helikopter inaktiv: Hochfahren
     if(!throttle && (GetAction() == "Stand"))
       SetAction("EngineStartUp");
-    if(GetAction() == "EngineShutDown")
+    //Helikopter am herunterfahren: Aktion umkehren und Steuerung sperren
+    if(!enginelock)
     {
-      SetAction("EngineStartUp3");
-      StartEngine();
+      if(GetAction() == "EngineShutDown")
+      {
+        SetAction("EngineStartUp3");
+        StartEngine();
+        enginelock = 1;
+      }
+      if(GetAction() == "EngineShutDown2")
+      {
+        SetAction("EngineStartUp2");
+        StartEngine();
+        enginelock = 1;
+      }
+      if(GetAction() == "EngineShutDown3")
+      {
+        SetAction("EngineStartUp");
+        StartEngine();
+        enginelock = 1;
+      }
     }
-    if(GetAction() == "EngineShutDown2")
-    {
-      SetAction("EngineStartUp2");
-      StartEngine();
-    }
-    if(GetAction() == "EngineShutDown3")
-      SetAction("EngineStartUp");
-
+    //Schub erhöhen
     if(GetAction() == "Fly")
       throttle = BoundBy(throttle + BKHK_ThrottleSpeed * 2, 0, BKHK_MaxThrottle);
-    return true;
   }
+
+  return true;
 }
 
 protected func ContainedDownDouble(object ByObj)
@@ -573,12 +623,34 @@ protected func ContainedDownDouble(object ByObj)
   //Pilot
   if(ByObj == GetPilot())
   {
-    //Autopilot aus
+    //Autopilot stoppen
     ResetAutopilot();
-    //Motor aus
-    if(throttle == 0 && (GetAction() == "Fly" || GetAction() == "EngineStartUp") && GetContact(0, -1, CNAT_Bottom))
+    //Helikopter aktiv: Herunterfahren
+    if(throttle == 0 && (GetAction() == "Fly") && GetContact(0, -1, CNAT_Bottom))
       SetAction("EngineShutDown");
-    //Vom Gas weg
+    //Helikopter am hochfahren: Aktion umkehren und Steuerung sperren
+    if(!enginelock)
+    {
+      if(GetAction() == "EngineStartUp")
+      {
+        SetAction("EngineShutDown3");
+        StopEngine();
+        enginelock = 1;
+      }
+      if(GetAction() == "EngineStartUp2")
+      {
+        SetAction("EngineShutDown2");
+        StopEngine();
+        enginelock = 1;
+      }
+      if(GetAction() == "EngineStartUp3")
+      {
+        SetAction("EngineShutDown");
+        StopEngine();
+        enginelock = 1;
+      }
+    }
+    //Schub verringern
     if(GetAction() == "Fly")
       throttle = BoundBy(throttle - BKHK_ThrottleSpeed*2, 0, 170);
   }
@@ -586,6 +658,7 @@ protected func ContainedDownDouble(object ByObj)
   //Passagiere
   if(ByObj == GetPassenger1() || ByObj == GetPassenger2())
     SetCommand(ByObj,"Exit");
+
   return true;
 }
 
@@ -596,8 +669,9 @@ protected func ContainedLeft(object ByObj)
   //Pilot
   if(ByObj == GetPilot())
   {
-    //Autopilot aus
+    //Autopilot stoppen
     ResetAutopilot();
+    //Helikopter neigen
     if(GetAction() == "Fly" || GetAction() == "Turn")
       if(GetPlrCoreJumpAndRunControl(GetController(ByObj)))
         rotation = -BKHK_MaxRotation;
@@ -607,9 +681,12 @@ protected func ContainedLeft(object ByObj)
 
   //Schütze
   if(ByObj == GetGunner())
+    //Waffe bewegen
     pMGStation->~ControlLeft(ByObj);
+
   //Koordinator
   if(ByObj == GetCoordinator())
+    //Waffe bewegen
     pRocketStation->~ControlLeft(ByObj);
 
   return true;
@@ -632,8 +709,9 @@ protected func ContainedRight(object ByObj, fRelease)
   //Pilot
   if(ByObj == GetPilot())
   {
-    //Autopilot aus
+    //Autopilot stoppen
     ResetAutopilot();
+    //Helikopter neigen
     if(fRelease)
       rotation = GetR();
     else 
@@ -646,9 +724,12 @@ protected func ContainedRight(object ByObj, fRelease)
 
   //Schütze
   if(ByObj == GetGunner())
+    //Waffe bewegen
     pMGStation->~ControlRight(ByObj);
+
   //Koordinator
   if(ByObj == GetCoordinator())
+    //Waffe bewegen
     pRocketStation->~ControlRight(ByObj);
 
   return true;
@@ -660,8 +741,9 @@ protected func ContainedLeftDouble(object ByObj)
   //Pilot
   if(ByObj == GetPilot())
   {
-    //Autopilot aus
+    //Autopilot stoppen
     ResetAutopilot();
+    //Helikopter neigen
     if(GetDir() && GetAction() == "Fly")
       if(GetAction() == "Turn" || GetContact(this, -1))
         return true;
@@ -671,9 +753,12 @@ protected func ContainedLeftDouble(object ByObj)
 
   //Schütze
   if(ByObj == GetGunner())
+    //Waffe bewegen
     pMGStation->~ControlLeftDouble(ByObj);
+
   //Koordinator
   if(ByObj == GetCoordinator())
+    //Waffe bewegen
     pRocketStation->~ControlLeftDouble(ByObj);
 
   return true;
@@ -696,8 +781,9 @@ protected func ContainedRightDouble(object ByObj)
   //Pilot
   if(ByObj == GetPilot())
   {
-    //Autopilot aus
+    //Autopilot stoppen
     ResetAutopilot();
+    //Helikopter neigen
     if(!GetDir() && GetAction() == "Fly")
       if(GetAction() == "Turn" || GetContact(this, -1))
         return true;
@@ -707,9 +793,12 @@ protected func ContainedRightDouble(object ByObj)
 
   //Schütze
   if(ByObj == GetGunner())
+    //Waffe bewegen
     pMGStation->~ControlRightDouble(ByObj);
+
   //Koordinator
   if(ByObj == GetCoordinator())
+    //Waffe bewegen
     pRocketStation->~ControlRightDouble(ByObj);
 
   return true;
@@ -1266,40 +1355,60 @@ public func OnDestruction()
 protected func ContactTop()
 {
   if(GetCon() != 100) return;
-  DoDmg(Abs(GetYDir(0, 500) / -2), 0, this, 1,  GetController() + 1);
-  for(var i; i < GetVertexNum(); i++)
-    if(GetContact(0, i))
-      CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
+
+  //Bei hartem Kontakt Schaden nehmen
+  if(GetYDir() < -40)
+  {
+    DoDmg(Abs(GetYDir(0, 500) / 2), 0, this, 1,  GetController() + 1);
+    for(var i; i < GetVertexNum(); i++)
+      if(GetContact(0, i))
+        CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
+  }
 
   //Sound
   Sound("VehicleHit*.ogg", false, pMGStation);
+
+  //Schub normalisieren
   if(throttle > BKHK_MaxThrottle / 2)
     throttle = BKHK_MaxThrottle / 2;
   Schedule(Format("SetYDir(%d)", GetYDir() / -2), 1);
+
   return true;
 }
 
 protected func ContactBottom()
 {
   if(GetCon() != 100) return;
-  if(GetYDir() > 25)
+
+  //Bei hartem Kontakt Schaden nehmen
+  if(GetYDir() > 40)
   {
     DoDmg(Abs(GetYDir(0, 500) / 2), 0, this, 1,  GetController() + 1);
     for(var i; i < GetVertexNum(); i++)
       if(GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50,100), RGB(255,255,255));
     Sound("VehicleHeavyHit*.ogg", false, pMGStation);
+
     SetYDir(GetYDir() * -2 / 3);
   }
+  else
+    //Ansonsten Landegeräusche
+    if(GetYDir() < 40 &&  GetYDir() > 15 &&  GetAction() != "Stand")
+      Sound("BKHK_Land*.ogg", false, pMGStation);
+
+  //Abprallen
   if(GetContact(0, -1, CNAT_Left | CNAT_Right) && throttle)
     SetYDir(Max(GetYDir(), 20) * -2 / 3);
+
   return true;
 }
 
 protected func ContactLeft()
 {
   if(GetCon() != 100) return;
-  if(Abs(GetXDir()) > 20 || Abs(GetYDir()) > 20)
+
+  //Bei hartem Kontakt Schaden nehmen
+  if(Abs(GetXDir()) > 40 || Abs(GetYDir()) > 40)
   {
     DoDmg(Sqrt(GetXDir(0, 500)**2 + GetYDir(0, 500)**2), 0, this, 1,  GetController() + 1);
     for(var i; i < GetVertexNum(); i++)
@@ -1307,15 +1416,19 @@ protected func ContactLeft()
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
     Sound("VehicleHeavyHit*.ogg", false, pMGStation);
   }
+
   //Abprallen
   SetXDir(Max(GetXDir(),40) / -2, this);
+
   return true;
 }
 
 protected func ContactRight()
 {
   if(GetCon() != 100) return;
-  if(Abs(GetXDir()) > 20 || Abs(GetYDir()) > 20)
+
+  //Bei hartem Kontakt Schaden nehmen
+  if(Abs(GetXDir()) > 40 || Abs(GetYDir()) > 40)
   {
     DoDmg(Sqrt(GetXDir(0, 500)**2 + GetYDir(0, 500)**2), 0, this, 1,  GetController() + 1);
     for(var i; i < GetVertexNum(); i++)
@@ -1323,7 +1436,10 @@ protected func ContactRight()
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
     Sound("VehicleHeavyHit*.ogg", false, pMGStation);
   }
+
+  //Abprallen
   SetXDir(Max(GetXDir(), 40) / -2,this);
+
   return true;
 }
 
@@ -1660,6 +1776,7 @@ global func Tan(int angle, int radius)
 
 protected func StartEngine()
 {
+  Sound("BKHK_StopSystem.ogg", false, this, 0, 0, -1);
   Sound("BKHK_StartSystem.ogg", false, this);
   Sound("BKHK_RotorSpin*.ogg", false, 0, 0, 0, 1);
 }
@@ -1668,16 +1785,20 @@ protected func EngineStarted()
 {
   Sound("BKHK_RotorSpin*.ogg", false, 0, 0, 0, -1);
   if(!EngineRunning())
-  {  
+  {
     AddEffect("Engine", this, 300, 1, this);
     throttle = 0;
     rotation = 0;
   }
+
+  //Steuerblockierung beenden
+  enginelock = 0;
 }
 
 protected func StopEngine()
 {
-  Sound("BKHK_StopSystem.ogg", false, this); 
+  Sound("BKHK_StartSystem.ogg", false, this, 0, 0, -1);
+  Sound("BKHK_StopSystem.ogg", false, this);
   Sound("BKHK_RotorSpin*.ogg", false, 0, 0, 0, 1);
   RemoveEffect("Engine", this);
 }
@@ -1687,6 +1808,9 @@ protected func EngineStopped()
   throttle = 0;
   rotation = 0;
   Sound("BKHK_RotorSpin*.ogg", false, 0, 0, 0, -1);
+
+  //Steuerblockierung beenden
+  enginelock = 0;
 }
 
 /* Effekt: Engine */
