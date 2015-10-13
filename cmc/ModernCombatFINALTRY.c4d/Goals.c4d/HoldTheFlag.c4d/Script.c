@@ -285,7 +285,7 @@ public func UpdateScoreboard()
 
   SetScoreboardData(i, GHTF_FlagColumn, Format("<c %x>%s</c>", nameclr, GetName(pFlag)));
   SetScoreboardData(i, GHTF_ProgressColumn, Format("{{%i}}", icon), GHTF_FlagRow-i);
-  SetScoreboardData(i, GHTF_PointsColumn, Format("<c %x>%d</c>", percentclr, prog), GHTF_FlagRow-i);
+  SetScoreboardData(i, GHTF_PointsColumn, Format("<c %x>%d%</c>", percentclr, prog), GHTF_FlagRow-i);
 
   i++;
 
