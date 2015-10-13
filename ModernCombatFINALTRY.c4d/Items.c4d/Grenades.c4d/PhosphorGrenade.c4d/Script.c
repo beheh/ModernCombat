@@ -14,17 +14,17 @@ public func Fuse()
 {
   Sound("SGRN_Activate.ogg");
   SetGraphics("Active");
-  return AddEffect ("IntFuse",this,200,1,this);
+
+  return AddEffect("IntFuse",this,200,1,this);
 }
 
 public func Fused()
 {
-  var helper = CreateObject(TIM1,0,0,-1);
-  AddEffect("IntShockWave",helper,10,1,0,GetID()); 
-
-  //Schaden
+  //Explosion und Zusatzschaden
   Explode(BlastRadius()*2/3);
   DamageObjects(BlastRadius()*3/2,BlastRadius()*2,this);
+
+  //Phosphor verschleudern
   for(var i = 0; i < 8; i++)
   {
     var pPhosphor = CreateObject(PSPR, 0, 0, GetOwner());
@@ -34,10 +34,11 @@ public func Fused()
   }
 
   //Effekte
+  var helper = CreateObject(TIM1,0,0,-1);
+  AddEffect("IntShockWave",helper,10,1,0,GetID());
   CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(20,128,255));
-
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",50,20,0,0,100,200,RGBa(100,150,250,130));
-  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",8,200,0,0,45,20,RGB(40,20,20));
+  CastSmoke("Smoke3",50,20,0,0,100,200,RGBa(100,150,250,130));
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",8,200,0,0,25,50,RGB(40,20,20));
   Sound("PhosphorExplosion.ogg");
   Sound("GrenadeExplosion*.ogg");
 }

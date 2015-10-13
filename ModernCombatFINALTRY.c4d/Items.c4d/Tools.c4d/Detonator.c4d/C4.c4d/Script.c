@@ -175,16 +175,14 @@ public func BlastRadius()	{return 50;}
 
 public func BlowUp()
 {
-  //Sound
+  //Effekte
+  var helper = CreateObject(TIM1,0,0,-1);
+  AddEffect("IntShockWave",helper,10,1,0,GetID());
+  CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(255,255,128));
   if(GBackLiquid())
     Sound("C4EX_WaterDetonation.ogg");
   else
     Sound("C4EX_Detonation*.ogg");
-
-  //Effekte
-  var helper = CreateObject(TIM1,0,0,-1);
-  AddEffect("IntShockWave",helper,10,1,0,GetID()); 
-  CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(255,255,128));
 
   //Extraschaden für Strukturen
   for(var obj in FindObjects(Find_Distance(50), Find_Category(C4D_Structure | C4D_Vehicle), Find_Exclude()))
@@ -266,5 +264,4 @@ public func FxIntShockWaveStop(object pTarget, int iEffectNumber, int iReason, b
 protected func Hit()
 {
   Sound("AmmoBoxHit*.ogg", 0, 0, 50);
-  return 1;
 }

@@ -96,6 +96,7 @@ public func ControlThrow(object caller)
       PlayerMessage(GetOwner(caller), "$EnoughAmmo$",caller,AmmoID());
       return 1;
     }
+
   return true;
 }
 
@@ -104,11 +105,9 @@ public func ControlThrow(object caller)
 protected func Hit()
 {
   Sound("AmmoBoxHit*.ogg");
-  return 1;
 }
 
 protected func Selection()
 {
   Sound("FAPK_Charge.ogg");
-  return 1;
 }

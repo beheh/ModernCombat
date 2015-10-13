@@ -63,10 +63,10 @@ public func ControlLeftDouble()		{return 0;}
 
 protected func Hit()
 {
-  Sound("AmmoBoxHit*.ogg", false, this);
+  Sound("AmmoBoxHit*.ogg");
 }
 
 protected func Selection()
 {
-  Sound("FAPK_Charge.ogg", false, this);
+  Sound("FAPK_Charge.ogg");
 }

@@ -18,7 +18,8 @@ public func Fuse()
 {
   Sound("SGRN_Activate.ogg");
   SetGraphics("Active");
-  return AddEffect ("IntFuse",this,200,1,this);
+
+  return AddEffect("IntFuse",this,200,1,this);
 }
 
 public func Fused()
@@ -27,8 +28,8 @@ public func Fused()
   ScheduleCall(this, "Smoke", 3, 10);
 
   //Effekte
+  CastSmoke("Smoke3",8, 50, 0, 0, 120, 140, RGBa(255,255,255,100), RGBa(255,255,255,130));
   Sound("SGRN_Fused.ogg");
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8, 50, 0, 0, 120, 140, RGBa(255,255,255,100), RGBa(255,255,255,130));
 
   //Verschwinden
   if(OnFire())

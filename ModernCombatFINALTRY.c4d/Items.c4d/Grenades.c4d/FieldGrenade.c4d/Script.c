@@ -12,20 +12,20 @@ public func BlastRadius()	{return 40;}		//Explosionsradius
 
 public func Fused(object pContainer)
 {
-  var helper = CreateObject(TIM1,0,0,-1);
-  AddEffect("IntShockWave",helper,10,1,0,GetID()); 
-
+  //Effekt für Ehrenbandvergabe
   if(!GetContact(this, -1) && !pContainer)
     for(var obj in FindObjects(Find_Distance(BlastRadius()*3/2), Find_Func("IsClonk")))
       AddEffect("Ribbon_TheBugfixer", obj, 1, 10, 0, GetID(), GetController());
 
-  //Schaden verursachen
+  //Explosion und Zusatzschaden
   Explode(BlastRadius()*2/3);
   DamageObjects(BlastRadius()*3/2,BlastRadius()*2,this);
 
   //Effekte
+  var helper = CreateObject(TIM1,0,0,-1);
+  AddEffect("IntShockWave",helper,10,1,0,GetID());
   CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(255,255,128));
-  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",8,200,0,0,45,20,RGB(40,20,20));
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",8,200,0,0,25,50,RGB(40,20,20));
   Sound("GrenadeExplosion*.ogg");
 }
 
