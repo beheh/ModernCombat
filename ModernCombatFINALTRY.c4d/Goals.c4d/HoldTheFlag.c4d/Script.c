@@ -332,7 +332,7 @@ public func UpdateScoreboard()
       else
         SetScoreboardData(i, GHTF_ProgressColumn, Format("<c %x>%d</c>", RGB(128, 128, 128), 0), 0);
 
-      SetScoreboardData(i, GHTF_PointsColumn, Format("<c %x>%d</c>", GetTeamFlagColor(iTeam), aTeamPoints[iTeam]), aTeamPoints[iTeam]);
+      SetScoreboardData(i, GHTF_PointsColumn, Format("%d", aTeamPoints[iTeam]), aTeamPoints[iTeam]);
     }
   }
 
