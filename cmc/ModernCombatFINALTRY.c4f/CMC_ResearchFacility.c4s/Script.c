@@ -2095,7 +2095,7 @@ protected func Script300()
     }
     else
     {
-      aFlag[0]->MoveFlagpost(1765,1063,0,"$Flag4$");
+      aFlag[0]->MoveFlagpost(1765,1063,0,"$Flag6$");
       aFlagPosition = 3;
     }
   }
@@ -2104,12 +2104,12 @@ protected func Script300()
   {
     if(!Random(2))
     {
-      aFlag[0]->MoveFlagpost(1765,520,0,"$Flag4$");
+      aFlag[0]->MoveFlagpost(1765,520,0,"$Flag7$");
       aFlagPosition = 1;
     }
     else
     {
-      aFlag[0]->MoveFlagpost(1765,1063,0,"$Flag4$");
+      aFlag[0]->MoveFlagpost(1765,1063,0,"$Flag6$");
       aFlagPosition = 3;
     }
   }
@@ -2118,7 +2118,7 @@ protected func Script300()
   {
     if(!Random(2))
     {
-      aFlag[0]->MoveFlagpost(1765,520,0,"$Flag4$");
+      aFlag[0]->MoveFlagpost(1765,520,0,"$Flag7$");
       aFlagPosition = 1;
     }
     else
