@@ -3,10 +3,10 @@
 #strict 2
 #include TEAM
 
-local pFlag;		//Diese Flagge gilt es zu erobern
-local aTeamPoints;	//Die Punkte jedes Teams
-local iProgress;	//Bei 100% bekommt das Team einen Punkt
-local iGoal;		//So viele Punkte gilt es zu erreichen
+local pFlag;					//HTF-Flaggenposten
+local aTeamPoints;				//Punkte aller Teams
+local iProgress;				//Fortschritt des Besitzerteams
+local iGoal;					//Zu erreichende Punktezahl
 
 public func GoalExtraValue()	{return iGoal;}	//Spielzielinformationen an Scoreboard weitergeben
 
@@ -15,10 +15,10 @@ public func GoalExtraValue()	{return iGoal;}	//Spielzielinformationen an Scorebo
 
 protected func Initialize()
 {
+  //Standardpunktezahl
   iGoal = 10;
   aKill = [];
-  aDeath = [];
-}
+  aDeath = [];}
 
 public func Activate(iPlr)
 {
@@ -29,8 +29,10 @@ public func ChooserFinished()
 {
   aTeamPoints = [];
   ScheduleCall(this, "UpdateFlag", 1);
-  //Punktegeschwindgikeit
-  AddEffect("IntAddProgress", this, 1, Max(14 - GetActiveTeamCount() * 2, 5), this);  
+
+  //Effekt überwacht den Spielverlauf
+  AddEffect("IntAddProgress", this, 1, Max(14 - GetActiveTeamCount() * 2, 5), this);
+
   UpdateHUDs();
 
   //Spielzielhinweise erstellen
@@ -43,16 +45,19 @@ public func ChooserFinished()
 
 protected func UpdateFlag()
 {
+  //Flaggenposten ermitteln
   pFlag = FindObject2(Find_Func("IsFlagpole"));
   if(!pFlag) return;
-  //Einnahmegeschwindigkeit
+
+  //Einnahmegeschwindigkeit ermitteln
   pFlag->Set(GetName(pFlag), pFlag->GetRange(), Max(18 - GetActiveTeamCount() * 4, 4));
+
   return true;
 }
 
 /* Konfiguration */
 
-public func IsConfigurable()		{return true;}
+public func IsConfigurable()	{return true;}
 
 local iChoosedPlr;
 
@@ -124,32 +129,37 @@ private func ChangeWinpoints(id dummy, int iChange)
 
 protected func FxIntAddProgressTimer()
 {
-  //Keine Flagge?
-  if(!pFlag && !SetFlag(FindObject(OFPL)))
-    return;
+  if(!pFlag && !SetFlag(FindObject(OFPL))) return;
 
-  //Scoreboard
   UpdateScoreboard();
 
+  //Besitzer des Flaggenpostens ermitteln
   var team = pFlag->~GetTeam();
-  //Keiner hat sie?
+
+  //Kein Besitzer: Nichts weiter unternehmen
   if(team == -1) return;
-  //Nicht vollständig eingenommen?
+
+  //Nicht vollständig eingenommen: Fortschritt zurücksetzen
   if(!pFlag->IsFullyCaptured())
   {
     iProgress = 0;
-    //Nochmal updaten damit nicht das falsche Team die Prozente zugeschrieben bekommt
+
+    //Update um Prozente nicht falschen Teams zuzuschreiben
     return UpdateScoreboard();
   }
 
-  //Punkte vergeben
   var warning = BoundBy(iGoal*3/4, iGoal-5, iGoal-1);
+  //Punkt erspielt: Entsprechendem Team zuschreiben
   if((++iProgress) >= 100)
   {
+    //Punkt vergeben
     aTeamPoints[team]++;
+    //Fortschritt zurücksetzen
     iProgress = 0;
+
     UpdateHUDs();
-    //Und jedem Spieler im Team 10 Punkte geben.
+
+    //Punkte bei Belohnungssystem
     for(var i; i < GetPlayerCount(); i++)
     {
       if(GetPlayerTeam(GetPlayerByIndex(i)) == team)
@@ -166,14 +176,14 @@ protected func FxIntAddProgressTimer()
     }
   }
 
-  //Gewonnen?
+  //Nach Gewinner prüfen
   if(!EffectVar(0, Par(), Par(1)))
     EffectVar(0, Par(), Par(1)) = IsFulfilled();
 }
 
 /* Zeug */
 
-public func IsTeamGoal()		{return 1;}
+public func IsTeamGoal()	{return 1;}
 
 public func SetFlag(object pFlagPole)
 {
@@ -235,10 +245,10 @@ public func FlagCaptured(object pFlagPole, int iTeam, array aAttackers, bool fRe
 
 /* Scoreboard */
 
-static const GHTF_FlagColumn = 1;
-static const GHTF_ProgressColumn = 2;
-static const GHTF_PointsColumn = 3;
-static const GHTF_FlagRow = 1024;
+static const GHTF_FlagColumn		= 1;
+static const GHTF_ProgressColumn	= 2;
+static const GHTF_PointsColumn		= 3;
+static const GHTF_FlagRow		= 1024;
 
 public func InitScoreboard() 
 {
@@ -336,12 +346,9 @@ public func UpdateScoreboard()
     }
   }
 
-  /*
-  //Nach Progress sortieren
+  //Sortieren
   SortScoreboard(GHTF_ProgressColumn, true);
-  //Und dann nochmal nach Punkten. Damit bei gleicher Punktzahl das Team vorne ist, das gerade die Flagge hält
   SortScoreboard(GHTF_PointsColumn, true);
-  */
 }
 
 public func GetTeamFlagColor(int iTeam)
@@ -365,10 +372,13 @@ public func IsFulfilled()
   if(FindObject(CHOS)) return;
 
   if(fulfilled) return true;
+
+  //Punktestände prüfen
   for(var i; i < GetLength(aTeamPoints); i++)
+    //Ein Team hat die Punktezahl erreicht: Sieg
     if(aTeamPoints[i] >= iGoal)
     {
-      //Team hat gewonnen. Alle anderen durchgehen und eliminieren
+      //Verlierer eliminieren
       for(var team, j = GetTeamCount(); j; team++)
       if(GetTeamName(team))
       {
@@ -390,7 +400,8 @@ public func IsFulfilled()
 
       return fulfilled = true;
     }
-  //Nur noch eins übrig
+
+  //Nur ein Team vorhanden: Gewinnen lassen
   if(GetActiveTeamCount() <= 1)
   {
     var i = GetPlayerTeam(GetPlayerByIndex());
