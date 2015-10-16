@@ -1,0 +1,2 @@
+DE:CMC - <c ffff33>Moray Towers</c>
+US:CMC - <c ffff33>Moray Towers</c>

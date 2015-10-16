@@ -5,7 +5,6 @@
 
 static aFlag,aDoorWay;
 
-public func SpecificEquipment()	{return [[PPAR, 1]];}	//Zusatzausrüstung: Fallschirmrucksack
 func RecommendedGoals()		{return [GOCC,GMNR];}	//Spielzielempfehlung
 
 
@@ -481,10 +480,7 @@ public func OnClassSelection(object pClonk)
 {
   //LMS/MR-Spielziel
   if(FindObject(GLMS) || FindObject(GMNR))
-  {
     AddEffect("SpawnParachute", pClonk, 1, 10);
-    AddEffect("Flying", pClonk, 101, 5);
-  }
 }
  
 /* Fallschirmeffekt */
@@ -502,6 +498,7 @@ global func FxSpawnParachuteTimer(object pTarget)
 
     //Ansonsten Fallschirm erstellen
     CreateObject(PARA,0,0,GetOwner(pTarget))->Set(pTarget);
+    AddEffect("Flying", pTarget, 101, 5);
 
     //Effekt
     Sound("Airstrike2", 0, pTarget);
