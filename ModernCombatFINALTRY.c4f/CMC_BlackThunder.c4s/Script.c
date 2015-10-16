@@ -5,7 +5,6 @@
 
 static aFlag,aArtillery,aDoorWay;
 
-public func SpecificEquipment()	{return [[PPAR, 1]];}	//Zusatzausrüstung: Fallschirmrucksack
 func RecommendedGoals()		{return [GOCC, GHTF];}	//Spielzielempfehlung
 
 

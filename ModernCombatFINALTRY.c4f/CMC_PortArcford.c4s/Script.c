@@ -321,10 +321,7 @@ public func OnClassSelection(object pClonk, int iTeam)
   if(FindObject(GASS))
     if(GetPlayerTeam(GetOwner(pClonk)) == 1)
       if(GetAssaultTarget(0,1) || GetAssaultTarget(1,1))
-      {
         AddEffect("SpawnParachute", pClonk, 1, 10);
-        AddEffect("Flying", pClonk, 101, 5);
-      }
 }
 
 /* Fallschirmeffekt */
@@ -342,6 +339,7 @@ global func FxSpawnParachuteTimer(object pTarget)
 
     //Ansonsten Fallschirm erstellen
     CreateObject(PARA,0,0,GetOwner(pTarget))->Set(pTarget);
+    AddEffect("Flying", pTarget, 101, 5);
 
     //Effekt
     Sound("Airstrike2", 0, pTarget);

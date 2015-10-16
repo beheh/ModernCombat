@@ -1,0 +1,16 @@
+CreatingInterior=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+CreatingDecoration=Dekoration wird plaziert...
+
+Team1=Eurocorps
+Team2=Die Aufständischen
+
+Flag1=Innenbereich West
+Flag2=Westturm
+Flag3=Landeplattform
+Flag4=Ostturm
+Flag5=Innenbereich Ost
+
+Target1=Wasserfilter
+Target2=Verwaltungsserver
+Target3=Notstromaggregat

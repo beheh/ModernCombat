@@ -1,0 +1,16 @@
+CreatingInterior=Creating furniture...
+CreatingEquipment=Placing equipment...
+CreatingDecoration=Placing decoration...
+
+Team1=Eurocorps
+Team2=Insurgents
+
+Flag1=West Interior
+Flag2=West Tower
+Flag3=Landing Platform
+Flag4=East Tower
+Flag5=East Interior
+
+Target1=Water Filter
+Target2=Administration Server
+Target3=Emergency Generator
