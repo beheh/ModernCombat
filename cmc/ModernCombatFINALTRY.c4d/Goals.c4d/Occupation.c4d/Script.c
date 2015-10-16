@@ -336,8 +336,6 @@ private func UpdateScoreboard()
     }
     i++;
   }
-
-  SortScoreboard(GOCC_FlagColumn);
 }
 
 /* GameCalls */
