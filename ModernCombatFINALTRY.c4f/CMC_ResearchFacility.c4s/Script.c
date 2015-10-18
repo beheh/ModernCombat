@@ -66,7 +66,6 @@ func CreateInterior()
   CreateObject(LADR, 525, 900, -1)->Set(8);
   CreateObject(LADR, 690, 712, -1)->Set(18);
   CreateObject(LADR, 710, 1154, -1)->Set(17);
-  CreateObject(LADR, 750, 653, -1)->Set(8);
   CreateObject(LADR, 785, 1955, -1)->Set(9);
   CreateObject(LADR, 835, 1955, -1)->Set(10);
   CreateObject(LADR, 840, 534, -1)->Set(37);
@@ -1124,8 +1123,7 @@ func CreateDecoration()
   CreateObject(ENGT, 480, 1700, -1);
   CreateObject(ENGT, 620, 230, -1)->SetCon(98);
   CreateObject(ENGT, 720, 230, -1)->SetCon(98);
-  CreateObject(ENGT, 735, 625, -1);
-  CreateObject(ENGT, 735, 695, -1);
+  CreateObject(ENGT, 730, 640, -1);
   CreateObject(ENGT, 810, 1750, -1);
   CreateObject(ENGT, 810, 1850, -1);
   CreateObject(ENGT, 850, 230, -1)->SetCon(98);
@@ -1306,9 +1304,10 @@ public func ChooserFinished()
 
     //Aufzüge
     CreateObject(LFTP, 385, 1260, -1)->SetLimits(1115,1440);
-    CreateObject(LFTP, 785, 244, -1)->SetLimits(235,1320);
+    CreateObject(LFTP, 785, 244, -1)->SetLimits(235,670);
+    CreateObject(LFTP, 785, 754, -1)->SetLimits(745,1320);
     CreateObject(LFTP, 1065, 1394, -1)->SetLimits(1385,1910);
-    CreateObject(LFTP, 1185, 184, -1)->SetLimits(175,1390);
+    CreateObject(LFTP, 1185, 184, -1)->SetLimits(175,820);
     CreateObject(LFTP, 1185, 1024, -1)->SetLimits(1015,1390);
     CreateObject(LFTP, 1415, 1240, -1)->SetLimits(1115,1570);
     CreateObject(LFTP, 1550, 734, -1)->DisableVertical();
@@ -1413,9 +1412,10 @@ public func ChooserFinished()
 
     //Aufzüge
     CreateObject(LFTP, 385, 1260, -1)->SetLimits(1115,1440);
-    CreateObject(LFTP, 785, 244, -1)->SetLimits(235,1320);
+    CreateObject(LFTP, 785, 244, -1)->SetLimits(235,670);
+    CreateObject(LFTP, 785, 810, -1)->SetLimits(745,1320);
     CreateObject(LFTP, 1065, 1394, -1)->SetLimits(1385,1910);
-    CreateObject(LFTP, 1185, 184, -1)->SetLimits(175,1390);
+    CreateObject(LFTP, 1185, 184, -1)->SetLimits(175,820);
     CreateObject(LFTP, 1185, 1024, -1)->SetLimits(1015,1390);
     CreateObject(LFTP, 1415, 1240, -1)->SetLimits(1115,1570);
     CreateObject(LFTP, 1550, 734, -1)->DisableVertical();
@@ -1584,8 +1584,9 @@ public func ChooserFinished()
     CreateObject(SBBA, 1850, 460, -1)->Right();
 
     //Aufzüge
-    CreateObject(LFTP, 785, 244, -1)->SetLimits(235,1320);
-    CreateObject(LFTP, 1185, 184, -1)->SetLimits(175,1390);
+    CreateObject(LFTP, 785, 244, -1)->SetLimits(235,670);
+    CreateObject(LFTP, 785, 754, -1)->SetLimits(745,1320);
+    CreateObject(LFTP, 1185, 184, -1)->SetLimits(175,820);
     CreateObject(LFTP, 1550, 734, -1)->DisableVertical();
     CreateObject(LFTP, 2355, 754, -1)->SetLimits(745,1460);
     CreateObject(LFTP, 2825, 154, -1)->SetLimits(145,920);
@@ -1722,8 +1723,9 @@ public func ChooserFinished()
     CreateObject(BRDR, 0, 1210, -1)->Set(3);
 
     //Aufzüge
-    CreateObject(LFTP, 785, 244, -1)->SetLimits(235,1320);
-    CreateObject(LFTP, 1185, 184, -1)->SetLimits(175,1390);
+    CreateObject(LFTP, 785, 244, -1)->SetLimits(235,670);
+    CreateObject(LFTP, 785, 754, -1)->SetLimits(745,1320);
+    CreateObject(LFTP, 1185, 184, -1)->SetLimits(175,820);
     CreateObject(LFTP, 1550, 734, -1)->DisableVertical();
     CreateObject(LFTP, 2355, 754, -1)->SetLimits(745,1460);
     CreateObject(LFTP, 2825, 154, -1)->SetLimits(145,920);
