@@ -69,7 +69,7 @@ protected func Sense()
 
   //Kein Besitzer mehr: Verschwinden
   if(GetOwner() == NO_OWNER)
-    return Remove();
+    return RemoveObject();
 
   //Zu markierende Gefahren suchen
   var aList =	FindObjects(Find_Distance(SensorDistance()),			//In Reichweite
