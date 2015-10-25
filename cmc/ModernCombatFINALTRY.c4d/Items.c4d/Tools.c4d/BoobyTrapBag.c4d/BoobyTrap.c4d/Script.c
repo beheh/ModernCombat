@@ -170,7 +170,7 @@ private func FinFuse()
   laser = CreateObject(LASR, 0, 0, controller);
   laser -> Set(iDir, 3, 60, 0, 0, this, 0, true);
   SetClrModulation(SetRGBaValue(iColor, 180), laser);
-  laser ->~ Destruction();
+  laser->~Destruction();
   //Hinweisflagge erstellen
   var flag = CreateObject(MFLG,0,1,controller);
   flag->Set(this);
@@ -282,21 +282,32 @@ public func Detonate()
   SetController(controller);
   SetOwner(controller);
 
-  //Splitter verschleudern
-  var i = 0;
-  while(i < 12)
+  //Aktiv: Splitter verschleudern
+  if(bReady)
   {
-    var ammo = CreateObject(SHRP,0,0,controller);
-    ammo->Launch(iDir+RandomX(-15,15),100+Random(80),100+Random(50),3,20,50);
-    i++;
-  }
+    var i = 0;
+    while(i < 12)
+    {
+      var ammo = CreateObject(SHRP,0,0,controller);
+      ammo->Launch(iDir+RandomX(-15,15),100+Random(80),100+Random(50),3,20,50);
+      i++;
+    }
 
-  //Effekte
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("BlastDirt",5,10,0,0,400,100);
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("BlastFlame",4,20,0,0,150,100);
-  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,150,0,0,45,30,RGB(40,20,20));
-  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,100,0,0,30,80);
-  Sound("BBTP_Explosion*.ogg");
+    //Effekte
+    CastParticles("BlastDirt",8,20,0,0,800,1000);
+    CastParticles("BlastFlame",4,20,0,0,100,150);
+    if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,150,0,-5,30,60,RGB(40,20,20));
+    if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,100,0,-5,30,80);
+    Sound("BBTP_Explosion*.ogg");
+  }
+  else
+  {
+    //Effekte
+    Sparks(2,RGB(250,100));
+    Sparks(2,RGB(0,200));
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",4, 10, 0, 0, 120, 140, RGBa(255,255,255,100), RGBa(255,255,255,130));
+    Sound("Limitation.ogg");
+  }
 
   //Entfernung
   RemoveObject(laser);
@@ -347,6 +358,13 @@ public func OnDmg(int iDmg, int iType)
   if(iType == DMG_Bio)	return 100;	//Säure und biologische Schadstoffe
 }
 
+public func Destruction()
+{
+  //Entfernung
+  if(laser)
+   RemoveObject(laser);
+}
+
 /* Entschärfung */
 
 public func RTDefuse()
@@ -381,11 +399,4 @@ protected func Selection()
 func Hit()
 {
   Sound("BBTP_Hit*.ogg");
-}
-
-public func Destruction()
-{
-  //Entfernung
-  if(laser)
-   RemoveObject(laser);
 }
