@@ -107,6 +107,7 @@ func CreateInterior()
   CreateObject(LADR, 2935, 881, -1)->Set(4);
   CreateObject(LADR, 2960, 1530, -1)->Set(28);
   CreateObject(LADR, 2995, 1089, -1)->Set(30);
+  CreateObject(LADR, 3200, 1065, -1)->Set(27);
   CreateObject(LADR, 3065, 881, -1)->Set(4);
   CreateObject(LADR, 3150, 1530, -1)->Set(28);
   CreateObject(LADR, 3130, 884, -1)->Set(17);
@@ -119,6 +120,7 @@ func CreateInterior()
   CreateObject(_HBR, 1955, 922, -1);
   CreateObject(_HBR, 2335, 1832, -1)->SwitchMode();
   CreateObject(_HBR, 3070, 992, -1);
+  CreateObject(_HBR, 3141, 922, -1);
   CreateObject(_HBR, 3141, 992, -1);
 
   //Bodenluken
@@ -264,6 +266,7 @@ func CreateInterior()
   CreateObject(GTNG, 1135, 890, -1);
   CreateObject(GTNG, 1263, 610, -1);
   CreateObject(GTNG, 1270, 230, -1);
+  CreateObject(GTNG, 1290, 1280, -1);
   CreateObject(GTNG, 1347, 610, -1);
   CreateObject(GTNG, 1397, 940, -1);
   CreateObject(GTNG, 1595, 1740, -1);
@@ -451,6 +454,7 @@ func CreateInterior()
   CreateObject(BECR, 2070, 1560, -1)->AutoRespawn();
   CreateObject(BECR, 2100, 1054, -1);
   CreateObject(BECR, 2750, 910, -1)->AutoRespawn();
+  CreateObject(BECR, 3100, 980, -1);
 
   //Gerüste
   CreateObject(SFFG, 860, 510, -1)->Set(5);
@@ -1404,8 +1408,8 @@ public func ChooserFinished()
     AddAssaultTarget(CCP1, 875, 830, 30*30, 2, "$Target3$", 2, [[[340, 1110], [445, 1190], [735, 1190]], [[480, 230], [1135, 170], [1310, 290]]]);
     AddAssaultTarget(PMP2, 1770, 820, 30*30, 2, "$Target4$", 3, [[[2440, 740], [2440, 910], [2440, 1100]], [[680, 560], [870, 560], [1045, 580]]]);
     AddAssaultTarget(GSTA, 1765, 1063, 30*30, 2, "$Target5$", 4, [[[2440, 740], [2440, 910], [2440, 1100]], [[680, 560], [870, 560], [1045, 580]]]);
-    AddAssaultTarget(CMSN, 2780, 910, 30*30, 2, "$Target2$", 5, [[[2560, 140], [2815, 100], [2580, 270]], [[1370, 820], [1480, 940], [1510, 1010]]]);
-    AddAssaultTarget(LBPC, 2840, 1100, 30*30, 2, "$Target6$", 6, [[[2560, 140], [2815, 100], [2580, 270]], [[1370, 820], [1480, 940], [1510, 1010]]]);
+    AddAssaultTarget(CMSN, 2780, 910, 30*30, 2, "$Target2$", 5, [[[2575, 140], [2680, 270], [2785, 100]], [[1370, 820], [1480, 940], [1510, 1010]]]);
+    AddAssaultTarget(LBPC, 2840, 1100, 30*30, 2, "$Target6$", 6, [[[2575, 140], [2680, 270], [2785, 100]], [[1370, 820], [1480, 940], [1510, 1010]]]);
     AddAssaultTarget(PMP2, 1630, 1410, 30*30, 2, "$Target7$", 7, [[[920, 1560], [990, 1560], [1115, 1660]], [[2040, 1020], [2160, 1100], [2440, 1100]]]);
     AddAssaultTarget(GNRT, 1795, 1890, 30*30, 2, "$Target8$", 8, [[[920, 1560], [990, 1560], [1115, 1660]], [[2040, 1020], [2160, 1100], [2440, 1100]]]);
 
