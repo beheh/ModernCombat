@@ -320,6 +320,7 @@ func CreateInterior()
   CreateObject(GSBL, 690, 230, -1)->AutoRespawn();
   CreateObject(GSBL, 1480, 1870, -1)->AutoRespawn();
   CreateObject(GSBL, 1950, 1890, -1)->AutoRespawn();
+  CreateObject(GSBL, 2570, 270, -1);
   CreateObject(GSBL, 2695, 1100, -1)->AutoRespawn();
   CreateObject(GSBL, 3110, 1100, -1)->AutoRespawn();
 
@@ -658,6 +659,7 @@ func CreateInterior()
 
   //Generator
   var generator = CreateObject(GNRT, 1795, 1890, -1);
+  generator->SetCategory(C4D_StaticBack);
   generator->TurnOn();
 
   //Verbundene Räume
@@ -863,7 +865,6 @@ func CreateDecoration()
   CreateObject(PLT3, 720, 920, -1);
   CreateObject(PLT3, 850, 830, -1);
   CreateObject(PLT3, 905, 560, -1);
-  CreateObject(PLT4, 2570, 270, -1);
   CreateObject(PLT3, 2860, 270, -1);
 
   //Geländer
@@ -1149,6 +1150,7 @@ func CreateDecoration()
   //Scheinwerfer
   CreateObject(FLGH, 1630, 1890, -1)->SetRotation(45);
   CreateObject(FLGH, 1960, 1890, -1)->SetRotation(-45);
+  CreateObject(FLGH, 3195, 1100, -1)->SetRotation(-45);
 }
 
 func CreateOptionalFeatures()
@@ -1174,8 +1176,12 @@ func FlagCaptured(object pPoint, int iTeam)
 func PowerSupplyOn()
 {
   //Lichter einschalten
-  for(var light in FindObjects(Find_Func("IsLamp")))
+  for(var light in FindObjects(Find_Func("IsLamp"),Find_Not(Find_ID(FLHH))))
     light->~TurnOn();
+
+  //Dunkelheit verringern
+  if(GetDarkness() >= 5)
+    SetDarkness(0);
 
   return 1;
 }
@@ -1183,8 +1189,12 @@ func PowerSupplyOn()
 func PowerSupplyOff()
 {
   //Lichter ausschalten
-  for(var light in FindObjects(Find_Func("IsLamp")))
+  for(var light in FindObjects(Find_Func("IsLamp"),Find_Not(Find_ID(FLHH))))
     light->~TurnOff();
+
+  //Dunkelheit erhöhen
+  if(GetDarkness() < 5)
+    SetDarkness(5);
 
   return 1;
 }
@@ -1264,12 +1274,12 @@ public func ChooserFinished()
       aFlag[1]->Set("$Flag2$");
     }
 
-    aFlag[2] = CreateObject(OFPL,1635,1890,NO_OWNER);
-    aFlag[2] -> AddSpawnPoint(2060,1880);
+    aFlag[2] = CreateObject(OFPL,1795,1890,NO_OWNER);
     aFlag[2] -> AddSpawnPoint(2145,1770);
     aFlag[2] -> AddSpawnPoint(2295,1810);
     aFlag[2] -> AddSpawnPoint(2485,1810);
     aFlag[2]->Set("$Flag3$");
+    SetObjectOrder(FindObject(GNRT), aFlag[2]);
 
     aFlag[3] = CreateObject(OFPL,1765,820,NO_OWNER);
     aFlag[3] -> AddSpawnPoint(1470,500);
@@ -1353,7 +1363,7 @@ public func ChooserFinished()
     CreateObject(CONS, 2490, 905, -1)->Set(aSelfDefense[1]);
 
     //Konsole für Generator
-    CreateObject(CONS, 1795, 1885, -1)->Set(FindObject(GNRT));
+    CreateObject(CONS, 1850, 1785, -1)->Set(FindObject(GNRT));
 
     //Geschützstellungen
     CreateObject(GNET, 610, 1010, -1)->Set(SATW,90);

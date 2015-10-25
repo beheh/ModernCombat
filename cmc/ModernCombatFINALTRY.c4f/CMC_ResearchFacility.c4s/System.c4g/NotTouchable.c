@@ -5,11 +5,12 @@
 #strict 2
 #appendto LCKR
 #appendto GTBL
+#appendto FLGH
 
 
 /* Initialisierung */
 
-public func Initialize() 
+public func Initialize()
 {
   SetObjectLayer(this());
   return(_inherited());
