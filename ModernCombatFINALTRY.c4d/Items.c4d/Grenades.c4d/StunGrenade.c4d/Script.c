@@ -150,7 +150,7 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
 
     //Spieler hat keinen Clonk oder dieser nicht sein Besitz: Abbruch
     var pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
-    if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i))))
+    if(!pCursor || !(pCursor = GetCursor(GetPlayerByIndex(i))))
     {
       Message("@", pTarget, GetPlayerByIndex(i));
       continue;
