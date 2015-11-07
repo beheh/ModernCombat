@@ -158,7 +158,7 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
 
     pCursor = pCursor->~GetRealCursor();
     if(!pCursor)
-	    pCursor = GetCursor(GetPlayerByIndex(i));
+      pCursor = GetCursor(GetPlayerByIndex(i));
 
     //Clonk des Spielers verschachtelt und kein Pilot: Abbruch
     if(Contained(pCursor) && !(Contained(pCursor)->~GetPilot() == pCursor))
