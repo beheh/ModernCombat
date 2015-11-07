@@ -1,6 +1,6 @@
 [Particle]
 Name=Fog
-MaxCount=300
+MaxCount=1000
 InitFn=StdInit
 ExecFn=StdExec
 DrawFn=Std
