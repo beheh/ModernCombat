@@ -1779,6 +1779,12 @@ protected func StartEngine()
   Sound("BKHK_StopSystem.ogg", false, this, 0, 0, -1);
   Sound("BKHK_StartSystem.ogg", false, this);
   Sound("BKHK_RotorSpin*.ogg", false, 0, 0, 0, 1);
+
+  if(GetPilot())
+  {
+    Sound("BKHK_StopSystemPilot.ogg", false, this, 0, GetOwner(GetPilot())+1, -1);
+    Sound("BKHK_StartSystemPilot.ogg", false, this, 0, GetOwner(GetPilot())+1);
+  }
 }
 
 protected func EngineStarted()
@@ -1800,6 +1806,13 @@ protected func StopEngine()
   Sound("BKHK_StartSystem.ogg", false, this, 0, 0, -1);
   Sound("BKHK_StopSystem.ogg", false, this);
   Sound("BKHK_RotorSpin*.ogg", false, 0, 0, 0, 1);
+
+  if(GetPilot())
+  {
+    Sound("BKHK_StartSystemPilot.ogg", false, this, 0, GetOwner(GetPilot())+1, -1);
+    Sound("BKHK_StopSystemPilot.ogg", false, this, 0, GetOwner(GetPilot())+1);
+  }
+
   RemoveEffect("Engine", this);
 }
 

@@ -37,7 +37,7 @@ protected func Timer()
   skyfade = 300;
 
   //Sound
-  Sound("Warflair*.ogg",1);
+  Sound("Warflair*.ogg",1,0,RandomX(75,100));
 
   return true;
 }

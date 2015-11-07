@@ -128,6 +128,7 @@ public func Set(object pClonk)
 
   //Soundloop starten
   Sound("FKDT_ClonkDown.ogg", false, pClonk, 100, GetOwner(pClonk)+1, +1);
+  Sound("FKDT_Heartbeat.ogg", false, pClonk, 100, GetOwner(pClonk)+1, +1);
 
   //Bildschirmfärbung
   ScreenRGB(pClonk, RGB(255), 120, 4, false, SR4K_LayerDamage);
@@ -445,6 +446,7 @@ public func Suicide()
 {
   //Soundloop beenden
   Sound("FKDT_ClonkDown.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
+  Sound("FKDT_Heartbeat.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
 
   //Töten
   if(clonk && GetAlive(clonk)) Kill(clonk);
@@ -491,6 +493,7 @@ public func Destruction()
 
   //Soundloop beenden
   Sound("FKDT_ClonkDown.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
+  Sound("FKDT_Heartbeat.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
 }
 
 /* Zusätzliches Inventar indizieren */
