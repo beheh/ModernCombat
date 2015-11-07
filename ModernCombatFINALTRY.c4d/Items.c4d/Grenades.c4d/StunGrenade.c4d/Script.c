@@ -149,12 +149,16 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
     }
 
     //Spieler hat keinen Clonk oder dieser nicht sein Besitz: Abbruch
-    var pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
-    if(!pCursor || !(pCursor = GetCursor(GetPlayerByIndex(i))))
+    var pCursor = GetCursor(GetPlayerByIndex(i));
+    if(!pCursor)
     {
       Message("@", pTarget, GetPlayerByIndex(i));
       continue;
     }
+
+    pCursor = pCursor->~GetRealCursor();
+    if(!pCursor)
+	    pCursor = GetCursor(GetPlayerByIndex(i));
 
     //Clonk des Spielers verschachtelt und kein Pilot: Abbruch
     if(Contained(pCursor) && !(Contained(pCursor)->~GetPilot() == pCursor))
