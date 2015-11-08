@@ -978,8 +978,10 @@ public func AMP(bool statusOnly)
     PlayerMessage(GetOwner(this), "$AmmoReceived$", pTarget, ammoID->MaxAmmo() / 10, ammoID);
     PlayerMessage(GetOwner(pTarget),"$AmmoReceived$", pTarget, ammoID->MaxAmmo() / 10, ammoID);
     DoAmmo(ammoID, ammoID->MaxAmmo()/10, pTarget);
-    Sound("Resupply.ogg");
     pItem->DoPackPoints(-ammoID->MaxAmmo() / 10 * factor);
+
+    Sound("ResupplyIn.ogg",0,pTarget,0,GetOwner(pTarget)+1);
+    Sound("ResupplyOut*.ogg");
 
     //Achievement-Fortschritt (Ammo Distributor)
     DoAchievementProgress(ammoID->MaxAmmo() / 10 * factor, AC03, GetOwner(this));

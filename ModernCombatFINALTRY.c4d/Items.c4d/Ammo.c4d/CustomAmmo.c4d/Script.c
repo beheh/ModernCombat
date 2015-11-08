@@ -70,7 +70,7 @@ public func SetAmmoCount(int iCount, bool fForceCount)
     RemoveObject();
     return;
   }
-  if (!fForceCount) count = BoundBy(iCount,0,GetMax());
+  if(!fForceCount) count = BoundBy(iCount,0,GetMax());
   //z.B. MTP
   else count = iCount;
   return count;
@@ -117,7 +117,7 @@ public func TransferAmmo(object pObj)
   PlayerMessage(GetOwner(pObj),"$Collected$",pObj,AmmoCount(), AmmoID());
 
   //Packer erhält Munitionspunkte, wenn er im gleichen Team ist
-  if (GetPlayerName(GetOwner()) && GetOwner() != GetOwner(pObj) && !Hostile(GetOwner(), GetOwner(pObj)))
+  if(GetPlayerName(GetOwner()) && GetOwner() != GetOwner(pObj) && !Hostile(GetOwner(), GetOwner(pObj)))
   {
     var factor = AmmoID()->~GetPointFactor();
     if(!factor)
@@ -133,7 +133,9 @@ public func TransferAmmo(object pObj)
   SetAmmoCount(old-DoAmmo(AmmoID(),AmmoCount(),pObj));
 
   pObj->~AmmoTransferred();
-  Sound("Resupply.ogg");
+  if(GetOwner(pObj) == GetOwner())
+    Sound("ResupplyOut*.ogg",0,pObj,0,GetOwner(pObj)+1);
+  Sound("ResupplyIn.ogg",0,pObj,0,GetOwner(pObj)+1);
   if(!OnTransfer()) RemoveObject();
 
   return true;
@@ -142,12 +144,13 @@ public func TransferAmmo(object pObj)
 public func ControlThrow(object caller)
 {
   //Verbündeten suchen
-  for (var obj in FindObjects(Find_InRect(-10,-10,20,20),Find_OCF(OCF_CrewMember),Find_Exclude(caller),Find_Allied(GetOwner(caller)),Find_NoContainer()))
+  for(var obj in FindObjects(Find_InRect(-10,-10,20,20),Find_OCF(OCF_CrewMember),Find_Exclude(caller),Find_Allied(GetOwner(caller)),Find_NoContainer()))
     //Kann noch Munition aufnehmen?
-    if (obj->~IsClonk() && MayTransfer(obj))
+    if(obj->~IsClonk() && MayTransfer(obj))
     {
       //Munition geben und abbrechen
       TransferAmmo(obj);
+      Sound("ResupplyOut*.ogg");
       break;
     }
     else
