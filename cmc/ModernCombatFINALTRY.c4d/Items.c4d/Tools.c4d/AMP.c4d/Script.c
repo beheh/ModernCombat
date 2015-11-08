@@ -181,7 +181,7 @@ protected func CreateAmmoPack(id idAmmo, object pCaller, bool fRight, int iIndex
 
   //Punkte abziehen
   DoPackPoints(-aAmmo[2]);
-  Sound("PackAmmo.ogg", false, this, 0, GetOwner(pCaller) + 1);
+  Sound("ResupplyOut*.ogg", false, this, 0, GetOwner(pCaller) + 1);
 
   //Hinwechseln
   ShiftContents(pCaller, 0, CUAM);
@@ -235,7 +235,8 @@ public func DoTeamSupport(array aClonks)
     PlayerMessage(GetOwner(Contained()), "$AmmoReceived$", pTarget, ammoID->MaxAmmo() / 10, ammoID);
     PlayerMessage(GetOwner(pTarget),"$AmmoReceived$", pTarget, ammoID->MaxAmmo() / 10, ammoID);
     DoAmmo(ammoID, ammoID->MaxAmmo()/10, pTarget);
-    Sound("Resupply.ogg");
+    Sound("ResupplyIn.ogg",0,pTarget,0,GetOwner(pTarget)+1);
+    Sound("ResupplyOut*.ogg");
     DoPackPoints(-ammoID->MaxAmmo() / 10 * factor);
 
     //Achievement-Fortschritt (Ammo Distributor)

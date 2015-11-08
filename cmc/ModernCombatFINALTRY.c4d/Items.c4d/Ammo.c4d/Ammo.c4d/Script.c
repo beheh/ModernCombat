@@ -74,7 +74,9 @@ public func TransferAmmo(object pObj)
   HelpMessage(GetOwner(pObj), "$Collected$", pObj, AmmoCount(), AmmoID());
   DoAmmo(AmmoID(), AmmoCount(), pObj);
   pObj->~AmmoTransferred();
-  Sound("Resupply.ogg");
+  if(GetOwner(pObj) == GetOwner(clonk))
+    Sound("ResupplyOut*.ogg",0,pObj,0,GetOwner(pObj)+1);
+  Sound("ResupplyIn.ogg",0,pObj,0,GetOwner(pObj)+1);
   if(!OnTransfer()) RemoveObject();
 
   return true;
@@ -89,6 +91,7 @@ public func ControlThrow(object caller)
     {
       //Munition geben und abbrechen
       TransferAmmo(obj);
+      Sound("ResupplyOut*.ogg");
       break;
     }
     else

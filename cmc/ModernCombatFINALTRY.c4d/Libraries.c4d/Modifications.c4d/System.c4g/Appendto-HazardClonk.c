@@ -1154,6 +1154,7 @@ private func AmmoBagContextCheck()
 protected func ContextAmmobag(object pCaller)
 {
   [$AmmoBag$|Image=ABOX|Condition=AmmoBagContextCheck]
+  Sound("PackAmmo.ogg", 1, 0,0, GetOwner()+1);
   var ammo, x;
 
   //Menü erzeugen
@@ -1199,9 +1200,7 @@ protected func PackAmmo(id idType, int iCaller)
 
   //Inventar auf erstellte Munition wechseln
   ShiftContents(pCaller, 0, CUAM);
-
-  Sound("PackAmmo.ogg");
-
+  Sound("ResupplyOut*.ogg");
   CloseMenu(pCaller);
 }
 
