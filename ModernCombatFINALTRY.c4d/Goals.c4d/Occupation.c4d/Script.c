@@ -592,19 +592,29 @@ public func FxOccupationGameTimer(object pTarget, int iEffectNumber, int iEffect
   if(!GetFlags())
     return -1;
 
+  var fcounts = [];
+
+  for(var i = 0; i < GetTeamCount(); i++)
+    fcounts[i] = GetFlagCount(i+1);
+
+  var maxfcount = GetMaxArrayVal(fcounts, false, true);
+
   for(var i = 0; i < GetTeamCount(); i++)
   {
-    var decrease = GetFlagCount(i+1) - GetEnemyFlagCount(i+1);
-    if(decrease < 0)
+    if(fcounts[i] < maxfcount)
     {
-      decrease *= GetOccupationTimerSpeed();
-      decrease = decrease / GetLength(GetFlags());
-      aTeamTimers[i] += decrease;
-      if(aTeamTimers[i] <= 0)
+      var decrease = fcounts[i] - GetEnemyFlagCount(i+1);
+      if(decrease < 0)
       {
-        aTicket[i] -= 1;
-        aTeamTimers[i] = 10000;
-        UpdateScoreboard();
+        decrease *= GetOccupationTimerSpeed();
+        decrease = decrease / GetLength(GetFlags());
+        aTeamTimers[i] += decrease;
+        if(aTeamTimers[i] <= 0)
+        {
+          aTicket[i] -= 1;
+          aTeamTimers[i] = 10000;
+          UpdateScoreboard();
+        }
       }
     }
   }
