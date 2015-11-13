@@ -130,8 +130,8 @@ global func GetFlagCount(int iTeam, bool bCountBlankFlags, bool bCountOnlyFullyC
         if(flag->GetTeam() != iTeam)
           continue;
 
-	if(bCountOnlyFullyCaptured && !flag->~IsFullyCaptured())
-	  continue;
+        if(bCountOnlyFullyCaptured && !flag->~IsFullyCaptured())
+          continue;
       }
     }
     count++;
