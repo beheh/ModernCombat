@@ -112,7 +112,7 @@ global func GetTeamFlags(int iTeam)
   return result;
 }
 
-global func GetFlagCount(int iTeam, bool bCountBlankFlags)
+global func GetFlagCount(int iTeam, bool bCountBlankFlags, bool bCountOnlyFullyCaptured)
 {
   var count = 0;
   for(var flag in FindObjects(Find_Func("IsFlagpole")))
@@ -129,6 +129,9 @@ global func GetFlagCount(int iTeam, bool bCountBlankFlags)
       {
         if(flag->GetTeam() != iTeam)
           continue;
+
+	if(bCountOnlyFullyCaptured && !flag->~IsFullyCaptured())
+	  continue;
       }
     }
     count++;
@@ -455,7 +458,7 @@ public func GetHighestTeams()
   var flagcounts = [];
 
   for(var i = 0; i < GetTeamCount(); i++)
-    flagcounts[i] = GetFlagCount(i+1);
+    flagcounts[i] = GetFlagCount(i+1, false, true);
 
   var highest = GetMaxArrayVal(flagcounts, false, true);
 
@@ -595,7 +598,7 @@ public func FxOccupationGameTimer(object pTarget, int iEffectNumber, int iEffect
   var fcounts = [];
 
   for(var i = 0; i < GetTeamCount(); i++)
-    fcounts[i] = GetFlagCount(i+1);
+    fcounts[i] = GetFlagCount(i+1, false, true);
 
   var maxfcount = GetMaxArrayVal(fcounts, false, true);
 
