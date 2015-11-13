@@ -3,6 +3,7 @@
 #strict 2
 #include GTBL
 
+public func IsMeleeTarget()		{return false;}
 public func MaxDamage()			{return 60;}
 public func IsBulletTarget(id def)	{return false;}
 
