@@ -1454,14 +1454,15 @@ protected func RejectCollect(id ID, object ByObj)
   if(GetRotorSpeed() > 10)
   {
     //Kein Cooldown vorhanden: Schaden nehmen
-    if(!GetEffect("NoRotorHit", ByObj))
+    var rotoreffect = GetEffect("RotorHit", ByObj);
+    if(!rotoreffect || !EffectVar(0, ByObj, rotoreffect))
     {
       //Schaden errechnen
       var dir = (!GetDir())*2-1;
       DoDmg(GetMass(ByObj)*3, DMG_Melee, this, 0, GetController(ByObj)+1, GetID(ByObj));
 
       //Cooldown
-      AddEffect("NoRotorHit", ByObj, 1, 30, ByObj);
+      AddEffect("RotorHit", ByObj, 1, 30, this, GetID(this));
     }
 
     //Aufprall simulieren
@@ -1631,13 +1632,16 @@ protected func TimerCall()
     {
       if(GetOwner(pClonk) != NO_OWNER && GetOwner() != NO_OWNER && !Hostile(GetOwner(), GetOwner(pClonk)))
         continue;
-      if(GetEffect("NoRotorHit", pClonk))
+      
+      var rotoreffect = GetEffect("RotorHit", pClonk);
+
+      if(rotoreffect && EffectVar(0, pClonk, rotoreffect))
         continue;
       //MAVs gesondert behandeln
       if(pClonk->~IsMAV())
       {
         //Cooldown
-        AddEffect("NoRotorHit", pClonk, 1, 20, pClonk);
+        AddEffect("RotorHit", pClonk, 1, 20, this, GetID(this));
         if(pClonk->IsDestroyed()) continue;
 
         var MAVDamage;
@@ -1653,7 +1657,18 @@ protected func TimerCall()
       DoDmg(GetRotorSpeed() / 4, DMG_Projectile, pClonk, 0, GetOwner() + 1);
       Sound("BKHK_RotorHit*.ogg", false, pClonk);
       //Cooldown
-      AddEffect("NoRotorHit", pClonk, 1, 20, pClonk);
+      if(!rotoreffect)
+        AddEffect("RotorHit", pClonk, 1, 20, this, GetID(this)); 
+      else
+      {
+	EffectVar(0, pClonk, rotoreffect) = 1;
+	EffectVar(1, pClonk, rotoreffect)++;
+
+	//Achievement-Fortschritt (Juggler)
+	if(EffectVar(1, pClonk, rotoreffect) >= 3)
+          if(GetPilot() && (pClonk->~IsClonk()))
+            DoAchievementProgress(1, AC58, GetController(GetPilot()));
+      }
       //Achievement-Fortschritt (Meat Grinder)
       if(GetPilot() && (pClonk->~IsClonk()) && (!GetAlive(pClonk) || IsFakeDeath(pClonk)))
         DoAchievementProgress(1, AC29, GetController(GetPilot()));
@@ -1721,6 +1736,20 @@ protected func TimerCall()
       }
     }
   }
+}
+
+public func FxRotorHitStart(object pTarget, int iEffectNumber) {
+  EffectVar(0, pTarget, iEffectNumber) = 1; // Cooldown
+  EffectVar(1, pTarget, iEffectNumber) = 1; // Number of rotor hits
+  return 1;
+}
+
+public func FxRotorHitTimer(object pTarget, int iEffectNumber, int iEffectTime) {
+  EffectVar(0, pTarget, iEffectNumber) = 0;
+  if(!pTarget || !(pTarget->~IsClonk()))
+    return -1;
+
+  return 1;
 }
 
 /* Sounds */
@@ -1792,7 +1821,7 @@ protected func EngineStarted()
   Sound("BKHK_RotorSpin*.ogg", false, 0, 0, 0, -1);
   if(!EngineRunning())
   {
-    AddEffect("Engine", this, 300, 1, this);
+    AddEffect("Engine", this, 300, 1, this, GetID(this));
     throttle = 0;
     rotation = 0;
   }

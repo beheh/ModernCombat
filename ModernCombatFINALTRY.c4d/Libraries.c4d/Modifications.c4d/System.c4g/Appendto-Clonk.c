@@ -275,6 +275,16 @@ protected func ControlContents(idTarget)
   return _inherited(idTarget,...);
 }
 
+/* Rotorhitcounter resetten */
+
+func Hit() {
+  if(GetProcedure(this) != "FLIGHT")
+    if(GetEffect("RotorHit", this))
+      RemoveEffect("RotorHit", this);
+
+  return _inherited(...);
+}
+
 /* Fallschaden */
 
 func Hit2(int xDir, int yDir)
