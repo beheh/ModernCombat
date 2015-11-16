@@ -206,6 +206,12 @@ global func FxFadeOut4KTimer(target, no)
   EffectVar(0, target, no) = BoundBy(EffectVar(0, target, no) + EffectVar(1, target, no), 0, 255);
   SetClrModulation(SetRGBaValue(EffectVar(2, target, no),EffectVar(0, target, no),0), target);
 
+  if(GetEffect("FadeIn4K", target))
+  {
+    EffectVar(1, target, no) = EffectVar(1, target, GetEffect("FadeIn4K", target));
+    RemoveEffect("FadeIn4K", target);
+  }
+
   if(EffectVar(0, target, no) >= 255)
   {
     RemoveObject(target);

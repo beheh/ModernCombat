@@ -7,12 +7,10 @@
 
 /* Jetzt wirklich keinen Frame sichtbar */
 
-global func FadeIn(object pObject, int level)
-{
-  if(!pObject)
-    pObject = this();
-  
-  if(GetEffect("*FadeIn*", pObject)) return;
-  SetClrModulation(RGBa(255,255,255,255), pObject);
-  return(AddEffect("FadeIn", pObject, 101, 2,0,0,level));
+global func FadeIn(object pObject, int level) {
+  return FadeIn4K(level, pObject);
+}
+
+global func FadeOut(object pObject, int level) {
+  return FadeOut4K(level, pObject);
 }
