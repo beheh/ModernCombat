@@ -1632,7 +1632,7 @@ protected func TimerCall()
     {
       if(GetOwner(pClonk) != NO_OWNER && GetOwner() != NO_OWNER && !Hostile(GetOwner(), GetOwner(pClonk)))
         continue;
-      
+
       var rotoreffect = GetEffect("RotorHit", pClonk);
 
       if(rotoreffect && EffectVar(0, pClonk, rotoreffect))
@@ -1658,14 +1658,14 @@ protected func TimerCall()
       Sound("BKHK_RotorHit*.ogg", false, pClonk);
       //Cooldown
       if(!rotoreffect)
-        AddEffect("RotorHit", pClonk, 1, 20, this, GetID(this)); 
+        AddEffect("RotorHit", pClonk, 1, 20, this, GetID(this));
       else
       {
-	EffectVar(0, pClonk, rotoreffect) = 1;
-	EffectVar(1, pClonk, rotoreffect)++;
+        EffectVar(0, pClonk, rotoreffect) = 1;
+        EffectVar(1, pClonk, rotoreffect)++;
 
-	//Achievement-Fortschritt (Juggler)
-	if(EffectVar(1, pClonk, rotoreffect) >= 3)
+        //Achievement-Fortschritt (Juggler)
+        if(EffectVar(1, pClonk, rotoreffect) >= 3)
           if(GetPilot() && (pClonk->~IsClonk()))
             DoAchievementProgress(1, AC58, GetController(GetPilot()));
       }
@@ -1738,13 +1738,15 @@ protected func TimerCall()
   }
 }
 
-public func FxRotorHitStart(object pTarget, int iEffectNumber) {
+public func FxRotorHitStart(object pTarget, int iEffectNumber)
+{
   EffectVar(0, pTarget, iEffectNumber) = 1; // Cooldown
   EffectVar(1, pTarget, iEffectNumber) = 1; // Number of rotor hits
   return 1;
 }
 
-public func FxRotorHitTimer(object pTarget, int iEffectNumber, int iEffectTime) {
+public func FxRotorHitTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
   EffectVar(0, pTarget, iEffectNumber) = 0;
   if(!pTarget || !(pTarget->~IsClonk()))
     return -1;

@@ -1,16 +1,16 @@
 /* Fade-Effekte */
 
-//Verbesserter Einblendeffekt.
+//Verbesserte Ein- und Ausblendeffekte.
 
 #strict 2
 
 
-/* Jetzt wirklich keinen Frame sichtbar */
-
-global func FadeIn(object pObject, int level) {
+global func FadeIn(object pObject, int level)
+{
   return FadeIn4K(level, pObject);
 }
 
-global func FadeOut(object pObject, int level) {
+global func FadeOut(object pObject, int level)
+{
   return FadeOut4K(level, pObject);
 }
