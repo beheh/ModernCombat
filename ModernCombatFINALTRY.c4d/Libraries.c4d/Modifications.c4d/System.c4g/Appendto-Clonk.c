@@ -275,9 +275,10 @@ protected func ControlContents(idTarget)
   return _inherited(idTarget,...);
 }
 
-/* Rotorhitcounter resetten */
+/* Rotortreffer-Counter für Errungenschaft zurücksetzen */
 
-func Hit() {
+func Hit()
+{
   if(GetProcedure(this) != "FLIGHT")
     if(GetEffect("RotorHit", this))
       RemoveEffect("RotorHit", this);
