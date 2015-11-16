@@ -68,13 +68,11 @@ func CreateInterior()
   //Bodenluken
   CreateObject(HA4K, 460, 503, -1);
   CreateObject(HA4K, 790, 593, -1);
-
   CreateObject(HA4K, 1250, 623, -1);
   CreateObject(HA4K, 1250, 673, -1);
 
   CreateObject(HA4K, 2990, 623, -1);
   CreateObject(HA4K, 2990, 673, -1);
-
   CreateObject(HA4K, 3450, 593, -1);
   CreateObject(HA4K, 3780, 503, -1);
 
@@ -283,9 +281,9 @@ func CreateDecoration()
   CreateObject(RAI1, 1125, 620, -1)->SetRail([1,1,1,1,1,1]);
   CreateObject(RAI1, 1255, 620, -1);
   CreateObject(RAI3, 1450, 670, -1);
-
-  CreateObject(RAI1, 2081, 850, -1)->SetRail([1,1,1,1]);
-
+  CreateObject(RAI1, 1930, 850, -1)->SetRail([1,1,1,1]);
+  CreateObject(RAI1, 2090, 850, -1)->SetRail([1,1,1]);
+  CreateObject(RAI1, 2230, 850, -1)->SetRail([1,1,1,1]);
   CreateObject(RAI3, 2760, 670, -1);
   CreateObject(RAI1, 2960, 620, -1);
   CreateObject(RAI1, 3000, 620, -1)->SetRail([1,1,1,1,1,1]);
@@ -325,8 +323,10 @@ func CreateDecoration()
   CreateObject(ESGN, 1220, 665, -1);
   CreateObject(MSGN, 1125, 620, -1);
   CreateObject(MSGN, 1275, 620, -1);
-  CreateObject(MSGN, 2005, 850, -1);
-  CreateObject(MSGN, 2235, 850, -1);
+  CreateObject(MSGN, 2010, 850, -1);
+  CreateObject(MSGN, 2090, 850, -1);
+  CreateObject(MSGN, 2150, 850, -1);
+  CreateObject(MSGN, 2230, 850, -1);
   CreateObject(ESGN, 3020, 665, -1);
   CreateObject(MSGN, 2965, 620, -1);
   CreateObject(MSGN, 3115, 620, -1);
