@@ -241,6 +241,7 @@ public func FlagCaptured(object pFlagPole, int iTeam, array aAttackers, bool fRe
 
   //Eventnachricht: Flaggenposten erobert
   EventInfo4K(0, Format("$MsgCaptured$", GetTeamFlagColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), SM22, 0, GetTeamFlagColor(iTeam), 0, "Info_Objective.ogg");
+  UpdateScoreboard();
 }
 
 /* Scoreboard */
