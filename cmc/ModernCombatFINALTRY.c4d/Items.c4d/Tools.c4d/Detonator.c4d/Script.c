@@ -100,9 +100,13 @@ public func ControlThrow(object pByObj)
 
 public func Activate(object pActivator)
 {
+  SetController(GetOwner(pActivator), this);
+  SetOwner(GetOwner(pActivator), this);
+
   for (var c4 in GetC4())
   {
     SetController(GetOwner(pActivator), c4);
+    SetOwner(GetOwner(pActivator), c4);
     ScheduleCall(c4, "Trigger", Max(ObjectDistance(c4) / 10, 1));
   }
 
