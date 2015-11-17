@@ -327,7 +327,7 @@ private func UpdateScoreboard()
     var iTeam = GetTeamByIndex(j);
     if(TeamAlive(iTeam))
     {
-      SetScoreboardData(i, GOCC_FlagColumn, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam)), base+3+GetTickets(iTeam));
+      SetScoreboardData(i, GOCC_FlagColumn, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam)), base+3+iStartTickets-GetTickets(iTeam));
       SetScoreboardData(i, GOCC_TimerColumn, Format("<c 777777>%d</c>", GetTeamTimer(iTeam)));
       SetScoreboardData(i, GOCC_ProgressColumn, Format("%d", GetTickets(iTeam)));
     }
@@ -339,6 +339,8 @@ private func UpdateScoreboard()
     }
     i++;
   }
+
+  SortScoreboard(GOCC_FlagColumn);
 }
 
 /* GameCalls */
