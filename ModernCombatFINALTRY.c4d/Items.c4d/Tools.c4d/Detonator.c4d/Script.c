@@ -100,6 +100,7 @@ public func ControlThrow(object pByObj)
 
 public func Activate(object pActivator)
 {
+  //Auslösender Clonk: Neuer Besitzer
   SetController(GetOwner(pActivator), this);
   SetOwner(GetOwner(pActivator), this);
 
