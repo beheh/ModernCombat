@@ -33,7 +33,7 @@ public func Fused()
     if(ObjectDistance(this, obj) > 50)
     {
       //Weiter als 50px entfernt: Nur blenden wenn freies Sichtfeld
-      if(!PathFree(GetX(),GetY(),GetX(obj),GetY(obj)-8))
+      if(!PathFree(GetX(),GetY(),GetX(obj),GetY(obj)-4))
         continue;
     }
 
