@@ -83,7 +83,7 @@ protected func SetState(int iNewState, bool fKeepSound, bool fUpdate)
   }
   if(iState == BHUD_Ready)
   {
-    SetClrModulation(RGBa(0,153,255,50));
+    SetClrModulation(RGBa(0,210,255,50));
     dwArrowColor = RGBa(255,204,0,50);
   }
   if(iState == BHUD_Disabled)
@@ -142,6 +142,7 @@ protected func Align()
 
 protected func Timer()
 {
+  //Kein Helikopter oder passender Pilot vorhanden: Verschwinden
   if(!pHelicopter || !pHelicopter->GetPilot() || GetOwner(this) != GetOwner(pHelicopter->GetPilot()) || GetOwner() == NO_OWNER)
   {
     RemoveObject();
@@ -149,7 +150,7 @@ protected func Timer()
   }
   if(iState != BHUD_Off)
   {
-    //Ausrichten
+    //An Helikopter ausrichten
     Align();
     //Rotation anzeigen
     if(!pRotation)
@@ -158,42 +159,47 @@ protected func Timer()
       pRotation->SetOwner(GetOwner());
       pRotation->SetClrModulation(RGBa(255,204,0,50));
     }
-    SetPosition(GetX(), GetY()+56, pRotation);
+    SetPosition(GetX()+1, GetY()+63, pRotation);
     pRotation->SetVisibility(GetVisibility());
     pRotation->SetR(GetR(pHelicopter));
+
     //Throttle anzeigen
     if(!pThrottle)
     {
       pThrottle = CreateObject(BARW,0,0,GetOwner());
+      pThrottle->SetR(180);
       pThrottle->SetOwner(GetOwner());
       pThrottle->SetClrModulation(RGBa(255,204,0,50));
     }
-    SetPosition(GetX()-180, GetY()+70-BoundBy((((140*1000)/BKHK_MaxThrottle)*pHelicopter->GetThrottle())/1000, 0, 140), pThrottle);
+    SetPosition(GetX()-145, GetY()+70-BoundBy((((140*1000)/BKHK_MaxThrottle)*pHelicopter->GetThrottle())/1000, 0, 140), pThrottle);
     pThrottle->SetVisibility(GetVisibility());
+
     //Höhe anzeigen
     if(!pAltitude)
     {
       pAltitude = CreateObject(BARW,0,0,GetOwner());
-      pAltitude->SetR(180);
       pAltitude->SetOwner(GetOwner());
       pAltitude->SetClrModulation(RGBa(255,204,0,50));
     }
-    SetPosition(GetX()+180, GetY()+64-BoundBy(140-((((140*1000)/LandscapeHeight())*GetY(pHelicopter))/1000), 0, 140), pAltitude);
+    SetPosition(GetX()+144, GetY()+71-BoundBy(140-((((140*1000)/LandscapeHeight())*GetY(pHelicopter))/1000), 0, 140), pAltitude);
     pAltitude->SetVisibility(GetVisibility());
+
     //Wind anzeigen
     if(!pWind)
     {
       pWind = CreateObject(BARW,0,0,GetOwner());
-      pWind->SetR(90);
+      pWind->SetR(-90);
       pWind->SetOwner(GetOwner());
       pWind->SetVisibility(VIS_Owner);
       pWind->SetClrModulation(RGBa(255,204,0,50));
     }
-    SetPosition(GetX()-4+BoundBy((1400*GetWind(AbsX(GetX(pHelicopter)), AbsY(GetY(pHelicopter))))/1000, -69, 71), GetY()-98, pWind);
+    SetPosition(GetX()+BoundBy((1400*GetWind(AbsX(GetX(pHelicopter)), AbsY(GetY(pHelicopter))))/1000, -70, 70), GetY()-63, pWind);
     pWind->SetVisibility(GetVisibility());
-    //Status setzen
+
+    //Standardform setzen
     SetObjDrawTransform(1000,0,0,0,1000,0);
   }
+
   //Flares und Rauchwand
   var fUpdate = false;
   var tFlares = pHelicopter->CanDeployFlares();
@@ -225,7 +231,7 @@ protected func Timer()
     else
     {
       if(iDamageRemaining == 0) fDisable = true;
-      if(!Random(2) && fDisable)
+      if(!Random(5) && fDisable)
       {
         SetState(BHUD_Off, true);
       }
@@ -255,6 +261,8 @@ protected func Timer()
   if(!iDamageRemaining) fDamage = false;
   return true;
 }
+
+/* Entfernung */
 
 public func Destruction()
 {
