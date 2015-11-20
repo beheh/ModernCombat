@@ -211,7 +211,7 @@ private func ManualEmpty(unused,fm)
     PlayerMessage(GetOwner(GetUser()), "$CantUse$", GetUser());
     return false;
   }
-  Sound("WPN2_Unload.ogg");
+  Sound("ResupplyOut*.ogg");
   return Empty2(GetSlot(fm));
 }
 
