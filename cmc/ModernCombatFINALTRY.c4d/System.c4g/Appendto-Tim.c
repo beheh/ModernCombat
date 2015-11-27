@@ -32,10 +32,15 @@ public func RejectCollect(id idObject)
 
 public func Spawn()
 {
+  //Spawn-Blocker im Umfeld zerstören
   for(var obj in FindObjects(Find_Distance(25), Find_Exclude(this), Find_Func("IsSpawnBlocker")))
   {
     DoDmg(10000, DMG_Explosion, obj);
   }
+
+  //Sound
+  Sound("ClonkSpawn*.ogg");
+
   return _inherited(...);
 }
 

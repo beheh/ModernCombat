@@ -1,2 +1,2 @@
-DE:Assist Kill durch Blendung
-US:Assist Kill through blinding
+DE:Kill Assist durch Blendung
+US:Kill Assist through Blinding

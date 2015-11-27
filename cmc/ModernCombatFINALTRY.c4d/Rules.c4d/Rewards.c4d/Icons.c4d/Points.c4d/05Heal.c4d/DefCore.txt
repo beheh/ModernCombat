@@ -2,7 +2,7 @@
 id=IC05
 Version=4,9,10,7
 Category=1
-Width=25
-Height=25
-Offset=-12,-12
-Picture=0,0,25,25
+Width=60
+Height=60
+Offset=-30,-30
+Picture=0,0,60,60
