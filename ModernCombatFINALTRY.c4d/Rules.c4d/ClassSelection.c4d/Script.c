@@ -196,7 +196,7 @@ func Finish(object pClonk, int iClass)
   if(GetID(Contained(pClonk)) == TIM1) RemoveObject(Contained(pClonk),true);
 
   //Sound
-  Sound("RSHL_Deploy.ogg", 1, pClonk, 100, GetOwner(pClonk)+1);
+  Sound("WPN2_Modify*.ogg", 1, pClonk, 100, GetOwner(pClonk)+1);
 
   //Effekt entfernen
   for(var i = 0; i < GetEffectCount("Spawntimer", this); i++)

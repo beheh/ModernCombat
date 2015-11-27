@@ -1,2 +1,2 @@
 DE:Peilsenderplazierung
-US:Tracer dart placement
+US:Tracer Dart Placement

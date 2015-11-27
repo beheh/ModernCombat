@@ -1,2 +1,2 @@
 DE:Gelderhalt
-US:Money obtainment
+US:Money Obtainment
