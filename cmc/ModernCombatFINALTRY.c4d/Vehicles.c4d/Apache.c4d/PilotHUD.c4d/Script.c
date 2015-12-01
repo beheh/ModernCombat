@@ -14,6 +14,8 @@ public func Initialize()
 {
   SetVisibility(VIS_None);
   iState = -1;
+  fFlares = true;
+  fRocketPod = true;
   Schedule("SetVisibility(VIS_Owner)", 1, 0, this);
   SetGraphics("Flares", this, BHUD, BHUD_Overlay_Flares, GFXOV_MODE_Base);
   SetGraphics("Rockets", this, AHUD, APCE_Overlay_RocketPod, GFXOV_MODE_Base);
@@ -153,11 +155,26 @@ protected func Timer()
   SetPosition(GetX()+BoundBy((1400*GetWind(AbsX(GetX(pHelicopter)), AbsY(GetY(pHelicopter))))/1000, -70, 70), GetY()-63, pWind);
   pWind->SetVisibility(GetVisibility());
 
-  //Flares
-  fFlares = pHelicopter->CanDeployFlares();
-
-  //Raketenpods
-  fRocketPod = pHelicopter->~RocketPodsReady();
+  //Flares und Raketenpod
+  var fUpdate = false;
+  var tFlares = pHelicopter->CanDeployFlares();
+  var tRocketPod = pHelicopter->~RocketPodsReady();
+  if(fFlares != tFlares)
+  {
+    fUpdate = true;
+    if(!fFlares) Sound("WarningFlaresReloaded.ogg", false, this, 100, GetOwner()+1);
+    fFlares = tFlares;
+  }
+  if(fRocketPod != tRocketPod)
+  {
+    fUpdate = true;
+    if(!fRocketPod) Sound("WarningSmokeWallReloaded.ogg", false, this, 100, GetOwner()+1);
+    fRocketPod = tRocketPod;
+  }
+  if(fUpdate)
+  {
+    SetState(GetState(), false, true);
+  }
 
   //Standardform setzen
   SetObjDrawTransform(1000,0,0,0,1000,0);
