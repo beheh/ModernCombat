@@ -40,7 +40,7 @@ protected func TimerCall()
     if(GetOwner(pTarget) != NO_OWNER && !Hostile(GetOwner(pTarget), GetOwner()) && NoFriendlyFire()) continue;
     if(OnFire(pTarget)) continue;
     DoDmg(3, DMG_Fire, pTarget, 0, GetOwner()+1, FLRE);
-    if(pTarget->~IsClonk() && Hostile(GetOwner(pTarget), GetOwner()) && (!GetAlive(pTarget) || IsFakeDeath(pTarget)))
+    if(pTarget && pTarget->~IsClonk() && Hostile(GetOwner(pTarget), GetOwner()) && (!GetAlive(pTarget) || IsFakeDeath(pTarget)))
       //Achievement-Fortschritt (Rain of Fire)
       DoAchievementProgress(1, AC30, GetOwner());
   }
