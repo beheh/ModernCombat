@@ -5,6 +5,7 @@
 
 local crosshair;
 local aCollected;
+local lastupdatech;
 
 local pHUDTarget;
 local iGrenadeCount;
@@ -313,6 +314,12 @@ private func TestSpread()
 
 public func UpdateCH()
 {
+  //a quite nasty hack for workarounding a hazard issue
+  if(lastupdatech != FrameCounter())
+    lastupdatech = FrameCounter();
+  else
+    return;
+
   //Keine Feuerbereitschaft: Verstecken
   if((!ReadyToFire() && !ReadyToGrenade()) || !IsArmed())
     return HideCH();
