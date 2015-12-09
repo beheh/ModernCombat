@@ -314,7 +314,7 @@ private func TestSpread()
 
 public func UpdateCH()
 {
-  //a quite nasty hack for workarounding a hazard issue
+  //Umgeht ein Hazard-Problem welches den Spread von Waffen korrumpiert
   if(lastupdatech != FrameCounter())
     lastupdatech = FrameCounter();
   else
