@@ -1,0 +1,18 @@
+[DefCore]
+id=RTBY
+Version=4,9,8
+Name=Rocket Battery
+Category=C4D_Structure
+MaxUserSelect=10
+Width=6
+Height=6
+Offset=-3,-3
+Vertices=1
+VertexY=1
+VertexFriction=100
+Value=25
+Mass=10
+Picture=0,6,64,64
+Timer=5
+TimerCall=CheckForTargets
+Grab=2
