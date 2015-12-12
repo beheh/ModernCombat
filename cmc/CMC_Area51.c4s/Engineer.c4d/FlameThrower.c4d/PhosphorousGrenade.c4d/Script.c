@@ -53,7 +53,7 @@ protected func Secure()
   if(!active)
     return true;
 
-  if(FrameCounter() < start+SecureTime())
+  if(FrameCounter() <= start+SecureTime())
     return true;
 
   return false;
@@ -71,9 +71,9 @@ protected func RejectEntrance(pNewContainer)
   return 1;
 }
 
-func HitObject(object pObj)
+func HitObject(object pObj, fNoSecure)
 {
-  if(Secure())
+  if(!fNoSecure && Secure())
   {
   	CreateObject(PSPR, 0,0, GetController(this));
   	CreateObject(PSPR, 0,0, GetController(this));
@@ -132,7 +132,7 @@ func Trigger(object pObj)
 func FxGrenadeTimer(object target, int effect, int time)
 {
   //Bei aufgebrauchter Flugzeit explodieren
-  if(time > ExplodeDelay()) return HitObject();
+  if(time > ExplodeDelay()) return HitObject(0, true);
   var vel=Abs(GetXDir())+Abs(GetYDir());
   var alpha=Max(0,100-vel);
 
