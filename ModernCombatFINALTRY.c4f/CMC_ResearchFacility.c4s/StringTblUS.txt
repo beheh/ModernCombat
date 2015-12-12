@@ -2,19 +2,16 @@ CreatingInterior=Creating furniture...
 CreatingEquipment=Placing equipment...
 CreatingDecoration=Placing decoration...
 
-MsgFlagChanging=<c ff0000>Warning</c>: <c ffff33>Searching</c> for new flag post!
-MsgFlagChanged=<c ffff33>New flag post</c> has been spotted!
-
 Team1=Eurocorps
 Team2=Aggressors
 
 Flag1=Quarters
 Flag2=Control Tower
-Flag3=Generator Room
-Flag4=Vehicle Hall
-Flag5=Lobby
-Flag6=Storage Depot
-Flag7=Vehicle Entry
+Flag3=Scaffolding Hall
+Flag4=Generator Room
+Flag5=Vehicle Hall
+Flag6=Lobby
+Flag7=Storage Depot
 
 Target1=Control Unit
 Target2=Data Server

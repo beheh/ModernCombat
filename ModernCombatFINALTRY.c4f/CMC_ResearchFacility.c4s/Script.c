@@ -1278,38 +1278,45 @@ public func ChooserFinished()
       aFlag[1]->Set("$Flag2$");
     }
 
-    aFlag[2] = CreateObject(OFPL,1795,1890,NO_OWNER);
-    aFlag[2] -> AddSpawnPoint(2145,1770);
-    aFlag[2] -> AddSpawnPoint(2295,1810);
-    aFlag[2] -> AddSpawnPoint(2485,1810);
+    aFlag[2] = CreateObject(OFPL,1785,1363,NO_OWNER);
+    aFlag[2] -> AddSpawnPoint(1620,1550);
+    aFlag[2] -> AddSpawnPoint(1900,1550);
+    aFlag[2] -> AddSpawnPoint(2100,1550);
     aFlag[2]->Set("$Flag3$");
     SetObjectOrder(FindObject(GNRT), aFlag[2]);
 
-    aFlag[3] = CreateObject(OFPL,1765,820,NO_OWNER);
-    aFlag[3] -> AddSpawnPoint(1470,500);
-    aFlag[3] -> AddSpawnPoint(2070,490);
-    aFlag[3] -> AddSpawnPoint(2300,540);
+    aFlag[3] = CreateObject(OFPL,1795,1890,NO_OWNER);
+    aFlag[3] -> AddSpawnPoint(2145,1770);
+    aFlag[3] -> AddSpawnPoint(2295,1810);
+    aFlag[3] -> AddSpawnPoint(2485,1810);
     aFlag[3]->Set("$Flag4$");
+    SetObjectOrder(FindObject(GNRT), aFlag[3]);
 
-    aFlag[4] = CreateObject(OFPL,2730,270,NO_OWNER);
-    aFlag[4] -> AddSpawnPoint(2560,130);
-    aFlag[4] -> AddSpawnPoint(2795,90);
-    aFlag[4] -> AddSpawnPoint(3040,90);
+    aFlag[4] = CreateObject(OFPL,1765,820,NO_OWNER);
+    aFlag[4] -> AddSpawnPoint(1470,500);
+    aFlag[4] -> AddSpawnPoint(2070,490);
+    aFlag[4] -> AddSpawnPoint(2300,540);
+    aFlag[4]->Set("$Flag5$");
+
+    aFlag[5] = CreateObject(OFPL,2730,270,NO_OWNER);
+    aFlag[5] -> AddSpawnPoint(2560,130);
+    aFlag[5] -> AddSpawnPoint(2795,90);
+    aFlag[5] -> AddSpawnPoint(3040,90);
     if(aTeams[2] == true)
     {
-      aFlag[4]->Set("$Flag5$",0,4);
-      aFlag[4]->Capture(2,1);
+      aFlag[5]->Set("$Flag6$",0,4);
+      aFlag[5]->Capture(2,1);
     }
     else
     {
-      aFlag[4]->Set("$Flag5$");
+      aFlag[5]->Set("$Flag6$");
     }
 
-    aFlag[5] = CreateObject(OFPL,2860,1100,NO_OWNER);
-    aFlag[5] -> AddSpawnPoint(2780,900);
-    aFlag[5] -> AddSpawnPoint(3080,730);
-    aFlag[5] -> AddSpawnPoint(3320,1090);
-    aFlag[5]->Set("$Flag6$");
+    aFlag[6] = CreateObject(OFPL,2860,1100,NO_OWNER);
+    aFlag[6] -> AddSpawnPoint(2780,900);
+    aFlag[6] -> AddSpawnPoint(3080,730);
+    aFlag[6] -> AddSpawnPoint(3320,1090);
+    aFlag[6]->Set("$Flag7$");
 
     //Grenzen setzen
     CreateObject(BRDR, 210, 0, -1)->Set(0);
@@ -1572,13 +1579,9 @@ public func ChooserFinished()
   //HTF-Spielziel
   if(FindObject(GHTF))
   {
-    //Script starten
-    ScriptGo(1);
-    aFlagPosition = 2;
-
     //Flaggenposten
-    aFlag[0] = CreateObject(OFPL, 1765,820, -1);
-    aFlag[0]->~Set("$Flag4$");
+    var flag = CreateObject(OFPL, 1765,820, -1);
+    flag->~Set("$Flag5$");
 
     //Teamgrenzen
     CreateObject(BRDR, 1310, 0, -1)->Set(0,1,0,1,1);
@@ -2085,62 +2088,4 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
       return [[2560, 130], [2590, 260], [2760, 90], [2900, 260], [3025, 90]];
     return 1;
   }
-}
-
-/* Flaggensteuerung */
-
-protected func Script250()
-{
-  EventInfo4K(0,Format("$MsgFlagChanging$"),SM21, 0, 0, 0, "Info_Objective.ogg");
-  aFlag[0]->AddSmokeEffect4K(80);
-}
-
-protected func Script300()
-{
-  EventInfo4K(0,Format("$MsgFlagChanged$"),SM21, 0, 0, 0, "Info_Objective.ogg");
-
-  RemoveEffect("IntWreckSmoke4K",aFlag[0]);
-  if(aFlagPosition == 1)
-  {
-    if(!Random(2))
-    {
-      aFlag[0]->MoveFlagpost(1765,820,0,"$Flag4$");
-      aFlagPosition = 2;
-    }
-    else
-    {
-      aFlag[0]->MoveFlagpost(1765,1063,0,"$Flag6$");
-      aFlagPosition = 3;
-    }
-  }
-  else
-  if(aFlagPosition == 2)
-  {
-    if(!Random(2))
-    {
-      aFlag[0]->MoveFlagpost(1765,520,0,"$Flag7$");
-      aFlagPosition = 1;
-    }
-    else
-    {
-      aFlag[0]->MoveFlagpost(1765,1063,0,"$Flag6$");
-      aFlagPosition = 3;
-    }
-  }
-  else
-  if(aFlagPosition == 3)
-  {
-    if(!Random(2))
-    {
-      aFlag[0]->MoveFlagpost(1765,520,0,"$Flag7$");
-      aFlagPosition = 1;
-    }
-    else
-    {
-      aFlag[0]->MoveFlagpost(1765,820,0,"$Flag4$");
-      aFlagPosition = 2;
-    }
-  }
-
-  goto(0);
 }
