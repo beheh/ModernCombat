@@ -9,7 +9,7 @@ local iAttachment;
 
 public func Color()		{return RGB(255,0,0);}	//Kennfarbe
 public func BlastRadius()	{return 5;}		//Explosionsradius
-protected func SecureDistance()	{return 1;}		//Sicherungsreichweite
+protected func SecureDistance()	{return 34;}		//Sicherungsreichweite
 func ExplodeDelay()		{return 2;}		//Verzögerung bis zu automatischer Zündung
 public func IgnoreTracer()	{return true;}		//Nicht markierbar
 public func IsRifleGrenade()	{return true;}		//Ist eine Gewehrgranate
@@ -75,6 +75,9 @@ func HitObject(object pObj)
 {
   if(Secure())
   {
+  	CreateObject(PSPR, 0,0, GetController(this));
+  	CreateObject(PSPR, 0,0, GetController(this));
+  
     if(pObj)
     {
       DoDmg(20, DMG_Projectile, pObj, 0, 0, 0, iAttachment);
