@@ -9,7 +9,7 @@ local iAttachment;
 
 public func Color()		{return RGB(255,0,0);}	//Kennfarbe
 public func BlastRadius()	{return 5;}		//Explosionsradius
-protected func SecureDistance()	{return 34;}		//Sicherungsreichweite
+protected func SecureTime()	{return 2;}		//Sicherungszeit
 func ExplodeDelay()		{return 2;}		//Verzögerung bis zu automatischer Zündung
 public func IgnoreTracer()	{return true;}		//Nicht markierbar
 public func IsRifleGrenade()	{return true;}		//Ist eine Gewehrgranate
@@ -53,7 +53,7 @@ protected func Secure()
   if(!active)
     return true;
 
-  if(Distance(GetX(),GetY(),sx,sy) <= SecureDistance() && FrameCounter() < start+70)
+  if(FrameCounter() < start+SecureTime())
     return true;
 
   return false;
