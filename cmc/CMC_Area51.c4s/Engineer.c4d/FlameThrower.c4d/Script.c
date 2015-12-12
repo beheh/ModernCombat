@@ -6,6 +6,7 @@
 public func HandSize()		{return(1000);}
 public func HandX()		{return(5000);}
 public func HandY()		{return(-2500);}
+public func IsSecondaryWeapon()	{return true;}
 
 public func SelectionTime()	{return 36;}
 
