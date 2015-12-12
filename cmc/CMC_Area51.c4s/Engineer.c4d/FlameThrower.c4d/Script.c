@@ -27,8 +27,8 @@ public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Flamethrower$";
 
-  if(data == FM_AmmoID)		return STAM;
-  if(data == FM_AmmoLoad)	return 10;
+  if(data == FM_AmmoID)		return GRAM;
+  if(data == FM_AmmoLoad)	return 1;
 
   if(data == FM_Reload)		return 125;
   if(data == FM_Recharge)	return 5;
@@ -76,7 +76,9 @@ public func Fire1()
   var user = GetUser();
   var x,y; user->WeaponEnd(x,y);
   var angle = user->~AimAngle(20);
-  
+  var xdir = +Sin(angle,120)+GetXDir(user);
+  var ydir = -Cos(angle,120)+GetYDir(user);
+  /*
   var j = aSlot_Amount[0];
   for(var i = 0; i < j; i++)
   { var rand = Random(30) - 15;
@@ -88,8 +90,14 @@ public func Fire1()
 		SetXDir(xdir, flame);
 		SetYDir(ydir, flame);
 	}
+	*/
+	//Granate abfeuern
+  var grenade=CreateObject(PSHL, x, y, GetController(user));
+  SetController(GetController(user), grenade);
+  grenade->Launch(xdir+GetXDir(user)/5, ydir/*+GetYDir(user)/4*/, GetFMData(FM_Damage,2), 0, 0, 0, iAttachment, user);
 	
-	aSlot_Amount[0] = 0;
+	Sound("SGST_Fire*.ogg", 0, grenade);
+  Echo("SGST_Echo.ogg");
 }
 
 /* Sounds */
