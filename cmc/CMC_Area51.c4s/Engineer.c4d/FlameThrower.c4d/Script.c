@@ -79,10 +79,10 @@ public func Fire1()
   
   var j = aSlot_Amount[0];
   for(var i = 0; i < j; i++)
-  {
+  { var rand = Random(30) - 15;
   	var flame = CreateObject(PSPR, x,y, GetController(user));
-  	var xdir = +Sin(angle - i*4 + i * 2,65)+GetXDir(user);
-  	var ydir = -Cos(angle - i*4 + i * 2,65)+GetYDir(user) - 10;
+  	var xdir = +Sin(angle - i*4 + i * 2,60 + rand)+GetXDir(user);
+  	var ydir = -Cos(angle - i*4 + i * 2,60 - rand)+GetYDir(user) - 18;
 
 
 		SetXDir(xdir, flame);
