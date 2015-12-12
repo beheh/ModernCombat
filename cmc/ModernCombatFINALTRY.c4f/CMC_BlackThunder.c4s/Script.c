@@ -448,6 +448,38 @@ func CreateDecoration()
   CreateObject(PPSK, 3870, 560, -1);
 }
 
+/* Bei Relaunch */
+ 
+public func OnClassSelection(object pClonk, int iTeam)
+{
+  AddEffect("SpawnParachute", pClonk, 1, 10);
+}
+
+/* Fallschirmeffekt */
+
+global func FxSpawnParachuteTimer(object pTarget)
+{
+  //Ziel im Freien?
+  if(!Contained(pTarget))
+  {
+    //Ziel ist festem Boden zu nahe: Abbruch
+    var x = GetX(pTarget), y = GetY(pTarget), xdir = GetXDir(pTarget, 100), ydir = GetYDir(pTarget, 100);
+    SimFlight(x, y, xdir, ydir, 0, 0, 0, 100);
+    if(Distance(xdir, ydir) < 700)
+      return -1;
+
+    //Ansonsten Fallschirm erstellen
+    CreateObject(PARA,0,0,GetOwner(pTarget))->Set(pTarget);
+    AddEffect("Flying", pTarget, 101, 5);
+
+    //Effekt
+    Sound("Airstrike2", 0, pTarget);
+
+    return -1;
+  }
+  //Ansonsten abwarten
+}
+
 /* Regelwähler */
 
 public func ChooserFinished()
@@ -505,24 +537,31 @@ public func ChooserFinished()
     aFlag[1] -> AddSpawnPoint(1130,610);
     aFlag[1]->Set("$Flag2$");
 
-    aFlag[2] = CreateObject(OFPL,2910,670,NO_OWNER);
-    aFlag[2] -> AddSpawnPoint(2950,840);
-    aFlag[2] -> AddSpawnPoint(3050,750);
-    aFlag[2] -> AddSpawnPoint(3110,610);
-    aFlag[2]->Set("$Flag3$");
+    aFlag[2] = CreateObject(OFPL,2120,690,NO_OWNER);
+    aFlag[2] -> AddSpawnPoint(1860,0);
+    aFlag[2] -> AddSpawnPoint(1930,0);
+    aFlag[2] -> AddSpawnPoint(2310,0);
+    aFlag[2] -> AddSpawnPoint(2400,0);
+    aFlag[2]->Set("$Flag5$",90);
 
-    aFlag[3] = CreateObject(OFPL,3610,590,NO_OWNER);
-    aFlag[3] -> AddSpawnPoint(3660,680);
-    aFlag[3] -> AddSpawnPoint(3780,740);
-    aFlag[3] -> AddSpawnPoint(3860,550);
+    aFlag[3] = CreateObject(OFPL,2910,670,NO_OWNER);
+    aFlag[3] -> AddSpawnPoint(2950,840);
+    aFlag[3] -> AddSpawnPoint(3050,750);
+    aFlag[3] -> AddSpawnPoint(3110,610);
+    aFlag[3]->Set("$Flag3$");
+
+    aFlag[4] = CreateObject(OFPL,3610,590,NO_OWNER);
+    aFlag[4] -> AddSpawnPoint(3660,680);
+    aFlag[4] -> AddSpawnPoint(3780,740);
+    aFlag[4] -> AddSpawnPoint(3860,550);
     if(aTeams[2] == true)
     {
-      aFlag[3]->Set("$Flag4$",0,4);
-      aFlag[3]->Capture(2,1);
+      aFlag[4]->Set("$Flag4$",0,4);
+      aFlag[4]->Capture(2,1);
     }
     else
     {
-      aFlag[3]->Set("$Flag4$");
+      aFlag[4]->Set("$Flag4$");
     }
 
     //Grenze
@@ -531,6 +570,7 @@ public func ChooserFinished()
     //Objekte entfernen
     RemoveObject(FindObject2(Find_ID(SNPT),Find_InRect(590, 500, 50, 50)));
     RemoveObject(FindObject2(Find_ID(SNPT),Find_InRect(3570, 500, 50, 50)));
+    RemoveObject(aArtillery[0]);
   }
 
   //MR-Spielziel
