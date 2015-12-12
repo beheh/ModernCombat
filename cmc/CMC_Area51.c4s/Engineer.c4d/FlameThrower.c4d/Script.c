@@ -81,8 +81,8 @@ public func Fire1()
   for(var i = 0; i < j; i++)
   {
   	var flame = CreateObject(PSPR, x,y, GetController(user));
-  	var xdir = +Sin(angle - i*4 + i * 2,70)+GetXDir(user);
-  	var ydir = -Cos(angle - i*4 + i * 2,70)+GetYDir(user);
+  	var xdir = +Sin(angle - i*4 + i * 2,65)+GetXDir(user);
+  	var ydir = -Cos(angle - i*4 + i * 2,65)+GetYDir(user) - 10;
 
 
 		SetXDir(xdir, flame);
