@@ -75,8 +75,8 @@ func HitObject(object pObj, fNoSecure)
 {
   if(!fNoSecure && Secure())
   {
-  	CreateObject(PSPR, 0,0, GetController(this));
-  	CreateObject(PSPR, 0,0, GetController(this));
+  	CreateObject(RDPR, 0,0, GetController(this));
+  	CreateObject(RDPR, 0,0, GetController(this));
   
     if(pObj)
     {
@@ -115,7 +115,7 @@ func Trigger(object pObj)
 {
   for(var i = 0; i < 10; i++)
   { var rand = Random(30) - 15;
-  	var flame = CreateObject(PSPR, 0,0, GetController(this));
+  	var flame = CreateObject(RDPR, 0,0, GetController(this));
   	var xdir = GetXDir(this)/2 + rand + i*4 - i*2;
   	var ydir = GetYDir(this)/2 - rand + i*4 - i*2 - 18;
 
