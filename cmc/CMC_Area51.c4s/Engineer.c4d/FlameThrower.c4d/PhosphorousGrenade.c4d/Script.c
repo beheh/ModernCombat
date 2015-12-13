@@ -59,18 +59,18 @@ func HitObject(object pObj, fNoSecure)
 func Trigger(object pObj)
 {
 	//Rauch erzeugen
-  CastObjects(BGSE,3,10);
-/*
-  for(var i = 0; i < 10; i++)
-  { var rand = Random(30) - 15;
-  	var flame = CreateObject(RDPR, 0,0, GetController(this));
-  	var xdir = GetXDir(this)/2 + rand + i*4 - i*2;
-  	var ydir = GetYDir(this)/2 - rand + i*4 - i*2 - 18;
+  //CastObjects(BGSE,3,10);
+
+  for(var i = 0; i < 3; i++)
+  { var rand = Random(10) - 5;
+  	var flame = CreateObject(BGSE, 0,0, GetController(this));
+  	var xdir = GetXDir(this)/10 + rand + i*4 - i*2;
+  	var ydir = GetYDir(this)/10 - rand + i*4 - i*2;
 
 
 		SetXDir(xdir, flame);
 		SetYDir(ydir, flame);
-	}*/
+	}
   Sound("ShellExplosion*.ogg");
   Explode(BlastRadius(), this);
 }
