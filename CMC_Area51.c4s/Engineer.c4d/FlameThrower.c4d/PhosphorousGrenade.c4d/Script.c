@@ -1,52 +1,11 @@
 /*-- Phosphorgranate --*/
 
 #strict 2
-#include GREN
+#include ESHL
 
-local active,sx,sy, start;
-local iLastAttacker;
-local iAttachment;
-
-public func Color()		{return RGB(255,0,0);}	//Kennfarbe
 public func BlastRadius()	{return 5;}		//Explosionsradius
-protected func SecureTime()	{return 2;}		//Sicherungszeit
-func ExplodeDelay()		{return 2;}		//Verzögerung bis zu automatischer Zündung
-public func IgnoreTracer()	{return true;}		//Nicht markierbar
-public func IsRifleGrenade()	{return true;}		//Ist eine Gewehrgranate
-public func AllowHitboxCheck()	{return true;}
-public func RejectC4Attach()	{return true;}
-
-
-/* Initialisierung */
-
-protected func Initialize()
-{
-  iLastAttacker = NO_OWNER;
-  return _inherited();
-}
-
-/* Start */
-
-func Launch(int xdir, int ydir, int iDmg,a,b,c, int attachment, object pUser)
-{
-  iAttachment = attachment;
-  SetCategory(C4D_Vehicle);
-  active = true;
-  sx = GetX();
-  sy = GetY();
-  start = FrameCounter();
-  var ffx,ffy;
-  pUser->~WeaponEnd(ffx,ffy);
-  ffx += GetX(pUser);
-  ffy += GetY(pUser);
-  AddEffect("HitCheck", this, 1, 1, 0, SHT1,pUser,0,ffx,ffy);
-  AddEffect("Grenade", this, 1, 1, this);
-  SetSpeed(xdir, ydir);  
-  if(!iDmg)
-    //Standardexplosion
-    iDmg = 30;
-  if(Stuck()) Hit();
-}
+protected func SecureTime()	{return 4;}		//Sicherungszeit
+func ExplodeDelay()		{return 4;}		//Verzögerung bis zu automatischer Zündung
 
 protected func Secure()
 {
@@ -59,24 +18,10 @@ protected func Secure()
   return false;
 }
 
-/* Treffer */
-
-func Hit()
-{
-  HitObject();
-}
-
-protected func RejectEntrance(pNewContainer)
-{
-  return 1;
-}
-
 func HitObject(object pObj, fNoSecure)
 {
   if(!fNoSecure && Secure())
   {
-  	CreateObject(RDPR, 0,0, GetController(this));
-  	CreateObject(RDPR, 0,0, GetController(this));
   
     if(pObj)
     {
@@ -92,7 +37,7 @@ func HitObject(object pObj, fNoSecure)
         Sound("BulletHitMetal*.ogg");
         Sparks(30,RGB(255,128));
       }
-      RemoveObject();
+      Trigger();
       return;
     }
     else
@@ -113,6 +58,9 @@ func HitObject(object pObj, fNoSecure)
 
 func Trigger(object pObj)
 {
+	//Rauch erzeugen
+  CastObjects(BGSE,3,10);
+/*
   for(var i = 0; i < 10; i++)
   { var rand = Random(30) - 15;
   	var flame = CreateObject(RDPR, 0,0, GetController(this));
@@ -122,7 +70,7 @@ func Trigger(object pObj)
 
 		SetXDir(xdir, flame);
 		SetYDir(ydir, flame);
-	}
+	}*/
   Sound("ShellExplosion*.ogg");
   Explode(BlastRadius(), this);
 }
@@ -148,39 +96,4 @@ func FxGrenadeTimer(object target, int effect, int time)
     CastObjects(FXU1,2,6);
 
   SetR(Angle (0,0,GetXDir(),GetYDir()));
-}
-
-/* Zerstörung */
-
-func IsBulletTarget(id id)
-{
-  //Kann von anderen Geschossen getroffen werden
-  return true;
-}
-
-func Damage()
-{
-  if(GetDamage() > 10)
-  {
-    //Effekte
-    CastParticles("MetalSplinter",3,80,0,0,45,50,RGB(40,20,20));
-    Sparks(8,RGB(255,128));
-    Sound("BulletHitMetal*.ogg");
-
-    Trigger();
-  }
-}
-
-/* Schaden */
-
-public func OnHit(a, b, pFrom)
-{
-  iLastAttacker = GetController(pFrom);
-  return;
-}
-
-public func OnDmg(int iDmg, int iType)
-{
-  if(iType == DMG_Fire)		return 100;	//Feuer
-  if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
 }
