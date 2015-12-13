@@ -1,2 +1,2 @@
-Flamethrower=Flames
-Auto=Auto
+Grenades=Grenades
+Phosphor=Phosphorous

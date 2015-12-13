@@ -1,2 +1,2 @@
-DE:Flammenwerfer
-US:Flamethrower
+DE:Granatenwerfer
+US:Grenade Launcher
