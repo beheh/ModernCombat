@@ -14,7 +14,7 @@ Rules=NOAM=1;RWDS=1;MCSL=1;NOFF=1;SICD=1
 
 [Player1]
 Wealth=250,0,0,250
-Crew=PCMK=1
+Crew=PCMK=1;HZCK=2
 
 [Player2]
 Wealth=250,0,0,250
