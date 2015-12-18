@@ -858,7 +858,7 @@ public func ChooserFinished()
     aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
   //Sonnenuntergang starten
-  CreateObject(TIM1)->AddEffect("Sunset",this,1,250);
+  CreateObject(TIM1)->AddEffect("Sunset",this,1,150);
 
   //Helikopter und Hinweisschilder
   if(!FindObject(NOHC))
