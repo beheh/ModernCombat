@@ -50,7 +50,7 @@ public func FMData1(int data)
 
   if(data == FM_Slot)		return 1;					//Slot des Feuermodus
 
-  if(data == FM_SpreadAdd)	return 60;					//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_SpreadAdd)	return 55;					//Bei jedem Schuss hinzuzuaddierende Streuung
   if(data == FM_StartSpread)	return 100;					//Bei Auswahl der Waffe gesetzte Streuung
   if(data == FM_MaxSpread)	return 450;					//Maximaler Streuungswert
 
