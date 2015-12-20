@@ -30,6 +30,10 @@ public func Timer()
   //Bei Wasserkontakt verschwinden
   if(InLiquid())
     RemoveObject();
+    
+  //Bei Rauchkontakt ersticken
+  if(FindObject2(Find_AtPoint(0, 0), Find_ID(SM4K), Find_Func("IsSmoking")))
+  	RemoveObject();
 
   //Laufzeit aufgebraucht: Verschwinden
   if(GetActTime() > iLifeTime)
@@ -61,7 +65,7 @@ public func Timer()
 public func FxSmokingTimer()
 {
   var alpha = BoundBy((GetActTime()-(iLifeTime-BGSE_FadeTime)) * 255 / BGSE_FadeTime, 0, 255);
-  CreateParticle("SmokeGrenadeSmoke", 0, 0, 0, RandomX(-10, +10), GetCon()*10, RGBa(255, 255, 255, alpha));
+  CreateParticle("BurningSmokeGrenadeSmoke", 0, 0, 0, RandomX(-10, +10), GetCon()*10, RGBa(255, 255, 255, alpha));
 }
 
 /* Kontakt */
