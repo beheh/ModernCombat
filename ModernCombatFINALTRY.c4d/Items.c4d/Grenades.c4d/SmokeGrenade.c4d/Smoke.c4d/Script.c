@@ -19,9 +19,6 @@ public func Initialize()
   SetCon(5);
   SetAction("Be");
 
-  //Peilsendereffekte entfernen
-  ScheduleCall(this,"DestroyTracers",35);
-
   //Raucheffekt
   AddEffect("Smoking", this, 25, 4, this);
 }
@@ -44,6 +41,10 @@ public func Timer()
   //Bei Wasserkontakt verschwinden
   if(InLiquid())
     RemoveObject();
+    
+  //Peilsendereffekte entfernen
+  if(GetActTime() >= 35 && GetActTime() <= 70)
+  	DestroyTracers();
 
   //Laufzeit aufgebraucht: Verschwinden
   if(GetActTime() > iLifeTime)

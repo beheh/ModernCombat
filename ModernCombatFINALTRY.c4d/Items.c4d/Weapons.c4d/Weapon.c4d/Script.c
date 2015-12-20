@@ -2127,8 +2127,8 @@ func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
     }
     return;
   }
-  //Nicht oder nicht vorne im Inventar: Tarnung bei Waffe und Clonk entfernen, Clonk vergessen
-  else if(Contents(0, EffectVar(3, pTarget, iEffectNumber)) != pTarget)
+  //Nicht im Inventar: Tarnung bei Waffe und Clonk entfernen, Clonk vergessen
+  else if(Contained(pTarget) != EffectVar(3, pTarget, iEffectNumber))
   {
     EffectVar(0, pTarget, iEffectNumber) = 0;
     SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber));
@@ -2145,8 +2145,8 @@ func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
   var Alpha = EffectVar(0, pTarget, iEffectNumber);
 
-  //Clonk in Bewegung: Tarnung abschwächen
-  if(EffectVar(1, pTarget, iEffectNumber) != GetX(pTarget) || EffectVar(2, pTarget, iEffectNumber) != GetY(pTarget))
+  //Clonk in Bewegung oder Waffe nicht ausgewählt: Tarnung abschwächen
+  if(EffectVar(1, pTarget, iEffectNumber) != GetX(pTarget) || EffectVar(2, pTarget, iEffectNumber) != GetY(pTarget) || Contents(0, EffectVar(3, pTarget, iEffectNumber)) != pTarget)
   {
     EffectVar(1, pTarget, iEffectNumber) = GetX(pTarget);
     EffectVar(2, pTarget, iEffectNumber) = GetY(pTarget);
