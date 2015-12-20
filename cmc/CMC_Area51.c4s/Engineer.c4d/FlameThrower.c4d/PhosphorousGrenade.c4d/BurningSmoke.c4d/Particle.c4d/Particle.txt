@@ -1,5 +1,5 @@
 [Particle]
-Name=SmokeGrenadeSmoke
+Name=BurningSmokeGrenadeSmoke
 MaxCount=1000
 InitFn=StdInit
 ExecFn=StdExec
