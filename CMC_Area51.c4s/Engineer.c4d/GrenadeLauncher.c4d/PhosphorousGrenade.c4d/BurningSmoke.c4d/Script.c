@@ -65,7 +65,7 @@ public func Timer()
 public func FxSmokingTimer()
 {
   var alpha = BoundBy((GetActTime()-(iLifeTime-BGSE_FadeTime)) * 255 / BGSE_FadeTime, 0, 255);
-  CreateParticle("BurningSmokeGrenadeSmoke", 0, 0, 0, RandomX(-10, +10), GetCon()*10, RGBa(255, 255, 255, alpha));
+  CreateParticle("BurningSmoke", 0, 0, 0, RandomX(-10, +10), GetCon()*10, RGBa(255, 255, 255, alpha));
 }
 
 /* Kontakt */

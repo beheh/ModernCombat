@@ -1,2 +1,2 @@
-DE:Granatenwerfer
+DE:Granatwerfer
 US:Grenade Launcher

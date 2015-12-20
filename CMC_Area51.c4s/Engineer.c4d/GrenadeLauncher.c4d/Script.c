@@ -1,4 +1,4 @@
-/*-- Granatenwerfer --*/
+/*-- Granatwerfer --*/
 
 #strict 2
 #include WPN2
