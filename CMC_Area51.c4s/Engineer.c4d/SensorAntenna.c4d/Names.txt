@@ -1,0 +1,2 @@
+DE:Sensorantenne
+US:Sensor antenna

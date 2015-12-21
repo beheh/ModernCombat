@@ -20,7 +20,7 @@ public func SelectionTime()	{return 42;}	//Anwahlzeit
 
 func PermittedAtts()
 {
-  return AT_Laserpointer | AT_Flashlight;
+  return AT_Bayonet | AT_Flashlight;
 }
 
 /* Nahkampfangriff */
@@ -28,8 +28,8 @@ func PermittedAtts()
 public func GetMCData(int data)
 {
   if(data == MC_CanStrike)	return 1;	//Waffe kann Kolbenschlag ausführen
-  if(data == MC_Damage)		return 10;	//Schaden eines Kolbenschlages
-  if(data == MC_Recharge)	return 45;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
+  if(data == MC_Damage)		return 10 + (iAttachment == AT_Bayonet)*5;	//Schaden eines Kolbenschlages
+  if(data == MC_Recharge)	return 45 + (iAttachment == AT_Bayonet)*10;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
   if(data == MC_Power)		return 0;	//Wie weit das Ziel durch Kolbenschläge geschleudert wird
 }
 
@@ -52,6 +52,12 @@ public func FMData1(int data)
   if(data == FM_MaxSpread)	return 100 - (iAttachment == AT_Laserpointer)*50;	//Maximaler Streuungswert
 
   return Default(data);
+}
+
+protected func Initialize()
+{
+	AddEffect("Trajectory", this, 1, 1, this);
+	return inherited();
 }
 
 /* Bolzen - EMP-Bolzen */
@@ -152,12 +158,12 @@ public func LaunchBolt(id idg, int speed, int angle, int mode)
 
 /* Laserpointer */
 
-func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
+func FxTrajectoryTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   //Nutzer festlegen
   var user = this->~GetUser();
   var x, y, z;
-  if(!user || !user->~IsClonk() || !user->WeaponAt(x, y, z) || !user->IsAiming() || Contents(0, user) != this || iAttachment != AT_Laserpointer)
+  if(!user || !user->~IsClonk() || !user->WeaponAt(x, y, z) || !user->IsAiming() || Contents(0, user) != this)
   {
     RemoveTrajectory(pTarget);
     return;
