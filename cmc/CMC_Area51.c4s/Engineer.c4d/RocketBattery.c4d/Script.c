@@ -1,4 +1,4 @@
-/*--- Hardkill-System ---*/
+/*--- Raketenbatterie ---*/
 
 #strict 2
 #include CSTR

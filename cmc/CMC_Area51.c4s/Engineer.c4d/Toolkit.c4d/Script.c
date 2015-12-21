@@ -11,7 +11,7 @@ public func Initialize()
 {
 	if(!EngiPlans)
 	{
-		EngiPlans = [BBWE, HLSM, RTBY];
+		EngiPlans = [BBWE, HLSM, RTBY, SRAA];
 		EngiBuildLimits = [10, 3, 1];
 		EngiStorage = CreateArray(GetLength(EngiPlans));
 	
