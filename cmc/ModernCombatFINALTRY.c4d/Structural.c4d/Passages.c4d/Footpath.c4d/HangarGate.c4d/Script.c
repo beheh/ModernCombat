@@ -1,7 +1,6 @@
 /*--- Hangartor ---*/
 
 #strict 2
-#include CSTR
 
 public func IsMachine()		{return true;}
 
@@ -13,7 +12,7 @@ protected func Initialize()
   SetAction("Stand");
 }
 
-/* ÷ffnen und Schlieﬂen */
+/* Bewegung nach links oder rechts */
 
 protected func ControlLeft()
 {
