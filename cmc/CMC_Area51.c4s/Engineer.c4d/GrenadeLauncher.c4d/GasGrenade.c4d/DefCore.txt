@@ -1,7 +1,7 @@
 [DefCore]
-id=PSHL
+id=GSHL
 Version=4,9,10,7
-Name=Phosphorous Shell
+Name=Gas Shell
 Category=C4D_Object
 Width=3
 Height=5
