@@ -1168,10 +1168,10 @@ func CreateOptionalFeatures()
 
 func FlagCaptured(object pPoint, int iTeam)
 {
-  if(pPoint == aFlag[3])
+  if(pPoint == aFlag[4])
     aSelfDefense[0]->SetTeam(iTeam);
 
-  if(pPoint == aFlag[5])
+  if(pPoint == aFlag[6])
     aSelfDefense[1]->SetTeam(iTeam);
 }
 

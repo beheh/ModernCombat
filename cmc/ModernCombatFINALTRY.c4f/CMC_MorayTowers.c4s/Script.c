@@ -3,7 +3,7 @@
 #strict 2
 #include CSTD
 
-static aFlag,aDoorWay,aSunFlare;
+static aFlag,aSelfDefense,aDoorWay,aSunFlare;
 
 func RecommendedGoals()	{return [GOCC, GBAS];}	//Spielzielempfehlung
 
@@ -16,6 +16,8 @@ func Initialize()
   SetWaitingMusic();
   //Flaggen
   aFlag = [];
+  //Selbstschussanlagen
+  aSelfDefense = [];
   //Türverbindungen
   aDoorWay = [];
   //Sonneneffekte
@@ -749,6 +751,17 @@ func CreateOptionalFeatures()
   CreateObject(BD10,2880,1590,-1);
 }
 
+/* Bei Flaggenübernahme */
+
+func FlagCaptured(object pPoint, int iTeam)
+{
+  if(pPoint == aFlag[1])
+    aSelfDefense[0]->SetTeam(iTeam);
+
+  if(pPoint == aFlag[3])
+    aSelfDefense[1]->SetTeam(iTeam);
+}
+
 /* Bei Relaunch */
  
 public func OnClassSelection(object pClonk, int iTeam)
@@ -921,12 +934,12 @@ public func ChooserFinished()
     aFlag[4]->Set("$Flag5$");
 
     //Selbstschussanlagen
-    var selfdef = CreateObject(SEGU, 1340, 550, -1);
-    selfdef->Set(0,1,1,180,0,1660);
-    selfdef->SetTeam(1);
-    selfdef = CreateObject(SEGU, 3090, 550, -1);
-    selfdef->Set(0,1,1,180,2770,4430);
-    selfdef->SetTeam(2);
+    aSelfDefense[0] = CreateObject(SEGU, 1340, 550, -1);
+    aSelfDefense[0]->Set(0,1,1,180,0,1660);
+    aSelfDefense[0]->SetTeam(1);
+    aSelfDefense[1] = CreateObject(SEGU, 3090, 550, -1);
+    aSelfDefense[1]->Set(0,1,1,180,2770,4430);
+    aSelfDefense[1]->SetTeam(2);
   }
 
   //BAS-Spielziel
@@ -944,12 +957,12 @@ public func ChooserFinished()
     SetupBombSpawnpoint([[2215, 990],[2215,1150]]);
 
     //Selbstschussanlagen
-    var selfdef = CreateObject(SEGU, 1340, 550, -1);
-    selfdef->Set(0,1,1,180,0,1660);
-    selfdef->SetTeam(1);
-    selfdef = CreateObject(SEGU, 3090, 550, -1);
-    selfdef->Set(0,1,1,180,2770,4430);
-    selfdef->SetTeam(2);
+    aSelfDefense[0] = CreateObject(SEGU, 1340, 550, -1);
+    aSelfDefense[0]->Set(0,1,1,180,0,1660);
+    aSelfDefense[0]->SetTeam(1);
+    aSelfDefense[1] = CreateObject(SEGU, 3090, 550, -1);
+    aSelfDefense[1]->Set(0,1,1,180,2770,4430);
+    aSelfDefense[1]->SetTeam(2);
   }
 
   //HTF-Spielziel
@@ -964,13 +977,13 @@ public func ChooserFinished()
     CreateObject(BRDR, 2770, 0, -1)->Set(1,1,0,1,2);
 
     //Selbstschussanlagen
-    var selfdef = CreateObject(SEGU, 1395, 745, -1);
-    selfdef->Set(0,1,1,-130,1350,1660);
-    selfdef->SetTeam(1);
-    selfdef = CreateObject(SEGU, 3035, 745, -1);
-    selfdef->Set(0,1,1,130,2770,3080);
-    selfdef->SetTeam(2);
-    selfdef->SetR(130);
+    aSelfDefense[0] = CreateObject(SEGU, 1395, 745, -1);
+    aSelfDefense[0]->Set(0,1,1,-130,1350,1660);
+    aSelfDefense[0]->SetTeam(1);
+    aSelfDefense[1] = CreateObject(SEGU, 3035, 745, -1);
+    aSelfDefense[1]->Set(0,1,1,130,2770,3080);
+    aSelfDefense[1]->SetTeam(2);
+    aSelfDefense[1]->SetR(130);
 
     //Verbundene Räume
     aDoorWay[00] = CreateObject(GAT3, 1505, 710, -1);
@@ -991,12 +1004,12 @@ public func ChooserFinished()
     {CreateFlag(2,2975,890,GetTeamColor(2));}
 
     //Selbstschussanlagen
-    var selfdef = CreateObject(SEGU, 1340, 550, -1);
-    selfdef->Set(0,1,1,180,0,1660);
-    selfdef->SetTeam(1);
-    selfdef = CreateObject(SEGU, 3090, 550, -1);
-    selfdef->Set(0,1,1,180,2770,4430);
-    selfdef->SetTeam(2);
+    aSelfDefense[0] = CreateObject(SEGU, 1340, 550, -1);
+    aSelfDefense[0]->Set(0,1,1,180,0,1660);
+    aSelfDefense[0]->SetTeam(1);
+    aSelfDefense[1] = CreateObject(SEGU, 3090, 550, -1);
+    aSelfDefense[1]->Set(0,1,1,180,2770,4430);
+    aSelfDefense[1]->SetTeam(2);
   }
 
   //LMS-Spielziel
