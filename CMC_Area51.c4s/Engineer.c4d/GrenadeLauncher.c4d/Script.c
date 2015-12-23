@@ -5,9 +5,10 @@
 
 local casing;
 
-public func HandSize()		{return(1000);}
-public func HandX()		{return(5000);}
-public func HandY()		{return(-2500);}
+public func HandSize()		{return 1000;}
+public func HandX()		{return 2500;}
+public func HandY()		{return -500;}
+public func BarrelYOffset()	{return -3500;}
 public func IsSecondaryWeapon()	{return true;}
 
 public func SelectionTime()	{return 40;}		//Anwahlzeit
@@ -40,7 +41,7 @@ public func FMData1(int data)
   if(data == FM_AmmoID)		return GRAM;		//ID der Munition
   if(data == FM_AmmoLoad)	return 1;		//Magazingröße
 
-  if(data == FM_Reload)		return 140;		//Zeit für Nachladen
+  if(data == FM_Reload)		return 130;		//Zeit für Nachladen
   if(data == FM_Recharge)	return 5;		//Zeit bis erneut geschossen werden kann
 
   if(data == FM_Auto)		return false;		//Kein Automatikfeuer
@@ -67,7 +68,7 @@ public func FMData1T1(int data)
 
 public func Fire1T1()
 {
-  LaunchGrenade(PSHL, 120,Contained()->~AimAngle(0,0,true));
+  LaunchGrenade(GSHL, 120,Contained()->~AimAngle(0,0,true));
 }
 
 public func BotData1(int data)
@@ -132,12 +133,9 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
 
 /* Handeffekt */
 
-public func HandR()
-{
-  var effect = IsReloading();
-  if(effect)
-    return Max(Sin(GetEffect(0,this,effect,6)*90/80,20),0);
-}
+public func ReloadAnimation()		{return true;}
+public func MaxReloadRotation()		{return -30;}
+public func ReloadAnimationSpeed()	{return 2;}
 
 /* Allgemein */
 
