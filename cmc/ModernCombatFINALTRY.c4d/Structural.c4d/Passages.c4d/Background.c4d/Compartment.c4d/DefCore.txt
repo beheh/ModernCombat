@@ -1,6 +1,6 @@
 [DefCore]
 id=GAT3
-Version=4,9,8,2
+Version=4,9,10,7
 Name=Compartment
 Category=C4D_StaticBack
 Width=14
@@ -8,3 +8,5 @@ Height=16
 Offset=-7,-8
 Picture=0,16,64,64
 Entrance=-7,-5,14,16
+Exclusive=1
+ContainBlast=1

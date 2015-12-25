@@ -10,9 +10,7 @@ Vertices=4
 VertexX=-8,-8,8,8
 VertexY=14,-14,14,-14
 VertexFriction=100,100,100,100
-Value=35
-Mass=120
-Components=METL=4
+Mass=100
 SolidMask=12,0,10,30,12,0
 TopFace=19,0,3,30,19,0
 Picture=0,30,19,30
