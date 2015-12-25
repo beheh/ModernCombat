@@ -2,13 +2,11 @@
 id=HA4K
 Version=4,9,10,7
 Name=Hatch
-Category=2
+Category=C4D_Structure
 Width=26
 Height=20
 Offset=-13,-20
-Value=10
 Mass=10
-Components=METL=2;
 Picture=0,20,64,64
 Vertices=2
 VertexY=0,0
@@ -17,4 +15,3 @@ VertexFriction=100,100
 SolidMask=0,0,20,20,3
 TopFace=0,0,20,20,3
 Grab=2
- 

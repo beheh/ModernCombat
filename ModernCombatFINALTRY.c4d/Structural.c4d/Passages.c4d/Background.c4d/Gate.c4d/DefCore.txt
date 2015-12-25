@@ -8,3 +8,5 @@ Height=23
 Offset=-10,-11
 Picture=0,23,64,64
 Entrance=-10,-12,20,23
+Exclusive=1
+ContainBlast=1
