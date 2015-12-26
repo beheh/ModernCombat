@@ -307,6 +307,28 @@ func CreateDecoration()
   CreateObject(RADR, 890, 460, -1);
   CreateObject(RADR, 5940, 460, -1);
 
+  //Lianen
+  SetCon(90, CreateObject(VINE, 3280, 640, -1));
+  SetCon(30, CreateObject(VINE, 3315, 550, -1));
+  SetCon(80, CreateObject(VINE, 3315, 610, -1));
+  SetCon(60, CreateObject(VINE, 3325, 550, -1));
+  SetCon(90, CreateObject(VINE, 3325, 610, -1));
+  SetCon(70, CreateObject(VINE, 3330, 610, -1));
+  SetCon(70, CreateObject(VINE, 3360, 550, -1));
+  SetCon(100, CreateObject(VINE, 3370, 550, -1));
+  SetCon(90, CreateObject(VINE, 3375, 550, -1));
+  SetCon(50, CreateObject(VINE, 3390, 550, -1));
+  SetCon(60, CreateObject(VINE, 3435, 550, -1));
+  SetCon(70, CreateObject(VINE, 3445, 550, -1));
+  SetCon(100, CreateObject(VINE, 3460, 550, -1));
+  SetCon(95, CreateObject(VINE, 3470, 550, -1));
+  SetCon(80, CreateObject(VINE, 3490, 550, -1));
+  SetCon(50, CreateObject(VINE, 3500, 550, -1));
+  SetCon(70, CreateObject(VINE, 3500, 610, -1));
+  SetCon(95, CreateObject(VINE, 3510, 610, -1));
+  SetCon(90, CreateObject(VINE, 3550, 640, -1));
+  SetCon(45, CreateObject(VINE, 3555, 640, -1));
+
   //Büsche
   CreateObject(BSH2, 920, 510, -1)->SetCategory(C4D_StaticBack);
   CreateObject(BSH2, 2650, 670, -1);

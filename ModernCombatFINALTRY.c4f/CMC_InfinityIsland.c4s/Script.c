@@ -418,6 +418,39 @@ func CreateDecoration()
   CreateObject(TRE1, 4280, 615, -1)->SetR(10);
   CreateObject(TRE1, 4630, 925, -1)->SetR(15);
 
+  //Lianen
+  SetCon(100, CreateObject(VINE, 3420, 1180, -1));
+  SetCon(80, CreateObject(VINE, 3450, 1160, -1));
+  SetCon(90, CreateObject(VINE, 3500, 1160, -1));
+  SetCon(90, CreateObject(VINE, 3525, 1040, -1));
+  SetCon(60, CreateObject(VINE, 3540, 1030, -1));
+  SetCon(60, CreateObject(VINE, 3555, 1130, -1));
+  SetCon(100, CreateObject(VINE, 3575, 1150, -1));
+  SetCon(60, CreateObject(VINE, 3585, 1030, -1));
+  SetCon(90, CreateObject(VINE, 3965, 620, -1));
+  SetCon(100, CreateObject(VINE, 3990, 640, -1));
+  SetCon(50, CreateObject(VINE, 4000, 640, -1));
+  SetCon(40, CreateObject(VINE, 4020, 620, -1));
+  SetCon(80, CreateObject(VINE, 4050, 610, -1));
+  SetCon(100, CreateObject(VINE, 4115, 690, -1));
+  SetCon(60, CreateObject(VINE, 4145, 700, -1));
+  SetCon(50, CreateObject(VINE, 4160, 710, -1));
+  SetCon(40, CreateObject(VINE, 4315, 910, -1));
+  SetCon(80, CreateObject(VINE, 4320, 910, -1));
+  SetCon(100, CreateObject(VINE, 4345, 910, -1));
+  SetCon(50, CreateObject(VINE, 4370, 920, -1));
+  SetCon(40, CreateObject(VINE, 4380, 920, -1));
+  SetCon(50, CreateObject(VINE, 4415, 910, -1));
+  SetCon(100, CreateObject(VINE, 4655, 1140, -1));
+  SetCon(90, CreateObject(VINE, 4675, 1130, -1));
+  SetCon(40, CreateObject(VINE, 4700, 1140, -1));
+  SetCon(45, CreateObject(VINE, 4775, 1140, -1));
+  SetCon(90, CreateObject(VINE, 4805, 1140, -1));
+  SetCon(70, CreateObject(VINE, 4825, 1140, -1));
+  SetCon(50, CreateObject(VINE, 5055, 1190, -1));
+  SetCon(40, CreateObject(VINE, 5075, 1200, -1));
+  SetCon(30, CreateObject(VINE, 5085, 1200, -1));
+
   //Büsche
   CreateObject(BSH2, 3430, 990, -1);
   CreateObject(BSH2, 3780, 1080, -1);
