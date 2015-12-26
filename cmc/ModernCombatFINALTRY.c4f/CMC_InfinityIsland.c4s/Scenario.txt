@@ -12,6 +12,7 @@ Definition2=Hazard.c4d
 Definition3=ModernCombatFINALTRY.c4d
 Definition4=Missions.c4f\Pearls.c4s\Wreck.c4d
 Definition5=FarWorlds.c4d\Jungle.c4d\Animals.c4d\Piranha.c4d
+Definition6=FarWorlds.c4d\Jungle.c4d\Vegetation.c4d\Vine.c4d
 
 [Game]
 StructNeedEnergy=0

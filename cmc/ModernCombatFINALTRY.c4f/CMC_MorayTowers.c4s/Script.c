@@ -55,6 +55,12 @@ func CreateInterior()
   DrawMaterialQuad("Wall-Concrete2",1470,860,1480,850,1480,860,1470,870,true);
   DrawMaterialQuad("Wall-Concrete2",2060,1150,2110,1170,2110,1170,2060,1170,true);
   DrawMaterialQuad("Wall-Concrete2",2170,1170,2190,1150,2190,1170,2170,1170,true);
+  DrawMaterialQuad("Wall-Metal2",1880,1230,1960,1220,1960,1230,1880,1230,true);
+  DrawMaterialQuad("Wall-Metal2",2010,1220,2040,1230,2010,1230,2010,1220,true);
+  DrawMaterialQuad("Wall-Metal2",2040,1230,2070,1220,2070,1230,2040,1230,true);
+  DrawMaterialQuad("Wall-Metal2",2360,1220,2390,1230,2360,1230,2360,1220,true);
+  DrawMaterialQuad("Wall-Metal2",2390,1230,2420,1220,2420,1230,2390,1230,true);
+  DrawMaterialQuad("Wall-Metal2",2470,1220,2550,1230,2470,1230,2470,1220,true);
   DrawMaterialQuad("Wall-Concrete2",2240,1150,2260,1170,2260,1170,2240,1170,true);
   DrawMaterialQuad("Wall-Concrete2",2320,1170,2370,1150,2370,1150,2370,1170,true);
   DrawMaterialQuad("Wall-Concrete2",2880,700,2900,720,2890,720,2880,710,true);
@@ -88,8 +94,10 @@ func CreateInterior()
 
   CreateObject(LADR, 2095, 1110, -1)->Set(3);
   CreateObject(LADR, 2155, 1045, -1)->Set(6);
+  CreateObject(LADR, 2160, 1218, -1)->Set(5);
   CreateObject(LADR, 2180, 1150, -1)->Set(8);
   CreateObject(LADR, 2250, 1150, -1)->Set(8);
+  CreateObject(LADR, 2270, 1218, -1)->Set(5);
   CreateObject(LADR, 2275, 1045, -1)->Set(6);
   CreateObject(LADR, 2335, 1110, -1)->Set(3);
 
@@ -111,6 +119,8 @@ func CreateInterior()
   CreateObject(HA4K, 1110, 493, -1);
   CreateObject(HA4K, 1150, 543, -1);
   CreateObject(HA4K, 1390, 1003, -1);
+  CreateObject(HA4K, 2160, 1173, -1);
+  CreateObject(HA4K, 2270, 1173, -1);
   CreateObject(HA4K, 3040, 1003, -1);
   CreateObject(HA4K, 3280, 543, -1);
   CreateObject(HA4K, 3320, 493, -1);
@@ -121,10 +131,8 @@ func CreateInterior()
   CreateObject(H24K, 1345, 728, -1);
   CreateObject(H24K, 1605, 768, -1);
   CreateObject(H24K, 1605, 1038, -1);
-
   CreateObject(H24K, 2155, 998, -1);
   CreateObject(H24K, 2275, 998, -1);
-
   CreateObject(H24K, 2825, 1038, -1);
   CreateObject(H24K, 2825, 768, -1);
   CreateObject(H24K, 3085, 728, -1);
@@ -200,6 +208,7 @@ func CreateInterior()
   bridge->SwitchMode();
   bridge->DoDmg(151);
   CreateObject(_HBR, 1925, 1192, -1)->SwitchMode();
+  CreateObject(_HBR, 2215, 1232, -1)->SwitchMode();
   CreateObject(_HBR, 2505, 1192, -1)->SwitchMode();
   bridge = CreateObject(_HBR, 2885, 1142, -1);
   bridge->SwitchMode();
@@ -227,6 +236,7 @@ func CreateInterior()
   //Metallkisten
   CreateObject(MWCR, 1340, 1190, -1)->AutoRespawn();
   CreateObject(MWCR, 1960, 1080, -1)->AutoRespawn();
+  CreateObject(MWCR, 2215, 1220, -1);
   CreateObject(MWCR, 2470, 1080, -1)->AutoRespawn();
   CreateObject(MWCR, 3090, 1190, -1)->AutoRespawn();
 
@@ -234,6 +244,8 @@ func CreateInterior()
   CreateObject(BECR, 1170, 490, -1)->AutoRespawn();
   CreateObject(BECR, 1535, 930, -1)->AutoRespawn();
   CreateObject(BECR, 1640, 1180, -1)->AutoRespawn();
+  CreateObject(BECR, 1870, 1230, -1)->AutoRespawn();
+  CreateObject(BECR, 2560, 1230, -1)->AutoRespawn();
   CreateObject(BECR, 2790, 1180, -1)->AutoRespawn();
   CreateObject(BECR, 2895, 930, -1)->AutoRespawn();
   CreateObject(BECR, 3260, 490, -1)->AutoRespawn();
@@ -403,16 +415,14 @@ func CreateDecoration()
   CreateObject(TCCN, 1060, 630, -1);
   CreateObject(TCCN, 1270, 630, -1);
   CreateObject(TCCN, 1490, 760, -1);
-
   CreateObject(TCCN, 2120, 1080, -1);
   CreateObject(TCCN, 2140, 1080, -1);
-  CreateObject(TCCN, 2150, 1170, -1);
+  CreateObject(TCCN, 2140, 1170, -1);
   CreateObject(TCCN, 2160, 1080, -1);
   CreateObject(TCCN, 2180, 990, -1);
-
   CreateObject(TCCN, 2250, 990, -1);
   CreateObject(TCCN, 2270, 1080, -1);
-  CreateObject(TCCN, 2280, 1170, -1);
+  CreateObject(TCCN, 2290, 1170, -1);
   CreateObject(TCCN, 2290, 1080, -1);
   CreateObject(TCCN, 2310, 1080, -1);
 
@@ -466,10 +476,13 @@ func CreateDecoration()
   CreateObject(GTBL, 1135, 760, -1);
   CreateObject(GTBL, 3295, 760, -1);
 
+  //Deckenlichter
+  CreateObject(CLGH, 2140, 1185, -1);
+  CreateObject(CLGH, 2290, 1185, -1);
+
   //Wandlampen
   CreateObject(BLGH, 1285, 860, -1);
   CreateObject(BLGH, 1605, 910, -1);
-
   CreateObject(BLGH, 2825, 910, -1);
   CreateObject(BLGH, 3145, 860, -1);
 
