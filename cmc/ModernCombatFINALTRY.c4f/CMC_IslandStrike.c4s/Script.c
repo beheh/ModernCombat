@@ -924,11 +924,9 @@ public func ChooserFinished()
     //SSA anschalten
     aSelfDefense[3]->TurnOn();
 
-    //Helikopter und Hinweisschilder
+    //Hinweisschilder
     if(!FindObject(NOHC))
     {
-      SetupVehicleSpawn([APCE],DIR_Left,CreateObject(VSPW,4730,390,-1),50*21);
-
       sign = CreateObject(SGNP, 4810, 420, -1);
       sign->SetMode(1);
       sign->Set("Helicopter");
@@ -1205,6 +1203,10 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
 
     //Teamgrenze setzen
     FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),3820,0,1,1);
+
+    //Helikopter
+    if(!FindObject(NOHC))
+      SetupVehicleSpawn([APCE],DIR_Left,CreateObject(VSPW,4730,390,-1),50*21);
 
     //Geschützstellung entfernen
     aStationary[0]->DecoExplode(30);
