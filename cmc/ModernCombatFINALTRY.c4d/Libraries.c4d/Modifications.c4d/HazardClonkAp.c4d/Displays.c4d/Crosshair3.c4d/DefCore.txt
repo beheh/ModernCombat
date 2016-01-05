@@ -2,7 +2,7 @@
 id=ACRH
 Version=4,9,10,7
 Name=Artillery Crosshair
-Category=C4D_StaticBack | C4D_IgnoreFoW | C4D_Foreground
+Category=C4D_StaticBack|C4D_Foreground|C4D_MouseIgnore|C4D_IgnoreFoW
 Width=25
 Height=25
 Offset=-12,-12
