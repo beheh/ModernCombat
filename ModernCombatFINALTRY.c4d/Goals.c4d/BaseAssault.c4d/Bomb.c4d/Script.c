@@ -96,7 +96,7 @@ public func FxBaseAssaultBombStart(object pTarget, int iNr)
 {
   //Grafik setzen
   var bar = CreateObject(SBAR, 0, 0, -1);
-  bar->Set(pTarget, 0, BAR_BASBombBar, 100, 0, SM24, 0, 11000, true);
+  bar->Set(pTarget, 0, BAR_BASBombBar, 100, 0, SM24, 0, 11000, true, true);
   bar->Update(0, true, true);
   bar->SetIcon(0, SM24, 0, 11000, 32);
   bar->PositionToVertex(0, true);
