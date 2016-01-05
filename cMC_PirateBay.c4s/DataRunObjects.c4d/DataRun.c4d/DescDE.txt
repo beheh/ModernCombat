@@ -1,0 +1,3 @@
+Das Ziel ist das Sichern und Aufheben eines Computers, mit dem eine bestimmte Menge an Daten von neutralen Sendeanlagen heruntergeladen werden müssen. Sendeanlagen verfügen nur über limitierte Datensätze, sodass deren Festplatten nach einer Ausbeutung für längere Zeit leer sind, bis neue Datensätze zum Download verfügbar werden.
+
+Sterbende Clonks verlieren einen Teil der gesammelten Daten und lassen sie in Form von Datenträgern liegen.
