@@ -1,0 +1,18 @@
+[DefCore]
+id=DASE
+Version=4,9,10,7
+Name=Data Medium
+Category=C4D_Vehicle
+Width=20
+Height=8
+Offset=-10,-4
+Value=50
+Mass=40
+Picture=20,0,90,76
+Vertices=6
+VertexX=10,-10,0,0,10,-10
+VertexY=4,4,4,-4,-4,-4
+VertexFriction=80,80,80,80,80,80
+Collectible=1
+Float=1
+Rotate=1
