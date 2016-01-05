@@ -12,7 +12,7 @@ protected func Collected(pClonk)
   EventInfo4K(0, Format("$HasTheFlag$", GetTaggedPlayerName(GetOwner(pClonk)), GetTeamColor(team), GetTeamName(team)), FLA2, 0, GetTeamColor(team), 0, "Info_Event.ogg");
   SetAction("Attach", pClonk);
 
-	carrier = pClonk;
+  carrier = pClonk;
   cteam = GetPlayerTeam(GetOwner(pClonk));
 
   //game call: FlagCaptured(flagTeam, captureTeam, clonk)
@@ -51,7 +51,7 @@ public func DropFlag()
     RemoveObject();
     return;
   }
-  
+
   carrier = 0;
   //Spieler verliert Flagge
   EventInfo4K(0, Format("$FlagLost$", GetTeamColor(team), GetTeamName(team)), FLA2, 0, GetTeamColor(team), 0, "Info_Event.ogg");
