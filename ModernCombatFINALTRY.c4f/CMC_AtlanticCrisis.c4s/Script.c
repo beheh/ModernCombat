@@ -331,9 +331,6 @@ func CreateDecoration()
 {
   Log("$CreatingDecoration$");
 
-  //Radio
-  CreateObject(RDIO, 2930, 511, -1);
-
   //Orientierungslichter
   CreateObject(OLGH, 1645, 400, -1)->Set(4, 15, 1, 1, 40);
   CreateObject(OLGH, 2410, 420, -1)->Set(35, 5, 1, 1, 20);

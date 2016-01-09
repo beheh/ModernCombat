@@ -336,9 +336,6 @@ func CreateDecoration()
   CreateObject(SNSE, 4910, 1170, -1)->SetColorDw(HSL(40, 210, 100, 127));
   CreateObject(SNSE, 5280, 1260, -1)->SetColorDw(HSL(40, 210, 100, 127));
 
-  //Radio
-  CreateObject(RDIO, 1460, 980, -1);
-
   //Labortische
   CreateObject(LTBL, 1450, 1110, -1);
   CreateObject(LTBL, 1620, 1110, -1);

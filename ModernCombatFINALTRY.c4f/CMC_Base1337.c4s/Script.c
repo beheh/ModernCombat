@@ -344,9 +344,6 @@ func CreateDecoration()
   //Denkmal
   CreateObject(MUMT, 4035, 540, -1);
 
-  //Radio
-  CreateObject(RDIO, 4075, 1111, -1);
-
   //Leitkegel
   CreateObject(TCCN, 2830, 960, -1);
   CreateObject(TCCN, 2860, 960, -1);

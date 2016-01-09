@@ -534,9 +534,6 @@ func CreateDecoration()
   CreateObject(SNSE, 1085, 320, -1);
   CreateObject(SNSE, 1285, 320, -1)->SetColorDw(HSL(145, 210, 100, 127));
 
-  //Radio
-  CreateObject(RDIO, 720, 1640, -1);
-
   //Räume
   CreateObject(ROM2, 1170, 2230, -1);
   CreateObject(ROM2, 1200, 2230, -1);
