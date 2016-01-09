@@ -429,9 +429,6 @@ func CreateDecoration()
   //Denkmal
   CreateObject(MUMT, 3160, 400, -1);
 
-  //Radio
-  CreateObject(RDIO, 4300, 570, -1);
-
   //Rohre
   CreateObject(PIPL, 2730, 465, -1)->Up()->Right()->Right()->Right()->Right();
   CreateObject(PIPL, 2685, 465, -1)->Up()->Right();

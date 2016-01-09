@@ -139,9 +139,6 @@ func CreateDecoration()
 {
   Log("$CreatingDecoration$");
 
-  //Radio
-  CreateObject(RDIO, 390, 290, -1);
-
   //Verbrannte Hochöfen
   CreateObject(FNDB, 1010, 790, -1)->SetR(-2);
   CreateObject(FNDB, 1100, 750, -1)->SetR(2);

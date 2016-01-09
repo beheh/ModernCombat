@@ -349,10 +349,6 @@ func CreateDecoration()
   CreateObject(OLGH, 2395, 250, -1)->Set(6, 15, 1, 1, 40);
   CreateObject(OLGH, 2640, 1490, -1)->Set(6, 15, 1, 1, 40);
 
-  //Radios
-  CreateObject(RDIO, 680, 440, -1);
-  CreateObject(RDIO, 2400, 440, -1);
-
   //Leitkegel
   CreateObject(TCCN, 1295, 940, -1);
   CreateObject(TCCN, 1375, 940, -1);
