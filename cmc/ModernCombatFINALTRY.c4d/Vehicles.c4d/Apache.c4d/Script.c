@@ -48,9 +48,6 @@ protected func Initialize()
   //Scheinwerfer einrichten
   pSpotlight = [0];
 
-  //Zufälligen Song anwählen
-  iRadioTrack = Random(RDIO_TrackCount)+1;
-
   //Rotorgeschwindigkeit
   iRotorSpeed = 0;
 
@@ -387,7 +384,7 @@ protected func ContainedThrow(object ByObj)
     if(RocketPodsReady())
     {
       overlay = ring->AddLeftItem("$RocketLauncher$", "FireRockets", ByObj, SMIN);
-      SetGraphics("12", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
+      SetGraphics("10", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
     }
 
     //HUD ein- oder ausblenden
@@ -397,10 +394,6 @@ protected func ContainedThrow(object ByObj)
     //Scheinwerfer ein- oder ausschalten
     overlay = ring->AddDownItem("$Spotlight$", "SwitchSpotlights", ByObj, SMIN);
     SetGraphics("9", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
-
-    //Radio ein- oder ausschalten
-    overlay = ring->AddUpItem("$Radio$", "SwitchRadio", ByObj, SMIN);
-    SetGraphics("10", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
 
     return Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(ByObj) + 1);
   }

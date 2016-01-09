@@ -8,7 +8,6 @@ local throttle, rotation, hud;
 local pMGStation, pRocketStation;
 local smokereload, flarereload;
 local fShowSpotlight, pSpotlight;
-local fRadioPlaying, iRadioTrack;
 local iWarningSound;
 local iRotorSpeed;
 local pEntrance;
@@ -33,11 +32,9 @@ static const BKHK_Seat_Gunner = 2;
 static const BKHK_Seat_Coordinator = 3;
 static const BKHK_Seat_Passenger1 = 4;
 static const BKHK_Seat_Passenger2 = 5;
-static const RDIO_TrackCount = 8;
 
 /* Callbacks */
 
-protected func IsRadio()		{return true;}
 public func IsMachine()			{return true;}
 public func MaxDamage()			{return 200;}
 public func IsThreat()			{return true;}
@@ -105,9 +102,6 @@ protected func Initialize()
 
   //Scheinwerfer einrichten
   pSpotlight = [0];
-
-  //Zufälligen Song anwählen
-  iRadioTrack = Random(RDIO_TrackCount)+1;
 
   //Rotorgeschwindigkeit
   iRotorSpeed = 0;
@@ -852,10 +846,6 @@ protected func ContainedThrow(object ByObj)
     overlay = ring->AddDownItem("$Spotlight$", "SwitchSpotlights", ByObj, SMIN);
     SetGraphics("9", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
 
-    //Radio ein- oder ausschalten
-    overlay = ring->AddUpItem("$Radio$", "SwitchRadio", ByObj, SMIN);
-    SetGraphics("10", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
-
     return Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(ByObj) + 1);
   }
 
@@ -1020,47 +1010,6 @@ public func RemoveSpotlights()
     RemoveObject(pSpotlight[0]);
 
   return true;
-}
-
-/* Radio (de)aktivieren */
-
-protected func StopSong(int iPlr)
-{
-  Sound("RadioMusicTitle_O0*.ogg", false, this, 0, iPlr, -1);
-}
-
-protected func StartSong(int iPlrPlusOne)
-{
-  if(IsPlaying())
-    Sound(Format("RadioMusicTitle_O0%d.ogg",iRadioTrack), false, this, 0, iPlrPlusOne, 1);
-}
-
-public func SwitchRadio()
-{
-  if(IsPlaying())
-  {
-    Sound("RadioMusicTitle_O0*.ogg", false, this, 0, 0, -1);
-    iRadioTrack = iRadioTrack % RDIO_TrackCount + 1;
-
-    fRadioPlaying = false;
-  }
-  else
-  {
-    for(var i = 0; i < GetPlayerCount(); i++)
-    {
-      if(!GetPlrExtraData(i, "CMC_RadioMusicMode"))
-        Sound(Format("RadioMusicTitle_O0%d.ogg",iRadioTrack), false, this, 0, i+1, 1);
-    }
-    fRadioPlaying = true;
-  }
-
-  //Sound
-  Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(GetPilot()) + 1);
-}
-
-public func IsPlaying()
-{
-  return fRadioPlaying;
 }
 
 /* Schützen-/Koordinator-Steuerung */
