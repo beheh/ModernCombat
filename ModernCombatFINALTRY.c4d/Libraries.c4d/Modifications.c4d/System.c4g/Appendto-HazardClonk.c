@@ -932,12 +932,6 @@ protected func ContextSettings(object pCaller)
   else
     AddMenuItem("$CtxShorterDMOff$", Format("SwitchDeathMenuMode(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller, 0, 0, "$CtxShorterDMDesc$");
 
-  //Radiomusik
-  if(pCaller->RadioMusicAct())
-    AddMenuItem("$CtxRadioMusicOn$", Format("SwitchRadioMusicMode(Object(%d))", ObjectNumber(pCaller)), RDIO, pCaller, 0, 0, "$CtxRadioMusicDesc$");
-  else
-    AddMenuItem("$CtxRadioMusicOff$", Format("SwitchRadioMusicMode(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller, 0, 0, "$CtxRadioMusicDesc$");
-
   //Spielerdaten zurücksetzen
   AddMenuItem("$CtxResetData$", "ContextResetData", RWDS, pCaller, 0, 0, "$CtxResetDataDesc$");
 
@@ -954,28 +948,12 @@ public func SwitchInventoryLockMode(object pCaller)
 }
 
 public func ShorterDeathMenu()	{return GetPlrExtraData(GetOwner(), "CMC_DeathMenuMode");}
-public func RadioMusicAct()	{return !GetPlrExtraData(GetOwner(), "CMC_RadioMusicMode");}	//CMC_RadioMusicMode = Wenn 0: an, wenn 1: aus
 public func BetterAiming()	{return !GetPlrExtraData(GetOwner(), "CMC_NoBetterAiming");}
 
 public func SwitchDeathMenuMode(object pCaller)
 {
   SetPlrExtraData(GetOwner(), "CMC_DeathMenuMode", !ShorterDeathMenu());
   Sound("Click", 1, 0,0, GetOwner()+1);
-  ContextSettings(pCaller);
-}
-
-public func SwitchRadioMusicMode(object pCaller)
-{
-  SetPlrExtraData(GetOwner(), "CMC_RadioMusicMode", RadioMusicAct());
-  Sound("Click", 1, 0,0, GetOwner()+1);
-  if(!RadioMusicAct())
-  {
-    for(var radio in FindObjects(Find_Func("IsRadio")))
-      radio->StopSong(GetOwner()+1);
-  }
-  else
-    for(var radio in FindObjects(Find_Func("IsRadio")))
-      radio->StartSong(GetOwner()+1);
   ContextSettings(pCaller);
 }
 
@@ -1075,20 +1053,9 @@ global func ResetSettings(int iPlr)
   //Standardwerte wiederherstellen
   SetPlrExtraData(iPlr, "CMC_InvLockMode", 0);
   SetPlrExtraData(iPlr, "CMC_DeathMenuMode", 0);
-  SetPlrExtraData(iPlr, "CMC_RadioMusicMode", 0);
   SetPlrExtraData(iPlr, "CMC_QuickInv", 0);
   SetPlrExtraData(iPlr, "Hazard_NoHelpMsg", 0);
   SetPlrExtraData(iPlr, "CMC_NoBetterAiming", 1);
-
-  //Radiomusik entsprechend (de)aktivieren
-  if(GetPlrExtraData(iPlr, "CMC_RadioMusicMode"))
-  {
-    for(var radio in FindObjects(Find_Func("IsRadio")))
-      radio->StopSong(iPlr+1);
-  }
-  else
-    for(var radio in FindObjects(Find_Func("IsRadio")))
-      radio->StartSong(iPlr+1);
 }
 
 /* Ausrüstung ablegen */
@@ -1333,7 +1300,7 @@ public func QuickInventory(int iMenu, int iPage)
         }
         else
         {
-          pRing->Add(i, GetName(0, idItem), "QuickInventory", iDisplayMenu, idItem, 0, SMIN, "11");
+          pRing->Add(i, GetName(0, idItem), "QuickInventory", iDisplayMenu, idItem, 0, SMIN, "0");
         }
       }
     }

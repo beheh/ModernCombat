@@ -31,5 +31,4 @@ Flares=Flare Drop
 Smoke=Smokescreen
 HUD=Fade HUD in/out
 Spotlight=Spotlight
-Radio=Radio
 PilotRequired=Pilot required!

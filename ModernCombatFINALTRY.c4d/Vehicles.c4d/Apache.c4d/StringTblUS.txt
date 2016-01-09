@@ -24,5 +24,4 @@ GunnerDesc=Take control over the outside automatic cannon.
 Flares=Flare Drop
 HUD=Fade HUD in/out
 Spotlight=Spotlight
-Radio=Radio
 RocketLauncher=Rocket Launcher

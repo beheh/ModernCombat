@@ -31,5 +31,4 @@ Flares=Flareabwurf
 Smoke=Rauchwand
 HUD=HUD ein-ausblenden
 Spotlight=Scheinwerfer
-Radio=Radio
 PilotRequired=Pilot erforderlich!

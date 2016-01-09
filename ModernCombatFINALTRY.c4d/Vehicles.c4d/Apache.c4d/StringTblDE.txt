@@ -24,5 +24,4 @@ GunnerDesc=Übernehme die Kontrolle über die außen angebrachte Maschinenkanone.
 Flares=Flareabwurf
 HUD=HUD ein-ausblenden
 Spotlight=Scheinwerfer
-Radio=Radio
 RocketLauncher=Raketenwerfer
