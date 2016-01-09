@@ -365,12 +365,12 @@ func CreateEquipment()
 
   //Kugeln
   PlaceSpawnpoint(ABOX, 1260, 715);
-  PlaceSpawnpoint(ABOX, 2130, 1165);
+  PlaceSpawnpoint(ABOX, 2130, 1215);
   PlaceSpawnpoint(ABOX, 3170, 715);
 
   //Gewehrgranaten
   PlaceSpawnpoint(GBOX, 1480, 885);
-  PlaceSpawnpoint(GBOX, 2300, 1165);
+  PlaceSpawnpoint(GBOX, 2300, 1215);
   PlaceSpawnpoint(GBOX, 2950, 885);
 
   //Raketen
