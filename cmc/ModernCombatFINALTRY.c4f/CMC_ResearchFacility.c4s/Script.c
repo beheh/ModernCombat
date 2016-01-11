@@ -54,6 +54,7 @@ func CreateInterior()
   DrawMaterialQuad("BackWall-Grid1",1520,1899,1542,1899,1542,1901,1520,1901,true);
   DrawMaterialQuad("Wall-Concrete3",1991,1110,1991,1100,1961,1110,1991,1110,true);
   DrawMaterialQuad("Wall-Stripes",2021,820,2021,810,2091,820,2021,820,true);
+  DrawMaterialQuad("Wall-Concrete2",2640,1270,2670,1290,2640,1290,2640,1270,true);
 
   //Leitern
   CreateObject(LADR, 230, 694, -1)->Set(27);
@@ -71,6 +72,7 @@ func CreateInterior()
   CreateObject(LADR, 840, 534, -1)->Set(37);
   CreateObject(LADR, 870, 984, -1)->Set(7);
   CreateObject(LADR, 1020, 522, -1)->Set(13);
+  CreateObject(LADR, 1050, 278, -1)->Set(5);
   CreateObject(LADR, 1105, 133, -1)->Set(6);
   CreateObject(LADR, 1110, 988, -1)->Set(50);
   CreateObject(LADR, 1020, 1750, -1)->Set(49);
@@ -105,13 +107,12 @@ func CreateInterior()
   CreateObject(LADR, 2730, 1530, -1)->Set(28);
   CreateObject(LADR, 2880, 886, -1)->Set(76);
   CreateObject(LADR, 2935, 881, -1)->Set(4);
-  CreateObject(LADR, 2960, 1530, -1)->Set(28);
   CreateObject(LADR, 2995, 1089, -1)->Set(30);
   CreateObject(LADR, 3200, 1065, -1)->Set(27);
   CreateObject(LADR, 3065, 881, -1)->Set(4);
-  CreateObject(LADR, 3150, 1530, -1)->Set(28);
   CreateObject(LADR, 3130, 884, -1)->Set(17);
-  CreateObject(LADR, 3365, 1807, -1)->Set(80);
+  CreateObject(LADR, 3145, 1275, -1)->Set(21);
+  CreateObject(LADR, 3325, 1083, -1)->Set(37);
 
   //Stahlbrücken
   CreateObject(_HBR, 635, 1792, -1)->SwitchMode();
@@ -133,6 +134,7 @@ func CreateInterior()
   CreateObject(HA4K, 870, 923, -1);
   CreateObject(HA4K, 1020, 413, -1);
   CreateObject(HA4K, 1020, 1563, -1);
+  CreateObject(HA4K, 1050, 233, -1);
   CreateObject(HA4K, 1110, 583, -1);
   aDoor[02] = CreateObject(HA4K, 1110, 713, -1);
   CreateObject(HA4K, 1110, 803, -1);
@@ -163,6 +165,7 @@ func CreateInterior()
   CreateObject(HA4K, 2880, 743, -1);
   CreateObject(HA4K, 3130, 743, -1);
   CreateObject(HA4K, 3220, 563, -1);
+  aDoor[12] = CreateObject(HA4K, 1020, 1663, -1);
 
   //Große Bodenluken
   CreateObject(H24K, 325, 928, -1);
@@ -173,7 +176,10 @@ func CreateInterior()
   CreateObject(H24K, 1565, 1568, -1);
   CreateObject(H24K, 1565, 1748, -1);
   CreateObject(H24K, 2575, 618, -1);
-  aDoor[09] = CreateObject(H24K, 3365, 1168, -1);
+  CreateObject(H24K, 3325, 788, -1);
+  CreateObject(H24K, 3325, 918, -1);
+  CreateObject(H24K, 3365, 1168, -1)->Lock();
+  aDoor[11] = CreateObject(H24K, 3145, 1108, -1);
 
   //Glasscheiben
   CreateObject(PANE, 712, 490, -1);
@@ -227,7 +233,10 @@ func CreateInterior()
   CreateObject(PANE, 2862, 837, -1);
 
   //Fenster
-  CreateObject(WNDW, 1075, 171, -1)->Set();
+  var window = CreateObject(WNDW, 1075, 171, -1);
+  window->Set();
+  window->DoDmg(100);
+  window->AddSmokeEffect4K(50,-15,-25,true,this);
   CreateObject(WNDW, 1335, 191, -1)->Set(1);
   CreateObject(WNDW, 1355, 1381, -1)->Set(1);
   CreateObject(WNDW, 1395, 291, -1)->Set(1);
@@ -258,13 +267,13 @@ func CreateInterior()
   CreateObject(GDDR, 1265, 520, -1)->SetColorDw(HSL(145, 210, 100, 127));
   CreateObject(GDDR, 1270, 290, -1)->SetColorDw(HSL(145, 210, 100, 127));
   CreateObject(GDDR, 2755, 140, -1)->Lock();
+  CreateObject(GDDR, 3220, 910, -1)->SetColorDw(HSL(0, 0, 100));
   CreateObject(GDDR, 3220, 1100, -1)->SetColorDw(HSL(0, 0, 100));
 
   //Gitter
   CreateObject(GTNG, 1135, 710, -1);
   CreateObject(GTNG, 1135, 800, -1);
   CreateObject(GTNG, 1135, 890, -1);
-  CreateObject(GTNG, 1263, 610, -1);
   CreateObject(GTNG, 1270, 230, -1);
   CreateObject(GTNG, 1290, 1280, -1);
   CreateObject(GTNG, 1347, 610, -1);
@@ -279,6 +288,8 @@ func CreateInterior()
   CreateObject(GTNG, 2307, 1020, -1);
   CreateObject(GTNG, 2327, 610, -1);
   CreateObject(GTNG, 2383, 610, -1);
+  CreateObject(GTNG, 2455, 1270, -1);
+  CreateObject(GTNG, 2635, 1270, -1);
   CreateObject(GTNG, 2777, 550, -1);
   CreateObject(GTNG, 2777, 610, -1);
   CreateObject(GTNG, 2913, 550, -1);
@@ -317,6 +328,8 @@ func CreateInterior()
   CreateObject(TBRL, 2420, 1230, -1)->AutoRespawn();
 
   //Gasflaschen
+  CreateObject(GSBL, 365, 230, -1);
+  CreateObject(GSBL, 365, 435, -1)->SetR(90);
   CreateObject(GSBL, 460, 1110, -1)->AutoRespawn();
   CreateObject(GSBL, 630, 1190, -1)->AutoRespawn();
   CreateObject(GSBL, 680, 230, -1)->AutoRespawn();
@@ -337,7 +350,6 @@ func CreateInterior()
   CreateObject(XTNK, 1930, 1110, -1)->AutoRespawn();
 
   //Container
-  CreateObject(CON1, 1160, 1633, -1)->SetPerspective(3);
   CreateObject(CON1, 1160, 1661, -1)->SetPerspective(3);
   CreateObject(CON1, 1160, 1741, -1);
   CreateObject(CON1, 1440, 1871, -1)->SetPerspective(3);
@@ -353,9 +365,11 @@ func CreateInterior()
   CreateObject(CON1, 2105, 1100, -1);
   CreateObject(CON1, 2935, 1100, -1);
   CreateObject(CON1, 2935, 1073, -1)->SetPerspective(2);
+  CreateObject(CON1, 3316, 1160, -1)->SetPerspective(2);
 
   //Explosive Kisten
   CreateObject(XWCR, 640, 740, -1)->AutoRespawn();
+  CreateObject(XWCR, 970, 410, -1)->AutoRespawn();
   CreateObject(XWCR, 1030, 1780, -1)->AutoRespawn();
   CreateObject(XWCR, 1055, 180, -1);
   CreateObject(XWCR, 1340, 1560, -1)->AutoRespawn();
@@ -380,9 +394,8 @@ func CreateInterior()
   CreateObject(WCR2, 650, 1190, -1)->AutoRespawn();
   CreateObject(WCR2, 660, 1172, -1);
   CreateObject(WCR2, 670, 1190, -1)->AutoRespawn();
-  CreateObject(WCR2, 970, 410, -1)->AutoRespawn();
   CreateObject(WCR2, 1140, 1560, -1);
-  CreateObject(WCR2, 1280, 610, -1);
+  CreateObject(WCR2, 1310, 610, -1);
   CreateObject(WCR2, 1305, 810, -1);
   CreateObject(WCR2, 1315, 792, -1);
   CreateObject(WCR2, 1325, 810, -1);
@@ -393,22 +406,16 @@ func CreateInterior()
   CreateObject(WCR2, 1390, 1010, -1)->AutoRespawn();
   CreateObject(WCR2, 1410, 820, -1)->AutoRespawn();
   CreateObject(WCR2, 1410, 1010, -1);
-  CreateObject(WCR2, 1420, 992, -1);
   CreateObject(WCR2, 1430, 1010, -1);
   CreateObject(WCR2, 1520, 1660, -1)->AutoRespawn();
   CreateObject(WCR2, 1600, 1310, -1)->AutoRespawn();
   CreateObject(WCR2, 1765, 1840, -1);
   CreateObject(WCR2, 2070, 910, -1)->AutoRespawn();
-  CreateObject(WCR2, 2070, 1020, -1);
   CreateObject(WCR2, 2075, 892, -1);
-  CreateObject(WCR2, 2090, 1072, -1);
   CreateObject(WCR2, 2110, 1072, -1);
   CreateObject(WCR2, 2120, 820, -1)->AutoRespawn();
-  CreateObject(WCR2, 2140, 1820, -1);
-  CreateObject(WCR2, 2160, 1820, -1);
   CreateObject(WCR2, 2170, 1050, -1);
   CreateObject(WCR2, 2220, 1560, -1);
-  CreateObject(WCR2, 2230, 1820, -1);
   CreateObject(WCR2, 2240, 1523, -1);
   CreateObject(WCR2, 2240, 1542, -1);
   CreateObject(WCR2, 2240, 1560, -1);
@@ -441,6 +448,7 @@ func CreateInterior()
   CreateObject(MWCR, 3040, 1082, -1);
   CreateObject(MWCR, 3040, 1100, -1);
   CreateObject(MWCR, 3094, 1100, -1);
+  CreateObject(MWCR, 3275, 910, -1)->AutoRespawn();
 
   //Verbandskisten
   CreateObject(BECR, 350, 920, -1)->AutoRespawn();
@@ -448,13 +456,13 @@ func CreateInterior()
   CreateObject(BECR, 980, 1870, -1)->AutoRespawn();
   CreateObject(BECR, 1200, 1660, -1)->AutoRespawn();
   CreateObject(BECR, 1360, 1110, -1)->AutoRespawn();
-  CreateObject(BECR, 1400, 992, -1);
   CreateObject(BECR, 1600, 1410, -1)->AutoRespawn();
   CreateObject(BECR, 1865, 1840, -1);
   CreateObject(BECR, 2070, 1560, -1)->AutoRespawn();
-  CreateObject(BECR, 2100, 1054, -1);
+  CreateObject(BECR, 2090, 1072, -1);
   CreateObject(BECR, 2750, 910, -1)->AutoRespawn();
   CreateObject(BECR, 3100, 980, -1);
+  CreateObject(BECR, 3480, 910, -1)->AutoRespawn();
 
   //Gerüste
   CreateObject(SFFG, 860, 510, -1)->Set(5);
@@ -580,6 +588,7 @@ func CreateInterior()
   CreateObject(GTBL, 900, 830, -1);
   CreateObject(GTBL, 2640, 910, -1);
   CreateObject(GTBL, 2700, 910, -1);
+  CreateObject(GTBL, 3370, 910, -1);
 
   //Labortisch
   CreateObject(LTBL, 1110, 280, -1);
@@ -660,6 +669,7 @@ func CreateInterior()
   CreateObject(STLH,3150,1257,-1);
   CreateObject(CLGH,3175,1335,-1);
   CreateObject(BLGH,2270,1380,-1);
+  CreateObject(CLGH,3420,865,-1);
 
   //Generator
   var generator = CreateObject(GNRT, 1795, 1890, -1);
@@ -670,9 +680,6 @@ func CreateInterior()
   aDoorWay[22] = CreateObject(GAT3, 250, 465, -1);
   aDoorWay[23] = CreateObject(GAT3, 300, 735, -1);
   aDoorWay[22]->Connect(aDoorWay[23]);
-  aDoorWay[28] = CreateObject(GAT3, 860, 1775, -1);
-  aDoorWay[29] = CreateObject(GAT3, 2390, 1815, -1);
-  aDoorWay[28]->Connect(aDoorWay[29]);
   aDoorWay[00] = CreateObject(GAT3, 380, 1005, -1);
   aDoorWay[01] = CreateObject(GAT3, 480, 1105, -1);
   aDoorWay[00]->Connect(aDoorWay[01]);
@@ -716,21 +723,21 @@ func CreateInterior()
   aDoorWay[26] = CreateObject(GAT1, 2140, 455, -1);
   aDoorWay[27] = CreateObject(GAT3, 2225, 609, -1);
   aDoorWay[26]->Connect(aDoorWay[27]);
+  aDoorWay[28] = CreateObject(GAT1, 860, 1740, -1);
+  aDoorWay[29] = CreateObject(GAT3, 2390, 1815, -1);
+  aDoorWay[28]->Connect(aDoorWay[29]);
   aDoorWay[33] = CreateObject(GAT1, 1795, 1610, -1);
   aDoorWay[34] = CreateObject(GAT3, 2085, 1779, -1);
   aDoorWay[33]->Connect(aDoorWay[34]);
 
   //Stahltore und Konsolen
-  var autod = CreateObject(HNG4, 1440, 540, -1);
-  CreateObject(CONS, 1540, 505, -1)->Set(autod);
-  autod->ControlRight();
-  autod = CreateObject(HNG4, 2080, 540, -1);
-  CreateObject(CONS, 1985, 505, -1)->Set(autod);
-  autod->ControlLeft();
-  autod = CreateObject(HNG4, 1450, 850, -1);
+  aDoorWay[39] = CreateObject(HNG4, 1440, 540, -1);
+  aDoorWay[40] = CreateObject(HNG4, 2080, 540, -1);
+  var autod = CreateObject(HNG4, 1450, 850, -1);
   CreateObject(CONS, 1500, 935, -1)->Set(autod);
   autod = CreateObject(HNG4, 2080, 850, -1);
   CreateObject(CONS, 2020, 905, -1)->Set(autod);
+  aDoorWay[41] = CreateObject(HNG4, 2990, 520, -1);
 
   //Kräne
   CreateObject(CRN1, 1770, 620, -1)->Set(53);
@@ -778,46 +785,6 @@ func CreateEquipment()
 {
   Log("$CreatingEquipment$");
 
-  //Versorgungskisten (Kugeln)
-  CreateObject(AMCT, 525, 230, -1)->Set(ABOX);
-  CreateObject(AMCT, 2645, 270, -1)->Set(ABOX);
-
-  //Versorgungskisten (Dragnin)
-  CreateObject(AMCT, 1110, 280, -1)->Set(DGNN);
-  CreateObject(AMCT, 2870, 910, -1)->Set(DGNN);
-
-  //Versorgungskisten (Handgranaten)
-  CreateObject(AMCT, 1022, 580, -1)->Set(FGRN);
-  CreateObject(AMCT, 365, 830, -1)->Set(FGRN);
-
-  //Versorgungskiste (Phosphorgranaten)
-  CreateObject(AMCT, 870, 1560, -1)->Set(PGRN);
-
-  //Versorgungskisten (Revolver)
-  CreateObject(AMCT, 385, 230, -1)->Set(RVLR);
-  CreateObject(AMCT, 2620, 270, -1)->Set(RVLR);
-
-  //Versorgungskiste (Zünder)
-  CreateObject(AMCT, 415, 1780, -1)->Set(C4PA);
-
-  //Versorgungskiste (APW)
-  CreateObject(AMCT, 1330, 290, -1)->Set(ATWN);
-
-  //Versorgungskiste (Raketen)
-  CreateObject(AMCT, 500, 1290, -1)->Set(MBOX);
-
-  //Kugeln
-  PlaceSpawnpoint(ABOX, 290, 1775);
-  PlaceSpawnpoint(ABOX, 880, 1215);
-
-  //Gewehrgranaten
-  PlaceSpawnpoint(GBOX, 310, 1355);
-  PlaceSpawnpoint(GBOX, 3220, 785);
-
-  //Raketen
-  PlaceSpawnpoint(MBOX, 960, 825);
-  PlaceSpawnpoint(MBOX, 2220, 905);
-
   //Dragninautomaten
   CreateObject(DGND, 1000, 1780, -1);
   CreateObject(DGND, 2190, 1820, -1);
@@ -826,10 +793,6 @@ func CreateEquipment()
 func CreateDecoration()
 {
   Log("$CreatingDecoration$");
-
-  //Radios
-  CreateObject(RDIO, 1080, 280, -1);
-  CreateObject(RDIO, 1845, 1532, -1);
 
   //Leitkegel
   CreateObject(TCCN, 295, 1780, -1);
@@ -1031,6 +994,8 @@ func CreateDecoration()
   CreateObject(PPSK, 1310, 1380, -1);
   CreateObject(PPSK, 1350, 290, -1);
   CreateObject(PPSK, 2255, 1450, -1);
+  CreateObject(PPSK, 3355, 897, -1);
+  CreateObject(PPSK, 3370, 897, -1);
 
   //Regale
   CreateObject(FRAM, 262, 740, -1);
@@ -1078,6 +1043,12 @@ func CreateDecoration()
   CreateObject(VENT, 2790, 1080, -1)->SetClrModulation(RGB(150,150,200));
   CreateObject(VENT, 3120, 1080, -1)->SetClrModulation(RGB(150,150,200));
   CreateObject(VENT, 3220, 560, -1)->SetCon(40);
+  var vent = CreateObject(VENT, 3370, 905, -1);
+  vent->SetClrModulation(RGB(150,150,200));
+  vent->SetCon(30);
+  vent = CreateObject(VENT, 3460, 905, -1);
+  vent->SetClrModulation(RGB(150,150,200));
+  vent->SetCon(30);
 
   //Glasröhren
   CreateObject(GLST, 2760, 1100, -1);
@@ -1313,14 +1284,14 @@ public func ChooserFinished()
     }
 
     aFlag[6] = CreateObject(OFPL,2860,1100,NO_OWNER);
-    aFlag[6] -> AddSpawnPoint(2780,900);
-    aFlag[6] -> AddSpawnPoint(3080,730);
-    aFlag[6] -> AddSpawnPoint(3320,1090);
+    aFlag[6] -> AddSpawnPoint(3290, 775);
+    aFlag[6] -> AddSpawnPoint(3410, 905);
+    aFlag[6] -> AddSpawnPoint(3340, 1095);
     aFlag[6]->Set("$Flag7$");
 
     //Grenzen setzen
     CreateObject(BRDR, 210, 0, -1)->Set(0);
-    CreateObject(BRDR, 3390, 0, -1)->Set(1);
+    CreateObject(BRDR, 3490, 0, -1)->Set(1);
     CreateObject(BRDR, 0, 1970, -1)->Set(3);
 
     //Aufzüge
@@ -1369,6 +1340,10 @@ public func ChooserFinished()
     CreateObject(ATBY,1185,100,-1);
     CreateObject(ATBY,2825,100,-1);
 
+    //Stahltore und Konsolen
+    CreateObject(CONS, 1540, 505, -1)->Set(aDoorWay[39]);
+    CreateObject(CONS, 1985, 505, -1)->Set(aDoorWay[40]);
+
     //Konsolen für Selbstschussanlagen
     CreateObject(CONS, 1485, 1105, -1)->Set(aSelfDefense[0]);
     CreateObject(CONS, 2490, 905, -1)->Set(aSelfDefense[1]);
@@ -1378,9 +1353,30 @@ public func ChooserFinished()
 
     //Geschützstellungen
     CreateObject(GNET, 610, 1010, -1)->Set(SATW,90);
-    CreateObject(GNET, 1060, 230, -1)->Set(0,-90);
+    CreateObject(GNET, 1070, 230, -1)->Set(0,-90);
     CreateObject(GNET, 2580, 1100, -1)->Set(SATW,-90);
     CreateObject(GNET, 2590, 910, -1)->Set(0,-90);
+
+    //Versorgungskisten (Dragnin)
+    CreateObject(AMCT, 1110, 280, -1)->Set(DGNN);
+    CreateObject(AMCT, 2870, 910, -1)->Set(DGNN);
+
+    //Versorgungskisten (Handgranaten)
+    CreateObject(AMCT, 1022, 580, -1)->Set(FGRN);
+    CreateObject(AMCT, 365, 830, -1)->Set(FGRN);
+
+    //Versorgungskiste (Phosphorgranaten)
+    CreateObject(AMCT, 870, 1560, -1)->Set(PGRN);
+
+    //Versorgungskisten (Revolver)
+    CreateObject(AMCT, 385, 230, -1)->Set(RVLR);
+    CreateObject(AMCT, 2620, 270, -1)->Set(RVLR);
+
+    //Versorgungskiste (Zünder)
+    CreateObject(AMCT, 415, 1780, -1)->Set(C4PA);
+
+    //Versorgungskiste (APW)
+    CreateObject(AMCT, 1330, 290, -1)->Set(ATWN);
 
     //Hinweisschilder
     CreateObject(SGNP, 65, 90, -1);
@@ -1401,8 +1397,29 @@ public func ChooserFinished()
     //Zusätzliche Munition
     if(!FindObject(NOAM))
     {
-      //Versorgungskiste (Kugeln)
+
+      //Versorgungskisten (Kugeln)
+      CreateObject(AMCT, 525, 230, -1)->Set(ABOX);
       CreateObject(AMCT, 1770, 1110, -1)->Set(ABOX);
+      CreateObject(AMCT, 2645, 270, -1)->Set(ABOX);
+
+      //Versorgungskiste (Raketen)
+      CreateObject(AMCT, 500, 1290, -1)->Set(MBOX);
+
+      //Kugeln
+      PlaceSpawnpoint(ABOX, 290, 1775);
+      PlaceSpawnpoint(ABOX, 880, 1215);
+      PlaceSpawnpoint(ABOX, 2605, 1525);
+      PlaceSpawnpoint(ABOX, 1830, 1635);
+
+      //Gewehrgranaten
+      PlaceSpawnpoint(GBOX, 310, 1355);
+      PlaceSpawnpoint(GBOX, 1760, 1635);
+      PlaceSpawnpoint(GBOX, 3220, 785);
+
+      //Raketen
+      PlaceSpawnpoint(MBOX, 960, 825);
+      PlaceSpawnpoint(MBOX, 2220, 905);
     }
   }
 
@@ -1410,21 +1427,20 @@ public func ChooserFinished()
   if(FindObject(GASS))
   {
     //Zielobjekte
-    AddAssaultTarget(CCP2, 870, 560, 30*30, 2, "$Target1$", 0, [[[430, 740], [555, 740], [895, 740], [975, 740]], [[370, -200], [570, -200], [870, -200]]]);
+    AddAssaultTarget(CCP2, 870, 560, 30*30, 2, "$Target1$", 0, [[[430, 740], [555, 740], [895, 740], [975, 740]], [[370, -100], [570, -100], [870, -100]]]);
     AddAssaultTarget(CMSN, 470, 830, 30*30, 2, "$Target2$", 1, [[[340, 1110], [445, 1190], [735, 1190]], [[480, 230], [1135, 170], [1310, 290]]]);
     AddAssaultTarget(CCP1, 875, 830, 30*30, 2, "$Target3$", 2, [[[340, 1110], [445, 1190], [735, 1190]], [[480, 230], [1135, 170], [1310, 290]]]);
     AddAssaultTarget(PMP2, 1770, 820, 30*30, 2, "$Target4$", 3, [[[2440, 740], [2440, 910], [2440, 1100]], [[680, 560], [870, 560], [1045, 580]]]);
     AddAssaultTarget(GSTA, 1765, 1063, 30*30, 2, "$Target5$", 4, [[[2440, 740], [2440, 910], [2440, 1100]], [[680, 560], [870, 560], [1045, 580]]]);
-    AddAssaultTarget(CMSN, 2780, 910, 30*30, 2, "$Target2$", 5, [[[2575, 140], [2680, 270], [2785, 100]], [[1370, 820], [1480, 940], [1510, 1010]]]);
-    AddAssaultTarget(LBPC, 2840, 1100, 30*30, 2, "$Target6$", 6, [[[2575, 140], [2680, 270], [2785, 100]], [[1370, 820], [1480, 940], [1510, 1010]]]);
-    AddAssaultTarget(PMP2, 1630, 1410, 30*30, 2, "$Target7$", 7, [[[920, 1560], [990, 1560], [1115, 1660]], [[2040, 1020], [2160, 1100], [2440, 1100]]]);
-    AddAssaultTarget(GNRT, 1795, 1890, 30*30, 2, "$Target8$", 8, [[[920, 1560], [990, 1560], [1115, 1660]], [[2040, 1020], [2160, 1100], [2440, 1100]]]);
+    AddAssaultTarget(CMSN, 2780, 910, 30*30, 2, "$Target2$", 5, [[[3290, 780], [3410, 910], [3310, 1100]], [[1370, 820], [1480, 940], [1510, 1010]]]);
+    AddAssaultTarget(LBPC, 2840, 1100, 30*30, 2, "$Target6$", 6, [[[3290, 780], [3410, 910], [3310, 1100]], [[1370, 820], [1480, 940], [1510, 1010]]]);
+    AddAssaultTarget(PMP2, 1830, 1360, 30*30, 2, "$Target7$", 7, [[[1110, 1560], [1110, 1660], [1340, 1640]], [[2957, 1073], [3245, 910], [3410, 910]]]);
+    AddAssaultTarget(GNRT, 1795, 1890, 30*30, 2, "$Target8$", 8, [[[2200, 1780], [2280, 1820], [2480, 1820]], [[1900, 1560], [2100, 1560], [2160, 1310]]]);
 
     //Ziele verbinden
     ConnectAssaultTargets([1, 2]);
     ConnectAssaultTargets([3, 4]);
     ConnectAssaultTargets([5, 6]);
-    ConnectAssaultTargets([7, 8]);
 
     //Grenzen setzen
     CreateObject(BRDR, 210, 0, -1)->Set(0,1);
@@ -1432,18 +1448,17 @@ public func ChooserFinished()
     CreateObject(BRDR, 0, 760, -1)->Set(3,1);
 
     //Aufzüge
-    CreateObject(LFTP, 385, 1260, -1)->SetLimits(1115,1440);
     CreateObject(LFTP, 785, 244, -1)->SetLimits(235,670);
     CreateObject(LFTP, 785, 810, -1)->SetLimits(745,1320);
     CreateObject(LFTP, 1065, 1394, -1)->SetLimits(1385,1910);
     CreateObject(LFTP, 1185, 184, -1)->SetLimits(175,820);
     CreateObject(LFTP, 1185, 1024, -1)->SetLimits(1015,1390);
-    CreateObject(LFTP, 1415, 1240, -1)->SetLimits(1115,1570);
+    CreateObject(LFTP, 1415, 1570, -1)->SetLimits(1315,1570);
     CreateObject(LFTP, 1550, 734, -1)->DisableVertical();
     CreateObject(LFTP, 2085, 1324, -1)->DisableVertical();
     CreateObject(LFTP, 2355, 754, -1)->SetLimits(745,1460);
-    CreateObject(LFTP, 2825, 154, -1)->SetLimits(145,920);
-    CreateObject(LFTP, 3275, 1114, -1)->SetLimits(1105,1300);
+    CreateObject(LFTP, 2825, 920, -1)->SetLimits(555,920);
+    CreateObject(LFTP, 3275, 1300, -1)->SetLimits(1105,1300);
 
     //Automaten
     var store = CreateObject(WPVM,610, 560,-1);
@@ -1478,15 +1493,30 @@ public func ChooserFinished()
     DrawMaterialQuad("Wall-Stripes", 1160,750, 1230,750, 1230,760, 1160,760);
     DrawMaterialQuad("Wall-Stripes", 1250,750, 1260,750, 1260,760, 1250,760);
 
+    DrawMaterialQuad("Wall-Metal4", 330,1200, 440,1200, 440,1240, 330,1240);
     DrawMaterialQuad("Wall-Stripes", 360,1200, 410,1200, 410,1210, 360,1210);
+    DrawMaterialQuad("Wall-Concrete2", 340,1240, 430,1240, 430,1250, 340,1250);
+
     DrawMaterialQuad("Wall-Stripes", 760,1200, 810,1200, 810,1210, 760,1210);
+    DrawMaterialQuad("Wall-Metal4", 750,1210, 820,1210, 820,1240, 750,1240);
+    DrawMaterialQuad("Wall-Bricks1", 750,1240, 820,1240, 820,1280, 750,1280);
+    DrawMaterialQuad("Earth-ROUGH", 750,1280, 820,1280, 820,1331, 750,1331);
 
-    DrawMaterialQuad("Wall-Stripes", 1110,1200, 1120,1200, 1120,1210, 1110,1210);
-    DrawMaterialQuad("Wall-Stripes", 1140,1200, 1230,1200, 1230,1210, 1140,1210);
-    DrawMaterialQuad("Wall-Stripes", 1250,1200, 1260,1200, 1260,1210, 1250,1210);
+    DrawMaterialQuad("Wall-Stripes", 1110,1200, 1120,1200, 1120,1230, 1110,1230);
+    DrawMaterialQuad("Wall-Stripes", 1140,1200, 1230,1200, 1230,1230, 1140,1230);
+    DrawMaterialQuad("Wall-Stripes", 1250,1200, 1260,1200, 1260,1230, 1250,1230);
 
-    DrawMaterialQuad("Wall-Stripes", 1390,1110, 1440,1110, 1440,1120, 1390,1120);
-    DrawMaterialQuad("Wall-Stripes", 2330,1110, 2380,1110, 2380,1120, 2330,1120);
+    DrawMaterialQuad("Wall-Stripes", 1380,1110, 1450,1110, 1450,1120, 1380,1120);
+    DrawMaterialQuad("Wall-Plate", 1370,1120, 1460,1120, 1460,1210, 1370,1210);
+    DrawMaterialQuad("Wall-Stripes", 1380,1210, 1450,1210, 1450,1221, 1380,1221);
+
+    DrawMaterialQuad("Wall-Stripes", 2320,1110, 2390,1110, 2390,1120, 2320,1120);
+    DrawMaterialQuad("Wall-Bricks1", 2290,1120, 2440,1120, 2440,1160, 2290,1160);
+    DrawMaterialQuad("Wall-Concrete2", 2300,1160, 2430,1160, 2430,1170, 2300,1170);
+
+    DrawMaterialQuad("Wall-Stripes", 3250,1100, 3300,1100, 3300,1110, 3250,1110);
+
+    DrawMaterialQuad("Wall-Stripes", 1030,1670, 1090,1670, 1090,1680, 1030,1680);
 
     //Verbundene Räume
     aDoorWay[20] = CreateObject(ROOM, 700, 1190, -1);
@@ -1497,10 +1527,14 @@ public func ChooserFinished()
     CreateObject(LADR, 385, 1195, -1)->Set(17);
 
     //Container
+    CreateObject(CON1, 1285, 610, -1)->SetPerspective(2);
     CreateObject(CON1, 1275, 810, -1)->SetPerspective(2);
     CreateObject(CON1, 1276, 940, -1)->SetPerspective(2);
     CreateObject(CON1, 1276, 1110, -1)->SetPerspective(2);
     CreateObject(CON1, 1290, 1010, -1)->SetPerspective();
+
+    //Sandsackbarriere
+    CreateObject(SBBA, 2111, 1820, -1)->Left();
 
     //Geschützstellungen
     aStationary[0] = CreateObject(GNET, 2020, 810, -1);
@@ -1513,6 +1547,8 @@ public func ChooserFinished()
     aStationary[3]->Set(SATW,90);
     aStationary[4] = CreateObject(GNET, 2500, 1820, -1);
     aStationary[4]->Set(SATW,-90);
+    aStationary[5] = CreateObject(GNET, 1830, 1790, -1);
+    aStationary[5]->Set(0,-90);
 
     //Hinweisschilder
     var sign = CreateObject(SGNP, 1555, 1010, -1);
@@ -1521,6 +1557,25 @@ public func ChooserFinished()
     sign = CreateObject(SGNP, 2650, 1100, -1);
     sign->SetMode(1);
     sign->Set("Turret");
+
+    //Versorgungskisten (Dragnin)
+    CreateObject(AMCT, 1110, 280, -1)->Set(DGNN);
+    CreateObject(AMCT, 2870, 910, -1)->Set(DGNN);
+
+    //Versorgungskisten (Handgranaten)
+    CreateObject(AMCT, 1022, 580, -1)->Set(FGRN);
+    CreateObject(AMCT, 365, 830, -1)->Set(FGRN);
+
+    //Versorgungskiste (Phosphorgranaten)
+    CreateObject(AMCT, 870, 1560, -1)->Set(PGRN);
+    CreateObject(AMCT, 2220, 1820, -1)->Set(PGRN);
+
+    //Versorgungskisten (Revolver)
+    CreateObject(AMCT, 385, 230, -1)->Set(RVLR);
+    CreateObject(AMCT, 1830, 1640, -1)->Set(RVLR);
+
+    //Versorgungskiste (APW)
+    CreateObject(AMCT, 1330, 290, -1)->Set(ATWN);
 
     //Bodenluken
     aDoor[04] = CreateObject(HA4K, 1130, 1203, -1);
@@ -1533,10 +1588,15 @@ public func ChooserFinished()
     aDoor[03]->Lock();
     aDoor[04]->Lock();
     aDoor[05]->Lock();
-    aDoor[06]->Lock();
     aDoor[07]->Lock();
     aDoor[08]->Lock();
-    aDoor[09]->Lock();
+    aDoor[11]->Lock();
+    aDoor[12]->Lock();
+
+    //Stahltore schließen und öffnen
+    aDoorWay[39]->ControlRight();
+    aDoorWay[40]->ControlLeft();
+    aDoorWay[41]->ControlLeft();
 
     //Konsolen für Selbstschussanlagen
     CreateObject(CONS, 1485, 1105, -1)->Set(aSelfDefense[0]);
@@ -1557,22 +1617,37 @@ public func ChooserFinished()
     for(var obj in FindObjects(Find_Or(Find_ID(ETLT), Find_ID(STLH), Find_ID(BLGH), Find_ID(CLGH)), Find_InRect(250,80,1090,670)))
       obj->TurnOn();
 
-    //Zusätzliche Munition
+    //Objekte entfernen
+    RemoveAll(HSGN);
+    RemoveObject(aDoorWay[10]);
+    RemoveObject(aDoorWay[11]);
+
+    //Munition
     if(!FindObject(NOAM))
     {
       //Versorgungskisten (Kugeln)
-      var crate = CreateObject(AMCT, 580, 740, -1);
-      crate->Set(ABOX);
-      crate = CreateObject(AMCT, 2260, 910, -1);
-      crate->Set(ABOX);
+      CreateObject(AMCT, 525, 230, -1)->Set(ABOX);
+      CreateObject(AMCT, 580, 740, -1)->Set(ABOX);
+      CreateObject(AMCT, 1910, 1560, -1)->Set(ABOX);
+      CreateObject(AMCT, 2260, 910, -1)->Set(ABOX);
 
       //Kugeln
-      PlaceSpawnpoint(ABOX, 305, 1005);
+      PlaceSpawnpoint(ABOX, 2055, 1885);
+      PlaceSpawnpoint(ABOX, 3300, 905);
 
       //Gewehrgranaten
-      PlaceSpawnpoint(GBOX, 610, 485);
-      PlaceSpawnpoint(GBOX, 960, 915);
+      PlaceSpawnpoint(GBOX, 1290, 1375);
+      PlaceSpawnpoint(GBOX, 1535, 1885);
       PlaceSpawnpoint(GBOX, 2055, 1095);
+      PlaceSpawnpoint(GBOX, 3220, 785);
+
+      //Raketen
+      PlaceSpawnpoint(MBOX, 960, 825);
+      PlaceSpawnpoint(MBOX, 1055, 405);
+      PlaceSpawnpoint(MBOX, 1145, 1905);
+      PlaceSpawnpoint(MBOX, 1415, 1105);
+      PlaceSpawnpoint(MBOX, 1865, 1455);
+      PlaceSpawnpoint(MBOX, 2860, 735);
     }
   }
 
@@ -1623,15 +1698,27 @@ public func ChooserFinished()
     store->AddWare(STUN,20);
     store->AddWare(SRBL,20);
 
+    //Stahltore und Konsolen
+    CreateObject(CONS, 1540, 505, -1)->Set(aDoorWay[39]);
+    CreateObject(CONS, 1985, 505, -1)->Set(aDoorWay[40]);
+
     //Boden
-    DrawMaterialQuad("Wall-Stripes", 760,1020, 810,1020, 810,1030, 760,1030);
-    DrawMaterialQuad("Wall-Stripes", 1110,1110, 1120,1110, 1120,1120, 1110,1120);
-    DrawMaterialQuad("Wall-Stripes", 1140,1110, 1160,1110, 1160,1120, 1140,1120);
+    DrawMaterialQuad("Wall-Stripes", 760,1020, 810,1020, 810,1040, 760,1040);
+
+    DrawMaterialQuad("Wall-Stripes", 1110,1110, 1120,1110, 1120,1130, 1110,1130);
+    DrawMaterialQuad("Wall-Stripes", 1140,1110, 1160,1110, 1160,1130, 1140,1130);
     DrawMaterialQuad("Wall-Stripes", 1140,1120, 1230,1120, 1230,1130, 1140,1130);
     DrawMaterialQuad("Wall-Stripes", 1210,1110, 1230,1110, 1230,1120, 1210,1120);
     DrawMaterialQuad("Wall-Stripes", 1250,1110, 1260,1110, 1260,1120, 1250,1120);
-    DrawMaterialQuad("Wall-Stripes", 1390,1110, 1440,1110, 1440,1120, 1390,1120);
-    DrawMaterialQuad("Wall-Stripes", 2330,1110, 2380,1110, 2380,1120, 2330,1120);
+
+    DrawMaterialQuad("Wall-Stripes", 1380,1110, 1450,1110, 1450,1120, 1380,1120);
+    DrawMaterialQuad("Wall-Plate", 1370,1120, 1460,1120, 1460,1210, 1370,1210);
+    DrawMaterialQuad("Wall-Stripes", 1380,1210, 1450,1210, 1450,1221, 1380,1221);
+
+    DrawMaterialQuad("Wall-Stripes", 2320,1110, 2390,1110, 2390,1120, 2320,1120);
+    DrawMaterialQuad("Wall-Bricks1", 2290,1120, 2440,1120, 2440,1160, 2290,1160);
+    DrawMaterialQuad("Wall-Concrete2", 2300,1160, 2430,1160, 2430,1170, 2300,1170);
+
     DrawMaterialQuad("Wall-Stripes", 3250,1100, 3300,1100, 3300,1110, 3250,1110);
 
     //Verbundene Räume
@@ -1651,6 +1738,7 @@ public func ChooserFinished()
 
     //Bodenluke schließen
     aDoor[10]->Lock();
+    aDoor[11]->Lock();
 
     //Geschützstellungen
     CreateObject(GNET, 845, 1010, -1)->Set(SATW,90);
@@ -1688,32 +1776,38 @@ public func ChooserFinished()
     for(var obj in FindObjects(Find_ID(SFFG), Find_InRect(1740,1020,50,50)))
       obj->Set(5);
 
-    //Türverbindungen entfernen
+    //Objekte entfernen
+    RemoveObject(aSelfDefense[0]);
+    RemoveObject(aSelfDefense[1]);
+    RemoveAll(HSGN);
     RemoveObject(aDoorWay[0]);
     RemoveObject(aDoorWay[1]);
     RemoveObject(aDoorWay[8]);
     RemoveObject(aDoorWay[9]);
 
-    //Objekte entfernen
-    RemoveObject(aSelfDefense[0]);
-    RemoveObject(aSelfDefense[1]);
-
     //Versorgungskiste (Revolver)
-    CreateObject(AMCT, 865, 230, -1)->Set(RVLR);
+    CreateObject(AMCT, 1140, 580, -1)->Set(RVLR);
+    CreateObject(AMCT, 2440, 910, -1)->Set(RVLR);
 
     //Versorgungskiste (APW)
-    CreateObject(AMCT, 2900, 270, -1)->Set(ATWN);
+    CreateObject(AMCT, 1760, 520, -1)->Set(ATWN);
 
-    //Zusätzliche Munition
+    //Munition
     if(!FindObject(NOAM))
     {
       //Versorgungskiste (Kugeln)
-      var crate = CreateObject(AMCT, 1640, 1110, -1);
-      crate->Set(ABOX);
+      CreateObject(AMCT, 975, 1010, -1)->Set(ABOX);
+      CreateObject(AMCT, 1640, 1110, -1)->Set(ABOX);
+      CreateObject(AMCT, 2545, 1100, -1)->Set(ABOX);
 
       //Versorgungskiste (Gewehrgranaten)
-      var crate = CreateObject(AMCT, 1890, 1110, -1);
-      crate->Set(GBOX);
+      CreateObject(AMCT, 1890, 1110, -1)->Set(GBOX);
+
+      //Gewehrgranaten
+      PlaceSpawnpoint(GBOX, 1700, 455);
+
+      //Raketen
+      PlaceSpawnpoint(MBOX, 1820, 455);
     }
   }
 
@@ -1736,7 +1830,7 @@ public func ChooserFinished()
 
     //Grenzen setzen
     CreateObject(BRDR, 210, 0, -1)->Set(0);
-    CreateObject(BRDR, 3390, 0, -1)->Set(1);
+    CreateObject(BRDR, 3490, 0, -1)->Set(1);
     CreateObject(BRDR, 0, 1210, -1)->Set(3);
 
     //Aufzüge
@@ -1747,19 +1841,35 @@ public func ChooserFinished()
     CreateObject(LFTP, 2355, 754, -1)->SetLimits(745,1460);
     CreateObject(LFTP, 2825, 154, -1)->SetLimits(145,920);
 
-    //Boden
-    DrawMaterialQuad("Wall-Stripes", 360,1200, 410,1200, 410,1210, 360,1210);
-    DrawMaterialQuad("Wall-Stripes", 760,1200, 810,1200, 810,1210, 760,1210);
+    //Stahltore und Konsolen
+    CreateObject(CONS, 1540, 505, -1)->Set(aDoorWay[39]);
+    CreateObject(CONS, 1985, 505, -1)->Set(aDoorWay[40]);
 
-    DrawMaterialQuad("Wall-Stripes", 1110,1110, 1120,1110, 1120,1120, 1110,1120);
+    //Boden
+    DrawMaterialQuad("Wall-Metal4", 330,1200, 440,1200, 440,1240, 330,1240);
+    DrawMaterialQuad("Wall-Stripes", 360,1200, 410,1200, 410,1210, 360,1210);
+    DrawMaterialQuad("Wall-Concrete2", 340,1240, 430,1240, 430,1250, 340,1250);
+
+    DrawMaterialQuad("Wall-Stripes", 760,1200, 810,1200, 810,1210, 760,1210);
+    DrawMaterialQuad("Wall-Metal4", 750,1210, 820,1210, 820,1240, 750,1240);
+    DrawMaterialQuad("Wall-Bricks1", 750,1240, 820,1240, 820,1280, 750,1280);
+    DrawMaterialQuad("Earth-ROUGH", 750,1280, 820,1280, 820,1331, 750,1331);
+
+    DrawMaterialQuad("Wall-Stripes", 1110,1110, 1120,1110, 1120,1130, 1110,1130);
     DrawMaterialQuad("Wall-Stripes", 1140,1110, 1160,1110, 1160,1120, 1140,1120);
     DrawMaterialQuad("Wall-Stripes", 1140,1120, 1230,1120, 1230,1130, 1140,1130);
     DrawMaterialQuad("Wall-Stripes", 1210,1110, 1230,1110, 1230,1120, 1210,1120);
-    DrawMaterialQuad("Wall-Stripes", 1250,1110, 1260,1110, 1260,1120, 1250,1120);
+    DrawMaterialQuad("Wall-Stripes", 1250,1110, 1260,1110, 1260,1130, 1250,1130);
 
-    DrawMaterialQuad("Wall-Stripes", 1390,1110, 1440,1110, 1440,1120, 1390,1120);
-    DrawMaterialQuad("Wall-Stripes", 2330,1110, 2380,1110, 2380,1120, 2330,1120);
-    DrawMaterialQuad("Wall-Stripes", 3250,1100, 3300,1100, 3300,1110, 3250,1110);
+    DrawMaterialQuad("Wall-Stripes", 1380,1110, 1450,1110, 1450,1120, 1380,1120);
+    DrawMaterialQuad("Wall-Plate", 1370,1120, 1460,1120, 1460,1210, 1370,1210);
+    DrawMaterialQuad("Wall-Stripes", 1380,1210, 1450,1210, 1450,1221, 1380,1221);
+
+    DrawMaterialQuad("Wall-Stripes", 2320,1110, 2390,1110, 2390,1120, 2320,1120);
+    DrawMaterialQuad("Wall-Bricks1", 2290,1120, 2440,1120, 2440,1160, 2290,1160);
+    DrawMaterialQuad("Wall-Concrete2", 2300,1160, 2430,1160, 2430,1170, 2300,1170);
+
+    DrawMaterialQuad("Wall-Stripes", 3250,1100, 3300,1100, 3300,1120, 3250,1120);
 
     //Automaten
     var store = CreateObject(WPVM,610, 560,-1);
@@ -1793,14 +1903,32 @@ public func ChooserFinished()
     CreateObject(ATBY,1185,100,-1);
     CreateObject(ATBY,2825,100,-1);
 
-    //Konsole für Generator
-    CreateObject(CONS, 1795, 1885, -1)->Set(FindObject(GNRT));
-
     //Geschützstellungen
     CreateObject(GNET, 610, 1010, -1)->Set(SATW,90);
     CreateObject(GNET, 2580, 1100, -1)->Set(SATW,-90);
     CreateObject(GNET, 2580, 1100, -1)->Set(SATW,-90);
     CreateObject(GNET, 2590, 910, -1)->Set(0,-90);
+
+    //Versorgungskisten (Dragnin)
+    CreateObject(AMCT, 1110, 280, -1)->Set(DGNN);
+    CreateObject(AMCT, 2870, 910, -1)->Set(DGNN);
+
+    //Versorgungskisten (Handgranaten)
+    CreateObject(AMCT, 365, 830, -1)->Set(FGRN);
+    CreateObject(AMCT, 1022, 580, -1)->Set(FGRN);
+    CreateObject(AMCT, 2440, 910, -1)->Set(FGRN);
+    CreateObject(AMCT, 3425, 910, -1)->Set(FGRN);
+
+    //Versorgungskiste (Phosphorgranaten)
+    CreateObject(AMCT, 1765, 820, -1)->Set(PGRN);
+
+    //Versorgungskisten (Revolver)
+    CreateObject(AMCT, 385, 230, -1)->Set(RVLR);
+    CreateObject(AMCT, 2620, 270, -1)->Set(RVLR);
+
+    //Versorgungskisten (APW)
+    CreateObject(AMCT, 515, 1190, -1)->Set(ATWN);
+    CreateObject(AMCT, 3275, 1100, -1)->Set(ATWN);
 
     //Hinweisschilder
     CreateObject(SGNP, 65, 90, -1);
@@ -1815,19 +1943,38 @@ public func ChooserFinished()
     CreateObject(HA4K, 1130, 1113, -1)->Lock();
     CreateObject(HA4K, 1240, 1113, -1)->Lock();
 
+    //Bodenluken schließen
+    aDoor[11]->Lock();
+
     //Objekte entfernen
     RemoveObject(aSelfDefense[0]);
     RemoveObject(aSelfDefense[1]);
+    RemoveAll(HSGN);
+    RemoveObject(aDoorWay[8]);
+    RemoveObject(aDoorWay[9]);
 
-    //Versorgungskisten (APW)
-    CreateObject(AMCT, 305, 1010, -1)->Set(ATWN);
-    CreateObject(AMCT, 3320, 1100, -1)->Set(ATWN);
-
-    //Zusätzliche Munition
+    //Munition
     if(!FindObject(NOAM))
     {
-      //Versorgungskiste (Kugeln)
-      CreateObject(AMCT, 1770, 1110, -1)->Set(ABOX);
+      //Versorgungskisten (Kugeln)
+      CreateObject(AMCT, 525, 230, -1)->Set(ABOX);
+      CreateObject(AMCT, 1640, 1110, -1)->Set(ABOX);
+      CreateObject(AMCT, 2645, 270, -1)->Set(ABOX);
+
+      //Versorgungskiste (Gewehrgranaten)
+      CreateObject(AMCT, 1890, 1110, -1)->Set(GBOX);
+
+      //Kugeln
+      PlaceSpawnpoint(ABOX, 740, 915);
+      PlaceSpawnpoint(ABOX, 2780, 905);
+
+      //Gewehrgranaten
+      PlaceSpawnpoint(GBOX, 580, 735);
+      PlaceSpawnpoint(GBOX, 3220, 785);
+
+      //Raketen
+      PlaceSpawnpoint(MBOX, 960, 825);
+      PlaceSpawnpoint(MBOX, 2220, 905);
     }
   }
 }
@@ -1866,7 +2013,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     //Objekt entfernen
     RemoveObject(aDoor[03]);
 
-    //Türverbindung entfernen
+    //Türverbindung schließen
     aDoorWay[22]->SealEntrance();
     aDoorWay[23]->SealEntrance();
 
@@ -1903,8 +2050,12 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
       FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),1260,0,1,1);
 
       //Container zerstören
-      for(var obj in FindObjects(Find_ID(CON1), Find_InRect(1250,770,80,340)))
+      for(var obj in FindObjects(Find_ID(CON1), Find_InRect(1250,570,80,540)))
         obj->DecoExplode(35);
+
+      //Stahltore öffnen
+      aDoorWay[39]->ControlLeft();
+      aDoorWay[40]->ControlRight();
 
       //Lampen ausschalten
       for(var obj in FindObjects(Find_Or(Find_ID(CLGH), Find_ID(LLGH), Find_ID(BLGH)), Find_InRect(250,760,820,440)))
@@ -1927,8 +2078,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
       //Grenzen neu setzen
       RemoveAll(BRDR);
       CreateObject(BRDR, 750, 0, -1)->Set(0,1);
-      CreateObject(BRDR, 3310, 0, -1)->Set(1,1);
+      CreateObject(BRDR, 3490, 0, -1)->Set(1,1);
       CreateObject(BRDR, 0, 1210, -1)->Set(3,1);
+      CreateObject(BRDR, 0, 410, -1)->Set(2,1);
 
       //Teamgrenze setzen
       FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),2180,0,1,1);
@@ -1961,12 +2113,13 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     {
       //Grenzen neu setzen
       RemoveAll(BRDR);
-      CreateObject(BRDR, 750, 0, -1)->Set(0,1);
-      CreateObject(BRDR, 3310, 0, -1)->Set(1,1);
-      CreateObject(BRDR, 0, 1970, -1)->Set(3,1);
+      CreateObject(BRDR, 840, 0, -1)->Set(0,1);
+      CreateObject(BRDR, 3490, 0, -1)->Set(1,1);
+      CreateObject(BRDR, 0, 1680, -1)->Set(3,1);
+      CreateObject(BRDR, 0, 770, -1)->Set(2,1);
 
       //Teamgrenze setzen
-      FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),0,1300,3,1);
+      FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),0,1250,3,1);
 
       //Lampen ausschalten
       for(var obj in FindObjects(Find_Or(Find_ID(ETLT), Find_ID(LLGH), Find_ID(BLGH), Find_ID(STLH)), Find_InRect(2560,100,630,1170)))
@@ -1976,8 +2129,11 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
       }
 
       //Lampen einschalten
-      for(var obj in FindObjects(Find_Or(Find_ID(LLGH), Find_ID(SLGH), Find_ID(CLGH)), Find_InRect(370,1270,2820,620)))
+      for(var obj in FindObjects(Find_Or(Find_ID(LLGH), Find_ID(SLGH), Find_ID(CLGH)), Find_InRect(370,1270,2820,290)))
         obj->TurnOn();
+
+      //Bodenluke öffnen
+      aDoor[11]->Open();
 
       //SSA zerstören
       aSelfDefense[1]->Disarm();
@@ -1986,71 +2142,89 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
       //Geschützstellung entfernen
       aStationary[2]->DecoExplode(30);
 
-      //Türverbindung entfernen
+      //Türverbindung schließen
       aDoorWay[20]->SealEntrance();
       aDoorWay[21]->SealEntrance();
 
       //Boden entfernen
-      DrawMaterialQuad("Backwall-Stripes", 360,1200, 410,1200, 410,1210, 360,1210);
-      DrawMaterialQuad("Backwall-Stripes", 760,1200, 810,1200, 810,1210, 760,1210);
-      DrawMaterialQuad("Backwall-Stripes", 1110,1200, 1120,1200, 1120,1210, 1110,1210);
-      DrawMaterialQuad("Backwall-Stripes", 1140,1200, 1230,1200, 1230,1210, 1140,1210);
-      DrawMaterialQuad("Backwall-Stripes", 1250,1200, 1260,1200, 1260,1210, 1250,1210);
-      DrawMaterialQuad("Backwall-Stripes", 1390,1110, 1440,1110, 1440,1120, 1390,1120);
-      DrawMaterialQuad("Backwall-Stripes", 2330,1110, 2380,1110, 2380,1120, 2330,1120);
+      DrawMaterialQuad("Backwall-Stripes", 3250,1100, 3300,1100, 3300,1110, 3250,1110);
 
       //Explosionen
-      CreateObject(TIM1, 385,1205)->DecoExplode(30);
-      CreateObject(TIM1, 785,1205)->DecoExplode(30);
-      CreateObject(TIM1, 1140,1205)->DecoExplode(30);
-      CreateObject(TIM1, 1185,1205)->DecoExplode(30);
-      CreateObject(TIM1, 1230,1205)->DecoExplode(30);
-      CreateObject(TIM1, 1415,1115)->DecoExplode(30);
-      CreateObject(TIM1, 2355,1115)->DecoExplode(30);
+      CreateObject(TIM1, 3275,1100)->DecoExplode(30);
     }
   }
 
-  //Ziel 8 und 9
-  if(iIndex == 7 || iIndex == 8)
+  //Ziel 8
+  if(iIndex == 7)
   {
-    if(iIndex == 8)
+    //Grenzen neu setzen
+    RemoveAll(BRDR);
+    CreateObject(BRDR, 840, 0, -1)->Set(0,1);
+    CreateObject(BRDR, 3490, 0, -1)->Set(1,1);
+    CreateObject(BRDR, 0, 1970, -1)->Set(3,1);
+    CreateObject(BRDR, 0, 880, -1)->Set(2,1);
+
+    //Teamgrenze setzen
+    FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),0,1620,3,1);
+
+    //Bodenluke öffnen
+    aDoor[12]->Open();
+
+    //Lampen ausschalten
+    for(var obj in FindObjects(Find_Or(Find_ID(LLGH), Find_ID(SLGH), Find_ID(CLGH)), Find_InRect(370,1270,2820,290)))
     {
-      //Generator ausschalten
-      var generator = FindObject(GNRT);
-      generator->TurnOff();
-      generator->SetClrModulation(RGBa(100,100,100,50));
-      CreateObject(TIM1, 1700,1790)->AddSmokeEffect4K(40,0,0,true,this);
-      CreateObject(TIM1, 1760,1830)->AddSmokeEffect4K(70,0,0,true,this);
-      CreateObject(TIM1, 1850,1840)->AddSmokeEffect4K(100,0,0,true,this);
-      CreateObject(TIM1, 1935,1850)->AddSmokeEffect4K(40,0,0,true,this);
-
-      //Explosionen
-      CreateObject(TIM1, 1640,1610)->DecoExplode(30);
-      CreateObject(TIM1, 1640,1790)->DecoExplode(30);
-      CreateObject(TIM1, 1950,1610)->DecoExplode(30);
-      CreateObject(TIM1, 1950,1790)->DecoExplode(30);
-
-      //Risse
-      CreateObject(FAUD, 1615, 1850, -1);
-      CreateObject(FAUD, 1620, 1900, -1);
-      CreateObject(FAUD, 1770, 1750, -1);
-      CreateObject(FAUD, 1900, 1750, -1);
-      CreateObject(FAUD, 1975, 1850, -1);
+      obj->EMPShock();
+      obj->TurnOff();
     }
 
-    if(fConnectedDestroyed)
-    {
-      //Lampen ausschalten
-      for(var obj in FindObjects(Find_Or(Find_ID(LLGH), Find_ID(SLGH), Find_ID(CLGH)), Find_InRect(370,1270,2820,620)))
-      {
-        obj->EMPShock();
-        obj->TurnOff();
-      }
+    //Lampen einschalten
+    for(var obj in FindObjects(Find_Or(Find_ID(LLGH), Find_ID(SLGH), Find_ID(CLGH)), Find_InRect(760,1650,610,210)))
+      obj->TurnOn();
 
-      //Geschützstellung entfernen
-      aStationary[3]->DecoExplode(30);
-      aStationary[4]->DecoExplode(30);
+    //Boden entfernen
+    DrawMaterialQuad("Backwall-Stripes", 1030,1670, 1090,1670, 1090,1680, 1030,1680);
+
+    //Explosion
+    CreateObject(TIM1, 1065,1675)->DecoExplode(30);
+
+  }
+
+  //Ziel 9
+  if(iIndex == 8)
+  {
+    //Generator ausschalten
+    var generator = FindObject(GNRT);
+    generator->TurnOff();
+    generator->SetClrModulation(RGBa(100,100,100,50));
+    CreateObject(TIM1, 1700,1790)->AddSmokeEffect4K(40,0,0,true,this);
+    CreateObject(TIM1, 1760,1830)->AddSmokeEffect4K(70,0,0,true,this);
+    CreateObject(TIM1, 1850,1840)->AddSmokeEffect4K(100,0,0,true,this);
+    CreateObject(TIM1, 1935,1850)->AddSmokeEffect4K(40,0,0,true,this);
+
+    //Explosionen
+    CreateObject(TIM1, 1640,1610)->DecoExplode(30);
+    CreateObject(TIM1, 1640,1790)->DecoExplode(30);
+    CreateObject(TIM1, 1950,1610)->DecoExplode(30);
+    CreateObject(TIM1, 1950,1790)->DecoExplode(30);
+
+    //Risse
+    CreateObject(FAUD, 1615, 1850, -1);
+    CreateObject(FAUD, 1620, 1900, -1);
+    CreateObject(FAUD, 1770, 1750, -1);
+    CreateObject(FAUD, 1900, 1750, -1);
+    CreateObject(FAUD, 1975, 1850, -1);
+
+    //Lampen ausschalten
+    for(var obj in FindObjects(Find_Or(Find_ID(LLGH), Find_ID(SLGH), Find_ID(CLGH)), Find_InRect(760,1650,610,210)))
+    {
+      obj->EMPShock();
+      obj->TurnOff();
     }
+
+    //Geschützstellungen entfernen
+    aStationary[3]->DecoExplode(30);
+    aStationary[4]->DecoExplode(30);
+    aStationary[5]->DecoExplode(30);
   }
 }
 
