@@ -769,11 +769,11 @@ public func ControlThrow(caller)
 
   if(!fWait && GetMCData(MC_CanStrike) && (WildcardMatch(GetAction(caller), "*Walk*") || WildcardMatch(GetAction(caller), "*Swim*") || WildcardMatch(GetAction(caller), "*Jump*")) && !caller->~IsAiming() && (GetFMData(FM_Aim) == 0 || GetUser()->~IsAiming() || GetUser()->~AimOverride()))
   {
-    var dir = GetDir(GetUser())*2-1;
+    var dir = GetDir(GetUser());
 
     //Ziele finden
-    var wpn_outer_end = (this->~HandX()/1000+(GetDefWidth(GetID())/2))*dir;
-    var obj = FindObjects(Find_AtRect(Min(wpn_outer_end, -GetObjWidth(caller)/2),-10,GetObjWidth(caller)+(wpn_outer_end-GetObjWidth(caller)/2),20), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsMeleeTarget", this)), Find_NoContainer(), Find_Exclude(caller));
+    var outer_end = Max((this->~HandX()/1000+(GetDefWidth(GetID())/2))*this->~HandSize()/1000, GetObjWidth(caller)/2);
+    var obj = FindObjects(Find_AtRect(-outer_end*!dir, -10, outer_end, 20), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsMeleeTarget", this)), Find_NoContainer(), Find_Exclude(caller));
     for(var target in obj)
     {
       if(target->~HitExclude(this))
