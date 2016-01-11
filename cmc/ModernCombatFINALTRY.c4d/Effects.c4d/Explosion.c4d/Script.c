@@ -22,6 +22,10 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
   var opt_angle = Angle(xdir,ydir);
   var speed = BoundBy(Distance(xdir,ydir),0,60);
 
+  var fWater;
+  if(GBackLiquid())
+    fWater = true;
+
   //Explosionseffekte
   var i=0, count = 3+iLevel/8, angle = Random(360);
   while((count > 0) && (++i < count*10))
@@ -33,7 +37,7 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
     //Rauch
     var smokex = +Sin(angle,RandomX(iLevel/4,iLevel/2));
     var smokey = -Cos(angle,RandomX(iLevel/4,iLevel/2));
-    if(GBackSolid(x+smokex,y+smokey))
+    if(GBackSolid(x+smokex,y+smokey) || fWater)
       continue;
     var level = iLevel + Random(iLevel/5);
     CreateSmokeTrail(level,angle,smokex,smokey,pObj);
@@ -54,6 +58,7 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
         CreateParticle("BlastDirt", smokex, smokey, +Sin(a,level+RandomX(-20,+20)), -Cos(a,level+RandomX(-20,+20)), level*RandomX(7,12));
       }
     }
+
     count--;
   }
 
@@ -82,11 +87,15 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
   {
     if(iLevel >= 30)
     {
+      if(fWater) Echo(Format("WaterExplosion%s*.ogg",["","Big"][Min((iLevel-30)/10,1)]),1);
       Echo(Format("Explosion%sEcho*.ogg",["","Big"][Min((iLevel-30)/10,1)]),1);
       Echo("StructureDebris*.ogg",1);
     }
     else
+    {
+      if(fWater) Echo("WaterExplosion*.ogg");
       Echo("ExplosionSmallEcho*.ogg",1);
+    }
   }
 
   //Standardverhalten
@@ -110,7 +119,7 @@ global func SemiExplode(int iLevel, int incidence)
   return 1;
 }
 
-global func CreateBurnMark(int iX, int iY, int iLevel, int Count) 
+global func CreateBurnMark(int iX, int iY, int iLevel, int Count)
 {
   //Komplette Einsparung bei Effektstufe 1
   if(GetEffectData(EFSM_ExplosionEffects) < 1) return;

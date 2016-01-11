@@ -104,14 +104,15 @@ protected func FxCheckGroundStop(object pTarget, int iEffectNumber)
 
 /* Automatisches Defibrillator-Auslösen */
 
-public func FxIntActivatingShockPaddlesStart(object pTarget, int iEffectNumber, bool fTemp, object pShockPaddlesOwner, object pStartItem) {
-	if(fTemp)
-		return true;
-	
-	EffectVar(0, pTarget, iEffectNumber) = pShockPaddlesOwner;
-	EffectVar(1, pTarget, iEffectNumber) = pStartItem;
-	
-	return true;
+public func FxIntActivatingShockPaddlesStart(object pTarget, int iEffectNumber, bool fTemp, object pShockPaddlesOwner, object pStartItem)
+{
+  if(fTemp)
+    return true;
+
+  EffectVar(0, pTarget, iEffectNumber) = pShockPaddlesOwner;
+  EffectVar(1, pTarget, iEffectNumber) = pStartItem;
+
+  return true;
 }
 
 public func FxIntActivatingShockPaddlesTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -121,16 +122,16 @@ public func FxIntActivatingShockPaddlesTimer(object pTarget, int iEffectNumber, 
     Contents(0, this)->~Activate(this);
     var pShockPaddlesOwner = EffectVar(0, pTarget, iEffectNumber);
     if(pShockPaddlesOwner && pShockPaddlesOwner != this)
-			if(!pShockPaddlesOwner->~RejectCollect(GetID(Contents(0, this)), Contents(0, this))) {
-				Enter(pShockPaddlesOwner, Contents(0, this));
-				
-				//Items ggf. wieder zurueckrotieren
-				if(EffectVar(1, pTarget, iEffectNumber) && FindObject2(Find_Container(this), Find_Not(Find_Exclude(EffectVar(1, pTarget, iEffectNumber)))))
-					while(Contents(0, this) != EffectVar(1, pTarget, iEffectNumber))
-      			ShiftContents(this);
-			}
-		
-		
+      if(!pShockPaddlesOwner->~RejectCollect(GetID(Contents(0, this)), Contents(0, this)))
+      {
+        Enter(pShockPaddlesOwner, Contents(0, this));
+
+        //Items ggf. wieder zurueckrotieren
+        if(EffectVar(1, pTarget, iEffectNumber) && FindObject2(Find_Container(this), Find_Not(Find_Exclude(EffectVar(1, pTarget, iEffectNumber)))))
+          while(Contents(0, this) != EffectVar(1, pTarget, iEffectNumber))
+            ShiftContents(this);
+      }
+
     return -1;
   }
 
@@ -146,7 +147,7 @@ public func ActivateShockPaddles(object pShockPaddlesOwner)
   //Defibrillator wenn nötig anwählen
   if(!Contents(0, this)->~IsShockPaddles())
   {
-  	var pStartItem = Contents(0, this);
+    var pStartItem = Contents(0, this);
     while(!Contents(0, this)->~IsShockPaddles())
       ShiftContents(this);
 
@@ -155,12 +156,13 @@ public func ActivateShockPaddles(object pShockPaddlesOwner)
   }
   else
     //Ansonsten sofort auslösen
-    if(!GetEffect("IntActivatingShockPaddles")) {
+    if(!GetEffect("IntActivatingShockPaddles"))
+    {
       Contents(0, this)->~Activate(this);
       //Ggf. wieder zuruecklegen
       if(pShockPaddlesOwner && pShockPaddlesOwner != this)
-      	if(!pShockPaddlesOwner->~RejectCollect(GetID(Contents(0, this)), Contents(0, this)))
-      		Enter(pShockPaddlesOwner, Contents(0, this));
+        if(!pShockPaddlesOwner->~RejectCollect(GetID(Contents(0, this)), Contents(0, this)))
+          Enter(pShockPaddlesOwner, Contents(0, this));
     }
 
   return 1;

@@ -36,10 +36,7 @@ func DestroyWreck()
   CastParticles("GunSmoke", 15, 35, -20, 0, 300, 500);
   CastParticles("GunSmoke", 15, 35, 20, 0, 300, 500);
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter", 8, 200, 0, 0, 100,50, RGB(40, 20, 20));
-  if(GBackLiquid())
-    Sound("C4EX_WaterDetonation.ogg");
-  else
-    Sound("C4EX_Detonation*.ogg");
+  Sound("C4EX_Detonation*.ogg");
   Sound("StructureHit*.ogg");
 
   //Explosion
