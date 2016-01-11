@@ -599,10 +599,12 @@ public func ControlUp(object pCaller)
   if(defi)
   {
     SetCommand(pCaller, "Get", defi);
-    Schedule("ActivateShockPaddles()", 2, 0, pCaller);
+    Schedule(Format("ActivateShockPaddles(Object(%d))", ObjectNumber(clonk)), 2, 0, pCaller);
   }
-  else
+  else {
     PlayerMessage(GetOwner(pCaller), "$NoShockPaddles$", pCaller);
+    Sound("CommandFailure1");
+	}
 
   return _inherited(pCaller, ...);
 }
