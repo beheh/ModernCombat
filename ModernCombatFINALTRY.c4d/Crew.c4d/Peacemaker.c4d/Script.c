@@ -117,11 +117,14 @@ public func FxIntActivatingShockPaddlesStart(object pTarget, int iEffectNumber, 
 
 public func FxIntActivatingShockPaddlesTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  if(iEffectTime >= 20)
+  if(iEffectTime >= 20 && Contents(0, this)->~Ready())
   {
     Contents(0, this)->~Activate(this);
     var pShockPaddlesOwner = EffectVar(0, pTarget, iEffectNumber);
-    if(pShockPaddlesOwner && pShockPaddlesOwner != this)
+    if(pShockPaddlesOwner && pShockPaddlesOwner != this) {
+      if(Contained(pShockPaddlesOwner))
+      	pShockPaddlesOwner = Contained(pShockPaddlesOwner);
+      
       if(!pShockPaddlesOwner->~RejectCollect(GetID(Contents(0, this)), Contents(0, this)))
       {
         Enter(pShockPaddlesOwner, Contents(0, this));
@@ -131,6 +134,7 @@ public func FxIntActivatingShockPaddlesTimer(object pTarget, int iEffectNumber, 
           while(Contents(0, this) != EffectVar(1, pTarget, iEffectNumber))
             ShiftContents(this);
       }
+    }
 
     return -1;
   }
@@ -145,14 +149,16 @@ public func ActivateShockPaddles(object pShockPaddlesOwner)
     return;
 
   //Defibrillator wenn nötig anwählen
-  if(!Contents(0, this)->~IsShockPaddles())
+  if(!Contents(0, this)->~IsShockPaddles() || !Contents(0, this)->~Ready())
   {
-    var pStartItem = Contents(0, this);
-    while(!Contents(0, this)->~IsShockPaddles())
-      ShiftContents(this);
+  	if(!Contents(0, this)->~IsShockPaddles()) {
+		  var pStartItem = Contents(0, this);
+		  while(!Contents(0, this)->~IsShockPaddles())
+		    ShiftContents(this);
+		}
 
     //Verzögertes Auslösen des Defibrillators um Auswahlzeiten einzuhalten
-    AddEffect("IntActivatingShockPaddles", this, 100, 20, this, GetID(this), pShockPaddlesOwner, pStartItem);
+    AddEffect("IntActivatingShockPaddles", this, 100, 10, this, GetID(this), pShockPaddlesOwner, pStartItem);
   }
   else
     //Ansonsten sofort auslösen
