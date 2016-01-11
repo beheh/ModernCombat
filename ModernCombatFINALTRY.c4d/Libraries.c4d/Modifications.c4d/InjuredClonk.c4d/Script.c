@@ -601,10 +601,11 @@ public func ControlUp(object pCaller)
     SetCommand(pCaller, "Get", defi);
     Schedule(Format("ActivateShockPaddles(Object(%d))", ObjectNumber(clonk)), 2, 0, pCaller);
   }
-  else {
+  else
+  {
     PlayerMessage(GetOwner(pCaller), "$NoShockPaddles$", pCaller);
     Sound("CommandFailure1");
-	}
+  }
 
   return _inherited(pCaller, ...);
 }

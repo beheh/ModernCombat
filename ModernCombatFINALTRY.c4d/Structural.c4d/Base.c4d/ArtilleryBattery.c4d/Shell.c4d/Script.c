@@ -68,10 +68,7 @@ func Hit()
 
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",15,10,0,0,300,700, RGBa(255,255,255,0));
-  if(GBackLiquid())
-    Sound("C4EX_WaterDetonation.ogg");
-  else
-    Sound("C4EX_Detonation*.ogg");
+  Sound("C4EX_Detonation*.ogg");
 }
 
 public func Damage()
