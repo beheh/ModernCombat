@@ -63,6 +63,10 @@ func InitPlayers()
 
 public func RelaunchPlayer(int iPlr, object pClonk)
 {
+	if(!GameCall("RespawnDelayRejected"))
+		if(GameCall("GetPlayerRespawnTime", iPlr))
+			return ScheduleCall(this,"RelaunchPlayer",GameCall("GetPlayerRespawnTime", iPlr)+1,0,iPlr,pClonk);
+
   if(!pClonk)
     if(!(pClonk = GetCrew(iPlr)))
       return ScheduleCall(this,"RelaunchPlayer",1,0,iPlr,pClonk);

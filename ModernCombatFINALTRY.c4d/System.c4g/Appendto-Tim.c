@@ -7,6 +7,52 @@
 #appendto TIM1
 #appendto TIM2
 
+/* Spawn-Verzoegerung */
+
+public func FxWaitingObjectStart(object pTarget, int iNr, bool fTemp) {
+	if(fTemp)
+		return;
+	
+	FxWaitingObjectTimer(pTarget, iNr, 0);
+}
+
+public func FxWaitingObjectTimer(object pTarget, int iNr, int iTime) {
+	var clonk = FindObject2(Find_Container(this), Find_OCF(OCF_CrewMember));
+	var time = GameCall("GetPlayerRespawnTime", GetOwner(clonk));
+	CloseMenu(clonk);
+	
+	if(time-iTime <= 0)
+		return -1;
+	
+	CreateMenu(FKDT, clonk, this, 0, Format("$RemainingRespawnTime$", (time-iTime)/35+!!((time-iTime)%35)), 0, C4MN_Style_Context, true);
+	AddMenuItem("<Platzhalter fuer DeathMenu>", 0, FKDT, clonk);
+
+	//Effekt verzoegert loeschen (ChangeEffect und aehnliches schienen nicht wie gewollt zu funktionieren, daher ScheduleCall)
+	if(time-iTime < 35)
+		Schedule(Format("RemoveEffect(0, Object(%d), %d)", ObjectNumber(pTarget), iNr), time-iTime);
+	
+	return true;
+}
+
+public func FxWaitingObjectStop(object pTarget, int iNr, bool fTemp) {
+	if(fTemp)
+		return;
+
+	var clonk = FindObject2(Find_Container(this), Find_OCF(OCF_CrewMember));
+	CloseMenu(clonk);
+	GameCall("SetPlayerRespawnTime", GetOwner(clonk), 0);
+	GameCall("RelaunchPlayer", GetOwner(clonk), clonk);
+	return true;
+}
+
+public func Spawn() {
+	if(GetEffect("WaitingObject", this))
+		return;
+	
+	return _inherited(...);
+}
+
+public func MenuQueryCancel()	{return true;}
 
 /* Votekick */
 

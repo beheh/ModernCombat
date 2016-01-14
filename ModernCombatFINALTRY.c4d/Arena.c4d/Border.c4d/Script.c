@@ -115,6 +115,8 @@ protected func FxBorderStart(pTarget, iNo, iTemp)
       if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
         AttemptAwardRibbon(RB13, GetKiller(pTarget), GetOwner(pTarget));
 
+      //Spiel ueber verbleibende Zeit informieren
+      GameCall("SetPlayerRespawnTime", GetOwner(pTarget), FKDT_SuicideTime*35);
       Kill(pTarget);
     }
     else
@@ -124,7 +126,7 @@ protected func FxBorderStart(pTarget, iNo, iTemp)
   }
 
   //Countdown
-  EffectVar(0, pTarget, iNo) = 10;
+  EffectVar(2, pTarget, iNo) = EffectVar(0, pTarget, iNo) = 10;
   Sound("Info_Alarm.ogg", 0, pTarget, 0, GetOwner(pTarget) + 1);
 
   //Hinweisnachricht
@@ -154,6 +156,9 @@ protected func FxBorderTimer(pTarget, iNo, iTime)
   {
     if(GetOCF(pTarget) & OCF_CrewMember)
     {
+      //Spiel ueber verbleibende Zeit informieren
+      GameCall("SetPlayerRespawnTime", GetOwner(pTarget), (FKDT_SuicideTime-EffectVar(2, pTarget, iNo))*35);
+
       //Opfer töten
       pTarget->~KillIcon(SM15);
       pTarget->~LastDamageType(DMG_Projectile);
