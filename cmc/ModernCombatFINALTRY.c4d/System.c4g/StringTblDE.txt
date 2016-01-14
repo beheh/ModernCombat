@@ -175,3 +175,6 @@ YourGlance=Dein Blick
 YourHarddrive=Deine Festplatte
 YourChat=Dein Chatfenster
 F=Authentifizierung fehlgeschlagen.
+
+#Appendto-Tim.c
+RemainingRespawnTime=Zeit bis zum Respawn %d Sekunden.
