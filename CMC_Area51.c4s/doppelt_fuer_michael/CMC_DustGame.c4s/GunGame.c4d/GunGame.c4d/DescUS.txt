@@ -1,0 +1,3 @@
+The goal is to earn a required amount of money, alone or in a team.
+
+You get money for kills and money bags. Deaths, suicides and team kills on the other hand let you loose money.

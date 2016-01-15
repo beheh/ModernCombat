@@ -1,0 +1,2 @@
+DE:Kampfmesser
+US:Combat Knife

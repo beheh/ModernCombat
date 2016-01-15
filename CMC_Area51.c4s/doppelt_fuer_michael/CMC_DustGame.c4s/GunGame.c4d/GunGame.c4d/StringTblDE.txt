@@ -1,0 +1,30 @@
+// Scoreboard
+
+WeaponList=Waffenliste
+
+// Hostmenu
+OpenWeaponListChooser=Waffenauswahl
+OpenKillStepMenu=Killanzahl
+OpenModifierMenu=Modifier
+GenerateRandom=Zufallig generieren
+SelectPreset=Vordefinierte Listen
+ClearList=Liste leeren
+AddWeaponToList=Waffe hinzufugen
+IncreaseLvlUpStep=Killanzahl erhohen
+DecreaseLvlUpStep=Killanzahl verringern
+ModifierFullWeapons=Volles Waffenarsenal
+ModifierOffEquipment=Ausrustungsgegenstande
+ModifierOffGrenades=Granaten
+ModifierRewardOnKill=Belohnung bei Kill
+Back=Zuruck
+Finished=Fertig
+
+// Rundenende
+
+TeamHasWon={{GMNR}} <c ffff33>Money Run</c> - Rundenende|Team <c %x>%s</c> hat diese Schlacht <c ffff33>gewonnen</c>!
+PlayerHasWon={{GMNR}} <c ffff33>Money Run</c> - Rundenende|<c %x>%s</c> hat diese Schlacht <c ffff33>gewonnen</c>!
+
+// Sonstiges
+
+SuddenDeathWarning=Sudden Death setzt in Kurze ein.
+SuddenDeathActive=Sudden Death ist eingetreten. Der nachste Spieler der ein LevelUp schafft, gewinnt die Runde.

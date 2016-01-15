@@ -1,0 +1,19 @@
+// Scoreboard
+
+Goal=Target Amount
+
+// Host menu
+
+MoreCredits=more Credits
+LessCredits=less Credits
+Finished=Finished
+
+// End of round
+
+TeamHasWon={{GMNR}} <c ffff33>Money Run</c> - Round End|Team <c %x>%s</c> has <c ffff33>won</c> this battle!
+PlayerHasWon={{GMNR}} <c ffff33>Money Run</c> - Round End|<c %x>%s</c> has <c ffff33>won</c> this battle!
+
+// Other
+
+EnemyTeamIsWinning=<c ff0000>Warning</c>: Team %s almost collected enough credits!
+EnemyPlayerIsWinning=<c ff0000>Warning</c>: %s almost collected enough credits!
