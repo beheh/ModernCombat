@@ -115,7 +115,7 @@ protected func FxBorderStart(pTarget, iNo, iTemp)
       if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
         AttemptAwardRibbon(RB13, GetKiller(pTarget), GetOwner(pTarget));
 
-      //Spiel ueber verbleibende Zeit informieren
+      //Verbleibende Zeit an Spiel weiterleiten
       GameCall("SetPlayerRespawnTime", GetOwner(pTarget), FKDT_SuicideTime*35);
       Kill(pTarget);
     }
@@ -156,7 +156,7 @@ protected func FxBorderTimer(pTarget, iNo, iTime)
   {
     if(GetOCF(pTarget) & OCF_CrewMember)
     {
-      //Spiel ueber verbleibende Zeit informieren
+      //Verbleibende Zeit an Spiel weiterleiten
       GameCall("SetPlayerRespawnTime", GetOwner(pTarget), (FKDT_SuicideTime-EffectVar(2, pTarget, iNo))*35);
 
       //Opfer töten

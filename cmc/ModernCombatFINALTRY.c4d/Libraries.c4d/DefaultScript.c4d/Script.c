@@ -82,27 +82,30 @@ global func IsDeveloper(int iPlayerID) { return ((GetType(CSTD_CMCDevelopers) !=
 
 static g_aPlayerRespawnTimer, g_rejectPlayerRespawn;
 
-public func SetPlayerRespawnTime(int iPlr, int iTime) {
-	if(!g_aPlayerRespawnTimer)
-		g_aPlayerRespawnTimer = [];
-	
-	g_aPlayerRespawnTimer[GetPlayerID(iPlr)] = Max(iTime);
-	return true;
+public func SetPlayerRespawnTime(int iPlr, int iTime)
+{
+  if(!g_aPlayerRespawnTimer)
+    g_aPlayerRespawnTimer = [];
+
+  g_aPlayerRespawnTimer[GetPlayerID(iPlr)] = Max(iTime);
+  return true;
 }
 
-public func GetPlayerRespawnTime(int iPlr) {
-	if(g_aPlayerRespawnTimer)
-		return g_aPlayerRespawnTimer[GetPlayerID(iPlr)];
+public func GetPlayerRespawnTime(int iPlr)
+{
+  if(g_aPlayerRespawnTimer)
+    return g_aPlayerRespawnTimer[GetPlayerID(iPlr)];
 }
 
-public func RespawnDelayRejected() {
-	if(FindObject2(Find_Category(C4D_Rule|C4D_Goal|C4D_Environment), Find_Func("RejectRespawnTimer")))
-		return true;
-	
-	if(g_rejectPlayerRespawn)
-		return true;
-	
-	return false;
+public func RespawnDelayRejected()
+{
+  if(FindObject2(Find_Category(C4D_Rule|C4D_Goal|C4D_Environment), Find_Func("RejectRespawnTimer")))
+    return true;
+
+  if(g_rejectPlayerRespawn)
+    return true;
+
+  return false;
 }
 
 public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bool bFirst)
@@ -126,11 +129,11 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
   //Clonk tot?
   if(!GetAlive(pCrew))
     if(!(pCrew = RelaunchClonk(iPlr, pCrew)))
-    	return;
+      return;
 
   //Ausrüsten
   OnClonkEquip(pCrew);
-  
+
   //Zufallsposition setzen (iX und iY für Abwärtskompatibilität)
   var iX, iY, aSpawnpoints;
   aSpawnpoints = RelaunchPosition(iX, iY, iTeam);
@@ -170,16 +173,16 @@ public func RelaunchClonk(int iPlr, object pCursor)
   //In Spawnpoint verschieben
   var tim = CreateObject(TIM2, LandscapeWidth()/2, LandscapeHeight()/2, -1);
   Enter(tim, pClonk);
-  
-  //Hat noch Wartezeit?
-  if(GetPlayerRespawnTime(iPlr) && !RespawnDelayRejected()) {
-  	//An den Todesort verschieben (Allerdings nicht in Abgruende rein)
-  	SetPosition(GetX(pCursor), Min(GetY(pCursor), LandscapeHeight()-10), tim);
-		AddEffect("WaitingObject", tim, 100, 35, tim, 0);
 
-  	return;
+  //Wartezeit von vorherigem Ableben vorhanden?
+  if(GetPlayerRespawnTime(iPlr) && !RespawnDelayRejected())
+  {
+    //An den Todesort verschieben (allerdings nicht in Abgründe rein)
+    SetPosition(GetX(pCursor), Min(GetY(pCursor), LandscapeHeight()-10), tim);
+    AddEffect("WaitingObject", tim, 100, 35, tim, 0);
+
+    return;
   }
-
 
   //Clonknamen anzeigen
   PlayerMessage(iPlr, Format("@%s", GetName(pClonk)), tim);

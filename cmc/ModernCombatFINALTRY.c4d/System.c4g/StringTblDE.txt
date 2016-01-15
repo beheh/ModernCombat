@@ -156,6 +156,9 @@ VotekickSuccessful=Es hat eine 2/3 Mehrheit der Teilnehmer für einen Rauswurf ge
 VotekickNotEnough=Es haben nicht genügend Teilnehmer für einen Rauswurf gestimmt.
 Cancel=Abbrechen
 
+#Appendto-Tim.c
+RemainingRespawnTime=Respawn in <c ffff33>%d</c> Sekunden
+
 # Easteregg
 
 Emptiness=Die Leere
@@ -175,6 +178,3 @@ YourGlance=Dein Blick
 YourHarddrive=Deine Festplatte
 YourChat=Dein Chatfenster
 F=Authentifizierung fehlgeschlagen.
-
-#Appendto-Tim.c
-RemainingRespawnTime=Zeit bis zum Respawn %d Sekunden.
