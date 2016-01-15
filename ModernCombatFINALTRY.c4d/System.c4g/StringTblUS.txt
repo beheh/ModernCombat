@@ -60,6 +60,7 @@ RuleInfo=Configure rules
 
 #Darkness
 
+Darkness=Darkness
 DarknessChose=Configure darkness
 MoreDarkness=Darker
 LessDarkness=Brighter
@@ -158,7 +159,7 @@ VotekickNotEnough=There were not enough participants who voted for the expulsion
 Cancel=Cancel
 
 #Appendto-Tim.c
-RemainingRespawnTime=Respawn in <c ffff33>%d</c> seconds
+RemainingRespawnTime=Respawn in <c ffff33>%d</c> seconds.
 
 # Easteregg
 

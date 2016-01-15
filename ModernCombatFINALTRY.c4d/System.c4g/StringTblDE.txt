@@ -60,6 +60,7 @@ RuleInfo=Spielregel einstellen
 
 #Dunkelheit
 
+Darkness=Dunkelheit
 DarknessChose=Intensität der Dunkelheit
 MoreDarkness=Dunkelheit erhöhen
 LessDarkness=Dunkelheit senken

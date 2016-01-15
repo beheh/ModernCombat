@@ -435,7 +435,7 @@ protected func OpenMenu()
   //Menüweitergabe
   AddMenuItem("$ChangeHost$", "ChangeHostMenu", MCMC, pClonk, 0,0, "$ChangeHostInfo$");
   //Fertig
-  AddMenuItem("$Finished$", "ConfigurationFinished", CHOS, pClonk,0,0,"$Finished$",2,3);
+  AddMenuItem("$Finished$", "ConfigurationFinished", GOCC, pClonk,0,0,"$Finished$",2,3);
 }
 
 /* Regelmenü */
@@ -469,7 +469,7 @@ protected func OpenRuleMenu(id dummy, int iSelection)
     }
   }
   //Fertig-Eintrag hinzufügen
-  AddMenuItem("$Finished$", "OpenMenu", CHOS, pClonk,0,0,0,2,3);
+  AddMenuItem("$Finished$", "OpenMenu", GOCC, pClonk,0,0,0,2,3);
   //Menüeintrag auswählen
   SelectMenuItem(j, pClonk);
 }
@@ -480,13 +480,19 @@ protected func OpenEffectMenu(id dummy, int iSelection)
   //Menü aufmachen
   CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
   //Anzeige
-  AddMenuItem(" ", "OpenEffectMenu", EFMN, pClonk, iEffectCount, 0, " ");
+  AddMenuItem("$Effects$", 0, EFMN, pClonk, iEffectCount);
   //Zähler erhöhen
-  AddMenuItem("$MoreEffects$", "ChangeEffectConf", CHOS, pClonk, 0, +1, "$MoreEffects$",2,1);
+
+  //Weniger Tickets
+  if(GetEffectLevel() < 3)
+  AddMenuItem("$MoreEffects$", "ChangeEffectConf", GOCC, pClonk, 0, +1, "$MoreEffects$",2,1); else
+  AddMenuItem("<c 777777>$MoreEffects$</c>", "ChangeEffectConf", GOCC, pClonk, 0, +1, "$MoreEffects$",2,1);
   //Zähler senken
-  AddMenuItem("$LessEffects$", "ChangeEffectConf", CHOS, pClonk, 0, -1, "$LessEffects$",2,2);
+  if(GetEffectLevel() > 1)
+  AddMenuItem("$LessEffects$", "ChangeEffectConf", GOCC, pClonk, 0, -1, "$LessEffects$",2,2); else
+  AddMenuItem("<c 777777>$LessEffects$</c>", "ChangeEffectConf", GOCC, pClonk, 0, -1, "$LessEffects$",2,2);
   //Fertig
-  AddMenuItem("$Finished$", "OpenMenu", CHOS, pClonk,0,0, "$Finished$",2,3);
+  AddMenuItem("$Finished$", "OpenMenu", GOCC, pClonk,0,0, "$Finished$",2,3);
   //Letzten Eintrag auswählen
   SelectMenuItem(iSelection, pClonk);
 }
@@ -532,14 +538,18 @@ protected func OpenDarknessMenu(id dummy, int iSelection)
   var pClonk = GetCursor(iChosenPlr);
   //Menü aufmachen
   CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
-  //Anzeige
-  AddMenuItem(" ", "OpenDarknessMenu", DARK, pClonk, iDarkCount, 0, " ");
+  //Dunkelheitsanzeige
+  AddMenuItem("$Darkness$", 0, DARK, pClonk, iDarkCount);
   //Zähler erhöhen
-  AddMenuItem("$MoreDarkness$", "ChangeDARKConf", CHOS, pClonk, 0, +1, "$MoreDarkness$",2,1);
+  if(iDarkCount < 10)
+    AddMenuItem("$MoreDarkness$", "ChangeDARKConf", GOCC, pClonk, 0, +1, "$MoreDarkness$",2,1); else
+    AddMenuItem("<c 777777>$MoreDarkness$</c>", "ChangeDARKConf", GOCC, pClonk, 0, +1, "$MoreDarkness$",2,1);
   //Zähler senken
-  AddMenuItem("$LessDarkness$", "ChangeDARKConf", CHOS, pClonk, 0, -1, "$LessDarkness$",2,2);
+  if(iDarkCount > 0)
+    AddMenuItem("$LessDarkness$", "ChangeDARKConf", GOCC, pClonk, 0, -1, "$LessDarkness$",2,2); else
+    AddMenuItem("<c 777777>$LessDarkness$</c>", "ChangeDARKConf", GOCC, pClonk, 0, -1, "$LessDarkness$",2,2);
   //Fertig
-  AddMenuItem("$Finished$", "OpenMenu", CHOS, pClonk,0,0, "$Finished$",2,3);
+  AddMenuItem("$Finished$", "OpenMenu", GOCC, pClonk,0,0, "$Finished$",2,3);
   //Letzten Eintrag auswählen
   SelectMenuItem(iSelection, pClonk);
 }
@@ -570,7 +580,7 @@ protected func OpenTeamMenu(id dummy, int iSelection)
   AddMenuItem("$RotatedTeams$", "ChoosePossibleTeams(CHOS_TeamRotation)", MCMC, pClonk);
 
   //Fertig
-  AddMenuItem("$Finished$", "OpenMenu", CHOS, pClonk, 0, 0, "$Finished$", 2, 3);
+  AddMenuItem("$Finished$", "OpenMenu", GOCC, pClonk, 0, 0, "$Finished$", 2, 3);
   //Letzten Eintrag auswählen
   SelectMenuItem(iSelection, pClonk);
 }
@@ -601,7 +611,7 @@ protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
     if(iMode == CHOS_TeamRandom)
     {
       if(fInvisible) 
-        AddMenuItem("$SwitchInvisible$", Format("ChoosePossibleTeams(CHOS_TeamRandom, false, %d)", 3), CHOS, pClonk, 0, 0, 0, 2, 3);
+        AddMenuItem("$SwitchInvisible$", Format("ChoosePossibleTeams(CHOS_TeamRandom, false, %d)", 3), GOCC, pClonk, 0, 0, 0, 2, 3);
       else
         AddMenuItem("$SwitchInvisible$", Format("ChoosePossibleTeams(CHOS_TeamRandom, true, %d)", 3), SM06, pClonk);
 
@@ -645,7 +655,7 @@ protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
     else
       caption = "<c 777777>$ChooseCaptains$</c>";
 
-    AddMenuItem(caption, cmd, CHOS, pClonk, 0, 0, 0, 2, 3);
+    AddMenuItem(caption, cmd, GOCC, pClonk, 0, 0, 0, 2, 3);
     AddMenuItem("$Back$", "OpenTeamMenu", 0, pClonk, 0, 0, "$Back$");
   }
 
@@ -1043,9 +1053,9 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
 
     //Nur wenn es genausoviele TeamCaptains gibt, wie es Teams gibt
     if(GetAvailableTeamCount()-GetTeamCaptainCount() > 0)
-      AddMenuItem("$StartTeamRotationDeactivated$", 0, CHOS, pClonk, 0, 0, 0, 2, 3);
+      AddMenuItem("$StartTeamRotationDeactivated$", 0, GOCC, pClonk, 0, 0, 0, 2, 3);
     else
-      AddMenuItem("$StartTeamRotation$", "StartTeamRotation", CHOS, pClonk, 0, 0, 0, 2, 3);
+      AddMenuItem("$StartTeamRotation$", "StartTeamRotation", GOCC, pClonk, 0, 0, 0, 2, 3);
 
     AddMenuItem("$Back$", Format("ChoosePossibleTeams(CHOS_TeamRotation)"), 0, pClonk, 0, 0, "$Back$");
     return;
@@ -1266,7 +1276,7 @@ public func FxTeamRotationChoosePlrChoose(object pTarget, int iNr, int iPlr, int
   return true;
 }
 
-/* Weitere Autobalance Methoden, zur Übersichtlichkeit ausgelagert. */
+/* Weitere Autobalance-Methoden, zur Übersichtlichkeit ausgelagert */
 
 //Austausch: Es werden in beiden Listen versucht, Zahlen auszutauschen, um ein besseres Ergebnis zu erreichen.
 public func AB_Method1(array &arListOne, array &arListTwo)
