@@ -153,8 +153,8 @@ protected func FxIntFakeDeathMenuTimer(object pTarget, int iEffect, int iTime)
 {
   if(!pTarget)
     return -1;
-  
-  //Spiel ueber verbleibende Zeit informieren
+
+  //Verbleibende Zeit an Spiel weiterleiten
   GameCall("SetPlayerRespawnTime", GetOwner(pTarget), (FKDT_SuicideTime*35)-iTime);
 
   //Tot: Abbruch
