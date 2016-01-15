@@ -492,6 +492,10 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller, int iClass)
     if(!ObjectCount2(Find_InArray(aTargets[GetPlayerTeam(iPlr)])))
       return EliminatePlayer(iPlr);
 
+  //Spieler wartet noch auf Respawn
+  if(GameCall("GetPlayerRespawnTime", iPlr))
+  	return;
+
   //Clonk wegstecken
   var tim = CreateObject(TIM2, LandscapeWidth()/2, LandscapeHeight()/2, -1);
   Enter(tim, pCrew);

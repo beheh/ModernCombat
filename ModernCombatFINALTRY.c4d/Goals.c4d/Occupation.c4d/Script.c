@@ -799,6 +799,10 @@ protected func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTea
   }
 
   DoTickets(iTeam,-1);
+  
+  //Spieler wartet noch auf Respawn
+  if(GameCall("GetPlayerRespawnTime", iPlr))
+  	return;
 
   if(!FindObject(CHOS) && !FindObject(MCSL)) //Regelwähler oder Klassenwahl?
     CreateGOCCSpawner(pCrew);
