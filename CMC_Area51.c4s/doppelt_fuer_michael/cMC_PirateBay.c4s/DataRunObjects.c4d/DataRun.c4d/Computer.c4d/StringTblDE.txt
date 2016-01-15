@@ -1,0 +1,3 @@
+ComputerCollected=<c ffff33>%s</c> hat den Computer aufgehoben!
+ComputerDropped=<c ffff33>%s</c> hat den Computer fallen gelassen!
+ComputerUseless=Neuer Computer spawned irgendwann gleich halt!

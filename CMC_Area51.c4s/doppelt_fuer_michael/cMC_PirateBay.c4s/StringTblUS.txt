@@ -1,0 +1,19 @@
+CreatingInterior=Creating furniture...
+CreatingEquipment=Placing equipment...
+CreatingDecoration=Placing decoration...
+
+MsgCollapse=<c ff0000>Warning</c>: The local antenna tower <c ffff33>collapses</c>
+
+Team1=Eurocorps
+Team2=Aggressors
+
+Flag1=Assault Cruiser
+Flag2=Plateau
+Flag3=Island Peak
+Flag4=Village
+
+Target1=Water Filter
+Target2=Radar Unit
+Target3=Communication Server
+Target4=Billet
+Target5=Surveillance System

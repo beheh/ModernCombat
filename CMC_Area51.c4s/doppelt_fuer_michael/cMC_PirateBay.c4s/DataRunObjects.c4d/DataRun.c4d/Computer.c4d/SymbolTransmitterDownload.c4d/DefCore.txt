@@ -1,0 +1,9 @@
+[DefCore]
+id=SM27
+Version=4,9,10,7
+Name=Symbol
+Category=1
+Width=64
+Height=64
+Offset=-32,-32
+Picture=0,0,64,64

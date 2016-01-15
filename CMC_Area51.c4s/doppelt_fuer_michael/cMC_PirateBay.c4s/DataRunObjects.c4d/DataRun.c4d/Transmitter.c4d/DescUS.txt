@@ -1,0 +1,3 @@
+A high performance transmitter that sends out encrypted information and allows access to secured networks.
+
+Can be hacked by appropriatly equipped computers when they are in range.
