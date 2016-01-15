@@ -54,3 +54,8 @@ protected func End(id dummy, object pClonk)
 {
   CloseMenu(pClonk);
 }
+
+global func GetEffectLevel(int iLevel)
+{
+  return(EFSM_Level);
+}
