@@ -1,0 +1,2 @@
+DE:CMC - <c ffff33>Pirate Bay</c>
+US:CMC - <c ffff33>Pirate Bay</c>
