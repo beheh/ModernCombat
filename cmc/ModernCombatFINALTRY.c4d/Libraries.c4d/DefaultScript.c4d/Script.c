@@ -80,7 +80,21 @@ global func IsDeveloper(int iPlayerID) { return ((GetType(CSTD_CMCDevelopers) !=
 
 /* Relaunch */
 
-static g_aPlayerRespawnTimer, g_rejectPlayerRespawn;
+static g_aPlayerRespawnTimer, g_aPlayerRelaunchInfo, g_rejectPlayerRespawn;
+
+public func SetPlayerRelaunchInformation(int iPlr, int iKiller) {
+	if(!g_aPlayerRelaunchInfo)
+		g_aPlayerRelaunchInfo = [];
+	
+	g_aPlayerRelaunchInfo[GetPlayerID(iPlr)] = [iKiller];
+	return true;
+}
+
+public func GetPlayerRelaunchInformation(int iPlr) {
+	if(g_aPlayerRelaunchInfo)
+		return g_aPlayerRelaunchInfo[GetPlayerID(iPlr)];
+	return;
+}
 
 public func SetPlayerRespawnTime(int iPlr, int iTime)
 {

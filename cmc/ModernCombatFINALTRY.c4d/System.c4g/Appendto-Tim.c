@@ -45,7 +45,12 @@ public func FxWaitingObjectStop(object pTarget, int iNr, bool fTemp)
   var clonk = FindObject2(Find_Container(this), Find_OCF(OCF_CrewMember));
   CloseMenu(clonk);
   GameCall("SetPlayerRespawnTime", GetOwner(clonk), 0);
-  GameCall("RelaunchPlayer", GetOwner(clonk), clonk);
+  
+  var info = GameCall("GetPlayerRelaunchInformation", GetOwner(clonk));
+  if(!info)
+  	info = [];
+
+  GameCall("RelaunchPlayer", GetOwner(clonk), clonk, info[0]);
   return true;
 }
 
