@@ -494,7 +494,7 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller, int iClass)
 
   //Spieler wartet noch auf Respawn
   if(GameCall("GetPlayerRespawnTime", iPlr))
-  	return;
+    return;
 
   //Clonk wegstecken
   var tim = CreateObject(TIM2, LandscapeWidth()/2, LandscapeHeight()/2, -1);

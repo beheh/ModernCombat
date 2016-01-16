@@ -449,12 +449,13 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
         Schedule(Format("GameCallEx(\"NoTickets\", %d, true)", iDefender), 1);
     }
   }
-  
-  	//Spieler wartet noch auf Respawn
-  if(GameCall("GetPlayerRespawnTime", iPlr)) {
- 		GameCall("SetPlayerRelaunchInformation", iPlr, -2);
-  	return;
- 	}
+
+  //Spieler wartet noch auf Respawn
+  if(GameCall("GetPlayerRespawnTime", iPlr))
+  {
+    GameCall("SetPlayerRelaunchInformation", iPlr, -2);
+    return;
+  }
 
   //Clonk wegstecken
   var pCrew = GetCrew(iPlr);
