@@ -42,11 +42,14 @@ public func ControlThrow(object caller)
   return true;
 }
 
-/*-- Der Change gehoert zu PACK --*/
-
 public func UpdateHUD(object pHUD)
 {
-  _inherited(pHUD, ...);
+	if(GetEffect("IntKeepObject", this))
+		pHUD->~Ammo(-1, -1, GetName(), true, 0xFFFFFF);
+	else
+  	_inherited(pHUD, ...);
+
+	//Das hier sollte lieber gleich in PACK rein
   if(GetEffect("Cooldown", this))
   	pHUD->~Recharge(GetEffect("Cooldown", this, 0, 6), GetEffect("Cooldown", this, 0, 3)-1);
 }

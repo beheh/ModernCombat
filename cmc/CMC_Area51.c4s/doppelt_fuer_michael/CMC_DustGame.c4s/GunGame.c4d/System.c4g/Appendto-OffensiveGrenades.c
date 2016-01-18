@@ -16,7 +16,11 @@ func UpdateHUD(object pHUD)
   if(!user) return ;
   if(!user->~MaxGrenades()) return 0;
 
-  pHUD->Ammo(1,user->GrenadeCount(GetID()), GetName(), true);
+	
+	if(GetEffect("IntKeepObject", this))
+		pHUD->~Ammo(-1, -1, GetName(), true, 0xFFFFFF);
+	else
+  	pHUD->Ammo(1,user->GrenadeCount(GetID()), GetName(), true);
   if(GetEffect("Cooldown", this))
   	pHUD->~Recharge(GetEffect("Cooldown", this, 0, 6), GetEffect("Cooldown", this, 0, 3)-1);
   else
