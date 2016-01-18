@@ -13,7 +13,7 @@ private func Ejection(object pObj) {
 		else if(!pObj->~IsGrenade())
 			return Enter(this, pObj);
 		else if(FindObject(GGNG))
-			FindObject(GGNG)->~EquipWeapon(GetOwner(), this, true);
+			FindObject(GGNG)->~EquipWeapon(GetOwner(), this, true, true);
 	}
 
 	return _inherited(pObj, ...);
