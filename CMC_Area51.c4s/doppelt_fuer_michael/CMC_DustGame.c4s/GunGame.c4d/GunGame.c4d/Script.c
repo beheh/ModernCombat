@@ -22,6 +22,7 @@ public func IsConfigurable()	{return true;}
 public func GoalExtraValue()	{return 0;}	//Spielzielinformationen an Scoreboard weitergeben
 public func ForceRuleActivation() { return [NOFD, NOHC, NOAT, NOAM]; }
 public func ForceRuleDeactivation() { return [MCSL, SUIC]; }
+public func CustomClonkEquip() {return true;}
 
 /* Initialisierung */
 
@@ -33,7 +34,7 @@ protected func Initialize()
   aWeaponDefs = [];
   iLevelUpStep = 2;
 
-	GenerateRandomList(0, true);
+	GenerateRandomList(0, -1);
   return true;
 }
 
@@ -50,6 +51,10 @@ public func GenerateAvailableDefList() {
 }
 
 public func ItemIsAllowed(id def) {
+	//Nicht empfohlene Items
+	if(def->~GGNG_NotRecommended())
+		return GetModifier(GGNG_Mod_AllowNotRecommendedItems);
+
 	//Waffen (welche auch keine Errors werfen) sind erlaubt
 	if(def->~IsWeapon2() && def->~ClonkCanUseWeapon() != NO_SRSLY_BROKEN) {
 		if(def->~ClonkCanUseWeapon() == POCKET_APACHE)
@@ -141,8 +146,9 @@ private func OpenWeaponListChooser(id dummy, int iSelection)
   AddMenuItem("$ClearList$", "ClearList", WPN2, pClonk);
   AddMenuItem(" ", 0, 0, pClonk);
 
+	var i = 4;
 	for(var wpn in aWeaponList)
-		AddMenuItem(GetName(0, wpn), "RemoveWeaponFromList", wpn, pClonk);
+		AddWeaponMenuItem(pClonk, "RemoveWeaponFromList", wpn, i++);
 
 	//Nur so viele Eintraege wie es auch Waffen gibt (oder GGNG_MaxWeaponSelect)
 	if(GetLength(aWeaponList) < GetLength(aWeaponDefs) && GetLength(aWeaponList) < GGNG_MaxWeaponSelect)
@@ -157,23 +163,48 @@ private func OpenWeaponListChooser(id dummy, int iSelection)
   SelectMenuItem(iSelection, pClonk);
 }
 
-private func GenerateRandomList(id dummy, bool fNoMenu) {
+private func AddWeaponMenuItem(object pMenuObj, string szCommand, id idWpn, int iParameter) {
+	var name = GetName(0, idWpn), obj = 0, desc = 0, extra = 0;
+	
+	//Item ggf. als nicht empfohlen markieren
+	if(idWpn->~GGNG_NotRecommended()) {
+		if(!GetModifier(GGNG_Mod_AllowNotRecommendedItems))
+			return;
+
+		name = Format("<c aaaaaa>%s</c>", name);
+		extra = 4;
+		desc = "$ItemIsNotRecommended$";
+
+		//Overlay fuer Menuitemicon
+		obj = CreateObject(TIM1, 0, 0, -1);
+    SetPicture(GetDefCoreVal("Picture", "DefCore", idWpn, 0), GetDefCoreVal("Picture", "DefCore", idWpn, 1), 
+    					 GetDefCoreVal("Picture", "DefCore", idWpn, 2), GetDefCoreVal("Picture", "DefCore", idWpn, 3), obj);
+    SetGraphics(0, obj, idWpn);
+    SetGraphics(0, obj, SM14, 1, GFXOV_MODE_Picture);
+    SetObjDrawTransform(600, 0, 8500, 0, 600, 8500, obj, 1);
+	}
+	
+	AddMenuItem(name, szCommand, idWpn, pMenuObj, 0, iParameter, desc, extra, obj);
+	return true;
+}
+
+private func GenerateRandomList(id dummy, int iSelection) {
 	//Ggf. Itemliste aktualisieren
 	GenerateAvailableDefList();
 
-	var aTempDefs = aWeaponDefs;
+	var aTempDefs = aWeaponDefs, length = GetLength(aWeaponList) || GGNG_MaxWeaponSelect/2;
 	aWeaponList = [];
 	
-	while(GetLength(aTempDefs) && GetLength(aWeaponList) < GGNG_MaxWeaponSelect/2) {
+	while(GetLength(aTempDefs) && GetLength(aWeaponList) < length) {
 		var i = Random(GetLength(aTempDefs));
 		aWeaponList[GetLength(aWeaponList)] = aTempDefs[i];
 		DelArrayItem(aTempDefs, i);
 	}
 	
-	if(fNoMenu)
+	if(iSelection == -1)
 		return true;
 
-	return OpenWeaponListChooser(0, 0);
+	return OpenWeaponListChooser(0, iSelection);
 }
 
 private func OpenPresetSelection() {
@@ -203,8 +234,7 @@ private func OpenWeaponSelection() {
 
 	//Waffenauswahl anzeigen
 	for(var wpn in aWeaponDefs)
-		//if(GetIndexOf(wpn, aWeaponList) == -1)
-			AddMenuItem(GetName(0, wpn), "AddWeaponToList", wpn, pClonk);
+		AddWeaponMenuItem(pClonk, "AddWeaponToList", wpn);
 	
 	//Fertig
   AddMenuItem("$Back$", "OpenWeaponListChooser", GOCC, pClonk,0,0,"$Back$",2,3);
@@ -242,6 +272,7 @@ static const GGNG_Mod_FullWeapons = 1;
 static const GGNG_Mod_OffEquipment = 2;
 static const GGNG_Mod_OffGrenades = 4;
 static const GGNG_Mod_RewardOnKill = 8;
+static const GGNG_Mod_AllowNotRecommendedItems = 16;
 
 private func OpenModifierMenu(id dummy, int iSelection) {
 	var pClonk = GetCursor(iChoosedPlr);
@@ -266,6 +297,11 @@ private func OpenModifierMenu(id dummy, int iSelection) {
 		AddMenuItem("$ModifierRewardOnKill$", "SwitchModifier(GGNG_Mod_RewardOnKill, 3)", WPN2, pClonk);
 	else
 		AddMenuItem("<c 777777>$ModifierRewardOnKill$</c>", "SwitchModifier(GGNG_Mod_RewardOnKill, 3)", WPN2, pClonk);
+	
+	if(GetModifier(GGNG_Mod_AllowNotRecommendedItems))
+		AddMenuItem("$ModifierNotRecommendedItems$", "SwitchModifier(GGNG_Mod_AllowNotRecommendedItems, 4)", WPN2, pClonk);
+	else
+		AddMenuItem("<c 777777>$ModifierNotRecommendedItems$</c>", "SwitchModifier(GGNG_Mod_AllowNotRecommendedItems, 4)", WPN2, pClonk);
 
   AddMenuItem("$Back$", "OpenGoalMenu", GOCC, pClonk,0,2,"$Back$",2,3);
 
@@ -404,7 +440,7 @@ public func OnDeathAnnounce(object pCrew, int iKiller, int iAssist)
   var iChange;
   //Ungeklärte Ursache oder Selbstmord
   if(iKiller == NO_OWNER || iPlr == iKiller)
-    Message(); //Platzhalter.
+    aWeaponProgress[GetPlayerID(iPlr)] = Max(aWeaponProgress[GetPlayerID(iPlr)]-1);
   else
     //Teamkill
     if(GetPlayerTeam(iPlr) == GetPlayerTeam(iKiller))
@@ -495,7 +531,6 @@ public func OnClassSelection(object pCrew) {
 public func GetPlayerProgress(int iPlr) { return aWeaponProgress[GetPlayerID(iPlr)]; }
 public func GetPlayerWeapon(int iPlr) { return aWeaponList[GetPlayerProgress(iPlr)/iLevelUpStep]; }
 
-//TODO: Throwaway-Animation fuer vorherige Waffe
 public func EquipWeapon(int iPlr, object pCrew, bool fNoThrowaway) {
 	//Alte Waffen entfernen
 	if(!fNoThrowaway) {
