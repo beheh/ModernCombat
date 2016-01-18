@@ -531,7 +531,7 @@ public func OnClassSelection(object pCrew) {
 public func GetPlayerProgress(int iPlr) { return aWeaponProgress[GetPlayerID(iPlr)]; }
 public func GetPlayerWeapon(int iPlr) { return aWeaponList[GetPlayerProgress(iPlr)/iLevelUpStep]; }
 
-public func EquipWeapon(int iPlr, object pCrew, bool fNoThrowaway) {
+public func EquipWeapon(int iPlr, object pCrew, bool fNoThrowaway, bool fCooldown) {
 	//Alte Waffen entfernen
 	if(!fNoThrowaway) {
 		for(var obj in FindObjects(Find_Container(pCrew), Find_Or(Find_Func("IsWeapon2"), Find_Func("IsOffensiveEquipment"), Find_Func("IsOffensiveGrenade")))) {
@@ -572,10 +572,23 @@ public func EquipWeapon(int iPlr, object pCrew, bool fNoThrowaway) {
 		}
 	}
 	
-	if(!GetPlayerWeapon(iPlr))
+	var wpnid = GetPlayerWeapon(iPlr);
+	
+	if(!wpnid)
 		return;
 
-	var wpn = CreateContents(GetPlayerWeapon(iPlr), pCrew);
+	//Uebriggebliebene Objekte ggf. loeschen
+	for(var obj in FindObjects(Find_Owner(iPlr), Find_Func("GGNG_ParentObject"))) {
+		var ids = obj->GGNG_ParentObject();
+		if(GetType(ids) == C4V_Array) {
+			if(GetIndexOf(wpnid, ids) == -1)
+				RemoveObject(obj);
+		}
+		else if(GetType(ids) == C4V_C4ID && ids != wpnid)
+			RemoveObject(obj);
+	}
+
+	var wpn = CreateContents(wpnid, pCrew);
 	AddEffect("IntKeepObject", wpn, 1, 0);
 
 	if(!wpn->~IsWeapon2())
@@ -594,6 +607,10 @@ public func EquipWeapon(int iPlr, object pCrew, bool fNoThrowaway) {
   }
   //noch ein letztes Mal
   wpn->~CycleFM(+1);
+
+	//Cooldown Effekt ggf. hinzufuegen
+	if(fCooldown)
+		AddEffect("Cooldown", wpn, 1, 20);
 
 	return true;
 }

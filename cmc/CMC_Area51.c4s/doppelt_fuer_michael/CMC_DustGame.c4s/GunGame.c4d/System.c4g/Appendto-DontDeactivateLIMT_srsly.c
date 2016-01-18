@@ -13,6 +13,10 @@ public func ControlThrow(object caller)
 
   //Wird nicht getragen: Werfen gesperrt
   if(!Contained() || !GetPackPoints()) return true;
+  
+  //Hat Cooldown
+  if(GetEffect("Cooldown", this))
+  	return true;
 
   //Sprengfalle erstellen und legen
   SetOwner(GetOwner(Contained()));
@@ -24,6 +28,9 @@ public func ControlThrow(object caller)
     //In GunGame ggf. nicht abziehen
     if(!GetEffect("IntKeepObject", this))
     	DoPackPoints(-1);
+    //Dafuer gibts 'n Cooldown
+    else
+    	AddEffect("Cooldown", this, 1, 20);
   }
   else
     RemoveObject(trap);
@@ -33,4 +40,13 @@ public func ControlThrow(object caller)
     RemoveObject(this);
 
   return true;
+}
+
+/*-- Der Change gehoert zu PACK --*/
+
+public func UpdateHUD(object pHUD)
+{
+  _inherited(pHUD, ...);
+  if(GetEffect("Cooldown", this))
+  	pHUD->~Recharge(GetEffect("Cooldown", this, 0, 6), GetEffect("Cooldown", this, 0, 3)-1);
 }
