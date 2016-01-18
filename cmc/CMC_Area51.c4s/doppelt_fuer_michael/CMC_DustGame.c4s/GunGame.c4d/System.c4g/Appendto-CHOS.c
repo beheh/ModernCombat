@@ -4,6 +4,8 @@
 
 #appendto CHOS
 
+public func CustomClonkEquip() { return true; }
+
 /* Spielziel setzen */
 
 protected func CreateGoal(id idGoal, int iScore, string szMessage)

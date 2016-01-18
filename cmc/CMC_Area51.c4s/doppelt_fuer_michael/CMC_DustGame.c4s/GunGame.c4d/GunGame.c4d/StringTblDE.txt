@@ -16,13 +16,15 @@ ModifierFullWeapons=Volles Waffenarsenal
 ModifierOffEquipment=Ausrustungsgegenstande
 ModifierOffGrenades=Granaten
 ModifierRewardOnKill=Belohnung bei Kill
+ModifierNotRecommendedItems=Nicht empfohlene Gegenstande anzeigen
+ItemIsNotRecommended=Dieser Gegenstand ist fur den Spielmodus nicht empfohlen.
 Back=Zuruck
 Finished=Fertig
 
 // Rundenende
 
-TeamHasWon={{GMNR}} <c ffff33>Money Run</c> - Rundenende|Team <c %x>%s</c> hat diese Schlacht <c ffff33>gewonnen</c>!
-PlayerHasWon={{GMNR}} <c ffff33>Money Run</c> - Rundenende|<c %x>%s</c> hat diese Schlacht <c ffff33>gewonnen</c>!
+TeamHasWon={{GGNG}} <c ffff33>Gun Game</c> - Rundenende|Team <c %x>%s</c> hat diese Schlacht <c ffff33>gewonnen</c>!
+PlayerHasWon={{GGNG}} <c ffff33>Gun Game</c> - Rundenende|<c %x>%s</c> hat diese Schlacht <c ffff33>gewonnen</c>!
 
 // Sonstiges
 

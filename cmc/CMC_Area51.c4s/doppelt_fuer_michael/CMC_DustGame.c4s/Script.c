@@ -320,31 +320,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     return 1;
   }
 
-  //HTF/MR/LMS/DM-Spielziel
-  if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM) || FindObject(GGNG))
-  {
-    if(iTeam == 1)
-      return [[130, 670], [200, 670], [250, 550]];
-    if(iTeam == 2)
-      return [[1550, 480], [1620, 440], [1690, 390]];
-    if(iTeam == 3)
-      return [[1370, 740], [1395, 630], [1500, 720]];
-    if(iTeam == 4)
-      return [[180, 310], [330, 400], [400, 210]];
-    return 1;
-  }
-
-  //CTF-Spielziel
-  if(FindObject(GCTF))
-  {
-    if(iTeam == 1)
-      return [[305, 530], [380, 470]];
-    if(iTeam == 2)
-      return [[1380, 405], [1410, 405]];
-    if(iTeam == 3)
-      return [[1220, 780], [1275, 810]];
-    if(iTeam == 4)
-      return [[480, 285], [580, 285]];
-    return 1;
-  }
+  return [[130, 670], [200, 670], [250, 550], [1550, 480], [1620, 440], [1690, 390], 
+          [1370, 740], [1395, 630], [1500, 720], [180, 310], [330, 400], [400, 210]];
 }
