@@ -34,3 +34,15 @@ protected func Check() {
     FadeOut();
   }
 }
+
+public func UpdateHUD(object pHUD) {
+	if(GetEffect("IntKeepObject", this)) {
+		var clr = 0xFFFFFF;
+		if(!GetPackPoints())
+			clr = 0xFF0000;
+
+		pHUD->~Ammo(-1, -1, GetName(), true, clr);
+	}
+	else
+  	_inherited(pHUD, ...);
+}
