@@ -2,7 +2,7 @@
 id=AHBS
 Version=4,9,10,7
 Name=Target
-Category=C4D_StaticBack|C4D_IgnoreFoW
+Category=C4D_StaticBack
 Width=1
 Height=1
 Picture=0,0,64,64
