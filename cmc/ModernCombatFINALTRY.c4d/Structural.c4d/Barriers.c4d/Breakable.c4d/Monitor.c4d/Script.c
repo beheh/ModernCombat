@@ -35,6 +35,13 @@ public func Off()
   return(SetAction("Off"));
 }
 
+private func ChooseActivity()
+{
+  //Zufällige nächste Aktion wählen
+  var iAction = Random(5)+1;
+  SetAction(Format("Activity%d", iAction));
+}
+
 /* Schaden */
 
 protected func Damage()
@@ -66,13 +73,6 @@ public func IsBulletTarget(id def)
 {
   if(GetAction() != "Broken")	return 1;
   if(def->~NoDecoDamage())	return;
-}
-
-private func ChooseActivity()
-{
-  //Zufällige nächste Aktion wählen
-  var iAction = Random(5)+1;
-  SetAction(Format("Activity%d", iAction));
 }
 
 /* Aufschlag */ 

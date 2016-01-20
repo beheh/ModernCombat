@@ -25,6 +25,12 @@ public func IsBulletTarget(id def)
   return true;
 }
 
+public func Incineration()
+{
+  Extinguish();
+  Damage();
+}
+
 public func OnShockwaveHit(iLevel,iX,iY)
 {
   Damage();
