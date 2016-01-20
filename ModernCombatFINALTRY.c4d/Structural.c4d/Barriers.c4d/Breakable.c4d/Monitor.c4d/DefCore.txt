@@ -13,3 +13,4 @@ VertexFriction=0,50,50,50,50
 Mass=10
 Picture=0,0,17,14
 Rotate=1
+Float=1

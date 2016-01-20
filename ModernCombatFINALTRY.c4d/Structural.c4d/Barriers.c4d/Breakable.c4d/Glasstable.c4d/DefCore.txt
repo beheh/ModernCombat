@@ -9,11 +9,9 @@ Offset=-24,-6
 Vertices=4
 VertexX=-23,23,-23,23
 VertexY=0,0,5,5
-VertexCNAT=5,6,9,10
 VertexFriction=100,100,20,20
-Value=20
+VertexCNAT=5,6,9,10
 Mass=45
-Components=METL=2
 SolidMask=2,2,44,1,0,0
 Picture=0,12,64,64
 Grab=1

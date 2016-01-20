@@ -10,9 +10,8 @@ Vertices=4
 VertexX=-3,-3,3,3
 VertexY=2,-3,2,-3
 VertexFriction=100,80,100,80
-Value=2
 Mass=10
-Components=PLT4=1
 Picture=0,0,6,6
 Rotate=1
+Float=1
 UprightAttach=8
