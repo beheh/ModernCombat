@@ -158,7 +158,7 @@ public func FxDataRunComputerTimer(object pTarget, int iNr, int iTime)
     if(!EffectVar(3, pTarget, iNr))
     {
       //Kuhle "Wegwerfanimtion" wäre kuhl.
-      CreateContents(CMP2, pTarget)->ThrowAway();
+      CreateObject(CMP2, GetX(pTarget), GetY(pTarget), NO_OWNER)->ThrowAway();
       Schedule("PlaceComputerSpawnpoint()", GDAR_ComputerRespawnDelay);
 
       EventInfo4K(0, "$ComputerUseless$", COMP, 0, 0, 0, "Info_Event.ogg");
