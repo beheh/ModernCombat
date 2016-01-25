@@ -51,7 +51,7 @@ public func Fused()
     if(!effect)
       AddEffect("IntFlashbang",obj,100,1,0,GetID(), intensity);
     else
-      EffectVar(0, obj, effect) += intensity;
+      EffectVar(0, obj, effect) += (100-Min((EffectVar(0, obj, effect)*100/300)/2, 50))*intensity/100;
 
     //Blendung stark genug: Soundeffekte am Clonk
     if(intensity > 38)
