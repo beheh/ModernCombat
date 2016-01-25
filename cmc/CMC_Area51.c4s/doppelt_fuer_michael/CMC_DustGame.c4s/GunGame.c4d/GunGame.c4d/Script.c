@@ -13,9 +13,6 @@ static const GGNG_MaxWeaponSelect = 10; //Anzahl an Waffen die maximal ausgewaeh
  * - Presetliste
  * - Sortierung bei Waffenauswahlliste (Waffen ganz oben, danach Equipment, danach Granaten)
  * - Beim Loeschen der Listeneintraege die Selection beruecksichtigen (nicht GetIndexOf)
- * - Beim Wechseln der Waffe achten, dass Ueberreste auch ordnungsgemaeß geloescht werden (ergo kein uebriges C4, Sprengfallen, Granaten, etc.)
- *   => Aufpassen das es sich dabei um keine Bonusitems handelt!!
- * - Granaten gestacked (sodass man auch nicht zu zielen aufhoeren muss), andererseits hat man dann den Selection-Cooldown, koennte das Spammen etwas verhindern.
  */
 
 public func IsConfigurable()	{return true;}
@@ -38,18 +35,67 @@ protected func Initialize()
   return true;
 }
 
+private func GetIDSortPriority(id wpn) {
+	if(!wpn)
+		return 100;
+
+	if(wpn->~IsWeapon2()) {
+		if(wpn->~ClonkCanUseWeapon() == POCKET_APACHE)
+			return 1;
+		else if(wpn ->~GGNG_NotRecommended())
+			return 2;
+		
+		return 0;
+	}
+	else if(wpn->~IsGrenade()) {
+		if(wpn->~GGNG_NotRecommended())
+			return 21;
+		
+		return 20;
+	}
+	else if(wpn->~IsEquipment()) {
+		if(wpn->~GGNG_NotRecommended())
+			return 11;
+		
+		return 10;
+	}
+	
+	return 100;
+}
+
+//Mit der Funktion aus Helper-Arrays.c gibts scheinbar Probleme... vorhandene Elemente werden nicht korrekt nach hinten gesetzt
+public func AddArrayItem(array &a, int i, v) {
+  SetLength(a, GetLength(a)+1);
+
+  for(var j = GetLength(a)-2; i <= j; j--) {
+    a[j+1] = a[j];
+  }
+
+  a[i] = v;
+}
+
 public func GenerateAvailableDefList(bool fTemp, bool fHideNotRecommended) {
 	var defs = [];
-
   //Liste von Waffen generieren die zur Auswahl stehen
   var def, i = 0;
   while(def = GetDefinition(i++, C4D_Object))
-  	if(ItemIsAllowed(def))
-  		if(!fHideNotRecommended || !def->~GGNG_NotRecommended())
-  			defs[GetLength(defs)] = def;
-
+	if(ItemIsAllowed(def))
+		if(!fHideNotRecommended || !def->~GGNG_NotRecommended()) {
+  		for(var j = 0, prio = GetIDSortPriority(def); j <= GetLength(defs); j++) {
+  			if(!defs[j])
+  				defs[j] = def;
+  			else if(GetIDSortPriority(defs[j]) > prio)
+  				AddArrayItem(defs, j, def);
+  			else continue;
+			
+  			break;
+  		}
+  	}
 	if(!fTemp)
 		aWeaponDefs = defs;
+	
+	if(GetIndexOf(0, defs) > -1)
+		SetLength(defs, GetIndexOf(0, defs));
 
 	return defs;
 }
@@ -168,6 +214,9 @@ private func OpenWeaponListChooser(id dummy, int iSelection)
 }
 
 private func AddWeaponMenuItem(object pMenuObj, string szCommand, id idWpn, int iParameter) {
+	if(!idWpn)
+		return;
+
 	var name = GetName(0, idWpn), obj = 0, desc = 0, extra = 0;
 	
 	//Item ggf. als nicht empfohlen markieren
@@ -195,7 +244,6 @@ private func AddWeaponMenuItem(object pMenuObj, string szCommand, id idWpn, int 
 private func GenerateRandomList(id dummy, int iSelection) {
 	//Ggf. Itemliste aktualisieren
 	GenerateAvailableDefList();
-	
 	
 	var aTempDefs = GenerateAvailableDefList(true, true), length = GetLength(aWeaponList) || GGNG_MaxWeaponSelect/2;
 	aWeaponList = [];
@@ -233,6 +281,8 @@ private func RemoveWeaponFromList(id weapon) {
 	return OpenWeaponListChooser(0, 4+index);
 }
 
+local idLastAddedWeapon;
+
 private func OpenWeaponSelection() {
   var pClonk = GetCursor(iChoosedPlr);
   CreateMenu(GetID(),pClonk,0,0,0,0,1);
@@ -243,12 +293,15 @@ private func OpenWeaponSelection() {
 	
 	//Fertig
   AddMenuItem("$Back$", "OpenWeaponListChooser", GOCC, pClonk,0,0,"$Back$",2,3);
+  
+  SelectMenuItem(Max(GetIndexOf(idLastAddedWeapon, aWeaponDefs)), pClonk);
 	return true;
 }
 
 private func AddWeaponToList(id weapon) {
 	aWeaponList[GetLength(aWeaponList)] = weapon;
-	
+	idLastAddedWeapon = weapon;
+
 	return OpenWeaponListChooser(0, 3+GetLength(aWeaponList));
 }
 
