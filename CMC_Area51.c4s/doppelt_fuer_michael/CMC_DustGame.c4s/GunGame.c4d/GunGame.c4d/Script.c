@@ -38,16 +38,20 @@ protected func Initialize()
   return true;
 }
 
-public func GenerateAvailableDefList() {
-	aWeaponDefs = [];
+public func GenerateAvailableDefList(bool fTemp, bool fHideNotRecommended) {
+	var defs = [];
 
   //Liste von Waffen generieren die zur Auswahl stehen
   var def, i = 0;
   while(def = GetDefinition(i++, C4D_Object))
-  	if(ItemIsAllowed(def)) 
-  		aWeaponDefs[GetLength(aWeaponDefs)] = def;
+  	if(ItemIsAllowed(def))
+  		if(!fHideNotRecommended || !def->~GGNG_NotRecommended())
+  			defs[GetLength(defs)] = def;
 
-	return aWeaponDefs;
+	if(!fTemp)
+		aWeaponDefs = defs;
+
+	return defs;
 }
 
 public func ItemIsAllowed(id def) {
@@ -191,8 +195,9 @@ private func AddWeaponMenuItem(object pMenuObj, string szCommand, id idWpn, int 
 private func GenerateRandomList(id dummy, int iSelection) {
 	//Ggf. Itemliste aktualisieren
 	GenerateAvailableDefList();
-
-	var aTempDefs = aWeaponDefs, length = GetLength(aWeaponList) || GGNG_MaxWeaponSelect/2;
+	
+	
+	var aTempDefs = GenerateAvailableDefList(true, true), length = GetLength(aWeaponList) || GGNG_MaxWeaponSelect/2;
 	aWeaponList = [];
 	
 	while(GetLength(aTempDefs) && GetLength(aWeaponList) < length) {
