@@ -749,6 +749,8 @@ public func HandR()
 
 /*----- Werfen -----*/
 
+static g_SHOW_MELEE_HITBOX;
+
 public func ControlThrow(caller)
 {
   //Nutzer ist Schütze
@@ -772,10 +774,21 @@ public func ControlThrow(caller)
     var dir = GetDir(GetUser());
 
     //Ziele finden
-    var outer_end = Max((this->~HandX()/1000+(GetDefWidth(GetID())/2))*this->~HandSize()/1000, GetObjWidth(caller)/2);
-    var obj = FindObjects(Find_AtRect(-outer_end*!dir, -10, outer_end, 20), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsMeleeTarget", this)), Find_NoContainer(), Find_Exclude(caller));
+    var outer_end = Max((this->~HandX()/1000+(Max(GetDefWidth(GetID())-3, 3)/2))*this->~HandSize()/1000, GetObjWidth(caller)/2);
+    
+    //Debugfunktion um die Hitbox anzeigen zu lassen
+    if(g_SHOW_MELEE_HITBOX) {
+    	DrawParticleLine("PSpark", -outer_end*!dir, -4, -outer_end*!dir, 6, 5, 30, RGB(255), RGB(255));
+    	DrawParticleLine("PSpark", -outer_end*!dir, -4, -outer_end*!dir+outer_end, -4, 5, 30, RGB(255), RGB(255));
+    	DrawParticleLine("PSpark", -outer_end*!dir+outer_end, -4, -outer_end*!dir+outer_end, 6, 5, 30, RGB(255), RGB(255));
+    	DrawParticleLine("PSpark", -outer_end*!dir, 6, -outer_end*!dir+outer_end, 6, 5, 30, RGB(255), RGB(255));
+    }
+    var obj = FindObjects(Find_AtRect(-outer_end*!dir, -4, outer_end, 10), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsMeleeTarget", this)), Find_NoContainer(), Find_Exclude(caller));
     for(var target in obj)
     {
+    	if((dir == DIR_Left && GetX(target) > GetX(GetUser())+5) || (dir == DIR_Right && GetX(target) < GetX(GetUser())-5))
+    		continue;
+    
       if(target->~HitExclude(this))
         continue;
       if(GetOCF(target) & OCF_Alive)
