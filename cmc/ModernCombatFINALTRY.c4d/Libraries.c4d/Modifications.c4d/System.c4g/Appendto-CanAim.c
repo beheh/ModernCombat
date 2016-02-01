@@ -5,9 +5,9 @@
 
 local crosshair;
 
+static const AIM_Step = 10;
 
-public func DoMouseAiming(int iTx, int iTy, int iSpeed)
-{
+public func DoMouseAiming(int iTx, int iTy, int iSpeed) {
   if(!Contained())
   {
     var iAngle = Normalize(Angle(GetX(),GetY(),iTx,iTy),-180);
