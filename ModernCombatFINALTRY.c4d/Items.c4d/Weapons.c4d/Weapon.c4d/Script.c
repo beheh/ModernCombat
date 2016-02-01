@@ -2144,7 +2144,7 @@ func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
     EffectVar(0, pTarget, iEffectNumber) = 0;
     SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber));
     if(GetUnusedOverlayID(WeaponDrawLayer, EffectVar(3, pTarget, iEffectNumber)) != WeaponDrawLayer)
-    	SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber), WeaponDrawLayer);
+      SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber), WeaponDrawLayer);
     EffectVar(3, pTarget, iEffectNumber) = 0;
     return;
   }
@@ -2179,19 +2179,21 @@ func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
       EffectVar(0, pTarget, iEffectNumber) -= 3;
 
   //Tarnung verändert: Neuen Wert setzen
-  if(Alpha != EffectVar(0, pTarget, iEffectNumber)) {
+  if(Alpha != EffectVar(0, pTarget, iEffectNumber))
+  {
     SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber));
-  	if(GetUnusedOverlayID(WeaponDrawLayer, EffectVar(3, pTarget, iEffectNumber)) != WeaponDrawLayer)
-    	SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber), WeaponDrawLayer);
+    if(GetUnusedOverlayID(WeaponDrawLayer, EffectVar(3, pTarget, iEffectNumber)) != WeaponDrawLayer)
+      SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber), WeaponDrawLayer);
   }
 }
 
 func FxSilencerStop(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  if(EffectVar(3, pTarget, iEffectNumber)) {
+  if(EffectVar(3, pTarget, iEffectNumber))
+  {
     SetClrModulation(RGBa(255, 255, 255, 0), EffectVar(3, pTarget, iEffectNumber));
     if(GetUnusedOverlayID(WeaponDrawLayer, EffectVar(3, pTarget, iEffectNumber)) != WeaponDrawLayer)
-    	SetClrModulation(RGBa(255, 255, 255, 0), EffectVar(3, pTarget, iEffectNumber), WeaponDrawLayer);
+      SetClrModulation(RGBa(255, 255, 255, 0), EffectVar(3, pTarget, iEffectNumber), WeaponDrawLayer);
   }
 }
 
@@ -2262,7 +2264,7 @@ global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime)
   if(r > 180 || r < -180)
     dir *= -1;
   r *= dir;
-  
+
   if(GetEffect("Silencer", obj))
     SetClrModulation(RGBa(255, 255, 255, EffectVar(0, obj, GetEffect("Silencer", obj))), pTarget, WeaponDrawLayer);
 
