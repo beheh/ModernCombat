@@ -1329,7 +1329,6 @@ public func Deselection(object pContainer, object pNextItem)
       EffectVar(4, contents, effect) = EffectVar(0, this, silencer);
       EffectVar(0, this, silencer) = 0;
       EffectVar(3, this, silencer) = 0;
-      SetClrModulation(RGB(255, 255, 255), this);
     }
   }
 
@@ -2136,10 +2135,7 @@ func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
       EffectVar(3, pTarget, iEffectNumber) = pContainer;
 
     if(EffectVar(0, pTarget, iEffectNumber) && !(Contents(0, pContainer)->~IsWeapon2() && GetEffect("Silencer", Contents(0, pContainer))))
-    {
       EffectVar(0, pTarget, iEffectNumber) = 0;
-      SetClrModulation(RGBa(255, 255, 255, 0), pTarget);
-    }
     return;
   }
   //Nicht im Inventar: Tarnung bei Waffe und Clonk entfernen, Clonk vergessen
@@ -2147,7 +2143,8 @@ func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
   {
     EffectVar(0, pTarget, iEffectNumber) = 0;
     SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber));
-    SetClrModulation(RGBa(255, 255, 255, 0), pTarget);
+    if(GetUnusedOverlayID(WeaponDrawLayer, EffectVar(3, pTarget, iEffectNumber)) != WeaponDrawLayer)
+    	SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber), WeaponDrawLayer);
     EffectVar(3, pTarget, iEffectNumber) = 0;
     return;
   }
@@ -2182,16 +2179,20 @@ func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
       EffectVar(0, pTarget, iEffectNumber) -= 3;
 
   //Tarnung verändert: Neuen Wert setzen
-  if(Alpha != EffectVar(0, pTarget, iEffectNumber))
+  if(Alpha != EffectVar(0, pTarget, iEffectNumber)) {
     SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber));
+  	if(GetUnusedOverlayID(WeaponDrawLayer, EffectVar(3, pTarget, iEffectNumber)) != WeaponDrawLayer)
+    	SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber), WeaponDrawLayer);
+  }
 }
 
 func FxSilencerStop(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  if(EffectVar(3, pTarget, iEffectNumber))
+  if(EffectVar(3, pTarget, iEffectNumber)) {
     SetClrModulation(RGBa(255, 255, 255, 0), EffectVar(3, pTarget, iEffectNumber));
-  if(pTarget)
-    SetClrModulation(RGBa(255, 255, 255, 0), pTarget);
+    if(GetUnusedOverlayID(WeaponDrawLayer, EffectVar(3, pTarget, iEffectNumber)) != WeaponDrawLayer)
+    	SetClrModulation(RGBa(255, 255, 255, 0), EffectVar(3, pTarget, iEffectNumber), WeaponDrawLayer);
+  }
 }
 
 /* Spezialzeugs wegen Silencer! */
@@ -2226,7 +2227,7 @@ global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime)
       dodraw = true;
       EffectVar(0, pTarget, iNumber) = id;
       EffectVar(6, pTarget, iNumber) = obj;
-      SetGraphics(0, pTarget,id, WeaponDrawLayer, GFXOV_MODE_Object,0,GFX_BLIT_Parent,obj);
+      SetGraphics(0, pTarget,id, WeaponDrawLayer, GFXOV_MODE_Object,0,GFX_BLIT_ClrSfc_Mod2|GFX_BLIT_Parent,obj);
     }
     //neues Objekt ist keine Waffe
     else
@@ -2261,11 +2262,11 @@ global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime)
   if(r > 180 || r < -180)
     dir *= -1;
   r *= dir;
-
+  
   if(GetEffect("Silencer", obj))
-    SetClrModulation(RGBa(255, 255, 255, EffectVar(0, obj, GetEffect("Silencer", obj))), obj);
+    SetClrModulation(RGBa(255, 255, 255, EffectVar(0, obj, GetEffect("Silencer", obj))), pTarget, WeaponDrawLayer);
 
-  if (!dodraw && 90*dir+r == EffectVar(1, pTarget, iNumber) && GetAction(pTarget) == EffectVar(8, pTarget, iNumber) && GetDir(pTarget) == EffectVar(7, pTarget, iNumber))
+  if(!dodraw && 90*dir+r == EffectVar(1, pTarget, iNumber) && GetAction(pTarget) == EffectVar(8, pTarget, iNumber) && GetDir(pTarget) == EffectVar(7, pTarget, iNumber))
     return;
 
   var xfact = size * obj->~HandX();  //Attach-Punkte dazurechnen
