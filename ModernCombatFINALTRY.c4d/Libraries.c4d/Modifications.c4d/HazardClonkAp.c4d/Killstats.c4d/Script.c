@@ -17,6 +17,33 @@ public func KTMsg(int plr1, int plr2, object clonk, int plr3)
   KMsg(plr1,plr2,clonk,plr3);
 }
 
+static KILL_KillMsg;
+
+public func GetKillMsgByObject(object pObj) {
+	if(!KILL_KillMsg)
+		return;
+	for(var i = 0; i < GetLength(KILL_KillMsg); i++) {
+		if(!KILL_KillMsg[i])
+			continue;
+
+		if(!KILL_KillMsg[i][0])
+			KILL_KillMsg[i] = 0;
+		else if(KILL_KillMsg[i][0] == pObj)
+			return KILL_KillMsg[i][1];
+	}
+}
+
+public func StockKillMsg(string szMsg, object pObj) {
+	if(!KILL_KillMsg)
+		return KILL_KillMsg = [[pObj, szMsg]];
+	var index = GetIndexOf(0, KILL_KillMsg);
+	if(index < 0)
+		index += GetLength(KILL_KillMsg);
+
+	KILL_KillMsg[index] = [pObj, szMsg];
+	return false;
+}
+
 /* Killnachricht */
 
 public func KMsg(int plr1, int plr2, object clonk, int plr3)
@@ -114,9 +141,10 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
   //Eventnachricht: Spieler eliminiert Spieler
   EventInfo4K(0,msg,0);
 
-  //Und an den Toten weiterleiten
+  //Und an den Toten weiterleiten (obsolet, kann mit neuem DeathMenu entfernt werden)
   if(Contained(clonk) && !FindObject(NOFD))
     Contained(clonk)->~KillMessage(dmsg);
+  StockKillMsg(dmsg, clonk);
 }
 
 /* Selbstmordnachricht */

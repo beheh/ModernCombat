@@ -10,11 +10,12 @@
 
 /* Spawnverzögerung */
 
-public func FxWaitingObjectStart(object pTarget, int iNr, bool fTemp)
+public func FxWaitingObjectStart(object pTarget, int iNr, bool fTemp, string szKillmsg)
 {
   if(fTemp)
     return;
 
+	EffectVar(0, pTarget, iNr) = szKillmsg;
   FxWaitingObjectTimer(pTarget, iNr, 0);
 }
 
@@ -22,16 +23,20 @@ public func FxWaitingObjectTimer(object pTarget, int iNr, int iTime)
 {
   var clonk = FindObject2(Find_Container(this), Find_OCF(OCF_CrewMember));
   var time = GameCall("GetPlayerRespawnTime", GetOwner(clonk));
-  CloseMenu(clonk);
 
   if(time-iTime <= 0)
     return -1;
 
-  CreateMenu(FKDT, clonk, this, 0, Format("$RemainingRespawnTime$", (time-iTime)/35+!!((time-iTime)%35)), 0, C4MN_Style_Context, true);
-  AddMenuItem("<Platzhalter fuer DeathMenu>", 0, FKDT, clonk);
+	if(!g_FallbackDeathmenu)
+		FKDT->DeathMenu(clonk, this, FKDT_DeathMenu_FullSettings, time-iTime, FKDT_SuicideTime, EffectVar(0, pTarget, iNr));
+	else {
+		CloseMenu();
+		CreateMenu(FKDT, clonk, this, 0, Format("$RemainingRespawnTime$", (time-iTime)/35+!!((time-iTime)%35)), 0, C4MN_Style_Context, true);
+  	AddMenuItem("<Platzhalter fuer DeathMenu>", 0, FKDT, clonk);
+	}
 
-  //Effekt verzögert löschen (ChangeEffect und ähnliches funktionieren nicht wie gewollt, daher ScheduleCall)
-  if(time-iTime < 35)
+  //Effekt verzögert löschen (ChangeEffect und ähnliches funktionieren nicht wie gewollt, daher Schedule)
+  if(time-iTime < 10)
     Schedule(Format("RemoveEffect(0, Object(%d), %d)", ObjectNumber(pTarget), iNr), time-iTime);
 
   return true;

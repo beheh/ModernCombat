@@ -47,7 +47,7 @@ public func RejectReanimation()	{return rejected || (clonk && !GetAlive(clonk));
 
 private func Reject()
 {
-  if(!symbol) return DeathMenu();
+  if(!symbol) return DoMenu();
   rejected = !rejected;
 
   //Symbol umschalten
@@ -58,7 +58,7 @@ private func Reject()
     AddEffect("BlockRejectReanimation", this, 101, BlockTime(), this);
     symbol->SetGraphics("");
   }
-  return DeathMenu();
+  return DoMenu();
 }
 
 public func FxBlockRejectReanimationTimer(object target, int nr, int time)
@@ -146,7 +146,7 @@ public func KillMessage(string msg)
   if(clonk && !clonk->~ShorterDeathMenu())
     aTipps = GetQuickTipps(this);
 
-  DeathMenu();
+  DoMenu();
 }
 
 protected func FxIntFakeDeathMenuTimer(object pTarget, int iEffect, int iTime)
@@ -197,10 +197,166 @@ protected func FxIntFakeDeathMenuStop(object pTarget, int iEffect)
 
 func DoMenu()
 {
-  DeathMenu();
+  DeathMenu(clonk, this, 0, TimeLeft(), FKDT_SuicideTime);
 }
 
-private func DeathMenu()
+//Variable um das Fallbackmenue zu aktivieren
+static g_FallbackDeathmenu;
+
+//DeathMenu Module
+static const FKDT_DeathMenu_Timer = 0x1;
+static const FKDT_DeathMenu_RejectReanimation = 0x2;
+static const FKDT_DeathMenu_Suicide = 0x4;
+static const FKDT_DeathMenu_RewardMenuItem = 0x8;
+static const FKDT_DeathMenu_EffectMenuItem = 0x10;
+static const FKDT_DeathMenu_SettingsMenuItem = 0x20;
+static const FKDT_DeathMenu_KillMsg = 0x40;
+static const FKDT_DeathMenu_Statistics = 0x80;
+static const FKDT_DeathMenu_ShortenedNames = 0x100;
+
+//Flag um alle Module zu deaktivieren (da eine Einstellung von 0 den Standardeinstellungen entsprechen)
+static const FKDT_DeathMenu_NoModules = 0x80000000;
+
+//Shorthands und Voreinstellungen (Feste Zahlenwerte, da Clonk den BitwiseOR-Operator in Konstanten nicht erlaubt (Entsprechende Kombination steht dahinter)) 
+//Auswaehlbare Menueeintraege
+static const FKDT_DeathMenu_GeneralMenuItems = 0x38; //FKDT_DeathMenu_RewardMenuItem|FKDT_DeathMenu_EffectMenuItem|FKDT_DeathMenu_SettingsMenuItem;
+static const FKDT_DeathMenu_AdditionalMenuItems = 0x6; //FKDT_DeathMenu_RejectReanimation|FKDT_DeathMenu_Suicide
+static const FKDT_DeathMenu_FullMenuItems = 0x3E; //FKDT_DeathMenu_GeneralMenuItems|FKDT_DeathMenu_AdditionalMenuItems
+
+//Standardeinstellung fuer FKDT
+static const FKDT_DeathMenu_DefaultSetting = 0xFF; //FKDT_DeathMenu_Timer|FKDT_DeathMenu_FullMenuItems|FKDT_DeathMenu_KillMsg|FKDT_DeathMenu_Statistics;
+//Kompaktes Menue
+static const FKDT_DeathMenu_CompactSetting = 0x17F; //FKDT_DeathMenu_Timer|FKDT_DeathMenu_FullMenuItems|FKDT_DeathMenu_KillMsg|FKDT_DeathMenu_ShortenedNames;
+//Basismenue (Mindestvoraussetzung)
+static const FKDT_DeathMenu_BasicSetting = 0x1; //FKDT_DeathMenu_Timer;
+//Alle Einstellungen
+static const FKDT_DeathMenu_FullSettings = 0x7FFFFFFF;
+
+public func DeathMenu(object pTarget, object pMenuTarget, int iModules, int iTimeLeft, int iTimeMax, string killmsg, bool fForceSettings) {
+	//ggf. auf Fallback zurueckgreifen
+	if(g_FallbackDeathmenu) {
+		if(!this)
+			return;
+		return DeathMenuFallback();
+	}
+  if(!GetAlive(pTarget))
+    return;
+
+  var selection = GetMenuSelection(pTarget);
+
+  //Bei offenen Statistiken, Einstellungen oder Effektmanagern nichts unternehmen
+  if(GetIndexOf(GetMenu(pTarget), [RWDS, EFMN, CSTR]) != -1) return;
+
+  CloseMenu(pTarget);
+
+  if(GetMenu(pTarget)) return;
+
+	if(!killmsg)
+  	killmsg = KILL->GetKillMsgByObject(pTarget);
+
+  if(!iTimeMax)
+  	iTimeMax = FKDT_SuicideTime;
+  if(!iModules)
+  	iModules = FKDT_DeathMenu_FullSettings;
+
+	//Module die nur mit FKDT funktionieren
+	if(!this) {
+		if(iModules & FKDT_DeathMenu_RejectReanimation)
+			iModules ^= FKDT_DeathMenu_RejectReanimation;
+	}
+
+	//Nur Module die der Spieler auch selbst aktiviert hat anzeigen
+	if(!fForceSettings)
+		iModules &= GetPlrExtraData(GetOwner(pTarget), "CMC_DeathMenuModules");
+
+  //Menü erstellen
+  var timer = "";
+  if(iModules & FKDT_DeathMenu_Timer)
+  	timer = Format("$DeathCounter$", 1 + iTimeLeft / 35);
+  CreateMenu(FKDT, pTarget, pMenuTarget, 0, timer, C4MN_Style_Dialog, true, true);		//Titelzeile mit Zeitanzeige
+
+  var iTarget = ObjectNumber(pTarget);
+
+  if(~iModules & FKDT_DeathMenu_NoModules) {
+		if(iTimeLeft < (iTimeMax - 1) * 35)
+		{
+		  var blocktime;
+		  if(iModules & FKDT_DeathMenu_RejectReanimation) {
+				if(GetEffect("BlockRejectReanimation", pMenuTarget))										//Ablehnen-Menüpunkt
+				{
+				  blocktime = GetEffect("BlockRejectReanimation", pMenuTarget, 0, 6);
+				  AddMenuItem(Format("$ReanimationBlocked$", (FKDT->BlockTime()-blocktime)/35), 0, SM01, pTarget, 0, 0, "$ReanimationDescAllow$");
+				}
+				else
+				{
+				  if(!RejectReanimation())
+				    AddMenuItem("$ReanimationAllow$", "Reject", SM01, pTarget, 0, 0, "$ReanimationDescAllow$");
+				  else
+				    AddMenuItem("$ReanimationDisallow$", "Reject", SM06, pTarget, 0, 0, "$ReanimationDescDisallow$");
+				}
+			}
+		  if(FindObject(SICD) && iModules & FKDT_DeathMenu_Suicide)
+		    AddMenuItem("$Suicide$", Format("FKDT->Suicide(Object(%d))", iTarget), PSTL, pTarget, 0, 0, "$SuicideDesc$");							//Selbstmord-Menüpunkt
+
+		  if(FindObject(RWDS) && iModules & FKDT_DeathMenu_RewardMenuItem)
+		    AddMenuItem("$Statistics$", Format("FindObject(RWDS)->Activate(%d)", GetOwner(pTarget)), RWDS, pTarget);			//Statistik-Menüpunkt
+
+		  if(FindObject(EFMN) && GetOwner(pTarget) == GetPlayerByIndex(0, C4PT_User) && !GetLeague() && iModules & FKDT_DeathMenu_EffectMenuItem)
+		    AddMenuItem("$EffectLevel$", Format("FindObject(EFMN)->Activate(%d)", GetOwner(pTarget)), EFMN, pTarget);			//Effektstufe-Menüpunkt
+
+			if(iModules & FKDT_DeathMenu_SettingsMenuItem)
+		  	AddMenuItem("$Settings$", Format("FKDT->OpenSettings(Object(%d))", iTarget), CSTR, pTarget);									//Einstellungen-Menüpunkt
+		}
+
+		if(GetType(killmsg) == C4V_String && iModules & FKDT_DeathMenu_KillMsg)
+		{
+		  AddMenuItem("", "", NONE, pTarget, 0, 0, "", 512, 0, 0);									//Leerzeile
+		  AddMenuItem(Format("$Killer$", GetName(pTarget)),"", NONE, pTarget, 0, 0, "", 512, 0, 0);					//Titel
+
+		  AddMenuItem(killmsg, "", NONE, pTarget, 0, 0, "", 512);									//Killerinformationen
+		}
+
+		if(iModules & FKDT_DeathMenu_Statistics)
+		{
+		  var obj;
+		  if((obj = FindObject(RWDS)))												//Punktestatistik erstellen
+		  {
+		    AddMenuItem("", "", NONE, pTarget, 0, 0, "", 512, 0, 0);									//Leerzeile
+		    AddMenuItem(Format("$Points$", GetName(pTarget)),"", NONE, pTarget, 0, 0, "", 512, 0, 0);					//Titel
+
+		    //Einsortieren
+		    var aList = [], iPlr, aData = obj->~GetData(), szString = "";
+		    for(iPlr = 0; iPlr < GetLength(aData); ++iPlr)
+		    {
+		      if(!aData[iPlr])
+		        continue;
+
+		      var iTeam = obj->~GetPlayerData(RWDS_PlayerTeam, iPlr);
+		      if(!aList[iTeam]) aList[iTeam] = [];
+		      szString = Format("%s: %d", obj->~GetPlayerData(RWDS_PlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
+		      if(iModules & FKDT_DeathMenu_ShortenedNames) 
+  	        szString = Format("%s: %d", obj->~GetPlayerData(RWDS_CPlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
+
+		      aList[iTeam][GetLength(aList[iTeam])] = szString;
+		    }
+
+		    //Teamweise ausgeben
+		    for (var aTeam in aList)
+		      if(aTeam)
+		        for (var szString in aTeam)
+		          if(GetType(szString) == C4V_String)
+		            AddMenuItem(szString, "", NONE, pTarget, 0, 0, "", 512);
+		  }
+		}
+	}
+
+  if(selection >= 0) SelectMenuItem(selection, pTarget);
+}
+
+/*-- Fallback falls neues Menue Probleme macht --*/
+/* (Kann entfernt werden, wenn das neue Menue durchgetestet wurde) */ 
+
+private func DeathMenuFallback()
 {
   if(!GetAlive(clonk))
     return;
@@ -228,7 +384,7 @@ private func DeathMenu()
     else
     {
       if(!RejectReanimation())
-        AddMenuItem("$ReanimationAllow$", "Reject", SM01, clonk, 0, 0, "$ReanimationDescAllow$");
+        AddMenuItem("$ReanimationAllow$", "FKDT->Reject()", SM01, clonk, 0, 0, "$ReanimationDescAllow$");
       else
         AddMenuItem("$ReanimationDisallow$", "Reject", SM06, clonk, 0, 0, "$ReanimationDescDisallow$");
     }
@@ -297,13 +453,17 @@ private func DeathMenu()
 
   if(selection >= 0) SelectMenuItem(selection, clonk);
 }
+/*-- Ende Fallback --*/
 
 static const FKDT_MaxTippCount = 10;
 
-public func OpenSettings()
+public func OpenSettings(object pClonk)
 {
-  CloseMenu(clonk);
-  clonk->~ContextSettings(clonk);
+	//FALLBACK:
+	if(this && !pClonk) { pClonk = LocalN("clonk"); }
+
+  CloseMenu(pClonk);
+  pClonk->~ContextSettings(pClonk);
 }
 
 public func NextTipp()
@@ -445,17 +605,19 @@ private func GetRandomTipp(array a, id id)
 
 /* Selbstmord */
 
-public func Suicide()
+public func Suicide(object pClonk)
 {
+	//FALLBACK:
+	if(this && !pClonk) { pClonk = LocalN("clonk"); }
   //Soundloop beenden
-  Sound("FKDT_ClonkDown.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
-  Sound("FKDT_Heartbeat.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
+  Sound("FKDT_ClonkDown.ogg", false, pClonk, 100, GetOwner(pClonk)+1, -1);
+  Sound("FKDT_Heartbeat.ogg", false, pClonk, 100, GetOwner(pClonk)+1, -1);
 
   //Töten
-  if(clonk && GetAlive(clonk)) Kill(clonk);
+  if(pClonk && GetAlive(pClonk)) Kill(pClonk);
   
-  if(symbol)
-    RemoveObject(symbol);
+  if(this && LocalN("symbol"))
+    RemoveObject(LocalN("symbol"));
 }
 
 public func Remove()
@@ -465,7 +627,7 @@ public func Remove()
     for(var item in FindObjects(Find_Container(this),Find_Not(Find_OCF(OCF_Living))))
       RemoveObject(item);
 
-  Suicide();
+  Suicide(clonk);
 
   if(clonk)
   {

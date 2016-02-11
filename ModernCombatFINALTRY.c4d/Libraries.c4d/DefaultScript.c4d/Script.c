@@ -170,7 +170,7 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
 public func RelaunchClonk(int iPlr, object pCursor)
 {
   //Clonkerstellung
-  var pClonk;
+  var pClonk, killmsg = KILL->GetKillMsgByObject(pCursor);
   if(pCursor && pCursor->~GetRealCursor()) pCursor = pCursor->~GetRealCursor();
   if(pCursor)
   {
@@ -195,7 +195,7 @@ public func RelaunchClonk(int iPlr, object pCursor)
   {
     //An den Todesort verschieben (allerdings nicht in Abgründe rein)
     SetPosition(GetX(pCursor), Min(GetY(pCursor), LandscapeHeight()-10), tim);
-    AddEffect("WaitingObject", tim, 100, 35, tim, 0);
+    AddEffect("WaitingObject", tim, 100, 10, tim, 0, killmsg);
 
     return;
   }

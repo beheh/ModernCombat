@@ -1,7 +1,7 @@
 #Clonk
 
 CtxStatistics=Statistics
-CtrlMenuDesc=Men¸
+CtrlMenuDesc=MenÅE
 DropItem=Drop Item
 
 #Hazardclonk
@@ -39,12 +39,28 @@ CtxHelpMessagesDesc=Shows help messages above clonks.
 CtxInvLockOn=Inventory Lock
 CtxInvLockOff=<c 777777>Inventory Lock</c>
 CtxInvLockDesc=Prevents dropping weapons by key command, instead, an additional context entry can be selected to do so.
-CtxShorterDMOn=Compact Injured Menu
-CtxShorterDMOff=<c 777777>Compact Injured Menu</c>
-CtxShorterDMDesc=Reduces the injured menu and hides additional information.
 CtxBetterAimingOn=Prioritize Aiming
 CtxBetterAimingOff=<c 777777>Prioritize Aiming</c>
 CtxBetterAimingDesc=When pressing [Triple Stop], Clonks will prioritize aiming with a weapon instead of touching an object.
+CtxDMModules=Injured menu
+CtxDMModulesDesc=Select or deselect single modules of the injured menu.
+CtxCompactDeathMenu=Compact injured menu
+CtxCompactDeathMenuDesc=Preset: Displays only relevant information in the injured menu.
+CtxRejectReanimation=Menu item: Reject Reanimation
+CtxRejectReanimationDesc=Show or hide the menu entry to reject reanimation.
+CtxSuicide=Menu item: Suicide
+CtxSuicideDesc=Show or hide the suicide menu entry while the suicide rule is active.
+CtxRewardMenuItem=Menu item: Rewards
+CtxRewardMenuItemDesc=Show or hide the rewards menu entry.
+CtxEffectMenuItem=Menu item: Effectmanager
+CtxEffectMenuItemDesc=Show or hide the effectmanager menu entry.
+CtxKillMsg=Kill Message
+CtxKillMsgDesc=Show or hide kill messages in the injured menu.
+CtxShortenedNames=Shortened Names
+CtxShortenedNamesDesc=Display names in the injured menu shortened.
+CtxStatisticsDesc=Show or hide the statistics in the injured menu.
+CtxResetToDefault=Default Settings
+CtxResetToDefaultDesc=Reset the injured menu modules to default settings.
 CtxResetData=Reset Data
 CtxResetDataDesc=Permanently reset saved data.
 ResetDataInfo=Reset selected data of your player file.
