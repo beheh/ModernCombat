@@ -30,6 +30,9 @@ Use=Benutzen
 #Settings
 
 Settings=Settings
+CtxFunctions=Functions
+CtxConfiguration=Configuration
+CtxButtons=Menu Items
 CtxQuickInventoryOn=QuickInventory
 CtxQuickInventoryOff=<c 777777>QuickInventory</c>
 CtxQuickInventoryDesc=Enables the QuickInventory ringmenu, replacing the traditional switching inside the inventory.
@@ -46,13 +49,13 @@ CtxDMModules=Injured menu
 CtxDMModulesDesc=Select or deselect modules to be shown in the injured menu.
 CtxCompactDeathMenu=Compact injured menu
 CtxCompactDeathMenuDesc=Preset: Displays only relevant information in the injured menu.
-CtxRejectReanimation=Menu item: Reject Reanimation
+CtxRejectReanimation=Reject Reanimation
 CtxRejectReanimationDesc=Show or hide the menu entry to reject reanimation.
-CtxSuicide=Menu item: Suicide
+CtxSuicide=Suicide
 CtxSuicideDesc=Show or hide the suicide menu entry while the suicide rule is active.
-CtxRewardMenuItem=Menu item: Rewards
+CtxRewardMenuItem=Rewards
 CtxRewardMenuItemDesc=Show or hide the rewards menu entry.
-CtxEffectMenuItem=Menu item: Effectmanager
+CtxEffectMenuItem=Effectmanager
 CtxEffectMenuItemDesc=Show or hide the effectmanager menu entry.
 CtxKillMsg=Kill Message
 CtxKillMsgDesc=Show or hide kill messages in the injured menu.

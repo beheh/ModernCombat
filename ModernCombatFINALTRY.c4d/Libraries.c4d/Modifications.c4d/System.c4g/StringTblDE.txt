@@ -30,6 +30,9 @@ Use=Benutzen
 #Einstellungen
 
 Settings=Einstellungen
+CtxFunctions=Funktionen
+CtxConfiguration=Konfiguration
+CtxButtons=Menüpunkte
 CtxQuickInventoryOn=QuickInventar
 CtxQuickInventoryOff=<c 777777>QuickInventar</c>
 CtxQuickInventoryDesc=Aktiviert das QuickInventar-Ringmenü, welches das traditionelle Durchwechseln des Inventars ersetzt.
@@ -46,13 +49,13 @@ CtxDMModules=Schwerverletztenmenü
 CtxDMModulesDesc=Wähle die im Schwerverletztenmenü anzuzeigenden Elemente aus.
 CtxCompactDeathMenu=Kompaktes Schwerverletztenmenü
 CtxCompactDeathMenuDesc=Voreinstellung: Zeigt nur relevante Informationen im Schwerverletzenmenü an.
-CtxRejectReanimation=Menüeintrag: Reanimationsablehnung
+CtxRejectReanimation=Reanimationsablehnung
 CtxRejectReanimationDesc=Menüeintrag um die Reanimation abzulehnen ein- oder ausblenden.
-CtxSuicide=Menüeintrag: Selbstmord
+CtxSuicide=Selbstmord
 CtxSuicideDesc=Menüeintrag für Selbstmord bei aktivierter Selbstmordregel ein- oder ausblenden.
-CtxRewardMenuItem=Menüeintrag: Belohnungen
+CtxRewardMenuItem=Belohnungen
 CtxRewardMenuItemDesc=Menüeintrag für Belohnungen ein- oder ausblenden.
-CtxEffectMenuItem=Menüeintrag: Effektmanager
+CtxEffectMenuItem=Effektmanager
 CtxEffectMenuItemDesc=Menüeintrag für den Effektmanager ein- oder ausblenden.
 CtxKillMsg=Todesnachricht
 CtxKillMsgDesc=Todesnachricht im Schwerverletztenmenü ein- oder ausblenden.
