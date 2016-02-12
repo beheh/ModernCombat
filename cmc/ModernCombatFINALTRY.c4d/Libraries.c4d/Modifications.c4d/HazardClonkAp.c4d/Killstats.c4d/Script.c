@@ -19,29 +19,32 @@ public func KTMsg(int plr1, int plr2, object clonk, int plr3)
 
 static KILL_KillMsg;
 
-public func GetKillMsgByObject(object pObj) {
-	if(!KILL_KillMsg)
-		return;
-	for(var i = 0; i < GetLength(KILL_KillMsg); i++) {
-		if(!KILL_KillMsg[i])
-			continue;
+public func GetKillMsgByObject(object pObj)
+{
+  if(!KILL_KillMsg)
+    return;
+  for(var i = 0; i < GetLength(KILL_KillMsg); i++)
+  {
+    if(!KILL_KillMsg[i])
+      continue;
 
-		if(!KILL_KillMsg[i][0])
-			KILL_KillMsg[i] = 0;
-		else if(KILL_KillMsg[i][0] == pObj)
-			return KILL_KillMsg[i][1];
-	}
+    if(!KILL_KillMsg[i][0])
+      KILL_KillMsg[i] = 0;
+    else if(KILL_KillMsg[i][0] == pObj)
+      return KILL_KillMsg[i][1];
+  }
 }
 
-public func StockKillMsg(string szMsg, object pObj) {
-	if(!KILL_KillMsg)
-		return KILL_KillMsg = [[pObj, szMsg]];
-	var index = GetIndexOf(0, KILL_KillMsg);
-	if(index < 0)
-		index += GetLength(KILL_KillMsg);
+public func StockKillMsg(string szMsg, object pObj)
+{
+  if(!KILL_KillMsg)
+    return KILL_KillMsg = [[pObj, szMsg]];
+  var index = GetIndexOf(0, KILL_KillMsg);
+  if(index < 0)
+    index += GetLength(KILL_KillMsg);
 
-	KILL_KillMsg[index] = [pObj, szMsg];
-	return false;
+  KILL_KillMsg[index] = [pObj, szMsg];
+  return false;
 }
 
 /* Killnachricht */

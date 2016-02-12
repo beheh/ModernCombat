@@ -200,7 +200,7 @@ func DoMenu()
   DeathMenu(clonk, this, 0, TimeLeft(), FKDT_SuicideTime);
 }
 
-//Variable um das Fallbackmenue zu aktivieren
+//Variable um das Fallbackmenü zu aktivieren
 static g_FallbackDeathmenu;
 
 //DeathMenu Module
@@ -353,7 +353,7 @@ public func DeathMenu(object pTarget, object pMenuTarget, int iModules, int iTim
   if(selection >= 0) SelectMenuItem(selection, pTarget);
 }
 
-/*-- Fallback falls neues Menue Probleme macht --*/
+/*-- Fallback falls das neues Menü Probleme macht --*/
 /* (Kann entfernt werden, wenn das neue Menue durchgetestet wurde) */ 
 
 private func DeathMenuFallback()
@@ -453,14 +453,14 @@ private func DeathMenuFallback()
 
   if(selection >= 0) SelectMenuItem(selection, clonk);
 }
-/*-- Ende Fallback --*/
+/*-- Fallback-Ende --*/
 
 static const FKDT_MaxTippCount = 10;
 
 public func OpenSettings(object pClonk)
 {
-	//FALLBACK:
-	if(this && !pClonk) { pClonk = LocalN("clonk"); }
+  //FALLBACK:
+  if(this && !pClonk) {pClonk = LocalN("clonk");}
 
   CloseMenu(pClonk);
   pClonk->~ContextSettings(pClonk);
@@ -607,8 +607,8 @@ private func GetRandomTipp(array a, id id)
 
 public func Suicide(object pClonk)
 {
-	//FALLBACK:
-	if(this && !pClonk) { pClonk = LocalN("clonk"); }
+  if(this && !pClonk) {pClonk = LocalN("clonk");}
+
   //Soundloop beenden
   Sound("FKDT_ClonkDown.ogg", false, pClonk, 100, GetOwner(pClonk)+1, -1);
   Sound("FKDT_Heartbeat.ogg", false, pClonk, 100, GetOwner(pClonk)+1, -1);

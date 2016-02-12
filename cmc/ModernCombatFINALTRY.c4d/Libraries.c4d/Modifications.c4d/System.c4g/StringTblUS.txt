@@ -1,7 +1,7 @@
 #Clonk
 
 CtxStatistics=Statistics
-CtrlMenuDesc=MenÅE
+CtrlMenuDesc=Menu
 DropItem=Drop Item
 
 #Hazardclonk
@@ -43,7 +43,7 @@ CtxBetterAimingOn=Prioritize Aiming
 CtxBetterAimingOff=<c 777777>Prioritize Aiming</c>
 CtxBetterAimingDesc=When pressing [Triple Stop], Clonks will prioritize aiming with a weapon instead of touching an object.
 CtxDMModules=Injured menu
-CtxDMModulesDesc=Select or deselect single modules of the injured menu.
+CtxDMModulesDesc=Select or deselect modules to be shown in the injured menu.
 CtxCompactDeathMenu=Compact injured menu
 CtxCompactDeathMenuDesc=Preset: Displays only relevant information in the injured menu.
 CtxRejectReanimation=Menu item: Reject Reanimation
@@ -62,16 +62,16 @@ CtxStatisticsDesc=Show or hide the statistics in the injured menu.
 CtxResetToDefault=Default Settings
 CtxResetToDefaultDesc=Reset the injured menu modules to default settings.
 CtxResetData=Reset Data
-CtxResetDataDesc=Permanently reset saved data.
-ResetDataInfo=Reset selected data of your player file.
+CtxResetDataDesc=Select all or specific saved data to be reset.
+ResetDataInfo=Select which data should be reset:
 ResetAll=All Data
 ResetSettings=Clonk Settings
 ResetStatistics=Statistics
 ResetAchievements=Achievements
 ResetAchInfo=Really reset?|<c 777777>The reset is completed after the round ends.</c>
 ResetAchYes=Reset
-ResetAchNo=Cancel
 ResetDone=Selected data has been reset.
+Back=Back
 
 #General
 Grenades=Grenades
