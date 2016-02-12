@@ -22,13 +22,14 @@ public func Initialize()
   InitCH();
   UpdateGrenadeCount();
 
-  //Kompaktes DeathMenue in neues Format uebersetzen
-  if(ShorterDeathMenu()) {
-  	SetPlrExtraData(GetOwner(), "CMC_DeathMenuModules", FKDT_DeathMenu_CompactSetting);
-  	SetPlrExtraData(GetOwner(), "CMC_DeathMenuMode", 0);
+  //Kompaktes DeathMenü in neues Format übersetzen
+  if(ShorterDeathMenu())
+  {
+    SetPlrExtraData(GetOwner(), "CMC_DeathMenuModules", FKDT_DeathMenu_CompactSetting);
+    SetPlrExtraData(GetOwner(), "CMC_DeathMenuMode", 0);
   }
   if(!GetPlrExtraData(GetOwner(), "CMC_DeathMenuModules"))
-		SetPlrExtraData(GetOwner(), "CMC_DeathMenuModules", FKDT_DeathMenu_DefaultSetting);
+    SetPlrExtraData(GetOwner(), "CMC_DeathMenuModules", FKDT_DeathMenu_DefaultSetting);
 
   return _inherited(...);
 }
@@ -935,10 +936,13 @@ protected func ContextSettings(object pCaller)
   else
     AddMenuItem("$CtxBetterAimingOff$", Format("SwitchBetterAiming(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller, 0, 0, "$CtxBetterAimingDesc$");
 
-	//Modulares Death-Menü
-	AddMenuItem("$CtxDMModules$", Format("OpenDeathMenuModuleSelection(Object(%d))", ObjectNumber(pCaller)), FKDT, pCaller, 0, 0, "$CtxDMModulesDesc$");
+  //Leerzeile
+  AddMenuItem("", 0, 0, pCaller, 0, 0, "");
 
-  //Spielerdaten zurücksetzen
+  //Schwerverletztenmenü-Untermenü
+  AddMenuItem("$CtxDMModules$", Format("OpenDeathMenuModuleSelection(Object(%d))", ObjectNumber(pCaller)), FKDT, pCaller, 0, 0, "$CtxDMModulesDesc$");
+
+  //Statistik-Untermenü
   AddMenuItem("$CtxResetData$", "ContextResetData", RWDS, pCaller, 0, 0, "$CtxResetDataDesc$");
 
   SelectMenuItem(iSel, pCaller);
@@ -946,49 +950,55 @@ protected func ContextSettings(object pCaller)
   return true;
 }
 
-public func OpenDeathMenuModuleSelection(object pCaller, int iModule) {
-	var menuitems = [["$CtxRejectReanimation$", SM01, FKDT_DeathMenu_RejectReanimation, "$CtxRejectReanimationDesc$"], 
-									 ["$CtxSuicide$", SICD, FKDT_DeathMenu_Suicide, "$CtxSuicideDesc$"], 
-									 ["$CtxRewardMenuItem$", RWDS, FKDT_DeathMenu_RewardMenuItem, "$CtxRewardMenuItemDesc$"],
-									 ["$CtxEffectMenuItem$", EFMN, FKDT_DeathMenu_EffectMenuItem, "$CtxEffectMenuItemDesc$"],
-									 ["$CtxKillMsg$", KILL, FKDT_DeathMenu_KillMsg, "$CtxKillMsgDesc$"],
-									 ["$CtxStatistics$", RWDS, FKDT_DeathMenu_Statistics, "$CtxStatisticsDesc$"],
-									 ["$CtxShortenedNames$", CLNK, FKDT_DeathMenu_ShortenedNames, "$CtxShortenedNamesDesc$"],
-									 ["$CtxCompactDeathMenu$", SM05, FKDT_DeathMenu_CompactSetting, "$CtxCompactDeathMenuDesc$"],
-									 ["$CtxResetToDefault$", SM05, FKDT_DeathMenu_DefaultSetting, "$CtxResetToDefaultDesc$"]];
+public func OpenDeathMenuModuleSelection(object pCaller, int iModule)
+{
+  var menuitems = [["$CtxRejectReanimation$", SM01, FKDT_DeathMenu_RejectReanimation, "$CtxRejectReanimationDesc$"],
+  		["$CtxSuicide$", SICD, FKDT_DeathMenu_Suicide, "$CtxSuicideDesc$"],
+  		["$CtxRewardMenuItem$", RWDS, FKDT_DeathMenu_RewardMenuItem, "$CtxRewardMenuItemDesc$"],
+  		["$CtxEffectMenuItem$", EFMN, FKDT_DeathMenu_EffectMenuItem, "$CtxEffectMenuItemDesc$"],
+  		["$CtxKillMsg$", KILL, FKDT_DeathMenu_KillMsg, "$CtxKillMsgDesc$"],
+  		["$CtxStatistics$", RWDS, FKDT_DeathMenu_Statistics, "$CtxStatisticsDesc$"],
+  		["$CtxShortenedNames$", CLNK, FKDT_DeathMenu_ShortenedNames, "$CtxShortenedNamesDesc$"],
+  		["$CtxCompactDeathMenu$", SM05, FKDT_DeathMenu_CompactSetting, "$CtxCompactDeathMenuDesc$"],
+  		["$CtxResetToDefault$", SM05, FKDT_DeathMenu_DefaultSetting, "$CtxResetToDefaultDesc$"]];
 
-	var currentSelection = GetPlrExtraData(GetOwner(pCaller), "CMC_DeathMenuModules");
-	if(!currentSelection)
-		currentSelection = FKDT_DeathMenu_DefaultSetting;
+  var currentSelection = GetPlrExtraData(GetOwner(pCaller), "CMC_DeathMenuModules");
+  if(!currentSelection)
+    currentSelection = FKDT_DeathMenu_DefaultSetting;
 
-	var iSel, i;
+  var iSel, i;
+
   //Einstellungsmenü erstellen
-  CreateMenu(CSTR, pCaller, pCaller, 0, "$Settings$", 0, C4MN_Style_Context, false);
+  CreateMenu(FKDT, pCaller, pCaller, 0, "$CtxDMModules$", 0, C4MN_Style_Context, false);
 
-	for(var item in menuitems) {
-		if(currentSelection & item[2])
-			AddMenuItem(item[0], Format("SwitchDeathMenuModule(%d, Object(%d))", item[2], ObjectNumber(pCaller)), item[1], pCaller, 0, 0, item[3]);
-		else
-			AddMenuItem(Format("<c 777777>%s</c>", item[0]), Format("SwitchDeathMenuModule(%d, Object(%d))", item[2], ObjectNumber(pCaller)), SM06, pCaller, 0, 0, item[3]);
+  //Menüpunkte auflisten
+  for(var item in menuitems)
+  {
+    if(currentSelection & item[2])
+      AddMenuItem(item[0], Format("SwitchDeathMenuModule(%d, Object(%d))", item[2], ObjectNumber(pCaller)), item[1], pCaller, 0, 0, item[3]);
+    else
+      AddMenuItem(Format("<c 777777>%s</c>", item[0]), Format("SwitchDeathMenuModule(%d, Object(%d))", item[2], ObjectNumber(pCaller)), SM06, pCaller, 0, 0, item[3]);
 
-		if(item[2] == iModule)
-			iSel = i;
-		i++;
-	}
+    if(item[2] == iModule)
+      iSel = i;
+    i++;
+  }
 
-	AddMenuItem("$Back$", Format("ContextSettings(Object(%d))", ObjectNumber(pCaller)), CSTR, pCaller);
-	
-	SelectMenuItem(iSel, pCaller);
+  //Zurück
+  AddMenuItem("$Back$", Format("ContextSettings(Object(%d))", ObjectNumber(pCaller)), 0, pCaller);
+
+  SelectMenuItem(iSel, pCaller);
 
   return true;
 }
 
-public func SwitchDeathMenuModule(int iModule, object pCaller) {
-	if(iModule == FKDT_DeathMenu_DefaultSetting || iModule == FKDT_DeathMenu_CompactSetting)
-		SetPlrExtraData(GetOwner(pCaller), "CMC_DeathMenuModules", iModule);
-	else
-		SetPlrExtraData(GetOwner(pCaller), "CMC_DeathMenuModules", GetPlrExtraData(GetOwner(pCaller), "CMC_DeathMenuModules")^iModule);
-	return OpenDeathMenuModuleSelection(pCaller, iModule);
+public func SwitchDeathMenuModule(int iModule, object pCaller)
+{
+  if(iModule == FKDT_DeathMenu_DefaultSetting || iModule == FKDT_DeathMenu_CompactSetting)
+    SetPlrExtraData(GetOwner(pCaller), "CMC_DeathMenuModules", iModule);
+  else
+    SetPlrExtraData(GetOwner(pCaller), "CMC_DeathMenuModules", GetPlrExtraData(GetOwner(pCaller), "CMC_DeathMenuModules")^iModule);
+  return OpenDeathMenuModuleSelection(pCaller, iModule);
 }
 
 public func SwitchInventoryLockMode(object pCaller)
@@ -998,8 +1008,7 @@ public func SwitchInventoryLockMode(object pCaller)
   ContextSettings(Par()); 
 }
 
-
-public func ShorterDeathMenu()	{return GetPlrExtraData(GetOwner(), "CMC_DeathMenuMode");} // Wegen Abwaertskompatibilitaet noch noetig
+public func ShorterDeathMenu()	{return GetPlrExtraData(GetOwner(), "CMC_DeathMenuMode");}	//Entsprechende Abwärtskompatibilität
 public func BetterAiming()	{return !GetPlrExtraData(GetOwner(), "CMC_NoBetterAiming");}
 
 public func SwitchBetterAiming(object pCaller)
@@ -1065,7 +1074,7 @@ protected func ContextResetData()
   AddMenuItem("$ResetSettings$", "ResetData(1)", CSTD, this, 0, 0, " ");
   AddMenuItem("$ResetStatistics$", "ResetData(2)", CSTD, this, 0, 0, " ");
   AddMenuItem("$ResetAchievements$", "ResetData(4)", CSTD, this, 0, 0, " ");
-  AddMenuItem("$ResetAchNo$", "NoContext", SM06, this, 0, 0, " ");
+  AddMenuItem("$Back$", Format("ContextSettings(Object(%d))", ObjectNumber(this)), 0, this);
   SelectMenuItem();
 }
 
@@ -1076,7 +1085,7 @@ protected func ResetData(int iData, bool fContinue)
     CreateMenu(RWDS, this, this, 0, GetName(0, RWDS), 0, C4MN_Style_Dialog);
     AddMenuItem("$ResetAchInfo$", 0, RWDS, this, 0, 0, " ");
     AddMenuItem("$ResetAchYes$", Format("ResetData(%d, true)", iData), CHOS, this, 0, 0, " ",2,3);
-    AddMenuItem("$ResetAchNo$", "NoContext", SM06, this, 0, 0, " ");
+    AddMenuItem("$Back$", "ContextResetData", SM06, this, 0, 0, " ");
     SelectMenuItem(2);
     return true;
   }
