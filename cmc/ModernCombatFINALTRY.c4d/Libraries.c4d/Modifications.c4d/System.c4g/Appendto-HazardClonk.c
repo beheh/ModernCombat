@@ -912,6 +912,9 @@ protected func ContextSettings(object pCaller)
   //Einstellungsmenü erstellen
   CreateMenu(CSTR, pCaller, pCaller, 0, "$Settings$", 0, C4MN_Style_Context, true);
 
+  //Überschrift
+  AddMenuItem("<c 777777>$CtxFunctions$</c>", 0, 0, pCaller, 0, 0, "");
+
   //QuickInventar
   if(pCaller->QuickInventoryOff())
     AddMenuItem("$CtxQuickInventoryOff$", Format("SetQuickInventoryOn(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller, 0, 0, "$CtxQuickInventoryDesc$");
@@ -938,6 +941,9 @@ protected func ContextSettings(object pCaller)
 
   //Leerzeile
   AddMenuItem("", 0, 0, pCaller, 0, 0, "");
+
+  //Überschrift
+  AddMenuItem("<c 777777>$CtxConfiguration$</c>", 0, 0, pCaller, 0, 0, "");
 
   //Schwerverletztenmenü-Untermenü
   AddMenuItem("$CtxDMModules$", Format("OpenDeathMenuModuleSelection(Object(%d))", ObjectNumber(pCaller)), FKDT, pCaller, 0, 0, "$CtxDMModulesDesc$");
@@ -1085,7 +1091,7 @@ protected func ResetData(int iData, bool fContinue)
     CreateMenu(RWDS, this, this, 0, GetName(0, RWDS), 0, C4MN_Style_Dialog);
     AddMenuItem("$ResetAchInfo$", 0, RWDS, this, 0, 0, " ");
     AddMenuItem("$ResetAchYes$", Format("ResetData(%d, true)", iData), CHOS, this, 0, 0, " ",2,3);
-    AddMenuItem("$Back$", "ContextResetData", SM06, this, 0, 0, " ");
+    AddMenuItem("$Back$", "ContextResetData", 0, this, 0, 0, " ");
     SelectMenuItem(2);
     return true;
   }
