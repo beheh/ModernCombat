@@ -14,15 +14,17 @@ public func ReadyToFire()	{}
 public func IsAiming()		{}
 public func BlockTime()		{return 35*3;}
 public func RWDS_MenuAbort()	{return true;}
+public func MenuQueryCancel(int iSelection, object pMenuObject)
+{
+  if(GetMenu(pMenuObject) == SPEC)
+  {
+    SPEC->SpectateObject(pMenuObject, GetOwner(pMenuObject));
+    return false;
+  }
 
-public func MenuQueryCancel(int iSelection, object pMenuObject)	{
-	if(GetMenu(pMenuObject) == SPEC) {
-		SPEC->SpectateObject(pMenuObject, GetOwner(pMenuObject));
-		return false;
-	}
-
-	return true;
+  return true;
 }
+
 
 /* Initialisierung */
 
@@ -124,7 +126,7 @@ public func Set(object pClonk)
 
   //Aussehen des Clonks imitieren
   SetGraphics(0,this,GetID(pClonk),1,GFXOV_MODE_Object,0,0,pClonk);
-  
+
   //Effekte setzen
   SetFakeDeathEffects(pClonk);
 
@@ -135,13 +137,13 @@ public func Set(object pClonk)
 public func SetFakeDeathEffects(object pClonk, bool fNoScreenRGB)
 {
   //Sichtwerte speichern
-	var e = AddEffect("IntFakeDeathEffectsData", pClonk, 1, 0);
-	EffectVar(0, pClonk, e) = GetObjPlrViewRange(pClonk);
-	EffectVar(1, pClonk, e) = GetPlrFogOfWar(GetOwner(pClonk));
+  var e = AddEffect("IntFakeDeathEffectsData", pClonk, 1, 0);
+  EffectVar(0, pClonk, e) = GetObjPlrViewRange(pClonk);
+  EffectVar(1, pClonk, e) = GetPlrFogOfWar(GetOwner(pClonk));
 
-	//Sichtwerte für den FakeDeath setzen
-  SetFoW(true, GetOwner(pClonk)); 
-  SetPlrViewRange(150, pClonk);
+  //Sichtwerte für den FakeDeath setzen
+  SetFoW(true,GetOwner(pClonk)); 
+  SetPlrViewRange(150,pClonk);
 
   //Soundloop starten
   Sound("FKDT_ClonkDown.ogg", false, pClonk, 100, GetOwner(pClonk)+1, +1);
@@ -149,24 +151,24 @@ public func SetFakeDeathEffects(object pClonk, bool fNoScreenRGB)
 
   //Bildschirmfärbung
   if(!fNoScreenRGB)
-    ScreenRGB(pClonk, RGB(255), 120, 4, false, SR4K_LayerDamage);	
+    ScreenRGB(pClonk, RGB(255), 120, 4, false, SR4K_LayerDamage);
 }
 
 public func ResetFakeDeathEffects(object pClonk)
 {
-	//Soundloop beenden
-	Sound("FKDT_ClonkDown.ogg", false, pClonk, 100, GetOwner(pClonk)+1, -1);
+  //Soundloop beenden
+  Sound("FKDT_ClonkDown.ogg", false, pClonk, 100, GetOwner(pClonk)+1, -1);
   Sound("FKDT_Heartbeat.ogg", false, pClonk, 100, GetOwner(pClonk)+1, -1);
 
   //Bildschirmfaerbung
   var pScreen = GetScreenRGB(GetOwner(pClonk), SR4K_LayerDamage);
   if(pScreen) RemoveObject(pScreen);
-  
+
   //Sichtwerte wiederherstellen
   var e = GetEffect("IntFakeDeathEffectsData", pClonk);
   SetFoW(EffectVar(1, pClonk, e), GetOwner(pClonk));
   SetPlrViewRange(EffectVar(0, pClonk, e), pClonk);
-  
+
   FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pClonk)))->SetPlrViewRange(0);
 }
 
@@ -292,9 +294,9 @@ public func DeathMenu(object pTarget, object pMenuTarget, int iModules, int iTim
   	iTimeMax = FKDT_SuicideTime;
   if(!iModules)
   	iModules = FKDT_DeathMenu_FullSettings;
-  
+
   if(!idCmdTarget)
-		idCmdTarget = FKDT;
+    idCmdTarget = FKDT;
 
 	//Module die nur mit FKDT funktionieren
 	if(!this) {
@@ -343,7 +345,7 @@ public func DeathMenu(object pTarget, object pMenuTarget, int iModules, int iTim
 
 			if(iModules & FKDT_DeathMenu_SettingsMenuItem)
 		  	AddMenuItem("$Settings$", Format("FKDT->OpenSettings(Object(%d))", iTarget), CSTR, pTarget);									//Einstellungen-Menüpunkt
-		  
+
 		  if(iModules & FKDT_DeathMenu_SpectateMenuItem && GetTeamPlayerCount(GetPlayerTeam(GetOwner(pTarget))) > 1)
 		  	AddMenuItem("$Spectate$", Format("SPEC->OpenSpectateMenu(Object(%d), Object(%d))", iTarget, ObjectNumber(pMenuTarget)), SPEC, pTarget);
 		}
@@ -645,10 +647,11 @@ private func GetRandomTipp(array a, id id)
 
 /* Beobachten */
 
-public func OnMenuSelection(int iSelection, object pMenuObject) {
-	if(GetMenu(pMenuObject) == SPEC)
-		return SPEC->SpectateMenuSelection(iSelection, pMenuObject);
-	return true;
+public func OnMenuSelection(int iSelection, object pMenuObject)
+{
+  if(GetMenu(pMenuObject) == SPEC)
+    return SPEC->SpectateMenuSelection(iSelection, pMenuObject);
+  return true;
 }
 
 /* Selbstmord */
