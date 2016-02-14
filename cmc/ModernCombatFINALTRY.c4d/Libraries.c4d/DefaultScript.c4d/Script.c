@@ -61,6 +61,7 @@ static CSTD_CMCDevelopers;
 protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 {
   AddMsgBoardCmd("votekick", "Votekick(%player%, \"%s\")");
+  UpdatePlayerData(iPlr);
 
   if(GetType(CSTD_CMCDevelopers) != C4V_Array)
     CSTD_CMCDevelopers = [];

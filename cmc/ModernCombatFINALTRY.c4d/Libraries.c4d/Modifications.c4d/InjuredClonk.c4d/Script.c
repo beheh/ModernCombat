@@ -12,10 +12,17 @@ local aGrenades, aContents;
 public func AimAngle()		{}
 public func ReadyToFire()	{}
 public func IsAiming()		{}
-public func MenuQueryCancel()	{return true;}
 public func BlockTime()		{return 35*3;}
 public func RWDS_MenuAbort()	{return true;}
 
+public func MenuQueryCancel(int iSelection, object pMenuObject)	{
+	if(GetMenu(pMenuObject) == SPEC) {
+		SPEC->SpectateObject(pMenuObject, GetOwner(pMenuObject));
+		return false;
+	}
+
+	return true;
+}
 
 /* Initialisierung */
 
@@ -159,6 +166,8 @@ public func ResetFakeDeathEffects(object pClonk)
   var e = GetEffect("IntFakeDeathEffectsData", pClonk);
   SetFoW(EffectVar(1, pClonk, e), GetOwner(pClonk));
   SetPlrViewRange(EffectVar(0, pClonk, e), pClonk);
+  
+  FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pClonk)))->SetPlrViewRange(0);
 }
 
 public func KillMessage(string msg)
@@ -237,6 +246,7 @@ static const FKDT_DeathMenu_SettingsMenuItem = 0x20;
 static const FKDT_DeathMenu_KillMsg = 0x40;
 static const FKDT_DeathMenu_Statistics = 0x80;
 static const FKDT_DeathMenu_ShortenedNames = 0x100;
+static const FKDT_DeathMenu_SpectateMenuItem = 0x200;
 
 //Flag um alle Module zu deaktivieren (da eine Einstellung von 0 den Standardeinstellungen entsprechen)
 static const FKDT_DeathMenu_NoModules = 0x80000000;
@@ -248,7 +258,7 @@ static const FKDT_DeathMenu_AdditionalMenuItems = 0x6; //FKDT_DeathMenu_RejectRe
 static const FKDT_DeathMenu_FullMenuItems = 0x3E; //FKDT_DeathMenu_GeneralMenuItems|FKDT_DeathMenu_AdditionalMenuItems
 
 //Standardeinstellung fuer FKDT
-static const FKDT_DeathMenu_DefaultSetting = 0xFF; //FKDT_DeathMenu_Timer|FKDT_DeathMenu_FullMenuItems|FKDT_DeathMenu_KillMsg|FKDT_DeathMenu_Statistics;
+static const FKDT_DeathMenu_DefaultSetting = 0x2FF; //FKDT_DeathMenu_Timer|FKDT_DeathMenu_FullMenuItems|FKDT_DeathMenu_KillMsg|FKDT_DeathMenu_Statistics;
 //Kompaktes Menue
 static const FKDT_DeathMenu_CompactSetting = 0x17F; //FKDT_DeathMenu_Timer|FKDT_DeathMenu_FullMenuItems|FKDT_DeathMenu_KillMsg|FKDT_DeathMenu_ShortenedNames;
 //Basismenue (Mindestvoraussetzung)
@@ -269,7 +279,7 @@ public func DeathMenu(object pTarget, object pMenuTarget, int iModules, int iTim
   var selection = GetMenuSelection(pTarget);
 
   //Bei offenen Statistiken, Einstellungen oder Effektmanagern nichts unternehmen
-  if(GetIndexOf(GetMenu(pTarget), [RWDS, EFMN, CSTR]) != -1) return;
+  if(GetIndexOf(GetMenu(pTarget), [RWDS, EFMN, CSTR, SPEC]) != -1) return;
 
   CloseMenu(pTarget);
 
@@ -333,6 +343,9 @@ public func DeathMenu(object pTarget, object pMenuTarget, int iModules, int iTim
 
 			if(iModules & FKDT_DeathMenu_SettingsMenuItem)
 		  	AddMenuItem("$Settings$", Format("FKDT->OpenSettings(Object(%d))", iTarget), CSTR, pTarget);									//Einstellungen-Menüpunkt
+		  
+		  if(iModules & FKDT_DeathMenu_SpectateMenuItem && GetTeamPlayerCount(GetPlayerTeam(GetOwner(pTarget))) > 1)
+		  	AddMenuItem("$Spectate$", Format("SPEC->OpenSpectateMenu(Object(%d), Object(%d))", iTarget, ObjectNumber(pMenuTarget)), SPEC, pTarget);
 		}
 
 		if(GetType(killmsg) == C4V_String && iModules & FKDT_DeathMenu_KillMsg)
@@ -628,6 +641,14 @@ private func GetRandomTipp(array a, id id)
   if(id == CDBT) return GetRandomTipp([[CDBT, "$CDBT0$"], [CDBT, "$CDBT1$"]]);
   if(id == CUAM) return GetRandomTipp([[CUAM, "$CUAM0$"]]);
   if(id == BWTH) return GetRandomTipp([[BWTH, "$BWTH0$"], [BWTH, "$BWTH1$"], [BWTH, "$BWTH2$"], [BWTH, "$BWTH3$"]]);
+}
+
+/* Beobachten */
+
+public func OnMenuSelection(int iSelection, object pMenuObject) {
+	if(GetMenu(pMenuObject) == SPEC)
+		return SPEC->SpectateMenuSelection(iSelection, pMenuObject);
+	return true;
 }
 
 /* Selbstmord */

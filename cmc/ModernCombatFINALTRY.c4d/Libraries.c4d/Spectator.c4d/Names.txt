@@ -1,0 +1,2 @@
+DE:Zuschauer
+US:Spectator
