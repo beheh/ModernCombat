@@ -50,7 +50,7 @@ global func DelArrayItem(array &a, int i)
 
 /* Fügt einem Item ein Array hinzu */
 
-global func AddArrayItem(array &a, int i, v)
+/*global func AddArrayItem(array &a, int i, v)
 {
   SetLength (a,GetLength(a)+1);
 
@@ -60,7 +60,7 @@ global func AddArrayItem(array &a, int i, v)
   }
 
   a[i] = v;
-}
+}*/
 
 global func AddArray(array &aSource, array &aDestination)
 {
@@ -130,5 +130,5 @@ global func RandomIndex4K(array ids)			{return RandomArrayIndex(ids);}
 global func FindInArray4K(array a, v)			{return FindInArray(a, v);}
 global func CleanArray4K(array &a)			{return CleanArray(a);}
 global func DelArrayItem4K(array &a, int i)		{return DelArrayItem(a, i);}
-global func AddArrayItem4K(array &a, int i, v)		{return AddArrayItem(a, i, v);}
+//global func AddArrayItem4K(array &a, int i, v)		{return AddArrayItem(a, i, v);}
 global func AddArray4K(array &aSrc, array &aDst)	{return AddArray(aSrc, aDst);}
