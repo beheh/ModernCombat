@@ -117,24 +117,48 @@ public func Set(object pClonk)
 
   //Aussehen des Clonks imitieren
   SetGraphics(0,this,GetID(pClonk),1,GFXOV_MODE_Object,0,0,pClonk);
+  
+  //Effekte setzen
+  SetFakeDeathEffects(pClonk);
 
+  //Verzögert Auswahlmenü öffnen
+  AddEffect("IntFakeDeathMenu", this, 1, 1, this);
+}
+
+public func SetFakeDeathEffects(object pClonk, bool fNoScreenRGB)
+{
   //Sichtwerte speichern
-  oldvisrange = GetObjPlrViewRange(pClonk);
-  oldvisstate = GetPlrFogOfWar(GetOwner(pClonk));
+	var e = AddEffect("IntFakeDeathEffectsData", pClonk, 1, 0);
+	EffectVar(0, pClonk, e) = GetObjPlrViewRange(pClonk);
+	EffectVar(1, pClonk, e) = GetPlrFogOfWar(GetOwner(pClonk));
 
-  //Sichtwerte für den FakeDeath setzen
-  SetFoW(true,GetOwner(pClonk)); 
-  SetPlrViewRange(150,pClonk);
+	//Sichtwerte für den FakeDeath setzen
+  SetFoW(true, GetOwner(pClonk)); 
+  SetPlrViewRange(150, pClonk);
 
   //Soundloop starten
   Sound("FKDT_ClonkDown.ogg", false, pClonk, 100, GetOwner(pClonk)+1, +1);
   Sound("FKDT_Heartbeat.ogg", false, pClonk, 100, GetOwner(pClonk)+1, +1);
 
   //Bildschirmfärbung
-  ScreenRGB(pClonk, RGB(255), 120, 4, false, SR4K_LayerDamage);
+  if(!fNoScreenRGB)
+    ScreenRGB(pClonk, RGB(255), 120, 4, false, SR4K_LayerDamage);	
+}
 
-  //Verzögert Auswahlmenü öffnen
-  AddEffect("IntFakeDeathMenu", this, 1, 1, this);
+public func ResetFakeDeathEffects(object pClonk)
+{
+	//Soundloop beenden
+	Sound("FKDT_ClonkDown.ogg", false, pClonk, 100, GetOwner(pClonk)+1, -1);
+  Sound("FKDT_Heartbeat.ogg", false, pClonk, 100, GetOwner(pClonk)+1, -1);
+
+  //Bildschirmfaerbung
+  var pScreen = GetScreenRGB(GetOwner(pClonk), SR4K_LayerDamage);
+  if(pScreen) RemoveObject(pScreen);
+  
+  //Sichtwerte wiederherstellen
+  var e = GetEffect("IntFakeDeathEffectsData", pClonk);
+  SetFoW(EffectVar(1, pClonk, e), GetOwner(pClonk));
+  SetPlrViewRange(EffectVar(0, pClonk, e), pClonk);
 }
 
 public func KillMessage(string msg)
@@ -228,11 +252,11 @@ static const FKDT_DeathMenu_DefaultSetting = 0xFF; //FKDT_DeathMenu_Timer|FKDT_D
 //Kompaktes Menue
 static const FKDT_DeathMenu_CompactSetting = 0x17F; //FKDT_DeathMenu_Timer|FKDT_DeathMenu_FullMenuItems|FKDT_DeathMenu_KillMsg|FKDT_DeathMenu_ShortenedNames;
 //Basismenue (Mindestvoraussetzung)
-static const FKDT_DeathMenu_BasicSetting = 0x1; //FKDT_DeathMenu_Timer;
+static const FKDT_DeathMenu_BasicSetting = 0x5; //FKDT_DeathMenu_Timer;
 //Alle Einstellungen
 static const FKDT_DeathMenu_FullSettings = 0x7FFFFFFF;
 
-public func DeathMenu(object pTarget, object pMenuTarget, int iModules, int iTimeLeft, int iTimeMax, string killmsg, bool fForceSettings) {
+public func DeathMenu(object pTarget, object pMenuTarget, int iModules, int iTimeLeft, int iTimeMax, string killmsg, bool fForceSettings, id idCmdTarget) {
 	//ggf. auf Fallback zurueckgreifen
 	if(g_FallbackDeathmenu) {
 		if(!this)
@@ -258,6 +282,9 @@ public func DeathMenu(object pTarget, object pMenuTarget, int iModules, int iTim
   	iTimeMax = FKDT_SuicideTime;
   if(!iModules)
   	iModules = FKDT_DeathMenu_FullSettings;
+  
+  if(!idCmdTarget)
+		idCmdTarget = FKDT;
 
 	//Module die nur mit FKDT funktionieren
 	if(!this) {
@@ -296,7 +323,7 @@ public func DeathMenu(object pTarget, object pMenuTarget, int iModules, int iTim
 				}
 			}
 		  if(FindObject(SICD) && iModules & FKDT_DeathMenu_Suicide)
-		    AddMenuItem("$Suicide$", Format("FKDT->Suicide(Object(%d))", iTarget), PSTL, pTarget, 0, 0, "$SuicideDesc$");							//Selbstmord-Menüpunkt
+		    AddMenuItem("$Suicide$", Format("%i->Suicide(Object(%d))", idCmdTarget, iTarget), PSTL, pTarget, 0, 0, "$SuicideDesc$");							//Selbstmord-Menüpunkt
 
 		  if(FindObject(RWDS) && iModules & FKDT_DeathMenu_RewardMenuItem)
 		    AddMenuItem("$Statistics$", Format("FindObject(RWDS)->Activate(%d)", GetOwner(pTarget)), RWDS, pTarget);			//Statistik-Menüpunkt
@@ -687,8 +714,6 @@ public func Reanimation()
   if(RejectReanimation()) return;
 
   //Bildschirmfärbung
-  var pScreen = GetScreenRGB(GetOwner(clonk), SR4K_LayerDamage);
-  if(pScreen) RemoveObject(pScreen);
   AddEffect("FlashlightBlindness", clonk, 150, 1, 0, LHC2);
 
   //Clonk "auswerfen"
@@ -731,8 +756,7 @@ public func Reanimation()
       Exit(Contents(),0,+10);
   }
   //Sichtdaten zurücksetzen
-  SetFoW(oldvisstate,GetOwner(clonk));
-  SetPlrViewRange(oldvisrange,clonk);
+  ResetFakeDeathEffects(clonk);
 
   //Achievement-Fortschritt (Lucky Patient)
   DoAchievementProgress(1, AC27, GetOwner(clonk));

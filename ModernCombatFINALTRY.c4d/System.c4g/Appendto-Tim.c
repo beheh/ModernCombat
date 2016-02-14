@@ -17,6 +17,8 @@ public func FxWaitingObjectStart(object pTarget, int iNr, bool fTemp, string szK
 
   EffectVar(0, pTarget, iNr) = szKillmsg;
   FxWaitingObjectTimer(pTarget, iNr, 0);
+  var clonk = FindObject2(Find_Container(this), Find_OCF(OCF_CrewMember));
+  FKDT->SetFakeDeathEffects(clonk, GameCall("GetPlayerRespawnTime", GetOwner(clonk)) != FKDT_SuicideTime*35);
 }
 
 public func FxWaitingObjectTimer(object pTarget, int iNr, int iTime)
@@ -28,7 +30,7 @@ public func FxWaitingObjectTimer(object pTarget, int iNr, int iTime)
     return -1;
 
   if(!g_FallbackDeathmenu)
-    FKDT->DeathMenu(clonk, this, FKDT_DeathMenu_FullSettings, time-iTime, FKDT_SuicideTime, EffectVar(0, pTarget, iNr));
+    FKDT->DeathMenu(clonk, this, FKDT_DeathMenu_FullSettings, time-iTime, FKDT_SuicideTime, EffectVar(0, pTarget, iNr), 0, TIM1);
   else
   {
     CloseMenu();
@@ -49,6 +51,7 @@ public func FxWaitingObjectStop(object pTarget, int iNr, bool fTemp)
     return;
 
   var clonk = FindObject2(Find_Container(this), Find_OCF(OCF_CrewMember));
+  FKDT->ResetFakeDeathEffects(clonk);
   CloseMenu(clonk);
   GameCall("SetPlayerRespawnTime", GetOwner(clonk), 0);
   
@@ -58,6 +61,11 @@ public func FxWaitingObjectStop(object pTarget, int iNr, bool fTemp)
 
   GameCall("RelaunchPlayer", GetOwner(clonk), clonk, info[0]);
   return true;
+}
+
+public func Suicide(object pTarget) {
+	if(GetEffect("WaitingObject", Contained(pTarget)))
+		RemoveEffect("WaitingObject", Contained(pTarget));
 }
 
 public func Spawn()
