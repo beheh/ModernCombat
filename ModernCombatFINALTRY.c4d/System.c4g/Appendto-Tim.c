@@ -76,7 +76,20 @@ public func Spawn()
   return _inherited(...);
 }
 
-public func MenuQueryCancel()	{return true;}
+public func MenuQueryCancel(int iSelection, object pMenuObject)	{
+	if(GetMenu(pMenuObject) == SPEC) {
+		SPEC->SpectateObject(pMenuObject, GetOwner(pMenuObject));
+		return false;
+	}
+
+	return true;
+}
+
+public func OnMenuSelection(int iSelection, object pMenuObject) {
+	if(GetMenu(pMenuObject) == SPEC)
+		return SPEC->SpectateMenuSelection(iSelection, pMenuObject);
+	return true;
+}
 
 /* Votekick */
 
