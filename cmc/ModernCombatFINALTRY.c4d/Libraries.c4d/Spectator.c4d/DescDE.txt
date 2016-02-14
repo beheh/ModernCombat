@@ -1,1 +1,1 @@
-Dient als Hilfsobjekt zur Zuschauerfunktion.
+Erlaubt Spielern das Beobachten von spezifischen Objekten.

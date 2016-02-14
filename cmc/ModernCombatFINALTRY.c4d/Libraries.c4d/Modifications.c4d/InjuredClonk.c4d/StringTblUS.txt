@@ -9,6 +9,7 @@ ReanimationDescDisallow=Reject beeing reanimated by allies.
 Statistics=Statistics
 EffectLevel=Effect level
 Settings=Settings
+Spectate=Spectate
 DeathCounter=Death in <c ffff33>%d</c> seconds
 Killer=<c ffff33>Killer</c>
 Tip=<c ffff33>Tip</c>

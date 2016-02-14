@@ -1,1 +1,1 @@
-Controls the colouring of player views.
+Allows players to spectate specific objects.
