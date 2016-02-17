@@ -22,15 +22,6 @@ public func Initialize()
   InitCH();
   UpdateGrenadeCount();
 
-  //Kompaktes DeathMenü in neues Format übersetzen
-  if(ShorterDeathMenu())
-  {
-    SetPlrExtraData(GetOwner(), "CMC_DeathMenuModules", FKDT_DeathMenu_CompactSetting);
-    SetPlrExtraData(GetOwner(), "CMC_DeathMenuMode", 0);
-  }
-  if(!GetPlrExtraData(GetOwner(), "CMC_DeathMenuModules"))
-    SetPlrExtraData(GetOwner(), "CMC_DeathMenuModules", FKDT_DeathMenu_DefaultSetting);
-
   return _inherited(...);
 }
 
