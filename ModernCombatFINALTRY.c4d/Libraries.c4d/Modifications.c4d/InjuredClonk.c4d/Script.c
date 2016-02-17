@@ -169,7 +169,8 @@ public func ResetFakeDeathEffects(object pClonk)
   SetFoW(EffectVar(1, pClonk, e), GetOwner(pClonk));
   SetPlrViewRange(EffectVar(0, pClonk, e), pClonk);
 
-  FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pClonk)))->SetPlrViewRange(0);
+	if(FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pClonk))))
+  	FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pClonk)))->SetPlrViewRange(0);
 }
 
 public func KillMessage(string msg)
