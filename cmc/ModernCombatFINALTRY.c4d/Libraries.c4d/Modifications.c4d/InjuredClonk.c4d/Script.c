@@ -18,7 +18,7 @@ public func MenuQueryCancel(int iSelection, object pMenuObject)
 {
   if(GetMenu(pMenuObject) == SPEC)
   {
-    SPEC->SpectateObject(pMenuObject, GetOwner(pMenuObject));
+    SPEC->SpectateObject(pMenuObject);
     return false;
   }
 
@@ -129,6 +129,7 @@ public func Set(object pClonk)
 
   //Effekte setzen
   SetFakeDeathEffects(pClonk);
+  Sound("FKDT_Heartbeat.ogg", false, pClonk, 100, GetOwner(pClonk)+1, +1);
 
   //Verzögert Auswahlmenü öffnen
   AddEffect("IntFakeDeathMenu", this, 1, 1, this);
@@ -147,7 +148,6 @@ public func SetFakeDeathEffects(object pClonk, bool fNoScreenRGB)
 
   //Soundloop starten
   Sound("FKDT_ClonkDown.ogg", false, pClonk, 100, GetOwner(pClonk)+1, +1);
-  Sound("FKDT_Heartbeat.ogg", false, pClonk, 100, GetOwner(pClonk)+1, +1);
 
   //Bildschirmfärbung
   if(!fNoScreenRGB)
@@ -158,7 +158,6 @@ public func ResetFakeDeathEffects(object pClonk)
 {
   //Soundloop beenden
   Sound("FKDT_ClonkDown.ogg", false, pClonk, 100, GetOwner(pClonk)+1, -1);
-  Sound("FKDT_Heartbeat.ogg", false, pClonk, 100, GetOwner(pClonk)+1, -1);
 
   //Bildschirmfaerbung
   var pScreen = GetScreenRGB(GetOwner(pClonk), SR4K_LayerDamage);
@@ -782,6 +781,7 @@ public func Reanimation()
   }
   //Sichtdaten zurücksetzen
   ResetFakeDeathEffects(clonk);
+  Sound("FKDT_Heartbeat.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
 
   //Achievement-Fortschritt (Lucky Patient)
   DoAchievementProgress(1, AC27, GetOwner(clonk));

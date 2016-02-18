@@ -7,6 +7,7 @@
 #appendto TIM1
 #appendto TIM2
 
+public func IsSpawnObject() { return true; }
 
 /* Spawnverzögerung */
 
@@ -81,7 +82,7 @@ public func MenuQueryCancel(int iSelection, object pMenuObject)
 {
   if(GetMenu(pMenuObject) == SPEC)
   {
-    SPEC->SpectateObject(pMenuObject, GetOwner(pMenuObject));
+    SPEC->SpectateObject(pMenuObject);
     return false;
   }
 
