@@ -4,7 +4,7 @@
 
 #strict 2
 
-static const CMC_CURRENT_VERSION = 1;
+static const CMC_CURRENT_VERSION = 2;
 
 
 global func UpdatePlayerData(int iPlr)
@@ -15,7 +15,7 @@ global func UpdatePlayerData(int iPlr)
 
   var aUpdatedData = [["CMC_PlayerData_Version", CMC_CURRENT_VERSION]], iDMModules = GetPlrExtraData(iPlr, "CMC_DeathMenuModules");
 
-  if(plrversion < 1) {
+  if(plrversion < 2) {
   	if(!iDMModules)
   		iDMModules = FKDT_DeathMenu_DefaultSetting;
   	if(GetPlrExtraData(iPlr, "CMC_DeathMenuMode")) {
@@ -23,10 +23,14 @@ global func UpdatePlayerData(int iPlr)
   		aUpdatedData[GetLength(aUpdatedData)] = ["CMC_DeathMenuMode", 0];
   	}
     iDMModules |= FKDT_DeathMenu_SpectateMenuItem;
+    
+    aUpdatedData[GetLength(aUpdatedData)] = ["CMC_RadioMusicMode", 0];
   }
 
   aUpdatedData[GetLength(aUpdatedData)] = ["CMC_DeathMenuModules", iDMModules];
 
   for(var updatedata in aUpdatedData)
-    SetPlrExtraData(iPlr, updatedata[0], updatedata[1]); 
+  	//Falls Wert auf 0 gesetzt wird, pruefen ob der Wert ueberhaupt existiert. 
+    if(updatedata[1] || GetPlrExtraData(iPlr, updatedata[0]))
+    	SetPlrExtraData(iPlr, updatedata[0], updatedata[1]); 
 }
