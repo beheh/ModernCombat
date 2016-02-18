@@ -51,7 +51,7 @@ public func GetMenuItemStyle(object pCrew, id &itemID, int &iExtra, int &iColor,
 		itemID = GetID(pCrew);
 
 	if(Contained(pCrew)) {
-		if(Contained(pCrew)->~IsSpawnObject() && !GetEffect("WaitingObject", Contained(pCrew))) {
+		if(!IsValidSpectateTarget(pCrew)) {
 			itemID = (GetName(0, SM29) && SM29) || ROCK; //Icon das anzeigt dass der Clonk am Spawnen ist. Alles nach dem = durch die neue IconID ersetzen.
 			iColor = 0x777777;
 			iExtra = 0;
@@ -63,9 +63,50 @@ public func GetMenuItemStyle(object pCrew, id &itemID, int &iExtra, int &iColor,
 	}
 }
 
+public func IsValidSpectateTarget(object pTarget) {
+	if(Contained(pTarget))
+		if(Contained(pTarget)->~IsSpawnObject() && !GetEffect("WaitingObject", Contained(pTarget)))
+			return false;
+	
+	return true;
+}
+
 /* Menüsystem */
 
-public func OpenSpectateMenu(object pTarget, object pMenuTarget, int iRange)
+public func OpenSpectateMenu(object pTarget) {
+	AddEffect("SpectateMenu", pTarget, 1, 10, 0, SPEC, ...);
+	return true;
+}
+
+public func FxSpectateMenuStart(object pTarget, int iNr, bool fTemp, object pMenuTarget, int iRange) {
+	EffectVar(0, pTarget, iNr) = pMenuTarget;
+	EffectVar(1, pTarget, iNr) = iRange;
+	OpenSpectateMenuCore(pTarget, pMenuTarget, iRange);
+	return true;
+}
+
+public func FxSpectateMenuTimer(object pTarget, int iNr) {
+	if(GetMenu(pTarget) != SPEC)
+		return -1;
+
+	var spec = FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pTarget)));
+	if(spec && !IsValidSpectateTarget(GetActionTarget(0, spec)))
+		SpectateObject(pTarget, pTarget, EffectVar(1, pTarget, iNr));
+
+	var sel = GetMenuSelection(pTarget);
+	OpenSpectateMenuCore(pTarget, EffectVar(0, pTarget, iNr), EffectVar(1, pTarget, iNr));
+	SpectateMenuSelection(sel, pTarget, EffectVar(1, pTarget, iNr));
+	SelectMenuItem(sel, pTarget);
+	return true;
+}
+
+public func FxSpectateMenuStop(object pTarget, int iNr) {
+	if(GetMenu(pTarget) == SPEC)
+		CloseMenu(pTarget);
+	return true;
+}
+
+public func OpenSpectateMenuCore(object pTarget, object pMenuTarget, int iRange)
 {
   CloseMenu(pTarget);
 
@@ -91,7 +132,7 @@ public func OpenSpectateMenu(object pTarget, object pMenuTarget, int iRange)
         	var itemid, extra, clr = GetPlrColorDw(plr), prefixedstr = "";
           GetMenuItemStyle(GetCrew(plr, j), itemid, extra, clr, prefixedstr);
 
-          if(!Contained(GetCrew(plr, j)) || Contained(GetCrew(plr, j))->~IsSpawnObject())
+          if(IsValidSpectateTarget(GetCrew(plr, j)))
             AddMenuItem(Format("  %s<c %x>%s</c>", prefixedstr, clr, GetName(GetCrew(plr, j))), Format("SPEC->SpectateObject(Object(%d), Object(%d), %d, true)", ObjectNumber(GetCrew(plr, j)), ObjectNumber(pTarget), iRange), itemid, pTarget, 0, 0, 0, 2, extra);
           else 
             AddMenuItem(Format("  %s<c %x>%s</c>", prefixedstr, clr, GetName(GetCrew(plr, j))), "SPEC->Nothing()", itemid, pTarget, 0, 0, 0, 2, extra);
@@ -105,7 +146,7 @@ public func OpenSpectateMenu(object pTarget, object pMenuTarget, int iRange)
 
 			if(IsDeveloper(GetPlayerID(plr)))
 				icon = "{{SM14}}";
-      if(!Contained(GetCrew(plr)) || Contained(GetCrew(plr))->~IsSpawnObject())
+      if(IsValidSpectateTarget(GetCrew(plr)))
         AddMenuItem(Format("%s {{%i}}%s <c %x>%s</c>", prefixedstr, rank, icon, clr, GetPlayerName(plr)), 
         						Format("SPEC->SpectateObject(Object(%d), Object(%d), %d, true)", ObjectNumber(GetCrew(plr)), ObjectNumber(pTarget), iRange), itemid, pTarget, 0, 0, 0, 2, extra);
       else
@@ -150,14 +191,14 @@ public func SpectateMenuSelection(int iSelection, object pTarget, int iRange)
 
 public func SpectateObject(object pSpectateTarget, object pTarget, int iRange, bool fCloseMenu)
 {
-	if(Contained(pSpectateTarget) && Contained(pSpectateTarget)->~IsSpawnObject() && !GetEffect("WaitingObject", Contained(pSpectateTarget)))
+	if(!IsValidSpectateTarget(pSpectateTarget))
 		pSpectateTarget = pTarget;
 
 	if(!pTarget)
 		pTarget = pSpectateTarget;
 
 	if(fCloseMenu)
-		CloseMenu(pTarget);
+		RemoveEffect("SpectateMenu", pTarget);
 
 	var iPlr = GetOwner(pTarget);
   if(!iRange)
