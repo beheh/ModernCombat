@@ -128,19 +128,20 @@ public func Set(object pClonk)
   SetGraphics(0,this,GetID(pClonk),1,GFXOV_MODE_Object,0,0,pClonk);
 
   //Effekte setzen
-  SetFakeDeathEffects(pClonk);
+  SetFakeDeathEffects(pClonk, false, FKDT_SuicideTime*35);
   Sound("FKDT_Heartbeat.ogg", false, pClonk, 100, GetOwner(pClonk)+1, +1);
 
   //Verzögert Auswahlmenü öffnen
   AddEffect("IntFakeDeathMenu", this, 1, 1, this);
 }
 
-public func SetFakeDeathEffects(object pClonk, bool fNoScreenRGB)
+public func SetFakeDeathEffects(object pClonk, bool fNoScreenRGB, int iTime)
 {
   //Sichtwerte speichern
-  var e = AddEffect("IntFakeDeathEffectsData", pClonk, 1, 0);
+  var e = AddEffect("IntFakeDeathEffectsData", pClonk, 1, 10, 0, FKDT);
   EffectVar(0, pClonk, e) = GetObjPlrViewRange(pClonk);
   EffectVar(1, pClonk, e) = GetPlrFogOfWar(GetOwner(pClonk));
+  EffectVar(2, pClonk, e) = iTime;
 
   //Sichtwerte für den FakeDeath setzen
   SetFoW(true,GetOwner(pClonk)); 
@@ -167,9 +168,21 @@ public func ResetFakeDeathEffects(object pClonk)
   var e = GetEffect("IntFakeDeathEffectsData", pClonk);
   SetFoW(EffectVar(1, pClonk, e), GetOwner(pClonk));
   SetPlrViewRange(EffectVar(0, pClonk, e), pClonk);
+  RemoveEffect("IntFakeDeathEffectsData", pClonk);
 
 	if(FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pClonk))))
   	FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pClonk)))->SetPlrViewRange(0);
+}
+
+public func FxIntFakeDeathEffectsDataTimer(object pTarget, int iNr, int iTime) {
+	if(GetMenu(pTarget) != FKDT)
+		CustomMessage(Format("$DeathCounter$", 1 + ((EffectVar(2, pTarget, iNr) - iTime) / 35)), FindObject2(Find_ID(1HUD), Find_Owner(GetOwner(pTarget))), GetOwner(pTarget), 0, 80, 0, 0, 0, 1);
+	else
+		CustomMessage("", FindObject2(Find_ID(1HUD), Find_Owner(GetOwner(pTarget))), GetOwner(pTarget));
+}
+
+public func FxIntFakeDeathEffectsDataStop(object pTarget, int iNr) {
+	CustomMessage("", FindObject2(Find_ID(1HUD), Find_Owner(GetOwner(pTarget))), GetOwner(pTarget));
 }
 
 public func KillMessage(string msg)

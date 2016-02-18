@@ -19,7 +19,7 @@ public func FxWaitingObjectStart(object pTarget, int iNr, bool fTemp, string szK
   EffectVar(0, pTarget, iNr) = szKillmsg;
   FxWaitingObjectTimer(pTarget, iNr, 0);
   var clonk = FindObject2(Find_Container(this), Find_OCF(OCF_CrewMember));
-  FKDT->SetFakeDeathEffects(clonk, GameCall("GetPlayerRespawnTime", GetOwner(clonk)) != FKDT_SuicideTime*35);
+  FKDT->SetFakeDeathEffects(clonk, GameCall("GetPlayerRespawnTime", GetOwner(clonk)) != FKDT_SuicideTime*35, GameCall("GetPlayerRespawnTime", GetOwner(clonk)));
 }
 
 public func FxWaitingObjectTimer(object pTarget, int iNr, int iTime)
