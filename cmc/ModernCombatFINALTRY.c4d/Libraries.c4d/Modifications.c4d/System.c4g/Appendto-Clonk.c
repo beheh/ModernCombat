@@ -861,10 +861,11 @@ global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, i
 
 /* Endgültiger Tod */
 
-func Destruction() {
-	if(IsFakeDeath())	return _inherited(...);
+func Destruction()
+{
+  if(IsFakeDeath())	return _inherited(...);
 
-	//Verbleibende Zeit an Spiel weiterleiten
+  //Verbleibende Wartezeit an System weiterleiten
   GameCall("SetPlayerRespawnTime", GetOwner(), FKDT_SuicideTime*35);
   return _inherited(...);
 }

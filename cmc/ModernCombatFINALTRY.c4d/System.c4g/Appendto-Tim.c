@@ -7,7 +7,7 @@
 #appendto TIM1
 #appendto TIM2
 
-public func IsSpawnObject() { return true; }
+public func IsSpawnObject()	{return true;}
 
 /* Spawnverzögerung */
 

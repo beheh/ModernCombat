@@ -170,19 +170,21 @@ public func ResetFakeDeathEffects(object pClonk)
   SetPlrViewRange(EffectVar(0, pClonk, e), pClonk);
   RemoveEffect("IntFakeDeathEffectsData", pClonk);
 
-	if(FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pClonk))))
-  	FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pClonk)))->SetPlrViewRange(0);
+  if(FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pClonk))))
+    FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pClonk)))->SetPlrViewRange(0);
 }
 
-public func FxIntFakeDeathEffectsDataTimer(object pTarget, int iNr, int iTime) {
-	if(GetMenu(pTarget) != FKDT)
-		CustomMessage(Format("$DeathCounter$", 1 + ((EffectVar(2, pTarget, iNr) - iTime) / 35)), FindObject2(Find_ID(1HUD), Find_Owner(GetOwner(pTarget))), GetOwner(pTarget), 0, 80, 0, 0, 0, 1);
-	else
-		CustomMessage("", FindObject2(Find_ID(1HUD), Find_Owner(GetOwner(pTarget))), GetOwner(pTarget));
+public func FxIntFakeDeathEffectsDataTimer(object pTarget, int iNr, int iTime)
+{
+  if(GetMenu(pTarget) != FKDT)
+    CustomMessage(Format("$DeathCounter$", 1 + ((EffectVar(2, pTarget, iNr) - iTime) / 35)), FindObject2(Find_ID(1HUD), Find_Owner(GetOwner(pTarget))), GetOwner(pTarget), 0, 80, 0, 0, 0, 1);
+  else
+    CustomMessage("", FindObject2(Find_ID(1HUD), Find_Owner(GetOwner(pTarget))), GetOwner(pTarget));
 }
 
-public func FxIntFakeDeathEffectsDataStop(object pTarget, int iNr) {
-	CustomMessage("", FindObject2(Find_ID(1HUD), Find_Owner(GetOwner(pTarget))), GetOwner(pTarget));
+public func FxIntFakeDeathEffectsDataStop(object pTarget, int iNr)
+{
+  CustomMessage("", FindObject2(Find_ID(1HUD), Find_Owner(GetOwner(pTarget))), GetOwner(pTarget));
 }
 
 public func KillMessage(string msg)
