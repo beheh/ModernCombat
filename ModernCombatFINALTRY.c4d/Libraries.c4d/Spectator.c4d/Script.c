@@ -40,70 +40,80 @@ public func Set(object pTarget, object pAlternative)
   alternative = pAlternative;
 }
 
-public func GetMenuItemStyle(object pCrew, id &itemID, int &iExtra, int &iColor, string &szPrefixedIcons) {
-	if(FindObject(MCSL)) {
-		iExtra = pCrew->~GetClass(); //Falls es in Zukunft eine solche Funktion geben sollte...
-		if(!iExtra)
-			iExtra = LocalN("lastclass", FindObject(MCSL))[GetOwner(pCrew)];
-		itemID = MCSL;
-	}
-	else
-		itemID = GetID(pCrew);
+public func GetMenuItemStyle(object pCrew, id &itemID, int &iExtra, int &iColor, string &szPrefixedIcons)
+{
+  if(FindObject(MCSL))
+  {
+    iExtra = pCrew->~GetClass(); //Falls es in Zukunft eine solche Funktion geben sollte...
+    if(!iExtra)
+      iExtra = LocalN("lastclass", FindObject(MCSL))[GetOwner(pCrew)];
+    itemID = MCSL;
+  }
+  else
+    itemID = GetID(pCrew);
 
-	if(Contained(pCrew)) {
-		if(!IsValidSpectateTarget(pCrew)) {
-			itemID = (GetName(0, SM29) && SM29) || ROCK; //Icon das anzeigt dass der Clonk am Spawnen ist. Alles nach dem = durch die neue IconID ersetzen.
-			iColor = 0x777777;
-			iExtra = 0;
-		}
-		else if(GetEffect("IntFakeDeathEffectsData", pCrew)) {
-			szPrefixedIcons = "{{FKDT}}";
-			iColor = 0xDD0000;
-		}
-	}
+  if(Contained(pCrew))
+  {
+    if(!IsValidSpectateTarget(pCrew))
+    {
+      itemID = SM03;
+      iColor = 0x777777;
+      iExtra = 0;
+    }
+    else if(GetEffect("IntFakeDeathEffectsData", pCrew))
+    {
+      szPrefixedIcons = "{{FKDT}}";
+      iColor = 0xDD0000;
+    }
+  }
 }
 
-public func IsValidSpectateTarget(object pTarget) {
-	if(Contained(pTarget))
-		if(Contained(pTarget)->~IsSpawnObject() && !GetEffect("WaitingObject", Contained(pTarget)))
-			return false;
-	
-	return true;
+public func IsValidSpectateTarget(object pTarget)
+{
+  if(Contained(pTarget))
+    if(Contained(pTarget)->~IsSpawnObject() && !GetEffect("WaitingObject", Contained(pTarget)))
+      return false;
+
+  return true;
 }
 
 /* Menüsystem */
 
-public func OpenSpectateMenu(object pTarget) {
-	AddEffect("SpectateMenu", pTarget, 1, 10, 0, SPEC, ...);
-	return true;
+public func OpenSpectateMenu(object pTarget)
+{
+  AddEffect("SpectateMenu", pTarget, 1, 10, 0, SPEC, ...);
+  return true;
 }
 
-public func FxSpectateMenuStart(object pTarget, int iNr, bool fTemp, object pMenuTarget, int iRange) {
-	EffectVar(0, pTarget, iNr) = pMenuTarget;
-	EffectVar(1, pTarget, iNr) = iRange;
-	OpenSpectateMenuCore(pTarget, pMenuTarget, iRange);
-	return true;
+public func FxSpectateMenuStart(object pTarget, int iNr, bool fTemp, object pMenuTarget, int iRange)
+{
+  EffectVar(0, pTarget, iNr) = pMenuTarget;
+  EffectVar(1, pTarget, iNr) = iRange;
+  OpenSpectateMenuCore(pTarget, pMenuTarget, iRange);
+  return true;
 }
 
-public func FxSpectateMenuTimer(object pTarget, int iNr) {
-	if(GetMenu(pTarget) != SPEC)
-		return -1;
+public func FxSpectateMenuTimer(object pTarget, int iNr)
+{
+  if(GetMenu(pTarget) != SPEC)
+    return -1;
 
-	var spec = FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pTarget)));
-	if(spec && !IsValidSpectateTarget(GetActionTarget(0, spec)))
-		SpectateObject(pTarget, pTarget, EffectVar(1, pTarget, iNr));
+  var spec = FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pTarget)));
+  if(spec && !IsValidSpectateTarget(GetActionTarget(0, spec)))
+    SpectateObject(pTarget, pTarget, EffectVar(1, pTarget, iNr));
 
-	var sel = GetMenuSelection(pTarget);
-	OpenSpectateMenuCore(pTarget, EffectVar(0, pTarget, iNr), EffectVar(1, pTarget, iNr));
-	SpectateMenuSelection(sel, pTarget, EffectVar(1, pTarget, iNr));
-	SelectMenuItem(sel, pTarget);
-	return true;
+  var sel = GetMenuSelection(pTarget);
+  OpenSpectateMenuCore(pTarget, EffectVar(0, pTarget, iNr), EffectVar(1, pTarget, iNr));
+  SpectateMenuSelection(sel, pTarget, EffectVar(1, pTarget, iNr));
+  SelectMenuItem(sel, pTarget);
+  return true;
 }
 
-public func FxSpectateMenuStop(object pTarget, int iNr) {
-	if(GetMenu(pTarget) == SPEC)
-		CloseMenu(pTarget);
-	return true;
+public func FxSpectateMenuStop(object pTarget, int iNr)
+{
+  if(GetMenu(pTarget) == SPEC)
+    CloseMenu(pTarget);
+  return true;
 }
 
 public func OpenSpectateMenuCore(object pTarget, object pMenuTarget, int iRange)
@@ -112,15 +122,15 @@ public func OpenSpectateMenuCore(object pTarget, object pMenuTarget, int iRange)
 
   CreateMenu(SPEC, pTarget, pMenuTarget, 0, "$SpectateMenu$", C4MN_Style_Dialog, true, true);
 
-	var itemid, extra, clr = 0xFFFFFF, prefixedstr = "";
-	GetMenuItemStyle(pTarget, itemid, extra, clr, prefixedstr);
+  var itemid, extra, clr = 0xFFFFFF, prefixedstr = "";
+  GetMenuItemStyle(pTarget, itemid, extra, clr, prefixedstr);
   AddMenuItem(Format("%s<c %x>%s</c>", prefixedstr, clr, GetName(pTarget)), 
   						Format("SPEC->SpectateObject(Object(%d), Object(%d), %d, true)", ObjectNumber(pTarget), ObjectNumber(pTarget), iRange), itemid, pTarget, 0, 0, 0, 2, extra);
   for(var i = 0; i < GetPlayerCount(); i++)
   {
     var plr = GetPlayerByIndex(i);
     if(Hostile(plr, GetOwner(pTarget)))
-    	continue;
+      continue;
 
     if(GetCrewCount(plr) > 1)
     {
@@ -129,12 +139,12 @@ public func OpenSpectateMenuCore(object pTarget, object pMenuTarget, int iRange)
       {
         if(GetCrew(plr, j) != pTarget)
         {
-        	var itemid, extra, clr = GetPlrColorDw(plr), prefixedstr = "";
+          var itemid, extra, clr = GetPlrColorDw(plr), prefixedstr = "";
           GetMenuItemStyle(GetCrew(plr, j), itemid, extra, clr, prefixedstr);
 
           if(IsValidSpectateTarget(GetCrew(plr, j)))
             AddMenuItem(Format("  %s<c %x>%s</c>", prefixedstr, clr, GetName(GetCrew(plr, j))), Format("SPEC->SpectateObject(Object(%d), Object(%d), %d, true)", ObjectNumber(GetCrew(plr, j)), ObjectNumber(pTarget), iRange), itemid, pTarget, 0, 0, 0, 2, extra);
-          else 
+          else
             AddMenuItem(Format("  %s<c %x>%s</c>", prefixedstr, clr, GetName(GetCrew(plr, j))), "SPEC->Nothing()", itemid, pTarget, 0, 0, 0, 2, extra);
         }
       }
@@ -144,8 +154,8 @@ public func OpenSpectateMenuCore(object pTarget, object pMenuTarget, int iRange)
       var itemid, extra, clr = GetPlrColorDw(plr), prefixedstr = "", icon = "", rank = GetRankID(GetPlayerRank(plr));
       GetMenuItemStyle(GetCrew(plr, j), itemid, extra, clr, prefixedstr);
 
-			if(IsDeveloper(GetPlayerID(plr)))
-				icon = "{{SM14}}";
+      if(IsDeveloper(GetPlayerID(plr)))
+        icon = "{{SM14}}";
       if(IsValidSpectateTarget(GetCrew(plr)))
         AddMenuItem(Format("%s {{%i}}%s <c %x>%s</c>", prefixedstr, rank, icon, clr, GetPlayerName(plr)), 
         						Format("SPEC->SpectateObject(Object(%d), Object(%d), %d, true)", ObjectNumber(GetCrew(plr)), ObjectNumber(pTarget), iRange), itemid, pTarget, 0, 0, 0, 2, extra);
@@ -166,10 +176,11 @@ public func SpectateMenuSelection(int iSelection, object pTarget, int iRange)
   if(!iSelection)
     return SpectateObject(pTarget);
 
-  for(var i = 0, iSel = 1; i < GetPlayerCount(); ++i) {
-  	var plr = GetPlayerByIndex(i);
-  	if(Hostile(plr, GetOwner(pTarget)))
-    	continue;
+  for(var i = 0, iSel = 1; i < GetPlayerCount(); ++i)
+  {
+    var plr = GetPlayerByIndex(i);
+    if(Hostile(plr, GetOwner(pTarget)))
+      continue;
 
     for(var j = 0; j < GetCrewCount(plr); (++j && ++iSel))
     {
@@ -191,16 +202,16 @@ public func SpectateMenuSelection(int iSelection, object pTarget, int iRange)
 
 public func SpectateObject(object pSpectateTarget, object pTarget, int iRange, bool fCloseMenu)
 {
-	if(!IsValidSpectateTarget(pSpectateTarget))
-		pSpectateTarget = pTarget;
+  if(!IsValidSpectateTarget(pSpectateTarget))
+    pSpectateTarget = pTarget;
 
-	if(!pTarget)
-		pTarget = pSpectateTarget;
+  if(!pTarget)
+    pTarget = pSpectateTarget;
 
-	if(fCloseMenu)
-		RemoveEffect("SpectateMenu", pTarget);
+  if(fCloseMenu)
+    RemoveEffect("SpectateMenu", pTarget);
 
-	var iPlr = GetOwner(pTarget);
+  var iPlr = GetOwner(pTarget);
   if(!iRange)
     iRange = 150;
 
@@ -213,9 +224,10 @@ public func SpectateObject(object pSpectateTarget, object pTarget, int iRange, b
   SetPlrViewRange(iRange, spec);
 }
 
-public func AttachTargetLost() {
-	if(alternative)
-		Set(alternative);
-	else
-		RemoveObject();
+public func AttachTargetLost()
+{
+  if(alternative)
+    Set(alternative);
+  else
+    RemoveObject();
 }

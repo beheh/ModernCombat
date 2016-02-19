@@ -4,6 +4,8 @@
 
 local szFunction, iClass;
 
+public func IsSpawnObject()	{return true;}
+
 
 /* Initalisierung */
 
@@ -350,5 +352,3 @@ protected func FindFlag(object flag)
 
   return -1;
 }
-
-public func IsSpawnObject() { return true; }
