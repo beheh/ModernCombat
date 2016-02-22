@@ -32,12 +32,27 @@ public func MenuQueryCancel(int iSelection, object pMenuObject)
 
 /* Erstellung */
 
-local alternative;
+local maintarget, alternative;
 
 public func Set(object pTarget, object pAlternative)
 {
+	maintarget = pTarget;
   SetAction("Attach", pTarget);
   alternative = pAlternative;
+  AddEffect("TargetCorrection", this, 100, 1, this);
+}
+
+public func FxTargetCorrectionTimer(object pTarget, int iNr) {
+	if(!Contained(maintarget)) {
+		if(GetActionTarget() != maintarget)
+			SetAction("Attach", maintarget);
+		return;
+	}
+
+	while(Contained()) {
+		SetAction("Attach", Contained());
+		Exit();
+	}
 }
 
 public func GetMenuItemStyle(object pCrew, id &itemID, int &iExtra, int &iColor, string &szPrefixedIcons)
