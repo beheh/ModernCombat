@@ -269,6 +269,7 @@ global func SilentKill4K(object pObject, bool fEjectContents)
   var cat = GetCategory(pObject);
   var cat = SetBit(cat , 3,  false);
   SetCategory (cat, pObject);
+  AddEffect("SilentKill", pObject, 1);
 
   RemoveObject(pObject,fEjectContents);
 }
