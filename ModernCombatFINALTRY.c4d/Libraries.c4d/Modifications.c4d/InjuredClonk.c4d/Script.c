@@ -171,7 +171,7 @@ public func ResetFakeDeathEffects(object pClonk)
   RemoveEffect("IntFakeDeathEffectsData", pClonk);
 
   if(FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pClonk))))
-    FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pClonk)))->SetPlrViewRange(0);
+    FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pClonk)))->Set(pClonk);
 }
 
 public func FxIntFakeDeathEffectsDataTimer(object pTarget, int iNr, int iTime)
