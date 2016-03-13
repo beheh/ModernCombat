@@ -837,7 +837,7 @@ public func ChooserFinished()
     }
     else
     {
-      aFlag[4]->Set("$Flag4$");
+      aFlag[4]->Set("$Flag5$");
     }
 
     //Selbstschussanlagen
