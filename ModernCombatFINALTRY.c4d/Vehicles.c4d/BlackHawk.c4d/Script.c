@@ -1367,12 +1367,12 @@ protected func ContactLeft()
   }
 
   //Abprallen
-  SetXDir(Max(GetXDir(),40) / -2, this);
+  SetXDir(Max(GetXDir(),40) / -2*(GetDir()*2-1), this);
 
   return true;
 }
 
-protected func ContactRight()
+protected func ContactRight() 
 {
   if(GetCon() != 100) return;
 
@@ -1387,7 +1387,7 @@ protected func ContactRight()
   }
 
   //Abprallen
-  SetXDir(Max(GetXDir(), 40) / -2,this);
+  SetXDir(Max(GetXDir(), 40) / 2*(GetDir()*2-1),this);
 
   return true;
 }
