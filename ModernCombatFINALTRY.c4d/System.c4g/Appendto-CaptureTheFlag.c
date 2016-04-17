@@ -1,4 +1,4 @@
-ï»¿/*-- Capture the Flag --*/
+/*-- Capture the Flag --*/
 
 //Capture the Flag erstellt bei Spielstart Spielzielhinweise.
 
@@ -36,7 +36,7 @@ private func SetFlagMarker(int iPlr, int iCTeam, bool fRemove)
     SetScoreboardData(iPlr, iCol, GetTaggedPlayerName(iPlr, true), iData);
 }
 
-/* gespeicherte CTF-Flaggen wiederherstellen/lî’›chen */
+/* gespeicherte CTF-Flaggen wiederherstellen/löschen */
 
 public func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 {
@@ -74,7 +74,7 @@ local aFlagData;
 
 /* Globale Funktionen */
 
-global func CreateFlag(int iTeam, int iX, int iY, int iColor) // Platziert eine Flagge fãƒ» Team iTeam, Position und Farbe angeben
+global func CreateFlag(int iTeam, int iX, int iY, int iColor) // Platziert eine Flagge für Team iTeam, Position und Farbe angeben
 {
   var ctf = FindObject2(Find_ID(GCTF));
   if(!ctf)
@@ -88,7 +88,7 @@ global func CreateFlag(int iTeam, int iX, int iY, int iColor) // Platziert eine 
   flagdata[iTeam] = [iX, iY, iColor];
   LocalN("aFlagData", ctf) = flagdata;
 
-  //Existiert das Team ãƒ»erhaupt?
+  //Existiert das Team überhaupt?
   if(!GetTeamPlayerCount(iTeam))
     return;
 
@@ -105,7 +105,7 @@ global func CreateFlag(int iTeam, int iX, int iY, int iColor) // Platziert eine 
 
 public func OnPlayerRankUp(int iPlr)
 {
-  //Scoreboard-Spielerrèˆ…ge aktualisieren
+  //Scoreboard-Spielerränge aktualisieren
   if(GetTeamPlayerCount(GetPlayerTeam(iPlr)) > 1)
     SetScoreboardData(iPlr, TEAM_PlayerColumn, GetTaggedPlayerName(iPlr, true));
   else
