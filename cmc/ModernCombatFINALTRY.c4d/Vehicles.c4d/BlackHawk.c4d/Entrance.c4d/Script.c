@@ -5,7 +5,7 @@
 local pHelicopter;
 local iXOffset, iYOffset;
 
-public func IsHelicopterEntrance() { return true; }
+public func IsHelicopterEntrance()	{return true;}
 
 
 func SetHelicopter(object tempHelicopter)

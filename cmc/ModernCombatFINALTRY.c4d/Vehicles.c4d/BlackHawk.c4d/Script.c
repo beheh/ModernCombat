@@ -1372,7 +1372,7 @@ protected func ContactLeft()
   return true;
 }
 
-protected func ContactRight() 
+protected func ContactRight()
 {
   if(GetCon() != 100) return;
 

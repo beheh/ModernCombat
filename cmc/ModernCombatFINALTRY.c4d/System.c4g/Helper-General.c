@@ -253,7 +253,7 @@ global func FindMaterial4K(int iMat, int iDistance, int iX, int iY, int iPrec)
   return(false);
 }
 
-//Tötet ein Lebewesen wie ein normales Objekt.
+//Tötet ein Lebewesen wie ein normales Objekt
 global func SilentKill4K(object pObject, bool fEjectContents)
 {
 /*  Achtung!
@@ -274,7 +274,6 @@ global func SilentKill4K(object pObject, bool fEjectContents)
   RemoveObject(pObject,fEjectContents);
 }
 
-//ObjectDistance gibt es, aber ObjectAngle nicht? :°
 global func ObjectAngle(object pA, object pB)
 {
   return(Angle(GetX(pA),GetY(pA),GetX(pB),GetY(pA)));
