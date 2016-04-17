@@ -867,7 +867,7 @@ func Destruction()
 
   //Verbleibende Wartezeit an System weiterleiten
   if(!GetEffect("SilentKill", this))
-  	GameCall("SetPlayerRespawnTime", GetOwner(), FKDT_SuicideTime*35);
+    GameCall("SetPlayerRespawnTime", GetOwner(), FKDT_SuicideTime*35);
   return _inherited(...);
 }
 

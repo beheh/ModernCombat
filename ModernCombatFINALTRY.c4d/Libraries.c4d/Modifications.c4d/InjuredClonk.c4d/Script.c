@@ -745,9 +745,10 @@ public func Collection2(object pObj)
 
 /* Nicht in Helikopter verladbar */
 
-protected func RejectEntrance(object pIntoObj) {
-	if(pIntoObj->~IsHelicopterEntrance())
-		return true;
+protected func RejectEntrance(object pIntoObj)
+{
+  if(pIntoObj->~IsHelicopterEntrance())
+    return true;
 }
 
 /* Wiederbelebung */

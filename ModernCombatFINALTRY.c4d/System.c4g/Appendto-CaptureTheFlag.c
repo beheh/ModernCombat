@@ -1,13 +1,12 @@
-/*-- Capture the Flag --*/
+﻿/*-- Capture the Flag --*/
 
 //Capture the Flag erstellt bei Spielstart Spielzielhinweise.
 
 #strict 2
-
 #appendto GCTF
 
-public func GoalExtraValue()	{return iWinScore;}	//Spielzielinformationen an Scoreboard weitergeben
 
+public func GoalExtraValue()	{return iWinScore;}	//Spielzielinformationen an Scoreboard weitergeben
 
 public func ChooserFinished()
 {
