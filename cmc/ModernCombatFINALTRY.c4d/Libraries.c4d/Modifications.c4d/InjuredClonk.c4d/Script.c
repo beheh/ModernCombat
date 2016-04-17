@@ -743,6 +743,13 @@ public func Collection2(object pObj)
     aContents[GetLength(aContents)] = GetID(pObj);
 }
 
+/* Nicht in Helikopter verladbar */
+
+protected func RejectEntrance(object pIntoObj) {
+	if(pIntoObj->~IsHelicopterEntrance())
+		return true;
+}
+
 /* Wiederbelebung */
 
 public func Reanimation()
