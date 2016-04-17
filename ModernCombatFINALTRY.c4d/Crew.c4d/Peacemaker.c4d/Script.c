@@ -119,14 +119,18 @@ public func FxIntActivatingShockPaddlesTimer(object pTarget, int iEffectNumber, 
 {
   if(iEffectTime >= 20 && Contents(0, this)->~Ready())
   {
+	  //Nur wenn Schwerverletzter in der Naehe ist
+  	if(!FindObject2(Find_InRect(-10,-10,20,20), Find_ID(FKDT),	Find_Allied(GetOwner()), Find_NoContainer(), Find_Not(Find_Func("RejectReanimation"))))
+  		return -1;
     Contents(0, this)->~Activate(this);
     var pShockPaddlesOwner = EffectVar(0, pTarget, iEffectNumber);
     if(pShockPaddlesOwner && pShockPaddlesOwner != this)
     {
       if(Contained(pShockPaddlesOwner))
         pShockPaddlesOwner = Contained(pShockPaddlesOwner);
-      
-      if(!pShockPaddlesOwner->~RejectCollect(GetID(Contents(0, this)), Contents(0, this)))
+
+      if(FindObject2(Find_Not(Find_Exclude(pShockPaddlesOwner)), Find_InRect(-10, -10, 20, 20)) &&
+      	 !pShockPaddlesOwner->~RejectCollect(GetID(Contents(0, this)), Contents(0, this)))
       {
         Enter(pShockPaddlesOwner, Contents(0, this));
 
@@ -166,11 +170,15 @@ public func ActivateShockPaddles(object pShockPaddlesOwner)
     //Ansonsten sofort auslösen
     if(!GetEffect("IntActivatingShockPaddles"))
     {
+    	//Nur wenn Schwerverletzter in der Naehe ist
+    	if(!FindObject2(Find_InRect(-10,-10,20,20), Find_ID(FKDT),	Find_Allied(GetOwner()), Find_NoContainer(), Find_Not(Find_Func("RejectReanimation"))))
+    		return;
       Contents(0, this)->~Activate(this);
       //Ggf. wieder zuruecklegen
       if(pShockPaddlesOwner && pShockPaddlesOwner != this)
         if(!pShockPaddlesOwner->~RejectCollect(GetID(Contents(0, this)), Contents(0, this)))
-          Enter(pShockPaddlesOwner, Contents(0, this));
+        	if(FindObject2(Find_Not(Find_Exclude(pShockPaddlesOwner)), Find_InRect(-10,-10,20,20)))
+          	Enter(pShockPaddlesOwner, Contents(0, this));
     }
 
   return 1;
