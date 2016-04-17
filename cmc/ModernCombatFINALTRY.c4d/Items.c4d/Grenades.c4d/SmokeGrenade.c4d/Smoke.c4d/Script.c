@@ -138,14 +138,16 @@ global func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTi
 
   //Objekt noch im Rauch?
   var smoked = false;
-  for(var smoke in FindObjects(pTarget->Find_AtPoint(), Find_ID(SM4K), Find_Func("IsSmoking")))
-  {
-    if(GetCon(smoke)/2 > Distance(GetX(smoke),GetY(smoke),GetX(pTarget),GetY(pTarget)))
-    {
-      smoked = true;
-      break;
-    }
-  }
+  if(!Contained() || GetID(Contained()) == FKDT) {
+		for(var smoke in FindObjects(pTarget->Find_AtPoint(), Find_ID(SM4K), Find_Func("IsSmoking")))
+		{
+		  if(GetCon(smoke)/2 > Distance(GetX(smoke),GetY(smoke),GetX(pTarget),GetY(pTarget)))
+		  {
+		    smoked = true;
+		    break;
+		  }
+		}
+	}
 
   //Bildschirmeffekt verdunkeln oder auflösen
   if(smoked)
