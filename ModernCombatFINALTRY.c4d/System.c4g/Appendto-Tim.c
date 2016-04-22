@@ -7,6 +7,8 @@
 #appendto TIM1
 #appendto TIM2
 
+local Respawn_KillMsg, Respawn_Position;
+
 public func IsSpawnObject()	{return true;}
 
 public func Initialize() {
@@ -18,8 +20,13 @@ public func CheckForRespawn() {
 		return;
 
 	var clonk = FindObject2(Find_Container(this), Find_OCF(OCF_CrewMember));
-	if(!GameCall("RespawnDelayRejected") && GameCall("GetPlayerRespawnTime", GetOwner(clonk)))
-		AddEffect("WaitingObject", this, 100, 10, this, 0, "");
+	if(!GameCall("RespawnDelayRejected") && GameCall("GetPlayerRespawnTime", GetOwner(clonk))) {
+	  if(Respawn_Position)
+    	//An den Todesort verschieben
+    	SetPosition(Respawn_Position[0], Respawn_Position[1], this);
+
+		AddEffect("WaitingObject", this, 100, 10, this, 0, Respawn_KillMsg);
+	}
 }
 
 /* Spawnverzögerung */
