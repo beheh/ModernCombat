@@ -190,7 +190,6 @@ public func RelaunchClonk(int iPlr, object pCursor)
   //In Spawnpoint verschieben
   var tim = CreateObject(TIM2, LandscapeWidth()/2, LandscapeHeight()/2, -1);
   Enter(tim, pClonk);
-
   //Wartezeit von vorherigem Ableben vorhanden?
   if(GetPlayerRespawnTime(iPlr) && !RespawnDelayRejected())
   {

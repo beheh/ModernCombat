@@ -9,6 +9,19 @@
 
 public func IsSpawnObject()	{return true;}
 
+public func Initialize() {
+	ScheduleCall(0, "CheckForRespawn", 1);
+}
+
+public func CheckForRespawn() {
+	if(GetEffect("WaitingObject", this))
+		return;
+
+	var clonk = FindObject2(Find_Container(this), Find_OCF(OCF_CrewMember));
+	if(!GameCall("RespawnDelayRejected") && GameCall("GetPlayerRespawnTime", GetOwner(clonk)))
+		AddEffect("WaitingObject", this, 100, 10, this, 0, "");
+}
+
 /* Spawnverzögerung */
 
 public func FxWaitingObjectStart(object pTarget, int iNr, bool fTemp, string szKillmsg)
