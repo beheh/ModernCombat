@@ -788,13 +788,14 @@ public func Reanimation()
       for(var i = 0; i < GetLength(aGrenades); i++)
       {
         var nade = aGrenades[i];
-        for(var item in FindObjects(Find_Container(clonk), Find_ID(nade)))
+        for(var item in FindObjects(Find_Container(this), Find_ID(nade)))
         {
           clonk->~StoreGrenade(item);
           if(!Contained(item)) RemoveObject(item);
         }
       }
     }
+
     RemoveEffect("NoAnnounce", clonk);
   }
   while(Contents())
