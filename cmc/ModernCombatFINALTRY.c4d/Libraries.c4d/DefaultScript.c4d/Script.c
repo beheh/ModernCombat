@@ -108,8 +108,10 @@ public func SetPlayerRespawnTime(int iPlr, int iTime)
   return true;
 }
 
-public func GetPlayerRespawnTime(int iPlr)
+public func GetPlayerRespawnTime(int iPlr, bool fRaw)
 {
+	if(RespawnDelayRejected() && !fRaw)
+		return 0;
   if(g_aPlayerRespawnTimer)
     return g_aPlayerRespawnTimer[GetPlayerID(iPlr)];
 }
@@ -195,7 +197,7 @@ public func RelaunchClonk(int iPlr, object pCursor)
   LocalN("Respawn_KillMsg", tim) = killmsg;
   LocalN("Respawn_Position", tim) = [GetX(pCursor), Min(GetY(pCursor), LandscapeHeight()-10)];
   //Wartezeit von vorherigem Ableben vorhanden?
-  if(GetPlayerRespawnTime(iPlr) && !RespawnDelayRejected())
+  if(GetPlayerRespawnTime(iPlr))
   {
     //An den Todesort verschieben (allerdings nicht in Abgründe rein)
     SetPosition(GetX(pCursor), Min(GetY(pCursor), LandscapeHeight()-10), tim);
