@@ -86,7 +86,7 @@ private func OpenGoalMenu(id dummy, int iSelection)
   AddMenuItem("$Points$", 0, IC12, pClonk, iGoal);
 
   //Punktelimits ermitteln
-  var uplimit = 40; var downlimit = 5;
+  var uplimit = 40; var downlimit = 3;
   if(GetLeague())
   {
     uplimit = 30; downlimit = 5;
@@ -115,7 +115,7 @@ private func ChangeWinpoints(id dummy, int iChange)
 
   //Zu erreichenden Punktezahl verändern
   if(!GetLeague())
-    iGoal = BoundBy(iGoal+iChange,5,40);
+    iGoal = BoundBy(iGoal+iChange,3,40);
   else
     iGoal = BoundBy(iGoal+iChange,5,30);
 

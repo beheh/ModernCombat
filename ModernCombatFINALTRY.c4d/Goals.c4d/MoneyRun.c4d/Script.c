@@ -95,7 +95,7 @@ private func OpenGoalMenu(id dummy, int iSelection)
   var uplimit = 1000; var downlimit = 100;
   if(GetLeague())
   {
-    uplimit = 500; downlimit = 200;
+    uplimit = 600; downlimit = 200;
   }
 
   //Mehr Credits
@@ -120,7 +120,7 @@ private func ChangeCredits(id dummy, int iChange)
   if(!GetLeague())
     iGoal = BoundBy(iGoal + iChange,100,1000);
   else
-    iGoal = BoundBy(iGoal + iChange,200,500);
+    iGoal = BoundBy(iGoal + iChange,200,600);
   //Sound
   Sound("Grab", 1,0,0,1);
   //Menü wieder öffnen
