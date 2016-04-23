@@ -6,7 +6,6 @@ MsgFlagCaptured=Team <c %x>%s</c> controls flag post <c ffff33>%s</c>!
 // Tickets
 
 MsgTicketsLow=<c ff0000>Warning</c>: Our reinforcements are running low, only <c ffff33>%d</c> left!
-MsgNoTickets=<c ff0000>Warning</c>: Our reinforcements are <c ff0000>exhausted</c>!
 
 // Host menu
 

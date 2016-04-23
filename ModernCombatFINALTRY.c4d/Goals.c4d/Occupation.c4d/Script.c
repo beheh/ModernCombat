@@ -53,10 +53,9 @@ public func ChooserFinished()
   for(var i = 0; i < GetTeamCount(); i++)
     DoTickets(GetTeamByIndex(i), iStartTickets);
 
-  //Scoreboards und Spielzielhinweise erstellen
+  //Spielzielhinweise erstellen
   for(var i = 0; i < GetPlayerCount(); i++)
   {
-    DoScoreboardShow(1, GetPlayerByIndex(i) + 1);
     CreateObject(TK01, 0, 0, GetPlayerByIndex(i));
     Sound("Info_Round.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
   }
@@ -347,14 +346,6 @@ private func UpdateScoreboard()
 
 public func FlagAttacked(object pFlag, int iTeam)
 {
-  for(var i = 0; i < GetPlayerCount(); i++)
-  {
-    if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
-    {
-      DoScoreboardShow(1, GetPlayerByIndex(i)+1);
-      Schedule(Format("DoScoreboardShow(-1, %d)", GetPlayerByIndex(i)+1), 150);
-    }
-  }
   UpdateScoreboard();
 }
 
@@ -492,10 +483,6 @@ public func DoTickets(int iTeam, int iChange, bool fNoWarn)
     {
       Schedule(Format("GameCallEx(\"TicketsLow\", %d, %d)", aTicket[iTeam-1], iTeam), 1);
     }
-    if(aTicket[iTeam-1] == 0)
-    {
-      Schedule(Format("GameCallEx(\"NoTickets\", %d)", iTeam), 1);
-    }
   }
   return true;
 }
@@ -510,19 +497,6 @@ public func TicketsLow(int iRemaining, int iTeam)
     {
       //Eventnachricht: Warnung vor niedrigen Tickets
       EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",iRemaining),SM03,0,0,0,"Info_Event.ogg");
-    }
-  }
-  return true;
-}
-
-public func NoTickets(int iTeam)
-{
-  for(var i = 0; i < GetPlayerCount(); i++)
-  {
-    if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
-    {
-      //Eventnachricht: Hinweis auf aufgebrauchte Tickets
-      EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgNoTickets$"),SM03,0,0,0,"Info_Alarm.ogg");
     }
   }
   return true;
