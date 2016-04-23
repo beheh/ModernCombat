@@ -111,6 +111,8 @@ protected func FxBorderStart(pTarget, iNo, iTemp)
       //Opfer sofort töten
       pTarget->~KillIcon(SM10);
       pTarget->~LastDamageType(DMG_Melee);
+      Sound("FallIntoAbyss*.ogg", 1, 0, 0, GetOwner(pTarget) + 1);
+
       //Ehrenband-Fortschritt (The End)
       if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
         AttemptAwardRibbon(RB13, GetKiller(pTarget), GetOwner(pTarget));
