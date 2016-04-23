@@ -232,7 +232,7 @@ public func FlagCaptured(object pFlagPole, int iTeam, array aAttackers, bool fRe
         if(first)
           //Punkte bei Belohnungssystem (Flaggenposteneroberung)
           DoPlayerPoints(BonusPoints("OPConquer"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC10);
-          else
+        else
           //Punkte bei Belohnungssystem (Hilfe bei Flaggenposteneroberung)
           DoPlayerPoints(BonusPoints("OPAssist"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC11);
       }
@@ -272,7 +272,7 @@ public func InitScoreboard()
 public func UpdateScoreboard()
 {
   //Wird noch eingestellt
-  if(FindObject(CHOS) || !pFlag || IsFulfilled()) return;
+  if(FindObject(CHOS) || !pFlag || fulfilled) return;
 
   //Zeileniterator
   var i = 0;
@@ -373,6 +373,7 @@ public func IsFulfilled()
   if(FindObject(CHOS)) return;
 
   if(fulfilled) return true;
+  UpdateScoreboard();
 
   //Punktestände prüfen
   for(var i; i < GetLength(aTeamPoints); i++)
