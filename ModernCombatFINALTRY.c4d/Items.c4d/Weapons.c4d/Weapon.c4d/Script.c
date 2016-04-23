@@ -1,7 +1,7 @@
 /*-- Waffe --*/
 
 #strict 2
-#include WEPN 
+#include WEPN
 
 local stopauto,firemode,shooting,ratecount,stopburst;
 local iAttachment,pLaser,pBeam,pLight;
