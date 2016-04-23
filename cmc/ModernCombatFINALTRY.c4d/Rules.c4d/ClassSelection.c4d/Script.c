@@ -158,8 +158,8 @@ func InitClassMenu(object pClonk)
     Enter(tmp,pClonk);
   }
 
-  //Zeitbegrenzung bei LMS, DM und AS
-  if(FindObject(GLMS) || FindObject(GTDM) || FindObject(GASS))
+  //Zeitbegrenzung bei AS, LMS und DM
+  if(FindObject(GASS) || FindObject(GLMS) || FindObject(GTDM))
     AddEffect("Spawntimer", this, 100, 35, this, GetID(), iPlayer, pClonk, tmp);
 
   //Bereits ein Menü vorhanden: Schließen
