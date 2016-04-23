@@ -177,7 +177,7 @@ func Finish(object pClonk, int iClass)
   //Men¸ schlieﬂen
   CloseMenu(GetCursor(iPlayer));
 
-  //Zuschauerobjekte zuruecksetzen
+  //Zuschauerobjekte zur¸cksetzen
   if(FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pClonk))))
     FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pClonk)))->Set(pClonk);
 
@@ -257,109 +257,111 @@ private func OpenMenu(object pClonk, int iSelection)
   CloseMenu(pClonk);
   CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog, true);
 
-	var headitems = 0;
-	if(GetCData(iClass, CData_Name)) {
-		//Icon
-		AddMenuItem(" | ", 0, GetCData(iClass, CData_Icon), pClonk, 0, 0, " ", 2, GetCData(iClass, CData_Facet));
+  var headitems = 0;
+  if(GetCData(iClass, CData_Name))
+  {
+    //Icon
+    AddMenuItem(" | ", 0, GetCData(iClass, CData_Icon), pClonk, 0, 0, " ", 2, GetCData(iClass, CData_Facet));
 
-		//Name und Beschreibung
-		AddMenuItem(Format("<c ffff33>%s</c>|%s", GetCData(iClass, CData_Name), GetCData(iClass, CData_Desc)), 0, NONE, pClonk, 0, 0, " ");
+    //Name und Beschreibung
+    AddMenuItem(Format("<c ffff33>%s</c>|%s", GetCData(iClass, CData_Name), GetCData(iClass, CData_Desc)), 0, NONE, pClonk, 0, 0, " ");
 
-		//Leerzeile
-		AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+    //Leerzeile
+    AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
 
-		//Clonktyp
-		AddMenuItem(Format("{{%i}} %s", GetCData(iClass, CData_Clonk), GetName(0, GetCData(iClass, CData_Clonk)), 0, NONE, pClonk, 0, 0, " "));
+    //Clonktyp
+    AddMenuItem(Format("{{%i}} %s", GetCData(iClass, CData_Clonk), GetName(0, GetCData(iClass, CData_Clonk)), 0, NONE, pClonk, 0, 0, " "));
 
-		//Munition
-		if(!FindObject(NOAM))
-		{
-		  var szAmmo = "", aAmmo = GetCData(iClass, CData_Ammo);
-		  for (var aEntry in aAmmo)
-		  {
-		    if (GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsAmmo())
-		      continue;
-		    szAmmo = Format("%s%2dx {{%i}}", szAmmo, aEntry[1], aEntry[0]);
-		  }
-		  AddMenuItem(szAmmo, 0, NONE, pClonk, 0, 0, " ");
-		}
-		else
-		  AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+    //Munition
+    if(!FindObject(NOAM))
+    {
+      var szAmmo = "", aAmmo = GetCData(iClass, CData_Ammo);
+      for (var aEntry in aAmmo)
+      {
+        if (GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsAmmo())
+          continue;
+        szAmmo = Format("%s%2dx {{%i}}", szAmmo, aEntry[1], aEntry[0]);
+      }
+      AddMenuItem(szAmmo, 0, NONE, pClonk, 0, 0, " ");
+    }
+    else
+      AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
 
-		//Gegenst‰nde
-		var szItems = "", aItems = GetCData(iClass, CData_Items), nextline = false, first = true;
-		for (var aEntry in aItems)
-		{
-		  if (GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID)
-		    continue;
-		  szItems = Format("%s%2dx {{%i}}     ", szItems, aEntry[1], aEntry[0]);
-		  //Nach jedem zweiten Item umbrechen, auﬂer beim letzten
-		  if (!first && (nextline = !nextline) && GetIndexOf(aEntry, aItems) < GetLength(aItems) - 1)
-		    szItems = Format("%s|", szItems);
-		  first = false;
-		}
-		AddMenuItem(szItems, 0, NONE, pClonk, 0, 0, " ");
+    //Gegenst‰nde
+    var szItems = "", aItems = GetCData(iClass, CData_Items), nextline = false, first = true;
+    for (var aEntry in aItems)
+    {
+      if (GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID)
+        continue;
+      szItems = Format("%s%2dx {{%i}}     ", szItems, aEntry[1], aEntry[0]);
+      //Nach jedem zweiten Item umbrechen, auﬂer beim letzten
+      if (!first && (nextline = !nextline) && GetIndexOf(aEntry, aItems) < GetLength(aItems) - 1)
+        szItems = Format("%s|", szItems);
+      first = false;
+    }
+    AddMenuItem(szItems, 0, NONE, pClonk, 0, 0, " ");
 
-		//Granaten
-		var szGrenades = "", aGrenades = GetCData(iClass, CData_Grenades);
-		for (var aEntry in aGrenades)
-		{
-		  if (GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsGrenade())
-		    continue;
-		  szGrenades = Format("%s%2dx {{%i}}     ", szGrenades, aEntry[1], aEntry[0]);
-		}
-		AddMenuItem(szGrenades, 0, NONE, pClonk, 0, 0, " ");
+    //Granaten
+    var szGrenades = "", aGrenades = GetCData(iClass, CData_Grenades);
+    for (var aEntry in aGrenades)
+    {
+      if (GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsGrenade())
+        continue;
+      szGrenades = Format("%s%2dx {{%i}}     ", szGrenades, aEntry[1], aEntry[0]);
+    }
+    AddMenuItem(szGrenades, 0, NONE, pClonk, 0, 0, " ");
 
-		//Ausr¸stung
-		var szGear = "", aGear = GetCData(iClass, CData_Gear);
-		var aAdditionalGear = GameCall("SpecificEquipment");
+    //Ausr¸stung
+    var szGear = "", aGear = GetCData(iClass, CData_Gear);
+    var aAdditionalGear = GameCall("SpecificEquipment");
 
-		if(GetType(aAdditionalGear) == C4V_Array)
-		  AddArray4K(aAdditionalGear, aGear);
+    if(GetType(aAdditionalGear) == C4V_Array)
+      AddArray4K(aAdditionalGear, aGear);
 
-		if(GetDarkness() >= 3 && NoAttachments())
-		  aGear[GetLength(aGear)] = [FLSH, 1];
+    if(GetDarkness() >= 3 && NoAttachments())
+      aGear[GetLength(aGear)] = [FLSH, 1];
 
-		if(FindObject(FDMG))
-		  aGear[GetLength(aGear)] = [PPAR, 1];
+    if(FindObject(FDMG))
+      aGear[GetLength(aGear)] = [PPAR, 1];
 
-		var aGearTypes = [];
-		
-		for(var aEntry in aGear)
-		{
-		  if(GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsHazardGear())
-		    continue;
+    var aGearTypes = [];
 
-		  if(GetIndexOf(aEntry[0]->~GetGearType(), aGearTypes) > -1)
-		    continue;
+    for(var aEntry in aGear)
+    {
+      if(GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsHazardGear())
+        continue;
 
-		  aGearTypes[GetLength(aGearTypes)] = aEntry[0]->~GetGearType();
-		  szGear = Format("%s%2dx {{%i}}     ", szGear, aEntry[1], aEntry[0]);
-		}
-		AddMenuItem(szGear, 0, NONE, pClonk, 0, 0, " ");
+      if(GetIndexOf(aEntry[0]->~GetGearType(), aGearTypes) > -1)
+        continue;
 
-		//Leerzeile
-		AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
-		headitems = InfoMenuItems();
-	}
-	else {
-		//Icon
-		AddMenuItem(" | ", 0, SPEC, pClonk, 0, 0, " ", 2);
+      aGearTypes[GetLength(aGearTypes)] = aEntry[0]->~GetGearType();
+      szGear = Format("%s%2dx {{%i}}     ", szGear, aEntry[1], aEntry[0]);
+    }
+    AddMenuItem(szGear, 0, NONE, pClonk, 0, 0, " ");
 
-		//Name und Beschreibung
-		AddMenuItem("<c ffff33>$Spectate$</c>|$SpectateDesc$", 0, NONE, pClonk, 0, 0, " ");
+    //Leerzeile
+    AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+    headitems = InfoMenuItems();
+  }
+  else
+  {
+    //Icon
+    AddMenuItem(" | ", 0, SPEC, pClonk, 0, 0, " ", 2);
 
-		//Leerzeilen
-		AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
-		AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
-		AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
-		AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
-		AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
-		AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
-		
-		headitems = 7;
-		iSelection = -1;
-	}
+    //Name und Beschreibung
+    AddMenuItem("<c ffff33>$Spectate$</c>|$SpectateDesc$", 0, NONE, pClonk, 0, 0, " ");
+
+    //Leerzeilen
+    AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+    AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+    AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+    AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+    AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+    AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+
+    headitems = 7;
+    iSelection = -1;
+  }
 
   //Die Klassen
   var i = 0;
@@ -380,22 +382,24 @@ private func OpenMenu(object pClonk, int iSelection)
   }
   var spectate = (GetTeamPlayerCount(GetPlayerTeam(GetOwner(pClonk))) > 1);
   if(spectate)
-  	AddMenuItem("$Spectate$", "OpenSpectateMenu", SPEC, pClonk, 0, pClonk);
+    AddMenuItem("$Spectate$", "OpenSpectateMenu", SPEC, pClonk, 0, pClonk);
 
-  if(!bNoMenuUpdate) { 
-		bNoMenuUpdate = true;
-		if(iSelection >= 0)
-		  SelectMenuItem(Min(iSelection, headitems+displaying+spectate), pClonk);
-  	else
-  		SelectMenuItem(headitems+displaying+spectate+1+iSelection, pClonk);
-	}
+  if(!bNoMenuUpdate)
+  {
+    bNoMenuUpdate = true;
+    if(iSelection >= 0)
+      SelectMenuItem(Min(iSelection, headitems+displaying+spectate), pClonk);
+    else
+      SelectMenuItem(headitems+displaying+spectate+1+iSelection, pClonk);
+  }
 
   return true;
 }
 
-protected func OpenSpectateMenu(dummy, object pTarget) {
-	SPEC->OpenSpectateMenu(pTarget, this);
-	return true;
+protected func OpenSpectateMenu(dummy, object pTarget)
+{
+  SPEC->OpenSpectateMenu(pTarget, this);
+  return true;
 }
 
 private func CalculatePlayerSelection(int iOwner, int iSelection)
@@ -411,8 +415,10 @@ private func CalculatePlayerSelection(int iOwner, int iSelection)
   return iClass;
 }
 
-public func MenuQueryCancel(int iSelection, object pMenuObject) {
-  if(GetMenu(pMenuObject) == SPEC) {
+public func MenuQueryCancel(int iSelection, object pMenuObject)
+{
+  if(GetMenu(pMenuObject) == SPEC)
+  {
     SPEC->SpectateObject(pMenuObject);
     return false;
   }

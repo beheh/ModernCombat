@@ -110,8 +110,8 @@ public func SetPlayerRespawnTime(int iPlr, int iTime)
 
 public func GetPlayerRespawnTime(int iPlr, bool fRaw)
 {
-	if(RespawnDelayRejected() && !fRaw)
-		return 0;
+  if(RespawnDelayRejected() && !fRaw)
+    return 0;
   if(g_aPlayerRespawnTimer)
     return g_aPlayerRespawnTimer[GetPlayerID(iPlr)];
 }
@@ -193,7 +193,7 @@ public func RelaunchClonk(int iPlr, object pCursor)
   var tim = CreateObject(TIM2, LandscapeWidth()/2, LandscapeHeight()/2, -1);
   Enter(tim, pClonk);
 
-  //Ggf. Informationen noch mitliefern
+  //Gegebenenfalls Informationen mitliefern
   LocalN("Respawn_KillMsg", tim) = killmsg;
   LocalN("Respawn_Position", tim) = [GetX(pCursor), Min(GetY(pCursor), LandscapeHeight()-10)];
   //Wartezeit von vorherigem Ableben vorhanden?
