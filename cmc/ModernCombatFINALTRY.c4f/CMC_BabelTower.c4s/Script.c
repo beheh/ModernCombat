@@ -398,7 +398,7 @@ func CreateInterior()
   CreateObject(GDDR, 1295, 1610, -1)->SetColorDw(HSL(145, 210, 100, 127));
 
   //Grenze
-  CreateObject(BRDR, 0, 2410, -1)->Set(3,0,1);
+  CreateObject(BRDR, 0, 2360, -1)->Set(3,0,1);
 
   //Säulen
   CreateObject(PILR, 980, 1250, -1)->Set("PreparePillarCollapseL1");
