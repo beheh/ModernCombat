@@ -124,7 +124,9 @@ public func WinScoreChange(int iNewScore)
 {
   //Einstellbarer Punktestand bei Ligarunden begrenzen
   if(GetLeague())
-    iNewScore = BoundBy(iNewScore, 3, 6);
+    iNewScore = BoundBy(iNewScore, 3, 10);
+  else
+    iNewScore = BoundBy(iNewScore, 2, 20);
 
   return _inherited(iNewScore, ...);
 }

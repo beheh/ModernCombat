@@ -111,7 +111,9 @@ protected func FxBorderStart(pTarget, iNo, iTemp)
       //Opfer sofort töten
       pTarget->~KillIcon(SM10);
       pTarget->~LastDamageType(DMG_Melee);
-      Sound("FallIntoAbyss*.ogg", 1, 0, 0, GetOwner(pTarget) + 1);
+
+      if(!FindObject(NOFD) && !FindObject(SICD))
+        Sound("FallIntoAbyss*.ogg", 1, 0, 0, GetOwner(pTarget) + 1);
 
       //Ehrenband-Fortschritt (The End)
       if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
