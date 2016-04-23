@@ -6,7 +6,6 @@ MsgFlagLost=Flaggenposten <c ffff33>%s</c> an Team <c %x>%s</c> verloren!
 // Tickets
 
 MsgTicketsLow=<c ff0000>Achtung</c>: Unsere Verstärkung geht zu Neige, nur noch <c ffff33>%d</c> übrig!
-MsgNoTickets=<c ff0000>Achtung</c>: Unsere Verstärkung ist <c ff0000>aufgebraucht</c>!
 
 // Hostmenü
 
