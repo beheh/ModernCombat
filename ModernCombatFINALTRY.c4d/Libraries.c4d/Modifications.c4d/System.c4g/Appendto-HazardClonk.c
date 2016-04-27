@@ -559,11 +559,11 @@ public func ShowCH()
 
   if(Contained(crosshair))
     Exit(crosshair);
-    
+
   if(GetActionTarget(0, crosshair) != this)
     crosshair->Reset(this);
    
-  if(!IsAiming())
+  if(!IsAiming() && crosshair)
   {
     //if((crosshair->GetAngle() != -90) || (crosshair->GetAngle() != +90))
       //ResetCH();
