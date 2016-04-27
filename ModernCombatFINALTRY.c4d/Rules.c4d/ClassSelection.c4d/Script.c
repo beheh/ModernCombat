@@ -95,13 +95,14 @@ public func FxSpawntimerStart(pTarget, iNo, iTemp, iPlr, pClonk, cont)
   EffectVar(2, pTarget, iNo) = pClonk;	//Clonk
   EffectVar(3, pTarget, iNo) = cont;	//Container
 
-  PlayerMessage(EffectVar(0, pTarget, iNo), "@$TimeTillRespawn$", 0, EffectVar(1, pTarget, iNo));
+  CustomMessage(Format("@$TimeTillRespawn$", EffectVar(1, pTarget, iNo)), FindObject2(Find_ID(1HUD), Find_Owner(iPlr)), iPlr, 0, 80, 0, 0, 0, 1);
 }
 
 public func FxSpawntimerTimer(pTarget, iNo, iTime)
 {
   EffectVar(1, pTarget, iNo)--;
-  PlayerMessage(EffectVar(0, pTarget, iNo), "@$TimeTillRespawn$", 0, EffectVar(1, pTarget, iNo));
+  var iPlr = EffectVar(0, pTarget, iNo);
+  CustomMessage(Format("@$TimeTillRespawn$", EffectVar(1, pTarget, iNo)), FindObject2(Find_ID(1HUD), Find_Owner(iPlr)), iPlr, 0, 80, 0, 0, 0, 1);
 
   //Verschwinden wenn Clonk/Behälter weg oder Clonk nicht im Behälter
   if (!EffectVar(2, pTarget, iNo) || !EffectVar(3, pTarget, iNo) || Contained(EffectVar(2, pTarget, iNo)) != EffectVar(3, pTarget, iNo))
@@ -114,10 +115,9 @@ public func FxSpawntimerTimer(pTarget, iNo, iTime)
 
   if(EffectVar(1, pTarget, iNo) <= 0)
   {
-    var iPlr = EffectVar(0, pTarget, iNo),
-    class = CalculatePlayerSelection(iPlr, selection[iPlr]);
+    var class = CalculatePlayerSelection(iPlr, selection[iPlr]);
 
-    PlayerMessage(iPlr, "@");
+    CustomMessage("", FindObject2(Find_ID(1HUD), Find_Owner(iPlr)), iPlr);
     if(SetupClass(class, iPlr))
       return -1;
     class = lastclass[iPlr];
