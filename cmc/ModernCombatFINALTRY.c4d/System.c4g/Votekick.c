@@ -46,7 +46,7 @@ global func Votekick(int iPlr, string pars)
     if(GetEffect("Votekick") && GetLength(pars))
     {
       if(WildcardMatch(pars, "*y*"))
-        EffectCall(0, GetEffect("Votekick"), "Add", iPlr, false);
+        return EffectCall(0, GetEffect("Votekick"), "Add", iPlr, false);
     }
     else
       return PlayerMessage(iPlr, "$HostInfo$", GetCursor(iPlr));
@@ -60,13 +60,16 @@ global func Votekick(int iPlr, string pars)
   if(GetClientCount() < 3)
     return PlayerMessage(iPlr, "$PlayerCountInfo$", GetCursor(iPlr));
 
-  //Spammende Spieler blockieren
-  if(HasVotekickSpamFilter(iPlr))
-    return PlayerMessage(iPlr, "$SpamProtectInfo$", GetCursor(iPlr));
-
   //Votekick starten
-  if(!GetLength(pars) && !GetEffect("Votekick"))
-  {
+  if(!GetLength(pars) && !GetEffect("Votekick")) {  	
+		//Nur wenn kein Menue offen ist
+		if(GetMenu(GetCursor(iPlr)))
+			return PlayerMessage(iPlr, "$MenuInfo$", GetCursor(iPlr));
+
+		//Spammende Spieler blockieren
+		if(HasVotekickSpamFilter(iPlr) && !GetEffect("Votekick"))
+		  return PlayerMessage(iPlr, "$SpamProtectInfo$", GetCursor(iPlr));
+
     VotekickMenu(iPlr);
   }
   else if(GetEffect("Votekick") && GetLength(pars))
