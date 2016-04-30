@@ -61,14 +61,15 @@ global func Votekick(int iPlr, string pars)
     return PlayerMessage(iPlr, "$PlayerCountInfo$", GetCursor(iPlr));
 
   //Votekick starten
-  if(!GetLength(pars) && !GetEffect("Votekick")) {  	
-		//Nur wenn kein Menue offen ist
-		if(GetMenu(GetCursor(iPlr)))
-			return PlayerMessage(iPlr, "$MenuInfo$", GetCursor(iPlr));
+  if(!GetLength(pars) && !GetEffect("Votekick"))
+  {
+    //Nur wenn keine anderen Menüs offen sind
+    if(GetMenu(GetCursor(iPlr)))
+      return PlayerMessage(iPlr, "$MenuInfo$", GetCursor(iPlr));
 
-		//Spammende Spieler blockieren
-		if(HasVotekickSpamFilter(iPlr) && !GetEffect("Votekick"))
-		  return PlayerMessage(iPlr, "$SpamProtectInfo$", GetCursor(iPlr));
+    //Spammende Spieler blockieren
+    if(HasVotekickSpamFilter(iPlr) && !GetEffect("Votekick"))
+      return PlayerMessage(iPlr, "$SpamProtectInfo$", GetCursor(iPlr));
 
     VotekickMenu(iPlr);
   }
