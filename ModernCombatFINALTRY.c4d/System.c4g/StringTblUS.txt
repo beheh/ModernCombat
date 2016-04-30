@@ -139,6 +139,7 @@ WinMsg=And the winner is: %s
 
 # Votekick
 
+MenuInfo=You can't start a voting while having other menus open.
 HostInfo=You can't start a voting in a round with a host.|Talk to the host about unpleasant players.
 LigaInfo=You can't start a voting in a liga round.
 PlayerCountInfo=At least 3 players have to be in the round to start a voting.

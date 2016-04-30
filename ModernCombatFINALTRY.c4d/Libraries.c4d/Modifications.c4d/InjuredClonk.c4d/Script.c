@@ -176,14 +176,14 @@ public func ResetFakeDeathEffects(object pClonk)
 
 public func FxIntFakeDeathEffectsDataTimer(object pTarget, int iNr, int iTime)
 {
-	var remaining_time = 1 + ((EffectVar(2, pTarget, iNr) - iTime) / 35);
+  var remaining_time = 1 + ((EffectVar(2, pTarget, iNr) - iTime) / 35);
   if(GetMenu(pTarget) != FKDT && remaining_time >= 0)
     CustomMessage(Format("$DeathCounter$", remaining_time), FindObject2(Find_ID(1HUD), Find_Owner(GetOwner(pTarget))), GetOwner(pTarget), 0, 80, 0, 0, 0, 1);
   else
     CustomMessage("", FindObject2(Find_ID(1HUD), Find_Owner(GetOwner(pTarget))), GetOwner(pTarget));
-  
+
   if(remaining_time < 0)
-  	return -1;
+    return -1;
 }
 
 public func FxIntFakeDeathEffectsDataStop(object pTarget, int iNr)

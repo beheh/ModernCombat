@@ -138,7 +138,7 @@ WinMsg=%s hat gewonnen!
 
 # Votekick
 
-MenuInfo=Du kannst eine Umfrage nur starten wenn keine Menues offen sind.
+MenuInfo=Du kannst eine Umfrage nur starten wenn keine|anderen Menüs offen sind.
 HostInfo=Du kannst in einer Runde mit Host keine Umfrage starten.|Spreche den Host auf unliebsame Spieler an.
 LigaInfo=Du kannst in einer Ligarunde keine Umfrage starten.
 PlayerCountInfo=Es müssen mindestens 3 Spieler spielen, um eine Umfrage zu starten.

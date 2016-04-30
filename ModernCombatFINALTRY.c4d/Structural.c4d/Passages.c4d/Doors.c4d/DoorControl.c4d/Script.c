@@ -168,7 +168,7 @@ private func SomeonesApproaching()
     				Find_NoContainer(),
     				Find_Or(Find_And(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember), Find_Not(Find_Func("IsAlien"))),
     				Find_Func("IsMAV")));
-    if(GetLength(aClonks) > 0) 
+    if(GetLength(aClonks) > 0)
     {
       return true;
     }
