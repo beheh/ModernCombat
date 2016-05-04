@@ -137,8 +137,8 @@ public func Set(object pClonk)
 
 public func SetFakeDeathEffects(object pClonk, bool fNoScreenRGB, int iTime)
 {
-	if(!pClonk)
-		return;
+  if(!pClonk)
+    return;
 
   //Sichtwerte speichern
   var e = AddEffect("IntFakeDeathEffectsData", pClonk, 1, 10, 0, FKDT);

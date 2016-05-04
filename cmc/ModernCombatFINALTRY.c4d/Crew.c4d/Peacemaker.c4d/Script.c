@@ -117,8 +117,8 @@ public func FxIntActivatingShockPaddlesStart(object pTarget, int iEffectNumber, 
 
 public func FxIntActivatingShockPaddlesTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-	if(!Contents(0, this) || !Contents(0, this)->~IsShockPaddles())
-		return -1;
+  if(!Contents(0, this) || !Contents(0, this)->~IsShockPaddles())
+    return -1;
 
   if(iEffectTime >= 20 && Contents(0, this)->~Ready())
   {

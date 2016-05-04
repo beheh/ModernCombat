@@ -83,7 +83,7 @@ public func FxWaitingObjectStop(object pTarget, int iNr, bool fTemp)
   
   var info = GameCall("GetPlayerRelaunchInformation", GetOwner(clonk));
   if(!info)
-  	info = [];
+    info = [];
 
   GameCall("RelaunchPlayer", GetOwner(clonk), clonk, info[0]);
   this->~SpawnOk();
