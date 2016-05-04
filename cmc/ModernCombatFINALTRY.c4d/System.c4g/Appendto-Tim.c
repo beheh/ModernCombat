@@ -15,6 +15,7 @@ public func IsSpawnObject()	{return true;}
 public func Initialize()
 {
   ScheduleCall(0, "CheckForRespawn", 1);
+  return _inherited(...);
 }
 
 public func CheckForRespawn()
@@ -23,7 +24,7 @@ public func CheckForRespawn()
     return;
 
   var clonk = FindObject2(Find_Container(this), Find_OCF(OCF_CrewMember));
-  if(GameCall("GetPlayerRespawnTime", GetOwner(clonk)))
+  if(clonk && GameCall("GetPlayerRespawnTime", GetOwner(clonk)))
   {
     if(Respawn_Position)
       //An den Todesort verschieben
@@ -85,6 +86,7 @@ public func FxWaitingObjectStop(object pTarget, int iNr, bool fTemp)
   	info = [];
 
   GameCall("RelaunchPlayer", GetOwner(clonk), clonk, info[0]);
+  this->~SpawnOk();
   return true;
 }
 

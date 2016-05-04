@@ -220,7 +220,7 @@ public func SpectateMenuSelection(int iSelection, object pTarget, int iRange)
 
 public func SpectateObject(object pSpectateTarget, object pTarget, int iRange, bool fCloseMenu)
 {
-  if(!IsValidSpectateTarget(pSpectateTarget))
+  if(!IsValidSpectateTarget(pSpectateTarget) && pTarget)
     pSpectateTarget = pTarget;
 
   if(!pTarget)

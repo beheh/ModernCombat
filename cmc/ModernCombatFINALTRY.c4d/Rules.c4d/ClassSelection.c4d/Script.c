@@ -419,7 +419,9 @@ public func MenuQueryCancel(int iSelection, object pMenuObject)
 {
   if(GetMenu(pMenuObject) == SPEC)
   {
-    SPEC->SpectateObject(pMenuObject);
+    //SPEC->SpectateObject(pMenuObject);
+    if(FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pMenuObject))))
+    	FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pMenuObject)))->Set(pMenuObject);
     ScheduleCall(this, "OpenMenu", 1, 0, pMenuObject, -1);
     return false;
   }
