@@ -292,6 +292,15 @@ protected func Selection()
   Sound("CDBT_Charge.ogg");
 }
 
+public func Entrance(object pContainer) {
+	if(Contents(0, pContainer) == this) {
+		//Anwahlverzögerung
+		AddEffect("IntSelection", this, 1, 20, this);
+
+		Sound("CDBT_Charge.ogg");
+	}
+}
+
 protected func Hit()
 {
   Sound("WPN2_Hit*.ogg");
