@@ -1,0 +1,17 @@
+[DefCore]
+id=GBOX
+Name=Glass Box
+Version=4,9,5
+Category=3600
+MaxUserSelect=5
+Width=8
+Height=6
+Offset=-4,-3
+Value=10
+Mass=15
+Picture=10,0,75,60
+Vertices=1
+VertexX=0
+VertexY=3
+VertexFriction=100
+Collectible=1
