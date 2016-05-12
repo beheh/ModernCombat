@@ -72,17 +72,7 @@ public func Set(int iX, int iY, bool fGlobal)
 
 public func OnDestruction()
 {
-  //MAV deaktivieren
-  if(pMAV && !pMAV->IsDestroyed())
-    pMAV->Wait();
-
-  //Aktion und Grafik setzen
-  SetOwner(-1);  
-  RemoveEffect("Light", this);
-  ChangeDef(BDSN);
-  this->~Initialize();
-
-  //Pilot vorhanden? Auswerfen
+  //Pilot vorhanden: Auswerfen
   if(this->~GetUser())
   {
     var pUser = this->GetUser();
@@ -92,6 +82,16 @@ public func OnDestruction()
     pUser->SetHUDTarget(0);
     pUser->~ShowCH();
   }
+
+  //MAV deaktivieren
+  if(pMAV && !pMAV->IsDestroyed())
+    pMAV->Wait();
+
+  //Aktion und Grafik setzen
+  SetOwner(-1);
+  RemoveEffect("Light", this);
+  ChangeDef(BDSN);
+  this->~Initialize();
 
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,15,0,5,250,200,RGBa(255,255,255,100),RGBa(255,255,255,130));

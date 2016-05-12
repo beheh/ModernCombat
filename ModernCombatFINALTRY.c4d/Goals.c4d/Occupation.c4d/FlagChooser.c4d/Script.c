@@ -246,7 +246,7 @@ protected func Timer()
   selection = GetMenuSelection (crew); 
 
   if(GetSelected())
-    ShowFlagpole(GetSelected(), Contents(), this, oldvisrange);//TODO: Wozu wird denn nochmal der Timer gebraucht? Es gibt doch einen Callback dafür?
+    ShowFlagpole(GetSelected(), Contents(), this, oldvisrange);
 
   SpawnMenu();
 }
