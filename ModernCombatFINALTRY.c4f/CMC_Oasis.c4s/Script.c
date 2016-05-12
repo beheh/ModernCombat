@@ -234,7 +234,6 @@ func CreateInterior()
 func CreateEquipment()
 {
   Log("$CreatingEquipment$");
-  //Alle Objekte folglich von links oben nach rechts unten
 
   //Versorgungskisten (Kugeln)
   var crate = CreateObject(AMCT, 1390, 460, -1);
