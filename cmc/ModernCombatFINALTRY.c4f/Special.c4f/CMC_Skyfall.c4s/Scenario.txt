@@ -38,7 +38,7 @@ NoScan=1
 SkyScrollMode=1
 
 [Environment]
-Objects=LENS=1;SONE=1
+Objects=LENS=1
 
 [Animals]
 Animal=BIRD=4
