@@ -77,7 +77,7 @@ protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTea
     RelaunchPlayer(iPlr, pCrew, 0, iTeam, true);
 }
 
-global func IsDeveloper(int iPlayerID) { return ((GetType(CSTD_CMCDevelopers) != C4V_Array) || CSTD_CMCDevelopers[iPlayerID]); }
+global func IsDeveloper(int iPlayerID)	{return ((GetType(CSTD_CMCDevelopers) != C4V_Array) || CSTD_CMCDevelopers[iPlayerID]);}
 
 /* Relaunch */
 
