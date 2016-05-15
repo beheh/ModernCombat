@@ -3,6 +3,6 @@ CreatingEquipment=Placing equipment...
 CreatingDecoration=Placing decoration...
 
 MsgCollapse=<c ff0000>Warning</c>: The local antenna tower <c ffff33>collapses</c>
-MsgSupplyDrop=Warning: A <c 33ccff>supply drop</c> is crossing the flying zone!
+MsgSupplyDrop=<c ff0000>Warning</c>: A <c ffff33>supply drop</c> is passing through the flying zone!
 
 Flag1=Antenna Tower
