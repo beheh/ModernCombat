@@ -3,6 +3,6 @@ CreatingEquipment=Ausrüstung wird plaziert...
 CreatingDecoration=Dekoration wird plaziert...
 
 MsgCollapse=<c ff0000>Achtung</c>: Der lokale Sendemast <c ffff33>stürzt ein</c>
-MsgSupplyDrop=Achtung: Ein <c 33ccff>Nachschubabwurf</c> fliegt durch die Flugzone!
+MsgSupplyDrop=<c ff0000>Achtung</c>: Ein <c ffff33>Nachschubabwurf</c> passiert die Flugzone!
 
 Flag1=Sendemast
