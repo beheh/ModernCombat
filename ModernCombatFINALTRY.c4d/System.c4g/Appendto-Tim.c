@@ -98,10 +98,22 @@ public func Suicide(object pTarget)
 
 public func Spawn()
 {
+  //Warteobjekt oder kein Inhalt: Abbruch
   if(GetEffect("WaitingObject", this))
     return;
+  if(!Contents())
+    return(RemoveObject());
 
-  return _inherited(...);
+  //Spawn-Blocker im Umfeld zerstören
+  for(var obj in FindObjects(Find_Distance(25), Find_Exclude(this), Find_Func("IsSpawnBlocker")))
+    DoDmg(10000, DMG_Explosion, obj);
+
+  //Sound
+  Sound("ClonkSpawn*.ogg");
+
+  RemoveObject(0,1);
+
+  return true;
 }
 
 public func MenuQueryCancel(int iSelection, object pMenuObject)
@@ -142,20 +154,6 @@ public func RejectCollect(id idObject)
 {
   if(GetCategory(0, idObject) & C4D_Living) return false;
   return true;
-}
-
-public func Spawn()
-{
-  //Spawn-Blocker im Umfeld zerstören
-  for(var obj in FindObjects(Find_Distance(25), Find_Exclude(this), Find_Func("IsSpawnBlocker")))
-  {
-    DoDmg(10000, DMG_Explosion, obj);
-  }
-
-  //Sound
-  Sound("ClonkSpawn*.ogg");
-
-  return _inherited(...);
 }
 
 protected func ContainedDown()
