@@ -182,7 +182,7 @@ public func OpenSpectateMenuCore(object pTarget, object pMenuTarget, int iRange)
     }
   }
 
-  SpectateObject(pMenuTarget, pMenuTarget, iRange);
+  SpectateObject(pTarget, pTarget, iRange);
 
   return true;
 }
