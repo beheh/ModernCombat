@@ -63,7 +63,8 @@ public func Damage()
     SetXDir(+Sin(angle, 100)/2);
     SetYDir(-Cos(angle, 100)/2);
 
-    //Sounds
+    //Effekte
+    FadeOut();
     Sound("WreckHit*.ogg");
     Sound("RopeHit.ogg");
   }
