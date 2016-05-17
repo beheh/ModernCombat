@@ -199,6 +199,11 @@ private func DrawParticleLine2 (szKind, x0, y0, x1, y1, prtdist, a, b0, b1, iYDi
     var obj = this;
     if(IsStatic())
       obj = 0;
+    else {
+    	var r2,g2,b2,a2;
+    	SplitRGBaValue(GetClrModulation(), r2, g2, b2, a2);
+    	b |= a2 << 24;
+  	}
     CreateParticle(szPart, x0 + (x1 - x0) * i / prtnum, y0 + (y1 - y0) * i-- / prtnum, iXDir, iYDir, a, b, obj);
   }
   //Erfolg; Anzahl erzeugter Partikel zurückgeben
