@@ -239,6 +239,10 @@ func CreateInterior()
   CreateObject(SE4K, 2485, 340, -1)->Set("Interior*.ogg",665,105);
   CreateObject(SE4K, 2910, 340, -1)->Set("Interior*.ogg",670,105);
 
+  //Metallhallen
+  CreateObject(SE4K, 320, 340, -1)->Set("InteriorMetal*.ogg",1000,350);
+  CreateObject(SE4K, 3080, 340, -1)->Set("InteriorMetal*.ogg",1000,350);
+
   //Rush Hour
   CreateObject(SE4K, 1120, 390, -1)->Set("Traffic*.ogg",245,70);
   CreateObject(SE4K, 2270, 390, -1)->Set("Traffic*.ogg",245,70);

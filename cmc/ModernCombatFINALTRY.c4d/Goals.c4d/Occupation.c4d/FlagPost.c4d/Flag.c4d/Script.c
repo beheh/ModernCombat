@@ -18,7 +18,7 @@ private func Wind()
 {
   //Sound
   if(Random(6))
-    Sound("FlagWave*.ogg");
+    Sound("FlagWave*.ogg", 0, 0, RandomX(50,75)); 
 
   //Animation an Wind ausrichten
   if(GetAction() == "Fly")
