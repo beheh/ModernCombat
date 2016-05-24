@@ -769,6 +769,11 @@ func CreateInterior()
   CreateObject(SE4K, 3740, 210, -1)->Set("Interior*.ogg",665,105);
   CreateObject(SE4K, 3080, 1170, -1)->Set("Interior*.ogg",665,105);
 
+  //Metallhallen
+  CreateObject(SE4K, 600, 1100, -1)->Set("InteriorMetal*.ogg",1000,350);
+  CreateObject(SE4K, 2015, 1370, -1)->Set("InteriorMetal*.ogg",1000,350);
+  CreateObject(SE4K, 3380, 980, -1)->Set("InteriorMetal*.ogg",1000,350);
+
   //Lava
   CreateObject(SE4K, 400, 2030, -1)->Set("Lava*",1200,350);
   CreateObject(SE4K, 1100, 2030, -1)->Set("Lava*",1200,350);
