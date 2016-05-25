@@ -206,26 +206,27 @@ func CreateInterior()
   aDoorWay[07] = CreateObject(ROOM, 4485, 1370, -1);
   aDoorWay[06]->Connect(aDoorWay[07]);
 
-  //Sounds
-
-  //Wind
-  CreateObject(SE4K, 500, 400, -1)->Set("WindSound*.ogg",775,250);
-  CreateObject(SE4K, 2865, 400, -1)->Set("WindSound*.ogg",775,250);
-  CreateObject(SE4K, 5200, 400, -1)->Set("WindSound*.ogg",775,250);
-
-  //Hallen
-  CreateObject(SE4K, 1405, 900, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 4325, 900, -1)->Set("Interior*.ogg",670,105);
+  //Soundkulisse
 
   //Eulen
-  CreateObject(SE4K, 1050, 800, -1)->Set("Owl.wav",1400,35);
-  CreateObject(SE4K, 2865, 1210, -1)->Set("Owl.wav",1400,35);
-  CreateObject(SE4K, 4680, 800, -1)->Set("Owl.wav",1400,35);
+  CreateObject(SE4K, 1050, 800, -1)->Set("Owl.wav",1400,200);
+  CreateObject(SE4K, 2865, 1210, -1)->Set("Owl.wav",1400,200);
+  CreateObject(SE4K, 4680, 800, -1)->Set("Owl.wav",1400,200);
 
   //Erdrutsche
-  CreateObject(SE4K, 1330, 1600, -1)->Set("FallingDirt*.ogg",950,250);
-  CreateObject(SE4K, 2865, 1600, -1)->Set("FallingDirt*.ogg",850,250);
-  CreateObject(SE4K, 4400, 1600, -1)->Set("FallingDirt*.ogg",850,250);
+  CreateObject(SE4K, 1330, 1600, -1)->Set("FallingDirt*.ogg",800,200, 75);
+  CreateObject(SE4K, 2865, 1600, -1)->Set("FallingDirt*.ogg",800,200, 50,75);
+  CreateObject(SE4K, 4400, 1600, -1)->Set("FallingDirt*.ogg",800,200, 75);
+
+  //Wind
+  CreateObject(SE4K, 500, 400, -1)->Set("WindSound*.ogg",800,300, 75);
+  CreateObject(SE4K, 2865, 400, -1)->Set("WindSound*.ogg",800,300, 75);
+  CreateObject(SE4K, 5200, 400, -1)->Set("WindSound*.ogg",800,300, 75);
+
+  //Innenbereich
+  CreateObject(SE4K, 1405, 900, -1)->Set("Interior*.ogg",700,200, 75);
+  CreateObject(SE4K, 2865, 1600, -1)->Set("InteriorStress*.ogg",700,200, 50,75);
+  CreateObject(SE4K, 4325, 900, -1)->Set("Interior*.ogg",700,200, 75);
 }
 
 func CreateEquipment()

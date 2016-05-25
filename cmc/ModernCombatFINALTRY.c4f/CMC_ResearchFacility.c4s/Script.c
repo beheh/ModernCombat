@@ -753,37 +753,35 @@ func CreateInterior()
   aSelfDefense[1]->Arm(MISA);
   aSelfDefense[1]->SetAutoRepair(1500);
 
-  //Sounds
-
-  //Wind
-  CreateObject(SE4K, 1860, 200, -1)->Set("WindSound*.ogg",775,250);
-
-  //Hallen
-  CreateObject(SE4K, 580, 600, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 620, 1100, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 1230, 220, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 1770, 700, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 1770, 1000, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 1800, 1400, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 2380, 850, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 3740, 210, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 3080, 1170, -1)->Set("Interior*.ogg",665,105);
-
-  //Metallhallen
-  CreateObject(SE4K, 600, 1100, -1)->Set("InteriorMetal*.ogg",1000,350);
-  CreateObject(SE4K, 2015, 1370, -1)->Set("InteriorMetal*.ogg",1000,350);
-  CreateObject(SE4K, 3380, 980, -1)->Set("InteriorMetal*.ogg",1000,350);
+  //Soundkulisse
 
   //Lava
-  CreateObject(SE4K, 400, 2030, -1)->Set("Lava*",1200,350);
-  CreateObject(SE4K, 1100, 2030, -1)->Set("Lava*",1200,350);
-  CreateObject(SE4K, 1800, 2030, -1)->Set("Lava*",1200,350);
-  CreateObject(SE4K, 2900, 2030, -1)->Set("Lava*",1200,350);
+  CreateObject(SE4K, 400, 2030, -1)->Set("Lava*",1200,300, 75);
+  CreateObject(SE4K, 1100, 2030, -1)->Set("Lava*",1200,300, 75);
+  CreateObject(SE4K, 1800, 2030, -1)->Set("Lava*",1200,300, 75);
+  CreateObject(SE4K, 2900, 2030, -1)->Set("Lava*",1200,300, 75);
 
   //Erdrutsche
-  CreateObject(SE4K, 480, 1600, -1)->Set("FallingDirt*.ogg",850,250);
-  CreateObject(SE4K, 1240, 1900, -1)->Set("FallingDirt*.ogg",850,250);
-  CreateObject(SE4K, 2830, 1870, -1)->Set("FallingDirt*.ogg",850,250);
+  CreateObject(SE4K, 480, 1600, -1)->Set("FallingDirt*.ogg",800,200, 75);
+  CreateObject(SE4K, 1240, 1900, -1)->Set("FallingDirt*.ogg",800,200, 75);
+  CreateObject(SE4K, 2830, 1870, -1)->Set("FallingDirt*.ogg",800,200, 75);
+
+  //Wind
+  CreateObject(SE4K, 1860, 200, -1)->Set("WindSound*.ogg",1000,200, 75);
+
+  //Innenbereich
+  CreateObject(SE4K, 580, 600, -1)->Set("Interior*.ogg",700,100, 75);
+  CreateObject(SE4K, 600, 1100, -1)->Set("InteriorMetal*.ogg",1000,300, 25,50);
+  CreateObject(SE4K, 620, 1100, -1)->Set("Interior*.ogg",700,100, 75);
+  CreateObject(SE4K, 1230, 220, -1)->Set("InteriorStress*.ogg",700,100, 75);
+  CreateObject(SE4K, 1770, 700, -1)->Set("Interior*.ogg",700,100, 75);
+  CreateObject(SE4K, 1770, 1000, -1)->Set("Interior*.ogg",700,100, 75);
+  CreateObject(SE4K, 1800, 1400, -1)->Set("Interior*.ogg",700,100, 75);
+  CreateObject(SE4K, 2015, 1370, -1)->Set("InteriorMetal*.ogg",1000,300, 25,50);
+  CreateObject(SE4K, 2380, 850, -1)->Set("InteriorStress*.ogg",700,100, 75);
+  CreateObject(SE4K, 3740, 210, -1)->Set("Interior*.ogg",700,100, 75);
+  CreateObject(SE4K, 3080, 1170, -1)->Set("Interior*.ogg",700,100, 75);
+  CreateObject(SE4K, 3380, 980, -1)->Set("InteriorMetal*.ogg",1000,300, 25,50);
 }
 
 func CreateEquipment()

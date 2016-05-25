@@ -99,20 +99,21 @@ func CreateInterior()
   //Grenze
   CreateObject(BRDR, 0, 680, -1)->Set(3,0,1);
 
-  //Sounds
-
-  //Wind
-  CreateObject(SE4K, 330, 150, -1)->Set("WindSound*.ogg",1500,1000);
-  CreateObject(SE4K, 910, 150, -1)->Set("WindSound*.ogg",1500,1000);
-
-  //Hallen
-  CreateObject(SE4K, 300, 370, -1)->Set("Interior*.ogg",1000,500);
-  CreateObject(SE4K, 620, 370, -1)->Set("Interior*.ogg",1000,500);
-  CreateObject(SE4K, 940, 370, -1)->Set("Interior*.ogg",1000,500);
+  //Soundkulisse
 
   //Rush Hour
-  CreateObject(SE4K, 340, 595, -1)->Set("Traffic*.ogg",800,300);
-  CreateObject(SE4K, 900, 595, -1)->Set("Traffic*.ogg",800,300);
+  CreateObject(SE4K, 340, 595, -1)->Set("Traffic*.ogg",500,100, 25,50);
+  CreateObject(SE4K, 900, 595, -1)->Set("Traffic*.ogg",500,100, 25,50);
+
+  //Wind
+  CreateObject(SE4K, 330, 150, -1)->Set("WindSound*.ogg",1000,500);
+  CreateObject(SE4K, 910, 150, -1)->Set("WindSound*.ogg",1000,500);
+
+  //Innenbereich
+  CreateObject(SE4K, 300, 370, -1)->Set("Interior*.ogg",700,100);
+  CreateObject(SE4K, 620, 370, -1)->Set("InteriorStress*.ogg",1000,300, 75);
+  CreateObject(SE4K, 620, 370, -1)->Set("InteriorMetal*.ogg",1000,300, 75);
+  CreateObject(SE4K, 940, 370, -1)->Set("Interior*.ogg",700,100);
 }
 
 func CreateEquipment()

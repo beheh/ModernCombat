@@ -170,22 +170,26 @@ func CreateInterior()
   //Tunnel ebnen
   DrawMaterialQuad("Tunnel-SMOOTH",1300,772,1420,772,1420,790,1300,790,1);
 
-  //Sounds
-
-  //Wind
-  CreateObject(SE4K, 900, 435, -1)->Set("WindSound*.ogg",775,250);
+  //Soundkulisse
 
   //Möven
-  CreateObject(SE4K, 380, 660, -1)->Set("SeaSounds*.ogg",140,35);
-  CreateObject(SE4K, 1170, 630, -1)->Set("SeaSounds*.ogg",140,35);
-  CreateObject(SE4K, 1740, 705, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 380, 660, -1)->Set("Seagulls*.ogg",500,100, 25,50);
+  CreateObject(SE4K, 1170, 630, -1)->Set("Seagulls*.ogg",500,100, 10,25);
+  CreateObject(SE4K, 1740, 705, -1)->Set("Seagulls*.ogg",500,100, 10,25);
 
   //Wellen
-  CreateObject(SE4K, 170, 750, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 910, 750, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 1230, 750, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 1780, 750, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 2350, 750, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 170, 750, -1)->Set("Wave*.ogg",100,50);
+  CreateObject(SE4K, 910, 750, -1)->Set("Wave*.ogg",100,50);
+  CreateObject(SE4K, 1230, 750, -1)->Set("Wave*.ogg",100,50);
+  CreateObject(SE4K, 1780, 750, -1)->Set("Wave*.ogg",100,50);
+  CreateObject(SE4K, 2350, 750, -1)->Set("Wave*.ogg",100,50);
+
+  //Wind
+  CreateObject(SE4K, 900, 435, -1)->Set("WindSound*.ogg",1000,200, 75);
+
+  //Innenbereich
+  CreateObject(SE4K, 630, 550, -1)->Set("Interior*.ogg",800,300, 50,75);
+  CreateObject(SE4K, 2890, 530, -1)->Set("Interior*.ogg",800,300, 50,75);
 }
 
 func CreateEquipment()

@@ -258,42 +258,40 @@ func CreateInterior()
   //Tunnel ebnen
   DrawMaterialQuad("Tunnel-SMOOTH",1210,930,1280,930,1280,940,1210,940,1);
 
-  //Sounds
+  //Soundkulisse
 
   //Möven
-  CreateObject(SE4K, 300, 1120, -1)->Set("SeaSounds*.ogg",140,35);
-  CreateObject(SE4K, 700, 1120, -1)->Set("SeaSounds*.ogg",140,35);
-  CreateObject(SE4K, 1500, 1120, -1)->Set("SeaSounds*.ogg",140,35);
-  CreateObject(SE4K, 2300, 1120, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 400, 1100, -1)->Set("Seagulls*.ogg",500,100, 25,50);
+  CreateObject(SE4K, 1600, 1100, -1)->Set("Seagulls*.ogg",500,100, 10,50);
+  CreateObject(SE4K, 2400, 1100, -1)->Set("Seagulls*.ogg",500,100, 10,25);
 
   //Wellen
-  CreateObject(SE4K, 150, 1230, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 650, 1230, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 1350, 1230, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 1800, 1230, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 2400, 1230, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 500, 650, -1)->Set("Wave*.ogg",100,50);
+  CreateObject(SE4K, 900, 650, -1)->Set("Wave*.ogg",100,50, 75);
+  CreateObject(SE4K, 1300, 650, -1)->Set("Wave*.ogg",100,50, 50,75);
+  CreateObject(SE4K, 1800, 650, -1)->Set("Wave*.ogg",100,50, 50,75);
+  CreateObject(SE4K, 2300, 650, -1)->Set("Wave*.ogg",100,50, 25,50);
 
-  //Wind
-  CreateObject(SE4K, 300, 370, -1)->Set("WindSound*.ogg",245,105);
-  CreateObject(SE4K, 1400, 370, -1)->Set("WindSound*.ogg",245,105);
-  CreateObject(SE4K, 2300, 370, -1)->Set("WindSound*.ogg",245,105);
-  CreateObject(SE4K, 2800, 370, -1)->Set("WindSound*.ogg",245,105);
-
-  //Hallen
-  CreateObject(SE4K, 2960, 1070, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 3400, 890, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 3490, 740, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 3800, 1060, -1)->Set("Interior*.ogg",665,105);
-
-  //Metallhallen
-  CreateObject(SE4K, 3870, 970, -1)->Set("InteriorMetal*.ogg",1500,500);
-
-  //Vögel
-  CreateObject(SE4K, 3500, 560, -1)->Set("BirdSong*",140,35);
-  CreateObject(SE4K, 4040, 510, -1)->Set("BirdSong*",140,35);
+  //Vogelzwitschern
+  CreateObject(SE4K, 3500, 550, -1)->Set("BirdSong*",200,50);
+  CreateObject(SE4K, 4000, 450, -1)->Set("BirdSong*",200,50);
 
   //Erdrutsche
-  CreateObject(SE4K, 4250, 400, -1)->Set("FallingDirt*.ogg",850,250);
+  CreateObject(SE4K, 4100, 600, -1)->Set("FallingDirt*.ogg",800,200);
+
+  //Wind
+  CreateObject(SE4K, 400, 350, -1)->Set("WindSound*.ogg",300,100, 50);
+  CreateObject(SE4K, 1400, 350, -1)->Set("WindSound*.ogg",300,100, 50);
+  CreateObject(SE4K, 2300, 350, -1)->Set("WindSound*.ogg",300,100, 50);
+  CreateObject(SE4K, 2800, 350, -1)->Set("WindSound*.ogg",300,100, 50);
+
+  //Innenbereich
+  CreateObject(SE4K, 900, 950, -1)->Set("Interior*.ogg",700,100, 75);
+  CreateObject(SE4K, 2100, 950, -1)->Set("Interior*.ogg",700,100, 75);
+  CreateObject(SE4K, 3000, 950, -1)->Set("Interior*.ogg",700,100, 75);
+  CreateObject(SE4K, 3000, 950, -1)->Set("InteriorMetal*.ogg",1000,300, 50,75);
+  CreateObject(SE4K, 3600, 950, -1)->Set("Interior*.ogg",700,100, 75);
+  CreateObject(SE4K, 3900, 950, -1)->Set("InteriorMetal*.ogg",1000,300, 75);
 }
 
 func CreateEquipment()
