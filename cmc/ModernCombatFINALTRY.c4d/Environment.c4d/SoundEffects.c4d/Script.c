@@ -2,64 +2,74 @@
 
 #strict 2
 
-local soundset,interval,variation,falloff,globalsound;
+local name,interval,random,vollow, volhigh,global,volume;
 
 
 /* Einstellung */
 
-public func Set(string szSoundSet, int iInterval, int iVariation, int iFalloff)
+public func Set(string szName, int iInterval, int iRandom, int iVollow, int iVolhigh, bool fGlobal)
 {
-  soundset = szSoundSet;
-  if(!soundset) soundset = "Wave*.ogg";
+  //Soundname
+  name = szName;
+  if(!name) return;
 
+  //Abspielinterval
   interval = iInterval;
-  variation = iVariation;
 
-  falloff = iFalloff;
+  //Aufrufzufall bei jedem Intervall
+  random = iRandom;
 
-  if(iInterval)
-    StartSoundEffect();
+  //Lautstärke
+  vollow = iVollow;
+  if(vollow > 0)
+    volhigh = iVolhigh;
   else
-    StartDuroSound();
+    vollow = 0;
+
+  //Lokalität
+  global = fGlobal;
+
+  //Sound konfigurieren
+  StartSoundEffect();
 }
 
-/* Soundsteuerung */
-
-protected func StartDuroSound()
-{
-  var f,g;
-  if(falloff == -1)
-  {
-    f = 0;
-    g = true;
-  }
-  else
-  {
-    f = falloff;
-    g = false;
-  }
-  Sound(soundset,g,this,0,0,+1,0,f);
-}
+/* Soundkonfiguration */
 
 protected func StartSoundEffect()
 {
-  var f,g;
-  if(falloff == -1)
+  //Lautstärke ermitteln
+  if(vollow)
   {
-    f = 0;
-    g = true;
+    if(volhigh <= 0 || volhigh > 100)
+      volhigh = 100;
+
+    volume = RandomX(vollow,volhigh);
   }
   else
-  {
-    f = falloff;
-    g = false;
-  }
-  Sound(soundset,g,this,0,0,0,0,f);
+    volume = 0;
 
-  AddEffect("IntDoSound",this,50,
-  		interval+RandomX(-variation,+variation),
-  		this,0,soundset); 
+  //Intervall ermitteln und Sound abspielen
+  if(interval == 0)
+    Sound(name,global,this,volume,0,+1);
+  else
+  {
+    Sound(name,global,this,volume);
+
+    //Neuen Aufruf planen
+    AddEffect("IntDoSound",this,50,interval+RandomX(-random,+random),this,0,name);
+  }
 }
+
+protected func SoundEffect()
+{
+  //Sound abspielen
+  Sound(name,global,this,volume);
+
+  //Neuen Aufruf planen
+  AddEffect("IntDoSound",this,50,interval+RandomX(-random,+random),this,0,name);
+}
+
+/* Aufrufeffekt */
 
 public func FxIntDoSoundStart(object pTarget, int iEffectNumber, int iTemp,szsound)
 {
@@ -69,6 +79,6 @@ public func FxIntDoSoundStart(object pTarget, int iEffectNumber, int iTemp,szsou
 
 public func FxIntDoSoundTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  pTarget->StartSoundEffect();
+  pTarget->SoundEffect();
   return -1;
 }
