@@ -250,9 +250,9 @@ func CreateInterior()
   CreateObject(SE4K, 1400, 1360, -1)->Set("tank");
 
   //Möven
-  CreateObject(SE4K, 800, 1200, -1)->Set("Seagulls*.ogg",500,100, 25,50);
-  CreateObject(SE4K, 3000, 1200, -1)->Set("Seagulls*.ogg",500,100, 10,25);
-  CreateObject(SE4K, 5700, 1200, -1)->Set("Seagulls*.ogg",500,100, 10,25);
+  CreateObject(SE4K, 800, 1200, -1)->Set("Seagulls*.ogg",1000,500, 25,50);
+  CreateObject(SE4K, 3000, 1200, -1)->Set("Seagulls*.ogg",1000,500, 10,25);
+  CreateObject(SE4K, 5700, 1200, -1)->Set("Seagulls*.ogg",1000,500, 10,25);
 
   //Vogelzwitschern
   CreateObject(SE4K, 3600, 800, -1)->Set("BirdSong*",200,50);
