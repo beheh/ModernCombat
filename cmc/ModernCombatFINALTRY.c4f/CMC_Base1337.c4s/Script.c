@@ -261,9 +261,9 @@ func CreateInterior()
   //Soundkulisse
 
   //Möven
-  CreateObject(SE4K, 400, 1100, -1)->Set("Seagulls*.ogg",500,100, 25,50);
-  CreateObject(SE4K, 1600, 1100, -1)->Set("Seagulls*.ogg",500,100, 10,50);
-  CreateObject(SE4K, 2400, 1100, -1)->Set("Seagulls*.ogg",500,100, 10,25);
+  CreateObject(SE4K, 400, 1100, -1)->Set("Seagulls*.ogg",1000,500, 25,50);
+  CreateObject(SE4K, 1600, 1100, -1)->Set("Seagulls*.ogg",1000,500, 10,50);
+  CreateObject(SE4K, 2400, 1100, -1)->Set("Seagulls*.ogg",1000,500, 10,50);
 
   //Wellen
   CreateObject(SE4K, 500, 650, -1)->Set("Wave*.ogg",100,50);

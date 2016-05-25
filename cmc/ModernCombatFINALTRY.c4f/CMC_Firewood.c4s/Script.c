@@ -164,8 +164,8 @@ func CreateInterior()
   CreateObject(SE4K, 2065, 250, -1)->Set("MagicElementEarth",4500,500);
 
   //Möven
-  CreateObject(SE4K, 60, 205, -1)->Set("Seagulls*.ogg",500,100, 10,25);
-  CreateObject(SE4K, 3215, 205, -1)->Set("Seagulls*.ogg",500,100, 10,25);
+  CreateObject(SE4K, 60, 205, -1)->Set("Seagulls*.ogg",1000,500, 10,25);
+  CreateObject(SE4K, 3215, 205, -1)->Set("Seagulls*.ogg",1000,500, 10,25);
 
   //Vogelzwitschern
   CreateObject(SE4K, 320, 480, -1)->Set("BirdSong*",200,50);

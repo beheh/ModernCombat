@@ -4,7 +4,7 @@ Title=CMC - Skyfall
 MaxPlayer=12
 MaxPlayerLeague=12
 Loader=Loader_CMC*
-Origin=ModernCombatFINALTRY.c4f\Arena.c4f\CMC_Skyfall.c4s
+Origin=ModernCombatFINALTRY.c4f\Special.c4f\CMC_Skyfall.c4s
 
 [Definitions]
 Definition1=Objects.c4d
