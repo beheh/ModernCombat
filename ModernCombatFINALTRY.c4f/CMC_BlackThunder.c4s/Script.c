@@ -194,27 +194,30 @@ func CreateInterior()
   aDoorWay[07] = CreateObject(ROOM, 3080, 760, -1);
   aDoorWay[06]->Connect(aDoorWay[07]);
 
-  //Sounds
-
-  //Wind
-  CreateObject(SE4K, 930, 220, -1)->Set("WindSound*.ogg",775,250);
-  CreateObject(SE4K, 2120, 220, -1)->Set("WindSound*.ogg",775,250);
-  CreateObject(SE4K, 3300, 220, -1)->Set("WindSound*.ogg",775,250);
-
-  //Hallen
-  CreateObject(SE4K, 620, 520, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 1270, 600, -1)->Set("Interior*.ogg",670,105);
-  CreateObject(SE4K, 2970, 600, -1)->Set("Interior*.ogg",670,105);
-  CreateObject(SE4K, 3620, 520, -1)->Set("Interior*.ogg",665,105);
+  //Soundkulisse
 
   //Jungel
-  CreateObject(SE4K, 200, 1100, -1)->Set("Jungle*.ogg",800,200);
-  CreateObject(SE4K, 800, 1100, -1)->Set("Jungle*.ogg",300,200);
-  CreateObject(SE4K, 1400, 1100, -1)->Set("Jungle*.ogg",800,200);
-  CreateObject(SE4K, 2000, 1100, -1)->Set("Jungle*.ogg",300,200);
-  CreateObject(SE4K, 2600, 1100, -1)->Set("Jungle*.ogg",800,200);
-  CreateObject(SE4K, 3500, 1100, -1)->Set("Jungle*.ogg",300,200);
-  CreateObject(SE4K, 4100, 1100, -1)->Set("Jungle*.ogg",800,200);
+  CreateObject(SE4K, 200, 1100, -1)->Set("Jungle*.ogg",800,200, 75);
+  CreateObject(SE4K, 800, 1100, -1)->Set("Jungle*.ogg",300,200, 75);
+  CreateObject(SE4K, 1400, 1100, -1)->Set("Jungle*.ogg",800,200, 75);
+  CreateObject(SE4K, 2000, 1100, -1)->Set("Jungle*.ogg",300,200, 75);
+  CreateObject(SE4K, 2600, 1100, -1)->Set("Jungle*.ogg",800,200, 75);
+  CreateObject(SE4K, 3500, 1100, -1)->Set("Jungle*.ogg",300,200, 75);
+  CreateObject(SE4K, 4100, 1100, -1)->Set("Jungle*.ogg",800,200, 75);
+
+  //Wind
+  CreateObject(SE4K, 1000, 250, -1)->Set("WindSound*.ogg",800,300, 75);
+  CreateObject(SE4K, 2120, 250, -1)->Set("WindSound*.ogg",800,300, 50,75);
+  CreateObject(SE4K, 3240, 250, -1)->Set("WindSound*.ogg",800,300, 75);
+
+  //Innenbereich
+  CreateObject(SE4K, 600, 600, -1)->Set("Interior*.ogg",1000,300, 50,75);
+  CreateObject(SE4K, 600, 600, -1)->Set("InteriorStress*.ogg",1000,300, 75);
+  CreateObject(SE4K, 1280, 750, -1)->Set("Interior*.ogg",700,100, 75);
+  CreateObject(SE4K, 2120, 750, -1)->Set("Interior*.ogg",700,100, 25,50);
+  CreateObject(SE4K, 2960, 750, -1)->Set("Interior*.ogg",700,100, 75);
+  CreateObject(SE4K, 3640, 600, -1)->Set("Interior*.ogg",1000,300, 50,75);
+  CreateObject(SE4K, 3640, 600, -1)->Set("InteriorStress*.ogg",1000,300, 75);
 }
 
 func CreateEquipment()

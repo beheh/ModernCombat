@@ -181,36 +181,29 @@ func CreateInterior()
   tower->AddNode(1313, 578, 2, CreateObject(REHR, 1315, 585, -1), -16, 2);
   tower->AddNode(749, 690, 3, CreateObject(REHR, 740, 710, -1));
 
-  //Sounds
+  //Soundkulisse
 
-  //Wind
-  CreateObject(SE4K, 890, 630, -1)->Set("WindSound*.ogg",775,250);
-  CreateObject(SE4K, 950, 190, -1)->Set("WindSound*.ogg",775,250);
-
-  //Hallen
-  CreateObject(SE4K, 370, 630, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 1820, 165, -1)->Set("Interior*.ogg",665,105);
-
-  //Metallhallen
-  CreateObject(SE4K, 140, 670, -1)->Set("InteriorMetal*.ogg",1500,500);
-
-  //Möven
-  CreateObject(SE4K, 860, 805, -1)->Set("SeaSounds*.ogg",140,35);
-  CreateObject(SE4K, 1145, 75, -1)->Set("SeaSounds*.ogg",140,35);
-
-  //Vögel
-  CreateObject(SE4K, 210, 300, -1)->Set("BirdSong*",140,35);
-  CreateObject(SE4K, 610, 375, -1)->Set("BirdSong*",140,35);
+  //Vogelzwitschern
+  CreateObject(SE4K, 200, 300, -1)->Set("BirdSong*",200,50);
+  CreateObject(SE4K, 600, 350, -1)->Set("BirdSong*",200,50);
 
   //Wipfe
-  CreateObject(SE4K, 190, 340, -1)->Set("Snuff*",900,100);
+  CreateObject(SE4K, 300, 350, -1)->Set("Snuff*",800,100);
 
   //Erdrutsche
-  CreateObject(SE4K, 1475, 825, -1)->Set("FallingDirt*.ogg",950,250);
-  CreateObject(SE4K, 1550, 400, -1)->Set("FallingDirt*.ogg",850,250);
+  CreateObject(SE4K, 1600, 250, -1)->Set("FallingDirt*.ogg",800,200, 50,75);
+  CreateObject(SE4K, 1600, 650, -1)->Set("FallingDirt*.ogg",800,200);
 
   //Lautsprecher
-  CreateObject(SE4K, 1010, 460, -1)->Set("Announce*.ogg",3000,500);
+  CreateObject(SE4K, 1000, 500, -1)->Set("Announce*.ogg",3000,500, 75);
+
+  //Wind
+  CreateObject(SE4K, 800, 200, -1)->Set("WindSound*.ogg",800,300, 50);
+
+  //Innenbereich
+  CreateObject(SE4K, 300, 600, -1)->Set("Interior*.ogg",700,100, 50,75);
+  CreateObject(SE4K, 300, 600, -1)->Set("InteriorMetal*.ogg",700,100, 75);
+  CreateObject(SE4K, 1400, 500, -1)->Set("InteriorStress*.ogg",700,100, 75);
 }
 
 func CreateEquipment()

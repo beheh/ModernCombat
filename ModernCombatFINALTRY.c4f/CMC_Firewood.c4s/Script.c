@@ -157,23 +157,23 @@ func CreateInterior()
   CreateObject(PIRA, 2180, 655, -1)->AutoRespawn();
   CreateObject(PIRA, 2405, 680, -1)->AutoRespawn();
 
-  //Sounds
+  //Soundkulisse
 
   //Magie
   CreateObject(SE4K, 1125, 250, -1)->Set("MagicElementEarth",4500,500);
   CreateObject(SE4K, 2065, 250, -1)->Set("MagicElementEarth",4500,500);
 
   //Möven
-  CreateObject(SE4K, 60, 205, -1)->Set("SeaSounds*.ogg",140,35);
-  CreateObject(SE4K, 3215, 205, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 60, 205, -1)->Set("Seagulls*.ogg",500,100, 10,25);
+  CreateObject(SE4K, 3215, 205, -1)->Set("Seagulls*.ogg",500,100, 10,25);
 
-  //Vögel
-  CreateObject(SE4K, 320, 480, -1)->Set("BirdSong*",140,35);
-  CreateObject(SE4K, 1225, 470, -1)->Set("BirdSong*",140,35);
-  CreateObject(SE4K, 1395, 310, -1)->Set("BirdSong*",140,35);
-  CreateObject(SE4K, 1940, 310, -1)->Set("BirdSong*",140,35);
-  CreateObject(SE4K, 2050, 470, -1)->Set("BirdSong*",140,35);
-  CreateObject(SE4K, 2960, 480, -1)->Set("BirdSong*",140,35);
+  //Vogelzwitschern
+  CreateObject(SE4K, 320, 480, -1)->Set("BirdSong*",200,50);
+  CreateObject(SE4K, 1225, 470, -1)->Set("BirdSong*",200,50);
+  CreateObject(SE4K, 1395, 310, -1)->Set("BirdSong*",200,50);
+  CreateObject(SE4K, 1940, 310, -1)->Set("BirdSong*",200,50);
+  CreateObject(SE4K, 2050, 470, -1)->Set("BirdSong*",200,50);
+  CreateObject(SE4K, 2960, 480, -1)->Set("BirdSong*",200,50);
 
   //Jungel
   CreateObject(SE4K, 270, 460, -1)->Set("Jungle*.ogg",300,50);
@@ -184,21 +184,21 @@ func CreateInterior()
   CreateObject(SE4K, 3000, 460, -1)->Set("Jungle*.ogg",300,50);
 
   //Wellen
-  CreateObject(SE4K, 880, 600, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 2400, 600, -1)->Set("Wave*.ogg",105,35);
-
-  //Wind
-  CreateObject(SE4K, 1065, 290, -1)->Set("WindSound*.ogg",3000,105);
-  CreateObject(SE4K, 2215, 290, -1)->Set("WindSound*.ogg",3000,105);
+  CreateObject(SE4K, 880, 600, -1)->Set("Wave*.ogg",100,50, 75);
+  CreateObject(SE4K, 2400, 600, -1)->Set("Wave*.ogg",100,50, 75);
 
   //Erdrutsche
-  CreateObject(SE4K, 985, 520, -1)->Set("FallingDirt*.ogg",2500,250);
-  CreateObject(SE4K, 2300, 520, -1)->Set("FallingDirt*.ogg",2500,250);
+  CreateObject(SE4K, 985, 520, -1)->Set("FallingDirt*.ogg",2000,500, 75);
+  CreateObject(SE4K, 2300, 520, -1)->Set("FallingDirt*.ogg",2000,500, 75);
 
   //Lautsprecher
-  CreateObject(SE4K, 465, 220, -1)->Set("Announce*.ogg",3000,200);
-  CreateObject(SE4K, 1640, 20, -1)->Set("Announce*.ogg",3500,200);
-  CreateObject(SE4K, 2810, 220, -1)->Set("Announce*.ogg",3000,200);
+  CreateObject(SE4K, 465, 220, -1)->Set("Announce*.ogg",3000,500, 75);
+  CreateObject(SE4K, 1640, 20, -1)->Set("Announce*.ogg",3000,500, 75);
+  CreateObject(SE4K, 2810, 220, -1)->Set("Announce*.ogg",3000,500, 75);
+
+  //Wind
+  CreateObject(SE4K, 1065, 290, -1)->Set("WindSound*.ogg",2500,500, 50);
+  CreateObject(SE4K, 2215, 290, -1)->Set("WindSound*.ogg",2500,500, 50);
 }
 
 func CreateEquipment()

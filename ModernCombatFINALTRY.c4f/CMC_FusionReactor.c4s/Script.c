@@ -327,21 +327,19 @@ func CreateInterior()
   CreateObject(BRDR, 200, 0, -1)->Set(0);
   CreateObject(BRDR, 1630, 0, -1)->Set(1);
 
-  //Sounds
-
-  //Hallen
-  CreateObject(SE4K, 150, 570, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 915, 30, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 915, 1100, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 1680, 570, -1)->Set("Interior*.ogg",665,105);
-
-  //Metallhallen
-  CreateObject(SE4K, 350, 430, -1)->Set("InteriorMetal*.ogg",1000,350);
-  CreateObject(SE4K, 1480, 700, -1)->Set("InteriorMetal*.ogg",1000,350);
+  //Soundkulisse
 
   //Metro
-  CreateObject(SE4K, 30, 570, -1)->Set("Metro*.ogg",1000,200);
-  CreateObject(SE4K, 1800, 570, -1)->Set("Metro*.ogg",1000,200);
+  CreateObject(SE4K, 30, 570, -1)->Set("Metro*.ogg",1000,200, 75);
+  CreateObject(SE4K, 1800, 570, -1)->Set("Metro*.ogg",1000,200, 75);
+
+  //Innenbereich
+  CreateObject(SE4K, 150, 570, -1)->Set("Interior*.ogg",700,100, 75);
+  CreateObject(SE4K, 350, 430, -1)->Set("InteriorMetal*.ogg",700,100, 25,50);
+  CreateObject(SE4K, 915, 30, -1)->Set("InteriorStress*.ogg",700,100, 75);
+  CreateObject(SE4K, 915, 1100, -1)->Set("InteriorStress*.ogg",700,100, 75);
+  CreateObject(SE4K, 1480, 700, -1)->Set("InteriorMetal*.ogg",700,100, 25,50);
+  CreateObject(SE4K, 1680, 570, -1)->Set("Interior*.ogg",700,100, 75);
 }
 
 func CreateEquipment()

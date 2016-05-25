@@ -300,19 +300,21 @@ func CreateInterior()
   aDoorWay[03] = CreateObject(ROOM, 4040, 440, -1);
   aDoorWay[02]->Connect(aDoorWay[03]);
 
-  //Sounds
-
-  //Hallen
-  CreateObject(SE4K, 400, 400, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 1600, 400, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 3400, 400, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 4600, 400, -1)->Set("Interior*.ogg",665,105);
+  //Soundkulisse
 
   //Metro
-  CreateObject(SE4K, 1000, 400, -1)->Set("Metro*.ogg",800,150);
-  CreateObject(SE4K, 2200, 400, -1)->Set("Metro*.ogg",800,150);
-  CreateObject(SE4K, 2800, 400, -1)->Set("Metro*.ogg",800,150);
-  CreateObject(SE4K, 4000, 400, -1)->Set("Metro*.ogg",800,150);
+  CreateObject(SE4K, 1000, 400, -1)->Set("Metro*.ogg",800,200, 75);
+  CreateObject(SE4K, 2200, 400, -1)->Set("Metro*.ogg",800,200, 75);
+  CreateObject(SE4K, 2800, 400, -1)->Set("Metro*.ogg",800,200, 75);
+  CreateObject(SE4K, 4000, 400, -1)->Set("Metro*.ogg",800,200, 75);
+
+  //Innenbereich
+  CreateObject(SE4K, 300, 400, -1)->Set("InteriorMetal*.ogg",800,200, 50);
+  CreateObject(SE4K, 400, 400, -1)->Set("Interior*.ogg",700,200);
+  CreateObject(SE4K, 1600, 400, -1)->Set("InteriorStress*.ogg",700,200, 75);
+  CreateObject(SE4K, 3400, 400, -1)->Set("InteriorStress*.ogg",700,200, 75);
+  CreateObject(SE4K, 4600, 400, -1)->Set("Interior*.ogg",700,200);
+  CreateObject(SE4K, 4700, 400, -1)->Set("InteriorMetal*.ogg",800,200, 50);
 }
 
 func CreateEquipment()
@@ -499,9 +501,11 @@ func CreateDecoration()
   CreateObject(SCR3, 2205, 380, -1)->SetClrModulation(RGB(250,10,10));
 
   CreateObject(SCA1, 2440, 340, -1)->SetAction("Grenade");
+  CreateObject(SCA2, 2440, 500, -1);
   CreateObject(SCR3, 2510, 560, -1)->SetClrModulation(RGB(250,200,10));
   CreateObject(SCR3, 2730, 560, -1)->SetClrModulation(RGB(250,200,10));
   CreateObject(SCA1, 2800, 340, -1)->SetAction("Medic");
+  CreateObject(SCA2, 2800, 500, -1);
 
   CreateObject(SCR3, 3035, 380, -1)->SetClrModulation(RGB(250,10,10));
   screen = CreateObject(SCR3, 3165, 380, -1);

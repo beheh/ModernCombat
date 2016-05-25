@@ -114,28 +114,28 @@ func CreateInterior()
   aSelfDefense[0] = CreateObject(SEGU, 1505, 369, -1);
   CreateObject(CONS, 1500, 330, -1)->Set(aSelfDefense[0]);
 
-  //Sounds
+  //Soundkulisse
 
   //Lava
-  CreateObject(SE4K, 350, 660, -1)->Set("Lava*",1200,350);
-  CreateObject(SE4K, 910, 660, -1)->Set("Lava*",1200,350);
-  CreateObject(SE4K, 1400, 580, -1)->Set("Lava*",1200,350);
-  CreateObject(SE4K, 1930, 500, -1)->Set("Lava*",1200,350);
-  CreateObject(SE4K, 2460, 310, -1)->Set("Lava*",1200,350);
+  CreateObject(SE4K, 350, 660, -1)->Set("Lava*",1200,300, 75);
+  CreateObject(SE4K, 910, 660, -1)->Set("Lava*",1200,300, 75);
+  CreateObject(SE4K, 1400, 580, -1)->Set("Lava*",1200,300, 75);
+  CreateObject(SE4K, 1930, 500, -1)->Set("Lava*",1200,300, 75);
+  CreateObject(SE4K, 2460, 310, -1)->Set("Lava*",1200,300, 75);
 
   //Erdrutsche
-  CreateObject(SE4K, 670, 480, -1)->Set("FallingDirt*.ogg",800,250);
-  CreateObject(SE4K, 1400, 200, -1)->Set("FallingDirt*.ogg",800,250);
-  CreateObject(SE4K, 2440, 450, -1)->Set("FallingDirt*.ogg",800,250);
-
-  //Hallen
-  CreateObject(SE4K, 490, 250, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 1475, 395, -1)->Set("Interior*.ogg",765,105);
-  CreateObject(SE4K, 2370, 290, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 670, 480, -1)->Set("FallingDirt*.ogg",900,200, 75);
+  CreateObject(SE4K, 1400, 200, -1)->Set("FallingDirt*.ogg",900,200, 75);
+  CreateObject(SE4K, 2440, 450, -1)->Set("FallingDirt*.ogg",900,200, 75);
 
   //Lautsprecher
-  CreateObject(SE4K, 745, 250, -1)->Set("Announce*.ogg",3000,200);
-  CreateObject(SE4K, 2125, 210, -1)->Set("Announce*.ogg",3000,200);
+  CreateObject(SE4K, 745, 250, -1)->Set("Announce*.ogg",3000,200, 75);
+  CreateObject(SE4K, 2125, 210, -1)->Set("Announce*.ogg",3000,200, 75);
+
+  //Innenbereich
+  CreateObject(SE4K, 490, 250, -1)->Set("Interior*.ogg",700,100, 75);
+  CreateObject(SE4K, 1475, 395, -1)->Set("InteriorStress*.ogg",700,100, 75);
+  CreateObject(SE4K, 2370, 290, -1)->Set("Interior*.ogg",700,100, 75);
 }
 
 func CreateEquipment()
