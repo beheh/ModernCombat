@@ -57,10 +57,10 @@ public func AddNode(int iX, int iY, int iPosition, object pRopeHolder, int iRota
 
 public func NodePosition(int &iX, int &iY, int iPosition)
 {
-  if(!iPosition)     { iX = 17; iY = -295; }
-  if(iPosition == 1) { iX = 17; iY = -90; }
-  if(iPosition == 2) { iX = 17; iY = 75; }
-  if(iPosition == 3) { iX = 17; iY = 175; }
+  if(!iPosition)	{iX = 17; iY = -295;}
+  if(iPosition == 1)	{iX = 17; iY = -90;}
+  if(iPosition == 2)	{iX = 17; iY = 75;}
+  if(iPosition == 3)	{iX = 17; iY = 175;}
 
   return true;
 }
