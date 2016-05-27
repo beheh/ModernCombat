@@ -41,7 +41,7 @@ public func StockKillMsg(string szMsg, object pObj)
     return KILL_KillMsg = [[pObj, szMsg]];
   var index = GetIndexOf(0, KILL_KillMsg);
   if(index < 0)
-    index += GetLength(KILL_KillMsg);
+    index += GetLength(KILL_KillMsg)+1;
 
   KILL_KillMsg[index] = [pObj, szMsg];
   return false;
