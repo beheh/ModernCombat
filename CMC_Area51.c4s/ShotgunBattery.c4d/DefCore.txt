@@ -1,0 +1,15 @@
+[DefCore]
+id=SBYW
+Version=4,9,10,7
+Name=Shotgun Battery
+Category=3600
+Width=16
+Height=12
+Offset=-8,-6
+Value=200
+Mass=40
+Components=METL=10;
+Picture=0,12,138,134
+Vertices=1
+VertexY=+2
+VertexFriction=100

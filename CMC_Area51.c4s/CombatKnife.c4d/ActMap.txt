@@ -1,0 +1,11 @@
+[Action]
+Name=Reload
+Delay=50
+FacetBase=1
+NextAction=Idle
+
+[Action]
+Name=ReloadFast
+Delay=25
+FacetBase=1
+NextAction=Idle

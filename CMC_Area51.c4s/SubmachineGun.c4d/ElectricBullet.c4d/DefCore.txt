@@ -1,0 +1,17 @@
+[DefCore]
+id=EBLT
+Version=4,9,10,7
+Name=Tracer Dart
+Category=C4D_Vehicle
+Width=11
+Height=18
+Picture=11,0,29,29
+Offset=-5,-9
+Vertices=1
+VertexFriction=1
+Rotate=1
+StretchGrowth=1
+IncompleteActivity=1
+
+[Physical]
+Float=100000

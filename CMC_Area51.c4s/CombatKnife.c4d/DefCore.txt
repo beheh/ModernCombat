@@ -1,0 +1,19 @@
+[DefCore]
+id=CBKF
+Name=Combat Knife
+Version=4,9,5
+Category=2576
+MaxUserSelect=2
+Width=9
+Height=4
+Offset=-4,-2
+Value=10
+Mass=20
+Picture=0,4,64,64
+Vertices=2
+VertexX=-4,4
+VertexY=0,0
+VertexFriction=80,80
+Rebuy=1
+Collectible=1
+Rotate=1
