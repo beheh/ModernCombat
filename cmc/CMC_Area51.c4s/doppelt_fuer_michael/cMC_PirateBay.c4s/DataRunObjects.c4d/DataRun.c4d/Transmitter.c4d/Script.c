@@ -1,6 +1,7 @@
 /*-- Sendeanlage --*/
 
 #strict 2
+#include CSTR
 
 local fDestroyed, bar, iPoints;
 
@@ -8,6 +9,8 @@ public func IsDataTransmitter(bool fGoal)	{return true;}
 public func IsDestroyed()			{return fDestroyed;}
 public func MaxPoints()				{return 100;}
 public func PointsGain()			{return 1;}
+public func RepairSpeed()			{return 2;}
+
 
 /* Initialisierung */
 
@@ -23,6 +26,9 @@ protected func Initialize()
   //Dateneffekt
   AddEffect("GeneratePoints", this, 1, 3, this);
   SetPoints(MaxPoints());
+
+  //Effekte
+  SetAction("Radar");
 
   return true;
 }
@@ -46,7 +52,7 @@ public func UpdateBar()
     fShowBar = true;
 
   bar->Update(GetPoints()*100/MaxPoints(), !fShowBar, !fShowBar);
-  
+
   //Am Downloaden
   if(fShowBar)
     bar->SetIcon(0, SM27, 0, 0, 32);
@@ -90,35 +96,37 @@ public func SetPoints(int iAmount)
 
 local isTarget;
 
-//Punkte generieren
+/* Punkte generieren */
+
 public func FxGeneratePointsTimer(object pTarget, int iNr)
 {
   if(GetEffect("ConnectionInUse", pTarget))
   {
-  	isTarget = true;
+    isTarget = true;
     return false;
   }
   
   if(FindObject(TRMR))
   {
-  	for(var transmitter in FindObjects(Find_ID(TRMR)))
-  		if(transmitter != this)
-  			if(GetEffect("ConnectionInUse", transmitter))
-  			{
-  				isTarget = false;
-  				break;
-  			}
+    for(var transmitter in FindObjects(Find_ID(TRMR)))
+      if(transmitter != this)
+        if(GetEffect("ConnectionInUse", transmitter))
+        {
+          isTarget = false;
+          break;
+        }
   }
-  
+
   if(isTarget)
-  	return false;
+    return false;
 
   pTarget->SetPoints(BoundBy(pTarget->GetPoints()+pTarget->PointsGain(), 0, pTarget->MaxPoints()));
   pTarget->UpdateBar();
   return true;
 }
 
-//Verbindung wird von Computer belastet
+/* Verbindung wird von Computer belastet */
+
 public func FxConnectionInUseTimer(object pTarget, int iNr)
 {
   //Downloadicon setzen
@@ -151,6 +159,9 @@ public func OnDmg()
     //DecoExplode();
     bar->SetIcon(0, SM02, 0, 11000, 32);
     ScheduleCall(this, "Repair", 35*30);
+
+    //Effekte
+    SetAction("Damaged");
   }
 
   return true;
@@ -161,6 +172,9 @@ public func Repair()
   DoDamage(-GetDamage(), this);
   bar->SetIcon(0, SM26, 0, 11000, 32);
   fDestroyed = false;
+
+  //Effekte
+  SetAction("Radar");
 
   return true;
 }

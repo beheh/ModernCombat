@@ -1,7 +1,13 @@
 [Action]
 Name=Radar
 FacetBase=1
-Facet=50,0,27,14,12,0
+Facet=100,0,27,14,12,0
 Delay=5
 Length=17
 NextAction=Radar
+
+[Action]
+Name=Damaged
+FacetBase=1
+Facet=50,0,94,50
+NextAction=Hold

@@ -16,7 +16,7 @@ public func SelectionTime()	{return 25;}	//Anwahlzeit
 
 func PermittedAtts()
 {
-  return AT_ExtendedMag | AT_Laserpointer | AT_Flashlight;
+  return AT_Laserpointer | AT_Flashlight;
 }
 
 /* Nahkampfangriff */
@@ -37,24 +37,24 @@ public func FMData1(int data)
   if(data == FM_Name)		return "$Bullets$";
 
   if(data == FM_AmmoID)		return STAM;						//ID der Munition
-  if(data == FM_AmmoLoad)	return 6 + (iAttachment == AT_ExtendedMag)*4;		//Magazingröße
+  if(data == FM_AmmoLoad)	return 8;						//Magazingröße
   if(data == FM_AmmoUsage)	return 1;						//Munition pro Schuss
 
   if(data == FM_SingleReload)	return 5;						//Zeit des einzelnen Nachladens bei Revolversystemen
   if(data == FM_PrepareReload)	return 20;						//Zeit bevor das eigentliche Nachladen beginnt
   if(data == FM_FinishReload)	return 30;						//Zeit nach dem Nachladen
 
-  if(data == FM_Reload)		return 120 + (iAttachment == AT_ExtendedMag) * 80;	//Zeit des einzelnen Nachladens bei Revolversystemen
+  if(data == FM_Reload)		return 160;						//Zeit des einzelnen Nachladens bei Revolversystemen
   if(data == FM_Recharge)	return 30;						//Zeit bis erneut geschossen werden kann
 
-  if(data == FM_Damage)		return 19;						//Schadenswert
+  if(data == FM_Damage)		return 25;						//Schadenswert
 
-  if(data == FM_SpreadAdd)	return 120 - (iAttachment == AT_Laserpointer)*3;	//Bei jedem Schuss hinzuzuaddierende Streuung
-  if(data == FM_StartSpread)	return 160 - (iAttachment == AT_Laserpointer)*70;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_SpreadAdd)	return 150 - (iAttachment == AT_Laserpointer)*3;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 250 - (iAttachment == AT_Laserpointer)*70;	//Bei Auswahl der Waffe gesetzte Streuung
   if(data == FM_MaxSpread)	return 450 - (iAttachment == AT_Laserpointer)*70;	//Maximaler Streuungswert
 
   if(data == FM_MultiHit)	return 3;						//Anzahl möglicher Treffer pro Kugel
-  if(data == FM_MultiHitReduce)	return 50;						//Schadensreduzierung pro Treffer
+  if(data == FM_MultiHitReduce)	return 20;						//Schadensreduzierung pro Treffer
 
   return Default(data);
 }

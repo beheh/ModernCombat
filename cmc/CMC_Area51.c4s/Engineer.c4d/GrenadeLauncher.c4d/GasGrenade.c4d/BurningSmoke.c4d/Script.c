@@ -1,21 +1,18 @@
-/*-- Brennender Rauch --*/
+/*-- Aerosol --*/
 
 #strict 2
 
 local iLifeTime;
-local fSmoking;
+local fBurning;
 
 static const BGSE_FadeTime = 175;		//5 Sekunden
-
-public func IsSmoking()	{return fSmoking;}
 
 
 /* Initalisierung */
 
 public func Initialize()
 {
-  fSmoking = true;
-  iLifeTime = 35*20+Random(35*5);
+  fBurning = false;  iLifeTime = 35*20+Random(35*5);
   SetCon(5);
   SetAction("Be");
 
@@ -28,22 +25,16 @@ public func Initialize()
 public func Timer()
 {
   //Bei Wasserkontakt verschwinden
-  if(InLiquid())
+  if(InLiquid() || FindObject2(Find_AtPoint(0, 0), Find_ID(SM4K), Find_Func("IsSmoking")))
+  {
+    if(fBurning)
+      Sound("Pshshsh");
     RemoveObject();
-    
-  //Bei Rauchkontakt ersticken
-  if(FindObject2(Find_AtPoint(0, 0), Find_ID(SM4K), Find_Func("IsSmoking")))
-  	RemoveObject();
+  }
 
   //Laufzeit aufgebraucht: Verschwinden
   if(GetActTime() > iLifeTime)
     RemoveObject();
-  //Nicht mehr blenden?
-  if(GetActTime() > iLifeTime-BGSE_FadeTime/3)
-    fSmoking = false;
-  //Rauchen einstellen
-  if(GetActTime() > iLifeTime-BGSE_FadeTime)
-    return;
 
   //Rauchwolken vergrößern
   if(GetCon() < 50)
@@ -52,11 +43,14 @@ public func Timer()
   Damp(GetCon());
     SetYDir(GetYDir(0,1000)+GetGravityAccel4K(500),0,1000);
 
-  //Lebewesen blenden
-  for(var obj in FindObjects(Find_Distance(GetCon()/2,0,0), Find_NoContainer(), Find_OCF(OCF_Living | OCF_CrewMember)))
+  //Lebewesen verbrennen falls entzündet
+  if(fBurning)
   {
-    if(!GetEffect("BurningSmokeGrenade", obj))
-      AddEffect("BurningSmokeGrenade", obj, 1, 1, obj, 0, GetOwner());
+    for(var obj in FindObjects(Find_Distance(GetCon()/2,0,0), Find_NoContainer(), Find_OCF(OCF_Living | OCF_CrewMember)))
+    {
+      if(!GetEffect("BurningSmokeGrenade", obj))
+        AddEffect("BurningSmokeGrenade", obj, 1, 1, obj, 0, GetOwner());
+    }
   }
 }
 
@@ -65,7 +59,13 @@ public func Timer()
 public func FxSmokingTimer()
 {
   var alpha = BoundBy((GetActTime()-(iLifeTime-BGSE_FadeTime)) * 255 / BGSE_FadeTime, 0, 255);
-  CreateParticle("BurningSmoke", 0, 0, 0, RandomX(-10, +10), GetCon()*10, RGBa(255, 255, 255, alpha));
+  CreateParticle("GunSmoke", 0, 0, 0, RandomX(-10, +10), GetCon()*10, RGBa(255, 255, 255, alpha));
+}
+
+public func FxBurningTimer()
+{
+  var alpha = BoundBy((GetActTime()-(iLifeTime-BGSE_FadeTime)) * 255 / BGSE_FadeTime, 0, 255);
+  CreateParticle("Fire2", 0, 0, 0, RandomX(-10, +10), GetCon()*10, RGBa(255, 255, 255, alpha));
 }
 
 /* Kontakt */
@@ -191,7 +191,7 @@ public func Damp(int iStrength)
 
 global func BurnObjectWithSmoke(pObj)
 {
-  //Lebenwesen mit Effekt belegen
+  //Lebewesen mit Effekt belegen
   if(GetOCF(pObj) & OCF_Living)
     AddEffect("Burning", pObj, 50, 20, this, GetID());
 
@@ -209,4 +209,23 @@ global func BurnObjectWithSmoke(pObj)
     Sound("Crackle.ogg",0,0,RandomX(20,40));
 
   return true;
+}
+
+/* Entzündung */
+
+public func Incineration()
+{
+  //Raucheffekt gegen Brandeffekt tauschen
+  if(!fBurning)
+  {
+    RemoveEffect("Smoking", this);
+    AddEffect("Burning", this, 25, 4, this);
+    fBurning = true;
+
+    //Effekte
+    Sound("GasInflame*.ogg");
+    Sound("GasFire.ogg", false, this, 50, 0, 1);
+  }
+
+  Extinguish();
 }

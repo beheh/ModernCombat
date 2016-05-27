@@ -1,0 +1,2 @@
+Battery=Pellets
+SpreadShot=Spread Shot

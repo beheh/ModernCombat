@@ -1,0 +1,4 @@
+Bullets=Kugeln
+Auto=Automatik
+Burst=Feuerstoﬂ
+Single=Einzeln
