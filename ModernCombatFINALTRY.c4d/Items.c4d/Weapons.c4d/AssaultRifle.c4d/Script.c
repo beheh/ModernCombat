@@ -261,8 +261,8 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
 public func ReloadAnimation()		{return true;}
 public func RechargeAnimation()		{return true;}
 public func MaxReloadRotation()		{return 10;}
-public func MaxRechargeRotation()	{ return 1;}
-public func ReloadAnimationSpeed()	{ return 1 + !!IsReloading();}
+public func MaxRechargeRotation()	{return 1;}
+public func ReloadAnimationSpeed()	{return 1 + !!IsReloading();}
 
 /* Allgemein */
 
