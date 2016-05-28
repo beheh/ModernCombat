@@ -904,7 +904,7 @@ protected func ContextSettings(object pCaller)
   CreateMenu(CSTR, pCaller, pCaller, 0, "$Settings$", 0, C4MN_Style_Context, true);
 
   //Überschrift
-  AddMenuItem("<c 777777>$CtxFunctions$</c>", 0, 0, pCaller, 0, 0, "");
+  AddMenuItem("<c 777777>-$CtxFunctions$-</c>", 0, 0, pCaller, 0, 0, "");
 
   //QuickInventar
   if(pCaller->QuickInventoryOff())
@@ -934,7 +934,7 @@ protected func ContextSettings(object pCaller)
   AddMenuItem("", 0, 0, pCaller, 0, 0, "");
 
   //Überschrift
-  AddMenuItem("<c 777777>$CtxConfiguration$</c>", 0, 0, pCaller, 0, 0, "");
+  AddMenuItem("<c 777777>-$CtxConfiguration$-</c>", 0, 0, pCaller, 0, 0, "");
 
   //Schwerverletztenmenü-Untermenü
   AddMenuItem("$CtxDMModules$", Format("OpenDeathMenuModuleSelection(Object(%d))", ObjectNumber(pCaller)), FKDT, pCaller, 0, 0, "$CtxDMModulesDesc$");
@@ -949,17 +949,17 @@ protected func ContextSettings(object pCaller)
 
 public func OpenDeathMenuModuleSelection(object pCaller, int iModule)
 {
-  var menuitems = ["<c 777777>$CtxButtons$</c>",
-  			["$CtxRejectReanimation$", SM01, FKDT_DeathMenu_RejectReanimation, "$CtxRejectReanimationDesc$"],
-  			["$CtxRewardMenuItem$", RWDS, FKDT_DeathMenu_RewardMenuItem, "$CtxRewardMenuItemDesc$"],
-  			["$CtxEffectMenuItem$", EFMN, FKDT_DeathMenu_EffectMenuItem, "$CtxEffectMenuItemDesc$"],
-  			["$CtxSettingsMenuItem$", CSTR, FKDT_DeathMenu_SettingsMenuItem, "$CtxSettingsMenuItemDesc$"],
-  			["$CtxSpectateMenuItem$", SPEC, FKDT_DeathMenu_SpectateMenuItem, "$CtxSpectateMenuItemDesc$"],
-			" ", "<c 777777>$CtxConfiguration$</c>",
-  			["$CtxKillMsg$", SM15, FKDT_DeathMenu_KillMsg, "$CtxKillMsgDesc$"],
-  			["$CtxStatistics$", RWDS, FKDT_DeathMenu_Statistics, "$CtxStatisticsDesc$"],
-  			["$CtxShortenedNames$", CXTX, FKDT_DeathMenu_ShortenedNames, "$CtxShortenedNamesDesc$"],
-  			["$CtxResetToDefault$", CSTD, FKDT_DeathMenu_DefaultSetting, "$CtxResetToDefaultDesc$"]];
+  var menuitems = ["<c 777777>-$CtxButtons$-</c>",
+  		["$CtxRejectReanimation$", SM01, FKDT_DeathMenu_RejectReanimation, "$CtxRejectReanimationDesc$"],
+  		["$CtxRewardMenuItem$", RWDS, FKDT_DeathMenu_RewardMenuItem, "$CtxRewardMenuItemDesc$"],
+  		["$CtxEffectMenuItem$", EFMN, FKDT_DeathMenu_EffectMenuItem, "$CtxEffectMenuItemDesc$"],
+  		["$CtxSettingsMenuItem$", CSTR, FKDT_DeathMenu_SettingsMenuItem, "$CtxSettingsMenuItemDesc$"],
+  		["$CtxSpectateMenuItem$", SPEC, FKDT_DeathMenu_SpectateMenuItem, "$CtxSpectateMenuItemDesc$"],
+  		" ", "<c 777777>-$CtxConfiguration$-</c>",
+  		["$CtxKillMsg$", SM15, FKDT_DeathMenu_KillMsg, "$CtxKillMsgDesc$"],
+  		["$CtxStatistics$", RWDS, FKDT_DeathMenu_Statistics, "$CtxStatisticsDesc$"],
+  		["$CtxShortenedNames$", CXTX, FKDT_DeathMenu_ShortenedNames, "$CtxShortenedNamesDesc$"],
+  		["$CtxResetToDefault$", CSTD, FKDT_DeathMenu_DefaultSetting, "$CtxResetToDefaultDesc$"]];
 
   var currentSelection = GetPlrExtraData(GetOwner(pCaller), "CMC_DeathMenuModules");
   if(!currentSelection)

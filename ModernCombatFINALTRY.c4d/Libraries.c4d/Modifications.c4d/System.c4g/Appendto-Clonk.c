@@ -940,8 +940,8 @@ func Death2()
     ScheduleCall(pTarget, "DeathSound", 1, 0, pTarget);
   }
 
-	for(var spec in FindObjects(Find_ID(SPEC), Find_ActionTarget(this)))
-		spec->~AttachTargetLost();
+  for(var spec in FindObjects(Find_ID(SPEC), Find_ActionTarget(this)))
+    spec->~AttachTargetLost();
   //Verschwinden
   FadeOut(pTarget);
 }
