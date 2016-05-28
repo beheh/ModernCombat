@@ -271,16 +271,17 @@ static const FKDT_DeathMenu_GeneralMenuItems = 0x38; //FKDT_DeathMenu_RewardMenu
 static const FKDT_DeathMenu_AdditionalMenuItems = 0x6; //FKDT_DeathMenu_RejectReanimation|FKDT_DeathMenu_Suicide
 static const FKDT_DeathMenu_FullMenuItems = 0x3E; //FKDT_DeathMenu_GeneralMenuItems|FKDT_DeathMenu_AdditionalMenuItems
 
-//Standardeinstellung fuer FKDT
+//Standardeinstellung für FKDT
 static const FKDT_DeathMenu_DefaultSetting = 0x2FF; //FKDT_DeathMenu_Timer|FKDT_DeathMenu_FullMenuItems|FKDT_DeathMenu_KillMsg|FKDT_DeathMenu_Statistics;
-//Kompaktes Menue
+//Kompaktes Menü
 static const FKDT_DeathMenu_CompactSetting = 0x17F; //FKDT_DeathMenu_Timer|FKDT_DeathMenu_FullMenuItems|FKDT_DeathMenu_KillMsg|FKDT_DeathMenu_ShortenedNames;
-//Basismenue (Mindestvoraussetzung)
+//Basismenü (Mindestvoraussetzung)
 static const FKDT_DeathMenu_BasicSetting = 0x5; //FKDT_DeathMenu_Timer;
 //Alle Einstellungen
 static const FKDT_DeathMenu_FullSettings = 0x7FFFFFFF;
 
-public func DeathMenu(object pTarget, object pMenuTarget, int iModules, int iTimeLeft, int iTimeMax, string killmsg, bool fForceSettings, id idCmdTarget) {
+public func DeathMenu(object pTarget, object pMenuTarget, int iModules, int iTimeLeft, int iTimeMax, string killmsg, bool fForceSettings, id idCmdTarget)
+{
   if(!GetAlive(pTarget))
     return;
 
@@ -293,110 +294,113 @@ public func DeathMenu(object pTarget, object pMenuTarget, int iModules, int iTim
 
   if(GetMenu(pTarget)) return;
 
-	if(!killmsg)
-  	killmsg = KILL->GetKillMsgByObject(pTarget);
+  if(!killmsg)
+    killmsg = KILL->GetKillMsgByObject(pTarget);
 
   if(!iTimeMax)
-  	iTimeMax = FKDT_SuicideTime;
+    iTimeMax = FKDT_SuicideTime;
   if(!iModules)
-  	iModules = FKDT_DeathMenu_FullSettings;
+    iModules = FKDT_DeathMenu_FullSettings;
 
   if(!idCmdTarget)
     idCmdTarget = FKDT;
 
-	//Module die nur mit FKDT funktionieren
-	if(!this) {
-		if(iModules & FKDT_DeathMenu_RejectReanimation)
-			iModules ^= FKDT_DeathMenu_RejectReanimation;
-	}
+  //Module die nur mit FKDT funktionieren
+  if(!this)
+  {
+    if(iModules & FKDT_DeathMenu_RejectReanimation)
+      iModules ^= FKDT_DeathMenu_RejectReanimation;
+  }
 
-	//Nur Module die der Spieler auch selbst aktiviert hat anzeigen
-	if(!fForceSettings)
-		iModules &= GetPlrExtraData(GetOwner(pTarget), "CMC_DeathMenuModules");
+  //Nur Module, die der Spieler auch selbst aktiviert, hat anzeigen
+  if(!fForceSettings)
+    iModules &= GetPlrExtraData(GetOwner(pTarget), "CMC_DeathMenuModules");
 
   //Menü erstellen
   var timer = "";
   if(iModules & FKDT_DeathMenu_Timer)
-  	timer = Format("$DeathCounter$", 1 + iTimeLeft / 35);
-  CreateMenu(FKDT, pTarget, pMenuTarget, 0, timer, C4MN_Style_Dialog, true, true);		//Titelzeile mit Zeitanzeige
+    timer = Format("$DeathCounter$", 1 + iTimeLeft / 35);
+  CreateMenu(FKDT, pTarget, pMenuTarget, 0, timer, C4MN_Style_Dialog, true, true);								//Titelzeile mit Zeitanzeige
 
   var iTarget = ObjectNumber(pTarget);
 
-  if(~iModules & FKDT_DeathMenu_NoModules) {
-		if(iTimeLeft < (iTimeMax - 1) * 35)
-		{
-		  var blocktime;
-		  if(iModules & FKDT_DeathMenu_RejectReanimation) {
-				if(GetEffect("BlockRejectReanimation", pMenuTarget))										//Ablehnen-Menüpunkt
-				{
-				  blocktime = GetEffect("BlockRejectReanimation", pMenuTarget, 0, 6);
-				  AddMenuItem(Format("$ReanimationBlocked$", (FKDT->BlockTime()-blocktime)/35), 0, SM01, pTarget, 0, 0, "$ReanimationDescAllow$");
-				}
-				else
-				{
-				  if(!RejectReanimation())
-				    AddMenuItem("$ReanimationAllow$", "Reject", SM01, pTarget, 0, 0, "$ReanimationDescAllow$");
-				  else
-				    AddMenuItem("$ReanimationDisallow$", "Reject", SM06, pTarget, 0, 0, "$ReanimationDescDisallow$");
-				}
-			}
-		  if(FindObject(SICD) && iModules & FKDT_DeathMenu_Suicide)
-		    AddMenuItem("$Suicide$", Format("%i->Suicide(Object(%d))", idCmdTarget, iTarget), PSTL, pTarget, 0, 0, "$SuicideDesc$");							//Selbstmord-Menüpunkt
+  if(~iModules & FKDT_DeathMenu_NoModules)
+  {
+    if(iTimeLeft < (iTimeMax - 1) * 35)
+    {
+      var blocktime;
+      if(iModules & FKDT_DeathMenu_RejectReanimation)
+      {
+        if(GetEffect("BlockRejectReanimation", pMenuTarget))											//Ablehnen-Menüpunkt
+        {
+          blocktime = GetEffect("BlockRejectReanimation", pMenuTarget, 0, 6);
+          AddMenuItem(Format("$ReanimationBlocked$", (FKDT->BlockTime()-blocktime)/35), 0, SM01, pTarget, 0, 0, "$ReanimationDescAllow$");
+        }
+        else
+        {
+          if(!RejectReanimation())
+            AddMenuItem("$ReanimationAllow$", "Reject", SM01, pTarget, 0, 0, "$ReanimationDescAllow$");
+          else
+            AddMenuItem("$ReanimationDisallow$", "Reject", SM06, pTarget, 0, 0, "$ReanimationDescDisallow$");
+        }
+      }
+      if(FindObject(SICD) && iModules & FKDT_DeathMenu_Suicide)
+        AddMenuItem("$Suicide$", Format("%i->Suicide(Object(%d))", idCmdTarget, iTarget), PSTL, pTarget, 0, 0, "$SuicideDesc$");		//Selbstmord-Menüpunkt
 
-		  if(FindObject(RWDS) && iModules & FKDT_DeathMenu_RewardMenuItem)
-		    AddMenuItem("$Statistics$", Format("FindObject(RWDS)->Activate(%d)", GetOwner(pTarget)), RWDS, pTarget);			//Statistik-Menüpunkt
+      if(FindObject(RWDS) && iModules & FKDT_DeathMenu_RewardMenuItem)
+        AddMenuItem("$Statistics$", Format("FindObject(RWDS)->Activate(%d)", GetOwner(pTarget)), RWDS, pTarget);				//Statistik-Menüpunkt
 
-		  if(FindObject(EFMN) && GetOwner(pTarget) == GetPlayerByIndex(0, C4PT_User) && !GetLeague() && iModules & FKDT_DeathMenu_EffectMenuItem)
-		    AddMenuItem("$EffectLevel$", Format("FindObject(EFMN)->Activate(%d)", GetOwner(pTarget)), EFMN, pTarget);			//Effektstufe-Menüpunkt
+      if(FindObject(EFMN) && GetOwner(pTarget) == GetPlayerByIndex(0, C4PT_User) && !GetLeague() && iModules & FKDT_DeathMenu_EffectMenuItem)
+        AddMenuItem("$EffectLevel$", Format("FindObject(EFMN)->Activate(%d)", GetOwner(pTarget)), EFMN, pTarget);				//Effektstufe-Menüpunkt
 
-			if(iModules & FKDT_DeathMenu_SettingsMenuItem)
-		  	AddMenuItem("$Settings$", Format("FKDT->OpenSettings(Object(%d))", iTarget), CSTR, pTarget);									//Einstellungen-Menüpunkt
+      if(iModules & FKDT_DeathMenu_SettingsMenuItem)
+        AddMenuItem("$Settings$", Format("FKDT->OpenSettings(Object(%d))", iTarget), CSTR, pTarget);						//Einstellungen-Menüpunkt
 
-		  if(iModules & FKDT_DeathMenu_SpectateMenuItem && GetTeamPlayerCount(GetPlayerTeam(GetOwner(pTarget))) > 1)
-		  	AddMenuItem("$Spectate$", Format("SPEC->OpenSpectateMenu(Object(%d), Object(%d))", iTarget, ObjectNumber(pMenuTarget)), SPEC, pTarget);
-		}
+      if(iModules & FKDT_DeathMenu_SpectateMenuItem && GetTeamPlayerCount(GetPlayerTeam(GetOwner(pTarget))) > 1)
+        AddMenuItem("$Spectate$", Format("SPEC->OpenSpectateMenu(Object(%d), Object(%d))", iTarget, ObjectNumber(pMenuTarget)), SPEC, pTarget);
+    }
 
-		if(GetType(killmsg) == C4V_String && iModules & FKDT_DeathMenu_KillMsg)
-		{
-		  AddMenuItem("", "", NONE, pTarget, 0, 0, "", 512, 0, 0);									//Leerzeile
-		  AddMenuItem(Format("$Killer$", GetName(pTarget)),"", NONE, pTarget, 0, 0, "", 512, 0, 0);					//Titel
+    if(GetType(killmsg) == C4V_String && iModules & FKDT_DeathMenu_KillMsg)
+    {
+      AddMenuItem("", "", NONE, pTarget, 0, 0, "", 512, 0, 0);											//Leerzeile
+      AddMenuItem(Format("$Killer$", GetName(pTarget)),"", NONE, pTarget, 0, 0, "", 512, 0, 0);							//Titel
 
-		  AddMenuItem(killmsg, "", NONE, pTarget, 0, 0, "", 512);									//Killerinformationen
-		}
+      AddMenuItem(killmsg, "", NONE, pTarget, 0, 0, "", 512);											//Killerinformationen
+    }
 
-		if(iModules & FKDT_DeathMenu_Statistics)
-		{
-		  var obj;
-		  if((obj = FindObject(RWDS)))												//Punktestatistik erstellen
-		  {
-		    AddMenuItem("", "", NONE, pTarget, 0, 0, "", 512, 0, 0);									//Leerzeile
-		    AddMenuItem(Format("$Points$", GetName(pTarget)),"", NONE, pTarget, 0, 0, "", 512, 0, 0);					//Titel
+    if(iModules & FKDT_DeathMenu_Statistics)
+    {
+      var obj;
+      if((obj = FindObject(RWDS)))														//Punktestatistik erstellen
+      {
+        AddMenuItem("", "", NONE, pTarget, 0, 0, "", 512, 0, 0);										//Leerzeile
+        AddMenuItem(Format("$Points$", GetName(pTarget)),"", NONE, pTarget, 0, 0, "", 512, 0, 0);						//Titel
 
-		    //Einsortieren
-		    var aList = [], iPlr, aData = obj->~GetData(), szString = "";
-		    for(iPlr = 0; iPlr < GetLength(aData); ++iPlr)
-		    {
-		      if(!aData[iPlr])
-		        continue;
+        //Einsortieren
+        var aList = [], iPlr, aData = obj->~GetData(), szString = "";
+        for(iPlr = 0; iPlr < GetLength(aData); ++iPlr)
+        {
+          if(!aData[iPlr])
+            continue;
 
-		      var iTeam = obj->~GetPlayerData(RWDS_PlayerTeam, iPlr);
-		      if(!aList[iTeam]) aList[iTeam] = [];
-		      szString = Format("%s: %d", obj->~GetPlayerData(RWDS_PlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
-		      if(iModules & FKDT_DeathMenu_ShortenedNames) 
-  	        szString = Format("%s: %d", obj->~GetPlayerData(RWDS_CPlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
+          var iTeam = obj->~GetPlayerData(RWDS_PlayerTeam, iPlr);
+          if(!aList[iTeam]) aList[iTeam] = [];
+          szString = Format("%s: %d", obj->~GetPlayerData(RWDS_PlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
+          if(iModules & FKDT_DeathMenu_ShortenedNames) 
+            szString = Format("%s: %d", obj->~GetPlayerData(RWDS_CPlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
 
-		      aList[iTeam][GetLength(aList[iTeam])] = szString;
-		    }
+          aList[iTeam][GetLength(aList[iTeam])] = szString;
+        }
 
-		    //Teamweise ausgeben
-		    for (var aTeam in aList)
-		      if(aTeam)
-		        for (var szString in aTeam)
-		          if(GetType(szString) == C4V_String)
-		            AddMenuItem(szString, "", NONE, pTarget, 0, 0, "", 512);
-		  }
-		}
-	}
+        //Teamweise ausgeben
+        for (var aTeam in aList)
+          if(aTeam)
+            for (var szString in aTeam)
+              if(GetType(szString) == C4V_String)
+                AddMenuItem(szString, "", NONE, pTarget, 0, 0, "", 512);
+      }
+    }
+  }
 
   if(selection >= 0) SelectMenuItem(selection, pTarget);
 }
