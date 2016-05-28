@@ -144,9 +144,6 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
   //Eventnachricht: Spieler eliminiert Spieler
   EventInfo4K(0,msg,0);
 
-  //Und an den Toten weiterleiten (obsolet, kann mit neuem DeathMenu entfernt werden)
-  if(Contained(clonk) && !FindObject(NOFD))
-    Contained(clonk)->~KillMessage(dmsg);
   StockKillMsg(dmsg, clonk);
 }
 

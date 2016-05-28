@@ -55,14 +55,7 @@ public func FxWaitingObjectTimer(object pTarget, int iNr, int iTime)
   if(time-iTime <= 0)
     return -1;
 
-  if(!g_FallbackDeathmenu)
-    FKDT->DeathMenu(clonk, this, FKDT_DeathMenu_FullSettings, time-iTime, FKDT_SuicideTime, EffectVar(0, pTarget, iNr), 0, TIM1);
-  else
-  {
-    CloseMenu();
-    CreateMenu(FKDT, clonk, this, 0, Format("$RemainingRespawnTime$", (time-iTime)/35+!!((time-iTime)%35)), 0, C4MN_Style_Context, true);
-    AddMenuItem("<Platzhalter fuer DeathMenu>", 0, FKDT, clonk);
-  }
+  FKDT->DeathMenu(clonk, this, FKDT_DeathMenu_FullSettings, time-iTime, FKDT_SuicideTime, EffectVar(0, pTarget, iNr), 0, TIM1);
 
   //Effekt verzögert löschen (ChangeEffect und ähnliches funktionieren nicht wie gewollt, daher Schedule)
   if(time-iTime < 10)
