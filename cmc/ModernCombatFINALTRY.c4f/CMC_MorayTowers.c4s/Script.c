@@ -983,7 +983,7 @@ public func ChooserFinished()
   {
     //Flaggenposten
     var flag = CreateObject(OFPL, 2215,1150, -1);
-    flag->~Set("$Flag2$",90);
+    flag->~Set("$Flag3$",90);
 
     //Teamgrenzen
     CreateObject(BRDR, 1660, 0, -1)->Set(0,1,0,1,1);
