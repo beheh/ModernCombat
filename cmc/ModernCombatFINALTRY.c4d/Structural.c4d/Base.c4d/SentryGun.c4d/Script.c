@@ -702,29 +702,41 @@ public func SoundStop()
 
 public func ConsoleControl(int i, pClonk)
 {
-  if(i == 1)
+  if(IsRepairing()) return;
+  if(!fDestroyed)
   {
-    if(fActive)
-      return "$TurnOff$";
-    else
-      return "$TurnOn$";
+    if(i == 1)
+      if(fActive)
+        return "$TurnOff$";
+      else
+        return "$TurnOn$";
   }
-  if(i == 2)
-    if(GetAction() == "Destroyed" && !HostileTeam(pClonk->~GetTeam(),GetTeam()))
-      return "$Repair$";
+  else
+  {
+    if(i == 1)
+      if(!IsRepairing() && !HostileTeam(pClonk->~GetTeam(),GetTeam()))
+        return "$Repair$";
+      else
+        return;
+  }
 }
 
-public func ConsoleControlled(int i)
+public func ConsoleControlled(int i, int objn, int objn2)
 {
-  if(i == 1)
-    if(fActive)
-      TurnOff();
-    else
-      TurnOn();
-
-  if(i == 2)
-    if(GetAction() == "Destroyed")
+  if(IsRepairing()) return;
+  if(!fDestroyed)
+  {
+    if(i == 1)
+      if(fActive)
+        TurnOff();
+      else
+        TurnOn();
+  }
+  else
+    if(!IsRepairing() && !HostileTeam(Object(objn)->~GetTeam(),GetTeam()))
       StartRepair();
+    else
+      return;
 }
 
 /* Serialisierung */

@@ -1081,12 +1081,14 @@ public func ChooserFinished()
       aFlag[4]->Set("$Flag5$");
 
     //SSA Besitzer setzen
+    if(aTeams[1] == true)
+    {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1);}
     if(aTeams[2] == true)
-    {aSelfDefense[2]->SetTeam(2); aSelfDefense[3]->SetTeam(2); aSelfDefense[4]->SetTeam(2); aSelfDefense[5]->SetTeam(2);}
+    {aSelfDefense[4]->SetTeam(2); aSelfDefense[5]->SetTeam(2);}
 
     //SSA aktivieren
-    aSelfDefense[2]->TurnOn();
-    aSelfDefense[3]->TurnOn();
+    aSelfDefense[0]->TurnOn();
+    aSelfDefense[1]->TurnOn();
     aSelfDefense[4]->TurnOn();
     aSelfDefense[5]->TurnOn();
 

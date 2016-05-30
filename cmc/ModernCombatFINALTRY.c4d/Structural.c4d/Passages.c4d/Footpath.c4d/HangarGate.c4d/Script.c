@@ -2,7 +2,9 @@
 
 #strict 2
 
-public func IsMachine()		{return true;}
+local direction;
+
+public func IsMachine()	{return true;}
 
 
 /* Initialisierung */
@@ -10,6 +12,7 @@ public func IsMachine()		{return true;}
 protected func Initialize()
 {
   SetAction("Stand");
+  direction = 0;
 }
 
 /* Bewegung nach links oder rechts */
@@ -39,26 +42,84 @@ public func ControlStop()
 
 public func ConsoleControl(int i)
 {
-  if(i == 1) return("$Left$");
-  if(i == 2) return("$Right$");
-  if(i == 3) return("$Stop$");
+  if(GetAction() == "Stand")
+  {
+    if(i == 1)
+      if(direction == 0)
+        return "$Right$";
+      else
+        return "$Left$";
+
+    if(i == 2)
+      if(direction == 1)
+        return "$Right$";
+      else
+        return "$Left$";
+  }
+  else
+  {
+    if(i == 1)
+      return "$Stop$";
+
+    if(i == 2)
+      if(direction == 1)
+        return "$Right$";
+      else
+        return "$Left$";
+  }
 }
 
 public func ConsoleControlled(int i)
 {
-  if(i == 1 && GetAction() != "ControlLeft") ControlLeft();
-  if(i == 2 && GetAction() != "ControlRight") ControlRight();
-  if(i == 3 && GetAction() != "ControlStop") ControlStop();
+  if(GetAction() == "Stand")
+  {
+    if(i == 1)
+      if(direction == 0)
+        ControlRight();
+      else
+        ControlLeft();
+
+    if(i == 2)
+      if(direction == 1)
+      {
+        ControlRight();
+        direction = 0;
+      }
+      else
+      {
+        ControlLeft();
+        direction = 1;
+      }
+  }
+  else
+  {
+    if(i == 1)
+      ControlStop();
+
+    if(i == 2)
+      if(direction == 1)
+      {
+        ControlRight();
+        direction = 0;
+      }
+      else
+      {
+        ControlLeft();
+        direction = 1;
+      }
+  }
 }
 
 /* Aufprallkontakt */
 
 protected func ContactLeft()
 {
+  direction = 0;
   return(ControlStop());
 }
 
 protected func ContactRight()
 {
+  direction = 1;
   return(ControlStop());
 }
