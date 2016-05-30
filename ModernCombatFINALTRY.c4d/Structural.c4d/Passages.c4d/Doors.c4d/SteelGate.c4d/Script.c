@@ -3,6 +3,8 @@
 #strict 2
 #include CSTR
 
+local direction;
+
 public func IsMachine()		{return true;}
 public func MaxDamage()		{return 80;}
 public func RepairSpeed()	{return 3;}
@@ -13,6 +15,7 @@ public func RepairSpeed()	{return 3;}
 protected func Initialize()
 {
   SetAction("GateStill");
+  direction = 0;
 
   return inherited();
 }
@@ -25,6 +28,7 @@ public func Open()
   SetAction("GateOpen");
   SetPhase(phase);
   CheckSolidMask();
+  direction = 0;
 }
 
 protected func Opened()
@@ -33,6 +37,7 @@ protected func Opened()
   SetPhase(11);
   StopSound();
   CheckSolidMask();
+  direction = 1;
 }
 
 public func Close()
@@ -45,11 +50,17 @@ public func Close()
 
 public func Stop()
 {
-  var phase = GetPhase();
+  var phase;
+  if(GetAction() == "GateClose")
+    phase = 11-GetPhase();
+  else
+    phase = GetPhase();
   SetAction("GateStill");
   SetPhase(phase);
   StopSound();
   CheckSolidMask();
+  if(GetPhase() == 0)
+    direction = 0;
 }
 
 /* Konsolensteuerung */
@@ -59,21 +70,53 @@ public func ConsoleControl(int i)
   if(IsRepairing()) return;
   if(GetAction() != "Destroyed")
   {
-    if(i == 1) return("$Open$");
-    if(i == 2) return("$Close$");
-    if(i == 3) return("$Stop$");
+    if(i == 1)
+      if(GetAction() == "GateStill")
+        if(GetPhase() == 0 || direction == 0)
+          return "$Open$";
+        else
+          return "$Close$";
+      else
+        return "$Stop$";
+
+    if(i == 2)
+      if(direction == 1)
+        return "$Open$";
+      else
+        return "$Close$";
   }
   else
-    if(i == 1) return("$Repair$");
+    if(i == 1) return "$Repair$";
 }
 
 public func ConsoleControlled(int i)
 {
+  if(IsRepairing()) return;
   if(GetAction() != "Destroyed")
   {
-    if(i == 1 && GetAction() != "GateOpen") Open();
-    if(i == 2 && GetAction() != "GateClose") Close();
-    if(i == 3 && GetAction() != "GateStill") Stop();
+    if(i == 1)
+      if(GetAction() == "GateStill")
+        if(GetPhase() == 0 || direction == 0)
+          Open();
+        else
+          if(GetAction() == "GateClose")
+            return;
+          else
+            Close();
+      else
+        Stop();
+
+    if(i == 2)
+      if(direction == 1)
+      {
+        direction = 0;
+        Open();
+      }
+      else
+      {
+        direction = 1;
+        Close();
+      }
   }
   else
     if(i == 1)

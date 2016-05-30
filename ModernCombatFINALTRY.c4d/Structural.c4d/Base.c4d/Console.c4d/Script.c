@@ -24,10 +24,10 @@ protected func Timer(pClonk)
   //Kein Zielobjekt: Selbstzerstörung
   if(!target)
   {
-   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,50,0,0,40,150);
-   CastSmoke("Smoke3",5,10,0,0,50,200, RGBa(255,255,255,0));
-   Sound("StructureHit*.ogg");
-   return RemoveObject();
+    if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,50,0,0,40,150);
+    CastSmoke("Smoke3",5,10,0,0,50,200, RGBa(255,255,255,0));
+    Sound("StructureHit*.ogg");
+    return RemoveObject();
   }
 
   //Blinkeffekt
@@ -38,24 +38,48 @@ protected func Timer(pClonk)
 
 /* Bedienung */
 
-protected func ControlDig(pClonk)
+protected func ControlThrow(pClonk)
 {
-  [$Control$]
-
-  //Kein Menü wenn kein Ziel
+  //Keine Aktion wenn kein Ziel
   if(!target) return;
 
-  //Sicht auf Zielobjekt zentrieren
+  //Sicht auf Zielobjekt zentrieren und benennen
   SetPlrView(GetController(pClonk),target);
+  target->PlayerMessage(GetController(pClonk),GetName(target),target);
+
+  //Ersten Menüpunkt ausführen
+  ControlTarget(1, ObjectNumber(pClonk), ObjectNumber(this));
+
+  return 1;
+}
+
+protected func ControlDig(pClonk)
+{
+  //Keine Aktion wenn kein Ziel
+  if(!target) return;
+
+  //Sicht auf Zielobjekt zentrieren und benennen
+  SetPlrView(GetController(pClonk),target);
+  target->PlayerMessage(GetController(pClonk),GetName(target),target);
 
   //Menü erstellen
-  CreateMenu(GetID(target), pClonk, target, 0, Format("$Control$: %s", GetName(target)), 0, 1);
+  CreateMenu(GetID(), pClonk, this, 0, Format("%s", GetName(target)), 0, 1);
   for(var i = 1, desc ; desc = target->~ConsoleControl(i, pClonk, this) ; i++)
   {
-    AddMenuItem(desc, Format("ConsoleControlled(%d, %d, %d)", i, ObjectNumber(pClonk), ObjectNumber(this)), GetID(), pClonk, 0, 0, "$Control$");
+    AddMenuItem(desc, Format("ControlTarget(%d, %d, %d)", i, ObjectNumber(pClonk), ObjectNumber(this)), GetID(target), pClonk);
     Sound("Acknowledge.ogg", 0, pClonk, 100, GetOwner(pClonk)+1);
   }
   return 1;
+}
+
+protected func ControlTarget(int selection, int objn, int objn2)
+{
+  if(!target)
+    return;
+
+  target->ConsoleControlled(selection, objn, objn2);
+
+  Sound("Switch.ogg");
 }
 
 /* Ziel setzen */
