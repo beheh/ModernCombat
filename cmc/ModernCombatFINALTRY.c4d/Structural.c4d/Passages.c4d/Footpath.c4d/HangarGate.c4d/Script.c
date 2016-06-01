@@ -19,12 +19,16 @@ protected func Initialize()
 
 protected func ControlLeft()
 {
+  if(GetEffect("IntCooldownTime",this)) return;
+
   SetAction("Travel");
   SetComDir(COMD_Left);
 }
 
 public func ControlRight()
 {
+  if(GetEffect("IntCooldownTime",this)) return;
+
   SetAction("Travel");
   SetComDir(COMD_Right);
 }
@@ -36,12 +40,16 @@ public func ControlStop()
   SetComDir(COMD_Stop);
   SetXDir();
   SetYDir();
+
+  AddEffect("IntCooldownTime", this, 1, 50, this);
 }
 
 /* Konsolensteuerung */
 
 public func ConsoleControl(int i)
 {
+  if(GetEffect("IntCooldownTime",this)) return;
+
   if(GetAction() == "Stand")
   {
     if(i == 1)
@@ -115,11 +123,19 @@ public func ConsoleControlled(int i)
 protected func ContactLeft()
 {
   direction = 0;
+
+  //Effekte
+  CastSmoke("Smoke3",8, 5, -80, -5, 100, 200);
+
   return(ControlStop());
 }
 
 protected func ContactRight()
 {
   direction = 1;
+
+  //Effekte
+  CastSmoke("Smoke3",8, 5, 79, -5, 100, 200);
+
   return(ControlStop());
 }

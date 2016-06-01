@@ -43,9 +43,8 @@ protected func ControlThrow(pClonk)
   //Keine Aktion wenn kein Ziel
   if(!target) return;
 
-  //Sicht auf Zielobjekt zentrieren und benennen
+  //Sicht auf Zielobjekt zentrieren
   SetPlrView(GetController(pClonk),target);
-  target->PlayerMessage(GetController(pClonk),GetName(target),target);
 
   //Ersten Menüpunkt ausführen
   ControlTarget(1, ObjectNumber(pClonk), ObjectNumber(this));
@@ -65,10 +64,15 @@ protected func ControlDig(pClonk)
   //Menü erstellen
   CreateMenu(GetID(), pClonk, this, 0, Format("%s", GetName(target)), 0, 1);
   for(var i = 1, desc ; desc = target->~ConsoleControl(i, pClonk, this) ; i++)
-  {
     AddMenuItem(desc, Format("ControlTarget(%d, %d, %d)", i, ObjectNumber(pClonk), ObjectNumber(this)), GetID(target), pClonk);
-    Sound("Acknowledge.ogg", 0, pClonk, 100, GetOwner(pClonk)+1);
+  if(GetMenuSelection(pClonk) == -1)
+  {
+    CloseMenu(pClonk);
+    return;
   }
+
+  Sound("Acknowledge.ogg", 0, pClonk, 100, GetOwner(pClonk)+1);
+
   return 1;
 }
 
@@ -87,8 +91,4 @@ protected func ControlTarget(int selection, int objn, int objn2)
 public func Set(pTarget)
 {
   target = pTarget;
-
-  //Konsolen, die keine SSA steuern, grün färben
-  if(GetID(pTarget) != SEGU)
-    SetClrModulation(RGB(0,150,0));
 }
