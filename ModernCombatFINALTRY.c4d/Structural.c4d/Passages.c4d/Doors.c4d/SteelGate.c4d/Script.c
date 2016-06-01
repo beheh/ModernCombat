@@ -24,6 +24,8 @@ protected func Initialize()
 
 public func Open()
 {
+  if(GetEffect("IntCooldownTime",this)) return;
+
   var phase = GetPhase();
   SetAction("GateOpen");
   SetPhase(phase);
@@ -42,10 +44,21 @@ protected func Opened()
 
 public func Close()
 {
-  var phase = 11-GetPhase();
-  SetAction("GateClose");
-  SetPhase(phase);
-  CheckSolidMask();
+  if(GetEffect("IntCooldownTime",this)) return;
+
+  if(GetPhase() == 0)
+  {
+    direction = 0;
+    StopSound();
+    CheckSolidMask();
+  }
+  else
+  {
+    var phase = 11-GetPhase();
+    SetAction("GateClose");
+    SetPhase(phase);
+    CheckSolidMask();
+  }
 }
 
 public func Stop()
@@ -61,12 +74,15 @@ public func Stop()
   CheckSolidMask();
   if(GetPhase() == 0)
     direction = 0;
+
+  AddEffect("IntCooldownTime", this, 1, 50, this);
 }
 
 /* Konsolensteuerung */
 
 public func ConsoleControl(int i)
 {
+  if(GetEffect("IntCooldownTime",this)) return;
   if(IsRepairing()) return;
   if(GetAction() != "Destroyed")
   {
@@ -128,6 +144,13 @@ private func StopSound()	{Sound("Discharge");}
 private func CheckSolidMask()
 {
   SetSolidMask(10*GetPhase(), 0, 10, 60, 0, 0);
+
+  //Effekte
+  if(!InLiquid())
+  {
+    CreateParticle("Smoke3",0,-25,RandomX(-2,2),RandomX(1,2),RandomX(20,80),0,this,1);
+    CreateParticle("Smoke3",0,25,RandomX(-2,2),RandomX(-1,-2),RandomX(20,80),0,this,1);
+  }
 }
 
 /* Bonus-Punkte */
