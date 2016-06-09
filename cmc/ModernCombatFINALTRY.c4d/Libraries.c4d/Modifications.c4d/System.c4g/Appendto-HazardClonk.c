@@ -1414,7 +1414,9 @@ public func QuickInventory(int iMenu, int iPage)
           pRing->Add(QINV_MenuOrder[i-iPage*3], GetName(0, aItems[i]), "QuickInventorySelect", aItems[i], idIcon, 0, SMIN);
         }
       }
-      pRing->AddThrowItem("$Use$", "QuickInventoryThrow", 0, SM04);
+
+      if(!Contained())
+        pRing->AddThrowItem("$Use$", "QuickInventoryThrow", 0, SM04);
 
       //Verschiedene Menünamen einblenden
       var szName = "";

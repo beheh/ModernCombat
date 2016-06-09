@@ -13,8 +13,24 @@ local fStaticRope;
 public func SetRopeColor(int dwClr)	{return dwcolor = dwClr;}
 public func GetRopeLength()		{return iLength;}
 public func SetRopeLength(iNewLength)	{return iLength = Max(iNewLength, 0);}
-public func IsStatic()		{ return fStaticRope; }
+public func IsStatic()			{return fStaticRope;}
 func IsAnvilProduct()			{return 1;}
+
+
+/* Initialisierung */
+
+protected func Initialize()
+{
+  //Standardfarbe des Seils
+  dwcolor = RGBa(100, 50, 0, 50);
+
+  // OCF's, an die verbunden werden kann
+  iOCF = OCF_Living | OCF_Grab | OCF_Chop | OCF_Collectible;
+
+  aPointsX = [0,0];
+  aPointsY = [0,0];
+  return 1;
+}
 
 public func SetStaticMode(bool fSet)
 {
@@ -35,21 +51,6 @@ public func SetStaticMode(bool fSet)
   }
 
   return true;
-}
-
-/* Initialisierung */
-
-protected func Initialize()
-{
-  //Standardfarbe des Seils
-  dwcolor = RGBa(100, 50, 0, 50);
-
-  // OCF's, an die verbunden werden kann
-  iOCF = OCF_Living | OCF_Grab | OCF_Chop | OCF_Collectible;
-
-  aPointsX = [0,0];
-  aPointsY = [0,0];
-  return 1;
 }
 
 /* Verbinden */
