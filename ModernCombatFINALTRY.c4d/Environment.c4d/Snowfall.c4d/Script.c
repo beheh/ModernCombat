@@ -28,7 +28,7 @@ private func Timer()
   {
     var iRand = Random(LandscapeWidth()) - iX;
     if(GBackSky(iRand, 5))
-      CreateParticle("Snowflake", iRand, -iY, 0, 12, Random(35)+1, RGBa(255,255,255,RandomX(255,80)));
+      CreateParticle("Snowflake", iRand, -iY, 0, RandomX(6,12), RandomX(2,35), RGBa(255,255,255,RandomX(255,80)));
   }
 
   return true;
