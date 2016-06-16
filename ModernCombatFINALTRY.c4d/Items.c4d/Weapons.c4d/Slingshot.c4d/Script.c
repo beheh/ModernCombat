@@ -140,7 +140,7 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   var ydir = -Cos(angle,speed);
 
   //Granate abfeuern
-  var grenade=CreateObject(idg, x, y, GetController(user));
+  var grenade = CreateObject(idg, x, y, GetController(user));
   SetController(GetController(user), grenade);
   grenade->Launch(xdir+GetXDir(user)/5, ydir/*+GetYDir(user)/4*/, GetFMData(FM_Damage,2), 0, 0, 0, iAttachment, user);
 
@@ -170,6 +170,10 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   Sound("SGST_Fire*.ogg", 0, grenade);
   Echo("SGST_Echo.ogg");
   Schedule("Sound(\"SGST_Pump.ogg\")", 30);
+
+  //Klickgeräusch bei wenig Munition
+  if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
+    Sound("PPGN_Click.ogg", 0, grenade, 0, GetOwner(user)+1);
 
   //Patronenhülse hinzufügen
   casings++;

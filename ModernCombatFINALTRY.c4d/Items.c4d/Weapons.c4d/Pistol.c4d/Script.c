@@ -112,6 +112,10 @@ public func Fire1()
     if(GetEffect("Silencer", this))
       EffectVar(0, this, GetEffect("Silencer", this)) -= BoundBy(25, 0, EffectVar(0, this, GetEffect("Silencer", this)));
   }
+
+  //Klickgeräusch bei wenig Munition
+  if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
+    Sound("PSTL_Click.ogg", 0, ammo, 0, GetOwner(user)+1);
 }
 
 /* Peilsender */
