@@ -160,7 +160,7 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
   if(iOffset+10 <= iAchievementCount-1)
     szCmd = Format("StatsList(%d, %d, %d, 0)", iPlr, 0, BoundBy(iOffset+10, 0, iAchievementCount));
   else
-    szCmd = Format("StatsRibbonList(%d)", iPlr);
+    szCmd = Format("StatsRibbonList(%d, 0, 0, 1)", iPlr);
 
   AddMenuItem("$NextPage$", szCmd, NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 
@@ -237,7 +237,7 @@ public func GetPlrAvailableRibbonCount(int iPlr)
   return count;
 }
 
-public func StatsRibbonList(int iPlr, int iIndex, int iOffset)
+public func StatsRibbonList(int iPlr, int iIndex, int iOffset, int iButton)
 {
   var pClonk = GetCursor(iPlr);
   if(GetMenu(pClonk))
@@ -258,7 +258,7 @@ public func StatsRibbonList(int iPlr, int iIndex, int iOffset)
   AddMenuItem(Format("<c 33ccff>$Ribbons$ ($Showing$)</c>", (iAchievementCount-1)/10+2+(iOffset/10), (iAchievementCount-1)/10+2+((ribbonCount-1)/10)), 0, NONE, pClonk);
 
   //Liste
-  var idRibbon, i, count;
+  var idRibbon, i, count, iMenuEntryCount;
   while(GetName(0, (idRibbon = C4Id(Format("RB%02d", ++i)))))
   {
     if(idRibbon->~RibbonDisabled() && !GetPlayerRibbon(iPlr, idRibbon))
@@ -272,6 +272,7 @@ public func StatsRibbonList(int iPlr, int iIndex, int iOffset)
         AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idRibbon)), Format("StatsRibbon(%d, %d, %d)", iPlr, i, iOffset), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
       else
         AddMenuItem(Format("<c 777777>%s</c>", GetName(0, idRibbon)), Format("StatsRibbon(%d, %d, %d)", iPlr, i, iOffset), NONE, pClonk, 0, 0, "", 0, 0, 0);
+      iMenuEntryCount++;
     }
 
     if(count >= 10+iOffset)
@@ -283,11 +284,11 @@ public func StatsRibbonList(int iPlr, int iIndex, int iOffset)
 
   //Weiter
   if(iOffset+10 <= ribbonCount-1)
-    AddMenuItem("$NextPage$", Format("StatsRibbonList(%d, 0, %d)", iPlr, BoundBy(iOffset+10, 0, ribbonCount)), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+    AddMenuItem("$NextPage$", Format("StatsRibbonList(%d, 0, %d, 1)", iPlr, BoundBy(iOffset+10, 0, ribbonCount)), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 
   var szCmd = 0;
   if(iOffset > 0)
-    szCmd = Format("StatsRibbonList(%d, 0, %d)", iPlr, BoundBy(iOffset-10, 0), i);
+    szCmd = Format("StatsRibbonList(%d, 0, %d, 2)", iPlr, BoundBy(iOffset-10, 0), i);
   else
     szCmd = Format("StatsList(%d, 0, %d, 1)", iPlr, iAchievementCount-(iAchievementCount%10));
 
@@ -299,7 +300,9 @@ public func StatsRibbonList(int iPlr, int iIndex, int iOffset)
   //Statistik einblenden
   AddMenuItem("$Stats$", Format("StatsStatistics(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 
-  if(iIndex)
+	if(iButton)
+		SelectMenuItem(2+iMenuEntryCount+iButton, pClonk);
+  else if(iIndex)
     SelectMenuItem(iIndex+1, pClonk);
   else
     SelectMenuItem(i+2, pClonk);
