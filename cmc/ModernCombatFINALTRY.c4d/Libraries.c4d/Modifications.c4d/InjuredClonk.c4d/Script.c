@@ -276,7 +276,7 @@ static const FKDT_DeathMenu_DefaultSetting = 0x2FF; //FKDT_DeathMenu_Timer|FKDT_
 //Kompaktes Menü
 static const FKDT_DeathMenu_CompactSetting = 0x17F; //FKDT_DeathMenu_Timer|FKDT_DeathMenu_FullMenuItems|FKDT_DeathMenu_KillMsg|FKDT_DeathMenu_ShortenedNames;
 //Basismenü (Mindestvoraussetzung)
-static const FKDT_DeathMenu_BasicSetting = 0x5; //FKDT_DeathMenu_Timer;
+static const FKDT_DeathMenu_BasicSetting = 0x7; //FKDT_DeathMenu_Timer|FKDT_DeathMenu_RejectReanimation|FKDT_DeathMenu_Suicide
 //Alle Einstellungen
 static const FKDT_DeathMenu_FullSettings = 0x7FFFFFFF;
 
