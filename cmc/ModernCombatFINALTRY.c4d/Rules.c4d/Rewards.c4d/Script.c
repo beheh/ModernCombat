@@ -300,8 +300,8 @@ public func StatsRibbonList(int iPlr, int iIndex, int iOffset, int iButton)
   //Statistik einblenden
   AddMenuItem("$Stats$", Format("StatsStatistics(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 
-	if(iButton)
-		SelectMenuItem(2+iMenuEntryCount+iButton, pClonk);
+  if(iButton)
+    SelectMenuItem(2+iMenuEntryCount+iButton, pClonk);
   else if(iIndex)
     SelectMenuItem(iIndex+1, pClonk);
   else

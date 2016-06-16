@@ -2,7 +2,6 @@
 
 #strict 2
 
-//#include MATH
 
 local CharsWAmmo,	//Zähler-Munitionswert
       CharsMaxAmmo,	//Nenner-Munitionswert
@@ -229,7 +228,7 @@ protected func UpdateHUD(object weapon, object pClonk, bool fForceUpdate)
       }
 
       i = 0;
-      //Bei aktiver Keine Munition-Regel überspringen (oder falls der User der Waffe nicht der Clonk ist, bspw. bei der Geschuetzstellung)
+      //Bei aktiver Keine Munition-Regel überspringen (oder falls der User der Waffe nicht der Clonk ist, z.B. bei der Geschützstellung)
       if(!NoAmmo() && weapon->~GetUser() == pClonk)
       {
         //Munition des Munitionsgürtels zeichnen
