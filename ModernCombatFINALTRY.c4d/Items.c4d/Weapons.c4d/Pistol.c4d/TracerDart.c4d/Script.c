@@ -192,7 +192,7 @@ global func FxTracerDartTimer(object pTarget, int iEffectNumber)
 
   //Farbe überprüfen
   var color = GetPlrColorDw(EffectVar(0, pTarget, iEffectNumber));
-  if(GetTeamColor(EffectVar(2, pTarget, iEffectNumber)))
+  if(GetTeamConfig(TEAM_TeamColors) && GetTeamColor(EffectVar(2, pTarget, iEffectNumber)))
     color = GetTeamColor(EffectVar(2, pTarget, iEffectNumber));
 
   //Lichteffekt
