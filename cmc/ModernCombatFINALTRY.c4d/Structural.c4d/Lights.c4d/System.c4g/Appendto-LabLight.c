@@ -1,6 +1,6 @@
 /*-- Laborlicht --*/
 
-//Kompatibilität zum neuen Lichtsystem.
+//Kompatibilität zum Lichtsystem.
 
 #strict 2
 #appendto LLGH
