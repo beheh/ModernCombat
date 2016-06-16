@@ -871,7 +871,6 @@ protected func ContextHelpMessagesOn()
   [0|Image=ROCK|Condition=NoContext]
   _inherited(...);
   ContextSettings(Par());
-  SelectMenuItem(1, Par());
 }
 
 protected func ContextHelpMessagesOff()
@@ -879,7 +878,6 @@ protected func ContextHelpMessagesOff()
   [0|Image=ROCK|Condition=NoContext]
   _inherited(...);
   ContextSettings(Par());
-  SelectMenuItem(1, Par());
 }
 
 /* Munition ablegen-Kontextmenü deaktivieren */
@@ -950,7 +948,6 @@ protected func ContextSettings(object pCaller)
 public func OpenDeathMenuModuleSelection(object pCaller, int iModule)
 {
   var menuitems = ["<c 777777>-$CtxButtons$-</c>",
-  		["$CtxRejectReanimation$", SM01, FKDT_DeathMenu_RejectReanimation, "$CtxRejectReanimationDesc$"],
   		["$CtxRewardMenuItem$", RWDS, FKDT_DeathMenu_RewardMenuItem, "$CtxRewardMenuItemDesc$"],
   		["$CtxEffectMenuItem$", EFMN, FKDT_DeathMenu_EffectMenuItem, "$CtxEffectMenuItemDesc$"],
   		["$CtxSettingsMenuItem$", CSTR, FKDT_DeathMenu_SettingsMenuItem, "$CtxSettingsMenuItemDesc$"],
