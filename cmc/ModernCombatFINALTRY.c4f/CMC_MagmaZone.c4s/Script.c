@@ -93,13 +93,12 @@ func CreateInterior()
   CreateObject(STNE, 2700, 340, -1)->Set(4);
   CreateObject(STNE, 2730, 730, -1)->Set(0);
 
-
   //Kisten
   CreateObject(WCR2, 960, 260, -1)->AutoRespawn();
   CreateObject(WCR2, 970, 242, -1);
   CreateObject(WCR2, 980, 260, -1)->AutoRespawn();
   CreateObject(WCR2, 1040, 390, -1)->AutoRespawn();
-  CreateObject(WCR2, 1044, 370, -1);
+  CreateObject(WCR2, 1050, 372, -1);
   CreateObject(WCR2, 1980, 370, -1)->AutoRespawn();
 
   //Verbandskiste
