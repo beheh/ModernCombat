@@ -49,6 +49,8 @@ func Damage(int change)
     {
       //Aussehen ändern
       SetGraphics("Destroyed");
+      //SolidMask setzen
+      SetSolidMask(0,0,72,24);
     }
     else
     {
