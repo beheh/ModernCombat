@@ -63,3 +63,20 @@ global func GetYOffset(id pID)
 {
   return GetDefCoreVal("Offset", "DefCore", pID, 1);
 }
+
+/* String-Längenlimitierung (aus dem HUD) */
+
+global func LimitString(string &szString, int iLimit)
+{
+  if(!iLimit) return false;
+  if(GetLength(szString) <= iLimit) return false;
+
+  var str = "";
+  for(var i = 0; i < iLimit; i++)
+  {
+    str = Format("%s%c", str, GetChar(szString, i));
+  }
+  szString = Format("%s...", str);
+
+  return true;
+}

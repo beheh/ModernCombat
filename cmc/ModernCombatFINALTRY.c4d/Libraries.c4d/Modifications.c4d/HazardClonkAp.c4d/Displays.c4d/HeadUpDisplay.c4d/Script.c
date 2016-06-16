@@ -2,6 +2,8 @@
 
 #strict 2
 
+//#include MATH
+
 local CharsWAmmo,	//Zähler-Munitionswert
       CharsMaxAmmo,	//Nenner-Munitionswert
       CharsClonkAmmo,	//Clonk-Munitionswert
@@ -174,7 +176,7 @@ protected func UpdateHUD(object weapon, object pClonk, bool fForceUpdate)
   }
 
   //Keine Munition: Clonk-Munitionswert unsichtbar machen
-  if(NoAmmo() && GetVisibility(CharEqS) == VIS_Owner)
+  if((NoAmmo() || weapon->~GetUser() != pClonk) && GetVisibility(CharEqS) == VIS_Owner)
   {
     for(var char in CharsClonkAmmo)
       SetVisibility(VIS_None, char);
@@ -227,8 +229,8 @@ protected func UpdateHUD(object weapon, object pClonk, bool fForceUpdate)
       }
 
       i = 0;
-      //Bei aktiver Keine Munition-Regel überspringen
-      if(!NoAmmo())
+      //Bei aktiver Keine Munition-Regel überspringen (oder falls der User der Waffe nicht der Clonk ist, bspw. bei der Geschuetzstellung)
+      if(!NoAmmo() && weapon->~GetUser() == pClonk)
       {
         //Munition des Munitionsgürtels zeichnen
         var cAmmo = Format("%03d", clonkAmmo);
@@ -368,23 +370,6 @@ public func Ammo(int iAmmoCount, int iAmmoLoad, string szName, bool fShow, int d
     CustomMessage(Format("@%s",szName), this, NO_OWNER, 0, 60, 0, 0, 0, MSG_Left);
 
   return 1;
-}
-
-/* String-Längenlimitierung */
-
-global func LimitString(string &szString, int iLimit)
-{
-  if(!iLimit) return false;
-  if(GetLength(szString) <= iLimit) return false;
-
-  var str = "";
-  for(var i = 0; i < iLimit; i++)
-  {
-    str = Format("%s%c", str, GetChar(szString, i));
-  }
-  szString = Format("%s...", str);
-
-  return true;
 }
 
 /* Bei Entfernung alle Zeichen mitlöschen */
