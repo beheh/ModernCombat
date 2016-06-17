@@ -29,19 +29,19 @@ public func ChooserFinished()
   //Effektmanager erstellen
   CreateObject(EFMN);
 
+  //Alle Spieler relaunchen
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
+    RelaunchPlayer(GetPlayerByIndex(i),GetCrew(GetPlayerByIndex(i)), 0, GetPlayerTeam(GetPlayerByIndex(i)));
+    SetFoW(true, GetPlayerByIndex(i));
+  }
+
   //Ohne Klassenwahl
   if(!FindObject(MCSL))
   {
     for(var i = 0; i < GetPlayerCount(); i++)
       for(var j = 0, pCrew; pCrew = GetCrew(GetPlayerByIndex(i), j) ; j++)
         GameCallEx("OnClassSelection",pCrew);
-  }
-
-  //Alle Spieler relaunchen
-  for(var i = 0; i < GetPlayerCount(); i++)
-  {
-    RelaunchPlayer(GetPlayerByIndex(i),GetCrew(GetPlayerByIndex(i)), 0, GetPlayerTeam(GetPlayerByIndex(i)));
-    SetFoW(true, GetPlayerByIndex(i));
   }
 }
 
@@ -127,6 +127,8 @@ public func RespawnDelayRejected()
   return false;
 }
 
+static g_PlayerViewRange;
+
 public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bool bFirst)
 {
   //Kein ordentlicher Spieler?
@@ -152,10 +154,53 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
 
   //Ausrüsten
   OnClonkEquip(pCrew);
+	//Standardverhalten falls kein eigenes Spawnsystem in Kraft tritt
+  if(!FindObject2(Find_Category(C4D_Goal|C4D_Rule), Find_Func("CustomSpawnSystem"))) {
+  	if(!Contained(pCrew) || (g_chooserFinished && FindObject(CHOS))) {
+  		if(!FindObject2(Find_Category(C4D_Goal|C4D_Rule), Find_Func("AvoidDefaultSpawnObject"))) {
+  			//Falls nicht in einem Spawnpunkt, dann in einen Spawnpunkt verschieben
+				var tim = CreateObject(TIM2, GetX(pCrew), GetY(pCrew), -1);
+				Enter(tim, pCrew);
+			}
+			else
+				//In der Mitte der Map platzieren
+	  		SetPosition(LandscapeWidth()/2, LandscapeHeight()/2, pCrew);
+  	}
+  	else
+  		//In der Mitte der Map platzieren
+	  	SetPosition(LandscapeWidth()/2, LandscapeHeight()/2, Contained(pCrew));
 
-  //Zufallsposition setzen (iX und iY für Abwärtskompatibilität)
-  var iX, iY, aSpawnpoints;
-  aSpawnpoints = RelaunchPosition(iX, iY, iTeam);
+		//Vorherige Sicht speichern
+		if(!g_PlayerViewRange)
+			g_PlayerViewRange = [];
+		var index = GetLength(g_PlayerViewRange);
+		for(var i = 0; i < index; i++)
+			if(!g_PlayerViewRange[i] || !g_PlayerViewRange[i][0]) {
+				index = i;
+				break;
+			}
+		g_PlayerViewRange[index] = [pCrew, GetObjPlrViewRange(pCrew)];
+
+		//Sicht sperren
+		if(g_chooserFinished) {
+			SetPlrViewRange(0, pCrew);
+			//Cursor auf pCrew setzen, falls Cursor auf pCrew ist. Ja.
+			//(Auf diese Weise ist SetPlrViewMode auf Cursor statt Target. Irgendwie ignoriert letzteres die PlayerViewRange und zeigt die normale Sichtweite an.)
+			if(GetCursor(GetOwner(pCrew)) == pCrew)
+				SetCursor(GetOwner(pCrew), pCrew, true, true);
+		}
+  }
+  if(!FindObject(MCSL) && !FindObject(CHOS))
+    GameCallEx("OnClassSelection", pCrew);
+}
+
+public func OnClassSelection(object pCrew) {
+	if(FindObject2(Find_Category(C4D_Goal|C4D_Rule), Find_Func("CustomSpawnSystem")))
+		return;
+
+	//Zufallsposition setzen (iX und iY für Abwärtskompatibilität)
+  var iX, iY, aSpawnpoints, iPlr = GetOwner(pCrew);
+  aSpawnpoints = RelaunchPosition(iX, iY, GetPlayerTeam(iPlr));
 
   //Szenario nutzt neue Spawnmechanik?
   if(GetType(aSpawnpoints) == C4V_Array)
@@ -166,8 +211,18 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
   else
     SetPosition(iX, iY, pCrew);
 
-  if(!FindObject(MCSL) && !FindObject(CHOS))
-    GameCallEx("OnClassSelection",pCrew);
+	if(!Contained(pCrew))
+		ResetSpawnViewRange(pCrew);
+}
+
+public func ResetSpawnViewRange(object pCrew) {
+	for(var i = 0; i < GetLength(g_PlayerViewRange); i++)
+		if(g_PlayerViewRange[i] && g_PlayerViewRange[i][0] == pCrew) {
+			SetPlrViewRange(g_PlayerViewRange[i][1], pCrew);
+			g_PlayerViewRange[i] = 0;
+			break;
+		}
+	return true;
 }
 
 public func RelaunchClonk(int iPlr, object pCursor)
@@ -196,6 +251,7 @@ public func RelaunchClonk(int iPlr, object pCursor)
   //Gegebenenfalls Informationen mitliefern
   LocalN("Respawn_KillMsg", tim) = killmsg;
   LocalN("Respawn_Position", tim) = [GetX(pCursor), Min(GetY(pCursor), LandscapeHeight()-10)];
+
   //Wartezeit von vorherigem Ableben vorhanden?
   if(GetPlayerRespawnTime(iPlr))
   {
@@ -206,8 +262,10 @@ public func RelaunchClonk(int iPlr, object pCursor)
     return;
   }
 
-  //Clonknamen anzeigen
-  PlayerMessage(iPlr, Format("@%s", GetName(pClonk)), tim);
+  //Clonknamen anzeigen (Brauchen wir das? Habs mal deaktiviert, macht sonst nur Probleme)
+  //PlayerMessage(iPlr, Format("@%s", GetName(pClonk)), tim);
+	if(tim)
+  	ScheduleCall(tim, "SpawnOk", 1);
 
   return pClonk;
 }
@@ -357,5 +415,4 @@ global func SetWaitingMusic()
 
 /* Zusatzfunktionen */
 
-public func OnClassSelection()	{}
 public func OnWeaponChoice()	{}

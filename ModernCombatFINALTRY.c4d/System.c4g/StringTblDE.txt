@@ -159,7 +159,8 @@ VotekickNotEnough=Es haben nicht genügend Teilnehmer für einen Rauswurf gestimmt
 Cancel=Abbrechen
 
 #Appendto-Tim.c
-RemainingRespawnTime=Respawn in <c ffff33>%d</c> Sekunden
+TimeTillRespawn=Noch <c ff0000>%d Sekunden</c> bis zum Respawn.
+PressKeyToSpawn=Drücke zum Spawnen
 
 # Easteregg
 

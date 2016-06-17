@@ -1638,6 +1638,7 @@ protected func ConfigurationFinished2()
   log = Format("%s, %s x%d", log, GetName(0, DARK), iDarkCount);
   //Eventnachricht: Dunkelheit
   EventInfo4K(0,log,CHOS, 0, 0, 0, "Info_Event.ogg");
+
   //Schneller GameCall für Einstellungen
   GameCallEx("ChooserFinished");
 
@@ -1647,7 +1648,8 @@ protected func ConfigurationFinished2()
     for(j = 0 ; pCrew = GetCrew(GetPlayerByIndex(i), j) ; j++)
     {
       tmp = Contained(pCrew);
-      RemoveObject(tmp, 1);
+      if(GetID(tmp) == TIM1)
+      	RemoveObject(tmp, 1);
       pCrew->~Recruitment(GetOwner(pCrew));
     }
     for(var rule in FindObjects(Find_Category(Chooser_Cat), Find_Exclude(this)))
