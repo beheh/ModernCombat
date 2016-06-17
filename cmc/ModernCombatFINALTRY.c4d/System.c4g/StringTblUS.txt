@@ -160,7 +160,8 @@ VotekickNotEnough=There were not enough participants who voted for the expulsion
 Cancel=Cancel
 
 #Appendto-Tim.c
-RemainingRespawnTime=Respawn in <c ffff33>%d</c> seconds.
+TimeTillRespawn=<c ff0000>%d</c> seconds till respawn.
+PressKeyToSpawn=Press key to spawn
 
 # Easteregg
 

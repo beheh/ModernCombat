@@ -78,6 +78,8 @@ public func FxWaitingObjectStop(object pTarget, int iNr, bool fTemp)
   if(!info)
     info = [];
 
+	Respawn_KillMsg = 0;
+	Respawn_Position = 0;
   GameCall("RelaunchPlayer", GetOwner(clonk), clonk, info[0]);
   this->~SpawnOk();
   return true;
@@ -89,6 +91,52 @@ public func Suicide(object pTarget)
     RemoveEffect("WaitingObject", Contained(pTarget));
 }
 
+public func SpawnOk(object pTarget) {
+	if(GetEffect("WaitingObject", this))
+		return;
+	if(!pTarget)
+		pTarget = Contents();
+
+	if(!pTarget)
+    return(RemoveObject());
+  if(pTarget->GetOwner() == NO_OWNER)
+    return(RemoveObject());
+  spawn = true;
+  // Last man standing: no spawn hiding
+  if(FindObject(GLMS))
+		Spawn();
+  else if(!GetEffect("Spawntimer", pTarget) && !FindObject(MCSL))
+  	AddEffect("Spawntimer", pTarget, 100, 35, this);
+}
+
+public func FxSpawntimerStart(object pTarget, int iNr, int iTemp) {
+	if(iTemp)
+		return;
+	
+	EffectVar(0, pTarget, iNr) = 15; //15 Sekunden
+	PlayerMessage(GetOwner(Contents()), "@$PressKeyToSpawn$");
+	FxSpawntimerTimer(pTarget, iNr);
+}
+
+public func FxSpawntimerTimer(object pTarget, int iNr) {
+	if(!Contained(pTarget) || GetEffect("WaitingObject", Contained(pTarget)))
+		return -1;
+	if(EffectVar(0, pTarget, iNr) <= 0) {
+		Spawn();
+		return -1;
+	}
+
+	CustomMessage(Format("@$TimeTillRespawn$", EffectVar(0, pTarget, iNr)), FindObject2(Find_ID(1HUD), Find_Owner(GetOwner(pTarget))), GetOwner(pTarget), 0, 80, 0, 0, 0, 1);
+	EffectVar(0, pTarget, iNr)--;
+}
+
+public func FxSpawntimerStop(object pTarget, int iNr, int iTemp) {
+	if(iTemp)
+		return;
+	CustomMessage("", FindObject2(Find_ID(1HUD), Find_Owner(GetOwner(pTarget))), GetOwner(pTarget), 0, 80, 0, 0, 0, 1);
+	PlayerMessage(GetOwner(Contents()), "");
+}
+
 public func Spawn()
 {
   //Warteobjekt oder kein Inhalt: Abbruch
@@ -96,6 +144,12 @@ public func Spawn()
     return;
   if(!Contents())
     return(RemoveObject());
+
+	//Sichtweite zuruecksetzen
+	GameCall("ResetSpawnViewRange", Contents());
+
+	//Ggf. Autospawneffekt entfernen
+	RemoveEffect("Spawntimer", Contents());
 
   //Spawn-Blocker im Umfeld zerstören
   for(var obj in FindObjects(Find_Distance(25), Find_Exclude(this), Find_Func("IsSpawnBlocker")))
