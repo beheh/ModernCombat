@@ -154,51 +154,56 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
 
   //Ausrüsten
   OnClonkEquip(pCrew);
-	//Standardverhalten falls kein eigenes Spawnsystem in Kraft tritt
-  if(!FindObject2(Find_Category(C4D_Goal|C4D_Rule), Find_Func("CustomSpawnSystem"))) {
-  	if(!Contained(pCrew) || (g_chooserFinished && FindObject(CHOS))) {
-  		if(!FindObject2(Find_Category(C4D_Goal|C4D_Rule), Find_Func("AvoidDefaultSpawnObject"))) {
-  			//Falls nicht in einem Spawnpunkt, dann in einen Spawnpunkt verschieben
-				var tim = CreateObject(TIM2, GetX(pCrew), GetY(pCrew), -1);
-				Enter(tim, pCrew);
-			}
-			else
-				//In der Mitte der Map platzieren
-	  		SetPosition(LandscapeWidth()/2, LandscapeHeight()/2, pCrew);
-  	}
-  	else
-  		//In der Mitte der Map platzieren
-	  	SetPosition(LandscapeWidth()/2, LandscapeHeight()/2, Contained(pCrew));
+  //Standardverhalten falls kein eigenes Spawnsystem in Kraft tritt
+  if(!FindObject2(Find_Category(C4D_Goal|C4D_Rule), Find_Func("CustomSpawnSystem")))
+  {
+    if(!Contained(pCrew) || (g_chooserFinished && FindObject(CHOS)))
+    {
+      if(!FindObject2(Find_Category(C4D_Goal|C4D_Rule), Find_Func("AvoidDefaultSpawnObject")))
+      {
+        //Nicht in einem Spawnpunkt: In einen verschieben
+        var tim = CreateObject(TIM2, GetX(pCrew), GetY(pCrew), -1);
+        Enter(tim, pCrew);
+      }
+      else
+        //In der Mitte der Map platzieren
+        SetPosition(LandscapeWidth()/2, LandscapeHeight()/2, pCrew);
+    }
+    else
+      //In der Mitte der Map platzieren
+      SetPosition(LandscapeWidth()/2, LandscapeHeight()/2, Contained(pCrew));
 
-		//Vorherige Sicht speichern
-		if(!g_PlayerViewRange)
-			g_PlayerViewRange = [];
-		var index = GetLength(g_PlayerViewRange);
-		for(var i = 0; i < index; i++)
-			if(!g_PlayerViewRange[i] || !g_PlayerViewRange[i][0]) {
-				index = i;
-				break;
-			}
-		g_PlayerViewRange[index] = [pCrew, GetObjPlrViewRange(pCrew)];
+    //Vorherige Sicht speichern
+    if(!g_PlayerViewRange)
+      g_PlayerViewRange = [];
+    var index = GetLength(g_PlayerViewRange);
+    for(var i = 0; i < index; i++)
+      if(!g_PlayerViewRange[i] || !g_PlayerViewRange[i][0]) {
+        index = i;
+        break;
+      }
+    g_PlayerViewRange[index] = [pCrew, GetObjPlrViewRange(pCrew)];
 
-		//Sicht sperren
-		if(g_chooserFinished) {
-			SetPlrViewRange(0, pCrew);
-			//Cursor auf pCrew setzen, falls Cursor auf pCrew ist. Ja.
-			//(Auf diese Weise ist SetPlrViewMode auf Cursor statt Target. Irgendwie ignoriert letzteres die PlayerViewRange und zeigt die normale Sichtweite an.)
-			if(GetCursor(GetOwner(pCrew)) == pCrew)
-				SetCursor(GetOwner(pCrew), pCrew, true, true);
-		}
+    //Sicht sperren
+    if(g_chooserFinished)
+    {
+      SetPlrViewRange(0, pCrew);
+      //Cursor auf pCrew setzen, falls Cursor auf pCrew ist. Ja.
+      //(Auf diese Weise ist SetPlrViewMode auf Cursor statt Target. Irgendwie ignoriert letzteres die PlayerViewRange und zeigt die normale Sichtweite an.)
+      if(GetCursor(GetOwner(pCrew)) == pCrew)
+        SetCursor(GetOwner(pCrew), pCrew, true, true);
+    }
   }
   if(!FindObject(MCSL) && !FindObject(CHOS))
     GameCallEx("OnClassSelection", pCrew);
 }
 
-public func OnClassSelection(object pCrew) {
-	if(FindObject2(Find_Category(C4D_Goal|C4D_Rule), Find_Func("CustomSpawnSystem")))
-		return;
+public func OnClassSelection(object pCrew)
+{
+  if(FindObject2(Find_Category(C4D_Goal|C4D_Rule), Find_Func("CustomSpawnSystem")))
+    return;
 
-	//Zufallsposition setzen (iX und iY für Abwärtskompatibilität)
+  //Zufallsposition setzen (iX und iY für Abwärtskompatibilität)
   var iX, iY, aSpawnpoints, iPlr = GetOwner(pCrew);
   aSpawnpoints = RelaunchPosition(iX, iY, GetPlayerTeam(iPlr));
 
@@ -211,18 +216,20 @@ public func OnClassSelection(object pCrew) {
   else
     SetPosition(iX, iY, pCrew);
 
-	if(!Contained(pCrew))
-		ResetSpawnViewRange(pCrew);
+  if(!Contained(pCrew))
+    ResetSpawnViewRange(pCrew);
 }
 
-public func ResetSpawnViewRange(object pCrew) {
-	for(var i = 0; i < GetLength(g_PlayerViewRange); i++)
-		if(g_PlayerViewRange[i] && g_PlayerViewRange[i][0] == pCrew) {
-			SetPlrViewRange(g_PlayerViewRange[i][1], pCrew);
-			g_PlayerViewRange[i] = 0;
-			break;
-		}
-	return true;
+public func ResetSpawnViewRange(object pCrew)
+{
+  for(var i = 0; i < GetLength(g_PlayerViewRange); i++)
+    if(g_PlayerViewRange[i] && g_PlayerViewRange[i][0] == pCrew)
+    {
+      SetPlrViewRange(g_PlayerViewRange[i][1], pCrew);
+      g_PlayerViewRange[i] = 0;
+      break;
+    }
+  return true;
 }
 
 public func RelaunchClonk(int iPlr, object pCursor)
@@ -262,10 +269,8 @@ public func RelaunchClonk(int iPlr, object pCursor)
     return;
   }
 
-  //Clonknamen anzeigen (Brauchen wir das? Habs mal deaktiviert, macht sonst nur Probleme)
-  //PlayerMessage(iPlr, Format("@%s", GetName(pClonk)), tim);
-	if(tim)
-  	ScheduleCall(tim, "SpawnOk", 1);
+  if(tim)
+    ScheduleCall(tim, "SpawnOk", 1);
 
   return pClonk;
 }

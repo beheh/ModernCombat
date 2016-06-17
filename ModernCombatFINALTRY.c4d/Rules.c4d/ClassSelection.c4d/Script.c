@@ -7,7 +7,7 @@ local lastclass;
 local selection;
 local submenu;
 
-public func AvoidDefaultSpawnObject() { return true; }
+public func AvoidDefaultSpawnObject()	{return true;}
 
 
 /* Initialisierung */

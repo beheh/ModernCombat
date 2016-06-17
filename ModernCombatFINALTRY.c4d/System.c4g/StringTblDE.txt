@@ -160,7 +160,7 @@ Cancel=Abbrechen
 
 #Appendto-Tim.c
 TimeTillRespawn=Noch <c ff0000>%d Sekunden</c> bis zum Respawn.
-PressKeyToSpawn=Drücke zum Spawnen
+PressKeyToSpawn=Drücke eine Taste zum Spawnen
 
 # Easteregg
 

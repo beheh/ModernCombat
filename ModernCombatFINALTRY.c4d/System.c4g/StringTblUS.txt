@@ -161,7 +161,7 @@ Cancel=Cancel
 
 #Appendto-Tim.c
 TimeTillRespawn=<c ff0000>%d</c> seconds till respawn.
-PressKeyToSpawn=Press key to spawn
+PressKeyToSpawn=Press a key to spawn
 
 # Easteregg
 
