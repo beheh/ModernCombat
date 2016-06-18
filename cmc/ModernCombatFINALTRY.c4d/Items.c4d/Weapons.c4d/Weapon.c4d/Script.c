@@ -749,8 +749,6 @@ public func HandR()
 
 /*----- Werfen -----*/
 
-static g_SHOW_MELEE_HITBOX;
-
 public func ControlThrow(caller)
 {
   //Nutzer ist Schütze

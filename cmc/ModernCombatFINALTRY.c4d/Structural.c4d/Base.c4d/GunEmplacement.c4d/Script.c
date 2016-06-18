@@ -19,10 +19,10 @@ public func AimAngle()				{return aim_angle + GetR();}	//Winkel auf Ziel
 public func ReadyToFire()			{return 1;}			//Ständige Feuerbereitschaft
 public func DisableCH()				{return true;}			//Eventuelles Fadenkreuz des Clonks ausblenden
 public func MaxDamage()				{return 100;}
+public func UpdateCharge()    {return true;}
 public func IsMachine()				{return true;}
 public func IsBulletTarget()			{return false;}
 public func IsThreat()				{return !IsDestroyed();}
-public func UpdateCharge()			{return 1;}
 public func IsStill()				{return true;}
 public func IsAiming()				{return true;}
 public func VaryingDir()			{if(AimAngle() > 0) return 3; else return 2;}
@@ -46,6 +46,10 @@ public func MaxRotRight()
    return 75+iRotation;
 }
 
+//Pseudo-Waffengestell. Fuer das automatische Nachladen benoetigt.
+public func IsWeaponRack(bool fNoGunEmplacement) {
+	return !fNoGunEmplacement;
+}
 
 /* Initialisierung */
 
@@ -280,6 +284,14 @@ public func GetWeaponR()
   return EffectVar(1, this, number);
 }
 
+public func OnEmpty() {
+	//Munition nachladen
+	if(GetAttWeapon())
+		if((GetAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()) < GetAttWeapon()->GetFMData(FM_AmmoUsage)) && !GetAttWeapon()->IsReloading())
+    	Reload();
+	return true;
+}
+
 public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   if(!GetUser()) 
@@ -334,11 +346,11 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
   }
 
   //Nachladen prüfen (alle 5 Frames)
-  if(!(iEffectTime%5))
+  /*if(!(iEffectTime%5))
   {
     if((GetAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()) < GetAttWeapon()->GetFMData(FM_AmmoUsage)) && !GetAttWeapon()->IsReloading())
       Reload();
-  }
+  }*/
 
   //Überdrehung nach links und rechts verhindern
   if(AimAngle() <= MaxRotLeft() && iPat_Dir < 0)
@@ -536,7 +548,7 @@ protected func ControlThrow(object byObj)
 
   if(GetAttWeapon()->IsShooting())
     GetAttWeapon()->StopAutoFire();
-  else
+  else if(!GetAttWeapon()->IsReloading())
     GetAttWeapon()->ControlThrow(this);
   return true;
 }
