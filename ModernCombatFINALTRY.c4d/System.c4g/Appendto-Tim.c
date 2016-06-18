@@ -93,13 +93,13 @@ public func Suicide(object pTarget)
 
 local spawn, locked;
 
-public func LockSpawning() { locked = true; }
-public func UnlockSpawninig() { locked = false; }
+public func LockSpawning()	{locked = true;}
+public func UnlockSpawninig()	{locked = false;}
 
 public func SpawnOk(object pTarget)
 {
-	if(locked)
-		return;
+  if(locked)
+    return;
   if(GetEffect("WaitingObject", this))
     return;
   if(!pTarget)

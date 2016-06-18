@@ -256,9 +256,9 @@ local pLastObjectHit;
 
 protected func QueryCatchBlow(object pBy)
 {
-	//Nicht durch attachete Objekte treffbar (s. RSLH)
-	if(GetProcedure(pBy) == "ATTACH" && GetActionTarget(0, pBy) == this)
-		return true;
+  //Objekte mit Attach-Aktion ausgenommen (z.B. Einsatzschild)
+  if(GetProcedure(pBy) == "ATTACH" && GetActionTarget(0, pBy) == this)
+    return true;
   //Materialjump verhindern
   if(GetEffect("MatJumpProtection", pBy) && GetEffect("MatJumpProtection", pBy, 0, 4) == this && !GameCall("AllowMaterialJump"))
     return true;
