@@ -91,6 +91,8 @@ public func Suicide(object pTarget)
     RemoveEffect("WaitingObject", Contained(pTarget));
 }
 
+local spawn;
+
 public func SpawnOk(object pTarget)
 {
   if(GetEffect("WaitingObject", this))
