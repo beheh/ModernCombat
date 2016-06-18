@@ -146,7 +146,7 @@ public func ControlDig(object pBy)
   }
 }
 
-/* Allgemein */
+/* Nachladen */
 
 public func OnEmpty()
 {
@@ -159,6 +159,8 @@ public func OnReload()
   if (!GetEffect("IntNoSound", this))
     Sound("RLSA_Reload.ogg", false, this);
 }
+
+/* Allgemein */
 
 public func FxBurstFireStop()
 {

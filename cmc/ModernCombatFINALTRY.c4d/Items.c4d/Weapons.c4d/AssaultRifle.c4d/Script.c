@@ -122,8 +122,11 @@ public func Fire1()
   Echo("ASTR_Echo.ogg");
 
   //Klickgeräusch bei wenig Munition
-  if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
-    Sound("MNGN_Click.ogg", 0, ammo, 0, GetOwner(user)+1);
+  if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 0, 1))
+    Sound("ASTR_Empty.ogg", 0, this, 0, GetOwner(user)+1);
+  else
+    if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
+      Sound("MNGN_Click.ogg", 0, ammo, 0, GetOwner(user)+1);
 }
 
 /* Granaten */
@@ -256,15 +259,7 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   casing = 1;
 }
 
-/* Handeffekt */
-
-public func ReloadAnimation()		{return true;}
-public func RechargeAnimation()		{return true;}
-public func MaxReloadRotation()		{return 10;}
-public func MaxRechargeRotation()	{return 1;}
-public func ReloadAnimationSpeed()	{return 1 + !!IsReloading();}
-
-/* Allgemein */
+/* Nachladen */
 
 func OnReload(i)
 {
@@ -287,6 +282,16 @@ func OnReload(i)
     }
   }
 }
+
+/* Handeffekt */
+
+public func ReloadAnimation()		{return true;}
+public func RechargeAnimation()		{return true;}
+public func MaxReloadRotation()		{return 10;}
+public func MaxRechargeRotation()	{return 1;}
+public func ReloadAnimationSpeed()	{return 1 + !!IsReloading();}
+
+/* Allgemein */
 
 func OnSelect()
 {

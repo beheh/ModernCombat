@@ -205,7 +205,7 @@ public func ControlThrow(caller)
   return 1;
 }
 
-/* Allgemein */
+/* Nachladen */
 
 public func OnEmpty()
 {

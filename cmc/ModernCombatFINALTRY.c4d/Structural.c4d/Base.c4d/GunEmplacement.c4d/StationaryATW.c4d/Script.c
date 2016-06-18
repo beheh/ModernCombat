@@ -130,16 +130,18 @@ public func ControlDig(object pBy)
   }
 }
 
+/* Nachladen */
+
+public func OnReload()
+{
+  if(!GetEffect("IntNoSound", this))
+    Sound("SATW_Reload.ogg", false, this);
+}
+
 /* Allgemein */
 
 public func OnEmpty()
 {
   if(Contained() && Contained()->~IsWeaponRack())
     Contained()->~OnEmpty();
-}
-
-public func OnReload()
-{
-  if(!GetEffect("IntNoSound", this))
-    Sound("SATW_Reload.ogg", false, this);
 }

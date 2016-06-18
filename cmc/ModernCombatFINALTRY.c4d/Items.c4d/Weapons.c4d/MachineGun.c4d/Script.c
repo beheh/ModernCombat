@@ -136,8 +136,21 @@ public func Fire1()
   }
 
   //Klickgeräusch bei wenig Munition
-  if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
-    Sound("MNGN_Click.ogg", 0, ammo, 0, GetOwner(user)+1);
+  if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 0, 1))
+    Sound("MNGN_Empty.ogg", 0, this, 0, GetOwner(user)+1);
+  else
+    if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
+      Sound("MNGN_Click.ogg", 0, ammo, 0, GetOwner(user)+1);
+}
+
+/* Nachladen */
+
+func OnReload()
+{
+  if(iAttachment == AT_ExtendedMag)
+    Sound("MNGN_Reload2.ogg");
+  else
+    Sound("MNGN_Reload.ogg");
 }
 
 /* Handeffekt */
@@ -164,14 +177,6 @@ protected func OnFireStop(int iSlot)
     DoSpread(+8);
 
   Sound("MNGN_Click.ogg");
-}
-
-func OnReload()
-{
-  if(iAttachment == AT_ExtendedMag)
-    Sound("MNGN_Reload2.ogg");
-  else
-    Sound("MNGN_Reload.ogg");
 }
 
 func OnSelect()

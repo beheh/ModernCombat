@@ -50,6 +50,8 @@ public func Fire1()
   Echo("ACCN_Echo.ogg");
 }
 
+/* Allgemein */
+
 func OnAutoStop(int iFM)
 {
   Sound("MISA_FireEnd.ogg");

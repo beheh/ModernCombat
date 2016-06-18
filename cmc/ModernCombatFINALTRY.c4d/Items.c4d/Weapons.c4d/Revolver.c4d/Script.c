@@ -105,8 +105,11 @@ public func Fire1()
   Echo("PSTL_Echo.ogg");
 
   //Klickgeräusch bei wenig Munition
-  if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
-    Sound("PSTL_Click.ogg", 0, ammo, 0, GetOwner(user)+1);
+  if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 0, 1))
+    Sound("ASTR_Empty.ogg", 0, this, 0, GetOwner(user)+1);
+  else
+    if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
+      Sound("PSTL_Click.ogg", 0, ammo, 0, GetOwner(user)+1);
 
   //Patronenhülse hinzufügen
   casings++;
