@@ -777,9 +777,10 @@ func FlagCaptured(object pPoint, int iTeam)
 
 /* Bei Relaunch */
  
-public func OnClassSelection(object pClonk, int iTeam)
+public func OnClassSelection(object pClonk, int iClass)
 {
   AddEffect("SpawnParachute", pClonk, 1, 10);
+  return _inherited(pClonk, iClass, ...);
 }
 
 /* Fallschirmeffekt */

@@ -313,13 +313,14 @@ func CreateOptionalFeatures()
 
 /* Bei Relaunch */
 
-public func OnClassSelection(object pClonk, int iTeam)
+public func OnClassSelection(object pClonk, int iClass)
 {
   //AS-Spielziel
   if(FindObject(GASS))
     if(GetPlayerTeam(GetOwner(pClonk)) == 1)
       if(GetAssaultTarget(0,1) || GetAssaultTarget(1,1))
         AddEffect("SpawnParachute", pClonk, 1, 10);
+  return _inherited(pClonk, iClass, ...);
 }
 
 /* Fallschirmeffekt */
