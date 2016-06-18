@@ -654,7 +654,7 @@ func FlagCaptured(object pPoint, int iTeam)
 
 /* Bei Relaunch */
 
-public func OnClassSelection(object pClonk, int iTeam)
+public func OnClassSelection(object pClonk, int iClass)
 {
   //AS-Spielziel
   if(FindObject(GASS))
@@ -670,6 +670,7 @@ public func OnClassSelection(object pClonk, int iTeam)
         AddEffect("SpawnParachute", pClonk, 1, 10);
     }
   }
+  return _inherited(pClonk, iClass, ...);
 }
 
 /* Fallschirmeffekt */
