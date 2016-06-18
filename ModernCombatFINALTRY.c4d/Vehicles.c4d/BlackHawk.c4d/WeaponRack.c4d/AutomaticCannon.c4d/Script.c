@@ -82,9 +82,16 @@ public func Fire1()
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),7);
   Sound("ACCN_Fire.ogg", 0, ammo);
   Echo("ACCN_Echo.ogg");
+
+  //Klickgeräusch bei wenig Munition
+  if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 0, 1))
+    Sound("MNGN_Empty.ogg", 0, this, 0, GetOwner(user)+1);
+  else
+    if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
+      Sound("MNGN_Click.ogg", 0, ammo, 0, GetOwner(user)+1);
 }
 
-/* Allgemein */
+/* Nachladen */
 
 public func OnEmpty()
 {
@@ -97,6 +104,8 @@ public func OnReload()
   if(!GetEffect("IntNoSound", this))
     Sound("ACCN_Reload.ogg", false, this);
 }
+
+/* Allgemein */
 
 public func StopAutoFire()
 {

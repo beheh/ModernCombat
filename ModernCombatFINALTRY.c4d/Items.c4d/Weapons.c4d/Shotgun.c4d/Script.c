@@ -109,8 +109,14 @@ public func Fire1()
   Echo("PPGN_Echo*.ogg");
 
   //Klickgeräusch bei wenig Munition
-  if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
+  if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 0, 4))
+  {
+    Sound("PPGN_Empty.ogg", 0, this, 0, GetOwner(user)+1);
     Sound("PPGN_Click.ogg", 0, ammo, 0, GetOwner(user)+1);
+  }
+  else
+    if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/2))
+      Sound("PPGN_Click.ogg", 0, ammo, 0, GetOwner(user)+1);
 
   //Patronenhülse vorhanden
   casings = 1;

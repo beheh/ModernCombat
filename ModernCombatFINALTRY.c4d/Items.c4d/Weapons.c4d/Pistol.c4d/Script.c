@@ -114,8 +114,11 @@ public func Fire1()
   }
 
   //Klickgeräusch bei wenig Munition
-  if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
-    Sound("PSTL_Click.ogg", 0, ammo, 0, GetOwner(user)+1);
+  if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 0, 1))
+    Sound("ASTR_Empty.ogg", 0, this, 0, GetOwner(user)+1);
+  else
+    if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
+      Sound("PSTL_Click.ogg", 0, ammo, 0, GetOwner(user)+1);
 }
 
 /* Peilsender */
@@ -175,18 +178,7 @@ public func Fire2()
   casing = 1;
 }
 
-/* Handeffekt */
-
-public func ReloadAnimation()		{return true;}
-public func MaxReloadRotation()		{return -20;}
-public func ReloadAnimationSpeed()	{return 2;}
-
-/* Allgemein */
-
-func OnSelect()
-{
-  Sound("PSTL_Charge.ogg");
-}
+/* Nachladen */
 
 public func OnReload(i)
 {
@@ -208,4 +200,17 @@ public func OnReload(i)
       casing = 0;
     }
   }
+}
+
+/* Handeffekt */
+
+public func ReloadAnimation()		{return true;}
+public func MaxReloadRotation()		{return -20;}
+public func ReloadAnimationSpeed()	{return 2;}
+
+/* Allgemein */
+
+func OnSelect()
+{
+  Sound("PSTL_Charge.ogg");
 }

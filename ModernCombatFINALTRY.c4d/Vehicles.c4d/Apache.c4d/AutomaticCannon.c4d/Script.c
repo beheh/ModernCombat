@@ -108,9 +108,22 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   }
   Sound("LCAC_Fire.ogg", 0, grenade);
   Echo("LCAC_Echo.ogg");
+
+  //Klickgeräusch bei wenig Munition
+  if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 0, 1))
+    Sound("LCAC_Empty.ogg", 0, this, 0, GetOwner(user)+1);
+  else
+    if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
+      Sound("MNGN_Click.ogg", 0, grenade, 0, GetOwner(user)+1);
 }
 
-/* Allgemein */
+/* Nachladen */
+
+public func OnEmpty()
+{
+  if(Contained() && Contained()->~IsWeaponRack())
+    Contained()->~OnEmpty();
+}
 
 func OnReload()
 {
@@ -118,11 +131,7 @@ func OnReload()
     Sound("LCAC_Reload.ogg", false, this);
 }
 
-public func OnEmpty()
-{
-  if(Contained() && Contained()->~IsWeaponRack())
-    Contained()->~OnEmpty();
-}
+/* Allgemein */
 
 public func StopAutoFire()
 {
