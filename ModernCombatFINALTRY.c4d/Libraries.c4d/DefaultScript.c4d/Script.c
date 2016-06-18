@@ -157,6 +157,51 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
   //Standardverhalten falls kein eigenes Spawnsystem in Kraft tritt
   if(!FindObject2(Find_Category(C4D_Goal|C4D_Rule), Find_Func("CustomSpawnSystem")))
   {
+		//Startpositon fuer Sicht. (In die Mitte der Spawnpunkte verschieben, damit die Sicht nicht zu weit schwenkt.)
+		var iX, iY, aSpawnpoints, iPlr = GetOwner(pCrew);
+		aSpawnpoints = RelaunchPosition(iX, iY, GetPlayerTeam(iPlr));
+
+		//Geht aber nur mit neuer Spawnmechanik
+		if(GetType(aSpawnpoints) == C4V_Array && GetLength(aSpawnpoints)) {
+			/* Da die Spawnpunkte nicht zwingend ein nicht ueberschlagenes Polygon darstellen muessen, wird aus
+			 * allen Spawnpunkten das groesste Rechteck gebildet, das alle Spawnpunkte enthaelt.
+			 * (Die Implementation eines Algorithmus der den Schwerpunkt von ueberschlagenen Polygone ermittelt
+			 *  waere hierfuer ein bisschen Overkill.) 
+			 */
+
+			//Bei nur einem Spawnpunkt, Sicht zu diesem wechseln
+			if(GetLength(aSpawnpoints) == 1) {
+				iX = aSpawnpoints[0][0];
+				iY = aSpawnpoints[0][1];
+			}
+			//Bei nur zwei Punkten den Mittelpunkt der Strecke benutzen
+			else if(GetLength(aSpawnpoints) == 2) {
+				iX = aSpawnpoints[0][0] + (aSpawnpoints[1][0]-aSpawnpoints[0][0])/2;
+				iY = aSpawnpoints[0][1] + (aSpawnpoints[1][1]-aSpawnpoints[0][1])/2;
+			}
+			else {
+				var spawnrect = [0x7FFFFFFF, 0x7FFFFFFF, 0x80000000, 0x80000000];
+				for(var i = 0; i < GetLength(aSpawnpoints); i++) {
+					var pt = aSpawnpoints[i];
+					if(spawnrect[0] > pt[0])
+				  	spawnrect[0] = pt[0];
+				  if(spawnrect[1] > pt[1])
+				  	spawnrect[1] = pt[1];
+				  if(spawnrect[2] < pt[0])
+				  	spawnrect[2] = pt[0];
+				  if(spawnrect[3] < pt[1])
+				  	spawnrect[3] = pt[1];
+				}
+				iX = spawnrect[0] + (spawnrect[2]-spawnrect[0])/2;
+				iY = spawnrect[1] + (spawnrect[3]-spawnrect[1])/2;
+			}
+		}
+		else {
+			//Ansonsten Mittelpunkt der Map verwenden
+			iX = LandscapeWidth()/2;
+			iY = LandscapeHeight()/2; 
+		}
+
     if(!Contained(pCrew) || (g_chooserFinished && FindObject(CHOS)))
     {
       if(!FindObject2(Find_Category(C4D_Goal|C4D_Rule), Find_Func("AvoidDefaultSpawnObject")))
@@ -166,12 +211,15 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
         Enter(tim, pCrew);
       }
       else
-        //In der Mitte der Map platzieren
-        SetPosition(LandscapeWidth()/2, LandscapeHeight()/2, pCrew);
+        //An Mittelpunkt platzieren
+        SetPosition(iX, iY, Contained(pCrew) || pCrew);
     }
-    else
-      //In der Mitte der Map platzieren
-      SetPosition(LandscapeWidth()/2, LandscapeHeight()/2, Contained(pCrew));
+    else {
+      //An Mittelpunkt platzieren
+      SetPosition(iX, iY, Contained(pCrew));
+      if(FindObject2(Find_Category(C4D_Goal|C4D_Rule), Find_Func("AvoidDefaultSpawnObject")))
+    		Contained(pCrew)->LockSpawning();
+    }
 
     //Vorherige Sicht speichern
     if(!g_PlayerViewRange)
