@@ -91,9 +91,9 @@ func CreateInterior()
   CreateObject(LADR, 1575, 1080, -1)->Set(8);
   CreateObject(LADR, 1580, 920, -1)->Set(8);
   CreateObject(LADR, 1620, 702, -1)->Set(9);
-  CreateObject(LADR, 1700, 1075, -1)->Set(27);
+  CreateObject(LADR, 1700, 1075, -1)->Set(28);
   CreateObject(LADR, 1760, 1510, -1)->Set(19);
-  CreateObject(LADR, 1830, 1075, -1)->Set(27);
+  CreateObject(LADR, 1830, 1075, -1)->Set(28);
   CreateObject(LADR, 1905, 1860, -1)->Set(14);
   CreateObject(LADR, 1940, 702, -1)->Set(9);
   CreateObject(LADR, 1950, 904, -1)->Set(6);
@@ -1658,9 +1658,13 @@ public func ChooserFinished()
   //HTF-Spielziel
   if(FindObject(GHTF))
   {
+    //Script starten
+    ScriptGo(1);
+    aFlagPosition = 2;
+
     //Flaggenposten
-    var flag = CreateObject(OFPL, 1765,820, -1);
-    flag->~Set("$Flag5$");
+    aFlag[0] = CreateObject(OFPL, 1765,820, -1);
+    aFlag[0]->~Set("$Flag5$");
 
     //Teamgrenzen
     CreateObject(BRDR, 1310, 0, -1)->Set(0,1,0,1,1);
@@ -1910,8 +1914,6 @@ public func ChooserFinished()
     //Geschützstellungen
     CreateObject(GNET, 610, 1010, -1)->Set(SATW,90);
     CreateObject(GNET, 2580, 1100, -1)->Set(SATW,-90);
-    CreateObject(GNET, 2580, 1100, -1)->Set(SATW,-90);
-    CreateObject(GNET, 2590, 910, -1)->Set(0,-90);
 
     //Versorgungskisten (Dragnin)
     CreateObject(AMCT, 1110, 280, -1)->Set(DGNN);
@@ -2266,4 +2268,62 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
       return [[2560, 130], [2590, 260], [2760, 90], [2900, 260], [3025, 90]];
     return 1;
   }
+}
+
+/* Flaggensteuerung */
+
+protected func Script250()
+{
+  EventInfo4K(0,Format("$MsgFlagChanging$"),SM21, 0, 0, 0, "Info_Objective.ogg");
+  aFlag[0]->AddSmokeEffect4K(50,0,-10);
+}
+
+protected func Script300()
+{
+  RemoveEffect("IntWreckSmoke4K",aFlag[0]);
+  if(aFlagPosition == 1)
+  {
+    if(!Random(2))
+    {
+      aFlag[0]->MoveFlagpost(1765,820,0,"$Flag4$");
+      aFlagPosition = 2;
+    }
+    else
+    {
+      aFlag[0]->MoveFlagpost(1765,1064,0,"$Flag9$");
+      aFlagPosition = 3;
+    }
+  }
+  else
+  if(aFlagPosition == 2)
+  {
+    if(!Random(2))
+    {
+      aFlag[0]->MoveFlagpost(1765,464,0,"$Flag8$");
+      aFlagPosition = 1;
+    }
+    else
+    {
+      aFlag[0]->MoveFlagpost(1765,1064,0,"$Flag9$");
+      aFlagPosition = 3;
+    }
+  }
+  else
+  if(aFlagPosition == 3)
+  {
+    if(!Random(2))
+    {
+      aFlag[0]->MoveFlagpost(1765,464,0,"$Flag8$");
+      aFlagPosition = 1;
+    }
+    else
+    {
+      aFlag[0]->MoveFlagpost(1765,820,0,"$Flag4$");
+      aFlagPosition = 2;
+    }
+  }
+
+  EventInfo4K(0,Format("$MsgFlagChanged$", GetName(aFlag[0])),SM21, 0, 0, 0, "Info_Objective.ogg");
+
+  goto(0);
 }

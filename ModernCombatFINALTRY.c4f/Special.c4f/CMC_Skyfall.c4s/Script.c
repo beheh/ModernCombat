@@ -66,22 +66,24 @@ func CreateInterior()
   for(var i=0;i<180;++i)
     CreateParticle("Fog",Random(LandscapeWidth()),Random(LandscapeHeight()),0,0,RandomX(900,1700));
 
-  //Sounds
-
-  //Wind
-  CreateObject(SE4K, 500, 600, -1)->Set("WindSound*.ogg",245,105);
-  CreateObject(SE4K, 500, 120, -1)->Set("WindSound*.ogg",245,105);
-  CreateObject(SE4K, 2100, 600, -1)->Set("WindSound*.ogg",245,105);
-  CreateObject(SE4K, 2100, 1200, -1)->Set("WindSound*.ogg",245,105);
-
-  //Hallen
-  CreateObject(SE4K, 1300, 1220, -1)->Set("Interior*.ogg",665,105);
+  //Soundkulisse
 
   //Erdrutsche
-  CreateObject(SE4K, 90, 600, -1)->Set("FallingDirt*.ogg",850,250);
-  CreateObject(SE4K, 90, 1200, -1)->Set("FallingDirt*.ogg",850,250);
-  CreateObject(SE4K, 2510, 600, -1)->Set("FallingDirt*.ogg",850,250);
-  CreateObject(SE4K, 2510, 1200, -1)->Set("FallingDirt*.ogg",850,250);
+  CreateObject(SE4K, 90, 600, -1)->Set("FallingDirt*.ogg",800,300);
+  CreateObject(SE4K, 90, 1200, -1)->Set("FallingDirt*.ogg",800,300);
+  CreateObject(SE4K, 2510, 600, -1)->Set("FallingDirt*.ogg",800,300);
+  CreateObject(SE4K, 2510, 1200, -1)->Set("FallingDirt*.ogg",800,300);
+
+  //Wind
+  CreateObject(SE4K, 500, 600, -1)->Set("WindSound*.ogg",300,200);
+  CreateObject(SE4K, 500, 120, -1)->Set("WindSound*.ogg",300,200);
+  CreateObject(SE4K, 2100, 600, -1)->Set("WindSound*.ogg",300,200);
+  CreateObject(SE4K, 2100, 1200, -1)->Set("WindSound*.ogg",300,200);
+
+  //Innenbereich
+  CreateObject(SE4K, 1300, 1220, -1)->Set("InteriorStress*.ogg",700,100, 75);
+  CreateObject(SE4K, 1300, 1220, -1)->Set("Interior*.ogg",700,100, 50,75);
+  CreateObject(SE4K, 1300, 1220, -1)->Set("InteriorMetal*.ogg",700,100, 25,50);
 }
 
 func CreateEquipment()
@@ -104,6 +106,17 @@ func CreateEquipment()
 func CreateDecoration()
 {
   Log("$CreatingDecoration$");
+
+  //Verbrannte Windmühlen
+  CreateObject(WMLB, 68, 850, -1)->SetR(90);
+  CreateObject(WMLB, 80, 550, -1);
+  CreateObject(WMLB, 98, 392, -1)->SetR(35);
+  CreateObject(WMLB, 520, 995, -1)->SetR(45);
+  CreateObject(WMLB, 2070, 1031, -1);
+  CreateObject(WMLB, 2100, 1030, -1)->SetR(-45);
+  CreateObject(WMLB, 2510, 410, -1)->SetR(-45);
+  CreateObject(WMLB, 2522, 890, -1)->SetR(-35);
+  CreateObject(WMLB, 2530, 540, -1)->SetR(-45);
 }
 
 func CreateOptionalFeatures()
@@ -161,6 +174,9 @@ public func ChooserFinished()
 {
   inherited();
 
+  //Script starten
+  ScriptGo(1);
+
   //Starttitel und Musikliste zusammenstellen
   SetPlayList("CMC_Back in the Earth.ogg;CMC_Breaching.ogg;CMC_Deep Universe.ogg;CMC_Drone in Flight.ogg;CMC_Enemy Approaching.ogg;CMC_Eurocorps.ogg;CMC_Firehawk.ogg;CMC_Getaway.ogg;CMC_Infiltration.ogg;CMC_Locked and Loaded.ogg;CMC_Matrix.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Offensive.ogg;CMC_Rock Go On.ogg;CMC_Titanium City.ogg;CMC_Your Eyes.ogg");
   Music("CMC_Back in the Earth.ogg");
@@ -213,8 +229,55 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
 
   //HTF/LMS-Spielziel
   if(FindObject(GHTF) || FindObject(GLMS))
-  {
-    return [[600, 400], [650, 800], [700, 1200], [1900, 400], [1950, 800], [2000, 1200]];
-    return 1;
-  }
+    return [[600, 400], [600, 600], [650, 800], [650, 1000], [700, 1200], [1900, 400], [1950, 600], [1950, 800], [2000, 1000], [2000, 1200]];
+}
+
+/* Abwurfsteuerung */
+
+protected func Script250()
+{
+  SupplyDrop();
+
+  goto(0);
+}
+
+protected func SupplyDrop()
+{
+  EventInfo4K(0,Format("$MsgSupplyDrop$"),PARA, 0, 0, 0, "PriorityInfo.ogg");
+
+  var obj = CreateObject(RndObjectID(), RandomX(300,650), -200, -1);
+  obj->AddEffect("IntPara", obj, 1, 1);
+  obj = CreateObject(RndObjectID(), RandomX(300,650), -250, -1);
+  obj->AddEffect("IntPara", obj, 1, 1);
+  obj = CreateObject(RndObjectID(), RandomX(300,650), -300, -1);
+  obj->AddEffect("IntPara", obj, 1, 1);
+
+  obj = CreateObject(RndObjectID(), RandomX(1950,2300), -200, -1);
+  obj->AddEffect("IntPara", obj, 1, 1);
+  obj = CreateObject(RndObjectID(), RandomX(1950,2300), -250, -1);
+  obj->AddEffect("IntPara", obj, 1, 1);
+  obj = CreateObject(RndObjectID(), RandomX(1950,2300), -300, -1);
+  obj->AddEffect("IntPara", obj, 1, 1);
+
+  CreateObject(SMWN,475,150, -1)->FadeOut(0,3);
+  CreateObject(SMWN,2125,150, -1)->FadeOut(0,3);
+
+  Sound("JetFlyBy*.ogg",1,0,30);
+}
+
+protected func RndObjectID()
+{
+ var r = Random(10);
+ if (!r)   return(GSBL);
+ if (!--r) return(PLLT);
+ if (!--r) return(BECR);
+ if (!--r) return(WCR2);
+ if (!--r) return(XWCR);
+ return(MWCR);
+}
+
+global func FxIntParaTimer(object pTarget)
+{
+  CreateObject(PARA,0,0,GetOwner(pTarget))->Set(pTarget);
+  return -1;
 }
