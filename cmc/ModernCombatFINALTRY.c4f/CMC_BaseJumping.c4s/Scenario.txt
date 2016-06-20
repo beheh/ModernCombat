@@ -33,13 +33,10 @@ Crew=PCMK=1
 Sky=Default
 SkyFade=255,232,119,155,132,19
 Vegetation=PLM2=10;PLM1=10;BSH2=8
-VegetationLevel=100,0,0,100
-MapWidth=80
-MapHeight=80
 NoScan=1
 
 [Environment]
 Objects=EGRS=1;LENS=1;DOFO=1
 
 [Animals]
-Animal=BIRD=2
+Animal=BIRD=3

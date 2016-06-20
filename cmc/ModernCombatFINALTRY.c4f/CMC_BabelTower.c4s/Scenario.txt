@@ -30,8 +30,6 @@ Crew=PCMK=1
 
 [Landscape]
 BottomOpen=1
-MapWidth=80,0,64,250
-MapHeight=80,0,40,250
 NoScan=1
 
 [Environment]

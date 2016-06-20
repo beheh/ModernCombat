@@ -30,13 +30,10 @@ Crew=PCMK=1
 Crew=PCMK=1
 
 [Landscape]
-BottomOpen=1
 Sky=Default
 SkyFade=163,191,198,255,153,0
-MapWidth=80,0,64,250
-MapHeight=80,0,40,250
+BottomOpen=1
 NoScan=1
-NewStyleLandscape=2
 
 [Environment]
 Objects=LENS=1;SONE=1

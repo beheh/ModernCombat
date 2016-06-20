@@ -3,7 +3,7 @@ CreatingEquipment=Ausrüstung wird plaziert...
 CreatingDecoration=Dekoration wird plaziert...
 
 Team1=Eurocorps
-Team2=Die Aufständischen
+Team2=Aufständische
 
 Flag1=Westliches Lagerhaus
 Flag2=Westsquare

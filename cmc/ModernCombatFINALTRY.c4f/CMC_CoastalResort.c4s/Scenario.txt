@@ -34,9 +34,6 @@ Crew=PCMK=1
 Sky=Default
 SkyFade=1,100,100,200,200,255
 Vegetation=SWD2=5;SWD1=5;SHEL=4;PLM2=10;PLM1=10;BSH2=10
-VegetationLevel=100,0,0,100
-MapWidth=80,0,64,250
-MapHeight=80,0,40,250
 NoScan=1
 
 [Environment]

@@ -31,8 +31,6 @@ Crew=PCMK=1
 [Landscape]
 Sky=Default
 SkyFade=0,0,0,0,0,128
-MapWidth=179,0,64,250
-MapHeight=94,0,40,250
 NoScan=1
 
 [Environment]

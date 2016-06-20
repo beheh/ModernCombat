@@ -904,6 +904,10 @@ protected func ChangeDir()
   for(var bar in FindObjects(Find_Func("IsBar"), Find_Func("BarActive"), Find_ActionTarget(this)))
     bar->~PositionToVertex(true);
 
+  //Eventuell feststeckenden Helikopter freimachen
+  if(StuckSolid(this))
+    AutoUnstuck(this);
+
   return true;
 }
 
