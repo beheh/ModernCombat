@@ -30,9 +30,6 @@ Crew=PCMK=1
 
 [Landscape]
 Vegetation=SWD2=5;SWD1=5;SHEL=4
-VegetationLevel=100,0,0,100
-MapWidth=64,0,64,10000
-MapHeight=99,0,40,10000
 NoScan=1
 
 [Environment]

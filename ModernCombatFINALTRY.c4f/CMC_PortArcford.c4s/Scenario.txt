@@ -31,9 +31,6 @@ Crew=PCMK=1
 
 [Landscape]
 Vegetation=SWD2=2;SWD1=1;BUSH=8;BSH2=8;TRE4=8;TRB4=3;TRB3=2;TRB2=1;TRB1=3
-VegetationLevel=100,0,0,100
-MapWidth=64,0,64,10000
-MapHeight=99,0,40,10000
 NoScan=1
 
 [Weather]
