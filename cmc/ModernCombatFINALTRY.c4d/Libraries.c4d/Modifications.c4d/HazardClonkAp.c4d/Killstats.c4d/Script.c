@@ -110,7 +110,7 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
     else
     {
       msg = Format("%s{{%i}}",msg,typeicon);
-  	}
+    }
   
   msg = Format("%s %s", msg, GetTaggedPlayerName(victim));
   var dmsg = msg;
