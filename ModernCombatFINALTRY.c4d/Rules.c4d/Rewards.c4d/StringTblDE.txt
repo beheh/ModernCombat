@@ -39,4 +39,3 @@ RibbonAwarded=<c %x>%s</c> hat das Ehrenband <c ffff33>%s</c> von <c %x>%s</c> e
 FirstLine=%s|Punktestand: <c 777777>%d (+ %d)</c> <c ffbb00>%d</c>
 SecondLine=Gefecht: <c 00ff00>+%d</c>  Team: <c 00ff00>+%d</c>  Minus: <c ff0000>%d</c>
 PlayerLine={{PSTL}}Kills: %d {{KAMB}}Tode: %d {{IC01}}Punkte: %d
-InfoLine={{CXTX}} Die Spielstände wurden gespeichert.

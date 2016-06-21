@@ -44,12 +44,12 @@ protected func Activate(iByPlayer)
   return 1;
 }
 
-static const RWDS_Page_Points = 0;
-static const RWDS_Page_Statistics = 1;
-static const RWDS_Page_RibbonList = 2;
-static const RWDS_Page_ShowRibbon = 3;
-static const RWDS_Page_AchievementList = 4;
-static const RWDS_Page_ShowAchievement = 5;
+static const RWDS_Page_Points		= 0;
+static const RWDS_Page_Statistics	= 1;
+static const RWDS_Page_RibbonList	= 2;
+static const RWDS_Page_ShowRibbon	= 3;
+static const RWDS_Page_AchievementList	= 4;
+static const RWDS_Page_ShowAchievement	= 5;
 
 public func ShowLastPage(int iPlr)
 {
@@ -380,10 +380,7 @@ public func Evaluate()
   for(iPlr = 0; iPlr < GetPlayerCount(C4PT_User); iPlr++)
     SavePlrStatistics(GetPlayerByIndex(iPlr, C4PT_User));
 
-  //Kopfzeilen erstellen
-  //while(GetData()[iPlr] != 0)
-  AddEvaluationData("$InfoLine$| ", 0);
-
+  //Daten ermitteln
   for(iPlr = 0; iPlr < GetLength(GetData()); iPlr++)
   {
     if(!GetData()[iPlr])
@@ -1164,6 +1161,6 @@ public func GetPlayerData(int iType, int iPlr)
 {
   if(!aData[iPlr]) aData[iPlr] = CreateArray();
   if(iType == RWDS_TotalPoints)
-  {return aData[iPlr][RWDS_BattlePoints] + aData[iPlr][RWDS_TeamPoints] + aData[iPlr][RWDS_MinusPoints];}
+    {return aData[iPlr][RWDS_BattlePoints] + aData[iPlr][RWDS_TeamPoints] + aData[iPlr][RWDS_MinusPoints];}
   return aData[iPlr][iType];
 }
