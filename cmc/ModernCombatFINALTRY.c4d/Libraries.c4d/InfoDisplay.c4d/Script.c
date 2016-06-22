@@ -2,9 +2,9 @@
 
 #strict 2
 
-static const IDSP_Duration_FadeIn = 38;
-static const IDSP_Duration_Show = 380;
-static const IDSP_Duration_FadeOut = 38;
+static const IDSP_Duration_FadeIn	= 38;
+static const IDSP_Duration_Show		= 380;
+static const IDSP_Duration_FadeOut	= 38;
 
 local szDesc;
 local iSize;
@@ -58,10 +58,10 @@ public func SetHighlightColor(int dwColor)
 
 public func FxIntHighlightStart(object target, int nr, temp, object ach)
 {
-  EffectVar(1, target, nr) = 0; //Zeit
-  EffectVar(3, target, nr) = ach; //Achievementobjekt
-  EffectVar(4, target, nr) = RGB(255,204,0); //Standardfarbwert für Highlight
-  EffectVar(5, target, nr) = 0;	//Begrenzung des Alphawerts
+  EffectVar(1, target, nr) = 0;			//Zeit
+  EffectVar(3, target, nr) = ach;		//Achievementobjekt
+  EffectVar(4, target, nr) = RGB(255,204,0);	//Standardfarbwert für Highlight
+  EffectVar(5, target, nr) = 0;			//Begrenzung des Alphawerts
 }
 
 public func FxIntHighlightTimer(object target, int nr)

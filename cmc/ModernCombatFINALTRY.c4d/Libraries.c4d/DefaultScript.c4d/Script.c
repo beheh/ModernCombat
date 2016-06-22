@@ -154,15 +154,17 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
 
   //Ausrüsten
   OnClonkEquip(pCrew);
+
   //Standardverhalten falls kein eigenes Spawnsystem in Kraft tritt
   if(!FindObject2(Find_Category(C4D_Goal|C4D_Rule), Find_Func("CustomSpawnSystem")))
   {
-    //Startpositon fuer Sicht. (In die Mitte der Spawnpunkte verschieben, damit die Sicht nicht zu weit schwenkt.)
+    //Startpositon für Sicht (In die Mitte der Spawnpunkte verschieben, damit die Sicht nicht zu weit schwenkt)
     var iX, iY, aSpawnpoints, iPlr = GetOwner(pCrew);
     aSpawnpoints = RelaunchPosition(iX, iY, GetPlayerTeam(iPlr));
 
     //Geht aber nur mit neuer Spawnmechanik
-    if(GetType(aSpawnpoints) == C4V_Array && GetLength(aSpawnpoints)) {
+    if(GetType(aSpawnpoints) == C4V_Array && GetLength(aSpawnpoints))
+    {
       /* Da die Spawnpunkte nicht zwingend ein nicht ueberschlagenes Polygon darstellen muessen, wird aus
        * allen Spawnpunkten das groesste Rechteck gebildet, das alle Spawnpunkte enthaelt.
        * (Die Implementation eines Algorithmus der den Schwerpunkt von ueberschlagenen Polygone ermittelt
@@ -170,18 +172,21 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
        */
 
       //Bei nur einem Spawnpunkt, Sicht zu diesem wechseln
-      if(GetLength(aSpawnpoints) == 1) {
+      if(GetLength(aSpawnpoints) == 1)
+      {
         iX = aSpawnpoints[0][0];
         iY = aSpawnpoints[0][1];
       }
       //Bei nur zwei Punkten den Mittelpunkt der Strecke benutzen
-      else if(GetLength(aSpawnpoints) == 2) {
+      else if(GetLength(aSpawnpoints) == 2)
+      {
         iX = aSpawnpoints[0][0] + (aSpawnpoints[1][0]-aSpawnpoints[0][0])/2;
         iY = aSpawnpoints[0][1] + (aSpawnpoints[1][1]-aSpawnpoints[0][1])/2;
       }
       else {
         var spawnrect = [0x7FFFFFFF, 0x7FFFFFFF, 0x80000000, 0x80000000];
-        for(var i = 0; i < GetLength(aSpawnpoints); i++) {
+        for(var i = 0; i < GetLength(aSpawnpoints); i++)
+        {
           var pt = aSpawnpoints[i];
           if(spawnrect[0] > pt[0])
             spawnrect[0] = pt[0];
@@ -227,7 +232,8 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
       g_PlayerViewRange = [];
     var index = GetLength(g_PlayerViewRange);
     for(var i = 0; i < index; i++)
-      if(!g_PlayerViewRange[i] || !g_PlayerViewRange[i][0]) {
+      if(!g_PlayerViewRange[i] || !g_PlayerViewRange[i][0])
+      {
         index = i;
         break;
       }
@@ -334,9 +340,9 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
 
 /* Intelligente Spawnmechanik */
 
-static const SPAWNSYS_Allies = 50;
-static const SPAWNSYS_Enemies = -50;
-static const SPAWNSYS_Traps = -30;
+static const SPAWNSYS_Allies	= 50;
+static const SPAWNSYS_Enemies	= -50;
+static const SPAWNSYS_Traps	= -30;
 
 global func GetBestSpawnpoint(array aSpawnpoints, int iPlr, int &x, int &y)
 {

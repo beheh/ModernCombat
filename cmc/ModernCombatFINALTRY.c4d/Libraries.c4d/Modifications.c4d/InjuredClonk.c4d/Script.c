@@ -250,7 +250,7 @@ func DoMenu()
   DeathMenu(clonk, this, 0, TimeLeft(), FKDT_SuicideTime);
 }
 
-//DeathMenu Module
+//DeathMenu-Module
 static const FKDT_DeathMenu_Timer = 0x1;
 static const FKDT_DeathMenu_RejectReanimation = 0x2;
 static const FKDT_DeathMenu_Suicide = 0x4;
@@ -266,7 +266,7 @@ static const FKDT_DeathMenu_SpectateMenuItem = 0x200;
 static const FKDT_DeathMenu_NoModules = 0x80000000;
 
 //Shorthands und Voreinstellungen (Feste Zahlenwerte, da Clonk den BitwiseOR-Operator in Konstanten nicht erlaubt (Entsprechende Kombination steht dahinter)) 
-//Auswaehlbare Menueeintraege
+//Auswählbare Menüeinträge
 static const FKDT_DeathMenu_GeneralMenuItems = 0x38; //FKDT_DeathMenu_RewardMenuItem|FKDT_DeathMenu_EffectMenuItem|FKDT_DeathMenu_SettingsMenuItem;
 static const FKDT_DeathMenu_AdditionalMenuItems = 0x6; //FKDT_DeathMenu_RejectReanimation|FKDT_DeathMenu_Suicide
 static const FKDT_DeathMenu_FullMenuItems = 0x3E; //FKDT_DeathMenu_GeneralMenuItems|FKDT_DeathMenu_AdditionalMenuItems
