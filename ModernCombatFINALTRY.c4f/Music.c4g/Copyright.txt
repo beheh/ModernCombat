@@ -20,10 +20,3 @@ Command & Clonquer (Clonk Addon)
 "CMC_Drone in Flight"
 "CMC_Titanium City"
 Star Empires (Clonk Addon)
-
-"RadioSong_6"
-Richard Wagner
-
-"RadioSong_7"
-"RadioSong_8"
-Rollercoaster Tycoon Soundtrack

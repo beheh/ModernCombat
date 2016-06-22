@@ -832,13 +832,13 @@ global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, i
         {
           //Achievement-Fortschritt (Mission accomplished)
           AwardAchievement(AC09, GetKiller(pTarget));
-        } 
-       }
+        }
+      }
       if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT")
         if(GetActTime(pTarget) > 10 && GetActTime(GetCursor(GetKiller(pTarget))) > 10)
         {
           //Achievement-Fortschritt (Fly-By)
-          DoAchievementProgress(1, AC10, GetKiller(pTarget)); 
+          DoAchievementProgress(1, AC10, GetKiller(pTarget));
           //Ehrenband-Fortschritt (The Eagle)
           AttemptAwardRibbon(RB06, GetKiller(pTarget), GetOwner());
         }
