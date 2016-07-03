@@ -53,6 +53,7 @@ func CreateInterior()
   CreateObject(LADR, 970, 868, -1)->Set(10);
   CreateObject(LADR, 1030, 1192, -1)->Set(3);
   CreateObject(LADR, 1180, 930, -1)->Set(9);
+  CreateObject(LADR, 1325, 795, -1)->Set(6);
   CreateObject(LADR, 1990, 1050, -1)->Set(13);
   CreateObject(LADR, 2050, 1220, -1)->Set(20);
   CreateObject(LADR, 2250, 1100, -1)->Set(16);
@@ -67,6 +68,7 @@ func CreateInterior()
   CreateObject(LADR, 3540, 1160, -1)->Set(14);
   CreateObject(LADR, 3710, 1012, -1)->Set(18);
   CreateObject(LADR, 3920, 1108, -1)->Set(30);
+  CreateObject(LADR, 4100, 1076, -1)->Set(11);
 
   //Bodenluken
   CreateObject(HA4K, 970, 783, -1);
@@ -125,6 +127,7 @@ func CreateInterior()
   CreateObject(MWCR, 3830, 832, -1);
   CreateObject(MWCR, 3830, 1040, -1);
   CreateObject(MWCR, 3850, 832, -1);
+  CreateObject(MWCR, 3970, 990, -1)->AutoRespawn();
 
   //Verbandskisten
   CreateObject(BECR, 1510, 1152, -1);
@@ -198,6 +201,7 @@ func CreateInterior()
   CreateObject(_HBR, 2894, 812, -1);
   CreateObject(_HBR, 3617, 1174, -1)->SetIrreparable();
   CreateObject(_HBR, 3617, 1182, -1)->SetIrreparable();
+  CreateObject(_HBR, 4005, 1002, -1)->SwitchMode();
 
   //Container
   CreateObject(CON1, 550, 1200, -1);
@@ -225,7 +229,7 @@ func CreateInterior()
 
   //Sandsackbarrieren
   CreateObject(SBBA, 1880, 1060, -1);
-  CreateObject(SBBA, 2260, 1120, -1)->Right();
+  CreateObject(SBBA, 2259, 1120, -1)->Right();
   CreateObject(SBBA, 2820, 1200, -1);
   CreateObject(SBBA, 2870, 800, -1);
 
@@ -362,9 +366,9 @@ func CreateDecoration()
   CreateObject(FAUD, 3730, 720, -1);
   CreateObject(FAUD, 3750, 740, -1);
   CreateObject(FAUD, 3780, 810, -1);
-  CreateObject(FAUD, 4000, 1030, -1);
-  CreateObject(FAUD, 4050, 1080, -1);
-  CreateObject(FAUD, 4100, 1050, -1);
+  CreateObject(FAUD, 4000, 1080, -1);
+  CreateObject(FAUD, 4100, 870, -1);
+  CreateObject(FAUD, 4150, 1280, -1);
   CreateObject(FAUD, 4270, 1100, -1);
 
   //Orientierungslichter
@@ -625,7 +629,7 @@ public func ChooserFinished()
       aFlag[3]->Set("$Flag4$");
 
     aFlag[4] = CreateObject(OFPL,3865,1040,NO_OWNER);
-    aFlag[4] -> AddSpawnPoint(4190,1100);
+    aFlag[4] -> AddSpawnPoint(4200,1020);
     aFlag[4] -> AddSpawnPoint(4000,821);
     aFlag[4] -> AddSpawnPoint(3600,850);
     if(aTeams[2] == true)
@@ -716,7 +720,7 @@ public func ChooserFinished()
     AddAssaultTarget(CMSN, 1960, 1060, 30*30, 2, "$Target2$", 0, [[[2400, 1050], [2420, 1010], [2540, 950]], [[940, 860], [1035, 900], [1200, 950]]]);
     AddAssaultTarget(RADR, 2080, 940, 30*30, 2, "$Target1$", 1, [[[2400, 1050], [2420, 1010], [2540, 950]], [[940, 860], [1035, 900], [1200, 950]]]);
     AddAssaultTarget(RADR, 3125, 750, 0, 2, "$Target1$", 2, [[[3030, 1140], [3315, 1110], [3190, 1143]], [[940, 860], [1035, 900], [1200, 950]]]);
-    AddAssaultTarget(CCP2, 3770, 1160, 0, 2, "$Target3$", 3, [[[3880, 1040], [4140, 1090], [4180, 960]], [[3000, 0], [3150, 0], [3300, 0]]]);
+    AddAssaultTarget(CCP2, 3700, 1180, 0, 2, "$Target3$", 3, [[[4065, 990], [4180, 960], [4200, 1030]], [[3000, 0], [3150, 0], [3300, 0]]]);
 
     //Ziele verbinden
     ConnectAssaultTargets([0, 1]);
@@ -732,11 +736,8 @@ public func ChooserFinished()
     RemoveObject(FindObject2(Find_ID(LADR),Find_InRect(3910, 860, 30, 90)));
     RemoveObject(FindObject2(Find_ID(CONS),Find_InRect(3880, 830, 30, 30)));
 
-    //Leitern
-    CreateObject(LADR, 1325, 795, -1)->Set(6);
-    CreateObject(LADR, 3920, 1108, -1)->Set(16);
-    CreateObject(LADR, 4105, 1076, -1)->Set(11);
-
+    //Leiter
+    CreateObject(LADR, 3920, 1108, -1)->Set(15);
     //Boden
     DrawMaterialQuad("Wall-Stripes", 3740,1040, 3770,1040, 3770,1050, 3740,1050);
 
@@ -750,11 +751,8 @@ public func ChooserFinished()
     CreateObject(CON1, 3370, 1012, -1)->SetPerspective(2);
     CreateObject(CON1, 3930, 860, -1);
 
-    //Stahlbrücken
+    //Stahlbrücke
     CreateObject(_HBR, 3900, 940, -1);
-    CreateObject(_HBR, 3980, 995, -1);
-    CreateObject(_HBR, 4050, 995, -1);
-
     //Hinweisschilder
     var sign = CreateObject(SGNP, 780, 1160, -1);
     sign->Set("Turret");

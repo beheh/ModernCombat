@@ -51,7 +51,7 @@ func CreateInterior()
   CreateObject(LADR, 765, 690, -1)->Set(21);
   CreateObject(LADR, 890, 730, -1)->Set(25);
   CreateObject(LADR, 1290, 750, -1)->Set(30);
-  CreateObject(LADR, 1430, 750, -1)->Set(40);
+  CreateObject(LADR, 1430, 740, -1)->Set(40);
   CreateObject(LADR, 1820, 810, -1)->Set(40);
   CreateObject(LADR, 1890, 730, -1)->Set(45);
   CreateObject(LADR, 1970, 805, -1)->Set(10);
@@ -409,6 +409,7 @@ func CreateDecoration()
   //Feuerlöscher
   CreateObject(FIE2, 685, 515, -1);
   CreateObject(FIE2, 1120, 755, -1);
+  CreateObject(FIE2, 1395, 425, -1);
   CreateObject(FIE2, 1635, 745, -1);
   CreateObject(FIE2, 2195, 475, -1);
 
@@ -439,8 +440,8 @@ func CreateDecoration()
   CreateObject(LAT1, 770, 440, -1);
   CreateObject(LAT1, 805, 550, -1);
 
-  CreateObject(LAT1, 1285, 470, -1);
-  CreateObject(LAT1, 1335, 450, -1);
+  CreateObject(LAT1, 1275, 480, -1);
+  CreateObject(LAT1, 1325, 470, -1);
   CreateObject(LAT1, 1475, 340, -1);
 
   CreateObject(LAT1, 1770, 595, -1);
@@ -465,6 +466,7 @@ func CreateDecoration()
   CreateObject(RAI1, 730, 720, -1)->SetRail([1,1,1]);
   CreateObject(RAI1, 767,400, -1)->SetRail([1,1]);
   CreateObject(RAI1, 1330, 680, -1)->SetRail([1,1,1]);
+  CreateObject(RAI1, 1355,430, -1)->SetRail([1,1]);
   CreateObject(RAI1, 1720, 560, -1)->SetRail([1,1,1]);
   CreateObject(RAI1, 2130, 480, -1)->SetRail([1,1,1]);
 
