@@ -266,17 +266,17 @@ static const FKDT_DeathMenu_SpectateMenuItem = 0x200;
 static const FKDT_DeathMenu_NoModules = 0x80000000;
 
 //Shorthands und Voreinstellungen (Feste Zahlenwerte, da Clonk den BitwiseOR-Operator in Konstanten nicht erlaubt (Entsprechende Kombination steht dahinter)) 
-//Auswählbare Menüeinträge
-static const FKDT_DeathMenu_GeneralMenuItems = 0x38; //FKDT_DeathMenu_RewardMenuItem|FKDT_DeathMenu_EffectMenuItem|FKDT_DeathMenu_SettingsMenuItem;
-static const FKDT_DeathMenu_AdditionalMenuItems = 0x6; //FKDT_DeathMenu_RejectReanimation|FKDT_DeathMenu_Suicide
-static const FKDT_DeathMenu_FullMenuItems = 0x3E; //FKDT_DeathMenu_GeneralMenuItems|FKDT_DeathMenu_AdditionalMenuItems
+//Wählbare Menüeinträge
+static const FKDT_DeathMenu_GeneralMenuItems = 0x38;	//FKDT_DeathMenu_RewardMenuItem|FKDT_DeathMenu_EffectMenuItem|FKDT_DeathMenu_SettingsMenuItem;
+static const FKDT_DeathMenu_AdditionalMenuItems = 0x6;	//FKDT_DeathMenu_RejectReanimation|FKDT_DeathMenu_Suicide
+static const FKDT_DeathMenu_FullMenuItems = 0x3E;	//FKDT_DeathMenu_GeneralMenuItems|FKDT_DeathMenu_AdditionalMenuItems
 
 //Standardeinstellung für FKDT
-static const FKDT_DeathMenu_DefaultSetting = 0x2FF; //FKDT_DeathMenu_Timer|FKDT_DeathMenu_FullMenuItems|FKDT_DeathMenu_KillMsg|FKDT_DeathMenu_Statistics;
+static const FKDT_DeathMenu_DefaultSetting = 0x2FF;	//FKDT_DeathMenu_Timer|FKDT_DeathMenu_FullMenuItems|FKDT_DeathMenu_KillMsg|FKDT_DeathMenu_Statistics;
 //Kompaktes Menü
-static const FKDT_DeathMenu_CompactSetting = 0x17F; //FKDT_DeathMenu_Timer|FKDT_DeathMenu_FullMenuItems|FKDT_DeathMenu_KillMsg|FKDT_DeathMenu_ShortenedNames;
+static const FKDT_DeathMenu_CompactSetting = 0x17F;	//FKDT_DeathMenu_Timer|FKDT_DeathMenu_FullMenuItems|FKDT_DeathMenu_KillMsg|FKDT_DeathMenu_ShortenedNames;
 //Basismenü (Mindestvoraussetzung)
-static const FKDT_DeathMenu_BasicSetting = 0x7; //FKDT_DeathMenu_Timer|FKDT_DeathMenu_RejectReanimation|FKDT_DeathMenu_Suicide
+static const FKDT_DeathMenu_BasicSetting = 0x7;		//FKDT_DeathMenu_Timer|FKDT_DeathMenu_RejectReanimation|FKDT_DeathMenu_Suicide
 //Alle Einstellungen
 static const FKDT_DeathMenu_FullSettings = 0x7FFFFFFF;
 

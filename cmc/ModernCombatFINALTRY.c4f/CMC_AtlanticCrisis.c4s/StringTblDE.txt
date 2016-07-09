@@ -6,8 +6,10 @@ Team1=Eurocorps
 Team2=Aggressoren
 
 Flag1=Westliche Anlegestelle
-Flag2=Bohrplattform
-Flag3=Östliche Anlegestelle
+Flag2=Westliche Artilleriestation
+Flag3=Bohrplattform
+Flag4=Östliche Artilleriestation
+Flag5=Östliche Anlegestelle
 
 Target1=Radaranlage
 Target2=Steuerungseinheit

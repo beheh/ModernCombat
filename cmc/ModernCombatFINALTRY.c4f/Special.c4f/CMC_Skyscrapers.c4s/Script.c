@@ -185,6 +185,7 @@ func CreateDecoration()
 
 public func OnClonkEquip(object pClonk)
 {
+  //Einsatzschild
   CreateContents(RSHL, pClonk);
 }
 
