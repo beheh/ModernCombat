@@ -6,8 +6,10 @@ Team1=Eurocorps
 Team2=Aggressors
 
 Flag1=West Pier
-Flag2=Drilling Platform
-Flag3=East Pier
+Flag2=West Artillery Station
+Flag3=Drilling Platform
+Flag4=East Artillery Station
+Flag5=East Pier
 
 Target1=Radar Unit
 Target2=Control Unit

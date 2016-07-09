@@ -43,15 +43,19 @@ func CreateInterior()
   DrawMaterialQuad("Wall-PlateBlue",1451,530,1421,520,1421,530,1436,530,true);
   DrawMaterialQuad("Wall-Plate",1661,540,1631,530,1631,540,1646,540,true);
 
-  DrawMaterialQuad("Wall-Unknown1",1380,640,1410,630,1410,640,1395,640,true);
-  DrawMaterialQuad("Wall-Unknown1",1410,630,1440,620,1440,630,1425,630,true);
-  DrawMaterialQuad("Wall-Unknown1",1440,620,1470,610,1470,620,1455,620,true);
-
-  DrawMaterialQuad("Wall-Stripes",1470,610,1500,600,1500,610,1485,610,true);
+  DrawMaterialQuad("Wall-Unknown1",1300,640,1390,610,1390,640,1300,640,true);
+  DrawMaterialQuad("BackWall-Stripes",1390,610,1420,600,1420,610,1390,610,true);
+  DrawMaterialQuad("Wall-Stripes",1420,600,1420,585,1435,585,1430,600,true);
 
   DrawMaterialQuad("Wall-Unknown1",1631,619,1660,619,1660,620,1631,620,1);
   DrawMaterialQuad("Wall-Unknown1",1691,630,1661,620,1661,630,1676,630,true);
   DrawMaterialQuad("Wall-Unknown1",1721,640,1691,630,1691,640,1706,640,true);
+
+  DrawMaterialQuad("Wall-Stripes",2280,520,2290,510,2290,520,2280,520,true);
+  DrawMaterialQuad("Wall-Stripes",2380,510,2390,520,2380,520,2380,510,true);
+
+  DrawMaterialQuad("Wall-Stripes",3620,520,3630,510,3630,520,3620,520,true);
+  DrawMaterialQuad("Wall-Stripes",3720,510,3730,520,3720,520,3720,510,true);
 
   DrawMaterialQuad("Wall-Plate",4350,540,4380,530,4380,540,4365,540,true);
   DrawMaterialQuad("Wall-PlateRed",4560,530,4590,520,4590,530,4575,530,true);
@@ -62,11 +66,9 @@ func CreateInterior()
   DrawMaterialQuad("Wall-Unknown1",4320,630,4350,620,4350,630,4335,630,true);
   DrawMaterialQuad("Wall-Unknown1",4351,619,4379,619,4379,620,4351,620,1);
 
-  DrawMaterialQuad("Wall-Stripes",4541,610,4511,600,4511,610,4526,610,true);
-
-  DrawMaterialQuad("Wall-Unknown1",4631,640,4601,630,4601,640,4616,640,true);
-  DrawMaterialQuad("Wall-Unknown1",4601,630,4571,620,4571,630,4586,630,true);
-  DrawMaterialQuad("Wall-Unknown1",4571,620,4541,610,4541,620,4556,620,true);
+  DrawMaterialQuad("Wall-Stripes",4575,585,4580,600,4590,600,4590,585,true);
+  DrawMaterialQuad("BackWall-Stripes",4590,600,4620,610,4590,610,4590,600,true);
+  DrawMaterialQuad("Wall-Unknown1",4620,610,4710,640,4620,640,4620,610,true);
 
   //Leitern
   CreateObject(LADR, 1275, 596, -1)->Set(11);
@@ -94,8 +96,8 @@ func CreateInterior()
   CreateObject(LADR, 4738, 596, -1)->Set(11);
 
   //Bodenluken
+  CreateObject(HA4K, 1410, 613, -1);
   CreateObject(HA4K, 1550, 533, -1);
-  CreateObject(HA4K, 1550, 603, -1);
 
   CreateObject(HA4K, 2200, 523, -1);
   CreateObject(HA4K, 2400, 523, -1);
@@ -112,7 +114,14 @@ func CreateInterior()
   CreateObject(HA4K, 3810, 523, -1);
 
   CreateObject(HA4K, 4460, 533, -1);
-  CreateObject(HA4K, 4460, 603, -1);
+  CreateObject(HA4K, 4600, 613, -1);
+
+  //Gerüste
+  CreateObject(SFFG, 2150, 470, -1)->Set(5);
+  CreateObject(SFFG, 2150, 520, -1)->Set(4);
+
+  CreateObject(SFFG, 3860, 470, -1)->Set(5);
+  CreateObject(SFFG, 3860, 520, -1)->Set(4);
 
   //Schutztüren
   CreateObject(GDDR, 2795, 530, -1);
@@ -129,21 +138,19 @@ func CreateInterior()
   CreateObject(MWCR, 2960, 530, -1)->AutoRespawn();
 
   //Verbandskisten
-  CreateObject(BECR, 2120, 520, -1)->AutoRespawn();
-  CreateObject(BECR, 3890, 520, -1)->AutoRespawn();
+  CreateObject(BECR, 2120, 470, -1)->AutoRespawn();
+  CreateObject(BECR, 3890, 470, -1)->AutoRespawn();
 
   //Benzinfässer
   CreateObject(PBRL, 1290, 500, -1)->AutoRespawn();
   CreateObject(PBRL, 1580, 530, -1)->AutoRespawn();
   CreateObject(PBRL, 1580, 600, -1)->AutoRespawn();
 
-  CreateObject(PBRL, 2155, 520, -1)->AutoRespawn();
-  CreateObject(PBRL, 2170, 520, -1)->AutoRespawn();
+  CreateObject(PBRL, 2160, 520, -1)->AutoRespawn();
 
   CreateObject(PBRL, 2940, 460, -1)->AutoRespawn();
   CreateObject(PBRL, 3020, 380, -1)->AutoRespawn();
 
-  CreateObject(PBRL, 3835, 520, -1)->AutoRespawn();
   CreateObject(PBRL, 3850, 520, -1)->AutoRespawn();
 
   CreateObject(PBRL, 4435, 530, -1)->AutoRespawn();
@@ -170,12 +177,12 @@ func CreateInterior()
 
   //Stahlbrücken
   CreateObject(_HBR, 2064, 532, -1);
-  CreateObject(_HBR, 2335, 532, -1)->SwitchMode();
+  CreateObject(_HBR, 2335, 522, -1)->SwitchMode();
   CreateObject(_HBR, 2487, 532, -1);
   CreateObject(_HBR, 2734, 472, -1);
   CreateObject(_HBR, 3247, 472, -1);
   CreateObject(_HBR, 3524, 532, -1);
-  CreateObject(_HBR, 3675, 532, -1)->SwitchMode();
+  CreateObject(_HBR, 3675, 522, -1)->SwitchMode();
   CreateObject(_HBR, 3947, 532, -1);
 
   //Haie
@@ -202,8 +209,8 @@ func CreateInterior()
   //Sandsackbarrieren
   CreateObject(SBBA, 1705, 540, -1)->Right();
   CreateObject(SBBA, 2115, 520, -1);
-  CreateObject(SBBA, 2285, 520, -1)->Right();
-  CreateObject(SBBA, 3725, 520, -1);
+  CreateObject(SBBA, 2306, 510, -1)->Right();
+  CreateObject(SBBA, 3704, 510, -1);
   CreateObject(SBBA, 3895, 520, -1)->Right();
   CreateObject(SBBA, 4305, 540, -1);
 
@@ -212,8 +219,8 @@ func CreateInterior()
 
   //Phosphortanks
   CreateObject(PTNK, 1600, 530, -1)->AutoRespawn();
-  CreateObject(PTNK, 2410, 520, -1)->AutoRespawn();
-  CreateObject(PTNK, 3600, 520, -1)->AutoRespawn();
+  CreateObject(PTNK, 2430, 520, -1)->AutoRespawn();
+  CreateObject(PTNK, 3580, 520, -1)->AutoRespawn();
   CreateObject(PTNK, 4410, 530, -1)->AutoRespawn();
 
   //Seegras und Muscheln entfernen
@@ -289,9 +296,11 @@ func CreateEquipment()
   CreateObject(ATBY,3775,520,-1)->SetRotation(-20);
 
   //Patrouillenboote
+  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1480,600,-1),50*21);
   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1705,609,-1),50*21);
   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2990,571,-1),50*21);
   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4310,609,-1),50*21);
+  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4530,600,-1),50*21);
 
   //Automaten
   var store = CreateObject(WPVM,1500, 530,-1);
@@ -340,11 +349,11 @@ func CreateDecoration()
   Log("$CreatingDecoration$");
 
   //Orientierungslichter
-  CreateObject(OLGH, 1645, 400, -1)->Set(4, 15, 1, 1, 40);
+  CreateObject(OLGH, 1655, 400, -1)->Set(7, 10, 1, 1, 10);
   CreateObject(OLGH, 2410, 420, -1)->Set(35, 5, 1, 1, 20);
   CreateObject(OLGH, 2990, 380, -1)->Set(4, 10, 1, 1, 20);
   CreateObject(OLGH, 3600, 420, -1)->Set(35, 5, 1, 1, 20);
-  CreateObject(OLGH, 4365, 400, -1)->Set(4, 15, 1, 1, 40);
+  CreateObject(OLGH, 4355, 400, -1)->Set(7, 10, 1, 1, 10);
 
   //Straßenlichter
   CreateObject(SLGH, 1393, 511, -1);
@@ -405,9 +414,9 @@ func CreateDecoration()
   CreateObject(RAI1, 1280, 500, -1)->SetRail([1,1,1,1]);
   CreateObject(RAI1, 1450, 530, -1)->SetRail([1,1,1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 1500, 600, -1)->SetRail([1,1,1,1,1]);
-  CreateObject(RAI1, 2100, 520, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 2125, 520, -1)->SetRail([1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 2880, 460, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1]);
-  CreateObject(RAI1, 3710, 520, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 3735, 520, -1)->SetRail([1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 4380, 530, -1)->SetRail([1,1,1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 4410, 600, -1)->SetRail([1,1,1,1,1]);
   CreateObject(RAI1, 4650, 500, -1)->SetRail([1,1,1,1]);
@@ -548,23 +557,35 @@ public func ChooserFinished()
     else
       aFlag[0]->Set("$Flag1$");
 
-    aFlag[1] = CreateObject(OFPL,2990,380,NO_OWNER);
-    aFlag[1] -> AddSpawnPoint(2890,520);
-    aFlag[1] -> AddSpawnPoint(3040,450);
-    aFlag[1] -> AddSpawnPoint(3090,520);
-    aFlag[1]->Set("$Flag2$");
+    aFlag[1] = CreateObject(OFPL,2335,600,NO_OWNER);
+    aFlag[1] -> AddSpawnPoint(2150,460);
+    aFlag[1] -> AddSpawnPoint(2180,510);
+    aFlag[1] -> AddSpawnPoint(2260,510);
+    aFlag[1]->Set("$Flag2$",80);
 
-    aFlag[2] = CreateObject(OFPL,4685,500,NO_OWNER);
-    aFlag[2] -> AddSpawnPoint(4340, 530);
-    aFlag[2] -> AddSpawnPoint(4410, 390);
-    aFlag[2] -> AddSpawnPoint(4510, 590);
+    aFlag[2] = CreateObject(OFPL,2990,380,NO_OWNER);
+    aFlag[2] -> AddSpawnPoint(2890,520);
+    aFlag[2] -> AddSpawnPoint(3040,450);
+    aFlag[2] -> AddSpawnPoint(3090,520);
+    aFlag[2]->Set("$Flag3$");
+
+    aFlag[3] = CreateObject(OFPL,3675,600,NO_OWNER);
+    aFlag[3] -> AddSpawnPoint(3750,510);
+    aFlag[3] -> AddSpawnPoint(3830,510);
+    aFlag[3] -> AddSpawnPoint(3860,460);
+    aFlag[3]->Set("$Flag4$",80);
+
+    aFlag[4] = CreateObject(OFPL,4685,500,NO_OWNER);
+    aFlag[4] -> AddSpawnPoint(4340, 530);
+    aFlag[4] -> AddSpawnPoint(4410, 390);
+    aFlag[4] -> AddSpawnPoint(4510, 590);
     if(aTeams[2] == true)
     {
-      aFlag[2]->Set("$Flag3$",0,4);
-      aFlag[2]->Capture(2,1);
+      aFlag[4]->Set("$Flag5$",0,4);
+      aFlag[4]->Capture(2,1);
     }
     else
-      aFlag[2]->Set("$Flag3$");
+      aFlag[4]->Set("$Flag5$");
 
     //MAV-Stationen
     CreateObject(MVSN, 1350, 500, -1)->Set(1520,530,1);
@@ -576,8 +597,8 @@ public func ChooserFinished()
   {
     //Strukturen
     AddAssaultTarget(RADR, 1919, 600, 350, 1, "$Target1$", 0, [[1360,500], [1420,520], [1600,400]]);
-    AddAssaultTarget(CMSN, 2470, 600, 350, 1, "$Target2$", 1, [[2185,520], [2270,520]]);
-    AddAssaultTarget(CMSN, 3540, 600, 350, 2, "$Target2$", 2, [[3740,520], [3825,520]]);
+    AddAssaultTarget(CMSN, 2470, 600, 350, 1, "$Target2$", 1, [[2150,470], [2180,520], [2270,520]]);
+    AddAssaultTarget(CMSN, 3540, 600, 350, 2, "$Target2$", 2, [[3740,520], [3830,520], [3860,470]]);
     AddAssaultTarget(RADR, 4089, 600, 350, 2, "$Target1$", 3, [[4410,400], [4590,520], [4650,500]]);
 
     //Sprengsatz-Spawn
@@ -595,7 +616,7 @@ public func ChooserFinished()
   {
     //Flaggenposten
     var flag = CreateObject(OFPL, 2990, 380, -1);
-    flag->~Set("$Flag2$");
+    flag->~Set("$Flag3$");
 
     //Teamgrenzen
     CreateObject(BRDR, 2000, 0, -1)->Set(0,1,0,1,1);

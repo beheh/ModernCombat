@@ -149,7 +149,7 @@ func OnTowerCollapse()
   aDoorWay[03]->SealEntrance(1);
 }
 
-/* Apache bei Ausrüstung */
+/* Bei Ausrüstung */
 
 public func OnClassSelection(object pClonk)
 {
@@ -158,9 +158,6 @@ public func OnClassSelection(object pClonk)
   apache->SetAction("Fly");
   apache->EngineStarted();
   LocalN("throttle", apache) = 100;
-
-  //Effekt
-  AddSpawnEffect(apache, pClonk->GetColorDw());
 
   //Clonk hineinsetzen
   Enter(apache, pClonk);
