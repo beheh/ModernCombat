@@ -1,4 +1,4 @@
-/*-- Operation Métro --*/
+/*-- Operation Metro --*/
 
 #strict 2
 #include CSTD

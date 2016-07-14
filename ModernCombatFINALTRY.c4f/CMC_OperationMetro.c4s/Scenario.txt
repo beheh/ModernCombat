@@ -1,6 +1,6 @@
 [Head]
 Icon=51
-Title=CMC - Operation Métro
+Title=CMC - Operation Metro
 MaxPlayer=12
 MaxPlayerLeague=12
 Loader=Loader_CMC*

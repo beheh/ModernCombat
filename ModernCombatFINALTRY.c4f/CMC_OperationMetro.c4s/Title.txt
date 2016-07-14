@@ -1,2 +1,2 @@
-DE:CMC - <c ffff33>Operation Métro</c>
-US:CMC - <c ffff33>Operation Métro</c>
+DE:CMC - <c ffff33>Operation Metro</c>
+US:CMC - <c ffff33>Operation Metro</c>

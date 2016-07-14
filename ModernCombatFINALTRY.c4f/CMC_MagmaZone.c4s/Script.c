@@ -42,23 +42,31 @@ func CreateInterior()
   CreateObject(HA4K, 1540, 463, -1);
   CreateObject(HA4K, 1940, 373, -1);
   CreateObject(HA4K, 2320, 243, -1);
+  CreateObject(HA4K, 2320, 313, -1);
 
   //Leitern
   CreateObject(LADR, 446, 340, -1)->Set(4);
   CreateObject(LADR, 610, 442, -1)->Set(13);
+  CreateObject(LADR, 695, 546, -1)->Set(26);
   CreateObject(LADR, 1000, 502, -1)->Set(13);
   CreateObject(LADR, 1540, 540, -1)->Set(24);
-  CreateObject(LADR, 1940, 466, -1)->Set(11);
+  CreateObject(LADR, 1940, 458, -1)->Set(10);
+  CreateObject(LADR, 2195, 480, -1)->Set(10);
   CreateObject(LADR, 2320, 528, -1)->Set(35);
+  CreateObject(LADR, 2401, 303, -1)->Set(9);
 
   //Sprungschanzen
   CreateObject(JMPD, 565, 330, -1)->Set(100, 20);
   CreateObject(JMPD, 1575, 300, -1)->Set(85, 10);
 
   //Stahlbrücken
-  CreateObject(_HBR, 985, 660, -1);
-  CreateObject(_HBR, 1940, 475, -1);
-  CreateObject(_HBR, 2125, 510, -1);
+  CreateObject(_HBR, 455, 362, -1);
+  CreateObject(_HBR, 617, 472, -1);
+  CreateObject(_HBR, 985, 662, -1)->SwitchMode();
+  CreateObject(_HBR, 1945, 472, -1)->SwitchMode();
+  CreateObject(_HBR, 2145, 512, -1)->SwitchMode();
+  CreateObject(_HBR, 2265, 322, -1)->SwitchMode();
+  CreateObject(_HBR, 2375, 322, -1)->SwitchMode();
 
   //Benzinfässer
   CreateObject(PBRL, 825, 520, -1)->AutoRespawn();
@@ -80,6 +88,11 @@ func CreateInterior()
   CreateObject(GSBL, 1000, 260, -1)->AutoRespawn();
   CreateObject(GSBL, 1020, 390, -1)->AutoRespawn();
   CreateObject(GSBL, 1960, 370, -1)->AutoRespawn();
+
+  //Gerüste
+  CreateObject(SFFG, 905, 650, -1)->Set(5);
+  CreateObject(SFFG, 2145, 450, -1)->Set(4);
+  CreateObject(SFFG, 2145, 500, -1)->Set(5);
 
   //Steine
   CreateObject(STNE, 110, 430, -1)->Set(2);
@@ -210,7 +223,7 @@ func CreateDecoration()
   CreateObject(BSH2, 2505, 515, -1);
 
   //Scheinwerfer
-  CreateObject(FLGH, 645, 330, -1)->SetRotation(20);
+  CreateObject(FLGH, 590, 330, -1)->SetRotation(20);
   CreateObject(FLGH, 1975, 290, -1)->SetRotation(-80);
   CreateObject(FLGH, 2360, 240, -1)->SetRotation(-20);
 
@@ -270,54 +283,59 @@ public func ChooserFinished()
   {
     //Flaggenposten
     aFlag[0] = CreateObject(OFPL,365,300,NO_OWNER);
+    aFlag[0] -> AddSpawnPoint(430,490);
     aFlag[0] -> AddSpawnPoint(500,490);
-    aFlag[0] -> AddSpawnPoint(555,450);
-    aFlag[0] -> AddSpawnPoint(745,340);
+    aFlag[0] -> AddSpawnPoint(560,450);
+    aFlag[0] -> AddSpawnPoint(550,610);
     if(aTeams[1] == true)
     {
-      aFlag[0]->Set("$Flag1$",0,4);
+      aFlag[0]->Set("$Flag1$",80,4);
       aFlag[0]->Capture(1,1);
     }
     else
     {
-      aFlag[0]->Set("$Flag1$");
+      aFlag[0]->Set("$Flag1$",80);
     }
 
     aFlag[1] = CreateObject(OFPL,980,390,NO_OWNER);
     aFlag[1] -> AddSpawnPoint(930,510);
     aFlag[1] -> AddSpawnPoint(1025,570);
+    aFlag[1] -> AddSpawnPoint(1030,640);
     aFlag[1] -> AddSpawnPoint(1085,480);
     aFlag[1]->Set("$Flag2$");
 
     aFlag[2] = CreateObject(OFPL,1575,460,NO_OWNER);
+    aFlag[2] -> AddSpawnPoint(1405,410);
     aFlag[2] -> AddSpawnPoint(1485,540);
     aFlag[2] -> AddSpawnPoint(1595,540);
-    aFlag[2] -> AddSpawnPoint(1405,410);
-    aFlag[2]->Set("$Flag3$");
+    aFlag[2] -> AddSpawnPoint(1710,520);
+    aFlag[2]->Set("$Flag3$",95);
 
     aFlag[3] = CreateObject(OFPL,1905,330,NO_OWNER);
     aFlag[3] -> AddSpawnPoint(1865,150);
+    aFlag[3] -> AddSpawnPoint(1980,210);
     aFlag[3] -> AddSpawnPoint(1990,130);
     aFlag[3]->Set("$Flag4$");
 
     aFlag[4] = CreateObject(OFPL,2355,560,NO_OWNER);
-    aFlag[3] -> AddSpawnPoint(2055,440);
-    aFlag[4] -> AddSpawnPoint(2180,510);
-    aFlag[4] -> AddSpawnPoint(2290,470);
+    aFlag[3] -> AddSpawnPoint(2045,440);
+    aFlag[4] -> AddSpawnPoint(2100,490);
+    aFlag[4] -> AddSpawnPoint(2145,390);
     aFlag[4]->Set("$Flag5$");
 
     aFlag[5] = CreateObject(OFPL,2455,210,NO_OWNER);
-    aFlag[5] -> AddSpawnPoint(2200,300);
+    aFlag[5] -> AddSpawnPoint(2210,300);
     aFlag[5] -> AddSpawnPoint(2300,300);
     aFlag[5] -> AddSpawnPoint(2340,300);
+    aFlag[5] -> AddSpawnPoint(2440,300);
     if(aTeams[2] == true)
     {
-      aFlag[5]->Set("$Flag6$",0,4);
+      aFlag[5]->Set("$Flag6$",80,4);
       aFlag[5]->Capture(2,1);
     }
     else
     {
-      aFlag[5]->Set("$Flag6$");
+      aFlag[5]->Set("$Flag6$",80);
     }
 
     //Zusätzliche Munition
@@ -337,15 +355,15 @@ public func ChooserFinished()
   if(FindObject(GBAS))
   {
     //Strukturen
-    AddAssaultTarget(CCP2, 390, 300, 350, 1, "$Target1$", 0, [[475, 570], [550, 460], [635, 620]]);
-    AddAssaultTarget(GSTA, 980, 390, 350, 1, "$Target2$", 1, [[720, 350], [805, 520], [1030, 650]]);
-    AddAssaultTarget(CMSN, 1040, 260, 350, 1, "$Target3$", 2, [[810, 140], [815, 300], [1070, 130]]);
+    AddAssaultTarget(CCP2, 390, 300, 350, 1, "$Target1$", 0, [[430, 500], [550, 620], [725, 550]]);
+    AddAssaultTarget(GSTA, 980, 390, 350, 1, "$Target2$", 1, [[565, 460], [800, 520], [1030, 650]]);
+    AddAssaultTarget(CMSN, 1040, 260, 350, 1, "$Target3$", 2, [[720, 350], [800, 140], [1070, 130]]);
     AddAssaultTarget(CMSN, 1865, 160, 350, 2, "$Target3$", 3, [[2065, 255], [2130, 310], [2150, 140]]);
-    AddAssaultTarget(GSTA, 1910, 330, 350, 2, "$Target2$", 4, [[1815, 500], [2020, 450], [2170, 300]]);
-    AddAssaultTarget(CCP2, 2345, 240, 350, 2, "$Target1$", 5, [[2150, 140], [2300, 480], [2350, 560]]);
+    AddAssaultTarget(GSTA, 1910, 330, 350, 2, "$Target2$", 4, [[1815, 500], [2030, 450], [2170, 300]]);
+    AddAssaultTarget(CCP2, 2345, 240, 350, 2, "$Target1$", 5, [[2075, 130], [2100, 320], [2290, 480]]);
 
     //Sprengsatz-Spawn
-    SetupBombSpawnpoint([[1520, 300],[1520,340],[1560,460]]);
+    SetupBombSpawnpoint([[1520, 300],[1520, 340],[1520,460]]);
 
     //Zusätzliche Munition
     if(!FindObject(NOAM))
@@ -365,9 +383,13 @@ public func ChooserFinished()
   {
     //Flaggen
     if(aTeams[1] == true)
-    {CreateFlag(1,655,330,GetTeamColor(1));}
+    {CreateFlag(1,650,330,GetTeamColor(1));}
     if(aTeams[2] == true)
-    {CreateFlag(2,2210,310,GetTeamColor(2));}
+    {CreateFlag(2,2170,300,GetTeamColor(2));}
+
+    //Sandsackbarrieren
+    CreateObject(SBBA, 430, 300, -1)->Right();
+    CreateObject(SBBA, 2271, 240, -1);
 
     //Zusätzliche Munition
     if(!FindObject(NOAM))
@@ -384,17 +406,20 @@ public func ChooserFinished()
   if(FindObject(GLMS) || FindObject(GTDM))
   {
     //Grenzen setzen
-    CreateObject(BRDR, 710, 0, -1)->Set(0);
-    CreateObject(BRDR, 2165, 0, -1)->Set(1);
+    CreateObject(BRDR, 540, 0, -1)->Set(0);
+    CreateObject(BRDR, 2340, 0, -1)->Set(1);
 
     //Hinweisschilder
-    CreateObject(SGNP, 725, 350, -1);
-    CreateObject(SGNP, 785, 650, -1);
-    CreateObject(SGNP, 760, 530, -1);
-    CreateObject(SGNP, 860, 150, -1);
-    CreateObject(SGNP, 2050, 130, -1);
-    CreateObject(SGNP, 2050, 450, -1);
-    CreateObject(SGNP, 2160, 300, -1);
+    CreateObject(SGNP, 540, 330, -1);
+    CreateObject(SGNP, 550, 620, -1);
+    CreateObject(SGNP, 560, 460, -1);
+    CreateObject(SGNP, 2340, 310, -1);
+    CreateObject(SGNP, 2370, 240, -1);
+    CreateObject(SGNP, 2370, 560, -1);
+
+    //Sandsackbarrieren
+    CreateObject(SBBA, 750, 350, -1)->Right();
+    CreateObject(SBBA, 1961, 290, -1);
 
     //Zusätzliche Munition
     if(!FindObject(NOAM))
@@ -423,9 +448,9 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(FindObject(GCTF))
   {
     if(iTeam == 1)
-      return [[350, 290], [420, 290]];
+      return [[385, 290], [430, 490], [465, 540]];
     if(iTeam == 2)
-      return [[2355, 230], [2450, 200]];
+      return [[2100, 490], [2355, 230], [2450, 200]];
     return 1;
   }
 
@@ -433,9 +458,9 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(FindObject(GLMS) || FindObject(GTDM))
   {
     if(iTeam == 1)
-      return [[835, 280], [885, 390]];
+      return [[835, 280], [835, 370], [885, 390], [930, 250]];
     if(iTeam == 2)
-      return [[2025, 350], [2045, 230]];
+      return [[1980, 210], [2025, 350], [2045, 230], [2100, 310]];
     return 1;
   }
 }
