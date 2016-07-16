@@ -35,6 +35,15 @@ func CreateInterior()
 {
   Log("$CreatingInterior$");
 
+  //Rampen
+  DrawMaterialQuad("Wall-Concrete1",500,350,530,330,530,350,500,350,true);
+  DrawMaterialQuad("Tunnel-Rough",1430,415,1435,410,1455,430,1455,435,true);
+  DrawMaterialQuad("Tunnel-Rough",1680,285,1720,285,1720,291,1680,291,true);
+  DrawMaterialQuad("Tunnel-Rough",1760,295,1820,295,1820,301,1760,301,true);
+  DrawMaterialQuad("Wall-Concrete1",1740,380,1790,370,1790,391,1740,391,true);
+  DrawMaterialQuad("Wall-Concrete1",2140,310,2160,300,2160,310,2140,310,true);
+  DrawMaterialQuad("Wall-Concrete1",2180,300,2200,310,2180,310,2180,300,true);
+
   //Bodenluken
   CreateObject(HA4K, 610, 333, -1);
   CreateObject(HA4K, 1000, 393, -1);
@@ -47,22 +56,24 @@ func CreateInterior()
   //Leitern
   CreateObject(LADR, 446, 340, -1)->Set(4);
   CreateObject(LADR, 610, 442, -1)->Set(13);
-  CreateObject(LADR, 695, 546, -1)->Set(26);
+  CreateObject(LADR, 695, 545, -1)->Set(26);
   CreateObject(LADR, 1000, 502, -1)->Set(13);
   CreateObject(LADR, 1540, 540, -1)->Set(24);
   CreateObject(LADR, 1940, 458, -1)->Set(10);
   CreateObject(LADR, 2195, 480, -1)->Set(10);
-  CreateObject(LADR, 2320, 528, -1)->Set(35);
+  CreateObject(LADR, 2320, 440, -1)->Set(24);
+  CreateObject(LADR, 2320, 544, -1)->Set(7);
   CreateObject(LADR, 2401, 303, -1)->Set(9);
 
   //Sprungschanzen
-  CreateObject(JMPD, 565, 330, -1)->Set(100, 20);
+  CreateObject(JMPD, 560, 350, -1)->Set(105, 20);
   CreateObject(JMPD, 1575, 300, -1)->Set(85, 10);
 
   //Stahlbrücken
   CreateObject(_HBR, 455, 362, -1);
   CreateObject(_HBR, 617, 472, -1);
   CreateObject(_HBR, 985, 662, -1)->SwitchMode();
+  CreateObject(_HBR, 1845, 382, -1)->SwitchMode();
   CreateObject(_HBR, 1945, 472, -1)->SwitchMode();
   CreateObject(_HBR, 2145, 512, -1)->SwitchMode();
   CreateObject(_HBR, 2265, 322, -1)->SwitchMode();
@@ -87,10 +98,10 @@ func CreateInterior()
   //Gasflaschen
   CreateObject(GSBL, 1000, 260, -1)->AutoRespawn();
   CreateObject(GSBL, 1020, 390, -1)->AutoRespawn();
+  CreateObject(GSBL, 1765, 375, -1)->AutoRespawn();
   CreateObject(GSBL, 1960, 370, -1)->AutoRespawn();
 
   //Gerüste
-  CreateObject(SFFG, 905, 650, -1)->Set(5);
   CreateObject(SFFG, 2145, 450, -1)->Set(4);
   CreateObject(SFFG, 2145, 500, -1)->Set(5);
 
@@ -101,7 +112,7 @@ func CreateInterior()
   CreateObject(STNE, 600, 655, -1)->Set(2);
   CreateObject(STNE, 1030, 165, -1)->Set(0);
   CreateObject(STNE, 1340, 435, -1)->Set(2);
-  CreateObject(STNE, 1845, 495, -1)->Set(0);
+  CreateObject(STNE, 1790, 500, -1)->Set(0);
   CreateObject(STNE, 2470, 375, -1);
   CreateObject(STNE, 2700, 340, -1)->Set(4);
   CreateObject(STNE, 2730, 730, -1)->Set(0);
@@ -113,14 +124,17 @@ func CreateInterior()
   CreateObject(WCR2, 1040, 390, -1)->AutoRespawn();
   CreateObject(WCR2, 1050, 372, -1);
   CreateObject(WCR2, 1980, 370, -1)->AutoRespawn();
+  CreateObject(WCR2, 2350, 310, -1)->AutoRespawn();
 
   //Verbandskiste
   CreateObject(BECR, 1490, 460, -1)->AutoRespawn();
 
-  //Hinweisschild
+  //Hinweisschilder
+  CreateObject(WLSN, 610, 235, -1)->Set("A");
   var sign = CreateObject(SGNP, 1590, 550, -1);
   sign->SetMode(1);
   sign->Set("Turret");
+  CreateObject(WLSN, 2320, 125, -1)->Set("B");
 
   //Selbstschussanlage und Konsole
   aSelfDefense[0] = CreateObject(SEGU, 1505, 369, -1);
@@ -180,43 +194,59 @@ func CreateDecoration()
 {
   Log("$CreatingDecoration$");
 
+  //Rohre
+  CreateObject(PIPL, 610, 365, -1)->Down()->Right()->Down()->Right()->Right()->Right()->Down()->Right()->Down()->Down()->Down();
+  CreateObject(PIPL, 750, 675, -1)->Up()->Right()->Right()->Right();
+  CreateObject(PIPL, 955, 675, -1)->Up()->Left();
+  CreateObject(PIPL, 1000, 425, -1)->Down()->Left()->Down()->Left()->Down()->Down()->Down();
+  CreateObject(PIPL, 1590, 455, -1)->Right()->Right()->Right()->Right()->Right()->Right()->Up();
+  CreateObject(PIPL, 2010, 323, -1)->Right()->Right()->Up()->Right()->Right()->Right();
+  CreateObject(PIPL, 2280, 505, -1)->Up()->Left()->Left()->Left()->Left()->Left()->Left()->Up();
+  CreateObject(PIPL, 2370, 540, -1)->Right()->Right()->Up()->Right()->Right()->Right()->Right()->Right()->Right()->Right();
+
   //Alarmlampen
   CreateObject(ALGH, 385, 260, -1)->TurnOn();
   CreateObject(ALGH, 1540, 250, -1)->TurnOn();
-  CreateObject(ALGH, 2500, 170, -1)->TurnOn();
+  CreateObject(ALGH, 2485, 170, -1)->TurnOn();
 
   //Radar
   CreateObject(RADR, 2285, 240, -1);
 
   //Feuerlöscher
-  CreateObject(FIE2, 415, 295, -1);
+  CreateObject(FIE2, 340, 295, -1);
+  CreateObject(FIE2, 940, 645, -1);
   CreateObject(FIE2, 1575, 335, -1);
-  CreateObject(FIE2, 2520, 205, -1);
+  CreateObject(FIE2, 2185, 495, -1);
+  CreateObject(FIE2, 2530, 205, -1);
 
   //Bildschirme
-  CreateObject(SCR3, 610, 271, -1);
+  CreateObject(SCR3, 400, 290, -1);
+  CreateObject(SCR3, 610, 320, -1);
   CreateObject(SCR3, 1540, 281, -1);
-  CreateObject(SCR3, 2320, 151, -1);
+  var screen = CreateObject(SCA2, 1540, 420, -1);
+  screen->SetClips([12]);
+  screen->SetClrModulation(RGB(50,255,50));
+  CreateObject(SCR3, 2320, 230, -1);
+  CreateObject(SCR3, 2500, 200, -1);
 
   //Ventillatoren
-  CreateObject(VENT, 565, 240, -1)->SetCon(20);
-  CreateObject(VENT, 565, 290, -1)->SetCon(20);
-  CreateObject(VENT, 565, 330, -1)->SetCon(20);
+  CreateObject(MVNT, 610, 302, -1);
   CreateObject(VENT, 965, 300, -1)->SetCon(20);
   CreateObject(VENT, 965, 350, -1)->SetCon(20);
-  CreateObject(VENT, 965, 390, -1)->SetCon(20);
+  CreateObject(VENT, 1035, 350, -1)->SetCon(20);
   CreateObject(VENT, 1505, 375, -1)->SetCon(20);
   CreateObject(VENT, 1575, 375, -1)->SetCon(20);
-  CreateObject(VENT, 1975, 330, -1)->SetCon(20);
-  CreateObject(VENT, 2285, 520, -1)->SetCon(20);
-  CreateObject(VENT, 2355, 155, -1)->SetCon(20);
-  CreateObject(VENT, 2355, 200, -1)->SetCon(20);
-  CreateObject(VENT, 2355, 240, -1)->SetCon(20);
+  CreateObject(VEN3, 2320, 450, -1)->SetCon(35);
+  CreateObject(VEN3, 2320, 550, -1)->SetCon(35);
+  CreateObject(MVNT, 2320, 202, -1);
+
+  //Pumpen
+  CreateObject(PMP2, 880, 640, -1);
+  CreateObject(PMP2, 1975, 350, -1);
 
   //Regale
-  CreateObject(FRAM, 630, 330, -1);
-  CreateObject(FRAM, 650, 330, -1);
-  CreateObject(FRAM, 670, 330, -1);
+  CreateObject(FRAM, 725, 350, -1);
+  CreateObject(FRAM, 745, 350, -1);
 
   //Büsche
   CreateObject(BSH2, 495, 130, -1);
@@ -238,17 +268,22 @@ func CreateDecoration()
   CreateObject(RAI1, 2450, 210, -1)->SetRail([1,3,1,3,1,3,1]);
 
   //Schilder
-  CreateObject(MSGN, 340, 300, -1);
-  CreateObject(MSGN, 430, 300, -1);
-  CreateObject(MSGN, 2440, 210, -1);
-  CreateObject(MSGN, 2530, 210, -1);
+  CreateObject(MSGN, 495, 350, -1);
+  CreateObject(MSGN, 845, 520, -1);
+  CreateObject(MSGN, 915, 520, -1);
+  CreateObject(MSGN, 1745, 379, -1);
+  CreateObject(MSGN, 2465, 310, -1);
+
+  //Poster
+  CreateObject(PSTR, 1001, 320, -1)->Set(3,2);
+  CreateObject(PSTR, 1001, 360, -1)->Set(3,0);
 }
 
 /* Bei Flaggenübernahme */
 
 func FlagCaptured(object pPoint, int iTeam)
 {
-  if(pPoint == aFlag[2])
+  if(pPoint == aFlag[3])
     aSelfDefense[0]->SetTeam(iTeam);
 }
 
@@ -267,26 +302,15 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
     aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //Sprungschanzen
-  if(FindObject(FDMG))
-  {
-    CreateObject(JMPD, 1585, 460, -1)->Set(40, -20);
-    CreateObject(JMPD, 1890, 370, -1)->Set(75, -80);
-  }
-  else
-  {
-    CreateObject(JMPD, 1890, 370, -1)->Set(85, -80);
-  }
-
   //OCC-Spielziel
   if(FindObject(GOCC))
   {
     //Flaggenposten
     aFlag[0] = CreateObject(OFPL,365,300,NO_OWNER);
     aFlag[0] -> AddSpawnPoint(430,490);
+    aFlag[0] -> AddSpawnPoint(460,540);
     aFlag[0] -> AddSpawnPoint(500,490);
     aFlag[0] -> AddSpawnPoint(560,450);
-    aFlag[0] -> AddSpawnPoint(550,610);
     if(aTeams[1] == true)
     {
       aFlag[0]->Set("$Flag1$",80,4);
@@ -297,45 +321,51 @@ public func ChooserFinished()
       aFlag[0]->Set("$Flag1$",80);
     }
 
-    aFlag[1] = CreateObject(OFPL,980,390,NO_OWNER);
-    aFlag[1] -> AddSpawnPoint(930,510);
-    aFlag[1] -> AddSpawnPoint(1025,570);
-    aFlag[1] -> AddSpawnPoint(1030,640);
-    aFlag[1] -> AddSpawnPoint(1085,480);
+    aFlag[1] = CreateObject(OFPL,860,650,NO_OWNER);
+    aFlag[1] -> AddSpawnPoint(700,570);
+    aFlag[1] -> AddSpawnPoint(760,520);
+    aFlag[1] -> AddSpawnPoint(635,610);
     aFlag[1]->Set("$Flag2$");
 
-    aFlag[2] = CreateObject(OFPL,1575,460,NO_OWNER);
-    aFlag[2] -> AddSpawnPoint(1405,410);
-    aFlag[2] -> AddSpawnPoint(1485,540);
-    aFlag[2] -> AddSpawnPoint(1595,540);
-    aFlag[2] -> AddSpawnPoint(1710,520);
-    aFlag[2]->Set("$Flag3$",95);
+    aFlag[2] = CreateObject(OFPL,980,390,NO_OWNER);
+    aFlag[2] -> AddSpawnPoint(860,140);
+    aFlag[2] -> AddSpawnPoint(1010,130);
+    aFlag[2] -> AddSpawnPoint(1030,250);
+    aFlag[2] -> AddSpawnPoint(1090,110);
+    aFlag[2]->Set("$Flag3$");
 
-    aFlag[3] = CreateObject(OFPL,1905,330,NO_OWNER);
-    aFlag[3] -> AddSpawnPoint(1865,150);
-    aFlag[3] -> AddSpawnPoint(1980,210);
-    aFlag[3] -> AddSpawnPoint(1990,130);
-    aFlag[3]->Set("$Flag4$");
+    aFlag[3] = CreateObject(OFPL,1575,460,NO_OWNER);
+    aFlag[3] -> AddSpawnPoint(1405,410);
+    aFlag[3] -> AddSpawnPoint(1485,540);
+    aFlag[3] -> AddSpawnPoint(1595,540);
+    aFlag[3] -> AddSpawnPoint(1710,520);
+    aFlag[3]->Set("$Flag4$",95);
 
-    aFlag[4] = CreateObject(OFPL,2355,560,NO_OWNER);
-    aFlag[3] -> AddSpawnPoint(2045,440);
-    aFlag[4] -> AddSpawnPoint(2100,490);
-    aFlag[4] -> AddSpawnPoint(2145,390);
+    aFlag[4] = CreateObject(OFPL,1905,330,NO_OWNER);
+    aFlag[4] -> AddSpawnPoint(1865,150);
+    aFlag[4] -> AddSpawnPoint(1980,210);
+    aFlag[4] -> AddSpawnPoint(1990,130);
     aFlag[4]->Set("$Flag5$");
 
-    aFlag[5] = CreateObject(OFPL,2455,210,NO_OWNER);
-    aFlag[5] -> AddSpawnPoint(2210,300);
-    aFlag[5] -> AddSpawnPoint(2300,300);
-    aFlag[5] -> AddSpawnPoint(2340,300);
-    aFlag[5] -> AddSpawnPoint(2440,300);
+    aFlag[5] = CreateObject(OFPL,2355,560,NO_OWNER);
+    aFlag[5] -> AddSpawnPoint(2045,440);
+    aFlag[5] -> AddSpawnPoint(2100,490);
+    aFlag[5] -> AddSpawnPoint(2145,390);
+    aFlag[5]->Set("$Flag6$",90);
+
+    aFlag[6] = CreateObject(OFPL,2455,210,NO_OWNER);
+    aFlag[6] -> AddSpawnPoint(2210,300);
+    aFlag[6] -> AddSpawnPoint(2300,300);
+    aFlag[6] -> AddSpawnPoint(2340,300);
+    aFlag[6] -> AddSpawnPoint(2440,300);
     if(aTeams[2] == true)
     {
-      aFlag[5]->Set("$Flag6$",80,4);
-      aFlag[5]->Capture(2,1);
+      aFlag[6]->Set("$Flag7$",80,4);
+      aFlag[6]->Capture(2,1);
     }
     else
     {
-      aFlag[5]->Set("$Flag6$",80);
+      aFlag[6]->Set("$Flag7$",80);
     }
 
     //Zusätzliche Munition
@@ -383,7 +413,7 @@ public func ChooserFinished()
   {
     //Flaggen
     if(aTeams[1] == true)
-    {CreateFlag(1,650,330,GetTeamColor(1));}
+    {CreateFlag(1,660,330,GetTeamColor(1));}
     if(aTeams[2] == true)
     {CreateFlag(2,2170,300,GetTeamColor(2));}
 
@@ -440,7 +470,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //Startsicht
   if(!g_chooserFinished)
   {
-    iX = 1745; iY = 350;
+    iX = 1745; iY = 380;
     return 1;
   }
 
