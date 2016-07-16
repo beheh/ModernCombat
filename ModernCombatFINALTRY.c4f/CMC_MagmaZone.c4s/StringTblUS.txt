@@ -5,12 +5,13 @@ CreatingDecoration=Placing decoration...
 Team1=Spies
 Team2=Eurocorps
 
-Flag1=Western Station
-Flag2=Supply Center
-Flag3=Observation Deck
-Flag4=Distributor
-Flag5=Core Platform
-Flag6=Eastern Station
+Flag1=Cooling Tower A
+Flag2=Pump Station
+Flag3=Supply Center
+Flag4=Observation Deck
+Flag5=Distributor
+Flag6=Core Platform
+Flag7=Cooling Tower B
 
 Target1=Radar Unit
 Target2=Water Filter

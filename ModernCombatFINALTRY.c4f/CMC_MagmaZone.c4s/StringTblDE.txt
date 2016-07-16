@@ -5,12 +5,13 @@ CreatingDecoration=Dekoration wird plaziert...
 Team1=Spione
 Team2=Eurocorps
 
-Flag1=Westliche Station
-Flag2=Nachschublager
-Flag3=Aussichtsdeck
-Flag4=Verteiler
-Flag5=Kernplattform
-Flag6=Östliche Station
+Flag1=Kühlturm A
+Flag2=Pumpstation
+Flag3=Nachschublager
+Flag4=Aussichtsdeck
+Flag5=Verteiler
+Flag6=Kernplattform
+Flag7=Kühlturm B
 
 Target1=Radaranlage
 Target2=Wasserfilter
