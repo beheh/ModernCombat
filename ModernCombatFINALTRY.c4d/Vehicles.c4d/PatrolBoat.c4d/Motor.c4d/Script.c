@@ -176,10 +176,9 @@ public func ControlDown(object pByObj)
   return 1;
 }
 
-/*public func ControlUpDouble(object pByObj)
+public func ControlUp(object pByObj)
 {
-  SetUser(pByObj);
-  if(GetContact(GetActionTarget(),-1))
+  if(!InLiquid(GetActionTarget()))
     GetActionTarget()->LandOn();
   return 1;
-}*/
+}

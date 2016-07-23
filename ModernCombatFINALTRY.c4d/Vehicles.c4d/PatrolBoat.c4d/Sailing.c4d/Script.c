@@ -32,6 +32,9 @@ func SetUp()
 
   SetDir(dir);
   TurnEnd();
+
+  Sound("SailUp");
+
   return 1;
 }
 
@@ -93,17 +96,16 @@ public func OnDmg(int iDmg, int iType)
 
 /* Landung */
 
-private func LandOn()
+public func LandOn()
 {
   Stop();
   RemoveObject(motor);
-  ChangeDef(PBOT);
-  SetAction("JustLanded", this);
   Sound("MotorIdleLoop.ogg", false, motoridle, 100, 0, -1);
+  Sound("SailDown");
+  Sound("OutOfAir.ogg");
+  ChangeDef(PBOT);
+  SetAction("Pack", this);
 }
-
-private func SoundSailDown()	{Sound("SailDown");}
-private func SoundSailUp()	{Sound("SailUp");}
 
 /* Bewegung */
 
@@ -320,5 +322,12 @@ private func TurnEnd()
 
 protected func Hit()
 {
+  Stop();
+  if(GetContact(0, 1) || GetContact(0, 3))
+    Fling(this, -1);
+  else
+    if(GetContact(0, 2) || GetContact(0, 4))
+      Fling(this, 1);
+
   Sound("VehicleHeavyHit*.ogg",false,0,50);
 }

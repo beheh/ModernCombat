@@ -88,11 +88,28 @@ private func Floating()
   //Nicht mehr im Wasser
   if(!(GetOCF()&OCF_InLiquid)) 
     return SetAction("OnLand");
-  //Segeln, wenn aufgerichtet
+  //Auf segeln vorbereiten wenn aufgerichtet...
   if(Inside(GetR(),-5,+5))
   {
+    //...und keine anderen segelnden Patrouillenboote in Reichweite
+    var obj;
+    if(obj = FindObject2(Find_Distance (70),Find_ID(SPBT)))
+      return;
+    else
+      SetAction("Unpack");
+  }
+}
+
+private func Unpacked()
+{
+  if(Inside(GetR(),-5,+5) && InLiquid())
+  {
     ChangeDef(SPBT);
-    SetAction("LowerSail", this);
     this->~Initialize();
+  }
+  else
+  {
+    SetAction("Pack");
+    Sound("SailDown");
   }
 }
