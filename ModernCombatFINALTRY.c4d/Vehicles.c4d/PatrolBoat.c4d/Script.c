@@ -4,6 +4,7 @@
 
 local damaged;
 
+public func MaxDamage()		{return 350;}
 public func IsCMCVehicle()	{return true;}
 public func IsRepairable()	{return true;}
 public func RepairSpeed()	{return 0;}
@@ -23,7 +24,7 @@ protected func Initialize()
 func Damage()
 {
   if(damaged) return;
-  if(GetDamage() > 200)
+  if(GetDamage() > MaxDamage())
     Destruction();
 }
 
@@ -104,7 +105,9 @@ private func Unpacked()
 {
   if(Inside(GetR(),-5,+5) && InLiquid())
   {
+    var dmg = GetDamage(this);
     ChangeDef(SPBT);
+    DoDamage(dmg,this);
     this->~Initialize();
   }
   else

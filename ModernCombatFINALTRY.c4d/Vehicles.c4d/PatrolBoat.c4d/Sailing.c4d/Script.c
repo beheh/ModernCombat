@@ -28,7 +28,8 @@ func SetUp()
   turn_end_dir = -1;
   motor = CreateObject(OBMT,0,0,GetOwner());
   motor->SetBoat(this);
-  motor->UpdateDmg();
+  var dmg = GetDamage()/2;
+  motor->DoDamage(dmg);
 
   SetDir(dir);
   TurnEnd();
@@ -103,8 +104,13 @@ public func LandOn()
   Sound("MotorIdleLoop.ogg", false, motoridle, 100, 0, -1);
   Sound("SailDown");
   Sound("OutOfAir.ogg");
+
   ChangeDef(PBOT);
   SetAction("Pack", this);
+
+  //Eventuell feststeckendes Boot freimachen
+  if(StuckSolid(this))
+    AutoUnstuck(this);
 }
 
 /* Bewegung */
@@ -114,12 +120,13 @@ private func Sail()
   if(!FindObject(0,0,0,0,0,0,"Push",motor))
     Stop();
 
-  if(!GetComDir()) return ;
+  if(!GetComDir()) return;
 
   var xdir = Min(Abs(GetXDir())+3,30);
 
   Sound("MotorLoop.ogg",false,motor,100,0,+1);
   Sound("MotorIdleLoop.ogg",false,motoridle,100,0,-1);
+  if(!Random(10)) Sound("WaterExplosion*.ogg",false,this,RandomX(25,75));
 
   if(!IsTurning())
     if(GetComDir() == COMD_Left)
