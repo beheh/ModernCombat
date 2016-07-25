@@ -239,7 +239,7 @@ protected func Timer()
       if(iconState != 2)
       {
         var clr = GetTeamColor(team), plr;
-        if(GetTeamConfig(TEAM_AutoGenerateTeams) && GetTeamPlayerCount(team) <= 1 && (plr = GetTeamMemberByIndex(team, 0)) > -1)
+        if( (GetTeamConfig(TEAM_AutoGenerateTeams) && GetTeamPlayerCount(team) <= 1 && (plr = GetTeamMemberByIndex(team, 0)) > -1) || !GetTeamConfig(TEAM_TeamColors))
           clr = GetPlrColorDw(plr);
 
         bar->SetIcon(0, SM23, 0, 0, 32);
@@ -405,7 +405,7 @@ public func DoProcess(int iTeam, int iAmount)
   UpdateFlag();
 
   var clr = GetTeamColor(iTeam), plr;
-  if(GetTeamConfig(TEAM_AutoGenerateTeams) && GetTeamPlayerCount(iTeam) <= 1 && (plr = GetTeamMemberByIndex(iTeam, 0)) > -1)
+  if( (GetTeamConfig(TEAM_AutoGenerateTeams) && GetTeamPlayerCount(iTeam) <= 1 && (plr = GetTeamMemberByIndex(iTeam, 0)) > -1) || !GetTeamConfig(TEAM_TeamColors))
     clr = GetPlrColorDw(plr);
 
   bar->SetBarColor(clr);
