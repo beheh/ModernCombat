@@ -316,7 +316,7 @@ func CreateEquipment()
   store->AddWare(SGRN,20);
   store->AddWare(STUN,20);
   store->AddWare(SRBL,20);
-  var store = CreateObject(WPVM,3025, 530,-1);
+  store = CreateObject(WPVM,3025, 530,-1);
   store->AddWare(C4PA,10);
   store->AddWare(FAPK,10);
   store->AddWare(CDBT,10);
@@ -329,7 +329,7 @@ func CreateEquipment()
   store->AddWare(SGRN,20);
   store->AddWare(STUN,20);
   store->AddWare(SRBL,20);
-  var store = CreateObject(WPVM,4500, 530,-1);
+  store = CreateObject(WPVM,4500, 530,-1);
   store->AddWare(C4PA,10);
   store->AddWare(FAPK,10);
   store->AddWare(CDBT,10);
