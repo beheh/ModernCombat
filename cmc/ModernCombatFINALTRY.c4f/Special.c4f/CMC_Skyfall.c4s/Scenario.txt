@@ -13,7 +13,7 @@ Definition3=ModernCombatFINALTRY.c4d
 
 [Game]
 StructNeedEnergy=0
-Goals=GLMS=10;GHTF=1
+Goals=GLMS=10;GHTF=1;GOCC=1
 Rules=MCSL=1;CHOS=1
 FoWColor=13158600
 
@@ -32,13 +32,10 @@ Crew=PCMK=1
 [Landscape]
 BottomOpen=1
 Vegetation=TRE4=5;GRAS=3
-MapWidth=80,0,64,250
-MapHeight=80,0,40,250
 NoScan=1
-SkyScrollMode=1
 
 [Environment]
 Objects=LENS=1
 
 [Animals]
-Animal=BIRD=4
+Animal=BIRD=6

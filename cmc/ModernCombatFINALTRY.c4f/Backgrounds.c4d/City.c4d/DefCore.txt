@@ -1,7 +1,7 @@
 [DefCore]
 id=BD10
 Name=City
-Version=4,9,5
+Version=4,9,10,7
 Category=1
 Width=1390
 Height=530

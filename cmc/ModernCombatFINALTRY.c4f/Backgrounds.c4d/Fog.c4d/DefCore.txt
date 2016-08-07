@@ -1,7 +1,7 @@
 [DefCore]
 id=BD03
 Name=Fog
-Version=4,9,5
+Version=4,9,10,7
 Category=1
 Width=2315
 Height=524

@@ -2,7 +2,16 @@ CreatingInterior=Creating furniture...
 CreatingEquipment=Placing equipment...
 CreatingDecoration=Placing decoration...
 
+Team1=Alpha
+Team2=Beta
+Team3=Gamma
+Team4=Delta
+
 MsgCollapse=<c ff0000>Warning</c>: The local antenna tower <c ffff33>collapses</c>
 MsgSupplyDrop=<c ff0000>Warning</c>: A <c ffff33>supply drop</c> is passing through the flying zone!
 
-Flag1=Antenna Tower
+Flag1=Supply Base West
+Flag2=Air Passage A
+Flag3=Antenna Tower
+Flag4=Air Passage B
+Flag5=Supply Base East

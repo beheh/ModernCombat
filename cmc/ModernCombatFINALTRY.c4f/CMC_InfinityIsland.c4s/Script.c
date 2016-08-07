@@ -16,7 +16,7 @@ func Initialize()
   //Wartemusik einstellen
   SetWaitingMusic();
   //Himmelparallaxität
-  SetSkyParallax(1,50,15);
+  SetSkyParallax(1,50);
   //Bildschirmfärbung
   SetGamma(RGB(7,6,0),RGB(152,147,128),RGB(255,254,236));
   //Flaggen
@@ -78,27 +78,18 @@ func CreateInterior()
   CreateObject(HA4K, 2200, 1173, -1);
 
   //Rampen
-  DrawMaterialQuad("Wall-Plate",1300,1321,1300,1361,1260,1321,1300,1321,true);
+  DrawMaterialQuad("Wall-Plate",1260,1320,2390,1320,2270,1350,1290,1350,true);
+  DrawMaterialQuad("Wall-Metal2",1290,1350,2270,1350,2230,1360,1300,1360,true);
 
-  DrawMaterialQuad("Wall-PlateBlue",1341,1150,1341,1140,1371,1150,1341,1150,true);
-  DrawMaterialQuad("Wall-Plate",1371,1160,1371,1150,1401,1160,1371,1160,true);
-  DrawMaterialQuad("Wall-PlateBlue",1401,1171,1401,1161,1431,1171,1401,1171,true);
+  DrawMaterialQuad("Wall-Stripes",1310,1140,1340,1140,1430,1170,1400,1170,true);
 
-  DrawMaterialQuad("Wall-Metal2",1371,1300,1371,1290,1341,1300,1371,1300,true);
-  DrawMaterialQuad("Wall-Metal2",1400,1290,1400,1280,1370,1290,1400,1290,true);
-  DrawMaterialQuad("Wall-Plate",1430,1280,1430,1270,1400,1280,1430,1280,true);
-  DrawMaterialQuad("Wall-Plate",1460,1270,1460,1260,1430,1270,1460,1270,true);
+  DrawMaterialQuad("Wall-Metal2",1340,1300,1400,1280,1400,1300,1340,1300,true);
+  DrawMaterialQuad("Wall-Plate",1400,1280,1460,1260,1460,1280,1400,1280,true);
 
-  DrawMaterialQuad("Wall-Plate",1731,1270,1731,1260,1761,1270,1731,1270,true);
-  DrawMaterialQuad("Wall-Plate",1761,1281,1761,1271,1791,1281,1761,1281,true);
-  DrawMaterialQuad("Wall-Metal2",1791,1291,1791,1281,1821,1291,1791,1291,true);
-  DrawMaterialQuad("Wall-Metal2",1821,1301,1821,1291,1851,1301,1821,1301,true);
+  DrawMaterialQuad("Wall-Plate",1730,1260,1790,1280,1730,1280,1730,1260,true);
+  DrawMaterialQuad("Wall-Metal2",1790,1280,1850,1300,1790,1300,1790,1280,true);
 
-  DrawMaterialQuad("Wall-PlateBlue",2252,1170,2252,1160,2222,1170,2252,1170,true);
-  DrawMaterialQuad("Wall-Plate",2280,1160,2280,1150,2250,1160,2280,1160,true);
-  DrawMaterialQuad("Wall-PlateBlue",2311,1150,2311,1140,2281,1150,2311,1150,true);
-
-  DrawMaterialQuad("Wall-Plate",2231,1321,2231,1361,2391,1321,2231,1321,true);
+  DrawMaterialQuad("Wall-Stripes",2220,1170,2310,1140,2340,1140,2250,1170,true);
 
   DrawMaterialQuad("Wall-Stripes", 2290, 1279, 2350, 1279, 2290, 1280, 2350, 1280, 1);
   DrawMaterialQuad("Rock-ROUGH", 3130, 1278, 3180, 1278, 3130, 1280, 3180, 1280, 1);
@@ -107,10 +98,10 @@ func CreateInterior()
   DrawMaterialQuad("Granite-Rock", 4570, 1228, 4630, 1228, 4570, 1230, 4630, 1230, 1);
 
   //Glasscheiben
-  CreateObject(PANE, 1432, 1081, -1);
-  CreateObject(PANE, 1432, 1110, -1);
-  CreateObject(PANE, 1638, 1081, -1);
-  CreateObject(PANE, 1638, 1110, -1);
+  CreateObject(PANE, 1422, 1081, -1);
+  CreateObject(PANE, 1422, 1110, -1);
+  CreateObject(PANE, 1648, 1081, -1);
+  CreateObject(PANE, 1648, 1110, -1);
 
   //Kisten
   CreateObject(WCR2, 1690, 1170, -1)->AutoRespawn();
@@ -194,32 +185,36 @@ func CreateInterior()
   container->SetGraphics("5");
 
   //Hydrauliktüren
-  CreateObject(SEDR,1459, 1030,-1);
-  CreateObject(SEDR,1459, 1170,-1);
-  CreateObject(SEDR,1611, 1030,-1);
-  CreateObject(SEDR,1611, 1170,-1);
+  var door = CreateObject(SEDR,1459, 1030,-1);
+  door->Open();
+  door->Lock();
+  door = CreateObject(SEDR,1459, 1170,-1);
+  door->Open();
+  door->Lock();
+  door = CreateObject(SEDR,1611, 1030,-1);
+  door->Open();
+  door->Lock();
+  door = CreateObject(SEDR,1611, 1170,-1);
+  door->Open();
+  door->Lock();
 
   //Explosivtanks
   CreateObject(XTNK, 1480, 1260, -1)->AutoRespawn();
   CreateObject(XTNK, 1590, 1260, -1)->AutoRespawn();
 
   //Tore und Konsolen
-  var autod = CreateObject(HNG3, 1433, 1110, -1);
+  var autod = CreateObject(HNG3, 1423, 1110, -1);
   autod->Open();
   CreateObject(CONS, 1500, 1105, -1)->Set(autod);
-
-  autod = CreateObject(HNG3, 1637, 1110, -1);
+  autod = CreateObject(HNG3, 1647, 1110, -1);
   autod->Open();
   CreateObject(CONS, 1570, 1105, -1)->Set(autod);
 
   //Selbstschussanlagen
   aSelfDefense[0] = CreateObject(SEGU, 1310, 1140, -1);
   aSelfDefense[0]->Set(0,1,0,180);
-  CreateObject(CONS, 1420, 1025, -1)->Set(aSelfDefense[0]);
-
   aSelfDefense[1] = CreateObject(SEGU, 2340, 1140, -1);
   aSelfDefense[1]->Set(0,1,0,180);
-  CreateObject(CONS, 1650, 1025, -1)->Set(aSelfDefense[1]);
 
   //Seegras und Muscheln entfernen
   for(var obj in FindObjects(Find_Or(Find_ID(SWD1), Find_ID(SWD2), Find_ID(SHEL)), Find_InRect(1250, 1270, 1150, 35)))
@@ -299,30 +294,22 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  var crate = CreateObject(AMCT, 1770, 1142, -1);
-  crate->Set(ABOX);
-  crate = CreateObject(AMCT, 3790, 790, -1);
-  crate->Set(ABOX);
-  crate = CreateObject(AMCT, 4530, 1220, -1);
-  crate->Set(ABOX);
+  CreateObject(AMCT, 1770, 1142, -1)->Set(ABOX);
+  CreateObject(AMCT, 3790, 790, -1)->Set(ABOX);
+  CreateObject(AMCT, 4530, 1220, -1)->Set(ABOX);
 
   //Versorgungskisten (Gewehrgranaten)
-  var crate = CreateObject(AMCT, 1820, 1142, -1);
-  crate->Set(GBOX);
-  crate = CreateObject(AMCT, 4140, 770, -1);
-  crate->Set(GBOX);
-  crate = CreateObject(AMCT, 4650, 1090, -1);
-  crate->Set(GBOX);
+  CreateObject(AMCT, 1820, 1142, -1)->Set(GBOX);
+  CreateObject(AMCT, 4140, 770, -1)->Set(GBOX);
+  CreateObject(AMCT, 4650, 1090, -1)->Set(GBOX);
 
   //Raketen
   PlaceSpawnpoint(MBOX, 3440, 1125);
   PlaceSpawnpoint(MBOX, 4560, 935);
 
   //Versorgungskisten (APW)
-  var crate = CreateObject(AMCT, 3490, 1120, -1);
-  crate->Set(ATWN);
-  var crate = CreateObject(AMCT, 4360, 820, -1);
-  crate->Set(ATWN);
+  CreateObject(AMCT, 3490, 1120, -1)->Set(ATWN);
+  CreateObject(AMCT, 4360, 820, -1)->Set(ATWN);
 }
 
 func CreateDecoration()
@@ -372,6 +359,12 @@ func CreateDecoration()
   CreateObject(FRAM, 1440, 1170, -1);
   CreateObject(FRAM, 1630, 1170, -1);
   CreateObject(FRAM, 1650, 1170, -1);
+
+  //Feuerlöscher
+  CreateObject(FIE2, 1480, 1025, -1);
+
+  //Satellitenschüssel
+  CreateObject(SADH, 1535, 980, -1);
 
   //Radare
   CreateObject(RADR, 1490, 980, -1);
@@ -485,19 +478,19 @@ func CreateDecoration()
   CreateObject(PIPL, 2140, 1325, -1)->Up()->Up();
 
   //Geländer
-  CreateObject(RAI1, 1409, 1030, -1)->SetRail([3,3,3,3,3,3,3,3,1,3,1,3,1,3,1,3,2,2,2,3,1,3,1,3,1,3,1,3,3,3,3,3,3,3,3]);
   CreateObject(RAI1, 1265, 1140, -1)->SetRail([1,3,1,3,1]);
   var rail = CreateObject(RAI1, 1280, 1260, -1);
   rail->SetCategory(C4D_StaticBack);
   rail->SetRail([1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1]);
   for(var i = 0; i <= 19; i++)
-   rail->SetClrModulation(RGB(200, 200, 200), this, i);
+    rail->SetClrModulation(RGB(200, 200, 200), this, i);
+  CreateObject(RAI1, 1409, 1030, -1)->SetRail([3,3,3,3,3,3,3,3,1,3,1,3,1,3,1,3,2,2,2,3,1,3,1,3,1,3,1,3,3,3,3,3,3,3,3]);
   CreateObject(RAI1, 1463, 980, -1)->SetRail([1,3,1,3,1,3,1,3,1,3,1,3,1]);
   rail = CreateObject(RAI1, 1728, 1260, -1);
   rail->SetCategory(C4D_StaticBack);
   rail->SetRail([1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1]);
   for(var i = 0; i <= 65; i++)
-   rail->SetClrModulation(RGB(200, 200, 200), this, i);
+    rail->SetClrModulation(RGB(200, 200, 200), this, i);
   CreateObject(RAI1, 2318, 1140, -1)->SetRail([1,3,1,3,1]);
 
   //Lüftungsgitter

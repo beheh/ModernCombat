@@ -2,7 +2,16 @@ CreatingInterior=Szenario wird eingerichtet...
 CreatingEquipment=Ausrüstung wird plaziert...
 CreatingDecoration=Dekoration wird plaziert...
 
+Team1=Alpha
+Team2=Beta
+Team3=Gamma
+Team4=Delta
+
 MsgCollapse=<c ff0000>Achtung</c>: Der lokale Sendemast <c ffff33>stürzt ein</c>
 MsgSupplyDrop=<c ff0000>Achtung</c>: Ein <c ffff33>Nachschubabwurf</c> passiert die Flugzone!
 
-Flag1=Sendemast
+Flag1=Nachschubbasis West
+Flag2=Luftweg A
+Flag3=Sendemast
+Flag4=Luftweg B
+Flag5=Nachschubbasis Ost

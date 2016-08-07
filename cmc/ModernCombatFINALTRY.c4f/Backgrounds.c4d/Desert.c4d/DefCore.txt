@@ -1,7 +1,7 @@
 [DefCore]
 id=BD09
 Name=Desert
-Version=4,9,5
+Version=4,9,10,7
 Category=1
 Width=1020
 Height=200
