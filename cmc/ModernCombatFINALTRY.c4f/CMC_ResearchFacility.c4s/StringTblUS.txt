@@ -2,9 +2,6 @@ CreatingInterior=Creating furniture...
 CreatingEquipment=Placing equipment...
 CreatingDecoration=Placing decoration...
 
-MsgFlagChanging=<c ff0000>Warning</c>: Flag post will <c ffff33>change positions</c> soon!
-MsgFlagChanged=Flag post moved to position <c ffff33>%s</c>!
-
 Team1=Eurocorps
 Team2=Aggressors
 
