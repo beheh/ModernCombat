@@ -102,7 +102,7 @@ public func Set(id idType, int iMax, int iTake, int iRespawn)
   if(iRespawnTime && idSpawn)
     AddEffect("IntRespawn", this, 10, iRespawnTime, this);
 
-  //Icon übernehmen  
+  //Icon übernehmen
   if(idSpawn->~IsAmmoPacket())
     SetIcon(idSpawn->AmmoID());
   else
@@ -170,12 +170,12 @@ private func CheckGrab()
   Close();
 }
 
-protected func Opening() 
+protected func Opening()
 {
-  Sound("AMCT_Open.ogg", false, this); 
+  Sound("AMCT_Open.ogg", false, this);
 }
 
-protected func Opened() 
+protected func Opened()
 {
   if(!CheckGrab() || !idSpawn)
     return;
@@ -321,8 +321,8 @@ public func FxIntResupplyTimer(object pTarget, int iEffectNumber, int iEffectTim
     if(obj && obj->~IsWeapon())
       DoAmmo(obj->GetFMData(FM_AmmoID), obj->GetFMData(FM_AmmoLoad), obj);
   }
-  
-  Sound("AMCT_Take.ogg", false, pTarget); 
+
+  Sound("AMCT_Take.ogg", false, pTarget);
 
   //Benachrichtigungen aktualisieren
   EffectCall(pTarget, iEffectNumber, "UpdateMessages");
@@ -345,8 +345,8 @@ public func FxIntResupplyStop(object pTarget, int iEffectNumber, int iReason, bo
   PlayerMessage(GetController(pTarget), "", pTarget);
 }
 
-/* Aufschlag */ 
-  
+/* Aufschlag */
+
 protected func Hit()
 {
   Sound("CrateImpact*.ogg");

@@ -154,11 +154,19 @@ private func Check()
   //Wegwurf wenn Rakete abgefeuert und/oder explodiert
   if(fired)
     if(!pRocket || !guided)
-      if(Contained() && Contained()->~IsClonk())
+      if(Contained())
       {
-        if(Contained()->~IsAiming() && Contents(0, Contained()) == this) return;
-        ThrowAway();
+        if(Contained()->~IsClonk())
+        {
+          if(Contained()->~IsAiming() && Contents(0, Contained()) == this) return;
+          ThrowAway();
+        }
+        else
+          if(Contained() && GetID(Contained()) == FKDT) return(RemoveObject());
       }
+      else
+        //Verschwinden wenn im Freien
+        FadeOut();
 
   if(!Contained() || Contents(0, Contained()) != this || !Contained()->~IsClonk()) return;
 
@@ -192,7 +200,7 @@ public func ThrowAway()
 
   //Verschwinden
   FadeOut();
-  
+
   return true;
 }
 
@@ -212,7 +220,7 @@ public func ControlThrow(caller)
     //Waffe leer? Nicht nachladen
     if(!CheckAmmo(ammoid,ammousage,this()))
       Sound("AT4R_Empty.ogg");
-    return(1);
+    return 1;
   }
 
   if(!Fire())
@@ -223,7 +231,7 @@ public func ControlThrow(caller)
     if(!CheckAmmo(ammoid,ammousage,this()))
       Sound("AT4R_Empty.ogg");
   }
-  return(1);
+  return 1;
 }
 
 /* Aufnahme */

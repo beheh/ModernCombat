@@ -3,7 +3,7 @@
 #strict 2
 #include SHTX
 
-local hitcnt, size, trail_len, iAttachment, iStartFrame, bNoFFChecks;
+local hitcnt, size, trail_len, iAttachment, iStartFrame, bNoFFChecks, bNoThumble;
 
 public func IsSpecialAmmo()	{return false;}
 public func TumbleTime()	{return 10;}		//Zeitfenster in dem Splitter Clonks umwerfen
@@ -12,7 +12,7 @@ public func CheckFF()		{return !bNoFFChecks;}
 
 /* Abschuss */
 
-public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg, int attachment, bool bDoNoFFChecks)
+public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg, int attachment, bool bDoNoFFChecks, bool bDoNoThumble)
 {
   //Schaden des Splitters setzen
   if(!iDmg)
@@ -66,6 +66,9 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
 
   //Entsprechend nur Feinden oder jedem schaden
   bNoFFChecks = bDoNoFFChecks;
+
+  //Getroffene Objekte thumblen
+  bNoThumble = bDoNoThumble;
 
   AddEffect("HitCheck", this, 1,1, 0, GetID(), shooter);
 }
@@ -215,7 +218,7 @@ public func BulletStrike(object pObj)
     if(GetID(pObj) != RSLH)
       AddEffect("IntShrapnelHit",pObj,1,10,0,GetID());
 
-    if(GetOCF(pObj) & OCF_Alive && iStartFrame+TumbleTime() > FrameCounter())
+    if(GetOCF(pObj) & OCF_Alive && iStartFrame+TumbleTime() > FrameCounter() && !bNoThumble)
     {
       //Fling(pObj,GetXDir()/20 + GetXDir(pObj),GetYDir()/20 + GetYDir(pObj));
       ObjectSetAction(pObj, "Tumble");
