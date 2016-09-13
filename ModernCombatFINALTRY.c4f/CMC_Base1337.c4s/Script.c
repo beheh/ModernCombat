@@ -511,7 +511,7 @@ func OnTowerCollapse()
   //OCC-Spielziel
   if(FindObject(GOCC))
     //Flaggenposten verschieben
-    aFlag[1]->MoveFlagpost(2080,940,1,"$Flag6$");
+    aFlag[1]->MoveFlagpost(2080,940,"$Flag6$");
 }
 
 /* Bei Flaggenübernahme */
