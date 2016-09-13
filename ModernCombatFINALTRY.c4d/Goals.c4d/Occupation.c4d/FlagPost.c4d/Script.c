@@ -431,7 +431,7 @@ public func DoProcess(int iTeam, int iAmount)
 
 /* Flaggenposten verschieben */
 
-public func MoveFlagpost(int iX, int iY, bool fNeutral, string szName)
+public func MoveFlagpost(int iX, int iY, string szName, int iRange, bool fNeutral)
 {
   //Effekte
   for(var i = -80; i < -20; i += 10)
@@ -449,6 +449,9 @@ public func MoveFlagpost(int iX, int iY, bool fNeutral, string szName)
   //Besitzer neutralisieren
   if(fNeutral)
     NoTeam();
+
+  //Reichweite setzen
+  if(iRange) range = iRange;
 
   //Spawnpunkte anpassen
   var curX = GetX(), curY = GetY();
