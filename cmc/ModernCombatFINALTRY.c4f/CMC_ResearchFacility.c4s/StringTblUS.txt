@@ -12,8 +12,6 @@ Flag4=Generator Room
 Flag5=Vehicle Hall
 Flag6=Lobby
 Flag7=Storage Depot
-Flag8=Entrance
-Flag9=Fuel Depot
 
 Target1=Control Unit
 Target2=Data Server

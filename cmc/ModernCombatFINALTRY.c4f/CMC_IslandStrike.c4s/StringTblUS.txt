@@ -20,4 +20,3 @@ Target4=Water Filter
 Target5=Generator
 Target6=Central Server
 Target7=Secondary Radar Unit
-Target8=Data Server
