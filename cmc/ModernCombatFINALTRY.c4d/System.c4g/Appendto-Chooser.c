@@ -1648,8 +1648,7 @@ protected func ConfigurationFinished2()
     for(j = 0 ; pCrew = GetCrew(GetPlayerByIndex(i), j) ; j++)
     {
       tmp = Contained(pCrew);
-      if(GetID(tmp) == TIM1)
-      	RemoveObject(tmp, 1);
+      RemoveObject(tmp, 1);
       pCrew->~Recruitment(GetOwner(pCrew));
     }
     for(var rule in FindObjects(Find_Category(Chooser_Cat), Find_Exclude(this)))

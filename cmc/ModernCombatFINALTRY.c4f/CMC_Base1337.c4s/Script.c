@@ -738,6 +738,7 @@ public func ChooserFinished()
 
     //Leiter
     CreateObject(LADR, 3920, 1108, -1)->Set(15);
+
     //Boden
     DrawMaterialQuad("Wall-Stripes", 3740,1040, 3770,1040, 3770,1050, 3740,1050);
 
@@ -753,6 +754,7 @@ public func ChooserFinished()
 
     //Stahlbrücke
     CreateObject(_HBR, 3900, 940, -1);
+
     //Hinweisschilder
     var sign = CreateObject(SGNP, 780, 1160, -1);
     sign->Set("Turret");
