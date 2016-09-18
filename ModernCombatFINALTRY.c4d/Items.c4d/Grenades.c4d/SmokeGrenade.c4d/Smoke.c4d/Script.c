@@ -44,7 +44,7 @@ public func Timer()
     
   //Peilsendereffekte entfernen
   if(GetActTime() >= 35 && GetActTime() <= 70)
-  	DestroyTracers();
+    DestroyTracers();
 
   //Laufzeit aufgebraucht: Verschwinden
   if(GetActTime() > iLifeTime)

@@ -158,10 +158,6 @@ VotekickSuccessful=Es hat eine 2/3 Mehrheit der Teilnehmer für einen Rauswurf ge
 VotekickNotEnough=Es haben nicht genügend Teilnehmer für einen Rauswurf gestimmt.
 Cancel=Abbrechen
 
-#Appendto-Tim.c
-TimeTillRespawn=Noch <c ff0000>%d Sekunden</c> bis zum Respawn.
-PressKeyToSpawn=Drücke eine Taste zum Spawnen
-
 # Easteregg
 
 Emptiness=Die Leere
