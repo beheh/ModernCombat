@@ -20,4 +20,3 @@ Target4=Wasserfilter
 Target5=Generator
 Target6=Zentralserver
 Target7=Sekundäre Radaranlage
-Target8=Datenserver

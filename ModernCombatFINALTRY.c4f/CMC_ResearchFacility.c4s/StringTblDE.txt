@@ -12,8 +12,6 @@ Flag4=Generatorraum
 Flag5=Fahrzeughalle
 Flag6=Lobby
 Flag7=Lagerhalle
-Flag8=Eingang
-Flag9=Treibstofflager
 
 Target1=Steuerungseinheit
 Target2=Datenserver
