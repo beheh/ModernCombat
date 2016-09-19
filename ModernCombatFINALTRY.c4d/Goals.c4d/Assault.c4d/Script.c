@@ -450,13 +450,6 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
     }
   }
 
-  //Spieler wartet noch auf Respawn
-  if(GameCall("GetPlayerRespawnTime", iPlr))
-  {
-    GameCall("SetPlayerRelaunchInformation", iPlr, -2);
-    return;
-  }
-
   //Clonk wegstecken
   var pCrew = GetCrew(iPlr);
   if(!pCrew)

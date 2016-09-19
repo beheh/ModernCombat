@@ -204,9 +204,6 @@ public func RelaunchClonk(int iPlr, object pCursor)
     return;
   }
 
-  //Clonknamen anzeigen
-  PlayerMessage(iPlr, Format("@%s", GetName(pClonk)), tim);
-
   if(tim)
     ScheduleCall(tim, "SpawnOk", 1);
 
