@@ -1,0 +1,2 @@
+DE:Schrotbatterie
+US:Shotgun Battery
