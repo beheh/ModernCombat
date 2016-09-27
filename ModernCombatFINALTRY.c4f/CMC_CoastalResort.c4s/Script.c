@@ -268,7 +268,8 @@ func CreateInterior()
   CreateObject(SE4K, 3100, 850, -1)->Set("Interior*.ogg",700,100, 75);
   CreateObject(SE4K, 3915, 680, -1)->Set("InteriorStress*.ogg",700,100, 50,75);
   CreateObject(SE4K, 4575, 680, -1)->Set("InteriorStress*.ogg",700,100, 50,75);
-  CreateObject(SE4K, 5390, 850, -1)->Set("Interior*.ogg",700,100, 75);}
+  CreateObject(SE4K, 5390, 850, -1)->Set("Interior*.ogg",700,100, 75);
+}
 
 func CreateEquipment()
 {
