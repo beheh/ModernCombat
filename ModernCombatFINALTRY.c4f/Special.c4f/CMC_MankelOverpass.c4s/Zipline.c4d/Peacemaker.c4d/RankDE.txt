@@ -1,0 +1,25 @@
+Soldat
+Soldat zweiter Klasse
+Soldat erster Klasse
+Hauptmann
+Späher
+Aufklärer
+Kundschafter
+Vorauskommando
+Schütze
+Richtschütze
+Spezialeinheit
+Präzisionsschütze
+Techniker
+Medizintechniker
+Ingenieur
+Fahrzeugführer
+Panzerfahrer
+Pilot
+Leutnant
+Feldwebel
+Major
+Offizier
+General
+Kommandant
+*%s der Elite
