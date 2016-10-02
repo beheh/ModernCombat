@@ -1,0 +1,23 @@
+CreatingInterior=Creating furniture...
+CreatingEquipment=Placing equipment...
+CreatingDecoration=Placing decoration...
+
+MsgFlagChanging=<c ff0000>Warning</c>: Flag post will <c ffff33>change positions</c> soon!
+MsgFlagChanged=Flag post moved to position <c ffff33>%s</c>!
+
+Team1=Eurocorps
+Team2=Insurgents
+
+Flag1=West Bridge Pillar
+Flag2=Landing Platform A
+Flag3=West Pillar Top
+Flag4=Bridgehead
+Flag5=East Pillar Top
+Flag6=Landing Platform B
+Flag7=East Bridge Pillar
+Flag8=Scaffolding
+Flag9=Shoreline
+
+Target1=Emergency Generator
+Target2=Control Unit
+Target3=Generator

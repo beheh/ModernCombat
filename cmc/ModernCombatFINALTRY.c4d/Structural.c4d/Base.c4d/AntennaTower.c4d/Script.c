@@ -6,6 +6,7 @@ local aNodes;
 local fDestroyed;
 local iLastDmgPlr;
 local fMode;
+local destructability;
 
 public func IsDestroyed()	{return fDestroyed;}
 
@@ -17,6 +18,8 @@ protected func Initialize()
   SetAction("Stand");
   aNodes = [];
   iLastDmgPlr = -1;
+  destructability = true;
+  SetColorDw(RGB(255,50,50));
 }
 
 /* Seilhalterungen */
@@ -84,6 +87,20 @@ public func SwitchMode()
   return true;
 }
 
+public func SwitchDestructability()
+{
+  if(destructability)
+  {
+    destructability = false;
+    SetColorDw(RGB(150,150,150));
+  }
+  else
+  {
+    destructability = true;
+    SetColorDw(RGB(255,50,50));
+  }
+  return true;
+}
 
 public func WorkingRopesCount()
 {
@@ -127,8 +144,8 @@ public func NodeDestroyed(object pNode)
 
 public func Damage(int change)
 {
-  //Kein Schaden wenn bereits zerstört
-  if(IsDestroyed() || change < 0)
+  //Kein Schaden wenn bereits zerstört oder unzerstörbar geschaltet
+  if(!destructability || IsDestroyed() || change < 0)
     return false;
   //Bei Seilhalterungen Schaden nullifizieren
   if(WorkingRopesCount())
@@ -233,22 +250,26 @@ protected func Collapse()
 
   //Maststücke erstellen
   var part = CreateObject(ATRP, 0,-200, iLastDmgPlr);
+  part->SetColorDw(GetColorDw(this));
   if(fMode)
     part->SetPhase(4);
   part->SetRDir(RandomX(-5,5));
   part->Fling(part, -2, 0);
 
   part = CreateObject(ATRP, 0,-50, iLastDmgPlr);
+  part->SetColorDw(GetColorDw(this));
   part->SetPhase(1);
   part->SetRDir(RandomX(-5,5));
   part->Fling(part, 2, 0);
 
   part = CreateObject(ATRP, 0,100, iLastDmgPlr);
+  part->SetColorDw(GetColorDw(this));
   part->SetPhase(2);
   part->SetRDir(RandomX(-5,5));
   part->Fling(part, -1, 0);
 
   part = CreateObject(ATRP, 0,250, iLastDmgPlr);
+  part->SetColorDw(GetColorDw(this));
   part->SetPhase(3);
   part->SetRDir(RandomX(-5,5));
   part->Fling(part, 1, 0);

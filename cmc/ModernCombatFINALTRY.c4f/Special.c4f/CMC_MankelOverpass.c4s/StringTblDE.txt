@@ -1,0 +1,23 @@
+CreatingInterior=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+CreatingDecoration=Dekoration wird plaziert...
+
+MsgFlagChanging=<c ff0000>Achtung</c>: <c ffff33>Positionswechsel</c> des Flaggenpostens steht bevor!
+MsgFlagChanged=Der Flaggenposten ist nun an Position <c ffff33>%s</c>!
+
+Team1=Eurocorps
+Team2=Aufständische
+
+Flag1=Westlicher Brückenpfeiler
+Flag2=Landeplattform A
+Flag3=Westliche Pfeilerspitze
+Flag4=Brückenkopf
+Flag5=Östliche Pfeilerspitze
+Flag6=Landeplattform B
+Flag7=Östlicher Brückenpfeiler
+Flag8=Gerüst
+Flag9=Küstenlinie
+
+Target1=Notstromaggregat
+Target2=Steuerungseinheit
+Target3=Generator

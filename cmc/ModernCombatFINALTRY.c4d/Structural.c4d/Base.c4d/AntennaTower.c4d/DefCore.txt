@@ -10,3 +10,4 @@ Mass=1500
 Picture=384,0,80,100
 SolidMask=192,0,96,700
 TopFace=288,0,96,700,0,0
+ColorByOwner=1

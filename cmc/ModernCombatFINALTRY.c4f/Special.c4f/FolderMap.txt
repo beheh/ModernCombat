@@ -9,6 +9,11 @@ FullscreenBG=1
 	Area=20,92,348,65
 	OverlayImage=OverlaySkyfall.png
 
+	[Scenario]
+	File=CMC_MankelOverpass.c4s
+	Area=20,158,348,65
+	OverlayImage=OverlayMankelOverpass.png
+
 
 
 

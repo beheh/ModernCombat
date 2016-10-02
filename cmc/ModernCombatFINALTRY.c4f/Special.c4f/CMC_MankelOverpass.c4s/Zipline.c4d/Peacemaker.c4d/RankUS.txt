@@ -1,0 +1,25 @@
+Private
+Private of the Second Class
+Private of the First Class
+Captain
+Scout
+Spotter
+Keeper
+Advance Unit
+Rifleman
+Gunner
+Special Force Unit
+Marksman
+Technician
+Medical Technician
+Engineer
+Operator
+Tank Driver
+Pilot
+Lieutenant
+Sergeant
+Major
+Officer
+General
+Commander
+*%s of the Elite
