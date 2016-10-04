@@ -136,6 +136,12 @@ public func HurtSounds(int iDmg, int iType)
     Sound("ClonkPain*.ogg");
 }
 
+protected func Hurt()
+{
+  HurtSounds(9);
+  return 1;
+}
+
 private func Building()
 {
   if(!Random(2)) Sound("ClonkBuild*.ogg");
@@ -145,7 +151,23 @@ private func Building()
 private func WalkSound()
 {
   if(Contained()) return;
-  Sound("ClonkStep*.ogg", 0, 0, 25);
+
+  //Material ermitteln
+  var mat = GetMaterial(0,10);
+
+  if(mat)
+  {
+    //Sound je nach Materialtyp
+    if(GetMaterialVal("DigFree", "Material", mat))
+      Sound("ClonkWalkSoft*.ogg", 0, 0, 25);
+    else
+      Sound("ClonkWalk*.ogg", 0, 0, 25);
+
+    //Zusatzsound bei Wasser
+    if(GBackLiquid(0,6))
+      Sound("ClonkWalkWater*.ogg", 0, 0, 25);
+  }
+
   if(!Random(6)) Sound("ClonkVestRustle*.ogg", 0, 0, 25);
   return 1;
 }
@@ -164,7 +186,7 @@ private func SwimSound()
 
 private func CrawlStartSound()
 {
-  Sound("ClonkFall*.ogg", 0, 0, 50);
+  Sound("ClonkStep*.ogg", 0, 0, 50);
   Sound("ClonkRustle*.ogg", 0, 0, 25);
   return 1;
 }
@@ -268,6 +290,17 @@ protected func QueryCatchBlow(object pBy)
   return _inherited(pBy, ...);
 }
 
+protected func CatchBlow(iLevel, pObj)
+{
+  if(GetAction() == "Dead") return;
+
+  //Sounds
+  HurtSounds(iLevel*-1);
+  Sound("WPN2_Punch*.ogg");
+
+  return 1;
+}
+
 /* Reject Shift */
 
 protected func ControlContents(idTarget)
@@ -306,7 +339,7 @@ func Hit2(int xDir, int yDir)
   }
   else if(hit >= 600)
   {
-    Sound("ClonkFall*.ogg");
+    Sound("ClonkStep*.ogg");
     Sound("ClonkRustle*.ogg", 0, 0, 25);
     if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",4,8,0,10,20,50);
   }
@@ -1022,7 +1055,7 @@ protected func JumpSound()
   if(!Contained())
     if(GetCommand() != "Enter")
     {
-      Sound("ClonkFall*.ogg", 0, 0, 60);
+      Sound("ClonkStep*.ogg", 0, 0, 60);
       if(!Random(6)) Sound("ClonkVestRustle*.ogg", 0, 0, 25);
     }
 }
