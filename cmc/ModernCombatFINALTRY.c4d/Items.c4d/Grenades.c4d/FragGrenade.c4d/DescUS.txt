@@ -1,1 +1,1 @@
-Tosses sharp-edged splitter by explosion.
+Tosses sharp-edged shrapnels upon explosion.

@@ -1,1 +1,1 @@
-Scans the surrounding area for a longer period of time, identifying specific enemy units and safety hazards.
+Scans the surrounding area for a longer period of time, marking specific enemy units and hazards.

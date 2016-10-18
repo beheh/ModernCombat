@@ -1,1 +1,1 @@
-Überwacht für eine Zeit sein gesamtes Umfeld und identifiziert bestimmte gegnerische Einheiten und Gefahrenquellen.
+Überwacht für eine Zeit sein gesamtes Umfeld und markiert bestimmte gegnerische Einheiten und Gefahrenquellen.

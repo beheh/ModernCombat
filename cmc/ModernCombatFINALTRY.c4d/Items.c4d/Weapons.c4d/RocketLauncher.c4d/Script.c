@@ -211,7 +211,6 @@ public func OnReload()
   Sound("RTLR_Reload.ogg");
 }
 
-
 public func Reload()
 {
   //Verhindert unerlaubtes Nachladen bei JnR

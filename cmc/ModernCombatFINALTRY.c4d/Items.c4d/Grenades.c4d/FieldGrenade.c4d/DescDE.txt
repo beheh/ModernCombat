@@ -1,1 +1,1 @@
-Handgranate mit großer Explosion.
+Erzeugt eine gefährliche, größere Explosion.

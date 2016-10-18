@@ -1,1 +1,1 @@
-Erzeugt nach der Zündung Rauchschwaden, Clonks im Rauch sehen schlecht oder zeitweise garnicht.
+Erzeugt nach der Zündung Rauchschwaden welche das Umfeld bedecken und Clonks darin die Sicht erschweren.
