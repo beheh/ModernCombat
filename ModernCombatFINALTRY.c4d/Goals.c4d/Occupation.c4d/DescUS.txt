@@ -1,3 +1,5 @@
-The goal is to conquer as much flag posts as possible which then serve as respawn positions for the owner. Tickets represent respawns for the team.
+The goal ist to capture flag posts to secure more respawn positions for the team as well as to extend its influence. Every team owns a certain number of tickets, which equal respawns.
 
-The enemy team can be defeated by removing all of his tickets by eliminating hostile players or by taking all of the enemies flag posts and eliminating all forces which could change that.
+A team is eliminated when all tickets are lost. A team looses tickets for every dead team member as well as enemy teams which occupy more flag posts and therefore reduce the own ticket count over time.
+
+A team can be defeated prematurely by eliminating all of their team members and neutralizing all their flag posts.

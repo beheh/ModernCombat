@@ -1,3 +1,3 @@
-Ziel ist es, alleine oder im Team eine vorgegebene Menge an Geld zu erwirtschaften.
+Ziel ist es, alleine oder im Team eine vorgegebene Menge an Geld zu sammeln.
 
-Geld gibt es für Kills und Geldsäcke, durch Tode, Selbstmorde oder Teamkills wiederum verliert man Geld.
+Geld gibt es für Kills und das Sammeln von Geldsäcken. Durch Tode, Selbstmorde oder Teamkills verliert man wiederum Geld.
