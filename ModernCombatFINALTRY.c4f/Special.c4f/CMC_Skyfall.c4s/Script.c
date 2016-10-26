@@ -38,6 +38,8 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
+  //Neustart-Button setzen
+  SetNextMission("ModernCombat.c4f\\Special.c4f\\CMC_Skyfall.c4s", "$RepeatButton$", "$RepeatButtonDesc$");
   return 1; 
 }
 

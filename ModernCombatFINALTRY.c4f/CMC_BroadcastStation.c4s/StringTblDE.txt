@@ -1,5 +1,7 @@
-MsgCollapse=<c ff0000>Achtung</c>: Der lokale Sendemast <c ffff33>stürzt ein</c>
-
 CreatingInterior=Szenario wird eingerichtet...
 CreatingEquipment=Ausrüstung wird plaziert...
 CreatingDecoration=Dekoration wird plaziert...
+RepeatButton=Runde neustarten
+RepeatButtonDesc=Startet die Runde neu.
+
+MsgCollapse=<c ff0000>Achtung</c>: Der lokale Sendemast <c ffff33>stürzt ein</c>

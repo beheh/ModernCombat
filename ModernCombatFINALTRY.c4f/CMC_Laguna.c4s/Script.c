@@ -29,6 +29,8 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
+  //Neustart-Button setzen
+  SetNextMission("ModernCombat.c4f\\CMC_Laguna.c4s", "$RepeatButton$", "$RepeatButtonDesc$");
   return 1; 
 }
 
