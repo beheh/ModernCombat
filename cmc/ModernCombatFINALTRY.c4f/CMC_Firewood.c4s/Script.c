@@ -26,6 +26,8 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
+  //Neustart-Button setzen
+  SetNextMission("ModernCombat.c4f\\CMC_Firewood.c4s", "$RepeatButton$", "$RepeatButtonDesc$");
   return 1; 
 }
 

@@ -1,5 +1,7 @@
-MsgCollapse=<c ff0000>Warning</c>: The local antenna tower <c ffff33>collapses</c>
-
 CreatingInterior=Creating furniture...
 CreatingEquipment=Placing equipment...
 CreatingDecoration=Placing decoration...
+RepeatButton=Restart game
+RepeatButtonDesc=Restart the round.
+
+MsgCollapse=<c ff0000>Warning</c>: The local antenna tower <c ffff33>collapses</c>
