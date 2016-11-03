@@ -1,6 +1,6 @@
-/*-- KillIcons für Flammen --*/
+/*-- Flamme --*/
 
-//Tod durch Flammen werden nun mit einem passenden Icon markiert.
+//Tode durch Flammen werden nun mit entsprechenden Icons markiert.
 
 #strict 2
 #appendto FFLM
