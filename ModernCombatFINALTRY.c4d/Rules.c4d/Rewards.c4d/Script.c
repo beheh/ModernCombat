@@ -286,13 +286,12 @@ public func StatsRibbonList(int iPlr, int iIndex, int iOffset, int iButton)
   if(iOffset+10 <= ribbonCount-1)
     AddMenuItem("$NextPage$", Format("StatsRibbonList(%d, 0, %d, 1)", iPlr, BoundBy(iOffset+10, 0, ribbonCount)), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 
+  //Zurück
   var szCmd = 0;
   if(iOffset > 0)
     szCmd = Format("StatsRibbonList(%d, 0, %d, 2)", iPlr, BoundBy(iOffset-10, 0), i);
   else
-    szCmd = Format("StatsList(%d, 0, %d, 1)", iPlr, iAchievementCount-(iAchievementCount%10));
-
-  //Zurück
+    szCmd = Format("StatsList(%d, 0, %d, 1)", iPlr, iAchievementCount-10);
   AddMenuItem("$LastPage$", szCmd, NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 
   //Eigene Errungenschaften anzeigen
@@ -786,7 +785,7 @@ public func StatsStatistics(int iPlr)
   if(rank != iRankCount-1)
     AddMenuItem(Format("$NextRank$", GetName(0, GetRankID(rank)), rank, GetName(0, C4Id(Format("RG%02d", rank+1))), rank+1), 0, 0, pClonk);
   else
-    AddMenuItem(Format("$YourRank$", GetName(0, GetRankID(rank)), rank), 0, 0, pClonk);
+    AddMenuItem(Format("$MaxRankReached$", GetName(0, GetRankID(rank)), rank), 0, 0, pClonk);
 
   //Balkenanzeige einblenden, sofern nicht der letzte Rang
   if(rank != iRankCount-1)
@@ -795,7 +794,7 @@ public func StatsStatistics(int iPlr)
 
     var str = "";
 
-     var k = 500 * rank ** 2;
+    var k = 500 * rank ** 2;
     k -= (k % 1000) * (k > 1000);
     var k2 = 500 * (rank+1) ** 2;
     k2 -= (k2 % 1000) * (k2 > 1000);
@@ -836,6 +835,8 @@ public func StatsStatistics(int iPlr)
 
     AddMenuItem(Format("%s</c>", str), 0, 0, pClonk);
   }
+  else
+    AddMenuItem(Format("{{%i}} %d", GetRankID(rank), (bpoints + tpoints)), 0, 0, pClonk);
 
   AddMenuItem(" | ", 0, 0, pClonk);
 
