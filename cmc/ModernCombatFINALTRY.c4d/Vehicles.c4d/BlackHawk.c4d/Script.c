@@ -1264,6 +1264,11 @@ public func OnDamage(int iDamage)
     {
       if(GetOCF(obj) & OCF_Alive && GetID(Contained(obj)) != FKDT)
         DoDmg(iDamage/3,DMG_Melee,obj,0,GetLastAttacker()+1,GetID());
+
+      //Achievement-Fortschritt (No-Fly Zone)
+      if(Hostile(GetOwner(obj), GetLastAttacker()))
+        if(!GetAlive(obj) || IsFakeDeath(obj))
+          DoAchievementProgress(1, AC60, GetLastAttacker());
     }
   }
 
