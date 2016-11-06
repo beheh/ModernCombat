@@ -148,6 +148,10 @@ func ControlDig(object pByObj)
   if(IsDestroyed())
     return PlayerMessage(GetOwner(pByObj),"$Destroyed$", this);
 
+  //Puffer
+  if(GetEffect("CommandDelay", this)) return;
+  AddEffect("CommandDelay", this, 1, 50, this);
+
   //Flugbahn berechnen
   var iX = Sin(GetR(pCannon),34), iY = -Cos(GetR(pCannon),34)-3, iXDir = Sin(GetR(pCannon),150), iYDir = -Cos(GetR(pCannon),150);
 
@@ -199,9 +203,9 @@ public func Shoot()
   //Zerstört?
   if(IsDestroyed()) return;
 
+  //Geschoss abfeuern
   var iX=Sin(GetR(pCannon),34);
   var iY=-Cos(GetR(pCannon),34)-3;
-
   var pProjectile = CreateObject(ABLT,iX,iY,GetOwner(byObj));
   SetOwner(GetController(), pProjectile);
   SetXDir( Sin(GetR(pCannon),RandomX(135,165)),pProjectile,10);
