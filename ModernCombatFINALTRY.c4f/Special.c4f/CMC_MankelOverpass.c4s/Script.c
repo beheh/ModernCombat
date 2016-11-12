@@ -466,6 +466,10 @@ func CreateEquipment()
   CreateObject(AMCT, 3570, 1360, -1)->Set(ABOX);
   CreateObject(AMCT, 4620, 980, -1)->Set(ABOX);
 
+  //Versorgungskisten (Railgun)
+  CreateObject(AMCT, 1820, 900, -1)->Set(RLGN,0,0,0,1);
+  CreateObject(AMCT, 4060, 900, -1)->Set(RLGN,0,0,0,1);
+
   //Versorgungskisten (APW)
   CreateObject(AMCT, 1340, 980, -1)->Set(ATWN);
   CreateObject(AMCT, 4540, 980, -1)->Set(ATWN);
