@@ -1,0 +1,6 @@
+pilot=Pilot
+pilot_desc=The pilot dominates the airspace|and is equipped with light arms|as well as a tool to repair|vehicles swiftly.
+support=Supporter
+support_desc=Heavily armed and equppied with|lots of ammo. Idial to rain down|barrages on enemies and useful|in any stormy situation.
+artillerist=Artillerist
+artillerist_desc=Equipped with a powerful grenade|launcher, this unit acts behind|the battlefield and fires deadly|artillery onto the enemy.

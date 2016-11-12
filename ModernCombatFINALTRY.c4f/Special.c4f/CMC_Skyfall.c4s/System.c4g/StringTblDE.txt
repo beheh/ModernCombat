@@ -1,0 +1,6 @@
+pilot=Pilot
+pilot_desc=Der Pilot dominiert den Luftraum|und verfügt über leichte Waffen|sowie Werkzeug zum schnellen|Reparieren von Fahrzeugen.
+support=Unterstützer
+support_desc=Schwer bewaffnet und mit genügend|Munition ausgerüstet ist der|Unterstützer die Antwort auf fast|jede hitzige Kampfsituation.
+artillerist=Artillerist
+artillerist_desc=Mit einem starken Granatenwerfer|ausgerüstet, agiert diese Einheit|hinter der Frontlinie und feuert|tödliche Artillerie auf den Feind.
