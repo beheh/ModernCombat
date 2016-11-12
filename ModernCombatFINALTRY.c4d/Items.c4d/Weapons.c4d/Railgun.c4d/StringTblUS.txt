@@ -1,0 +1,3 @@
+Bullets=Bullets
+Single=Single
+NotReady=Weapon not in firing position!
