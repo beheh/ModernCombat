@@ -1,0 +1,3 @@
+The experimental railgun accelerates single projectiles to supersonic speeds and can therefore smash through almost any target.
+
+The weapon is limited to 10 projectiles and has to charge up before every shot.

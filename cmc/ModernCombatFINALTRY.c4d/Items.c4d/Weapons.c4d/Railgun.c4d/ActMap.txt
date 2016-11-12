@@ -1,0 +1,9 @@
+[Action]
+Name=Prepare
+Delay=6
+FacetBase=1
+Facet=24,0,16,2,1,4
+Length=9
+EndCall=CheckToFire
+NextAction=Idle
+Sound=RLGN_Charging.ogg

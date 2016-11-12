@@ -1,0 +1,3 @@
+Die experimentelle Railgun beschleunigt einzelne Projektile auf Überschallgeschwindigkeit und durchschlägt somit fast jedes Ziel.
+
+Die Waffe ist auf 10 Projektile begrenzt und muss sich vor jedem Schuss aufladen.

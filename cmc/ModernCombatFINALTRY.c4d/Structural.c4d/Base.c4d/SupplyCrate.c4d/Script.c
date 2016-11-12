@@ -29,7 +29,7 @@ protected func Initialize()
 
 /* Konfiguration */
 
-private func PreDef(id idType)
+private func PreDef(id idType, bool fSingle)
 {
   //Standardwerte
   iRespawnTime = 35 * 30;
@@ -82,12 +82,16 @@ private func PreDef(id idType)
     //Rot
     SetColorDw(HSL(250, 250, 160, 150));
   }
+
+  //Versorgungskisten mit Einzelversorgung blau färben
+  if(fSingle)
+    SetColorDw(HSL(150, 255,150));
 }
 
-public func Set(id idType, int iMax, int iTake, int iRespawn)
+public func Set(id idType, int iMax, int iTake, int iRespawn, bool fSingle)
 {
   //Standardwerte anwenden
-  PreDef(idType);
+  PreDef(idType, fSingle);
 
   //Externe Informationen übernehmen
   if(iRespawn) iRespawnTime = iRespawn;
@@ -100,7 +104,7 @@ public func Set(id idType, int iMax, int iTake, int iRespawn)
 
   //Spawneffekt erstellen
   if(iRespawnTime && idSpawn)
-    AddEffect("IntRespawn", this, 10, iRespawnTime, this);
+    AddEffect("IntRespawn", this, 10, iRespawnTime, this, 0, fSingle);
 
   //Icon übernehmen
   if(idSpawn->~IsAmmoPacket())
@@ -167,7 +171,9 @@ private func CheckGrab()
     Open();
     return true;
   }
-  Close();
+
+  if(ContentsCount())
+    Close();
 }
 
 protected func Opening()
@@ -237,21 +243,38 @@ public func GetSpawnID()
 
 /* Respawneffekt */
 
-public func FxIntRespawnStart(object pTarget, int iEffectNumber, int iTemp)
+public func FxIntRespawnStart(object pTarget, int iEffectNumber, int iTemp, bool fSingle)
 {
   if(!idSpawn || iTemp)
     return -1;
   //Leeren
   while(Contents())
     RemoveObject(Contents());
+  EffectVar(0, pTarget, iEffectNumber) = fSingle;
+  
   //Füllen
-  CreateContents(idSpawn, 0, iMaxCount);
+  if(fSingle)
+  {
+    iMaxCount = 1;
+    EffectVar(1, pTarget, iEffectNumber) = CreateContents(idSpawn);
+  }
+  else
+    CreateContents(idSpawn, 0, iMaxCount);
 }
 
 public func FxIntRespawnTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  if(ContentsCount() < iMaxCount)
+  if(ContentsCount() < iMaxCount && !EffectVar(0, pTarget, iEffectNumber))
+  {
     CreateContents(idSpawn);
+    CheckGrab();
+  }
+  else
+  if(EffectVar(0, pTarget, iEffectNumber) && !EffectVar(1, pTarget, iEffectNumber))
+  {
+    EffectVar(1, pTarget, iEffectNumber) = CreateContents(idSpawn);
+    CheckGrab();
+  }
 }
 
 public func FxIntRespawnInfo(object pTarget, int iEffectNumber)
@@ -265,6 +288,7 @@ public func FxIntRespawnStop(object pTarget, int iEffectNumber, int iReason, boo
   if(!fTemp)
     while(Contents())
       RemoveObject(Contents());
+  if(EffectVar(1, pTarget, iEffectNumber)) EffectVar(1, pTarget, iEffectNumber)->RemoveObject();
 }
 
 /* Aufnehmeffekt */

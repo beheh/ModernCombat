@@ -1,0 +1,3 @@
+Bullets=Kugeln
+Single=Einzeln
+NotReady=Waffe nicht in Feuerposition!
