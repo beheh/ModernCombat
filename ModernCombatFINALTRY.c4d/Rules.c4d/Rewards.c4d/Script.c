@@ -632,9 +632,9 @@ global func CalcRank(int iPlr)
 
   for(var j = 0; j < iRankCount; j++)
   {
-    var k = 500 * j ** 2;
+    var k = 800 * j ** 2;
     k -= (k % 1000) * (k > 1000); // benötigte Punktzahl (unter Grenze)
-    var k2 = 500 * (j+1) ** 2;
+    var k2 = 800 * (j+1) ** 2;
     k2 -= (k2 % 1000) * (k2 > 1000); // benötigte Punktzahl (obere Grenze)
 
     if(j+1 == iRankCount)
@@ -794,9 +794,9 @@ public func StatsStatistics(int iPlr)
 
     var str = "";
 
-    var k = 500 * rank ** 2;
+    var k = 800 * rank ** 2;
     k -= (k % 1000) * (k > 1000);
-    var k2 = 500 * (rank+1) ** 2;
+    var k2 = 800 * (rank+1) ** 2;
     k2 -= (k2 % 1000) * (k2 > 1000);
 
     var diff = k2-k;
