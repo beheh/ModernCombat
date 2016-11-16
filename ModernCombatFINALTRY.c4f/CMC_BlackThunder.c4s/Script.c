@@ -254,6 +254,34 @@ func CreateEquipment()
   PlaceSpawnpoint(MBOX, 2780, 665);
   PlaceSpawnpoint(MBOX, 3810, 645);
 
+  //Automaten
+  var store = CreateObject(WPVM,1325, 850,-1);
+  store->AddWare(C4PA,10);
+  store->AddWare(FAPK,10);
+  store->AddWare(CDBT,10);
+  store->AddWare(BWTH,10);
+  store->AddWare(RSHL,10);
+  store->AddWare(ATWN,20);
+  store->AddWare(FGRN,20);
+  store->AddWare(FRAG,20);
+  store->AddWare(PGRN,20);
+  store->AddWare(SGRN,20);
+  store->AddWare(STUN,20);
+  store->AddWare(SRBL,20);
+  store = CreateObject(WPVM,2915, 850,-1);
+  store->AddWare(C4PA,10);
+  store->AddWare(FAPK,10);
+  store->AddWare(CDBT,10);
+  store->AddWare(BWTH,10);
+  store->AddWare(RSHL,10);
+  store->AddWare(ATWN,20);
+  store->AddWare(FGRN,20);
+  store->AddWare(FRAG,20);
+  store->AddWare(PGRN,20);
+  store->AddWare(SGRN,20);
+  store->AddWare(STUN,20);
+  store->AddWare(SRBL,20);
+
   //Geschützstellungen
   CreateObject(GNET, 420, 440, -1)->Set(SATW,90);
   CreateObject(GNET, 1410, 590, -1)->Set(0,0,1);
@@ -533,7 +561,7 @@ public func ChooserFinished()
 
     aFlag[1] = CreateObject(OFPL,1330,670,NO_OWNER);
     aFlag[1] -> AddSpawnPoint(1190,750);
-    aFlag[1] -> AddSpawnPoint(1300,840);
+    aFlag[1] -> AddSpawnPoint(1290,840);
     aFlag[1] -> AddSpawnPoint(1130,610);
     aFlag[1]->Set("$Flag2$");
 

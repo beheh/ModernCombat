@@ -7,9 +7,19 @@
 
 protected func Initialize()
 {
-  AddLight(200,RGB(100,255,50));
-  SetClrModulation(RGBa(255, 255, 255, 80));
+  //In den Hintergrund verschieben und einblenden
+  SetCategory(C4D_StaticBack);
+  SetCategory(C4D_Background);
+  FadeIn(this,10);
+
+  //Effekte
+  AddLightFlash(RandomX(600,800),0,0,RGBa(100,255,50,50),this);
   SetAction(Format("Glow%d",Random(4)));
-  DoCon(Random(80)*(-Random(3)));
+  DoCon(RandomX(80,180));
   iSpeed=Random(7)-3;
+}
+
+private func Remove()
+{
+  FadeOut(this,10);
 }
