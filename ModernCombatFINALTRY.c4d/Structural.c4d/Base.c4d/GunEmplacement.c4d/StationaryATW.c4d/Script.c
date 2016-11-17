@@ -130,15 +130,13 @@ public func ControlDig(object pBy)
   }
 }
 
-/* Nachladen */
+/* Allgemein */
 
 public func OnReload()
 {
   if(!GetEffect("IntNoSound", this))
     Sound("SATW_Reload.ogg", false, this);
 }
-
-/* Allgemein */
 
 public func OnEmpty()
 {
