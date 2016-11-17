@@ -3,7 +3,7 @@
 #strict 2
 #include CHBX
 
-local iStatus,iName;
+local iStatus,iName,iDelay;
 
 public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
 {
@@ -38,11 +38,13 @@ protected func Initialize()
 
 /* Einstellung */
 
-public func Set(string szName)
+public func Set(string szName, int iTime)
 {
   //Aufruf festlegen
   if(szName)
     iName = szName;
+  if(iTime)
+    iDelay = iTime;
 }
 
 /* Zerstörung */
@@ -54,7 +56,9 @@ public func Damage(int iChange, int iPlr)
   if(GetDamage() > 100)
   {
     //Zusammensturz melden
-    if(iName)
+    if(iName && iDelay)
+      Schedule("GameCallEx(iName)", iDelay);
+    else
       GameCallEx(iName, iPlr);
 
     //Rauch erzeugen
