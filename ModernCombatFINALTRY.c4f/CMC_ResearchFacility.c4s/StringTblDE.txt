@@ -9,11 +9,9 @@ Team2=Aggressoren
 
 Flag1=Quartiere
 Flag2=Kontrollturm
-Flag3=Gerüstehalle
-Flag4=Generatorraum
-Flag5=Fahrzeughalle
-Flag6=Lobby
-Flag7=Lagerhalle
+Flag3=Fahrzeughalle
+Flag4=Lobby
+Flag5=Lagerhalle
 
 Target1=Steuerungseinheit
 Target2=Datenserver

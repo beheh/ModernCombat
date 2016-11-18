@@ -9,11 +9,9 @@ Team2=Aggressors
 
 Flag1=Quarters
 Flag2=Control Tower
-Flag3=Scaffolding Hall
-Flag4=Generator Room
-Flag5=Vehicle Hall
-Flag6=Lobby
-Flag7=Storage Depot
+Flag3=Vehicle Hall
+Flag4=Lobby
+Flag5=Storage Depot
 
 Target1=Control Unit
 Target2=Data Server
