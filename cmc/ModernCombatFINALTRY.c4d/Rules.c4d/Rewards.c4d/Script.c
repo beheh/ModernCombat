@@ -602,7 +602,7 @@ global func RecalcPlayerRank(int iPlr)
         FindObject2(Find_ID(RWDS))->UpdatePlayerNames(iPlr);
 
       //Sound-Hinweis
-      Sound("RankUp.ogg", true, 0, 100, iPlr+1);
+      Sound("RWDS_Promotion.ogg", true, 0, 100, iPlr+1);
 
       GameCallEx("OnPlayerRankUp", iPlr, nRank);
     }
@@ -962,7 +962,7 @@ global func AwardAchievement(id idAchievement, int iPlr)
   EventInfo4K(0, Format("$AchievementNewUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), RWDS, 0, 0, 0, "Info_Event.ogg");
 
   //Sound-Hinweis
-  Sound("AchievementGet.ogg", true, 0, 100, iPlr+1);
+  Sound("RWDS_Achievement.ogg", true, 0, 100, iPlr+1);
 
   return true;
 }
@@ -1076,7 +1076,7 @@ global func AttemptAwardRibbon(id idRibbon, int iPlr, int iPlrFrom)
   }
 
   //Sound-Hinweis
-  Sound("RibbonGet.ogg", true, 0, 100, iPlr+1);
+  Sound("RWDS_Ribbon.ogg", true, 0, 100, iPlr+1);
 
   return true;
 }
@@ -1110,7 +1110,7 @@ global func FxPointMessageTimer(object pTarget, int iEffectNumber)
         if(EffectVar(2,pObject,iIndex) > 0) return(FX_OK);
     }
     //Sound
-    Sound("PointsGet.ogg", 0, pContainer, 100, GetOwner(pTarget)+1);
+    Sound("RWDS_Points.ogg", 0, pContainer, 100, GetOwner(pTarget)+1);
 
     var iPlr = GetOwner(pTarget);
     for(i = 0; i < GetPlayerCount(); i++)

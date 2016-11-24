@@ -1267,7 +1267,7 @@ public func OnDamage(int iDamage)
 
       //Achievement-Fortschritt (No-Fly Zone)
       if(Hostile(GetOwner(obj), GetLastAttacker()))
-        if(!GetAlive(obj) || IsFakeDeath(obj))
+        if(!GetOCF(obj) & OCF_Alive || GetID(Contained(obj)) == FKDT)
           DoAchievementProgress(1, AC60, GetLastAttacker());
     }
   }
