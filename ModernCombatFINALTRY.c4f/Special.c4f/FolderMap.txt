@@ -21,3 +21,8 @@ FullscreenBG=1
 	File=CMC_Skyscrapers.c4s
 	Area=379,92,348,65
 	OverlayImage=OverlaySkyscrapers.png
+
+	[Scenario]
+	File=CMC_Wavebreaker.c4s
+	Area=379,158,348,65
+	OverlayImage=OverlayWavebreaker.png
