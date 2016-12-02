@@ -1,0 +1,27 @@
+CreatingInterior=Creating furniture...
+CreatingEquipment=Placing equipment...
+CreatingDecoration=Placing decoration...
+RepeatButton=Restart game
+RepeatButtonDesc=Restart the round.
+
+MsgFlagChanging=<c ff0000>Warning</c>: Flag post will <c ffff33>change positions</c> soon!
+MsgFlagChanged=Flag post moved to position <c ffff33>%s</c>!
+
+Team1=Eurocorps
+Team2=Insurgents
+
+Flag1=Assault Cruiser A
+Flag2=West Coast
+Flag3=West Castle Tower
+Flag4=Abyss
+Flag5=East
+Flag6=East Castle Coast
+Flag7=Assault Cruiser B
+Flag8=Throne Room
+Flag9=Catacombs
+
+Target1=Anti-Aircraft Gun
+Target2=Secret Project
+Target3=Generator
+Target4=Getaway Vehicle
+Target5=Central Server

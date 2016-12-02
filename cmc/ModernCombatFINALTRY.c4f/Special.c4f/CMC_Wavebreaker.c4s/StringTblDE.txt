@@ -1,0 +1,27 @@
+CreatingInterior=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+CreatingDecoration=Dekoration wird plaziert...
+RepeatButton=Runde neustarten
+RepeatButtonDesc=Startet die Runde neu.
+
+MsgFlagChanging=<c ff0000>Achtung</c>: <c ffff33>Positionswechsel</c> des Flaggenpostens steht bevor!
+MsgFlagChanged=Der Flaggenposten ist nun an Position <c ffff33>%s</c>!
+
+Team1=Eurocorps
+Team2=Aufständische
+
+Flag1=Angriffskreuzer A
+Flag2=Westküste
+Flag3=Westlicher Burgturm
+Flag4=Abgrund
+Flag5=Östlicher Burgturm
+Flag6=Ostküste
+Flag7=Angriffskreuzer B
+Flag8=Thronraum
+Flag9=Katakomben
+
+Target1=Luftabwehrgeschütz
+Target2=Geheimprojekt
+Target3=Generator
+Target4=Fluchtfahrzeug
+Target5=Zentralserver

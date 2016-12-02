@@ -1,0 +1,15 @@
+[DefCore]
+id=SRTR
+Version=4,9,10,7
+Name=Throne Room
+Category=C4D_StaticBack
+Width=241
+Height=161
+Offset=-121,-81
+Vertices=2
+VertexX=120,29,-29,-120
+VertexY=79,59,59,79
+VertexFriction=100,100,100,100
+Mass=9000
+SolidMask=241,0,241,161,0,0
+Picture=482,0,34,38

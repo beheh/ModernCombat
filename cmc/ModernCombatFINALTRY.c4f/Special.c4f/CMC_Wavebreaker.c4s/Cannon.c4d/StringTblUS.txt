@@ -1,0 +1,2 @@
+Grenades=Grenade
+Explosive=Explosive

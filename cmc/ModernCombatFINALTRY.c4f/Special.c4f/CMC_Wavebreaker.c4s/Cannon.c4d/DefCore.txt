@@ -1,0 +1,17 @@
+[DefCore]
+id=CNNW
+Version=4,9,10,7
+Name=Cannon
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectKnowledge|C4D_SelectHomebase
+MaxUserSelect=1
+Width=26
+Height=8
+Offset=-13,-4
+Vertices=2
+VertexX=-13,13
+VertexY=0,0
+VertexFriction=100,100
+Value=100
+Mass=20
+Components=METL=4
+Picture=0,8,64,54

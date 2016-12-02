@@ -137,7 +137,7 @@ public func FxIntActivatingShockPaddlesTimer(object pTarget, int iEffectNumber, 
       {
         Enter(pShockPaddlesOwner, Contents(0, this));
 
-        //Items ggf. wieder zurueckrotieren
+        //Items ggf. wieder zurückrotieren
         if(EffectVar(1, pTarget, iEffectNumber) && FindObject2(Find_Container(this), Find_Not(Find_Exclude(EffectVar(1, pTarget, iEffectNumber)))))
           while(Contents(0, this) != EffectVar(1, pTarget, iEffectNumber))
             ShiftContents(this);
@@ -177,7 +177,7 @@ public func ActivateShockPaddles(object pShockPaddlesOwner)
       if(!FindObject2(Find_InRect(-10,-10,20,20), Find_ID(FKDT), Find_Allied(GetOwner()), Find_NoContainer(), Find_Not(Find_Func("RejectReanimation"))))
         return;
       Contents(0, this)->~Activate(this);
-      //Ggf. wieder zuruecklegen
+      //Ggf. wieder zurücklegen
       if(pShockPaddlesOwner && pShockPaddlesOwner != this)
         if(!pShockPaddlesOwner->~RejectCollect(GetID(Contents(0, this)), Contents(0, this)))
           if(FindObject2(Find_Not(Find_Exclude(pShockPaddlesOwner)), Find_InRect(-10,-10,20,20)))
