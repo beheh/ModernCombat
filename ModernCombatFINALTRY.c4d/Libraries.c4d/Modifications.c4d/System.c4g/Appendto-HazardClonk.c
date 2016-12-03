@@ -413,7 +413,7 @@ protected func Death()
 public func UpdateCharge(bool fForceUpdate)
 {
   UpdateCH();
-  
+
   //Nur wenn ich Cursor bin
   var pCursor = GetCursor(GetOwner());
   if(pCursor && pCursor != this) pCursor = pCursor->~GetRealCursor(); 
