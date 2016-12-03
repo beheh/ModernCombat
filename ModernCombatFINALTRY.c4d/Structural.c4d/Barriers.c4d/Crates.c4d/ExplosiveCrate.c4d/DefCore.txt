@@ -16,3 +16,4 @@ VertexCNAT=10,9
 VertexFriction=200,200,200,200
 NoBurnDecay=1
 ContactIncinerate=4
+FireTop=6
