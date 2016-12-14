@@ -142,7 +142,7 @@ public func OpenSpectateMenuCore(object pTarget, object pMenuTarget, int iRange)
 
   var itemid, extra, clr = 0xFFFFFF, prefixedstr = "";
   GetMenuItemStyle(pTarget, itemid, extra, clr, prefixedstr);
-  AddMenuItem(Format("%s<c %x>%s</c>", prefixedstr, clr, GetName(pTarget)), 
+  AddMenuItem(Format("%s<c %x>%s</c>", prefixedstr, clr, GetName(pTarget)),
   						Format("SPEC->SpectateObject(Object(%d), Object(%d), %d, true)", ObjectNumber(pTarget), ObjectNumber(pTarget), iRange), itemid, pTarget, 0, 0, 0, 2, extra);
   for(var i = 0; i < GetPlayerCount(); i++)
   {

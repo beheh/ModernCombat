@@ -215,7 +215,7 @@ private func InitPlayer(int iPlr)
 
 public func Money(int iPlr, object pClonk, int iMurdererPlr)
 {
-  if(iMurdererPlr != NO_OWNER)
+  if(iMurdererPlr != NO_OWNER && iMurdererPlr != iPlr)
   {
     //Teamkill
     if(GetPlayerTeam(iPlr) == GetPlayerTeam(iMurdererPlr))
@@ -238,7 +238,7 @@ public func TeamGetScore(int iTeam)
 
 global func HostileTeam(int iTeam1, int iTeam2)
 {
-  if(iTeam1 == iTeam2 || iTeam1 == 0 || iTeam2 == 0) 
+  if(iTeam1 == iTeam2 || iTeam1 == 0 || iTeam2 == 0)
     return;
 
   return 1;
