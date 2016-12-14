@@ -1122,7 +1122,9 @@ protected func ContextUnbuckle(object pCaller)
   if(!HasGear() && !HasAttachmentWeapons())
     return;
 
-  CreateMenu(HARM, 0, 0, 0, 0, 0, 1);
+  Sound("WPN2_Modify*.ogg", 1, 0,0, GetOwner()+1);
+
+  CreateMenu(HARM, 0, 0, 0, GetName(0,GEAR), 0, 1);
 
   //Alle Ausrüstungen auflisten
   for(var i; i < GetLength(aGear); ++i) 
@@ -1177,7 +1179,7 @@ private func AmmoBagContextCheck()
   return !FindObject(NOAM);
 }
 
-/*----- Gürtelmunitionsentnahme -----*/
+/*----- Munitionsgürtelentnahme -----*/
 
 protected func ContextAmmobag(object pCaller)
 {

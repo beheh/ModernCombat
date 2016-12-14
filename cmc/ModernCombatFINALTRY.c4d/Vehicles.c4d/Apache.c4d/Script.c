@@ -467,7 +467,7 @@ public func EnterSeat(int iSeat, object pObj)
     SeatOccupied(0, pObj);
     return false;
   }
-  
+
   //Alten Sitz räumen
   DeleteActualSeatPassenger(pObj);
 
@@ -485,7 +485,7 @@ public func EnterSeat(int iSeat, object pObj)
     SetGraphics("Pilot", this, GetID(), BKHK_PilotLayer, GFXOV_MODE_ExtraGraphics, 0, GFX_BLIT_Custom, this);
     GetPilot() = pObj;
     pObj->~SetHUDTarget(pRocketStation->GetAttWeapon());
-    
+
     hud = CreateObject(AHUD, 0, 0, GetOwner(pObj));
     hud->~SetHelicopter(this);
     UpdateWarnings();
