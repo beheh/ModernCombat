@@ -1321,10 +1321,10 @@ protected func ContactTop()
     for(var i; i < GetVertexNum(); i++)
       if(GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
-  }
 
-  //Sound
-  Sound("VehicleHit*.ogg", false, pMGStation);
+    //Sound
+    Sound("VehicleHit*.ogg", false, pMGStation);
+  }
 
   //Schub normalisieren
   if(throttle > BKHK_MaxThrottle / 2)
