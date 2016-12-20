@@ -9,8 +9,10 @@ MsgCollapse=<c ff0000>Warning</c>: The local antenna tower <c ffff33>collapses</
 Team1=Aggressors
 Team2=Eurocorps
 
-Flag1=Alpha Base West
-Flag2=Alpha Base East
-Flag3=Antenna Tower
-Flag4=Beta Base West
-Flag5=Beta Base East
+Flag1=Gun Turret West
+Flag2=Helipad West
+Flag3=Alpha Base
+Flag4=Antenna Tower
+Flag5=Beta Base
+Flag6=Helipad East
+Flag7=Gun Turret East
