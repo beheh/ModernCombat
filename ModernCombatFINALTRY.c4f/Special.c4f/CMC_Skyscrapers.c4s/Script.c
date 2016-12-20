@@ -3,15 +3,17 @@
 #strict 2
 #include CSTD
 
-func RecommendedGoals()	{return [GLMS];}	//Spielzielempfehlung
+func RecommendedGoals()	{return [GMNR];}	//Spielzielempfehlung
+
+static const FKDT_SuicideTime = 4;		//Verkürzte Wartezeit
 
 
 /* Regelvoreinstellung */
 
 func ChooserRuleConfig()
 {
-  //Abgewandelter Regelsatz: Belohnungssystem, Kein FriendlyFire, Fallschaden, Keine Schwerverletzten, Limitierte Ausrüstung
-  var array = [RWDS, NOFF, FDMG, SICD, LIMT];
+  //Abgewandelter Regelsatz: Belohnungssystem, Kein FriendlyFire, Fallschaden, Arena, Limitierte Ausrüstung
+  var array = [RWDS, NOFF, FDMG, NODR, LIMT];
   return(array);
 }
 

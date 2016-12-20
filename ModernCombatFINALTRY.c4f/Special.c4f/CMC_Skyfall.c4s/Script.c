@@ -7,7 +7,7 @@ static aFlag,aSelfDefense,aTowerInterior,aDoorWay;
 
 func RecommendedGoals()	{return [GLMS];}	//Spielzielempfehlung
 
-static const FKDT_SuicideTime = 5;		//Verkürzte Wartezeit
+static const FKDT_SuicideTime = 4;		//Verkürzte Wartezeit
 
 
 /* Initialisierung */
