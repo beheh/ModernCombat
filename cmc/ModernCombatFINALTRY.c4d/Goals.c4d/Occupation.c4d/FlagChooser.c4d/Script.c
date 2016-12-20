@@ -193,7 +193,7 @@ public func SpawnMenu()
     tmp = GraphicsHelper(point);
     if(!tmp) continue;
 
-    AddMenuItem (GetName(point),"SelectFlagpole2",GetID(),crew,point->GetProcess(),ObjectNumber(point),"",4,tmp);
+    AddMenuItem(GetName(point),"SelectFlagpole2",GetID(),crew,point->GetProcess(),ObjectNumber(point),"",4,tmp);
     RemoveObject(tmp);
   }
 
