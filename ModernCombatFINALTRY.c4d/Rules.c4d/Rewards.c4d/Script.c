@@ -333,8 +333,8 @@ public func StatsRibbon(int iPlr, int iSelect, int iOffset)
   }
   else
   {
-    AddMenuItem(Format("<c 777777>%s</c>", GetName(0, idRibbon)), 0, NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
-    AddMenuItem(Format("%s", GetDesc(0, idRibbon)), 0, NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+    Sound("Error", true, 0, 100, iPlr + 1);
+    return StatsRibbonList(iPlr, iSelect, iOffset);
   }
 
   //Leerzeile
