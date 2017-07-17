@@ -100,6 +100,7 @@ public func IsValidSpectateTarget(object pTarget)
 public func OpenSpectateMenu(object pTarget)
 {
   AddEffect("SpectateMenu", pTarget, 1, 10, 0, SPEC, ...);
+  AddEffect("NoMessage", pTarget, 1, 1, 0, SPEC);
   return true;
 }
 
@@ -132,6 +133,18 @@ public func FxSpectateMenuStop(object pTarget, int iNr)
   if(GetMenu(pTarget) == SPEC)
     CloseMenu(pTarget);
   return true;
+}
+
+public func FxNoMessageStart(object pTarget, int iEffect, bool fTemp)
+{
+  if(fTemp || !pTarget) return;
+  EffectVar(0, pTarget, iEffect) = pTarget->GetOwner();
+}
+
+public func FxNoMessageTimer(object pTarget, int iEffect)
+{
+  var spec = FindObject2(Find_ID(SPEC), Find_Owner(GetOwner(pTarget)));
+  if(spec) Message("@", spec);
 }
 
 public func OpenSpectateMenuCore(object pTarget, object pMenuTarget, int iRange)
