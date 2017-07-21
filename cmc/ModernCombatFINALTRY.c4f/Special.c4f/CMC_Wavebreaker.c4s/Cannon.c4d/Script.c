@@ -75,8 +75,8 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   //Geschoss abfeuern
   var grenade = CreateObject(idg, x, y, GetController(user));
   SetController(GetController(user), grenade);
-
   grenade->SetSpeed(xdir+GetXDir(user)/5, ydir);
+  grenade->LocalN("fAchievement") = false;
 
   //Sicht auf Geschoss
   SetPlrView(GetController(user),grenade);

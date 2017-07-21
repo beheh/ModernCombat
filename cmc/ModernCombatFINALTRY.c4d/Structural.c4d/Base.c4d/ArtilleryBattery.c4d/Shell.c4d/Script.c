@@ -4,6 +4,7 @@
 
 local fSounded;
 local fHit;
+local fAchievement;
 
 public func IsBulletTarget()	{return true;}
 public func AllowHitboxCheck()	{return true;}
@@ -18,6 +19,7 @@ func Initialize()
 {
    fSounded = false;
    fHit = false;
+   fAchievement = true;
    return 1;
 }
 
@@ -47,7 +49,7 @@ func SearchObjects()
     if(GetOCF(target) & OCF_Alive && Hostile(GetOwner(target), GetController()))
     {
       //Achievement-Fortschritt (In the Face)
-      DoAchievementProgress(1, AC16, GetController());
+      if(fAchievement) DoAchievementProgress(1, AC16, GetController());
     }
     Hit();
   }
