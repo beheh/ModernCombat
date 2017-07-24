@@ -25,9 +25,9 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
   var red = pTarget->~OnDmg(iDmg, iType);
   dmg = iDmg*(100-red)*iPrecision;
 
-  if (!dmg || red == 100) return;
+  if(!dmg || red == 100) return;
 
-  // Killer setzen
+  //Killer setzen
   if(this && pTarget->GetOCF() & OCF_CrewMember || dmgplayer)
     SetKiller(dmgdealer, pTarget);
 

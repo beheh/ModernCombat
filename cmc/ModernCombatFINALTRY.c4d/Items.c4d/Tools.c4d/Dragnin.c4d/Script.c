@@ -50,10 +50,14 @@ func Sting(caller)
     //Heileffekt geben
     AddEffect("DragninHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
     Sound("DGNN_Use.ogg");
-    //Punkte bei Belohnungssystem (Dragnininjektion an Verbündeten)
-    DoPlayerPoints(BonusPoints("Dragnin"), RWDS_TeamPoints, GetOwner(caller), caller, IC05);
-    //Achievement-Fortschritt (I'll fix you up!)
-    DoAchievementProgress(BonusPoints("Dragnin"), AC02, GetOwner(caller));
+
+    if(!Hostile(GetOwner(),GetOwner(obj)) && GetOwner() != GetOwner(obj))
+    {
+      //Punkte bei Belohnungssystem (Dragnininjektion an Verbündeten)
+      DoPlayerPoints(BonusPoints("Dragnin"), RWDS_TeamPoints, GetOwner(caller), caller, IC05);
+      //Achievement-Fortschritt (I'll fix you up!)
+      DoAchievementProgress(BonusPoints("Dragnin"), AC02, GetOwner(caller));
+    }
 
     RemoveObject();
   }
@@ -124,8 +128,8 @@ func FxDragninHealStart(object pTarget, int iEffectNumber, int iTemp, int iHealA
     if(GetPhysical("Walk", 2, pTarget) <= GetPhysical("Walk", 1, 0, GetID(pTarget))*5/10)
       return;
 
-  EffectVar(0,pTarget,iEffectNumber) = iHealAmount; //Heilung insgesammt
-  EffectVar(1,pTarget,iEffectNumber) = iHealRate; //Frames per HP
+  EffectVar(0,pTarget,iEffectNumber) = iHealAmount;	//Heilung insgesamt
+  EffectVar(1,pTarget,iEffectNumber) = iHealRate;	//Frames per HP
 
   //Lähmung
   SetPhysical("Walk", GetPhysical("Walk", 2, pTarget)/3, 3, pTarget);
