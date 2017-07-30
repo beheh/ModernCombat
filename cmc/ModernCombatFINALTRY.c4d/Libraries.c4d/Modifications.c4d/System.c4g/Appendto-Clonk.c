@@ -85,6 +85,9 @@ public func HurtSounds(int iDmg, int iType)
 {
   if(iDmg <= 0) return;
 
+  //Sounds direkt aufeinander verhindern
+  AddEffect("SoundDelay", this, 1, 25, this);
+
   //Sound ermitteln
   //Minimalschaden
   if(iDmg <= RandomX(2,8))
@@ -92,10 +95,6 @@ public func HurtSounds(int iDmg, int iType)
     Sound("ClonkSmallPain*.ogg", 0, 0, 0, GetOwner()+1);
     return;
   }
-
-  //Sounds direkt aufeinander verhindern
-  AddEffect("SoundDelay", this, 1, 25, this);
-
   //Projektile
   if(iType == DMG_Projectile)
   {
