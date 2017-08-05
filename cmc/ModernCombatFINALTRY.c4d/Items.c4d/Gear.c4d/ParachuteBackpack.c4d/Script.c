@@ -8,7 +8,6 @@ local pTarget;
 
 public func GetGearType()	{return GEAR_Backpack;}
 public func IsEquipment()	{return true;}
-public func NoArenaRemove()	{return true;}
 
 
 public func GearEffect(object pClonk)
