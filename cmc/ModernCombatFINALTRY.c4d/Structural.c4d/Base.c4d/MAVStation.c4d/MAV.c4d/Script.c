@@ -980,7 +980,7 @@ public func AMP(bool statusOnly)
     DoAmmo(ammoID, ammoID->MaxAmmo()/10, pTarget);
     pItem->DoPackPoints(-ammoID->MaxAmmo() / 10 * factor);
 
-    Sound("ResupplyIn.ogg",0,pTarget,0,GetOwner(pTarget)+1);
+    Sound("ResupplyIn*.ogg",0,pTarget,0,GetOwner(pTarget)+1);
     Sound("ResupplyOut*.ogg");
 
     //Achievement-Fortschritt (Ammo Distributor)

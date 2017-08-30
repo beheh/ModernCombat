@@ -135,7 +135,7 @@ public func TransferAmmo(object pObj)
   pObj->~AmmoTransferred();
   if(GetOwner(pObj) == GetOwner())
     Sound("ResupplyOut*.ogg",0,pObj,0,GetOwner(pObj)+1);
-  Sound("ResupplyIn.ogg",0,pObj,0,GetOwner(pObj)+1);
+  Sound("ResupplyIn*.ogg",0,pObj,0,GetOwner(pObj)+1);
   if(!OnTransfer()) RemoveObject();
 
   return true;

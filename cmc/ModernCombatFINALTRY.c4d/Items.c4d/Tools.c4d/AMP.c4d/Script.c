@@ -235,7 +235,7 @@ public func DoTeamSupport(array aClonks)
     PlayerMessage(GetOwner(Contained()), "$AmmoReceived$", pTarget, ammoID->MaxAmmo() / 10, ammoID);
     PlayerMessage(GetOwner(pTarget),"$AmmoReceived$", pTarget, ammoID->MaxAmmo() / 10, ammoID);
     DoAmmo(ammoID, ammoID->MaxAmmo()/10, pTarget);
-    Sound("ResupplyIn.ogg",0,pTarget,0,GetOwner(pTarget)+1);
+    Sound("ResupplyIn*.ogg",0,pTarget,0,GetOwner(pTarget)+1);
     Sound("ResupplyOut*.ogg");
     DoPackPoints(-ammoID->MaxAmmo() / 10 * factor);
 
