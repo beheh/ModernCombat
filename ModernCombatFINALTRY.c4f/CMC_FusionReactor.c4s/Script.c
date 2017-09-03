@@ -328,6 +328,7 @@ func CreateInterior()
   //Grenzen
   CreateObject(BRDR, 200, 0, -1)->Set(0);
   CreateObject(BRDR, 1630, 0, -1)->Set(1);
+  CreateObject(BRDR, 0, 1090, -1)->Set(3,0,1);
 
   //Soundkulisse
 
