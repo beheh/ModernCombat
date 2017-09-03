@@ -640,9 +640,9 @@ public func ChooserFinished()
     CreateObject(BECR, 3255, 1240, -1)->AutoRespawn();
 
     //Versorgungskisten (APW)
-    var crate = CreateObject(AMCT, 1320, 850, -1);
+    var crate = CreateObject(AMCT, 1250, 850, -1);
     crate->Set(ATWN);
-    crate = CreateObject(AMCT, 2920, 850, -1);
+    crate = CreateObject(AMCT, 2990, 850, -1);
     crate->Set(ATWN);
 
     //Geschützstellungen
