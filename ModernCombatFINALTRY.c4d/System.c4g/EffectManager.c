@@ -21,7 +21,6 @@ static const EFSM_Enlight = 6;		//0/1
 static const EFSM_Darkness = 7;		//0/1
 static const EFSM_Waratmosphere = 8;	//0/1
 static const EFSM_Deco = 9;		//0/1
-static const EFSM_Lensflares = 10;	//0/1/2
 
 /* Globale Effektstufe setzen */
 
@@ -42,7 +41,6 @@ global func EFSM_SetEffects(int iLevel)
   SetEffectData(iLevel>2, EFSM_Darkness);
   SetEffectData(iLevel>1, EFSM_Waratmosphere);
   SetEffectData(iLevel>1, EFSM_Deco);
-  SetEffectData(iLevel-1, EFSM_Lensflares);
   return true;
 }
 
