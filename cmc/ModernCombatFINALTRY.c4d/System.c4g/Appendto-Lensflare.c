@@ -5,35 +5,28 @@
 #strict 2
 #appendto LENS
 
-local fixed;
 local fSun;
+static LENS_MaxDistance;
 
-public func IsSun()	{return fSun;}
-public func IsMaster()	{return fMaster;}
-
-private func IsDay()
-{
-  if(GetDarkness(1000) > ELGT_MaxDarkness)
-    return false;
-
-  return _inherited(...);
-}
+public func IsSun()		{return fSun;}
+public func IsMaster()		{return fMaster;}
+public func LenseflareCount()	{return 15;}
 
 
 /* Initialisierung */
 
 protected func Initialize()
 {
-  //Unsichtbar
-  SetVisibility (VIS_Owner, this);
-  //Das erste Lensflare-Objekt prüft nur, dass jeder Spieler ein Umweltobjekt hat
+  //Erstes Objekt ist Master-Lensflare
   if(!FindObject2(Find_ID(GetID()), Find_Exclude(this)))
   {
     SetOwner(-1,this);
+    SetVisibility (VIS_Owner, this);
     fMaster = 1;
-    //Plazieren
+    LENS_MaxDistance = LENS_MaxDistance || 470;
+    
+    //Möglichst mittig plazieren
     var iPosX = LandscapeWidth()/2;
-    //Höhe nach Landschaft
     var iPosY;
     for(iPosY = 0; iPosY < LandscapeHeight(); iPosY++)
       if(GetMaterial(iPosX-GetX(), iPosY-GetY()) != -1) break;
@@ -42,62 +35,65 @@ protected func Initialize()
   }
 }
 
+/* Spielerverwaltung */
+
+//Spieler mit eigenem Master-Lensflare ausstatten
 public func InitializePlayer(int iPlr)
 {
-  //Bereits im Einsatz?
   if(FindObject2(Find_ID(LENS), Find_Owner(iPlr), Find_Action("ManageFlares")))
     return;
 
   return _inherited(iPlr, ...);
 }
 
-/* Flare-Verwaltung */
-
-// Initialisierung als Haupt-Lenseflare
+//Initialisierung als Spieler-Master-Lensflare
 public func InitializeLenseflare()
-{ 
-  // Position speichern
+{
+  //Position speichern
   iSunX = GetX(); iSunY = GetY();
   SetCategory(C4D_StaticBack | C4D_Background | C4D_MouseIgnore);
-  aFlares = CreateArray(LenseflareCount());
-  for(var i = 0; i < LenseflareCount(); i++)
+  SetVisibility(GetVisibility() | VIS_God);
+  aFlares = aFlares || [];
+  for(var i = GetLength(aFlares); i < LenseflareCount(); i++)
   {
     aFlares[i] = CreateObject(GetID(), 0, 0, GetOwner());
-    SetCategory(C4D_StaticBack | C4D_MouseIgnore | C4D_Foreground, aFlares[i]);
-    ObjectSetAction(aFlares[i],Format("Fleck%d",i%14));
+    aFlares[i]->SetCategory(C4D_StaticBack | C4D_MouseIgnore | C4D_Foreground);
+    aFlares[i]->SetAction(Format("Fleck%d",i % 14));
   }
   SetAction("ManageFlares");
   fSun = true;
 }
 
+//Timer-Aufruf des Spieler-Master-Lensflare
 protected func ManageFlares()
 {
-  if(!GetEffectData(EFSM_Lensflares))
-  {
-    if(fixed) return;
-    fixed = true;
-  }
-  else
-  {
-    if(fixed) fixed = false;
-  }
-  //Unskalierten Vektor ermitteln
+  //Unskalierten Vektor und Distanz ermitteln
   var iVectorX = GetVectorX(GetOwner());
   var iVectorY = GetVectorY(GetOwner());
   var iVectorDist = GetVectorDist(GetOwner());
-  //Modulation für alle Flares gleich
-  var iColorModulation = RGBa(GetColorMod(),GetColorMod(),GetColorMod(),GetAlphaMod(iVectorDist));
-  //Gleiche Abstandsangabe
-  var iDistance = 1000-BoundBy((3000-iVectorDist*10)/3,0,1000);  // Promilleangabe 0 = nahe, 1000 = weit weg; 300 Pixel sind dabei "weit weg"
-  var iAbsolutDistanc = (50*iDistance)/10; // Wieviele 1/100 Pixel zwischen den einzelnen Lensflares sind
-  //Sonnensichtbarkeit prüfen
-  var fSunVisible = !fixed && IsDay() && (!GBackSemiSolid(0,0)) && SunFree(GetCursor(GetOwner()));
-  //Tagsüber Sonne einblenden
+
+  //Transparenz für Flares ermitteln
+  var alpha = GetAlphaMod(iVectorDist);
+  //Direkter Sichtkontakt zwischen Sonne und Clonk?
+  var path_free = SunFree(GetCursor(GetOwner()));
+  //Sichtbarkeit der Sonne gegeben?
+  var fSunVisible = alpha < 255 && path_free && !GBackSemiSolid(0,0) && IsDay() && iVectorDist;
+  if(fSunVisible)
+  {
+    //Flare-Färbung ermitteln
+    var iColorModulation = RGBa(GetColorMod(),GetColorMod(),GetColorMod(),alpha);
+    //Abstände zwischen allen Flares ermitteln
+    var iDistance = 1000-BoundBy((3000-iVectorDist*10)/3,0,1000);	//Promilleangabe 0 = nahe, 1000 = weit weg; 300 Pixel sind dabei "weit weg"
+    var iAbsolutDistance = (50*iDistance)/10;				//Wieviele 1/100 Pixel zwischen den einzelnen Lensflares sind
+  }
+
+  //Sonne nur tagsüber sichtbar
   if(IsDay())
-    SetVisibility (VIS_Owner);
+    SetVisibility (VIS_Owner | VIS_God);
   else
     SetVisibility (VIS_None);
-  //Lensflares durchgehen
+
+  //Ermittelte Daten auf Lensflares anwenden
   var i = 0;
   for(var pFlare in aFlares)
   {
@@ -106,7 +102,7 @@ protected func ManageFlares()
       //Tags sichtbar
       SetVisibility (VIS_Owner, pFlare);
       SetClrModulation(iColorModulation,pFlare);
-      var LensDist = (i*iAbsolutDistanc)/100;
+      var LensDist = (i*iAbsolutDistance)/100;
       SetPosition(GibLensPosX(LensDist,iVectorX,iVectorDist), GibLensPosY(LensDist,iVectorY,iVectorDist),pFlare);
     }
     else
@@ -114,8 +110,9 @@ protected func ManageFlares()
       SetVisibility (VIS_None, pFlare);
     i++;
   }
+
   //Blenden
-  if(SunFree(GetCursor(GetOwner())))
+  if(path_free)
   {
     var iYellow = BoundBy((2000-iVectorDist)/5,0,100);
     ScreenRGB(GetCursor(GetOwner()), RGB(000+(30*iYellow)/100,000+(30*iYellow)/100,000), 255, 10, true, SR4K_LayerLensflare);
@@ -127,8 +124,23 @@ private func SunFree(object pTo)
   if(!pTo) return;
   while(Contained(pTo)) pTo = Contained(pTo);
   if(Stuck(pTo)) return;
-  if(GetEffectData(EFSM_Lensflares) < 2) return true;
   return PathFree(this->GetX(), this->GetY(), pTo->GetX(), pTo->GetY());
+}
+
+private func GetAlphaMod(int distance)
+{
+  distance = BoundBy(distance - 300, 0, GetMaxDistance());
+  return BoundBy(distance / (GetMaxDistance() / 255), 0, 255);
+}
+
+/* Allgemein */
+
+public func & GetMaxDistance()	{return LENS_MaxDistance;}
+
+public func SetMaxDistance(int distance)
+{
+  if(distance < 0) distance = 0;
+  LENS_MaxDistance = distance;
 }
 
 global func SetSunPosition(int x, int y)
@@ -142,4 +154,12 @@ global func SetSunPosition(int x, int y)
   }
 
   return;
+}
+
+private func IsDay()
+{
+  if(GetDarkness(1000) > ELGT_MaxDarkness)
+    return false;
+
+  return _inherited(...);
 }
