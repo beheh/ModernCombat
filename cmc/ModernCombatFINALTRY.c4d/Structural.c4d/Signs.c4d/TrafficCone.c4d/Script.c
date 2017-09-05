@@ -2,8 +2,6 @@
 
 #strict 2
 
-local pLight;
-
 
 /* Initialisierung */
 
@@ -11,21 +9,6 @@ public func Initialize()
 {
   //Standardfarbe: Rot
   SetColorDw(HSL(250, 250, 140, 50));
-}
-
-/* Einstellungen */
-
-func Light()
-{
-  if(pLight)
-  {
-    if(pLight) RemoveObject(pLight);
-  }
-  else
-  {
-    pLight = AddLight(600,RGBa(155,255,155,70),this());
-    pLight -> TurnOn();
-  }
 }
 
 /* Schaden */

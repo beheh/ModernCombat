@@ -442,20 +442,20 @@ func CreateDecoration()
 
   //Leitkegel
   CreateObject(TCCN, 275, 540, -1);
-  CreateObject(TCCN, 366, 530, -1)->Light();
+  CreateObject(TCCN, 366, 530, -1);
   CreateObject(TCCN, 375, 530, -1);
   CreateObject(TCCN, 585, 430, -1);
   CreateObject(TCCN, 615, 430, -1);
   CreateObject(TCCN, 1050, 800, -1);
   CreateObject(TCCN, 1070, 800, -1);
-  CreateObject(TCCN, 1090, 800, -1)->Light();
-  CreateObject(TCCN, 2040, 800, -1)->Light();
+  CreateObject(TCCN, 1090, 800, -1);
+  CreateObject(TCCN, 2040, 800, -1);
   CreateObject(TCCN, 2060, 800, -1);
   CreateObject(TCCN, 2080, 800, -1);
   CreateObject(TCCN, 2515, 430, -1);
   CreateObject(TCCN, 2545, 430, -1);
   CreateObject(TCCN, 2755, 530, -1);
-  CreateObject(TCCN, 2764, 530, -1)->Light();
+  CreateObject(TCCN, 2764, 530, -1);
   CreateObject(TCCN, 2855, 540, -1);
 
   //Geländer

@@ -307,10 +307,10 @@ func CreateDecoration()
   Log("$CreatingDecoration$");
 
   //Leitkegel
-  CreateObject(TCCN, 795, 720, -1)->Light();
-  CreateObject(TCCN, 925, 750, -1)->Light();
-  CreateObject(TCCN, 1325, 770, -1)->Light();
-  CreateObject(TCCN, 1395, 750, -1)->Light();
+  CreateObject(TCCN, 795, 720, -1);
+  CreateObject(TCCN, 925, 750, -1);
+  CreateObject(TCCN, 1325, 770, -1);
+  CreateObject(TCCN, 1395, 750, -1);
 
   //Labortisch
   CreateObject(LTBL, 1980, 380, -1);

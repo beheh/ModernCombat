@@ -275,12 +275,12 @@ func CreateDecoration()
   Log("$CreatingDecoration$");
 
   //Leitkegel
-  CreateObject(TCCN, 610, 650, -1)->Light();
-  CreateObject(TCCN, 640, 660, -1)->Light();
+  CreateObject(TCCN, 610, 650, -1);
+  CreateObject(TCCN, 640, 660, -1);
   CreateObject(TCCN, 825, 540, -1);
   CreateObject(TCCN, 1125, 460, -1);
-  CreateObject(TCCN, 1310, 580, -1)->Light();
-  CreateObject(TCCN, 1340, 570, -1)->Light();
+  CreateObject(TCCN, 1310, 580, -1);
+  CreateObject(TCCN, 1340, 570, -1);
 
   //Glastisch
   CreateObject(GTBL, 1135, 700, -1);

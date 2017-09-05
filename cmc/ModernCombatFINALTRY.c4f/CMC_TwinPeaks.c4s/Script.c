@@ -334,16 +334,16 @@ func CreateDecoration()
   sign->Light();
 
   //Leitkegel
-  CreateObject(TCCN, 2370, 1480, -1)->Light();
+  CreateObject(TCCN, 2370, 1480, -1);
   CreateObject(TCCN, 2400, 1480, -1);
-  CreateObject(TCCN, 2430, 1480, -1)->Light();
+  CreateObject(TCCN, 2430, 1480, -1);
   CreateObject(TCCN, 2460, 1480, -1);
   CreateObject(TCCN, 2835, 1310, -1);
   CreateObject(TCCN, 2895, 1310, -1);
   CreateObject(TCCN, 3270, 1480, -1);
-  CreateObject(TCCN, 3300, 1480, -1)->Light();
+  CreateObject(TCCN, 3300, 1480, -1);
   CreateObject(TCCN, 3330, 1480, -1);
-  CreateObject(TCCN, 3360, 1480, -1)->Light();
+  CreateObject(TCCN, 3360, 1480, -1);
 
   //Geländer
   CreateObject(RAI3, 1195, 700, -1)->SetRail([1,1]);

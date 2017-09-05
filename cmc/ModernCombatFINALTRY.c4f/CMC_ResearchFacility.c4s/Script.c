@@ -245,11 +245,11 @@ func CreateInterior()
   CreateObject(WNDW, 2185, 1451, -1)->Set();
 
   //Schutztüren
-  CreateObject(GDDR, 350, 1360, -1)->SetColorDw(HSL(0, 0, 100));
-  CreateObject(GDDR, 385, 740, -1)->SetColorDw(HSL(0,0, 220));
-  CreateObject(GDDR, 385, 830, -1)->SetColorDw(HSL(0,0, 220));
-  CreateObject(GDDR, 385, 920, -1)->SetColorDw(HSL(0,0, 220));
-  CreateObject(GDDR, 420, 1360, -1)->SetColorDw(HSL(0, 0, 100));
+  CreateObject(GDDR, 350, 1360, -1)->DoDmg(85);
+  CreateObject(GDDR, 385, 740, -1)->DoDmg(85);
+  CreateObject(GDDR, 385, 830, -1)->DoDmg(85);
+  CreateObject(GDDR, 385, 920, -1)->DoDmg(85);
+  CreateObject(GDDR, 420, 1360, -1)->DoDmg(85);
   CreateObject(GDDR, 500, 230, -1)->Lock();
   CreateObject(GDDR, 505, 740, -1)->SetColorDw(HSL(0,0, 220));
   CreateObject(GDDR, 505, 830, -1)->SetColorDw(HSL(0,0, 220));
@@ -262,9 +262,9 @@ func CreateInterior()
   CreateObject(GDDR, 825, 830, -1)->SetColorDw(HSL(0,0, 220));
   CreateObject(GDDR, 825, 920, -1)->SetColorDw(HSL(0,0, 220));
   CreateObject(GDDR, 930, 560, -1)->SetColorDw(HSL(80, 150, 100, 127));
-  CreateObject(GDDR, 935, 740, -1)->SetColorDw(HSL(0,0, 220));
-  CreateObject(GDDR, 935, 830, -1)->SetColorDw(HSL(0,0, 220));
-  CreateObject(GDDR, 935, 920, -1)->SetColorDw(HSL(0,0, 220));
+  CreateObject(GDDR, 935, 740, -1)->DoDmg(85);
+  CreateObject(GDDR, 935, 830, -1)->DoDmg(85);
+  CreateObject(GDDR, 935, 920, -1)->DoDmg(85);
   CreateObject(GDDR, 1150, 280, -1)->SetColorDw(HSL(145, 210, 100, 127));
   CreateObject(GDDR, 1265, 520, -1)->SetColorDw(HSL(145, 210, 100, 127));
   CreateObject(GDDR, 1270, 290, -1)->SetColorDw(HSL(145, 210, 100, 127));
@@ -275,8 +275,8 @@ func CreateInterior()
   //Gitter
   CreateObject(GTNG, 1135, 710, -1);
   CreateObject(GTNG, 1135, 800, -1);
-  CreateObject(GTNG, 1135, 890, -1);
-  CreateObject(GTNG, 1270, 230, -1);
+  CreateObject(GTNG, 1135, 890, -1)->DoDmg(85);
+  CreateObject(GTNG, 1270, 230, -1)->DoDmg(85);
   CreateObject(GTNG, 1290, 1280, -1);
   CreateObject(GTNG, 1347, 610, -1);
   CreateObject(GTNG, 1397, 940, -1);
@@ -286,11 +286,11 @@ func CreateInterior()
   CreateObject(GTNG, 2183, 610, -1);
   CreateObject(GTNG, 2223, 1230, -1);
   CreateObject(GTNG, 2257, 1780, -1);
-  CreateObject(GTNG, 2297, 1230, -1);
+  CreateObject(GTNG, 2297, 1230, -1)->DoDmg(85);
   CreateObject(GTNG, 2307, 1020, -1);
-  CreateObject(GTNG, 2327, 610, -1);
-  CreateObject(GTNG, 2383, 610, -1);
-  CreateObject(GTNG, 2455, 1270, -1);
+  CreateObject(GTNG, 2327, 610, -1)->DoDmg(85);
+  CreateObject(GTNG, 2383, 610, -1)->DoDmg(85);
+  CreateObject(GTNG, 2455, 1270, -1)->DoDmg(85);
   CreateObject(GTNG, 2635, 1270, -1);
   CreateObject(GTNG, 2777, 550, -1);
   CreateObject(GTNG, 2777, 610, -1);
@@ -611,15 +611,8 @@ func CreateInterior()
   CreateObject(CLGH,315,775,-1);
   CreateObject(CLGH,315,865,-1);
   CreateObject(LLGH,380,1760,-1);
-  CreateObject(LLGH,385,1090,-1);
-  CreateObject(LLGH,385,1190,-1);
-  CreateObject(LLGH,385,1290,-1);
-  CreateObject(LLGH,385,1390,-1);
   CreateObject(CLGH,430,445,-1);
   CreateObject(CLGH,430,505,-1);
-  CreateObject(CLGH,445,685,-1);
-  CreateObject(CLGH,445,775,-1);
-  CreateObject(CLGH,445,865,-1);
   CreateObject(BLGH,580,1140,-1);
   CreateObject(CLGH,630,445,-1);
   CreateObject(CLGH,630,505,-1);
@@ -633,36 +626,19 @@ func CreateInterior()
   CreateObject(LLGH,1000,1850,-1);
   CreateObject(STLH,1130,95,-1);
   CreateObject(CLGH,1185,845,-1);
-  CreateObject(LLGH,1280,1675,-1);
-  CreateObject(LLGH,1360,1675,-1);
+  CreateObject(LLGH,1320,1675,-1);
   CreateObject(LLGH,1200,1850,-1);
   CreateObject(STLH,1235,205,-1);
   CreateObject(STLH,1255,115,-1);
   CreateObject(STLH,1320,215,-1);
   CreateObject(LBGH,1335,1200, -1);
   CreateObject(LLGH,1415,1075,-1);
-  CreateObject(LBGH,1450,590, -1);
-  CreateObject(LBGH,1520,1200, -1);
-  CreateObject(LBGH,1550,590, -1);
-  CreateObject(LBGH,1620,1200, -1);
-  CreateObject(LBGH,1720,1200, -1);
-  CreateObject(LBGH,1820,1200, -1);
-  CreateObject(LBGH,1920,1200, -1);
-  CreateObject(LBGH,1980,590, -1);
-  CreateObject(LBGH,2020,1200, -1);
-  CreateObject(LBGH,2080,590, -1);
   CreateObject(LBGH,2120,1200, -1);
   CreateObject(LLGH,2140,1075,-1);
   CreateObject(LLGH,2470,1075,-1);
   CreateObject(LLGH,2590,210,-1);
   CreateObject(CLGH,2680,1335,-1);
   CreateObject(STLH,2730,1257,-1);
-  CreateObject(LLGH,2825,370,-1);
-  CreateObject(LLGH,2825,470,-1);
-  CreateObject(LLGH,2825,570,-1);
-  CreateObject(LLGH,2825,670,-1);
-  CreateObject(LLGH,2825,770,-1);
-  CreateObject(LLGH,2825,870,-1);
   CreateObject(LLGH,2880,210,-1);
   CreateObject(CLGH,2930,1335,-1);
   CreateObject(STLH,2960,1257,-1);
@@ -804,15 +780,15 @@ func CreateDecoration()
   CreateObject(TCCN, 385, 1780, -1);
   CreateObject(TCCN, 1125, 1870, -1);
   CreateObject(TCCN, 1215, 1870, -1);
-  CreateObject(TCCN, 1575, 1110, -1)->Light();
+  CreateObject(TCCN, 1575, 1110, -1);
   CreateObject(TCCN, 1705, 1110, -1);
   CreateObject(TCCN, 1720, 820, -1);
   CreateObject(TCCN, 1810, 820, -1);
   CreateObject(TCCN, 1825, 1110, -1);
-  CreateObject(TCCN, 1705, 1110, -1)->Light();
+  CreateObject(TCCN, 1705, 1110, -1);
   CreateObject(TCCN, 2405, 1820, -1);
   CreateObject(TCCN, 2465, 1820, -1);
-  CreateObject(TCCN, 3345, 1160, -1)->Light();
+  CreateObject(TCCN, 3345, 1160, -1);
 
   //Topfpflanzen
   CreateObject(PLT4, 370, 490, -1);
@@ -954,18 +930,14 @@ func CreateDecoration()
   CreateObject(SLGH, 1135, 80, -1);
   CreateObject(SLGH, 1255, 100, -1);
   CreateObject(SLGH, 1380, 1560, -1);
-  CreateObject(SLGH, 1450, 1560, -1);
   CreateObject(SLGH, 1440, 820, -1);
-  CreateObject(SLGH, 1530, 1560, -1);
   CreateObject(SLGH, 1600, 1560, -1);
   CreateObject(SLGH, 1640, 1110, -1);
-  CreateObject(SLGH, 1740, 1560, -1);
   CreateObject(SLGH, 1890, 1110, -1);
   CreateObject(SLGH, 1960, 1560, -1);
   CreateObject(SLGH, 1550, 510, -1);
   CreateObject(SLGH, 1970, 510, -1);
   CreateObject(SLGH, 2090, 820, -1);
-  CreateObject(SLGH, 2140, 1560, -1);
   CreateObject(SLGH, 2760, 100, -1);
 
   //Orientierungslichter

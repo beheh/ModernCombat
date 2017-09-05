@@ -454,7 +454,7 @@ func CreateDecoration()
   CreateObject(BLGH, 3560, 320, -1);
 
   //Leitkegel
-  CreateObject(TCCN, 545, 440, -1)->Light();
+  CreateObject(TCCN, 545, 440, -1);
   CreateObject(TCCN, 615, 440, -1);
   CreateObject(TCCN, 750, 440, -1);
   CreateObject(TCCN, 810, 440, -1);
@@ -462,21 +462,21 @@ func CreateDecoration()
   CreateObject(TCCN, 1460, 370, -1);
   CreateObject(TCCN, 1480, 370, -1);
   CreateObject(TCCN, 1500, 370, -1);
-  CreateObject(TCCN, 1530, 440, -1)->Light();
+  CreateObject(TCCN, 1530, 440, -1);
   CreateObject(TCCN, 1675, 430, -1)->SetR(40);
   CreateObject(TCCN, 1735, 440, -1);
 
   CreateObject(TCCN, 3510, 440, -1);
   CreateObject(TCCN, 3565, 430, -1)->SetR(-40);
   CreateObject(TCCN, 3700, 370, -1);
-  CreateObject(TCCN, 3710, 440, -1)->Light();
+  CreateObject(TCCN, 3710, 440, -1);
   CreateObject(TCCN, 3720, 370, -1);
   CreateObject(TCCN, 3740, 370, -1);
   CreateObject(TCCN, 4090, 300, -1);
   CreateObject(TCCN, 4430, 440, -1);
   CreateObject(TCCN, 4490, 440, -1);
   CreateObject(TCCN, 4625, 440, -1);
-  CreateObject(TCCN, 4695, 440, -1)->Light();
+  CreateObject(TCCN, 4695, 440, -1);
 
   //Feuerlöscher
   CreateObject(FIE2, 2290, 435, -1);
