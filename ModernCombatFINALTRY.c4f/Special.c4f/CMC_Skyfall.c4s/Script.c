@@ -74,7 +74,7 @@ func CreateInterior()
   aDoorWay[03]->Connect(aDoorWay[02]);
 
   //Nebel
-  for(var i=0;i<180;++i)
+  for(var i=0;i<100;++i)
     CreateParticle("Fog",Random(LandscapeWidth()),Random(LandscapeHeight()),0,0,RandomX(1760,2840));
 
   //Soundkulisse
