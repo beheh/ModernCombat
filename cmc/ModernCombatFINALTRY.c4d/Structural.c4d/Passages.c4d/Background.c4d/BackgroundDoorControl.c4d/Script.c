@@ -140,7 +140,7 @@ protected func FxMove2DoorStart(object pTarget, int iNr, int iTemp)
 
 protected func FxMove2DoorTimer(pTarget)
 {
-  if (Contained(pTarget) == GetTarget())
+  if(Contained(pTarget) == GetTarget())
     AddCommand(pTarget,"Exit");
   else
     return -1;

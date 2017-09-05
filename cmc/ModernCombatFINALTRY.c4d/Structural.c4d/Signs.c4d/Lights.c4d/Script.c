@@ -9,8 +9,8 @@ local light,count,distance,left,right;
 
 func Initialize()
 {
-  count = 5;//Lichterzahl
-  distance = 20;//Pixelabstand zwischen den Lichtern
+  count = 5;		//Lichterzahl
+  distance = 20;	//Pixelabstand zwischen den Lichtern
   left = true;
   right = true;
   return 1;
@@ -23,7 +23,7 @@ func SetType(bool bLeft,bool bRight)
     bLeft = true;
     bRight = true;
   }
-  
+
   left = bLeft;
   right = bRight;
 }

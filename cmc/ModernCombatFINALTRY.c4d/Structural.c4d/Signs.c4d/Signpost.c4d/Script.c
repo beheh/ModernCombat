@@ -35,9 +35,7 @@ func SetMode(int iMode)
 func Light()
 {
   if(pLight)
-  {
-    if(pLight) RemoveObject(pLight);
-  }
+    RemoveObject(pLight);
   else
   {
     pLight = AddLightCone(3000,RGBa(255,255,255,70),this());
