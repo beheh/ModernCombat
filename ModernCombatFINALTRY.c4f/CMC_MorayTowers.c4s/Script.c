@@ -427,7 +427,6 @@ func CreateDecoration()
   CreateObject(TCCN, 2290, 1170, -1);
   CreateObject(TCCN, 2290, 1080, -1);
   CreateObject(TCCN, 2310, 1080, -1);
-
   CreateObject(TCCN, 2940, 760, -1);
   CreateObject(TCCN, 3160, 630, -1);
   CreateObject(TCCN, 3370, 630, -1);
@@ -753,17 +752,20 @@ func CreateDecoration()
 
 func CreateOptionalFeatures()
 {
-  //Hintergründe
-  CreateObject(BD03,500,250,-1);
-  CreateObject(BD03,2000,350,-1);
-  CreateObject(BD03,800,750,-1);
-  CreateObject(BD03,1700,730,-1);
-  CreateObject(BD10,300,1690,-1);
-  CreateObject(BD10,1690,1690,-1);
-  CreateObject(BD10,3080,1690,-1);
-  CreateObject(BD10,100,1590,-1);
-  CreateObject(BD10,1490,1590,-1);
-  CreateObject(BD10,2880,1590,-1);
+  if(FindObject(LENS))
+  {
+    //Hintergründe
+    CreateObject(BD03,500,250,-1);
+    CreateObject(BD03,2000,350,-1);
+    CreateObject(BD03,800,750,-1);
+    CreateObject(BD03,1700,730,-1);
+    CreateObject(BD10,300,1690,-1);
+    CreateObject(BD10,1690,1690,-1);
+    CreateObject(BD10,3080,1690,-1);
+    CreateObject(BD10,100,1590,-1);
+    CreateObject(BD10,1490,1590,-1);
+    CreateObject(BD10,2880,1590,-1);
+  }
 }
 
 /* Bei Flaggenübernahme */
@@ -850,6 +852,10 @@ global func FxSunsetTimer(object pTarget, int iEffectNumber, int iEffectTime)
     //Dunkelheit erhöhen
     if(GetDarkness() < 3)
       FadeDarkness(3,10);
+
+    //Wolken ausblenden
+    for(var fog in FindObjects(Find_ID(BD03)))
+      FadeOut(fog);
 
     return -1;
   }

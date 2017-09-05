@@ -381,11 +381,11 @@ func CreateDecoration()
   CreateObject(ETLT,1570, 865, -1);
 
   //Leitkegel
-  CreateObject(TCCN, 310, 880, -1)->Light();
+  CreateObject(TCCN, 310, 880, -1);
   CreateObject(TCCN, 320, 880, -1);
   CreateObject(TCCN, 330, 880, -1);
   CreateObject(TCCN, 340, 880, -1);
-  CreateObject(TCCN, 370, 300, -1)->Light();
+  CreateObject(TCCN, 370, 300, -1);
   CreateObject(TCCN, 380, 300, -1);
   CreateObject(TCCN, 390, 300, -1);
   CreateObject(TCCN, 820, 838, -1)->SetR(20);
@@ -398,11 +398,11 @@ func CreateDecoration()
   CreateObject(TCCN, 1010, 838, -1)->SetR(-20);
   CreateObject(TCCN, 1440, 300, -1);
   CreateObject(TCCN, 1450, 300, -1);
-  CreateObject(TCCN, 1460, 300, -1)->Light();
+  CreateObject(TCCN, 1460, 300, -1);
   CreateObject(TCCN, 1490, 880, -1);
   CreateObject(TCCN, 1500, 880, -1);
   CreateObject(TCCN, 1510, 880, -1);
-  CreateObject(TCCN, 1520, 880, -1)->Light();
+  CreateObject(TCCN, 1520, 880, -1);
 
   //Bildschirme
   CreateObject(SCA1, 380, 860, -1)->SetAction("Medic");

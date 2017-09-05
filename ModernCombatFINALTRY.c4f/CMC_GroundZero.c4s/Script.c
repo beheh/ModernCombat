@@ -280,14 +280,14 @@ func CreateDecoration()
   Log("$CreatingDecoration$");
 
   //Leitkegel
-  CreateObject(TCCN, 1215, 450, -1)->Light();
-  CreateObject(TCCN, 1275, 460, -1)->Light();
-  CreateObject(TCCN, 1465, 460, -1)->Light();
-  CreateObject(TCCN, 1515, 440, -1)->Light();
-  CreateObject(TCCN, 1885, 440, -1)->Light();
-  CreateObject(TCCN, 1935, 460, -1)->Light();
-  CreateObject(TCCN, 2225, 460, -1)->Light();
-  CreateObject(TCCN, 2285, 450, -1)->Light();
+  CreateObject(TCCN, 1215, 450, -1);
+  CreateObject(TCCN, 1275, 460, -1);
+  CreateObject(TCCN, 1465, 460, -1);
+  CreateObject(TCCN, 1515, 440, -1);
+  CreateObject(TCCN, 1885, 440, -1);
+  CreateObject(TCCN, 1935, 460, -1);
+  CreateObject(TCCN, 2225, 460, -1);
+  CreateObject(TCCN, 2285, 450, -1);
 
   //Geländer
   CreateObject(RAI1, -3, 120, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);

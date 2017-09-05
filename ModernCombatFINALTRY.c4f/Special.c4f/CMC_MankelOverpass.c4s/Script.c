@@ -333,19 +333,19 @@ func CreateInterior()
   CreateObject(CON1, 4590, 1421, -1)->SetPerspective(0);
 
   //Nebel
-  for(var i=0;i<300;++i)
+  for(var i=0;i<50;++i)
     CreateParticle("Fog",Random(LandscapeWidth()),Random(LandscapeHeight()-330),0,0,RandomX(900,1700));
-  for(i=0;i<50;++i)
+  for(i=0;i<25;++i)
     CreateParticle("Fog",2170+RandomX(-200,200),600+RandomX(-200,200),0,0,RandomX(900,1700));
-  for(i=0;i<50;++i)
+  for(i=0;i<25;++i)
     CreateParticle("Fog",2420+RandomX(-200,200),1020+RandomX(-200,200),0,0,RandomX(900,1700));
-  for(i=0;i<80;++i)
+  for(i=0;i<40;++i)
     CreateParticle("Fog",2940+RandomX(-400,400),420+RandomX(-200,200),0,0,RandomX(900,1700));
-  for(i=0;i<80;++i)
+  for(i=0;i<40;++i)
     CreateParticle("Fog",2940+RandomX(-400,400),1170+RandomX(-200,200),0,0,RandomX(900,1700));
-  for(i=0;i<50;++i)
+  for(i=0;i<25;++i)
     CreateParticle("Fog",3460+RandomX(-200,200),1020+RandomX(-200,200),0,0,RandomX(900,1700));
-  for(i=0;i<50;++i)
+  for(i=0;i<25;++i)
     CreateParticle("Fog",3710+RandomX(-200,200),600+RandomX(-200,200),0,0,RandomX(900,1700));
 
   //Seegras und Muscheln entfernen
@@ -644,8 +644,8 @@ func CreateDecoration()
   CreateObject(PSTR, 4620, 900, -1)->Set(3,2);
 
   //Straßenlichter
-  CreateObject(SLGH, 270, 740, -1);
-  CreateObject(SLGH, 450, 980, -1);
+  CreateObject(SLGH, 270, 740, -1)->TurnOff();
+  CreateObject(SLGH, 450, 980, -1)->TurnOff();
 
   CreateObject(SLGH, 1230, 740, -1);
   CreateObject(SLGH, 1880, 740, -1);
@@ -660,8 +660,8 @@ func CreateDecoration()
   CreateObject(SLGH, 4000, 740, -1);
   CreateObject(SLGH, 4650, 740, -1);
 
-  CreateObject(SLGH, 5440, 980, -1);
-  CreateObject(SLGH, 5620, 740, -1);
+  CreateObject(SLGH, 5440, 980, -1)->TurnOff();
+  CreateObject(SLGH, 5620, 740, -1)->TurnOff();
 
   //Notausgangslichter
   CreateObject(ETLT, 1260, 705, -1);
