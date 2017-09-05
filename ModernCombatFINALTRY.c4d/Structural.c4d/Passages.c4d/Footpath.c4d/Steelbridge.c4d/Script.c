@@ -18,6 +18,7 @@ protected func Initialize()
 
   return 1;
 }
+
 /* Ruinen (de)aktivieren */
 
 protected func SwitchMode()

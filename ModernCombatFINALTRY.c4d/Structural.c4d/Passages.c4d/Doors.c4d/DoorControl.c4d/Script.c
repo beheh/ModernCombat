@@ -144,7 +144,7 @@ public func IsBulletTarget()
 public func FxCheckOpenTimer()
 {
   if(destroyed) return -1;
-  if(lock == 1) return ;
+  if(lock == 1) return;
 
   if(!closed)
   {
@@ -181,9 +181,9 @@ private func SomeonesApproaching()
 public func Serialize(array& extra)
 {
   extra[GetLength(extra)] = Format("SetMaxDmg(%d)", maxdmg);
-  if (lock)
+  if(lock)
     extra[GetLength(extra)] = Format("Lock(%v)", (lock == 2));
-  if (destroyed)
+  if(destroyed)
   {
     extra[GetLength(extra)] = "SetSolidMask()";
     extra[GetLength(extra)] = "RemoveEffect(\"CheckOpen\",this,0)";

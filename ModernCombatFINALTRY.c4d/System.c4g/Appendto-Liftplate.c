@@ -1,10 +1,20 @@
 /*-- Große Schwebeplatte --*/
 
-//Aufzüge fahren Passagiere nicht automatisch an.
+//Aufzüge fahren Passagiere nicht automatisch an und nutzen weniger Lichter.
 
 #strict
 #appendto LFTP
 
+
+/* Initialisierung */
+
+protected func Initialize()
+{
+  AddEffect("LightEffects", this(), 1, 5, this());
+  SetAction("Travel");
+  UpdateTransferZone();
+  return(1);
+}
 
 /* Automatische Bewegung */
 

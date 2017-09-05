@@ -57,7 +57,7 @@ public func OnDestroyed(iType)
 public func OnOpen()
 {
   //Nichts tun wenn bereits offen
-  if( GetAction() eq "Open" || Status) return(0);
+  if(GetAction() eq "Open" || Status) return(0);
 
   //Aktion setzen und SolidMask erstellen
   SetAction("Open");
@@ -70,7 +70,7 @@ public func OnOpen()
 public func OnClose()
 {
   //Nichts tun wenn bereits zu
-  if( GetAction() eq "Close"|| !Status) return(0);  
+  if(GetAction() eq "Close"|| !Status) return(0);  
 
   //Aktion setzen und SolidMask entfernen
   SetAction("Close");
@@ -84,6 +84,6 @@ public func OnClose()
 
 public func Serialize(array& extra)
 {
-  if (destroyed)
+  if(destroyed)
     extra[GetLength(extra)] = "SetAction(\"Destroyed\")";
 }
