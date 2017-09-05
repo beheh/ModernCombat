@@ -283,14 +283,10 @@ func CreateInterior()
   //Lampen
   CreateObject(BLGH, 1025, 360, -1);
   CreateObject(LLGH, 1035, 620, -1);
-  CreateObject(BLGH, 1160, 545, -1);
   CreateObject(LLGH, 1250, 590, -1);
-  CreateObject(LLGH, 1340, 590, -1);
   CreateObject(LLGH, 1500, 590, -1);
-  CreateObject(LLGH, 1655, 590, -1);
   CreateObject(BLGH, 2690, 490, -1);
   CreateObject(BLGH, 3585, 575, -1);
-  CreateObject(BLGH, 4335, 485, -1);
   CreateObject(BLGH, 4335, 625, -1);
   CreateObject(LLGH, 5120, 640, -1);
   CreateObject(LLGH, 5310, 640, -1);
@@ -1159,7 +1155,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
     FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),1880,0,1,1);
 
     //Lampen ausschalten
-    for(var obj in FindObjects(Find_Or(Find_ID(BLGH), Find_ID(LLGH)), Find_InRect(1000,330,680,310)))
+    for(var obj in FindObjects(Find_Or(Find_ID(BLGH), Find_ID(LLGH)), Find_InRect(1000,330,510,310)))
     {
       obj->EMPShock();
       obj->TurnOff();
@@ -1239,7 +1235,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
     aStationary[1]->DecoExplode(30);
 
     //Lampen ausschalten
-    for(var obj in FindObjects(Find_ID(BLGH), Find_InRect(4310,450,40,180)))
+    for(var obj in FindObjects(Find_ID(BLGH), Find_InRect(4310,600,30,630)))
     {
       obj->EMPShock();
       obj->TurnOff();
@@ -1266,8 +1262,8 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
     //Artillerie entfernen
     aArtillery[2]->DecoExplode(45);
 
-    //Lampen ausschalten
-    for(var obj in FindObjects(Find_Or(Find_ID(BLGH), Find_ID(LLGH)), Find_InRect(5100,580,650,70)))
+    //Lampe ausschalten
+    for(var obj in FindObjects(Find_ID(BLGH), Find_InRect(5710,590,30,20)))
     {
       obj->EMPShock();
       obj->TurnOff();

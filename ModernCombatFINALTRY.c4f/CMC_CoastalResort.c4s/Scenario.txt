@@ -37,7 +37,7 @@ Vegetation=SWD2=5;SWD1=5;SHEL=4;PLM2=10;PLM1=10;BSH2=10
 NoScan=1
 
 [Environment]
-Objects=EGRS=1;EGLN=3;BRDS=1;LENS=1
+Objects=EGRS=1;BRDS=1;LENS=1
 
 [Animals]
 Animal=BIRD=3

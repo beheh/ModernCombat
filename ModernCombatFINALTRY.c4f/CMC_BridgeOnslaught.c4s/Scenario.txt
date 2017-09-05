@@ -37,4 +37,4 @@ NoScan=1
 Climate=100,0,0,100
 
 [Environment]
-Objects=SWFL=1;EGLN=3;OWL1=1;ELGT=1;DOFO=1;DARK=2
+Objects=SWFL=1;OWL1=1;ELGT=1;DOFO=1;DARK=2

@@ -31,6 +31,3 @@ Crew=PCMK=1
 [Landscape]
 Vegetation=SWD2=5;SWD1=5;SHEL=4
 NoScan=1
-
-[Environment]
-Objects=EGLN=3
