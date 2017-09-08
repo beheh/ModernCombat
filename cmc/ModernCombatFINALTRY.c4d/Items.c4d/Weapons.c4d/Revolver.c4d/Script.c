@@ -182,7 +182,7 @@ public func OnReload(i)
     {
       var user = GetUser();
       var dir = GetDir(user)*2-1;
-      SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(10+Random(2)));
+      BulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(10+Random(2)));
     }
     casings = 0;
   }
@@ -193,7 +193,7 @@ public func OnReload(i)
     {
       var user = GetUser();
       var dir = GetDir(user)*2-1;
-      SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)),6,RGB(150,150,150));
+      BulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)),6,RGB(150,150,150));
     }
     casings2 = 0;
   }

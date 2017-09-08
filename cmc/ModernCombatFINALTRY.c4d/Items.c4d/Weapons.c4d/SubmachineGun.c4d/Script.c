@@ -143,7 +143,7 @@ public func Fire1()
   //Effekte
   if(iAttachment != AT_Silencer)
   {
-    SABulletCasing(x/3,y/3,-dir*14,-(14),4);
+    BulletCasing(x/3,y/3,-dir*14,-(14),4);
     Sound("SMGN_Fire*.ogg", 0, ammo);
     MuzzleFlash(RandomX(30,35),user,x,y,angle,0, 4);
     Echo("SMGN_Echo.ogg");

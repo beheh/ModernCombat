@@ -16,7 +16,7 @@ public func Attach(object pObj, int iVertex)
 
 func EjectBullet()
 {
-  SABulletCasing(0, 0, RandomX(-20,-10), RandomX(-30,-20), 12);
+  BulletCasing(0, 0, RandomX(-20,-10), RandomX(-30,-20), 12);
 }
 
 func Stop()
