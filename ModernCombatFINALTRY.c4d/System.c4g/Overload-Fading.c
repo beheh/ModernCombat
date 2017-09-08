@@ -1,6 +1,6 @@
 /* Fade-Effekte */
 
-//Verbesserte Ein- und Ausblendeffekte.
+//Fade-Befehle von Hazard an CMC-Gegenstück weiterleiten.
 
 #strict 2
 

@@ -17,7 +17,10 @@ public func Set(int iSize)
     SetGraphics("2");
   }
 
-  FadeOut4K(2);
+  if(!GetEffectData(EFSM_BulletCasing))
+    FadeOut(this,10);
+  else
+    FadeOut(this,2);
 }
 
 /* Aufschlag */
@@ -32,6 +35,10 @@ func Hit(int iXDir, int iYDir)
     Sound("CasingHollowHit*.ogg",false,0,0,0,0,0,300);
   else
     Sound("CasingHit*.ogg",false,0,0,0,0,0,300);
+
+  //Effektstufe prüfen
+  if(!GetEffectData(EFSM_BulletCasing))
+    return RemoveObject();
 
   //Entsprechende Hüpfbewegung
   if(GBackSolid(0,+5)) SetYDir(-iYDir/26);
@@ -48,9 +55,6 @@ func Hit(int iXDir, int iYDir)
 
 global func BulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int iColor, int bForceLow)
 {
-  //Effektstufe prüfen
-  if(!GetEffectData(EFSM_BulletCasing)) return;
-
   var xd,yd;
 
   //Bewegung ermitteln
@@ -73,4 +77,17 @@ global func BulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int iC
   if(!iColor) iColor = RGB(255,220,0);
   SetClrModulation(DoColorBrightness(iColor,40), tmp);
   tmp->Set(iSize);
+}
+
+/* Rückwärtskompatibilität */
+
+global func SABulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int iColor, id idType)
+{
+  //ID des Projektils identifizieren
+  var ammoid = idType;
+  //Standard nutzen wenn nicht gefunden
+  if(!ammoid) ammoid = SHTX;
+
+  //Patronenhülse erstellen
+  return ammoid->CustomBulletCasing(GetX()+iX,GetY()+iY,iXDir,iYDir,iSize,iColor);
 }

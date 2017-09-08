@@ -2342,19 +2342,6 @@ global func SALaunchBullet(int iX, int iY, int iOwner, int iAngle, int iSpeed, i
   return ammo;
 }
 
-/* Patronenhülse erstellen */
-
-global func SABulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int iColor, id idType)
-{
-  //ID des Projektils identifizieren
-  var ammoid = idType;
-  //Standard nutzen wenn nicht gefunden
-  if(!ammoid) ammoid = SHTX;
-
-  //Patronenhülse erstellen
-  return ammoid->CustomBulletCasing(GetX()+iX,GetY()+iY,iXDir,iYDir,iSize,iColor);
-}
-
 /* Hilfsnachrichten ausgeben */
 
 global func HelpMessage(int iPlr, string szMsg, object pTarget, a,b,c,d,e,f,g)

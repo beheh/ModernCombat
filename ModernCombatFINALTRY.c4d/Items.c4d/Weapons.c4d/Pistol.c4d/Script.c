@@ -97,7 +97,7 @@ public func Fire1()
   //Effekte
   if(iAttachment != AT_Silencer)
   {
-    SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),4);
+    BulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),4);
     Sound("PSTL_Fire*.ogg", 0, ammo);
     MuzzleFlash(RandomX(35,40),user,x,y,angle,0, 4);
     Echo("PSTL_Echo.ogg");
@@ -196,7 +196,7 @@ public func OnReload(i)
     {
       var user = GetUser();
       var dir = GetDir(user)*2-1;
-      SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)),6,RGB(150,150,150));
+      BulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)),6,RGB(150,150,150));
       casing = 0;
     }
   }

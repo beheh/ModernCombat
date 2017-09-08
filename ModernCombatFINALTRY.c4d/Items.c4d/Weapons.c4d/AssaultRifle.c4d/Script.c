@@ -116,7 +116,7 @@ public func Fire1()
   var ammo = SALaunchBullet(x,y,GetController(user),angle,270,800,GetFMData(FM_Damage));
 
   //Effekte
-  SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
+  BulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
   Sound("ASTR_Fire*.ogg", 0, ammo);
   MuzzleFlash(RandomX(30,40),user,x,y,angle,0, 0);
   Echo("ASTR_Echo.ogg");
@@ -277,7 +277,7 @@ func OnReload(i)
     {
       var user = GetUser();
       var dir = GetDir(user)*2-1;
-      SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)),6,RGB(255,0,0));
+      BulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)),6,RGB(255,0,0));
       casing = 0;
     }
   }

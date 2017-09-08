@@ -103,7 +103,7 @@ public func Fire1()
   laser->Set(angle,8,800,10,this(),user);
 
   //Effekte
-  SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),7);
+  BulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),7);
   MuzzleFlash(200,user,x,y,angle,GetPlrColorDw(GetController(user)));
   MuzzleFlash(100,user,x,y,angle,RGBa(255,255,255,0),5);
   Sound("RLGN_Fire.ogg");
@@ -134,7 +134,7 @@ public func LaserStrike(object pObj, int iTime)
   if(GetID(pObj) == RSLH)
   {
     //Effekte
-    SABulletCasing(GetX(pObj), GetY(pObj),RandomX(-5,5),RandomX(-5,5),7);
+    BulletCasing(GetX(pObj), GetY(pObj),RandomX(-5,5),RandomX(-5,5),7);
 
     laser->SetMaxDistance(ObjectDistance(GetUser(),pObj));
 
