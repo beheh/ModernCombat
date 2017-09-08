@@ -21,10 +21,10 @@ protected func Initialize()
   if(!FindObject2(Find_ID(GetID()), Find_Exclude(this)))
   {
     SetOwner(-1,this);
-    SetVisibility (VIS_Owner, this);
+    SetVisibility(VIS_Owner, this);
     fMaster = 1;
     LENS_MaxDistance = LENS_MaxDistance || 470;
-    
+
     //Möglichst mittig plazieren
     var iPosX = LandscapeWidth()/2;
     var iPosY;
@@ -52,7 +52,7 @@ public func InitializeLenseflare()
   //Position speichern
   iSunX = GetX(); iSunY = GetY();
   SetCategory(C4D_StaticBack | C4D_Background | C4D_MouseIgnore);
-  SetVisibility(GetVisibility() | VIS_God);
+  SetVisibility(VIS_Owner | VIS_God);
   aFlares = aFlares || [];
   for(var i = GetLength(aFlares); i < LenseflareCount(); i++)
   {
@@ -67,55 +67,67 @@ public func InitializeLenseflare()
 //Timer-Aufruf des Spieler-Master-Lensflare
 protected func ManageFlares()
 {
-  //Unskalierten Vektor und Distanz ermitteln
-  var iVectorX = GetVectorX(GetOwner());
-  var iVectorY = GetVectorY(GetOwner());
-  var iVectorDist = GetVectorDist(GetOwner());
-
-  //Transparenz für Flares ermitteln
-  var alpha = GetAlphaMod(iVectorDist);
-  //Direkter Sichtkontakt zwischen Sonne und Clonk?
-  var path_free = SunFree(GetCursor(GetOwner()));
-  //Sichtbarkeit der Sonne gegeben?
-  var fSunVisible = alpha < 255 && path_free && !GBackSemiSolid(0,0) && IsDay() && iVectorDist;
-  if(fSunVisible)
+  //Nur sichtbar wenn Tag, keine Dunkelheit und kein Material vor der Sonnenposition
+  if(IsDay() && !GBackSemiSolid(0,0))
   {
-    //Flare-Färbung ermitteln
-    var iColorModulation = RGBa(GetColorMod(),GetColorMod(),GetColorMod(),alpha);
-    //Abstände zwischen allen Flares ermitteln
-    var iDistance = 1000-BoundBy((3000-iVectorDist*10)/3,0,1000);	//Promilleangabe 0 = nahe, 1000 = weit weg; 300 Pixel sind dabei "weit weg"
-    var iAbsolutDistance = (50*iDistance)/10;				//Wieviele 1/100 Pixel zwischen den einzelnen Lensflares sind
-  }
-
-  //Sonne nur tagsüber sichtbar
-  if(IsDay())
-    SetVisibility (VIS_Owner | VIS_God);
-  else
-    SetVisibility (VIS_None);
-
-  //Ermittelte Daten auf Lensflares anwenden
-  var i = 0;
-  for(var pFlare in aFlares)
-  {
+    //Distanz ermitteln
+    var iVectorDist = GetVectorDist(GetOwner());
+    //Transparenz für Flares ermitteln
+    var alpha = GetAlphaMod(iVectorDist);
+    //Sichtbarkeit der Sonne gegeben?
+    var path_free;
+    var path_free = SunFree(GetCursor(GetOwner()));
+    var fSunVisible = alpha < 255 && iVectorDist && path_free;
     if(fSunVisible)
     {
-      //Tags sichtbar
-      SetVisibility (VIS_Owner, pFlare);
-      SetClrModulation(iColorModulation,pFlare);
-      var LensDist = (i*iAbsolutDistance)/100;
-      SetPosition(GibLensPosX(LensDist,iVectorX,iVectorDist), GibLensPosY(LensDist,iVectorY,iVectorDist),pFlare);
+      SetVisibility(VIS_Owner | VIS_God);
+      var iVectorX = GetVectorX(GetOwner());
+      var iVectorY = GetVectorY(GetOwner());
+      //Flare-Färbung ermitteln
+      var iColorModulation = RGBa(GetColorMod(),GetColorMod(),GetColorMod(),alpha);
+      //Abstände zwischen allen Flares ermitteln
+      var iDistance = 1000-BoundBy((3000-iVectorDist*10)/3,0,1000);	//Promilleangabe 0 = nahe, 1000 = weit weg; 300 Pixel sind dabei "weit weg"
+      var iAbsolutDistance = (50*iDistance)/10;				//Wieviele 1/100 Pixel zwischen den einzelnen Lensflares sind
+
+      //Ermittelte Daten auf Lensflares anwenden
+      var i = 0;
+      for(var pFlare in aFlares)
+      {
+        //Tags sichtbar
+        SetVisibility(VIS_Owner, pFlare);
+        SetClrModulation(iColorModulation,pFlare);
+        var LensDist = (i*iAbsolutDistance)/100;
+        SetPosition(GibLensPosX(LensDist,iVectorX,iVectorDist), GibLensPosY(LensDist,iVectorY,iVectorDist),pFlare);
+        i++;
+      }
     }
     else
-      //Nachts und bei verdeckter Sonne unsichtbar
-      SetVisibility (VIS_None, pFlare);
-    i++;
+    {
+      //Flares unsichtbar schalten
+      var i = 0;
+      for(var pFlare in aFlares)
+      {
+        SetVisibility(VIS_None, pFlare);
+        i++;
+      }
+    }
+    //Unabhängige Bildschirmfärbung bei Sichtkontakt
+    if(path_free)
+    {
+      var iYellow = BoundBy((2000-iVectorDist)/5,0,100);
+      ScreenRGB(GetCursor(GetOwner()), RGB(000+(30*iYellow)/100,000+(30*iYellow)/100,000), 255, 10, true, SR4K_LayerLensflare);
+    }
   }
-
-  //Blenden
-  if(path_free)
+  else
   {
-    var iYellow = BoundBy((2000-iVectorDist)/5,0,100);
-    ScreenRGB(GetCursor(GetOwner()), RGB(000+(30*iYellow)/100,000+(30*iYellow)/100,000), 255, 10, true, SR4K_LayerLensflare);
+    //Sonne und Flares unsichtbar schalten
+    SetVisibility(VIS_None);
+    var i = 0;
+    for(var pFlare in aFlares)
+    {
+      SetVisibility(VIS_None, pFlare);
+      i++;
+    }
   }
 }
 
@@ -129,7 +141,7 @@ private func SunFree(object pTo)
 
 private func GetAlphaMod(int distance)
 {
-  distance = BoundBy(distance - 300, 0, GetMaxDistance());
+  distance = BoundBy(distance - 290, 0, GetMaxDistance());
   return BoundBy(distance / (GetMaxDistance() / 255), 0, 255);
 }
 
