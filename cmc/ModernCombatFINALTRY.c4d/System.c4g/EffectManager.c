@@ -69,6 +69,13 @@ global func OnUpdateEffects(int iEffect)
       {
         CreateObject(DARK); 
         Schedule(Format("SetDarkness(%d)", EFSM_Dark), 2);
+
+        //Alle Lichtobjekte sichtbar schalten
+        for(var light in FindObjects(Find_Func("IsLamp")))
+        {
+          if(light && light->LocalN("bOn"))
+            light->TurnOn();
+        }
       }
     }
     else
@@ -76,6 +83,10 @@ global func OnUpdateEffects(int iEffect)
       if(IsDark())
         EFSM_Dark = GetDarkness();
       RemoveAll(DARK);
+
+      //Alle Lichtobjekte unsichtbar schalten
+      for(var light in FindObjects(Find_Func("IsLight"),Find_Not(Find_Func("IsModernLight"))))
+        SetVisibility(VIS_None,light);
     }
   }
 

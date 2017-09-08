@@ -8,6 +8,14 @@
 local fAlpha, iAlpha;
 
 
+/* Initialisierung */
+
+protected func Initialize()
+{
+  if(GetEffectLevel() < 3)
+    SetVisibility(VIS_None);
+}
+
 public func SetAlpha(int iValue)
 {
   iAlpha = iValue;
