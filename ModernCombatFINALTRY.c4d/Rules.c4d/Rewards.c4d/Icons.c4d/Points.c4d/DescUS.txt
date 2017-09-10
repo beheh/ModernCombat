@@ -1,1 +1,1 @@
-Different points which can be scored in CMC.
+Point types which can be scored in CMC.
