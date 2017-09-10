@@ -355,7 +355,7 @@ public func FxIntResupplyTimer(object pTarget, int iEffectNumber, int iEffectTim
 public func FxIntResupplyUpdateMessages(object pTarget, int iEffectNumber)
 {
   var pCrate = EffectVar(0, pTarget, iEffectNumber);
-  var szMessage = Format("@{{%i}}|%d/%d", pCrate->GetSpawnID(), ContentsCount(pCrate->GetSpawnID(), pCrate), pCrate->GetMaxCount());
+  var szMessage = Format("@{{%i}} %s|%d/%d", pCrate->GetSpawnID(), GetName(0,pCrate->GetSpawnID()), ContentsCount(pCrate->GetSpawnID(), pCrate), pCrate->GetMaxCount());
   //Alle anfassenden Clonks aktualisieren
   for(var pClonk in FindObjects(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(pCrate)))
   {
