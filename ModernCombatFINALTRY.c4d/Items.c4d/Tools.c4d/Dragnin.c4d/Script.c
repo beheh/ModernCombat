@@ -53,8 +53,8 @@ func Sting(caller)
 
     if(!Hostile(GetOwner(),GetOwner(obj)) && GetOwner() != GetOwner(obj))
     {
-      //Punkte bei Belohnungssystem (Dragnininjektion an Verbündeten)
-      DoPlayerPoints(BonusPoints("Dragnin"), RWDS_TeamPoints, GetOwner(caller), caller, IC05);
+      //Punkte bei Belohnungssystem (Heilung)
+      DoPlayerPoints(BonusPoints("Healing", HealAmount()), RWDS_TeamPoints, GetOwner(caller), caller, IC05);
       //Achievement-Fortschritt (I'll fix you up!)
       DoAchievementProgress(BonusPoints("Dragnin"), AC02, GetOwner(caller));
     }

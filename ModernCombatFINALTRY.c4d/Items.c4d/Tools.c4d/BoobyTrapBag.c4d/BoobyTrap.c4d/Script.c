@@ -194,7 +194,7 @@ public func ControlUp(object pObjBy)
   //Punkte für feindlichen Entschärfer
   if(Hostile(GetOwner(),GetOwner(pObjBy)))
     //Punkte bei Belohnungssystem (Entschärfung)
-    DoPlayerPoints(BonusPoints("TechnicalTask"), RWDS_TeamPoints, GetOwner(pObjBy), pObjBy, IC15);
+    DoPlayerPoints(BonusPoints("Defusing"), RWDS_TeamPoints, GetOwner(pObjBy), pObjBy, IC15);
 
   //Entschärfer ist neuer Besitzer
   controller = GetOwner(pObjBy);

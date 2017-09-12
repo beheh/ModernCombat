@@ -185,7 +185,7 @@ public func OnHit(int iDamage, int iType, object pFrom)
     if(iHits >= 120)
     {
       iHits = 0;
-      //Punkte bei Belohnungssystem (Schildabwehr)
+      //Punkte bei Belohnungssystem (Projektil abgefangen)
       var cursor = GetCursor(GetController());
       if(cursor && cursor->~GetRealCursor())
         cursor = cursor->~GetRealCursor();

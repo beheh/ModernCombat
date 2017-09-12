@@ -1,2 +1,2 @@
-DE:Kill
-US:Kill
+DE:Feind eliminiert
+US:Enemy eliminated

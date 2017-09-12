@@ -1,0 +1,2 @@
+DE:Sprengladung platziert
+US:Bomb placed

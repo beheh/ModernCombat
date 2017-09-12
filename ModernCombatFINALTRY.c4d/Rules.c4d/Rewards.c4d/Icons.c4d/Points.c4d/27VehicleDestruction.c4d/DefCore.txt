@@ -1,0 +1,8 @@
+[DefCore]
+id=IC27
+Version=4,9,10,7
+Category=1
+Width=60
+Height=60
+Offset=-30,-30
+Picture=0,0,60,60

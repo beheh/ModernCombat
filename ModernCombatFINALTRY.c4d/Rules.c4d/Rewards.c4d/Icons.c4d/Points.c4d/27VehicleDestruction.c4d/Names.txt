@@ -1,0 +1,2 @@
+DE:Fahrzeug zerstört
+US:Vehicle destroyed

@@ -928,6 +928,12 @@ protected func ContextSettings(object pCaller)
   else
     AddMenuItem("$CtxBetterAimingOff$", Format("SwitchBetterAiming(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller, 0, 0, "$CtxBetterAimingDesc$");
 
+  //Punkteanzeigetyp
+  if(pCaller->ScoreDisplayType())
+    AddMenuItem("$CtxScoreDisplayOverhead$", Format("SwitchScoreDisplayType(Object(%d))", ObjectNumber(pCaller)), PCMK, pCaller, 0, 0, "$CtxScoreDisplayOverheadDesc$");
+  else
+    AddMenuItem("$CtxScoreDisplayLog$", Format("SwitchScoreDisplayType(Object(%d))", ObjectNumber(pCaller)), SI4K, pCaller, 0, 0, "$CtxScoreDisplayLogDesc$");
+
   //Leerzeile
   AddMenuItem("", 0, 0, pCaller, 0, 0, "");
 
@@ -1009,11 +1015,19 @@ public func SwitchInventoryLockMode(object pCaller)
 }
 
 public func ShorterDeathMenu()	{return GetPlrExtraData(GetOwner(), "CMC_DeathMenuMode");}	//Entsprechende Abwärtskompatibilität
-public func BetterAiming()	{return !GetPlrExtraData(GetOwner(), "CMC_NoBetterAiming");}
 
+public func BetterAiming()	{return !GetPlrExtraData(GetOwner(), "CMC_NoBetterAiming");}
 public func SwitchBetterAiming(object pCaller)
 {
   SetPlrExtraData(GetOwner(), "CMC_NoBetterAiming", BetterAiming());
+  Sound("Click", 1, 0,0, GetOwner()+1);
+  ContextSettings(pCaller);
+}
+
+public func ScoreDisplayType()	{return !GetPlrExtraData(GetOwner(), "CMC_ScoreDisplayType");}
+public func SwitchScoreDisplayType(object pCaller)
+{
+  SetPlrExtraData(GetOwner(), "CMC_ScoreDisplayType", ScoreDisplayType());
   Sound("Click", 1, 0,0, GetOwner()+1);
   ContextSettings(pCaller);
 }
@@ -1110,6 +1124,7 @@ global func ResetSettings(int iPlr)
   SetPlrExtraData(iPlr, "CMC_QuickInv", 0);
   SetPlrExtraData(iPlr, "Hazard_NoHelpMsg", 0);
   SetPlrExtraData(iPlr, "CMC_NoBetterAiming", 1);
+  SetPlrExtraData(iPlr, "CMC_ScoreDisplayType", 0);
 }
 
 /* Ausrüstung ablegen */

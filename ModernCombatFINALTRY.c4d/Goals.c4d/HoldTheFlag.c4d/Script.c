@@ -9,6 +9,8 @@ local iProgress;				//Fortschritt des Besitzerteams
 local iGoal;					//Zu erreichende Punktezahl
 
 public func GoalExtraValue()	{return iGoal;}	//Spielzielinformationen an Scoreboard weitergeben
+public func IsTeamGoal()		{return 1;}
+
 
 
 /* Initialisierung */
@@ -18,19 +20,22 @@ protected func Initialize()
   //Standardpunktezahl
   iGoal = 10;
   aKill = [];
-  aDeath = [];}
+  aDeath = [];
+}
 
 public func Activate(iPlr)
 {
   return MessageWindow(GetDesc(), iPlr);
 }
 
+/* Rundenbeginn */
+
 public func ChooserFinished()
 {
   aTeamPoints = [];
   ScheduleCall(this, "UpdateFlag", 1);
 
-  //Effekt überwacht den Spielverlauf
+  //Spielzielmechanik-Effekt
   AddEffect("IntAddProgress", this, 1, Max(14 - GetActiveTeamCount() * 2, 5), this);
 
   UpdateHUDs();
@@ -99,8 +104,8 @@ private func OpenGoalMenu(id dummy, int iSelection)
 
   //Weniger Punkte
   if(iGoal > downlimit)
-    AddMenuItem("$LessPoints$", "ChangeWinpoints", GOCC, pClonk, 0, -1, "$MorePoints$",2,2); else
-    AddMenuItem("<c 777777>$LessPoints$</c>", "ChangeWinpoints", GOCC, pClonk, 0, -1, "$MorePoints$",2,2);
+    AddMenuItem("$LessPoints$", "ChangeWinpoints", GOCC, pClonk, 0, -1, "$LessPoints$",2,2); else
+    AddMenuItem("<c 777777>$LessPoints$</c>", "ChangeWinpoints", GOCC, pClonk, 0, -1, "$LessPoints$",2,2);
 
   //Fertig
   AddMenuItem("$Finished$", "ConfigFinished", GOCC, pClonk,0,0,"$Finished$",2,3);
@@ -125,7 +130,7 @@ private func ChangeWinpoints(id dummy, int iChange)
   OpenGoalMenu(0, iSel);
 }
 
-/* Effekt */
+/* Spielzielmechanik-Effekt */
 
 protected func FxIntAddProgressTimer()
 {
@@ -164,8 +169,8 @@ protected func FxIntAddProgressTimer()
     {
       if(GetPlayerTeam(GetPlayerByIndex(i)) == team)
       {
-        //Punkte bei Belohnungssystem (Flaggenverteidigung)
-        DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetPlayerByIndex(i), GetCrew(GetPlayerByIndex(i)), IC12);
+        //Punkte bei Belohnungssystem (Team führt)
+        DoPlayerPoints(BonusPoints("Control"), RWDS_TeamPoints, GetPlayerByIndex(i), GetCrew(GetPlayerByIndex(i)), IC28);
         Sound("Info_Event.ogg", true, 0, 0, GetPlayerByIndex(i)+1);
       }
       else if(aTeamPoints[team] == warning)
@@ -181,9 +186,7 @@ protected func FxIntAddProgressTimer()
     EffectVar(0, Par(), Par(1)) = IsFulfilled();
 }
 
-/* Zeug */
-
-public func IsTeamGoal()	{return 1;}
+/* Flaggenverhalten */
 
 public func SetFlag(object pFlagPole)
 {
@@ -205,8 +208,8 @@ public func FlagLost(object pFlagPole, int iOldTeam, int iNewTeam, array aAttack
   //Punkte für die Angreifer
   for(var clonk in aAttackers)
     if(clonk)
-      //Punkte bei Belohnungssystem (Flaggenpostenneutralisierung)
-      DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC13);
+      //Punkte bei Belohnungssystem (Flaggenposten neutralisiert)
+      DoPlayerPoints(BonusPoints("OPNeutralization"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC13);
 
   for(var i; i < GetPlayerCount(); i++)
     if(GetPlayerTeam(GetPlayerByIndex(i)) == iOldTeam)
@@ -225,16 +228,16 @@ public func FlagCaptured(object pFlagPole, int iTeam, array aAttackers, bool fRe
     if(clonk)
     {
       if(fRegained)
-        //Punkte bei Belohnungssystem (Flaggenpostenrückeroberung)
-        DoPlayerPoints(BonusPoints("OPDefend"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC12);
+        //Punkte bei Belohnungssystem (Flaggenposten verteidigt)
+        DoPlayerPoints(BonusPoints("OPDefense"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC12);
       else
       {
         if(first)
-          //Punkte bei Belohnungssystem (Flaggenposteneroberung)
-          DoPlayerPoints(BonusPoints("OPConquer"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC10);
+          //Punkte bei Belohnungssystem (Flaggenposten erobert)
+          DoPlayerPoints(BonusPoints("OPConquest"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC10);
         else
           //Punkte bei Belohnungssystem (Hilfe bei Flaggenposteneroberung)
-          DoPlayerPoints(BonusPoints("OPAssist"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC11);
+          DoPlayerPoints(BonusPoints("OPConquestAssist"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC11);
       }
       first = false;
     }
@@ -251,7 +254,7 @@ static const GHTF_ProgressColumn	= 2;
 static const GHTF_PointsColumn		= 3;
 static const GHTF_FlagRow		= 1024;
 
-public func InitScoreboard() 
+public func InitScoreboard()
 {
   //Wird noch eingestellt
   if(FindObject(CHOS) || IsFulfilled()) return;
@@ -324,7 +327,7 @@ public func UpdateScoreboard()
   //Icons
   SetScoreboardData(i, GHTF_FlagColumn, "{{SM26}}");
   SetScoreboardData(i, GHTF_ProgressColumn, "{{SM27}}", GHTF_FlagRow-i);
-  SetScoreboardData(i, GHTF_PointsColumn, "{{IC09}}", GHTF_FlagRow-i);
+  SetScoreboardData(i, GHTF_PointsColumn, "{{IC28}}", GHTF_FlagRow-i);
 
   i++;
 
@@ -343,7 +346,7 @@ public func UpdateScoreboard()
       else
         SetScoreboardData(i, GHTF_ProgressColumn, Format("<c %x>%d</c>", RGB(128, 128, 128), 0), 0);
 
-      SetScoreboardData(i, GHTF_PointsColumn, Format("%d", aTeamPoints[iTeam]), aTeamPoints[iTeam]);
+      SetScoreboardData(i, GHTF_PointsColumn, Format("<c ffbb00>%d</c>", aTeamPoints[iTeam]), aTeamPoints[iTeam]);
     }
   }
 
@@ -371,8 +374,8 @@ local fulfilled;
 public func IsFulfilled()
 {
   if(FindObject(CHOS)) return;
-
   if(fulfilled) return true;
+
   UpdateScoreboard();
 
   //Punktestände prüfen

@@ -170,10 +170,10 @@ public func Destroyed()
   if(GetDamage() > MaxDamage())
     DoDamage(-(GetDamage()-MaxDamage()));
 
-  //Punkte bei Belohnungssystem (Strukturzerstörung)
+  //Punkte bei Belohnungssystem (Struktur zerstört)
   if(BonusPointCondition() && iLastAttacker != -1)
     if((GetOwner() != -1 && Hostile(GetOwner(), iLastAttacker)) || (GetOwner() == -1 && !GetTeam(this)) || (GetTeam(this) != GetPlayerTeam(iLastAttacker)))
-      DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
+      DoPlayerPoints(BonusPoints("StructureDestruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
 
   //Explosion
   FakeExplode(20, iLastAttacker+1);

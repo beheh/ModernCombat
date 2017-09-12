@@ -338,7 +338,7 @@ public func Use(caller)
   {
     if(obj->~RTDefuse(caller))
       //Punkte bei Belohnungssystem (Entschärfung)
-      DoPlayerPoints(BonusPoints("TechnicalTask"), RWDS_TeamPoints, GetOwner(caller), caller, IC15);
+      DoPlayerPoints(BonusPoints("Defusing"), RWDS_TeamPoints, GetOwner(caller), caller, IC15);
 
     used = true;
     charge = BoundBy(charge-1, 0, MaxEnergy());
@@ -420,7 +420,7 @@ public func Use(caller)
         if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(Contained()) && iRepaired++ >= 50)
         {
           //Punkte bei Belohnungssystem (Reparatur)
-          DoPlayerPoints(BonusPoints("Repair"), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC15);
+          DoPlayerPoints(BonusPoints("Repair"), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC29);
           iRepaired = 0;
         }
 

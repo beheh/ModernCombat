@@ -33,7 +33,7 @@ func HitObject(object pObj)
   }
 
   if(Hostile(iLastAttacker, GetController()))
-    //Punkte bei Belohnungssystem (Granatenabwehr)
+    //Punkte bei Belohnungssystem (Projektil abgefangen)
     DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, iLastAttacker, GetCursor(iLastAttacker), IC16);
 
   Trigger();

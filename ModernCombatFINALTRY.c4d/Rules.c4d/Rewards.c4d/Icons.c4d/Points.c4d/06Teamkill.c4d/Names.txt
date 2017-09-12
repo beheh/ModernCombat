@@ -1,2 +1,2 @@
-DE:Team Kill
-US:Team Kill
+DE:Teamkill
+US:Teamkill

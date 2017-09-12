@@ -124,7 +124,7 @@ public func TransferAmmo(object pObj)
       factor = 2;
 
     //Punkte bei Belohnungssystem (Munitionierung)
-    DoPlayerPoints(BonusPoints("Restocking", count*factor), RWDS_TeamPoints, GetOwner(), GetCursor(GetOwner()), IC14);
+    DoPlayerPoints(BonusPoints("Supply", count*factor), RWDS_TeamPoints, GetOwner(), GetCursor(GetOwner()), IC14);
     //Achievement-Fortschritt (Ammo Distributor)
     DoAchievementProgress(AmmoID()->MaxAmmo()/10*factor, AC03, GetOwner());
   }

@@ -6,67 +6,56 @@ Dieses System ermöglicht es Spieler und deren Leistung genauer bewerten zu könne
 
 Im Gefecht:
 
-Kill					50		Gefechtspunkte		IC01
-Kill Assist				30		Gefechtspunkte		IC02
-Kill Serie				10		Gefechtspunkte		IC01
-Selbstmord				-30		Minuspunkte		IC07
-Teamkill				-80		Minuspunkte		IC06
-Entschärfung				20		Teampunkte		IC15
+Kill				50			IC01	Gefechtspunkte	Kill
+Multikill			10			IC21	Gefechtspunkte	Multikill
+Suicide				-30			IC07	Minuspunkte	Selbstmord
+Teamkill			-80			IC06	Minuspunkte	Teamkill
+
+Assist:
+
+KillAssist			30			IC02	Teampunkte	Kill Assist
+TracerAssist			30			IC22	Teampunkte	Kill Assist durch Peilsender
+DriverAssist			30			IC23	Teampunkte	Kill Assist als Fahrer
+VisualAssist			10			IC24	Teampunkte	Kill Assist durch Sichtung
+BlindingAssist			10			IC19	Teampunkte	Kill Assist durch Blendung
 
 Teamwork:
 
-Reanimation				50		Teampunkte		IC04
-Heilung					[Anzahl]/4	Teampunkte		IC05
-Dragnininjektion an Verbündeten		10		Teampunkte		IC05
-Munitionierung				[Anzahl]/3	Teampunkte		IC14
-Schildabwehr				10		Teampunkte		IC16
-Projektilabwehr				10		Teampunkte		IC16
-Kill Assist durch Blendung		10		Teampunkte		IC19
-Kill Assist durch Sichtung		10		Teampunkte		IC02
+Reanimation			50			IC04	Teampunkte	Reanimation
+Healing				Heilung/4		IC05	Teampunkte	Heilung
+Supply				Munitionierung/3	IC14	Teampunkte	Munitionierung
+Protection			10			IC16	Teampunkte	Projektil abgefangen
+TracerSet			10			IC17	Teampunkte	Peilsender platziert
+Repair				10			IC29	Teampunkte	Reparatur
 
 Zerstörung:
 
-Strukturzerstörung			50		Gefechtspunkte		IC03
-
-Fahrzeuge:
-
-Fahrzeugzerstörung			50		Gefechtspunkte		IC03
-Beschädigung				10		Gefechtspunkte		IC18
-Projektilabwehr				10		Teampunkte		IC16
-Kill Assist aus Fahrzeug heraus		30		Teampunkte		IC02
-Reparatur				10		Teampunkte		IC15
-
-Peilsender:
-
-Peilsenderplazierung			10		Teampunkte		IC17
-Kill Assist durch Peilsender		30		Teampunkte		IC02
-
-Besitznahme:
-
-Flaggenpostenneutralisierung		10		Teampunkte		IC13
-Hilfe bei Flaggenpostenneutralisierung	10		Teampunkte		IC11
-Flaggenposteneroberung			50		Teampunkte		IC10
-Hilfe bei Flaggenposteneroberung	10		Teampunkte		IC11
-Flaggenpostenverteidigung		30		Teampunkte		IC12
-Flaggenpostenrückeroberung		30		Teampunkte		IC12
+Defusing			20			IC15	Teampunkte	Entschärfung
+Damage				10			IC18	Gefechtspunkte	Beschädigung
+VehicleDestruction		50			IC27	Gefechtspunkte	Fahrzeug zerstört
+StructureDestruction		50			IC03	Gefechtspunkte	Struktur zerstört
 
 Capture the Flag:
 
-Flaggendiebstahl			50		Teampunkte		IC08
-Flaggenrückeroberung			30		Teampunkte		IC09
+CTFTheft			50			IC08	Teampunkte	Flagge gestohlen
+CTFRecovery			30			IC09	Teampunkte	Flagge geborgen
 
-Hold the Flag (s.a. Besitznahme):
+Besitznahme/Hold the Flag:
 
-Flaggenverteidigung			10		Teampunkte		IC12
+OPConquest			50			IC10	Teampunkte	Flaggenposten erobert
+OPConquestAssist		10			IC11	Teampunkte	Hilfe bei Flaggenposteneroberung
+OPNeutralization		10			IC13	Teampunkte	Flaggenposten neutralisiert
+OPDefense			30			IC12	Teampunkte	Flaggenposten verteidigt
+Control				10			IC28	Teampunkte	Team führt
 
 Assault/Base Assault:
 
-Zielobjektzerstörung			50		Teampunkte		IC03
-Hilfe bei Zielobjektzerstörung		30		Teampunkte		IC03
-Sprengladungsentschärfung		20		Teampunkte		IC15
-Hilfe bei Sprengladungsentschärfung	10		Teampunkte		IC15
-Sprengladungsplazierung			20		Teampunkte		IC15
-Hilfe bei Sprengladungsplazierung	10		Teampunkte		IC15
+ASDestruction			50			IC25	Teampunkte	Zielobjekt zerstört
+ASDestructionAssist		20			IC26	Teampunkte	Hilfe bei Zielobjektzerstörung
+ASPlacement			20			IC30	Teampunkte	Sprengladung platziert
+ASPlacementAssist		10			IC31	Teampunkte	Hilfe bei Sprengladungsplatzierung
+ASDisarming			20			IC32	Teampunkte	Sprengladung entschärft
+ASDisarmingAssist		10			IC20	Teampunkte	Hilfe bei Sprengladungsentschärfung
 
 --- Standardrangliste ---
 

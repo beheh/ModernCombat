@@ -33,8 +33,8 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam, array aAtt
 
   _inherited(pTarget, iTeam, aAttackers, ...);
 
-  //Punkte bei Belohnungssystem (Zielobjektzerstörung)
-  DoPlayerPoints(BonusPoints("ASDestruction"), RWDS_TeamPoints, GetOwner(aAttackers[0]), aAttackers[0], IC03);
+  //Punkte bei Belohnungssystem (Zielobjekt zerstört)
+  DoPlayerPoints(BonusPoints("ASDestruction"), RWDS_TeamPoints, GetOwner(aAttackers[0]), aAttackers[0], IC25);
   //Geldbonus: 30 Clunker
   DoWealth(GetOwner(aAttackers[0]), 30);
 
@@ -90,7 +90,7 @@ public func UpdateScoreboard()
 
   //Informationen zur Bombe
   SetScoreboardData(SBRD_Caption, GBAS_Icon, Format("{{C4P2}}"));
-  SetScoreboardData(SBRD_Caption, GBAS_TargetName, Format("$Bomb$"));
+  SetScoreboardData(SBRD_Caption, GBAS_TargetName, Format("<c ffbb00>$Bomb$</c>"));
 
   //Zustand der Bombe ermitteln (Icons fehlen)
   var state = "", bomb = GetBomb();
