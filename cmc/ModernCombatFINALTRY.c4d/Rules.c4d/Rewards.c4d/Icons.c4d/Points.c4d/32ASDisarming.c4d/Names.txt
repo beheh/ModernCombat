@@ -1,0 +1,2 @@
+DE:Sprengladung entschärft
+US:Bomb defused

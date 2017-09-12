@@ -89,7 +89,7 @@ private func OpenGoalMenu(id dummy, int iSelection)
   CreateMenu(GetID(),pClonk,0,0,0,0,1);
 
   //Credit-Anzeige
-  AddMenuItem(" ", 0, IC20, pClonk, iGoal);
+  AddMenuItem(" ", 0, SM30, pClonk, iGoal);
 
   //Credit-Limits ermitteln
   var uplimit = 1000; var downlimit = 100;
@@ -230,7 +230,7 @@ public func UpdateScoreboard()
   SetScoreboardData(SBRD_Caption, SBRD_Caption, GetName());
 
   //Zu erreichende Credits
-  SetScoreboardData(SBRD_Caption, GMNR_Icon, Format("{{%i}}", GetID()));
+  SetScoreboardData(SBRD_Caption, GMNR_Icon, Format("{{%i}}", SM30));
   SetScoreboardData(SBRD_Caption, GMNR_Goal, Format("$Goal$"));
   SetScoreboardData(SBRD_Caption, GMNR_GoalCount, Format("%d", iGoal));
 
@@ -260,7 +260,7 @@ public func UpdateScoreboard()
       }
 
       SetScoreboardData(team, GMNR_Name, name);
-      SetScoreboardData(team, GMNR_Count, Format("<c %x>%d</c>", clr, aMoney[team]), aMoney[team]);
+      SetScoreboardData(team, GMNR_Count, Format("<c ffbb00>%d</c>", aMoney[team]), aMoney[team]);
     }
   }
   else
@@ -346,9 +346,9 @@ private func GoalMoney(int iPlr, int iAmount)
     pClonk = pClonk->~GetRealCursor();
   var string;
   if(iAmount > 0)
-    string = Format("{{IC20}} <c 00ff00>+%d</c>", iAmount);
+    string = Format("{{SM30}} <c 00ff00>+%d</c>", iAmount);
   else
-    string = Format("{{IC20}} <c ff0000>%d</c>", iAmount);
+    string = Format("{{SM30}} <c ff0000>%d</c>", iAmount);
   if(pClonk)
     AddEffect("PointMessage", pClonk, 130, 1, pClonk, 0, string);
 

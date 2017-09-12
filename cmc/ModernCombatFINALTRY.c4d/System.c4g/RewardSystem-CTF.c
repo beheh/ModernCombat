@@ -8,14 +8,14 @@
 
 public func FlagScored(int iTeam, int iCTeam, object pClonk)
 {
-  //Punkte bei Belohnungssystem (Flaggendiebstahl)
+  //Punkte bei Belohnungssystem (Flagge gestohlen)
   if(pClonk)
-    DoPlayerPoints(BonusPoints("CTFSteal"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC08);
+    DoPlayerPoints(BonusPoints("CTFTheft"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC08);
 }
 
 public func FlagReturned(int iTeam, object pClonk)
 {
-  //Punkte bei Belohnungssystem (Flaggenrückeroberung)
+  //Punkte bei Belohnungssystem (Flagge geborgen)
   if(pClonk)
-    DoPlayerPoints(BonusPoints("CTFRegain"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC09);
+    DoPlayerPoints(BonusPoints("CTFRecovery"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC09);
 }

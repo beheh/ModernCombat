@@ -1,0 +1,2 @@
+DE:Zielobjekt zerstört
+US:Target destroyed

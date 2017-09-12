@@ -113,7 +113,7 @@ public func OnHit(int iDmg, int iType, object pBy)
       while(aDealers[iPlr] >= 50)
       {
         //Punkte bei Belohnungssystem (Beschädigung)
-        DoPlayerPoints(BonusPoints("VehicleDamage"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC18);
+        DoPlayerPoints(BonusPoints("Damage"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC18);
         aDealers[iPlr] -= 50;
       }
     }
@@ -148,9 +148,9 @@ public func Destroyed()
   {
     //Achievement-Fortschritt (Junkdealer)
     DoAchievementProgress(1, AC23, iLastAttacker);
-    //Punkte bei Belohnungssystem (Fahrzeugzerstörung)
+    //Punkte bei Belohnungssystem (Fahrzeug zerstört)
     if(BonusPointCondition())
-      DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
+      DoPlayerPoints(BonusPoints("VehicleDestruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC27);
   }
 
   //Sound

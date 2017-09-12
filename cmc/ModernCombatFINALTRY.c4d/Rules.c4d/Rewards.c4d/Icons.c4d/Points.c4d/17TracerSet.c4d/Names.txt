@@ -1,0 +1,2 @@
+DE:Peilsender platziert
+US:Tracer Dart placed

@@ -510,8 +510,8 @@ protected func DoPoints()
           if(pPilot->~GetRealCursor()) pPilot = pPilot->~GetRealCursor();
           if(GetOwner(pPilot) != GetOwner(pClonk))
           {
-            //Punkte bei Belohnungssystem (Kill Assist aus Fahrzeug heraus)
-            DoPlayerPoints(BonusPoints("Assist"), RWDS_TeamPoints, GetOwner(pPilot), pPilot, IC02);
+            //Punkte bei Belohnungssystem (Kill Assist als Fahrer)
+            DoPlayerPoints(BonusPoints("DriverAssist"), RWDS_TeamPoints, GetOwner(pPilot), pPilot, IC23);
 
             //Achievement-Fortschritt (Air Superiority)
             DoAchievementProgress(1,AC28,GetOwner(pPilot));
@@ -554,7 +554,7 @@ protected func DoPoints()
     if(assist != killer && GetPlayerName(assist))
     {
       //Punkte bei Belohnungssystem (Kill Assist)
-      DoPlayerPoints(BonusPoints("Assist"), RWDS_BattlePoints, assist, GetCursor(assist), IC02);
+      DoPlayerPoints(BonusPoints("KillAssist"), RWDS_BattlePoints, assist, GetCursor(assist), IC02);
       //Achievement-Fortschritt (Helping Hand)
       if(!Hostile(assist, killer)) DoAchievementProgress(1, AC01, assist);
     }
@@ -569,7 +569,7 @@ protected func DoPoints()
   var marker = FindObject2(Find_ID(SM08), Find_Allied(killer), Find_Action("Attach"), Find_ActionTarget(this)); 
     if(marker && GetOwner(marker) != killer) 
       //Punkte bei Belohnungssystem (Kill Assist durch Sichtung)
-      DoPlayerPoints(BonusPoints("VisualAssist"), RWDS_TeamPoints, GetOwner(marker), GetCursor(GetOwner(marker)), IC02);
+      DoPlayerPoints(BonusPoints("VisualAssist"), RWDS_TeamPoints, GetOwner(marker), GetCursor(GetOwner(marker)), IC24);
 
   //Achievement-Fortschritt (Non-Swimmer)
   if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
@@ -613,7 +613,7 @@ protected func DoPoints()
     if(Hostile(EffectVar(1, this, effectno),GetOwner()) && killer != EffectVar(1, this, effectno))
     {
       //Punkte bei Belohnungssystem (Kill Assist durch Blendung)
-      DoPlayerPoints(BonusPoints("VisualAssist"), RWDS_TeamPoints, EffectVar(1, this, effectno), GetCursor(EffectVar(1, this, effectno)), IC19);
+      DoPlayerPoints(BonusPoints("BlindingAssist"), RWDS_TeamPoints, EffectVar(1, this, effectno), GetCursor(EffectVar(1, this, effectno)), IC19);
       //Achievement-Fortschritt (Stunning Help)
       DoAchievementProgress(1, AC22, EffectVar(1, this, effectno));
     }
@@ -623,7 +623,7 @@ protected func DoPoints()
     if(Hostile(EffectVar(2, this, effectno),GetOwner()) && killer != EffectVar(2, this, effectno))
     {
       //Punkte bei Belohnungssystem (Kill Assist durch Blendung)
-      DoPlayerPoints(BonusPoints("VisualAssist"), RWDS_TeamPoints, EffectVar(2, this, effectno), GetCursor(EffectVar(2, this, effectno)), IC19);
+      DoPlayerPoints(BonusPoints("BlindingAssist"), RWDS_TeamPoints, EffectVar(2, this, effectno), GetCursor(EffectVar(2, this, effectno)), IC19);
       //Achievement-Fortschritt (Stunning Help)
       DoAchievementProgress(1, AC22, EffectVar(2, this, effectno));
     }

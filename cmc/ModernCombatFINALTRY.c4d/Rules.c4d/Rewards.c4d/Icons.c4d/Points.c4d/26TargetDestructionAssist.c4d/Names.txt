@@ -1,0 +1,2 @@
+DE:Hilfe bei Zielobjektzerstörung
+US:Assist with target destruction

@@ -113,8 +113,8 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
         aDmg = aDmg[0];
 
     //Punkte für den letzten Angreifer
-    //Punkte bei Belohnungssystem (Zielobjektzerstörung)
-    DoPlayerPoints(BonusPoints("ASDestruction"), RWDS_TeamPoints, iPlr, GetCrew(iPlr), IC03);
+    //Punkte bei Belohnungssystem (Zielobjekt zerstört)
+    DoPlayerPoints(BonusPoints("ASDestruction"), RWDS_TeamPoints, iPlr, GetCrew(iPlr), IC25);
     //Geldbonus: 30 Clunker
     DoWealth(iPlr, 30);
 
@@ -123,7 +123,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
     if(GetPlayerName(i) && i != iPlr && aDmg[i])
     {
       //Punkte bei Belohnungssystem (Hilfe bei Zielobjektzerstörung)
-      DoPlayerPoints(BonusPoints("ASDestructionAssist"), RWDS_TeamPoints, i, GetCrew(i), IC03);
+      DoPlayerPoints(BonusPoints("ASDestructionAssist"), RWDS_TeamPoints, i, GetCrew(i), IC26);
       //Geldbonus: 25 Clunker
       DoWealth(i, 25);
     }
@@ -278,13 +278,13 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
         if(clonk)
           if(assist)
           {
-            //Punkte bei Belohnungssystem (Hilfe bei Sprengladungsplazierung)
-            DoPlayerPoints(BonusPoints("ASTargetArmedAssist"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC15);
+            //Punkte bei Belohnungssystem (Hilfe bei Sprengladungsplatzierung)
+            DoPlayerPoints(BonusPoints("ASPlacementAssist"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC31);
           }
           else
           {
-            //Punkte bei Belohnungssystem (Sprengladungsplazierung)
-            DoPlayerPoints(BonusPoints("ASTargetArmed"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC15);
+            //Punkte bei Belohnungssystem (Sprengladung platziert)
+            DoPlayerPoints(BonusPoints("ASPlacement"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC30);
 
             //Achievement-Fortschritt (Bomberman)
             DoAchievementProgress(1, AC43, GetOwner(clonk));
@@ -364,13 +364,13 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
           {
             //Keine Bepunktung für Hilfe in Base Assault
             if(!FindObject2(Find_ID(GBAS)))
-              //Punkte bei Belohnungssystem (Hilfe bei Sprengladungsentschärfung)
-              DoPlayerPoints(BonusPoints("ASTargetDefusedAssist"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC15);
+              //Punkte bei Belohnungssystem (Hilfe bei Entschärfung)
+              DoPlayerPoints(BonusPoints("ASDisarmingAssist"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC20);
           }
           else
           {
-            //Punkte bei Belohnungssystem (Sprengladungsentschärfung)
-            DoPlayerPoints(BonusPoints("ASTargetDefused"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC15);
+            //Punkte bei Belohnungssystem (Sprengladung entschärft)
+            DoPlayerPoints(BonusPoints("ASDisarming"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC32);
 
             //Achievement-Fortschritt (Firewall)
             DoAchievementProgress(1, AC44, GetOwner(clonk));

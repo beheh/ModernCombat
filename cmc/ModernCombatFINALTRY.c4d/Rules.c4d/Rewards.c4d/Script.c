@@ -514,10 +514,15 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
     {
       if(!idIcon) idIcon = RWDS;
       var szMsg;
-      if(iPoints < 0) szMsg = Format("{{%i}} <c ff0000>%d</c>", idIcon, iPoints);
-      if(iPoints > 0) szMsg = Format("{{%i}} <c 00ff00>+%d</c>", idIcon, iPoints);
-      if(iPoints == 0) szMsg = Format("{{%i}} <c ffff00>+%d</c>", idIcon, iPoints);
-      pClonk->AddEffect("PointMessage", pClonk, 130, 1, pClonk, 0, szMsg);
+      if(iPoints < 0) szMsg = Format("<c ff0000>%d</c>", iPoints);
+      if(iPoints > 0) szMsg = Format("<c 00ff00>+%d</c>", iPoints);
+      if(iPoints == 0) szMsg = Format("<c ffff00>+%d</c>", iPoints);
+
+      //Punkteanzeige entsprechend der Einstellung des Spielers
+      if(pClonk->~ScoreDisplayType())
+        pClonk->AddEffect("PointMessage", pClonk, 130, 1, pClonk, 0, Format("{{%i}} %s", idIcon, szMsg));
+      else
+        pClonk->ScoreInfo(iPlr+1, Format("%s %s", szMsg, GetName(false,idIcon)), idIcon);
       return true;
     }
   }
@@ -1088,8 +1093,8 @@ global func FxPointMessageStart(pTarget, iNo, iTemp, szString)
   if(iTemp)
     return -1;
 
-  EffectVar(0,pTarget,iNo) = szString; //Nachricht
-  EffectVar(2,pTarget,iNo) = 0; //Zeit
+  EffectVar(0,pTarget,iNo) = szString;	//Nachricht
+  EffectVar(2,pTarget,iNo) = 0;		//Zeit
 }
 
 global func FxPointMessageTimer(object pTarget, int iEffectNumber)
@@ -1113,11 +1118,7 @@ global func FxPointMessageTimer(object pTarget, int iEffectNumber)
     Sound("RWDS_Points.ogg", 0, pContainer, 100, GetOwner(pTarget)+1);
 
     var iPlr = GetOwner(pTarget);
-    for(i = 0; i < GetPlayerCount(); i++)
-    {
-      if(Hostile(iPlr, GetPlayerByIndex(i))) continue;
-      AddEffect("PointPlayerMessage", CreateObject(ARHL,0,0,-1), 130, 1, 0, 0, GetPlayerByIndex(i), EffectVar(0,pTarget,iEffectNumber));
-    }
+    AddEffect("PointPlayerMessage", CreateObject(ARHL,0,0,-1), 130, 1, 0, 0, iPlr, EffectVar(0,pTarget,iEffectNumber));
   }
   EffectVar(2, pTarget, iEffectNumber)++;
   if(-50+EffectVar(2,pTarget,iEffectNumber)*5 > 255)

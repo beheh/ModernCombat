@@ -1,0 +1,2 @@
+DE:Punkteanzeige
+US:Score Info

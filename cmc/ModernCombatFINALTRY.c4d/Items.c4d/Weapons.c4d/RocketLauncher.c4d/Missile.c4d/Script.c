@@ -417,7 +417,7 @@ public func Damaged()
 
   if(!Secure() && Hostile(iLastAttacker, GetController()))
   {
-    //Punkte bei Belohnungssystem (Raketenabwehr)
+    //Punkte bei Belohnungssystem (Projektil abgefangen)
     DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, iLastAttacker, GetCursor(iLastAttacker), IC16);
   }
 

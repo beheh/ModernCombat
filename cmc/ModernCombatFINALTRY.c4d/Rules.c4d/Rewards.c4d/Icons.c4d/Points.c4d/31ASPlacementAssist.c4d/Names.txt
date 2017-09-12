@@ -1,0 +1,2 @@
+DE:Hilfe bei Sprengladungsplatzierung
+US:Bomb placement assist

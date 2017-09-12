@@ -819,7 +819,7 @@ public func BlowTorch(bool statusOnly)
   {
     if(obj->~RTDefuse(this))
       //Punkte bei Belohnungssystem (Entschärfung)
-      DoPlayerPoints(BonusPoints("TechnicalTask"), RWDS_TeamPoints, GetOwner(this), this, IC15);
+      DoPlayerPoints(BonusPoints("Defusing"), RWDS_TeamPoints, GetOwner(this), this, IC15);
 
     LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem)-2, 0, pItem->MaxEnergy());
     used = true;
@@ -894,7 +894,7 @@ public func BlowTorch(bool statusOnly)
       if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(this) && LocalN("iRepaired", pItem)++ >= 50)
       {
          //Punkte bei Belohnungssystem (Reparatur)
-         DoPlayerPoints(BonusPoints("Repair"), RWDS_TeamPoints, GetOwner(this), this, IC15);
+         DoPlayerPoints(BonusPoints("Repair"), RWDS_TeamPoints, GetOwner(this), this, IC29);
          LocalN("iRepaired", pItem) = 0;
       }
     LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem) - 2, 0, pItem->MaxEnergy());
@@ -987,7 +987,7 @@ public func AMP(bool statusOnly)
     DoAchievementProgress(ammoID->MaxAmmo() / 10 * factor, AC03, GetOwner(this));
 
     //Punkte bei Belohnungssystem (Munitionierung)
-    DoPlayerPoints(BonusPoints("Restocking", ammoID->MaxAmmo() / 10 * factor), RWDS_TeamPoints, GetOwner(this), this, IC14);
+    DoPlayerPoints(BonusPoints("Supply", ammoID->MaxAmmo() / 10 * factor), RWDS_TeamPoints, GetOwner(this), this, IC14);
   }
 }
 

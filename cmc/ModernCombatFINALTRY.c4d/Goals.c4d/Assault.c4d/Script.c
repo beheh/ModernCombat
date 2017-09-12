@@ -159,14 +159,14 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam, array aAtt
         if(assist)
         {
           //Punkte bei Belohnungssystem (Hilfe bei Zielobjektzerstörung)
-          DoPlayerPoints(BonusPoints("ASDestructionAssist"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC03);
+          DoPlayerPoints(BonusPoints("ASDestructionAssist"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC26);
           //Geldbonus: 25 Clunker
           DoWealth(GetOwner(clonk), 25);
         }
         else
         {
-          //Punkte bei Belohnungssystem (Zielobjektzerstörung)
-          DoPlayerPoints(BonusPoints("ASDestruction"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC03);
+          //Punkte bei Belohnungssystem (Zielobjekt zerstört)
+          DoPlayerPoints(BonusPoints("ASDestruction"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC25);
           //Geldbonus: 30 Clunker
           DoWealth(GetOwner(clonk), 30);
         }
@@ -590,9 +590,9 @@ public func UpdateScoreboard()
 
   //Titelzeile
   SetScoreboardData(SBRD_Caption, SBRD_Caption, GetName());
-  SetScoreboardData(SBRD_Caption, GASS_Icon, Format("{{%i}}", GetID()));
+  SetScoreboardData(SBRD_Caption, GASS_Icon, Format("{{%i}}", IC25));
   SetScoreboardData(SBRD_Caption, GASS_Name, Format("<c %x>$Targets$</c>", GetTeamColor(iDefender)));
-  SetScoreboardData(SBRD_Caption, GASS_Count, Format("<c %x>%d</c>", GetTeamColor(iDefender), ObjectCount2(Find_InArray(aTargets[iDefender]))), 0);
+  SetScoreboardData(SBRD_Caption, GASS_Count, Format("<c ffbb00>%d</c>", ObjectCount2(Find_InArray(aTargets[iDefender]))), 0);
 
   //Ziele für das nächste Ziel
   if(obj)
@@ -612,7 +612,6 @@ public func UpdateScoreboard()
 
   //Tickets
   var string = Format("<c %x>$Attackers$</c>", RGB(255, 255, 255));
-  var color = RGB(255, 255, 255);
   var team = GetTeamByIndex();
 
   //Nur ein Angreiferteam
@@ -621,23 +620,17 @@ public func UpdateScoreboard()
     if(team == iDefender)
       team = GetTeamByIndex(1);
     string = GetTaggedTeamName(team);
-    color = GetTeamColor(team);
   }
   SetScoreboardData(2, GASS_Icon, "{{SM03}}");
   SetScoreboardData(2, GASS_Name, string);
-  SetScoreboardData(2, GASS_Count, Format("<c %x>%d</c>", color, iTickets), 201);
-  
-  var icon = SM17;
+  SetScoreboardData(2, GASS_Count, Format("<c ffbb00>%d</c>", iTickets), 201);
+
   var str = "$AttackerDominate$";
   var effect = GetEffect("TicketSubtraction", this);
-
   if(EffectVar(1, this, effect))
-  {
-    icon = SM16;
     str = "$DefenderDominate$";
-  }
 
-  SetScoreboardData(GASS_DominationInfo, GASS_Icon, Format("{{%i}}", icon));
+  SetScoreboardData(GASS_DominationInfo, GASS_Icon, Format("{{%i}}", IC28));
   SetScoreboardData(GASS_DominationInfo, GASS_Name, str);
   SetScoreboardData(GASS_DominationInfo, GASS_Count, "", 202);
 
