@@ -7,12 +7,14 @@
 
 local fAlpha, iAlpha;
 
+public func IsModernLight()	{return false;}
+
 
 /* Initialisierung */
 
 protected func Initialize()
 {
-  if(GetEffectLevel() < 3)
+  if(GetEffectLevel() < 3 && !IsModernLight())
     SetVisibility(VIS_None);
 }
 
