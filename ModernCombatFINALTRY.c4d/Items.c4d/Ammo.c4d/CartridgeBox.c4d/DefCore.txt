@@ -2,7 +2,7 @@
 id=ABOX
 Version=4,9,10,7
 Name=Cartridge Box
-Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectKnowledge|C4D_SelectHomebase
 MaxUserSelect=10
 Width=14
 Height=8
@@ -13,6 +13,7 @@ VertexY=3,3,-3,3
 VertexFriction=70,70,50,70
 Value=20
 Mass=10
+Components=METL=1;GUNP=3
 Picture=14,0,100,100
 Rebuy=1
 Collectible=1

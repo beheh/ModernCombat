@@ -2,13 +2,14 @@
 id=C4PA
 Version=4,9,10,7
 Name=Detonator
-Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectKnowledge|C4D_SelectHomebase
 MaxUserSelect=5
 Width=9
 Height=4
 Offset=-4,-2
-Value=20
+Value=30
 Mass=20
+Components=METL=1;CRYS=1;FLNT=2
 Picture=64,4,64,64
 Vertices=4
 VertexX=4,-4,4,-4

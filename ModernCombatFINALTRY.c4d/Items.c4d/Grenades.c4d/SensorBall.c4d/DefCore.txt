@@ -2,13 +2,14 @@
 id=SRBL
 Version=4,9,10,7
 Name=Sensor Ball
-Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectKnowledge|C4D_SelectHomebase
 MaxUserSelect=10
 Width=6
 Height=6
 Offset=-3,-3
 Value=15
 Mass=8
+Components=METL=1;CRYS=1
 Picture=6,0,133,132
 Vertices=4
 VertexX=-3,-3,3,3

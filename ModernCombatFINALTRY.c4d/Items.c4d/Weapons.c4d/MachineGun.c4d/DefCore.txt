@@ -2,13 +2,14 @@
 id=MNGN
 Version=4,9,10,7
 Name=Machine Gun
-Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectKnowledge|C4D_SelectHomebase
 MaxUserSelect=5
 Width=25
 Height=10
 Offset=-12,-5
 Value=60
 Mass=20
+Components=METL=7
 Picture=0,10,64,64
 Vertices=4
 VertexX=12,0,0,-12

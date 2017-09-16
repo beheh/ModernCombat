@@ -2,13 +2,14 @@
 id=PPGN
 Version=4,9,10,7
 Name=Shotgun
-Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectKnowledge|C4D_SelectHomebase
 MaxUserSelect=5
 Width=17
 Height=6
 Offset=-8,-3
 Value=50
 Mass=15
+Components=METL=6
 Picture=0,6,64,64
 Vertices=4
 VertexX=8,0,0,-8
