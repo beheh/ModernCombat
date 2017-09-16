@@ -2,13 +2,14 @@
 id=BTBG
 Version=4,9,10,7
 Name=Booby Trap Bag
-Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectKnowledge|C4D_SelectHomebase
 MaxUserSelect=5
 Width=8
 Height=8
 Offset=-4,-4
-Value=50
+Value=40
 Mass=20
+Components=METL=3;GUNP=1;FLNT=1
 Picture=0,8,100,100
 Vertices=2
 VertexY=-4,3

@@ -2,13 +2,14 @@
 id=RVLR
 Version=4,9,10,7
 Name=Revolver
-Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectKnowledge|C4D_SelectHomebase
 MaxUserSelect=5
 Width=11
 Height=7
 Offset=-6,-4
-Value=20
+Value=25
 Mass=5
+Components=METL=3
 Picture=0,7,64,64
 Vertices=4
 VertexX=4,0,0,-6

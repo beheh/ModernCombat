@@ -2,13 +2,14 @@
 id=RSHL
 Version=4,9,10,7
 Name=Riot Shield
-Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectKnowledge|C4D_SelectHomebase
 MaxUserSelect=5
 Width=12
 Height=16
 Offset=-6,-8
 Value=40
 Mass=15
+Components=METL=3;CRYS=2
 Picture=12,0,64,64
 Vertices=4
 VertexX=-5,4,4,-5

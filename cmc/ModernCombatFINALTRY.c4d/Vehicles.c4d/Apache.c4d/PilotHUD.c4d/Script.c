@@ -168,7 +168,7 @@ protected func Timer()
   if(fRocketPod != tRocketPod)
   {
     fUpdate = true;
-    if(!fRocketPod) Sound("WarningSmokeWallReloaded.ogg", false, this, 100, GetOwner()+1);
+    if(!fRocketPod) Sound("WarningRocketPodReloaded.ogg", false, this, 100, GetOwner()+1);
     fRocketPod = tRocketPod;
   }
   if(fUpdate)

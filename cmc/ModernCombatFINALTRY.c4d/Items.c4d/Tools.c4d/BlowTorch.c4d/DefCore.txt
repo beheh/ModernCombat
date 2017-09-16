@@ -2,13 +2,14 @@
 id=BWTH
 Version=4,9,10,7
 Name=Blow Torch
-Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectKnowledge|C4D_SelectHomebase
 MaxUserSelect=5
 Width=15
 Height=9
 Offset=-8,-5
-Value=40
+Value=50
 Mass=15
+Components=METL=3;OBRL=1
 Picture=0,9,64,64
 Vertices=3
 VertexX=6,0,-8
