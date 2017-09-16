@@ -617,7 +617,6 @@ func CreateInterior()
   CreateObject(CLGH,630,445,-1);
   CreateObject(CLGH,630,505,-1);
   CreateObject(LLGH,780,1760,-1);
-  CreateObject(LLGH,880,1760,-1);
   CreateObject(LLGH,980,1760,-1);
   CreateObject(BLGH,1020,530,-1);
   CreateObject(CLGH,1020,685,-1);
