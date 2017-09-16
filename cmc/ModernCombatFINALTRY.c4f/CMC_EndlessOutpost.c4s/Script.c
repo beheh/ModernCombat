@@ -710,21 +710,21 @@ func CreateDecoration()
   CreateObject(FIE2, 2960, 345, -1);
 
   //Straßenlichter
-  CreateObject(SLGH, 180, 450, -1);
-  CreateObject(SLGH, 280, 450, -1);
-  CreateObject(SLGH, 415, 450, -1);
-  CreateObject(SLGH, 485, 450, -1);
-  CreateObject(SLGH, 565, 450, -1);
+  CreateObject(SLGH, 180, 450, -1)->TurnOff();
+  CreateObject(SLGH, 280, 450, -1)->TurnOff();
+  CreateObject(SLGH, 415, 450, -1)->TurnOff();
+  CreateObject(SLGH, 485, 450, -1)->TurnOff();
+  CreateObject(SLGH, 565, 450, -1)->TurnOff();
   CreateObject(SLGH, 670, 450, -1);
-  CreateObject(SLGH, 770, 450, -1);
-  CreateObject(SLGH, 870, 450, -1);
+  CreateObject(SLGH, 770, 450, -1)->TurnOff();
+  CreateObject(SLGH, 870, 450, -1)->TurnOff();
   CreateObject(SLGH, 970, 450, -1);
 
   //Notausgangslichter
   CreateObject(ETLT, 1270, 390, -1);
   CreateObject(ETLT, 1620, 235, -1);
   CreateObject(ETLT, 1880, 170, -1);
-  CreateObject(ETLT, 2930, 395, -1);
+  CreateObject(ETLT, 2930, 395, -1)->TurnOff();
 
   //Verkehrsampeln
   CreateObject(TLGH, 830, 450, -1);

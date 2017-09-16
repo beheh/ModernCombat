@@ -118,6 +118,7 @@ func CreateInterior()
   CreateObject(STNE, 2470, 375, -1);
   CreateObject(STNE, 2700, 340, -1)->Set(4);
   CreateObject(STNE, 2730, 730, -1)->Set(0);
+  CreateObject(STNE, 2800, 200, -1)->Set(0);
 
   //Kisten
   CreateObject(WCR2, 960, 260, -1)->AutoRespawn();
@@ -204,7 +205,7 @@ func CreateDecoration()
   CreateObject(PIPL, 1590, 455, -1)->Right()->Right()->Right()->Right()->Right()->Right()->Up();
   CreateObject(PIPL, 2010, 323, -1)->Right()->Right()->Up()->Right()->Right()->Right();
   CreateObject(PIPL, 2280, 505, -1)->Up()->Left()->Left()->Left()->Left()->Left()->Left()->Up();
-  CreateObject(PIPL, 2370, 540, -1)->Right()->Right()->Up()->Right()->Right()->Right()->Right()->Right()->Right()->Right();
+  CreateObject(PIPL, 2370, 540, -1)->Right()->Right()->Up()->Right()->Right()->Right()->Right()->Right()->Right()->Right()->Right()->Right();
 
   //Alarmlampen
   CreateObject(ALGH, 385, 260, -1)->TurnOn();
