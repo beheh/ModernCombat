@@ -57,7 +57,7 @@ public func Set(string szText, id idIcon, int dwTextColor, int dwIconColor, stri
   //Sound für betreffenden Spieler abspielen
   if (GetOwner() != NO_OWNER)
   {
-    if(!szSound) szSound = "RWDS_Points.ogg";
+    if(!szSound) szSound = "RWDS_Points*.ogg";
     Sound(szSound,true,0,0,GetOwner()+1);
   }
 
@@ -87,7 +87,7 @@ public func FxIntScoreInfoTimer(object pTarget, int iEffectNumber, int iEffectTi
   var a = 255-Sin(900+(iEffectTime*900/MaxTime()),255*2,10)/2;
 
   if(icon) SetClrModulation(RGBa(255,255,255,a),this,1); 
-  CustomMessage(Format("           %s",text), pTarget, GetOwner(), 0, 26, SetRGBaValue(color,a), 0, 0, MSG_NoLinebreak);
+  CustomMessage(Format("            %s",text), pTarget, GetOwner(), 0, 26, SetRGBaValue(color,a), 0, 0, MSG_NoLinebreak);
   if(iEffectTime >= MaxTime()) return -1;
 }
 

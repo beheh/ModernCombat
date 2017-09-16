@@ -14,7 +14,7 @@ local text, icon, color, graphics, action, fGlobal;
 
 protected func Initialize()
 {
-  if (GetOwner() != NO_OWNER)
+  if(GetOwner() != NO_OWNER)
     SetVisibility(VIS_Owner);
   else
     SetVisibility(VIS_God);
@@ -68,7 +68,7 @@ public func Set(string szText, id idIcon, int dwTextColor, int dwIconColor, stri
   SetColorDw(dwIconColor);
 
   //Sound für betreffenden Spieler abspielen
-  if (GetOwner() != NO_OWNER)
+  if(GetOwner() != NO_OWNER)
   {
     if(!szSound) szSound = "Info_General.ogg";
     Sound(szSound,true,0,0,GetOwner()+1);
@@ -82,8 +82,8 @@ public func SetAsGlobal()	{fGlobal = true;}
 public func FxIntEventInfoStart(object pTarget, int iEffectNumber, int iTemp)
 {
   SortByActTime();
-  if (icon)
-    if (action)
+  if(icon)
+    if(action)
     {
       SetGraphics(graphics, pTarget, icon, 1, GFXOV_MODE_Action, action);
       var size = pTarget->~IconSize() * 1000 / Max(GetActMapVal("Facet", action, icon, 2), GetActMapVal("Facet", action, icon, 3));
@@ -97,12 +97,12 @@ public func FxIntEventInfoStart(object pTarget, int iEffectNumber, int iTemp)
 public func FxIntEventInfoTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   //Nachricht bei totem Spieler entfernen
-  if (!fGlobal && !GetPlayerName(GetOwner(pTarget)))
+  if(!fGlobal && !GetPlayerName(GetOwner(pTarget)))
     return -1;
   var a = 255-Sin(900+(iEffectTime*900/MaxTime()),255*2,10)/2;
 
   if(icon) SetClrModulation(RGBa(255,255,255,a),this,1); 
-  CustomMessage(Format("           %s",text), pTarget, GetOwner(), 0, 26, SetRGBaValue(color,a), 0, 0, MSG_NoLinebreak);
+  CustomMessage(Format("            %s",text), pTarget, GetOwner(), 0, 26, SetRGBaValue(color,a), 0, 0, MSG_NoLinebreak);
   if(iEffectTime >= MaxTime()) return -1;
 }
 
