@@ -367,14 +367,12 @@ func CreateInterior()
 
   //Seilrutschen
   CreateZipLine(1340, 690, 1720, 800);
-  CreateZipLine(1340, 890, 1760, 930);
   CreateZipLine(2460, 690, 2780, 766);
 
   CreateZipLine(2780, 820, 1840, 930);
   CreateZipLine(3100, 820, 4040, 930);
 
   CreateZipLine(3100, 766, 3420, 690);
-  CreateZipLine(4160, 800, 4540, 690);
   CreateZipLine(4120, 930, 4540, 890);
 
   //Tore und Konsolen
