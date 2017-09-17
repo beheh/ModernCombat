@@ -10,12 +10,14 @@ public func OnDamage()			{}					//Beim Erhalten von Schaden
 public func OnDestruction()		{}					//Bei der Zerstörung des Fahrzeugs
 public func MaxDamage()			{return 100;}				//Maximalschaden
 public func BonusPointCondition()	{return true;}				//Ob bei der Zerstörung Punkte vergeben werden
+public func BonusPointDamage()		{return 50;}				//Benötigter Schaden für Punkteausschüttung
 
 public func GetLastAttacker()		{return iLastAttacker;}			//Letzer Angreifer
 public func IsDestroyed()		{return fDestroyed;}			//Zerstört
 public func IsCMCVehicle()		{return true;}				//Ist ein CMC Fahrzeug
 public func IsRepairable()		{return true;}				//Reparierbar
 public func RepairSpeed()		{return 0;}				//Standard-Reparaturgeschwindigkeit
+public func BonusPointRepair()		{return 50;}				//Benötigte Reparatur für Punkteausschüttung
 public func RemoveTracer()		{return GetOwner() == NO_OWNER;}	//Tracer entfernen, wenn neutral
 
 
@@ -110,11 +112,11 @@ public func OnHit(int iDmg, int iType, object pBy)
       if(!aDealers[iPlr])
         aDealers[iPlr] = 0;
       aDealers[iPlr] += iDmg;
-      while(aDealers[iPlr] >= 50)
+      while(aDealers[iPlr] >= BonusPointDamage())
       {
         //Punkte bei Belohnungssystem (Beschädigung)
         DoPlayerPoints(BonusPoints("Damage"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC18);
-        aDealers[iPlr] -= 50;
+        aDealers[iPlr] -= BonusPointDamage();
       }
     }
   }

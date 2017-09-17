@@ -42,7 +42,7 @@ public func RejectEntrance(object pContainer)
 public func Entrance(object pClonk)
 {
   //Eventnachricht: Sprengladung aufgehoben
-  EventInfo4K(0, Format("$BombCollected$", GetTaggedPlayerName(GetOwner(pClonk))), C4P2, 0, 0, 0, "Info_Event.ogg");
+  EventInfo4K(0, Format("$BombCollected$", GetTaggedPlayerName(GetOwner(pClonk))), IC30, 0, 0, 0, "Info_Event.ogg");
 
   //Effekt an Clonk übergeben
   AddBombObject(pClonk);
@@ -129,7 +129,7 @@ public func FxBaseAssaultBombStop(object pTarget, int iNr, int iReason)
   if(iReason >= 3 || (pTarget && pTarget->~IsFakeDeath()))
   {
     //Eventnachricht: Sprengladung fallengelassen
-    EventInfo4K(0, Format("$BombDropped$", EffectVar(3, pTarget, iNr)), C4P2, 0, 0, 0, "Info_Event.ogg");
+    EventInfo4K(0, Format("$BombDropped$", EffectVar(3, pTarget, iNr)), IC32, 0, 0, 0, "Info_Event.ogg");
 
     //Sprengladung erstellen und platzieren
     PlaceBombSpawnpoint(GetX(pTarget), GetY(pTarget), false, true);

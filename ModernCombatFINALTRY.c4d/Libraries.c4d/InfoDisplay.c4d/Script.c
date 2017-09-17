@@ -91,6 +91,8 @@ public func FxIntFadeStart(object target, int nr, temp)
 
 public func FxIntFadeTimer(object target, int nr)
 {
+  if(target && !GetPlayerName(target->GetOwner())) return -1;
+
   var iTime = EffectVar(0, target, nr);
   if(!iTime)
     for(var display in FindObjects(Find_Func("IsInfoDisplay"), Find_Exclude(target), Find_Owner(GetOwner(target))))

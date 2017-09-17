@@ -176,7 +176,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam, array aAtt
   }
 
   //Eventnachricht: Zielobjekt zerstört
-  EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GetID(), 0, 0, 0, "Info_Objective.ogg");
+  EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), IC25, 0, 0, 0, "Info_Objective.ogg");
   GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget), fConnectedDestruction);
   Sound("RadioConfirm*.ogg", true);
 
@@ -194,10 +194,10 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam, array aAtt
     for(var i, j; i < GetPlayerCount(); i++)
       if(GetPlayerTeam(j = GetPlayerByIndex(i)) == iDefender)
         //Eventnachricht: Letztes Zielobjekt verteidigen
-        EventInfo4K(j+1, "$DefendLastStation$", GetID(), 0, 0, 0, "Info_Alarm.ogg");
+        EventInfo4K(j+1, "$DefendLastStation$", SM16, 0, 0, 0, "Info_Alarm.ogg");
       else
         //Eventnachricht: Letztes Zielobjekt zerstören
-        EventInfo4K(j+1, "$DestroyLastStation$", GetID(), 0, 0, 0, "Info_Objective.ogg");
+        EventInfo4K(j+1, "$DestroyLastStation$", SM17, 0, 0, 0, "Info_Objective.ogg");
 
   //Tickets zurücksetzen (bei verbundenen Zielobjekten nur, wenn alle Ziele zerstört wurden)
   if(GetType(Connected[index]) != C4V_Array)
@@ -347,11 +347,11 @@ protected func FxTicketSubtractionTimer(object pTarget, int iEffect)
           var cnt = GetTeamPlayerCount(iAttacker);
           for(var i = 0; i < cnt; i++)
             //Eventnachricht: Ticketverlust, Vorsicht
-            EventInfo4K(1+GetTeamMemberByIndex(iAttacker, i), "$TicketLossAttacker$", GetID(), 0, 0, 0, "Info_Alarm.ogg");
+            EventInfo4K(1+GetTeamMemberByIndex(iAttacker, i), "$TicketLossAttacker$", SM03, 0, 0, 0, "Info_Alarm.ogg");
 
           for(var i = 0, cnt = GetTeamPlayerCount(iDefender); i < cnt; i++)
             //Eventnachricht: Ticketverlust
-            EventInfo4K(1+GetTeamMemberByIndex(iDefender, i), "$TicketLossDefender$", GetID(), 0, 0, 0, "Info_Event.ogg");
+            EventInfo4K(1+GetTeamMemberByIndex(iDefender, i), "$TicketLossDefender$", SM03, 0, 0, 0, "Info_Event.ogg");
         }
 
         EffectVar(0, pTarget, iEffect) = 0;
@@ -367,11 +367,11 @@ protected func FxTicketSubtractionTimer(object pTarget, int iEffect)
       var cnt = GetTeamPlayerCount(iAttacker);
       for(var i = 0; i < cnt; i++)
         //Eventnachricht: Warnung vor Ticketverlust
-        EventInfo4K(1+GetTeamMemberByIndex(iAttacker, i), "$TicketLossWarningAttacker$", GetID(), 0, 0, 0, "Info_Event.ogg");
+        EventInfo4K(1+GetTeamMemberByIndex(iAttacker, i), "$TicketLossWarningAttacker$", SM02, 0, 0, 0, "Info_Event.ogg");
 
       for(var i = 0, cnt = GetTeamPlayerCount(iDefender); i < cnt; i++)
         //Eventnachricht: Hinweis auf Ticketverlust
-        EventInfo4K(1+GetTeamMemberByIndex(iDefender, i), "$TicketLossWarningDefender$", GetID(), 0, 0, 0, "Info_Event.ogg");
+        EventInfo4K(1+GetTeamMemberByIndex(iDefender, i), "$TicketLossWarningDefender$", SM02, 0, 0, 0, "Info_Event.ogg");
     }
   }
 
@@ -803,10 +803,10 @@ public func CreateTeamBorder(int iDefenderTeam, int iX, int iY, int iDir, bool f
     for(var i = 0; i < GetPlayerCount(); i++)
       if(GetPlayerTeam(GetPlayerByIndex(i)) != iDefenderTeam)
         //Eventnachricht: Bereitmachen
-        EventInfo4K(GetPlayerByIndex(i) + 1, "$MsgRegroup$", GASS, 0, 0, 0, "Info_Event.ogg");
+        EventInfo4K(GetPlayerByIndex(i) + 1, "$MsgRegroup$", IC16, 0, 0, 0, "Info_Event.ogg");
       else
         //Eventnachricht: Zurückfallen
-        EventInfo4K(GetPlayerByIndex(i) + 1, "$MsgFallBack$", GASS, 0, 0, 0, "Info_Event.ogg");
+        EventInfo4K(GetPlayerByIndex(i) + 1, "$MsgFallBack$", IC25, 0, 0, 0, "Info_Event.ogg");
 
   var border = CreateObject(BRDR, iX, iY, NO_OWNER);
   border->Set(iDir, true, false, true, iDefenderTeam);
@@ -821,10 +821,10 @@ public func FxTeamBorderStop(object pTarget, int iEffectNumber, int iReason, boo
   for(var i = 0; i < GetPlayerCount(); i++)
     if(GetPlayerTeam(GetPlayerByIndex(i)) != EffectVar(0, pTarget, iEffectNumber))
       //Eventnachricht: Vorrücken
-      EventInfo4K(GetPlayerByIndex(i) + 1, "$MsgForward$", GASS, 0, 0, 0, "Info_Objective.ogg");
+      EventInfo4K(GetPlayerByIndex(i) + 1, "$MsgForward$", IC25, 0, 0, 0, "Info_Objective.ogg");
     else
       //Eventnachricht: Verteidigen
-      EventInfo4K(GetPlayerByIndex(i) + 1, "$MsgDefend$", GASS, 0, 0, 0, "Info_Objective.ogg"); 
+      EventInfo4K(GetPlayerByIndex(i) + 1, "$MsgDefend$", IC16, 0, 0, 0, "Info_Objective.ogg"); 
 
   //Grenze und Effekt entfernen
   if(EffectVar(1, pTarget, iEffectNumber))

@@ -40,6 +40,7 @@ public func MaxDamage()			{return 200;}
 public func IsThreat()			{return true;}
 public func IsHelicopter()		{return true;}
 public func RejectPull()		{return true;}
+public func BonusPointRepair()		{return 30;}
 
 public func EngineRunning()		{return GetEffect("Engine", this);}
 public func GetRotorSpeed()		{return iRotorSpeed;}

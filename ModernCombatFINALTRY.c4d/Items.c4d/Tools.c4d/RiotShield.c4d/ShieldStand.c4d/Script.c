@@ -9,6 +9,7 @@ local fRotRight;
 
 public func MaxDamage()		{return 100;}
 public func LimitationCount()	{return 1;}
+public func BonusPointRepair()	{return 30;}
 
 
 /* Initialisierung */

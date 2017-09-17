@@ -378,7 +378,7 @@ public func FlagLost(object pFlag, int iTeam, int iTeamAttacker, array pAttacker
       if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
       {
         //Eventnachricht: Flaggenposten verloren
-        EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamColor(iTeamAttacker), GetTeamName(iTeamAttacker)), SM23, 0, GetTeamColor(iTeamAttacker), 0, "Info_Event.ogg");
+        EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamColor(iTeamAttacker), GetTeamName(iTeamAttacker)), IC13, 0, GetTeamColor(iTeamAttacker), 0, "Info_Event.ogg");
       }
     }
   }
@@ -425,7 +425,7 @@ public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegain
     }
   }
   //Eventnachricht: Flaggenposten erobert
-  EventInfo4K(0, Format("$MsgFlagCaptured$", GetTeamColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), SM22, 0, GetTeamColor(iTeam), 0, "Info_Objective.ogg");
+  EventInfo4K(0, Format("$MsgFlagCaptured$", GetTeamColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), IC10, 0, GetTeamColor(iTeam), 0, "Info_Objective.ogg");
   UpdateScoreboard();
 }
 

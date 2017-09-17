@@ -83,11 +83,11 @@ public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
   {
     if(warning)
       //Eventnachricht: Warnung vor niedriger Respawnzahl
-      EventInfo4K(iPlr+1, Format("$LivesLow$", aPlayerLives[iPlr]), GLMS, 0, 0, 0, "Info_Alarm.ogg");
+      EventInfo4K(iPlr+1, Format("$LivesLow$", aPlayerLives[iPlr]), SM03, 0, 0, 0, "Info_Alarm.ogg");
     else
       if(iWinScore > 1)
         //Eventnachricht: Hinweis auf aufgebrauchte Respawns
-        EventInfo4K(iPlr+1, Format("$NoLivesLeft$"), GLMS, 0, 0, 0, "Info_Alarm.ogg");
+        EventInfo4K(iPlr+1, Format("$NoLivesLeft$"), SM03, 0, 0, 0, "Info_Alarm.ogg");
   }
 }
 

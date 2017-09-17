@@ -132,7 +132,8 @@ public func DoTeamSupport(array aClonks)
     DoEnergy(heal, pClonk);
     //Achievement-Fortschritt (I'll fix you up!)
     DoAchievementProgress(heal, AC02, GetOwner(Contained()));
-    iHealed += heal;
+    if(GetOwner() != GetOwner(pClonk))
+      iHealed += heal;
     CreateParticle("ShockWave", GetX(pClonk) - GetX(), GetY(pClonk) - GetY(), 0, 0, 5 * (5  + GetObjHeight(pClonk)), RGB(0, 230, 255), pClonk);
     CreateParticle("ShockWave", GetX(pClonk) - GetX(), GetY(pClonk) - GetY(), 0, 0, 5 * (10 + GetObjHeight(pClonk)), RGB(0, 230, 255), pClonk);
     CreateParticle("ShockWave", GetX(pClonk) - GetX(), GetY(pClonk) - GetY(), 0, 0, 5 * (15 + GetObjHeight(pClonk)), RGB(0, 230, 255), pClonk);

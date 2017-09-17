@@ -45,6 +45,7 @@ public func RejectC4Attach()			{iC4Count++; return iC4Count > 3;}
 public func IsBorderTarget()			{return true;}
 public func GetRealCursor()			{return IsActive() && pMAVStation->GetUser();}
 public func DenyWeaponPathFreeCheck()		{return true;}
+public func BonusPointRepair()			{return 14;}
 
 
 public func MaxRotLeft()
@@ -891,7 +892,7 @@ public func BlowTorch(bool statusOnly)
            obj->~OnRepairing(this);
       }
 
-      if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(this) && LocalN("iRepaired", pItem)++ >= 50)
+      if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(this) && LocalN("iRepaired", pItem)++ >= obj->~BonusPointRepair())
       {
          //Punkte bei Belohnungssystem (Reparatur)
          DoPlayerPoints(BonusPoints("Repair"), RWDS_TeamPoints, GetOwner(this), this, IC29);

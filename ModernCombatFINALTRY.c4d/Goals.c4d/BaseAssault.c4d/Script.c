@@ -39,7 +39,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam, array aAtt
   DoWealth(GetOwner(aAttackers[0]), 30);
 
   //Eventnachricht: Zielobjekt zerstört
-  EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "Info_Objective.ogg");
+  EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), IC25, 0, 0, 0, "Info_Objective.ogg");
   GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget));
   if(pTarget)
   {
@@ -56,7 +56,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam, array aAtt
   //Eventnachricht: Bombe wird gesucht
   if(!fGameOver)
   {
-    EventInfo4K(0, "$BombSpawnDelay$", C4P2, 0, 0, 0, "Info_Objective.ogg");
+    EventInfo4K(0, "$BombSpawnDelay$", IC32, 0, 0, 0, "Info_Objective.ogg");
     ScheduleCall(this, "PlaceBombSpawnpoint", GBAS_BombRespawnDelay);
   }
 }
@@ -325,7 +325,7 @@ public func DelayedBombRespawn(object pBomb, int iX, int iY)
     return false;
 
   //Eventnachricht: Bombe verloren
-  EventInfo4K(0, "$BombLost$", C4P2, 0, 0, 0, "Info_Objective.ogg");
+  EventInfo4K(0, "$BombLost$", IC32, 0, 0, 0, "Info_Objective.ogg");
 
   //Effekte
   Sound("StructureHeavyHit*.ogg", false, pBomb);
@@ -356,7 +356,7 @@ public func PlaceBombSpawnpoint(int iX, int iY, bool fNoDelay, bool fRespawn)
   if(!iX && !iY)
   {
     //Eventnachricht: Bombe gesichtet
-    EventInfo4K(0, "$BombSpawned$", C4P2, 0, 0, 0, "Info_Objective.ogg");
+    EventInfo4K(0, "$BombSpawned$", IC30, 0, 0, 0, "Info_Objective.ogg");
 
     var sp = bombSpawns[Random(GetLength(bombSpawns))];
     iX = sp[0]; iY = sp[1];
@@ -426,9 +426,9 @@ public func OnPlantingComplete(array aAttackers, object pTarget)
   //Eventnachricht: Ladung plaziert, verteidigen
   for(var i = 0,team; i < GetTeamCount(); i++)
     if((team = GetTeamByIndex(i)) && team != GetTeam(pTarget))
-      TeamEventInfo(team, Format("$TargetArmedAttacker$", GetName(pTarget)), SM16, 0, 0, 0, "Info_Event.ogg");
+      TeamEventInfo(team, Format("$TargetArmedAttacker$", GetName(pTarget)), IC32, 0, 0, 0, "Info_Event.ogg");
   //Eventnachricht: Ladung plaziert, entschärfen
-  TeamEventInfo(GetTeam(pTarget), Format("$TargetArmedDefender$", GetName(pTarget)), SM17, 0, 0, 0, "Info_Event.ogg");
+  TeamEventInfo(GetTeam(pTarget), Format("$TargetArmedDefender$", GetName(pTarget)), IC30, 0, 0, 0, "Info_Event.ogg");
 
   return true;
 }
@@ -453,9 +453,9 @@ public func OnDefusingComplete(array aDefenders, object pTarget, int iProcess)
   //Eventnachricht: Ladung entschärft, neue setzen
   for(var i = 0,team; i < GetTeamCount(); i++)
     if((team = GetTeamByIndex(i)) && team != GetTeam(pTarget))
-      TeamEventInfo(team, Format("$TargetDefusedAttacker$", GetName(pTarget)), SM17, 0, 0, 0, "Info_Event.ogg");
+      TeamEventInfo(team, Format("$TargetDefusedAttacker$", GetName(pTarget)), IC30, 0, 0, 0, "Info_Event.ogg");
   //Eventnachricht: Ladung entschärft
-  TeamEventInfo(GetTeam(pTarget), Format("$TargetDefusedDefender$", GetName(pTarget)), SM16, 0, 0, 0, "Info_Event.ogg");
+  TeamEventInfo(GetTeam(pTarget), Format("$TargetDefusedDefender$", GetName(pTarget)), IC32, 0, 0, 0, "Info_Event.ogg");
 
   if(iProcess < EffectVar(5, pTarget, GetEffect("IntAssaultTarget", pTarget))/20)
   {
