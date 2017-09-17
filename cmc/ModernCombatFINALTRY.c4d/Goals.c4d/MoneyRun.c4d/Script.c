@@ -362,17 +362,7 @@ private func GoalMoney(int iPlr, int iAmount)
       if(!Teams() || GetTeamPlayerCount(GetPlayerTeam(iPlr)) == 1)
         message = Format("$EnemyPlayerIsWinning$", GetTaggedPlayerName(iPlr));
         //Eventnachricht: Gegnerischer Spieler gewinnt bald
-        EnemyEventInfo(iPlr, message, GMNR, 0, 0, 0, "Info_Alarm.ogg");
-      /*for(var i = 0; i < GetPlayerCount(); i++)
-      {
-        var plr = GetPlayerByIndex(i);
-        if(Teams() && GetPlayerTeam(plr) != GetPlayerTeam(iPlr) && GetTeamPlayerCount(GetPlayerTeam(iPlr)) > 1)
-          //Eventnachricht: Gegnerisches Team gewinnt bald
-          EventInfo4K(plr+1, Format("$EnemyTeamIsWinning$", GetTaggedTeamName(GetPlayerTeam(iPlr))), GMNR, 0, 0, 0, "Info_Alarm.ogg");
-        else if((!Teams() || GetTeamPlayerCount(GetPlayerTeam(iPlr)) == 1) && plr != iPlr)
-          //Eventnachricht: Gegnerischer Spieler gewinnt bald
-          EventInfo4K(plr+1, Format("$EnemyPlayerIsWinning$", GetTaggedPlayerName(iPlr)), GMNR, 0, 0, 0, "Info_Alarm.ogg");
-      }*/
+        EnemyEventInfo(iPlr, message, IC28, 0, 0, 0, "Info_Alarm.ogg");
     }
   }
   else

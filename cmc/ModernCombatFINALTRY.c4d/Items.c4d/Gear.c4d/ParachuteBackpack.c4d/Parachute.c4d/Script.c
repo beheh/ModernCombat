@@ -65,7 +65,7 @@ protected func Fly()
       if(targ)
       {
         Sound("ParachuteLand.ogg");
-        if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,10,0,20,20,150);
+        CastSmoke("Smoke3",8,10,0,20,20,150);
       }
       Close();
     }

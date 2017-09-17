@@ -176,7 +176,7 @@ protected func FxIntAddProgressTimer()
       else if(aTeamPoints[team] == warning)
       {
         //Eventnachricht: Hinweis auf Team, das dem Ziel nahe ist
-        EventInfo4K(GetPlayerByIndex(i)+1, Format("$TeamReachingGoal$", GetTaggedTeamName(team), iGoal-warning), GHTF, 0, 0, 0, "Info_Alarm.ogg");
+        EventInfo4K(GetPlayerByIndex(i)+1, Format("$TeamReachingGoal$", GetTaggedTeamName(team), iGoal-warning), IC28, 0, 0, 0, "Info_Alarm.ogg");
       }
     }
   }
@@ -214,7 +214,7 @@ public func FlagLost(object pFlagPole, int iOldTeam, int iNewTeam, array aAttack
   for(var i; i < GetPlayerCount(); i++)
     if(GetPlayerTeam(GetPlayerByIndex(i)) == iOldTeam)
       //Eventnachricht: Flaggenposten verloren
-      EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamFlagColor(iNewTeam), GetTeamName(iNewTeam)), SM23, 0, GetTeamFlagColor(iNewTeam), 0, "Info_Event.ogg");
+      EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamFlagColor(iNewTeam), GetTeamName(iNewTeam)), IC13, 0, GetTeamFlagColor(iNewTeam), 0, "Info_Event.ogg");
 }
 
 public func FlagCaptured(object pFlagPole, int iTeam, array aAttackers, bool fRegained)
@@ -243,7 +243,7 @@ public func FlagCaptured(object pFlagPole, int iTeam, array aAttackers, bool fRe
     }
 
   //Eventnachricht: Flaggenposten erobert
-  EventInfo4K(0, Format("$MsgCaptured$", GetTeamFlagColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), SM22, 0, GetTeamFlagColor(iTeam), 0, "Info_Objective.ogg");
+  EventInfo4K(0, Format("$MsgCaptured$", GetTeamFlagColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), IC10, 0, GetTeamFlagColor(iTeam), 0, "Info_Objective.ogg");
   UpdateScoreboard();
 }
 

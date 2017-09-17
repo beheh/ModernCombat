@@ -9,7 +9,7 @@
 protected func Collected(pClonk)
 {
   //Eventnachricht: Spieler hat Flagge von Spieler
-  EventInfo4K(0, Format("$HasTheFlag$", GetTaggedPlayerName(GetOwner(pClonk)), GetTeamColor(team), GetTeamName(team)), FLA2, 0, GetTeamColor(team), 0, "Info_Event.ogg");
+  EventInfo4K(0, Format("$HasTheFlag$", GetTaggedPlayerName(GetOwner(pClonk)), GetTeamColor(team), GetTeamName(team)), IC08, 0, GetTeamColor(team), 0, "Info_Event.ogg");
   SetAction("Attach", pClonk);
 
   carrier = pClonk;
@@ -82,7 +82,7 @@ protected func Return2Base(pClonk, nolog)
 
   if(!nolog)
     //Eventnachricht: Spieler setzt Flagge zurück
-    EventInfo4K(0, Format("$ReturnedTheFlag$", GetTaggedPlayerName(GetOwner(pClonk))), FLA2, 0, GetTeamColor(team), 0, "Info_Event.ogg");
+    EventInfo4K(0, Format("$ReturnedTheFlag$", GetTaggedPlayerName(GetOwner(pClonk))), IC09, 0, GetTeamColor(team), 0, "Info_Event.ogg");
   GameCallEx("FlagReturned",team, pClonk);
 }
 
@@ -93,7 +93,7 @@ protected func CheckFlag(pClonk)
 
   var iPlr = GetOwner(pClonk);
   //Eventnachricht: Spieler klaut Flagge
-  EventInfo4K(0, Format("$CapturedTheFlag$", GetTaggedPlayerName(iPlr)), FLA2, 0, GetTeamColor(team), 0, "Info_Objective.ogg");
+  EventInfo4K(0, Format("$CapturedTheFlag$", GetTaggedPlayerName(iPlr)), IC08, 0, GetTeamColor(team), 0, "Info_Objective.ogg");
   //Geldbonus: 30 Clunker
   DoWealth(iPlr, 30);
   DoTeamScore(GetPlayerTeam(iPlr), 1);

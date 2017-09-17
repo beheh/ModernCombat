@@ -8,6 +8,8 @@ local motor, motoridle, turn_end_dir;
 public func MaxDamage()		{return 350;}
 public func OnOwnerLoss()	{motor->SetOwner(NO_OWNER);}
 public func BlockVehicleSpawn()	{return true;}
+public func BonusPointDamage()	{return 100;}
+public func BonusPointRepair()	{return 50;}
 
 
 /* Initialisierung */

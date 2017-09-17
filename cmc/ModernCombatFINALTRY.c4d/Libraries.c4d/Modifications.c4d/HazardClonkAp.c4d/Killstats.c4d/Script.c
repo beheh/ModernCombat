@@ -39,11 +39,16 @@ public func StockKillMsg(string szMsg, object pObj)
 {
   if(!KILL_KillMsg)
     return KILL_KillMsg = [[pObj, szMsg]];
-  var index = GetIndexOf(0, KILL_KillMsg);
-  if(index < 0)
-    index += GetLength(KILL_KillMsg)+1;
 
-  KILL_KillMsg[index] = [pObj, szMsg];
+  for (var i = 0; i < GetLength(KILL_KillMsg); i++)
+  {
+    if (KILL_KillMsg[i] == 0 || (GetType(KILL_KillMsg[i] == C4V_Array && KILL_KillMsg[i][0] == pObj)))
+    {
+      break;
+    }
+  }
+
+  KILL_KillMsg[i] = [pObj, szMsg];
   return false;
 }
 
@@ -166,7 +171,7 @@ public func TKMsg()
 public func SMsg(int plr)
 {
   //Eventnachricht: Spieler erhält Punkt
-  EventInfo4K(0,Format("$MsgScore$",GetTaggedPlayerName(plr),GetPlrTeamName(plr)),PCMK);
+  EventInfo4K(0,Format("$MsgScore$",GetTaggedPlayerName(plr),GetPlrTeamName(plr)),IC28);
 }
 
 private func GetPlrTeamName(int plr)

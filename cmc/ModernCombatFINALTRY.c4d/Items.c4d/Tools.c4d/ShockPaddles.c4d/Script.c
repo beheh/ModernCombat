@@ -113,7 +113,7 @@ func Use(caller)
     if(GetEffectData(EFSM_BulletEffects) >1)  obj->AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
 
     //Eventnachricht: Spieler reanimiert Spieler
-    EventInfo4K(0,Format("$MsgReanimation$",GetTaggedPlayerName(GetOwner(caller)), GetTaggedPlayerName(GetOwner(obj))),FKDT);
+    EventInfo4K(0,Format("$MsgReanimation$",GetTaggedPlayerName(GetOwner(caller)), GetTaggedPlayerName(GetOwner(obj))),IC04);
 
     //Achievement-Fortschritt (Shock Therapist)
     DoAchievementProgress(1, AC04, GetOwner(caller));

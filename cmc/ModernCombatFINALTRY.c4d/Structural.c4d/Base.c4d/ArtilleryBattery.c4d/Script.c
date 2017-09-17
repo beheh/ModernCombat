@@ -190,7 +190,7 @@ public func BeginAttack()
 
   //Eventnachricht: Artillerieschlag
   if(GetController() != -1)
-    EventInfo4K(0, Format("$ArtilleryLaunch$", GetPlrColorDw(GetController()), GetPlayerName(GetController())), ATBY, 0, 0, 0, "Info_Event.ogg");
+    EventInfo4K(0, Format("$ArtilleryLaunch$", GetPlrColorDw(GetController()), GetPlayerName(GetController())), IC03, 0, 0, 0, "Info_Event.ogg");
   Sound("RadioConfirm*.ogg", true);
   Sound("StrikeAlert.ogg", false, this, 100);
   return true;

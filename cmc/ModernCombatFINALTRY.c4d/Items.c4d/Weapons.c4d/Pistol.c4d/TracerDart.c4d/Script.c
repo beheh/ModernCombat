@@ -114,7 +114,7 @@ public func BulletStrike(object pObj)
           if(pRocketLauncher || GetID(Contained(GetCrew(iPlr, j))) == BKHK)
           {
             //Eventnachricht: Feindobjekt markiert
-            EventInfo4K(iPlr+1, Format("$TargetMarked$", GetPlrColorDw(GetController()), GetPlayerName(GetController())), TRDT, 0, 0, 0, "Info_Event.ogg");
+            EventInfo4K(iPlr+1, Format("$TargetMarked$", GetPlrColorDw(GetController()), GetPlayerName(GetController())), IC17, 0, 0, 0, "Info_Event.ogg");
             Sound("RadioConfirm*.ogg", true, 0, 0, iPlr+1);
             break;
           }

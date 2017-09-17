@@ -20,6 +20,7 @@ public func IsCMCStructure()		{return true;}			//Ist eine CMC Struktur
 
 public func IsRepairable()		{return true;}			//Reparierbar
 public func RepairSpeed()		{return 0;}			//Standard-Reparaturgeschwindigkeit
+public func BonusPointRepair()		{return 50;}			//Benötigte Reparatur für Punkteausschüttung
 
 
 /* Initialisierung */

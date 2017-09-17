@@ -964,7 +964,7 @@ global func AwardAchievement(id idAchievement, int iPlr)
   var achievement = CreateObject(idAchievement, 0, 0, iPlr);
   achievement->SetHighlightColor(RGB(0,153,255));
   //Eventnachricht: Errungenschaft erhalten
-  EventInfo4K(0, Format("$AchievementNewUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), RWDS, 0, 0, 0, "Info_Event.ogg");
+  EventInfo4K(0, Format("$AchievementNewUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), IC28, 0, 0, 0, "Info_Event.ogg");
 
   //Sound-Hinweis
   Sound("RWDS_Achievement.ogg", true, 0, 100, iPlr+1);
@@ -1077,7 +1077,7 @@ global func AttemptAwardRibbon(id idRibbon, int iPlr, int iPlrFrom)
   else
   {
     //Eventnachricht: Ehrenband erhalten
-    EventInfo4K(0, Format("$RibbonAwarded$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idRibbon), GetPlrColorDw(iPlrFrom), GetPlayerName(iPlrFrom)), RWDS, 0, 0, 0, "Info_Event.ogg");
+    EventInfo4K(0, Format("$RibbonAwarded$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idRibbon), GetPlrColorDw(iPlrFrom), GetPlayerName(iPlrFrom)), IC28, 0, 0, 0, "Info_Event.ogg");
   }
 
   //Sound-Hinweis
@@ -1115,7 +1115,7 @@ global func FxPointMessageTimer(object pTarget, int iEffectNumber)
         if(EffectVar(2,pObject,iIndex) > 0) return(FX_OK);
     }
     //Sound
-    Sound("RWDS_Points.ogg", 0, pContainer, 100, GetOwner(pTarget)+1);
+    Sound("RWDS_Points*.ogg", 0, pContainer, 100, GetOwner(pTarget)+1);
 
     var iPlr = GetOwner(pTarget);
     AddEffect("PointPlayerMessage", CreateObject(ARHL,0,0,-1), 130, 1, 0, 0, iPlr, EffectVar(0,pTarget,iEffectNumber));
