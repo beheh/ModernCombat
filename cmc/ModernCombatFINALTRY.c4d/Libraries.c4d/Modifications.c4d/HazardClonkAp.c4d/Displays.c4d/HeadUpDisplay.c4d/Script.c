@@ -3,12 +3,12 @@
 #strict 2
 
 
-local CharsWAmmo,	//Zähler-Munitionswert
-      CharsMaxAmmo,	//Nenner-Munitionswert
-      CharsClonkAmmo,	//Clonk-Munitionswert
-      CharsGrenade,	//Clonk-Granatenwert
-      CharEqS,		//Gleichheitszeichen
-      rechargebar;	//Balken
+local CharsAmmo,	//Munition (Erste Zahl - Munitionswert)
+      CharsSupply,	//Nachschub (Zweite Zahl - Clonk-Munitionswert)
+      CharsGrenade,	//Granate (Dritte Zahl - Clonk-Handgranatenwert)
+      CharSlash,	//Schrägstrich
+      CharInfinity,	//Unendlichkeit
+      rechargebar;	//Aktionsbalken
 
 local pLastItem;
 local iLastWeaponAmmo;
@@ -27,38 +27,33 @@ protected func Initialize()
   //Am unteren, linken Bildschirmrand positionieren
   SetPosition(161, -80); 
 
-  //Zähler-Munitionswert setzen
-  CharsWAmmo = [CreateObject(HCHA, -106, 3, GetOwner()), CreateObject(HCHA, -86, 3, GetOwner()), CreateObject(HCHA, -66, 3, GetOwner())];
-
-  //Nenner-Munitionswert setzen
-  CharsMaxAmmo = [CreateObject(HCHA, -33, 5, GetOwner()), CreateObject(HCHA, -17, 5, GetOwner()), CreateObject(HCHA, -1, 5, GetOwner())];
-  ResizeChars(CharsMaxAmmo, 750);
-
-  //Gleichheitszeichen setzen
-  CharEqS = CreateObject(HCHA, 17, 4, GetOwner());
-  CharEqS->Set(61);
-
-  //Clonk-Munitionswert setzen
-  CharsClonkAmmo = [CreateObject(HCHA, 32, 5, GetOwner()), CreateObject(HCHA, 46, 5, GetOwner()), CreateObject(HCHA, 60, 5, GetOwner())];
-  for(var char in CharsClonkAmmo)
-    char->SetClrModulation(RGB(0, 255, 255));
-  ResizeChars(CharsClonkAmmo, 750);
-
-  //Clonk-Granatenwert setzen
-  CharsGrenade = [CreateObject(HCHA, 98, 6, GetOwner()), CreateObject(HCHA, 112, 5, GetOwner()), CreateObject(HCHA, 84, 3, GetOwner())];
-  CharsGrenade[0]->Set(120, RGB(255, 255, 0));
-  CharsGrenade[2]->Set(1337);
-  ResizeChars(CharsGrenade, 750);
-
-  //Balken setzen
+  //Bestandteile erstellen
+  //Munition
+  CharsAmmo = [CreateObject(HCHA, -62, 7, GetOwner()), CreateObject(HCHA, -35, 7, GetOwner()), CreateObject(HCHA, -8, 7, GetOwner())];
+  //Schrägstrich
+  CharSlash = CreateObject(HCHA, 15, 15, GetOwner());
+  CharSlash->Set(61);
+  ResizeChars(CharSlash, 600);
+  //Unendlichkeit
+  CharInfinity = CreateObject(HCHA, 39, 14, GetOwner());
+  CharInfinity->Set(120);
+  SetVisibility(VIS_None, CharInfinity);
+  //Nachschub
+  CharsSupply = [CreateObject(HCHA, 33, 14, GetOwner()), CreateObject(HCHA, 48, 14, GetOwner()), CreateObject(HCHA, 63, 14, GetOwner())];
+  ResizeChars(CharsSupply, 580);
+  //Granate
+  CharsGrenade = [CreateObject(HCHA, 101, 16, GetOwner()), CreateObject(HCHA, 115, 15, GetOwner())];
+  CharsGrenade[0]->Set(1337);
+  ResizeChars(CharsGrenade, 520);
+  //Aktionsbalken
   rechargebar = CreateObject(RBAR, 0, -15, GetOwner()); 
 
-  //Alle Werte initialisieren
+  //Werte initialisieren
   iLastWeaponAmmo = -1;
   iLastWeaponFT = -1;
   iLastWeaponFM = -1;
 
-  //Sichtbarkeit nur für den Besitzer
+  //Sichtbarkeit nur für Besitzer
   SetVisibility(VIS_Owner);
 }
 
@@ -84,46 +79,34 @@ public func ResizeChars(chars, int size)
 
 protected func Timer()
 {
+  //Existenz des Spielers überwachen
   if(GetOwner() == NO_OWNER || !GetPlayerName(GetOwner()) || (!GetAlive(GetCrew(GetOwner())))) 
-  {
     RemoveObject(this);
-  }
 }
 
-/* Sichtbarkeit und Aktualisierung von HUD-Elementen */
+/* Waffen-Anzeige ein- und ausblenden */
 
-public func HideWeapons()
+public func HideWeapons(object pClonk)
 {
   pLastItem = 0;
 
   if(GetVisibility() == VIS_None)
     return true;
 
-  //Alle Munitionsanzeigen unsichtbar machen
-  for(var char in CharsWAmmo)
+  //Munition, Nachschub, Schrägstrich, Unendlichkeit und Aktionsbalken unsichtbar machen
+  for(var char in CharsAmmo)
     SetVisibility(VIS_None, char);
-  for(var char in CharsMaxAmmo)
+  for(var char in CharsSupply)
     SetVisibility(VIS_None, char);
-  if(!NoAmmo())
-  {
-    for(var char in CharsClonkAmmo)
-      SetVisibility(VIS_None, char);
-    SetVisibility(VIS_None, CharEqS); 
-  }
-
-  //Balken unsichtbar machen
+  SetVisibility(VIS_None, CharSlash);
+  SetVisibility(VIS_None, CharInfinity);
   SetVisibility(VIS_None, rechargebar);
 
-  //Textanzeige neutralisieren
-  CustomMessage("", this, NO_OWNER);
-
-  //Granatenwert an Seite verschieben
-  CharsGrenade[0]->SetPosition(GetX(CharsGrenade[0])-192, GetY(CharsGrenade[0]), CharsGrenade[0]);
-  CharsGrenade[1]->SetPosition(GetX(CharsGrenade[1])-192, GetY(CharsGrenade[1]), CharsGrenade[1]);
-  CharsGrenade[2]->SetPosition(GetX(CharsGrenade[2])-192, GetY(CharsGrenade[2]), CharsGrenade[2]);
-
-  //HUD unsichtbar machen
-  SetVisibility(VIS_None);
+  //Anderer Objekttyp vorhanden: Namen anzeigen
+  if(Contents(0,pClonk))
+    CustomMessage(Format("@%s",GetName(Contents(0,pClonk))), this, NO_OWNER, 0, 70, 0, 0, 0, MSG_NoLinebreak);
+  else
+    CustomMessage("", this, NO_OWNER);
 }
 
 public func ShowWeapons()
@@ -131,31 +114,19 @@ public func ShowWeapons()
   if(GetVisibility() == VIS_Owner)
     return true;
 
-  //Alle Munitionsanzeigen sichtbar machen
-  for(var char in CharsWAmmo)
+  //Munition, Nachschub und Schrägstrich sichtbar machen
+  for(var char in CharsAmmo)
     SetVisibility(VIS_Owner, char);
-  for(var char in CharsMaxAmmo)
+  for(var char in CharsSupply)
     SetVisibility(VIS_Owner, char);
-  if(!NoAmmo())
-  {
-    for(var char in CharsClonkAmmo)
-      SetVisibility(VIS_Owner, char);
-
-    SetVisibility(VIS_Owner, CharEqS);
-  }
-
-  //Granatenwert an Ursprungsort zurückverschieben
-  CharsGrenade[0]->SetPosition(GetX(CharsGrenade[0])+192, GetY(CharsGrenade[0]), CharsGrenade[0]);
-  CharsGrenade[1]->SetPosition(GetX(CharsGrenade[1])+192, GetY(CharsGrenade[1]), CharsGrenade[1]);
-  CharsGrenade[2]->SetPosition(GetX(CharsGrenade[2])+192, GetY(CharsGrenade[2]), CharsGrenade[2]);
-
-  //HUD sichtbar machen
-  SetVisibility(VIS_Owner);
+  SetVisibility(VIS_Owner, CharSlash);
 }
+
+/* HUD-Aktualisierung */
 
 protected func UpdateHUD(object weapon, object pClonk, bool fForceUpdate)
 {
-  if(!pClonk) return true;  
+  if(!pClonk) return true;
 
   //Granatenanzeige aktualisieren
   var grenades = Format("%d", pClonk->~GrenadeCount());
@@ -174,82 +145,99 @@ protected func UpdateHUD(object weapon, object pClonk, bool fForceUpdate)
     iLastWeaponFT = -1;
   }
 
-  //Keine Munition: Clonk-Munitionswert unsichtbar machen
-  if((NoAmmo() || weapon->~GetUser() != pClonk) && GetVisibility(CharEqS) == VIS_Owner)
-  {
-    for(var char in CharsClonkAmmo)
-      SetVisibility(VIS_None, char);
-    SetVisibility(VIS_None, CharEqS); 
-  }
-
+  //Munition und Nachschub bei Waffen einblenden, ansonsten ausblenden
   if(weapon && !(weapon->~IsWeapon()) && !(weapon->~CustomHUD()))
-    HideWeapons(); 
+    HideWeapons(pClonk);
   else if(GetVisibility() == VIS_None)
     ShowWeapons();
 
+  //Ausrüstung mit eigener Anzeige
   if(weapon->~CustomHUD())
   {
+    //Unendlichkeitsicon ausblenden
+    if(GetVisibility(CharInfinity) == VIS_Owner)
+      SetVisibility(VIS_None, CharInfinity);
+
+    //Schrägstrich einblenden
+    if(GetVisibility(CharSlash) == VIS_None)
+      SetVisibility(VIS_Owner, CharSlash);
+
+    //Aktionsbalken bei Bedarf ausblenden
+    if(GetVisibility(rechargebar) != VIS_None && weapon->~IsWeapon())
+      if(!weapon->IsRecharging() && !weapon->IsReloading())
+        SetVisibility(VIS_None, rechargebar);
+
     ShowSelectProcess(weapon);
     return weapon->~UpdateHUD(this);
   }
 
+  //Waffe
   if(weapon->~IsWeapon())
   {
-    //Munition in der Waffe
+    //Munition in Waffe ermitteln
     var weaponAmmo = GetAmmo(weapon->~GetFMData(FM_AmmoID), weapon);
     var clonkAmmo = GetAmmo(weapon->~GetFMData(FM_AmmoID), pClonk);
-    if(fForceUpdate || iLastWeaponAmmo != weaponAmmo || iLastClonkAmmo != clonkAmmo|| iLastWeaponFM != weapon->~GetFireMode() || iLastWeaponFT != weapon->~GetFireTec()) {
+    if(fForceUpdate || iLastWeaponAmmo != weaponAmmo || iLastClonkAmmo != clonkAmmo|| iLastWeaponFM != weapon->~GetFireMode() || iLastWeaponFT != weapon->~GetFireTec())
+    {
       iLastWeaponAmmo = weaponAmmo;
       iLastClonkAmmo = clonkAmmo;
       iLastWeaponFM = weapon->~GetFireMode();
       iLastWeaponFT = weapon->~GetFireTec();
       var maxAmmo = weapon->~GetFMData(FM_AmmoLoad);
       var wAmmo = Format("%03d", weaponAmmo);
+
+      //Textfarbe ermitteln
       var clr = ColorEmpty()*(!weaponAmmo);
       if(Inside(weaponAmmo, 1, maxAmmo/3))
         clr = ColorLow();
 
       var i = 0;
       if(weapon)
-      for(var char in CharsWAmmo)
+      for(var char in CharsAmmo)
       {
         char->Set(GetChar(wAmmo, i), clr);
         i++;
       }
 
       i = 0;
-
-      //Maximal ladbare Munition
-      var mAmmo = Format("%03d", maxAmmo);
-      for(var char in CharsMaxAmmo)
-      {
-        char->Set(GetChar(mAmmo, i));
-        i++;
-      }
-
-      i = 0;
-      //Bei aktiver Keine Munition-Regel überspringen (oder falls der User der Waffe nicht der Clonk ist, z.B. bei der Geschützstellung)
+      //Nachschub darstellen wenn der Nutzer der Bediener ist und keine Keine Munition-Regel vorhanden ist
       if(!NoAmmo() && weapon->~GetUser() == pClonk)
       {
-        //Munition des Munitionsgürtels zeichnen
+        //Unendlichkeitsicon ausblenden
+        if(GetVisibility(CharInfinity) == VIS_Owner)
+          SetVisibility(VIS_None, CharInfinity);
+
+        //Nachschub aktualisieren
         var cAmmo = Format("%03d", clonkAmmo);
         if(clonkAmmo > 0)
         {
-          for(var char in CharsClonkAmmo)
+          for(var char in CharsSupply)
           {
-            char->Set(GetChar(cAmmo, i), RGB(0, 255, 255));
+            char->Set(GetChar(cAmmo, i), RGB(255, 255, 255));
             i++;
           }
         }
         else
-          for(var char in CharsClonkAmmo)
+          for(var char in CharsSupply)
             char->Set(48, ColorEmpty());
 
-        if(GetVisibility(CharEqS) == VIS_None)
-          SetVisibility(VIS_Owner, CharEqS);
+        //Schrägstrich einblenden
+        if(GetVisibility(CharSlash) == VIS_None)
+          SetVisibility(VIS_Owner, CharSlash);
+      }
+      else
+      //Ansonsten Unendlichkeit einblenden und Nachschub ausblenden
+      {
+        //Unendlichkeitsicon einfügen
+        if(GetVisibility(CharInfinity) == VIS_None)
+          SetVisibility(VIS_Owner, CharInfinity);
+
+        //Nachschub ausblenden
+        for(var char in CharsSupply)
+          SetVisibility(VIS_None, char);
       }
 
-      /*-- Schrift: Munitionsart - Feuertechnik --*/
+      //Textanzeige: Feuermodus und Feuertechnik
       var ammoName = weapon->~GetFMData(FM_Name);
       if(weapon->~IsWeapon2() && weapon->GetFMData(FT_Name))
         var firemode = weapon->~GetFMData(FT_Name);
@@ -259,8 +247,9 @@ protected func UpdateHUD(object weapon, object pClonk, bool fForceUpdate)
       var str = Format("@<c ffff00>%s</c> - %s", ammoName, firemode);
       LimitString(str, 29 + 15);
 
-      CustomMessage(str, this, NO_OWNER, 0, 60, 0, 0, 0, MSG_NoLinebreak);
+      CustomMessage(str, this, NO_OWNER, 0, 70, 0, 0, 0, MSG_NoLinebreak);
     }
+    //Aktionsbalken-Position bei Bedarf repositionieren
     if(weapon->IsRecharging())
     {
       SetVisibility(VIS_Owner, rechargebar);
@@ -277,9 +266,9 @@ protected func UpdateHUD(object weapon, object pClonk, bool fForceUpdate)
     }
     else if(ShowSelectProcess(weapon))
     {
-      // !
+      //!
     }
-    else if(GetVisibility(rechargebar) != VIS_None) 
+    else if(GetVisibility(rechargebar) != VIS_None)
     {
       SetVisibility(VIS_None, rechargebar);
     }
@@ -296,9 +285,8 @@ private func ShowSelectProcess(object item)
 {
   var effect = GetEffect("SelectItem",item,0,6);
   if(effect)
-  {
     Recharge(effect,item->~SelectionTime());
-  }
+
   return effect;
 } 
 
@@ -339,34 +327,40 @@ public func Ammo(int iAmmoCount, int iAmmoLoad, string szName, bool fShow, int d
 {
   var wAmmo = Format("%03d", iAmmoCount);
   var i = 0;
-  //dwColorW zur Färbung der ersten Zahl (Momentan geladene Munition)
-  if(!dwColorW) dwColorW = ColorEmpty()*(!iAmmoCount);
 
-  for(var char in CharsWAmmo)
+  //Munition aktualisieren
+  if(!dwColorW) dwColorW = ColorEmpty()*(!iAmmoCount);
+  for(var char in CharsAmmo)
   {
     char->Set(GetChar(wAmmo, i), dwColorW);
     i++;
   }
 
+  //Nachschub aktualisieren
   var mAmmo = Format("%03d", iAmmoLoad);
   var i = 0;
-  for(var char in CharsMaxAmmo)
+  for(var char in CharsSupply)
   {
-    //dwColorM zur Färbung der zweiten Zahl (Maximale Munition)
     char->Set(GetChar(mAmmo, i), dwColorM);
     i++;
   }
 
-  if(GetVisibility(CharsClonkAmmo[0]) == VIS_Owner)
+  //Wenn angegeben, Nachschub und Schrägstrich ausblenden
+  if(!fShow)
   {
-    for(var char in CharsClonkAmmo)
-      SetVisibility(VIS_None, char);
+    if(GetVisibility(CharsSupply[0]) == VIS_Owner)
+    {
+      for(var char in CharsSupply)
+        SetVisibility(VIS_None, char);
 
-    SetVisibility(VIS_None, CharEqS);
+      if(GetVisibility(CharSlash) == VIS_Owner)
+        SetVisibility(VIS_None, CharSlash);
+    }
   }
 
+  //Text einblenden falls vorhanden
   if(szName)
-    CustomMessage(Format("@%s",szName), this, NO_OWNER, 0, 60, 0, 0, 0, MSG_Left);
+    CustomMessage(Format("@%s",szName), this, NO_OWNER, 0, 70, 0, 0, 0, MSG_NoLinebreak);
 
   return 1;
 }
@@ -375,15 +369,11 @@ public func Ammo(int iAmmoCount, int iAmmoLoad, string szName, bool fShow, int d
 
 public func Destruction()
 {
-  for(var char in CharsWAmmo)
+  for(var char in CharsAmmo)
   {
     RemoveObject(char);
   }
-  for(var char in CharsMaxAmmo)
-  {
-    RemoveObject(char);
-  }
-  for(var char in CharsClonkAmmo)
+  for(var char in CharsSupply)
   {
     RemoveObject(char);
   }
@@ -391,8 +381,10 @@ public func Destruction()
   {
     RemoveObject(char);
   }
-  if(CharEqS)
-    RemoveObject(CharEqS);
+  if(CharSlash)
+    RemoveObject(CharSlash);
+  if(CharInfinity)
+    RemoveObject(CharInfinity);
   if(rechargebar)
     RemoveObject(rechargebar);
 }
