@@ -149,7 +149,11 @@ func ControlDig(object pByObj)
     return PlayerMessage(GetOwner(pByObj),"$Destroyed$", this);
 
   //Puffer
-  if(GetEffect("CommandDelay", this)) return;
+  if(GetEffect("CommandDelay", this))
+  {
+    Sound("BKHK_SwitchFail.ogg", 1, pByObj, 100, GetOwner(pByObj)+1);
+    return;
+  }
   AddEffect("CommandDelay", this, 1, 50, this);
 
   //Flugbahn berechnen
@@ -161,7 +165,7 @@ func ControlDig(object pByObj)
     SetVisibility(VIS_Owner, target);
     SetPlrView(GetOwner(pByObj), target);
     target->Set(pByObj);
-    Sound("CatapultSet");
+    Sound("BKHK_Switch.ogg", 1, pByObj, 100, GetOwner(pByObj)+1);
   }
 }
 
@@ -180,7 +184,7 @@ func ControlThrow(object pByObj)
   ScheduleCall(this, "Shoot",70,10);
   ScheduleCall(this, "BeginAttack", 70);
 
-  Sound("Acknowledge.ogg", 0, pByObj, 100, GetOwner(pByObj)+1);
+  Sound("Acknowledge.ogg", 1, pByObj, 100, GetOwner(pByObj)+1);
 }
 
 public func BeginAttack()

@@ -269,6 +269,27 @@ public func RejectEntrance()
     return true;
 }
 
+/* HUD */
+
+public func CustomHUD()		{return true;}
+
+func UpdateHUD(object pHUD)
+{
+  if(!pHUD) return;
+
+  //Munition
+  var ammo = GetAmmoCount();
+
+  //Textanzeige: Feuermodus und Feuertechnik
+  var ammoName = GetFMData(FM_Name);
+  var firemode = GetFMData(FT_Name);
+  var str = Format("<c ffff00>%s</c> - %s", ammoName, firemode);
+  LimitString(str, 29 + 15);
+
+  //Daten übergeben
+  pHUD->~Ammo(ammo, 0, str, false);
+}
+
 /* Allgemein */
 
 public func OnEmpty()
