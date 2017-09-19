@@ -242,8 +242,9 @@ public func DoTeamSupport(array aClonks)
     //Achievement-Fortschritt (Ammo Distributor)
     DoAchievementProgress(ammoID->MaxAmmo() / 10 * factor, AC03, GetOwner(Contained()));
 
-    //Punkte bei Belohnungssystem (Munitionierung)
-    DoPlayerPoints(BonusPoints("Supply", ammoID->MaxAmmo() / 10 * factor), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC14);
+    if(GetOwner() != GetOwner(pTarget))
+      //Punkte bei Belohnungssystem (Munitionierung)
+      DoPlayerPoints(BonusPoints("Supply", ammoID->MaxAmmo() / 10 * factor), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC14);
   }
 }
 

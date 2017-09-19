@@ -283,7 +283,7 @@ func UpdateHUD(object pHUD)
   //Textanzeige: Feuermodus und Feuertechnik
   var ammoName = GetFMData(FM_Name);
   var firemode = GetFMData(FT_Name);
-  var str = Format("<c ffff00>%s</c> - %s", ammoName, firemode);
+  var str = Format("<c ffbb00>%s</c> - %s", ammoName, firemode);
   LimitString(str, 29 + 15);
 
   //Daten übergeben
