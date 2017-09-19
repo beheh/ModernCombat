@@ -226,11 +226,15 @@ protected func UpdateHUD(object weapon, object pClonk, bool fForceUpdate)
           SetVisibility(VIS_Owner, CharSlash);
       }
       else
-      //Ansonsten Unendlichkeit einblenden und Nachschub ausblenden
+      //Ansonsten Unendlichkeit und Schrägstrich einblenden und Nachschub ausblenden
       {
         //Unendlichkeitsicon einfügen
         if(GetVisibility(CharInfinity) == VIS_None)
           SetVisibility(VIS_Owner, CharInfinity);
+
+        //Schrägstrich einblenden
+        if(GetVisibility(CharSlash) == VIS_None)
+          SetVisibility(VIS_Owner, CharSlash);
 
         //Nachschub ausblenden
         for(var char in CharsSupply)
@@ -244,7 +248,7 @@ protected func UpdateHUD(object weapon, object pClonk, bool fForceUpdate)
       else
         var firemode = weapon->~GetFMData(FM_Name);
 
-      var str = Format("@<c ffff00>%s</c> - %s", ammoName, firemode);
+      var str = Format("@<c ffbb00>%s</c> - %s", ammoName, firemode);
       LimitString(str, 29 + 15);
 
       CustomMessage(str, this, NO_OWNER, 0, 70, 0, 0, 0, MSG_NoLinebreak);
