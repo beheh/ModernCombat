@@ -93,16 +93,13 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
           typeicon = SHRP;
   }
 
-  //Kein Icon?
-  if(!killicon && !typeicon) typeicon = SKUL;
-
   //Killer links
   var victim = plr1;
   var killer = plr2;
   var assist = plr3;
 
   //Nachricht konstruieren
-  msg = Format("{{%i}}",killicon); 
+  msg = Format("{{%i}}",killicon);
 
   //Attachment vorhanden: Hinzufügen
   if(killattachment && killicon->~IsWeapon())

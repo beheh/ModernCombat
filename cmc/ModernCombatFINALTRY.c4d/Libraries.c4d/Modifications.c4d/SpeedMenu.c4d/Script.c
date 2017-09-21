@@ -256,12 +256,10 @@ private func ItemActive(int iItem)
 private func CreateItem(int i, id idIcon)
 {
   var w,h,xoff,yoff;
-  if(idIcon) {
+  if(idIcon)
     aItemId[i] = idIcon;
-  }
-  else {
+  else
     idIcon = ROCK;
-  }
 
   //SetGraphics(0,0,idIcon,i*2+1,GFXOV_MODE_IngamePicture);
   SetGraphics(0,0,idIcon,i*2+2,GFXOV_MODE_IngamePicture);
@@ -285,7 +283,6 @@ private func ScaleItems(int iDst)
   iDst = Max(iDst, 0);
   SetObjDrawTransform(iDst*1000/(GetDefWidth()/2),0,0,0,iDst*1000/(GetDefWidth()/2),0,0,0);
 
-
   //Item 1
   var i = 0;
   if(ItemActive(i))
@@ -307,12 +304,13 @@ private func ScaleItems(int iDst)
     if(!idIcon) idIcon = ROCK;
     var idBackground = aItemBackground[i];
 
-    if(aItemBackground[i]) {
+    if(aItemBackground[i])
+    {
       xoff = +Sin((360/(SMEN_ItemCount-1))*(i-1), iDst*RMEN_Radius*GetDefCoreVal("Picture","DefCore",idBackground,2)/64);
       yoff = -Cos((360/(SMEN_ItemCount-1))*(i-1), iDst*RMEN_Radius*GetDefCoreVal("Picture","DefCore",idBackground,3)/64);
       SetObjDrawTransform(iDst*500/GetDefWidth(),0,xoff,0,iDst*500/GetDefHeight(),yoff,0,i*2+1);
     }
-    
+
     xoff = +Sin((360/(SMEN_ItemCount-1))*(i-1), iDst*RMEN_Radius*GetDefCoreVal("Picture","DefCore",idIcon,2)/64);
     yoff = -Cos((360/(SMEN_ItemCount-1))*(i-1), iDst*RMEN_Radius*GetDefCoreVal("Picture","DefCore",idIcon,3)/64);
     SetObjDrawTransform(iDst*500/GetDefWidth(),0,xoff,0,iDst*500/GetDefHeight(),yoff,0,i*2+2);
@@ -346,7 +344,7 @@ private func ActivateItem(int iItem)
   Open();
 
   if(GetAction() == "Closing") return 1;
-  
+
   //Kontrolle unsichtbar übergeben
   if(pTargetObject) SetCursor(GetOwner(), pTargetObject, 1, 1);
 
@@ -354,7 +352,7 @@ private func ActivateItem(int iItem)
     pCallbackObject->Call(aItemFunc[iItem], aItemPar[iItem]);
 
   CloseDown();
-  
+
   return 1;
 }
 
@@ -391,7 +389,5 @@ protected func Closing()
   ScaleItems((GetDefWidth()/2)-(GetActTime()*(GetDefWidth()/2)/RMEN_Animation));
 
   if(GetActTime() >= RMEN_Animation)
-  {
     Close();
-  }
 }
