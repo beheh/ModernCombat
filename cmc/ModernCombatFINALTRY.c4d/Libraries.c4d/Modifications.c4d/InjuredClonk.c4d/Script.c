@@ -614,7 +614,7 @@ public func ControlRightDouble(object pByObj)
   //Effekte
   Sound("ClonkImpact*.ogg");
   Sound("ClonkRustle*.ogg", 0, 0, 50);
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",RandomX(4,8),10,0,10,20,100);
+  CastSmoke("Smoke3",RandomX(4,8),10,0,10,20,100);
 }
 
 public func ControlLeftDouble(object pByObj)
@@ -630,7 +630,7 @@ public func ControlLeftDouble(object pByObj)
   //Effekte
   Sound("ClonkImpact*.ogg");
   Sound("ClonkRustle*.ogg", 0, 0, 50);
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",RandomX(4,8),10,0,10,20,100);
+  CastSmoke("Smoke3",RandomX(4,8),10,0,10,20,100);
 }
 
 /* Aufschlag */ 
@@ -643,7 +643,7 @@ protected func Hit(int xDir, int yDir)
   {
     Sound("ClonkImpact*.ogg");
     Sound("ClonkRustle*.ogg", 0, 0, 50);
-    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",RandomX(4,8),10,0,10,20,100);
+    CastSmoke("Smoke3",RandomX(4,8),10,0,10,20,100);
   }
   else
     Sound("ClonkCrawl*.ogg", 0, 0, 50);
