@@ -180,8 +180,10 @@ public func Activate(object pCaller)
   //Granate in den Granatengürtel des Clonks lagern
   pCaller->~StoreGrenade(this);
 
-  //Hinweisnachricht ausgeben (Granate aufgenommen)
+  //Hinweisnachricht: Handgranate aufgenommen
   HelpMessage(GetOwner(pCaller),"$Collected$",pCaller,GetID());
+  //Nachschubinfo: Handgranate aufgenommen
+  ResupplyInfo(pCaller,GetID(),0,1);
 
   return true;
 }

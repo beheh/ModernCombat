@@ -55,7 +55,8 @@ public func TransferAmmo(object pObj)
   //Transfer abbrechen wenn das Ziel genug besitzt
   if(!MayTransfer(pObj))
   {
-    PlayerMessage(GetOwner(pObj),"$NotMoreAmmo$",pObj,AmmoID()->~MaxAmmo(),AmmoID());
+    //Hinweisnachricht: Munition maximiert
+    HelpMessage(GetOwner(pObj),"$NotMoreAmmo$",pObj,AmmoID()->~MaxAmmo(),AmmoID(),0,0,0, 1);
     return;
   }
 
@@ -70,8 +71,10 @@ public func TransferAmmo(object pObj)
     DoAchievementProgress(AmmoID()->~MaxAmmo()/10*factor, AC03, GetOwner(clonk));
   }
 
-  //Hinweisnachricht ausgeben (Munition aufgenommen)
+  //Hinweisnachricht: Munition aufgenommen
   HelpMessage(GetOwner(pObj), "$Collected$", pObj, AmmoCount(), AmmoID());
+  //Nachschubinfo: Munition aufgenommen
+  ResupplyInfo(pObj,AmmoID(),AmmoCount());
   DoAmmo(AmmoID(), AmmoCount(), pObj);
   pObj->~AmmoTransferred();
   if(GetOwner(pObj) == GetOwner(clonk))
@@ -96,7 +99,8 @@ public func ControlThrow(object caller)
     }
     else
     {
-      PlayerMessage(GetOwner(caller), "$EnoughAmmo$",caller,AmmoID());
+      //Hinweisnachricht: Munition maximiert
+      HelpMessage(GetOwner(caller), "$EnoughAmmo$",caller,AmmoID(),0,0,0,0, 1);
       return 1;
     }
 

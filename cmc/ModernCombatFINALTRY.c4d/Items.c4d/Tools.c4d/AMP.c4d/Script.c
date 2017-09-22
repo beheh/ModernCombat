@@ -124,14 +124,16 @@ protected func Activate(object pCaller)
   //Hat schon eine Box
   if(FindContents(CUAM, pCaller))
   {
-    PlayerMessage(GetOwner(pCaller), "$NoSpace$", pCaller);
+    //Hinweisnachricht: Kein Platz
+    HelpMessage(GetOwner(pCaller), "$NoSpace$", pCaller, 0,0,0,0,0, 1);
     return true;
   }
 
   //Falsche Aktion?
   if(!WildcardMatch(GetAction(pCaller), "*Walk*") && !WildcardMatch(GetAction(pCaller), "*Swim*") && !WildcardMatch(GetAction(pCaller), "*Crawl*") && !WildcardMatch(GetAction(pCaller), "*Jump*"))
   {
-    PlayerMessage(GetOwner(pCaller), "$CantTake$", pCaller);
+    //Hinweisnachricht: Clonk beschäftigt
+    HelpMessage(GetOwner(pCaller), "$CantTake$", pCaller, 0,0,0,0,0, 1);
     return true;
   }
 
@@ -163,7 +165,8 @@ protected func CreateAmmoPack(id idAmmo, object pCaller, bool fRight, int iIndex
   var aAmmo = AmmoTypes()[iIndex];
   if(GetPackPoints() < aAmmo[2])
   {
-    PlayerMessage(GetOwner(pCaller), "$NeededPoints$", pCaller, aAmmo[2]);
+    //Hinweisnachricht: Nicht genug Punkte
+    HelpMessage(GetOwner(pCaller), "$NeededPoints$", pCaller, aAmmo[2], 0,0,0,0, 1);
     return false;
   }
 
@@ -175,7 +178,8 @@ protected func CreateAmmoPack(id idAmmo, object pCaller, bool fRight, int iIndex
   //Einsammeln
   if(!Collect(box, pCaller))
   {
-    PlayerMessage(GetOwner(pCaller), "$NoSpace$", pCaller);
+    //Hinweisnachricht: Kein Platz
+    HelpMessage(GetOwner(pCaller), "$NoSpace$", pCaller, 0,0,0,0,0, 1);
     return false;
   }
 
@@ -232,8 +236,11 @@ public func DoTeamSupport(array aClonks)
     if(ammoID->MaxAmmo() / 10 * factor > GetPackPoints() || GetAmmo(ammoID, pTarget) >= highestammo)
       continue;
 
-    PlayerMessage(GetOwner(Contained()), "$AmmoReceived$", pTarget, ammoID->MaxAmmo() / 10, ammoID);
-    PlayerMessage(GetOwner(pTarget),"$AmmoReceived$", pTarget, ammoID->MaxAmmo() / 10, ammoID);
+    //Hinweisnachricht: Munition aufgenommen
+    HelpMessage(GetOwner(pTarget),"$AmmoReceived$", pTarget, ammoID->MaxAmmo() / 10, ammoID);
+    //Nachschubinfo: Munition aufgenommen
+    ResupplyInfo(pTarget,ammoID,ammoID->MaxAmmo() / 10);
+
     DoAmmo(ammoID, ammoID->MaxAmmo()/10, pTarget);
     Sound("ResupplyIn*.ogg",0,pTarget,0,GetOwner(pTarget)+1);
     Sound("ResupplyOut*.ogg");
@@ -250,7 +257,7 @@ public func DoTeamSupport(array aClonks)
 
 /* Sonstiges */
 
-public func ControlThrow()   {return true;}
+public func ControlThrow()	{return true;}
 
 protected func Hit()
 {

@@ -327,6 +327,8 @@ public func Recharge(int part, int max)
   return 1;
 }
 
+/* Benutzerdefiniertes HUD (Ausrüstung) */
+
 public func Ammo(int iAmmoCount, int iAmmoLoad, string szName, bool fShow, int dwColorW, int dwColorM)
 {
   var wAmmo = Format("%03d", iAmmoCount);
@@ -367,6 +369,30 @@ public func Ammo(int iAmmoCount, int iAmmoLoad, string szName, bool fShow, int d
     CustomMessage(Format("@%s",szName), this, NO_OWNER, 0, 70, 0, 0, 0, MSG_NoLinebreak);
 
   return 1;
+}
+
+/* HUD-Nachschubinfo (Munitionsaufnahme) */
+
+public func ShowResupplyInfo(id SupplyType, int SupplyAmount, int iPos)
+{
+  //Nachschubhinweis einblenden
+  var ix,iy, iz;
+  if(!iPos) {ix=-45; iy=6;}
+  else {ix=-12; iy=6; iz=1;}
+
+  if(SupplyAmount)
+    CustomMessage(Format("<c ffbb00>+%d</c>{{%i}}",SupplyAmount,SupplyType), CharsGrenade[iz], NO_OWNER, ix, iy, 0, 0, 0, MSG_NoLinebreak);
+  else
+    CustomMessage(Format("<c ffbb00>+</c>{{%i}}",SupplyType), CharsGrenade[iz], NO_OWNER, ix, iy, 0, 0, 0, MSG_NoLinebreak);
+
+  return 1;
+}
+
+global func ResupplyInfo(object user, id SupplyType, int SupplyAmount, int iPos)
+{
+  //Spieler existiert und aufrufender Clonk wird gerade gesteuert
+  if(user && GetCursor(GetOwner(user)) == user)
+    GetHUD(user)->~ShowResupplyInfo(SupplyType,SupplyAmount,iPos);
 }
 
 /* Bei Entfernung alle Zeichen mitlöschen */

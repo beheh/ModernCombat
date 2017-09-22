@@ -273,8 +273,8 @@ public func ControlThrow(caller)
         //Nicht genügend Munition
         else
         {
-          //Unmöglichkeit des Nachladens angeben
-          PlayerMessage(GetOwner(caller), "$NotEnoughAmmo$", caller, ammoid);
+          //Hinweisnachricht: Keine Munition
+          HelpMessage(GetOwner(caller), "$NotEnoughAmmo$", caller, ammoid);
           Sound("WPN2_Empty.ogg");
         }
     }

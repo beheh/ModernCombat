@@ -15,3 +15,4 @@ FireModeBack=Vorheriger Feuermodus
 FireModeForward=Nächster Feuermodus
 FireTecBack=Vorherige Schusstechnik
 FireTecForward=Nächste Schusstechnik
+Collected=%dx {{%i}} aufgenommen.

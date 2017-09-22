@@ -109,12 +109,15 @@ public func TransferAmmo(object pObj)
   //Nicht wenn das Ziel schon zu viel hat
   if(!MayTransfer(pObj))
   {
-    PlayerMessage(GetOwner(pObj),"$NotMoreAmmo$",pObj,AmmoID()->~MaxAmmo(),AmmoID());
+    //Hinweisnachricht: Munition maximiert
+    HelpMessage(GetOwner(pObj),"$NotMoreAmmo$",pObj,AmmoID()->~MaxAmmo(),AmmoID(),0,0,0, 1);
     return;
   }
 
-  //Nachricht ausgeben
-  PlayerMessage(GetOwner(pObj),"$Collected$",pObj,AmmoCount(), AmmoID());
+  //Hinweisnachricht: Munition aufgenommen
+  HelpMessage(GetOwner(pObj),"$Collected$",pObj,AmmoCount(), AmmoID());
+  //Nachschubinfo: Munition aufgenommen
+  ResupplyInfo(pObj,AmmoID(),AmmoCount());
 
   //Packer erhält Munitionspunkte, wenn er im gleichen Team ist
   if(GetPlayerName(GetOwner()) && GetOwner() != GetOwner(pObj) && !Hostile(GetOwner(), GetOwner(pObj)))
@@ -155,7 +158,8 @@ public func ControlThrow(object caller)
     }
     else
     {
-      PlayerMessage(GetOwner(caller), "$EnoughAmmo$",caller,AmmoID());
+      //Hinweisnachricht: Munition maximiert
+      HelpMessage(GetOwner(caller), "$EnoughAmmo$",caller,AmmoID(),0,0,0,0, 1);
       return 1;
     }
 
