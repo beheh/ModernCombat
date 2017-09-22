@@ -976,8 +976,11 @@ public func AMP(bool statusOnly)
     if(ammoID->MaxAmmo() / 10 * factor > pItem->GetPackPoints() || GetAmmo(ammoID, pTarget) >= highestammo)
       continue;
 
-    PlayerMessage(GetOwner(this), "$AmmoReceived$", pTarget, ammoID->MaxAmmo() / 10, ammoID);
-    PlayerMessage(GetOwner(pTarget),"$AmmoReceived$", pTarget, ammoID->MaxAmmo() / 10, ammoID);
+    //Hinweisnachricht: Munition erhalten
+    HelpMessage(GetOwner(pTarget),"$AmmoReceived$", pTarget, ammoID->MaxAmmo() / 10, ammoID);
+    //Nachschubinfo: Munition aufgenommen
+    ResupplyInfo(pTarget,ammoID,ammoID->MaxAmmo() / 10);
+
     DoAmmo(ammoID, ammoID->MaxAmmo()/10, pTarget);
     pItem->DoPackPoints(-ammoID->MaxAmmo() / 10 * factor);
 

@@ -184,7 +184,9 @@ private func VerifySelection()
 {
   if(IsSelecting())
   {
-    PlayerMessage(GetOwner(GetUser()), "$CantUse$", GetUser());
+    var user = GetUser();
+    //Hinweisnachricht: Nicht feuerbereit
+    HelpMessage(GetOwner(user), "$CantUse$", user);
     return;
   }
   //true zurückgeben um überprüfende Funktionen abzubrechen
@@ -208,7 +210,8 @@ private func ManualEmpty(unused,fm)
   if(GetFMData(FM_NoAmmoModify)) return false;
   if(IsSelecting())
   {
-    PlayerMessage(GetOwner(GetUser()), "$CantUse$", GetUser());
+    //Hinweisnachricht: Nicht feuerbereit
+    HelpMessage(GetOwner(GetUser()), "$CantUse$", GetUser());
     return false;
   }
   Sound("ResupplyOut*.ogg");
@@ -378,6 +381,10 @@ public func Empty2(int iSlot)
   DoAmmo(ammoid, ammoamount, GetUser());
   //Munition aus Waffe entfernen
   DoAmmo2(iSlot, ammoid, -ammoamount, this);
+  //Hinweisnachricht: Munition aufgenommen
+  HelpMessage(GetOwner(GetUser()), "$Collected$", GetUser(),ammoamount,ammoid);
+  //Nachschubinfo: Munition aufgenommen
+  ResupplyInfo(GetUser(),ammoid,ammoamount);
   //Callback
   OnEmpty();
 }
@@ -890,8 +897,8 @@ public func ControlThrow(caller)
     //Nicht genügend Munition
       else
       {
-        //Unmöglichkeit des Nachladens angeben
-        PlayerMessage(GetOwner(caller), "$NotEnoughAmmo$", caller, ammoid);
+        //Hinweisnachricht: Keine Munition
+        HelpMessage(GetOwner(caller), "$NotEnoughAmmo$", caller, ammoid);
       }
     return 1;
   }
@@ -904,14 +911,12 @@ public func ControlThrow(caller)
     //Nachladen wenn möglich sofern Munition verbraucht
     if(!CheckAmmo(ammoid,ammousage,this))
       if(CheckAmmo(ammoid,ammousage,GetUser()))
-      {
         Reload();
-      }
-    //Nicht genügend Munition
+      //Nicht genügend Munition
       else
       {
-        //Unmöglichkeit des Nachladens angeben
-        PlayerMessage(GetOwner(caller), "$NotEnoughAmmo$", caller, ammoid);
+        //Hinweisnachricht: Keine Munition
+        HelpMessage(GetOwner(caller), "$NotEnoughAmmo$", caller, ammoid);
         Sound("WPN2_Empty.ogg");
       }
   }
@@ -1108,7 +1113,8 @@ private func Shoot(object caller)
 
     if(!PathFree(GetX(),GetY(),GetX()+x,GetY()+y))
     {
-      PlayerMessage(GetOwner(user), "$NotAbleToShoot$", user);
+      //Hinweisnachricht: Schussfeld nicht frei
+      HelpMessage(GetOwner(user), "$NotAbleToShoot$", user,0,0,0,0,0, 1);
       RemoveEffect("BurstFire", this);
       if(GetFMData(FM_Auto))
         shooting = false;
@@ -1289,7 +1295,7 @@ private func Reloaded(caller,slot,amount)
   //Munition des Nutzers verbrauchen
   DoAmmo(ammoid, -amount, caller);
 
-  //Hinweisnachricht ausgeben (Nachgelandene Munition)
+  //Hinweisnachricht: Munition nachgeladen
   if(amount > 0) HelpMessage(GetOwner(caller),"$Reloaded$",caller,amount,ammoid);
 
   //Callback
@@ -1379,7 +1385,7 @@ public func SetFireMode(int i)
   //Sound
   Sound("WPN2_Switch*.ogg");
 
-  //Hinweisnachricht ausgeben (Gewählter Feuermodus)
+  //Hinweisnachricht: Feuermodus gewählt
   HelpMessage(GetOwner(GetUser()),"$FireModeChanged$",GetUser(),GetFMData(FM_Name),GetFMData(FM_AmmoID));
 
   return 1;
@@ -2344,16 +2350,18 @@ global func SALaunchBullet(int iX, int iY, int iOwner, int iAngle, int iSpeed, i
 
 /* Hilfsnachrichten ausgeben */
 
-global func HelpMessage(int iPlr, string szMsg, object pTarget, a,b,c,d,e,f,g)
+global func HelpMessage(int iPlr, string szMsg, object pTarget, a,b,c,d,e, bool Priority)
 {
-  //Nur ausgeben wenn der Spieler diese nicht per Einstellungen deaktiviert hat
-  if(GetPlrExtraData(iPlr, "Hazard_NoHelpMsg")) return;
+  //Nur ausgeben wenn der Spieler dies per Einstellungen zulässt oder Priorität besteht
+  if(GetPlrExtraData(iPlr, "Hazard_NoHelpMsg") && !Priority) return;
 
   //Nicht ausgeben wenn der Empfänger kein gültiger Spieler ist
   if(GetOwner(pTarget) == NO_OWNER) return;
 
+  var msg = Format(szMsg,a,b,c,d,e);
+
   //Nachricht ausgeben
-  return(PlayerMessage(iPlr, szMsg, pTarget, a,b,c,d,e,f,g));
+  return(CustomMessage(msg,pTarget,iPlr,0,75));
 }
 
 /* Waffe aufgenommen */
