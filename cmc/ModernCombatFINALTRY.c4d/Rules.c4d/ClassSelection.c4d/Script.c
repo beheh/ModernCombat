@@ -97,14 +97,14 @@ public func FxSpawntimerStart(pTarget, iNo, iTemp, iPlr, pClonk, cont)
   EffectVar(2, pTarget, iNo) = pClonk;	//Clonk
   EffectVar(3, pTarget, iNo) = cont;	//Container
 
-  CustomMessage(Format("@$TimeTillRespawn$", EffectVar(1, pTarget, iNo)), FindObject2(Find_ID(1HUD), Find_Owner(iPlr)), iPlr, 0, 80, 0, 0, 0, 1);
+  CustomMessage(Format("@$TimeTillRespawn$", EffectVar(1, pTarget, iNo)), FindObject2(Find_ID(1HUD), Find_Owner(iPlr)), iPlr, 0, 70, 0, 0, 0, MSG_NoLinebreak);
 }
 
 public func FxSpawntimerTimer(pTarget, iNo, iTime)
 {
   EffectVar(1, pTarget, iNo)--;
   var iPlr = EffectVar(0, pTarget, iNo);
-  CustomMessage(Format("@$TimeTillRespawn$", EffectVar(1, pTarget, iNo)), FindObject2(Find_ID(1HUD), Find_Owner(iPlr)), iPlr, 0, 80, 0, 0, 0, 1);
+  CustomMessage(Format("@$TimeTillRespawn$", EffectVar(1, pTarget, iNo)), FindObject2(Find_ID(1HUD), Find_Owner(iPlr)), iPlr, 0, 70, 0, 0, 0, MSG_NoLinebreak);
 
   //Verschwinden wenn Clonk/Behälter weg oder Clonk nicht im Behälter
   if (!EffectVar(2, pTarget, iNo) || !EffectVar(3, pTarget, iNo) || Contained(EffectVar(2, pTarget, iNo)) != EffectVar(3, pTarget, iNo))
