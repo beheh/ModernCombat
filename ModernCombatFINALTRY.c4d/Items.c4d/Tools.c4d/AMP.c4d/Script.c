@@ -124,16 +124,14 @@ protected func Activate(object pCaller)
   //Hat schon eine Box
   if(FindContents(CUAM, pCaller))
   {
-    //Hinweisnachricht: Kein Platz
-    HelpMessage(GetOwner(pCaller), "$NoSpace$", pCaller, 0,0,0,0,0, 1);
+    PlayerMessage(GetOwner(pCaller), "$NoSpace$", pCaller);
     return true;
   }
 
   //Falsche Aktion?
   if(!WildcardMatch(GetAction(pCaller), "*Walk*") && !WildcardMatch(GetAction(pCaller), "*Swim*") && !WildcardMatch(GetAction(pCaller), "*Crawl*") && !WildcardMatch(GetAction(pCaller), "*Jump*"))
   {
-    //Hinweisnachricht: Clonk beschäftigt
-    HelpMessage(GetOwner(pCaller), "$CantTake$", pCaller, 0,0,0,0,0, 1);
+    PlayerMessage(GetOwner(pCaller), "$CantTake$", pCaller);
     return true;
   }
 
@@ -165,8 +163,7 @@ protected func CreateAmmoPack(id idAmmo, object pCaller, bool fRight, int iIndex
   var aAmmo = AmmoTypes()[iIndex];
   if(GetPackPoints() < aAmmo[2])
   {
-    //Hinweisnachricht: Nicht genug Punkte
-    HelpMessage(GetOwner(pCaller), "$NeededPoints$", pCaller, aAmmo[2], 0,0,0,0, 1);
+    PlayerMessage(GetOwner(pCaller), "$NeededPoints$", pCaller, aAmmo[2]);
     return false;
   }
 
@@ -178,8 +175,7 @@ protected func CreateAmmoPack(id idAmmo, object pCaller, bool fRight, int iIndex
   //Einsammeln
   if(!Collect(box, pCaller))
   {
-    //Hinweisnachricht: Kein Platz
-    HelpMessage(GetOwner(pCaller), "$NoSpace$", pCaller, 0,0,0,0,0, 1);
+    PlayerMessage(GetOwner(pCaller), "$NoSpace$", pCaller);
     return false;
   }
 

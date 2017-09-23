@@ -7,6 +7,7 @@ NotAbleToShoot=Not able to shoot here!
 CantUse=Weapon can't be used right now.
 Reloaded=Reloaded %dx {{%i}}.
 FireModeChanged=Fire mode: %s ({{%i}})
+FireTecChanged=Shooting tec:|%s ({{%i}})
 Reload=Reload
 Empty=Empty
 FTMenu=Shooting Technique

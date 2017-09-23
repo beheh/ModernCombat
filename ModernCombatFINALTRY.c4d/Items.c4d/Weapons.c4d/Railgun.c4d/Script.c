@@ -180,8 +180,7 @@ private func CheckToFire()
   if(!GetUser() || !GetUser()->~ReadyToFire() || !GetUser()->~IsClonk() || this != Contents(0, GetUser()))
   {
     SetAction("Idle");
-    //Hinweisnachricht: Schussfeld nicht frei
-    HelpMessage(GetOwner(GetUser()), "$NotReady$", GetUser());
+    PlayerMessage(GetOwner(GetUser()), "$NotReady$", GetUser());
     Sound("RLGN_Abort.ogg");
 
     return;

@@ -184,9 +184,7 @@ private func VerifySelection()
 {
   if(IsSelecting())
   {
-    var user = GetUser();
-    //Hinweisnachricht: Nicht feuerbereit
-    HelpMessage(GetOwner(user), "$CantUse$", user);
+    PlayerMessage(GetOwner(GetUser()), "$CantUse$", GetUser());
     return;
   }
   //true zurückgeben um überprüfende Funktionen abzubrechen
@@ -210,8 +208,7 @@ private func ManualEmpty(unused,fm)
   if(GetFMData(FM_NoAmmoModify)) return false;
   if(IsSelecting())
   {
-    //Hinweisnachricht: Nicht feuerbereit
-    HelpMessage(GetOwner(GetUser()), "$CantUse$", GetUser());
+    PlayerMessage(GetOwner(GetUser()), "$CantUse$", GetUser());
     return false;
   }
   Sound("ResupplyOut*.ogg");
@@ -1113,8 +1110,7 @@ private func Shoot(object caller)
 
     if(!PathFree(GetX(),GetY(),GetX()+x,GetY()+y))
     {
-      //Hinweisnachricht: Schussfeld nicht frei
-      HelpMessage(GetOwner(user), "$NotAbleToShoot$", user,0,0,0,0,0, 1);
+      PlayerMessage(GetOwner(user), "$NotAbleToShoot$", user);
       RemoveEffect("BurstFire", this);
       if(GetFMData(FM_Auto))
         shooting = false;
@@ -1353,6 +1349,7 @@ private func CycleFM(int iDir)
   if(fm != firemode) SetFireMode(fm);
   if(GetSpeedMenu())
     GetSpeedMenu()->NoClose();
+
   return 1;
 }
 
@@ -1592,6 +1589,9 @@ public func SetFireTec(int iFT,int iFM, bool bNoCalls)
     Sound("WPN2_Switch*.ogg");
     OnSelectFT(iFM,iFT,last);
   }
+
+  //Hinweisnachricht: Feuertechnik gewählt
+  HelpMessage(GetOwner(GetUser()),"$FireTecChanged$",GetUser(),GetFMData(FT_Name),GetFMData(FM_AmmoID));
 
   return true;
 }

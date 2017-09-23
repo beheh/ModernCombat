@@ -109,8 +109,7 @@ public func TransferAmmo(object pObj)
   //Nicht wenn das Ziel schon zu viel hat
   if(!MayTransfer(pObj))
   {
-    //Hinweisnachricht: Munition maximiert
-    HelpMessage(GetOwner(pObj),"$NotMoreAmmo$",pObj,AmmoID()->~MaxAmmo(),AmmoID(),0,0,0, 1);
+    PlayerMessage(GetOwner(pObj),"$NotMoreAmmo$",pObj,AmmoID()->~MaxAmmo(),AmmoID());
     return;
   }
 
@@ -158,8 +157,7 @@ public func ControlThrow(object caller)
     }
     else
     {
-      //Hinweisnachricht: Munition maximiert
-      HelpMessage(GetOwner(caller), "$EnoughAmmo$",caller,AmmoID(),0,0,0,0, 1);
+      PlayerMessage(GetOwner(caller), "$EnoughAmmo$",caller,AmmoID());
       return 1;
     }
 
