@@ -444,7 +444,7 @@ protected func OpenRuleMenu(id dummy, int iSelection)
 {
   var pClonk = GetCursor(iChosenPlr);
   //Menü erstellen
-  CreateMenu(GetID(), pClonk);
+  CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
   //Regeln einfügen
   for(var i=0, idR, def, j, check ; idR = GetDefinition(i, Chooser_Cat) ; i++)
   {
@@ -455,16 +455,18 @@ protected func OpenRuleMenu(id dummy, int iSelection)
       {
         SetGraphics("Chosen", def, WPCH, 1, GFXOV_MODE_Picture);
         SetObjDrawTransform(650, 0, 5000, 0, 650, 5000, def, 1);
+
+        AddMenuItem("%s", "ChangeRuleConf", idR, pClonk, 0, i, 0, 4, def);
       }
-      
-      AddMenuItem("%s", "ChangeRuleConf", idR, pClonk, 0, i, 0, 4, def);
-      
+      else
+        AddMenuItem("<c 777777>%s</c>", "ChangeRuleConf", idR, pClonk, 0, i, 0, 4, def);
+
       if(i == iSelection)
         check = true;
-      
+
       if(!check)
         j++;
-      
+
       RemoveObject(def);
     }
   }
@@ -483,11 +485,10 @@ protected func OpenEffectMenu(id dummy, int iSelection)
   AddMenuItem("$Effects$", 0, EFMN, pClonk, iEffectCount);
   //Zähler erhöhen
 
-  //Weniger Tickets
+  //Effekte erhöhen oder senken
   if(GetEffectLevel() < 3)
   AddMenuItem("$MoreEffects$", "ChangeEffectConf", GOCC, pClonk, 0, +1, "$MoreEffects$",2,1); else
   AddMenuItem("<c 777777>$MoreEffects$</c>", "ChangeEffectConf", GOCC, pClonk, 0, +1, "$MoreEffects$",2,1);
-  //Zähler senken
   if(GetEffectLevel() > 1)
   AddMenuItem("$LessEffects$", "ChangeEffectConf", GOCC, pClonk, 0, -1, "$LessEffects$",2,2); else
   AddMenuItem("<c 777777>$LessEffects$</c>", "ChangeEffectConf", GOCC, pClonk, 0, -1, "$LessEffects$",2,2);
@@ -822,7 +823,7 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
   iTeamMode = iMode;
   iUsedTeamSort = iTeamSort;
 
-  if(iMode == CHOS_TeamRandom) // Zufällige Teamzusammenstellung.
+  if(iMode == CHOS_TeamRandom) //Zufällige Teamzusammenstellung
   {
     var players = []; var teams = [];
     for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
@@ -979,10 +980,10 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
           aSums[GetLength(aSums)] = AB_ArraySum(team);
         }
 
-        if((GetLength(aSums) - CountArrayVal(aSums, max_nr)) <= 1) // Alle Zahlen (bis auf einer) entsprechen der max. erreichbaren Zahl?
+        if((GetLength(aSums) - CountArrayVal(aSums, max_nr)) <= 1) //Alle Zahlen (bis auf einer) entsprechen der max. erreichbaren Zahl?
           break;
 
-        if(AB_DifferenceCheck(teams)) // Evtl nochmal schauen, ob alles vielleicht doch noch seine Richtigkeit hat...
+        if(AB_DifferenceCheck(teams)) //Evtl nochmal schauen, ob alles vielleicht doch noch seine Richtigkeit hat...
           break;
 
         if(!AB_Method2(teams, max_nr))
@@ -1344,8 +1345,8 @@ public func AB_Method2(array &arTeams, int iMaxNr)
   var val = GetMinArrayVal(arTempTeams[teamMax]); //Kleinste Zahl im größtem Array
   var pos = GetMinArrayVal(arTempTeams[teamMax], true); //und deren Position
 
-  DelArrayItem4K(arTempTeams[teamMax], pos); // Zahl entfernen
-  arTempTeams[teamMin][GetLength(arTempTeams[teamMin])] = val; // Zahl hinzufügen
+  DelArrayItem4K(arTempTeams[teamMax], pos); //Zahl entfernen
+  arTempTeams[teamMin][GetLength(arTempTeams[teamMin])] = val; //Zahl hinzufügen
 
   if(AB_ArraySum(arTempTeams[teamMin]) <= iMaxNr) //Änderung darf nicht über das Maximum
   {
