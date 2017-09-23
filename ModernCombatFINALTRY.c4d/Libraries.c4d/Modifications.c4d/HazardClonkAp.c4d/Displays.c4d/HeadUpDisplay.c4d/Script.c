@@ -15,6 +15,7 @@ local iLastWeaponAmmo;
 local iLastClonkAmmo;
 local iLastWeaponFM;
 local iLastWeaponFT;
+local TextVisible;
 
 public func ColorEmpty()	{return RGB(255, 0, 0);}
 public func ColorLow()		{return RGB(255, 150, 0);}
@@ -104,9 +105,16 @@ public func HideWeapons(object pClonk)
 
   //Anderer Objekttyp vorhanden: Namen anzeigen
   if(Contents(0,pClonk))
+  {
     CustomMessage(Format("@%s",GetName(Contents(0,pClonk))), this, NO_OWNER, 0, 70, 0, 0, 0, MSG_NoLinebreak);
+    TextVisible = true;
+  }
   else
-    CustomMessage("", this, NO_OWNER);
+    if(TextVisible)
+    {
+      CustomMessage("", this, NO_OWNER);
+      TextVisible = false;
+    }
 }
 
 public func ShowWeapons()
@@ -377,8 +385,8 @@ public func ShowResupplyInfo(id SupplyType, int SupplyAmount, int iPos)
 {
   //Nachschubhinweis einblenden
   var ix,iy, iz;
-  if(!iPos) {ix=-45; iy=6;}
-  else {ix=-12; iy=6; iz=1;}
+  if(!iPos) {ix=-45; iy=12;}
+  else {ix=-12; iy=12; iz=1;}
 
   if(SupplyAmount)
     CustomMessage(Format("<c ffbb00>+%d</c>{{%i}}",SupplyAmount,SupplyType), CharsGrenade[iz], NO_OWNER, ix, iy, 0, 0, 0, MSG_NoLinebreak);

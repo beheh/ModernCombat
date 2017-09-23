@@ -160,7 +160,7 @@ public func ResetFakeDeathEffects(object pClonk)
   //Soundloop beenden
   Sound("FKDT_ClonkDown.ogg", false, pClonk, 100, GetOwner(pClonk)+1, -1);
 
-  //Bildschirmfaerbung
+  //Bildschirmfärbung
   var pScreen = GetScreenRGB(GetOwner(pClonk), SR4K_LayerDamage);
   if(pScreen) RemoveObject(pScreen);
 
@@ -178,7 +178,7 @@ public func FxIntFakeDeathEffectsDataTimer(object pTarget, int iNr, int iTime)
 {
   var remaining_time = 1 + ((EffectVar(2, pTarget, iNr) - iTime) / 35);
   if(GetMenu(pTarget) != FKDT && remaining_time >= 0)
-    CustomMessage(Format("$DeathCounter$", remaining_time), FindObject2(Find_ID(1HUD), Find_Owner(GetOwner(pTarget))), GetOwner(pTarget), 0, 80, 0, 0, 0, 1);
+    CustomMessage(Format("$DeathCounter$", remaining_time), FindObject2(Find_ID(1HUD), Find_Owner(GetOwner(pTarget))), GetOwner(pTarget), 0, 70, 0, 0, 0, 1);
   else
     CustomMessage("", FindObject2(Find_ID(1HUD), Find_Owner(GetOwner(pTarget))), GetOwner(pTarget));
 
@@ -553,6 +553,9 @@ public func Reanimation()
   ResetFakeDeathEffects(clonk);
   Sound("FKDT_Heartbeat.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
 
+  //Waffen-HUD aktualisieren
+  clonk->UpdateCharge(true);
+
   //Achievement-Fortschritt (Lucky Patient)
   DoAchievementProgress(1, AC27, GetOwner(clonk));
 
@@ -603,7 +606,7 @@ public func ControlDig(object pCaller)
 
 public func ControlRightDouble(object pByObj)
 {
-  //lebenden Clonk drehen und anhalten
+  //Lebenden Clonk drehen und anhalten
   pByObj->SetDir(1);
   pByObj->SetAction("Throw");
   pByObj->SetComDir(COMD_Stop);
