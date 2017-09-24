@@ -367,14 +367,14 @@ public func GetTeamFlagColor(int iTeam)
   return GetTeamColor(iTeam);
 }
 
-/* Sieg */
+/* Rundenauswertung */
 
 local fulfilled;
 
 public func IsFulfilled()
 {
-  if(FindObject(CHOS)) return;
-  if(fulfilled) return true;
+  if(FindObject(CHOS))	return;
+  if(fulfilled)		return true;
 
   UpdateScoreboard();
 
