@@ -5,7 +5,6 @@
 
 local aMoney, aMessage;
 static iGoal;
-local fFulfilled;
 
 public func IsConfigurable()	{return true;}
 public func GoalExtraValue()	{return iGoal;}	//Spielzielinformationen an Scoreboard weitergeben
@@ -377,14 +376,14 @@ global func Teams()
   return GetTeamConfig(TEAM_Active) && (!GetTeamConfig(TEAM_AutoGenerateTeams) || GetTeamConfig(TEAM_Dist) != 2);
 }
 
-/* Sieg */
+/* Rundenauswertung */
+
+local fFulfilled;
 
 public func IsFulfilled()
 {
-  //Wird noch eingestellt
-  if(FindObject(CHOS)) return;
-
-  if(fFulfilled) return true;
+  if(FindObject(CHOS))	return;
+  if(fFulfilled)	return true;
 
   //Siegerermittlung je nach Teameinstellung
   if(Teams())

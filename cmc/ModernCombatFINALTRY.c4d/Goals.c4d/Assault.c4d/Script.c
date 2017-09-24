@@ -677,12 +677,10 @@ protected func FxIntGoalTimer()
 
 local fulfilled;
 
-private func IsFulfilled()
+public func IsFulfilled()
 {
-  if(FindObject(CHOS))
-    return;
-  if(fulfilled)
-    return fulfilled;
+  if(FindObject(CHOS))	return;
+  if(fulfilled)		return true;
 
   var won = false;
 

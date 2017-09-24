@@ -222,8 +222,8 @@ local fulfilled;
 
 public func IsFulfilled()
 {
-  if(FindObject(CHOS)) return;
-  if(fulfilled) return 1;
+  if(FindObject(CHOS))	return;
+  if(fulfilled)		return true;
 
   var activeteams = 0;
 

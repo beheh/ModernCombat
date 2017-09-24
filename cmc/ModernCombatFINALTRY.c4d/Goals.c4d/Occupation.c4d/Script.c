@@ -502,15 +502,14 @@ public func TicketsLow(int iRemaining, int iTeam)
   return true;
 }
 
-/* Spiellogik */
+/* Rundenauswertung */
 
 local fFulfilled;
 
 public func IsFulfilled()
 {
-  if(ObjectCount(CHOS)) return false;
-
-  if(fFulfilled) return true;
+  if(FindObject(CHOS))	return;
+  if(fFulfilled)	return true;
 
   var iWinningTeam = GetWinningTeam();
 
