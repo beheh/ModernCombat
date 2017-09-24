@@ -385,9 +385,10 @@ public func ShowResupplyInfo(id SupplyType, int SupplyAmount, int iPos)
 {
   //Nachschubhinweis einblenden
   var ix,iy, iz;
-  if(!iPos) {ix=-45; iy=12;}
-  else {ix=-12; iy=12; iz=1;}
+  if(!iPos) {ix=-49; iy=12;}
+  else {ix=-12; iy=13; iz=1;}
 
+  //Munition oder Handgranate
   if(SupplyAmount)
     CustomMessage(Format("<c ffbb00>+%d</c>{{%i}}",SupplyAmount,SupplyType), CharsGrenade[iz], NO_OWNER, ix, iy, 0, 0, 0, MSG_NoLinebreak);
   else
@@ -398,9 +399,10 @@ public func ShowResupplyInfo(id SupplyType, int SupplyAmount, int iPos)
 
 global func ResupplyInfo(object user, id SupplyType, int SupplyAmount, int iPos)
 {
-  //Spieler existiert und aufrufender Clonk wird gerade gesteuert
+  //Spieler existiert und aufrufender Clonk wird gerade gesteuert und nicht innerhalb eines Spawnobjekts
   if(user && GetCursor(GetOwner(user)) == user)
-    GetHUD(user)->~ShowResupplyInfo(SupplyType,SupplyAmount,iPos);
+    if(!Contained(user) || !Contained(user)->~IsSpawnObject())
+      GetHUD(user)->~ShowResupplyInfo(SupplyType,SupplyAmount,iPos);
 }
 
 /* Bei Entfernung alle Zeichen mitlöschen */
