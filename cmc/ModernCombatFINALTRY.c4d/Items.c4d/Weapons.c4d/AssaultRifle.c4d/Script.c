@@ -300,6 +300,9 @@ func OnSelect()
 
 public func OnSelectFT(int iFireMode, int iFireTec)
 {
-  if(iFireMode == 2)
+  if(iFireMode == 2 && CheckAmmo(GetFMData(FM_AmmoID),GetFMData(FM_AmmoUsage),this()))
+  {
     Empty2(2);
+    Sound("ResupplyOut*.ogg", 0, 0, 0, GetOwner(GetUser())+1);
+  }
 }
