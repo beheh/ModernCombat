@@ -118,7 +118,7 @@ public func Add(int iItem, string szTitle, string szFunc, Parameter, id idIcon, 
   aItemBackground[iItem] = idBackground;
 
   CreateItem(iItem, idIcon);
-  
+
   if(idIcon)
     SetGraphics(szGraphics,this,idIcon,iItem*2+2,GFXOV_MODE_IngamePicture);
   if(idBackground)

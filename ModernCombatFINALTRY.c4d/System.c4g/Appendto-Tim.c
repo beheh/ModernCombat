@@ -73,7 +73,7 @@ public func FxWaitingObjectStop(object pTarget, int iNr, bool fTemp)
   FKDT->ResetFakeDeathEffects(clonk);
   CloseMenu(clonk);
   GameCall("SetPlayerRespawnTime", GetOwner(clonk), 0);
-  
+
   var info = GameCall("GetPlayerRelaunchInformation", GetOwner(clonk));
   if(!info)
     info = [];

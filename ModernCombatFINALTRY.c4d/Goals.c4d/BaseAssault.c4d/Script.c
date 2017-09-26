@@ -557,13 +557,8 @@ public func DoRelaunch(object pCrew, object pTarget, int iClass)
   {
     GetBestSpawnpoint(array, GetOwner(pCrew), x, y);
     y -= 10;
-    /*
-    var i = Random(GetLength(array));
-    x = array[i][0];
-    y = array[i][1]-10;
-    */
   }
-  
+
   if(FindObject(MCSL))
     //Eventnachricht: Hinweis auf Spawnort
     FindObject(MCSL)->SpawnEventInfo(Format("$SpawnAt$", GetName(pTarget)), GetOwner(pCrew), iClass, this);
