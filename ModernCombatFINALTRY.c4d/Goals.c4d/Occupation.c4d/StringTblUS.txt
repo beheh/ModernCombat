@@ -17,3 +17,7 @@ Finished=Finished
 // End of round
 
 TeamHasWon={{GOCC}} <c ffff33>Occupation</c> - Round End|Team <c %x>%s</c> has <c ffff33>won</c> this battle!
+
+// Misc
+
+GoalDesc=All teams start off with a certain amount of flag posts and tickets. The goal ist to conquer additional|flag posts and deplete enemy tickets. The death of a clonk costs its team a ticket. A flag post is an|access point for its team. A team is defeated once it lost all tickets or all flag posts and living|clonks. When a team holds a majority of flag posts, all other teams lose additional tickets over time.||{{IC12}} Flag Post / {{SM03}} Ticket / {{SM27}} Time till Ticket Loss / {{SM26}} Team

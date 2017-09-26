@@ -6,6 +6,7 @@
 #appendto TEAM
 
 protected func MenuQueryCancel()	{return true;}
+public func GoalDescription()		{return false;}
 
 
 protected func Initialize()

@@ -13,6 +13,7 @@ local iTicketSubtrTime;				//Ticketabzugszeit
 
 public func PlantTime()		{return 3*35;}	//Zeit zur Plazierung einer Sprengladung
 public func DefuseTime()	{return 3*35;}	//Zeit zur Entschärfung einer Sprengladung
+public func GoalDescription()	{return "$GoalDesc$";}
 public func GoalExtraValue()
 {
   var team = GameCall("AssaultDefenderTeam");
@@ -52,9 +53,6 @@ public func ChooserFinished()
   //Sicherheitshalber einen Frame verzögert
   ScheduleCall(this, "InitializeTickets", 1);
 
-  //Ebenfalls einen Frame verzögert, da der Szenarienscript die Zielobjekte erst noch setzt
-  ScheduleCall(this, "LogTask", 1);
-
   //Ticketabzug-Effekt starten
   AddEffect("TicketSubtraction", this, 101, 35, this);
 
@@ -69,18 +67,6 @@ protected func InitializeTickets()
   else
     iWarningTickets = BoundBy(iTickets/4, 1, 5);
   return true;
-}
-
-protected func LogTask()
-{
-  for(var i = 0, j; i < GetPlayerCount(); i++)
-  {
-    var TaskID = TK02;
-    if(GetPlayerTeam(j = GetPlayerByIndex(i)) == iDefender)
-      TaskID = TK03;
-    CreateObject(TaskID, 0, 0, GetPlayerByIndex(i));
-    Sound("Info_Round.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
-  }
 }
 
 /* Funktionen */

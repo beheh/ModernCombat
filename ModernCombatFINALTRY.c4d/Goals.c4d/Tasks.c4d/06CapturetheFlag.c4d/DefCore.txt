@@ -1,9 +1,0 @@
-[DefCore]
-id=TK06
-Version=4,9,10,7
-Name=Capture the Flag
-Category=C4D_StaticBack
-Width=502
-Height=143
-Offset=-3,-3
-Picture=0,0,502,143

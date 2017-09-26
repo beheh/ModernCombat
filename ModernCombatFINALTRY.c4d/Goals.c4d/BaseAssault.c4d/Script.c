@@ -4,25 +4,13 @@
 #include CASS
 
 public func RejectChoosedClassInfo()	{return true;}
+public func GoalDescription()		{return "$GoalDesc$";}
 
 static const GBAS_BombRespawnDelay = 540;		//Zeit bis Neuspawn
 static const GBAS_BombRespawnTimer = 720;		//Zeit bis Selbstzerstörung wenn im Freien
 
 local fGameOver;
 
-
-/* Initialisierung */
-
-public func ChooserFinished()
-{
-  //Spielzielhinweise erstellen
-  for(var i = 0; i < GetPlayerCount(); i++)
-  {
-    CreateObject(TK04, 0, 0, GetPlayerByIndex(i));
-    Sound("Info_Round.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
-  }
-  return _inherited(...);
-}
 
 /* Bekanntgabe */
 

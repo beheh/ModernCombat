@@ -19,20 +19,23 @@ HasTheFlag=%s has got the flag of team <c %x>%s</c>!
 FlagLost=The flag of <c %x>%s</c> was dropped!
 FlagReturned=The flag of <c %x>%s</c> was returned!
 OneFlagLeft=<c ff0000>Warning</c>: Team %s needs only <c ffff33>one</c> more flag to win!
+CTFGoalDesc=All teams start off with a flag base. The goal is to defend it and steal enemy flags by transporting|them to the own flag base. The own flag base needs its own flag to be able to steal an enemy flag.|Flags cannot be transported through door connections or inside a helicopter.||{{IC09}} Flag
 
-#Deathmatch
+# Deathmatch
 
 DMPlayerIsWinning=<c ff0000>Warning</c>: %s needs only <c ffff33>%d</c> more kill(s) to win!
 DMTeamIsWinning=<c ff0000>Warning</c>: Team %s needs only <c ffff33>%d</c> more kill(s) to win!
+DMGoalDesc=Elimination of enemy clonks scores points. The team that scores a certain amount of points first, wins.|A clonk that has been reanimated before he dies wont score the killer a point. Suicides and teamkills|will cost the team points.||{{IC01}} Kill / {{IC04}} Reanimation
 
-#Last Man Standing
+# Last Man Standing
 
 LivesLow=<c ff0000>Warning</c>: Only <c ffff33>%d</c> respawn(s) left!
 NoLivesLeft=<c ff0000>Warning</c>: No respawns left!
+LMSGoalDesc=All players start off with a certain amount of respawns. Every death will cost the player a respawn.|When all respawns are lost, the player is defeated. The last team left in the round wins.|A clonk that has been reanimated before he dies wont cost the player a respawn.||{{IC01}} Kill / {{IC04}} Reanimation
 
 # Chooser
 
-#General
+# General
 
 ChoosingPlayer=%s configures the game, please be patient...
 Choosing=%s configures the rules, please be patient...
@@ -46,26 +49,26 @@ ChangeHost=Transfer menu
 ChangeHostInfo=Transfer selection menu
 NewHost=<c %x>%s</c> <c ffff33>configures</c> the game now
 
-#Effects
+# Effects
 
 Effects=Effect Level
 MoreEffects=Increase Effect Level
 LessEffects=Decrease Effect Level
 EffectInfo=Configure Effect Level
 
-#Rules
+# Rules
 
 CreateRules=Rules
 RuleInfo=Configure rules
 
-#Darkness
+# Darkness
 
 Darkness=Darkness
 DarknessChose=Configure darkness
 MoreDarkness=Darker
 LessDarkness=Brighter
 
-#Teams
+# Teams
 
 TeamArrangement=Teams
 TeamInfo=Configure teams
@@ -95,7 +98,7 @@ TeamRotationEnd=The teams have been <c ffff33>selected</c>.
 TimeRemaining=Player Selection (%d)
 ChooseRandom=Random Player
 
-#AI
+# AI
 
 AIMenu=AI setup
 AIInfo=Option to configure AI players
@@ -106,12 +109,12 @@ FairTeams=Fair Teams
 FairTeamsInfo=Fair match
 OnlyDeleteLastTeam=The last team has to be removed first!
 
-#Goal
+# Goal
 
 MoreWinScore=Increase score
 LessWinScore=Decrease score
 
-#Game Goal Choosing
+# Game Goal Choosing
 
 RandomGoal=Random goal
 GoalRandomChoose=Choose goal randomly
@@ -121,7 +124,7 @@ BeginVoteYes=Yes
 BeginVoteNo=No
 GoalVoteBegins=The host has started a goal election, you have <c ffff33>%d</c> seconds to choose your favorite(s)!
 
-#Scoreboard
+# Scoreboard
 
 ScoreboardChooser=Host:
 ScoreboardGoals=Goal(s):

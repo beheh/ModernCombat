@@ -9,8 +9,8 @@ local iProgress;				//Fortschritt des Besitzerteams
 local iGoal;					//Zu erreichende Punktezahl
 
 public func GoalExtraValue()	{return iGoal;}	//Spielzielinformationen an Scoreboard weitergeben
-public func IsTeamGoal()		{return 1;}
-
+public func IsTeamGoal()	{return 1;}
+public func GoalDescription()	{return "$GoalDesc$";}
 
 
 /* Initialisierung */
@@ -39,13 +39,6 @@ public func ChooserFinished()
   AddEffect("IntAddProgress", this, 1, Max(14 - GetActiveTeamCount() * 2, 5), this);
 
   UpdateHUDs();
-
-  //Spielzielhinweise erstellen
-  for(var i = 0; i < GetPlayerCount(); i++)
-  {
-    CreateObject(TK05, 0, 0, GetPlayerByIndex(i));
-    Sound("Info_Round.ogg", true, 0, 100, GetPlayerByIndex(i));
-  }
 }
 
 protected func UpdateFlag()

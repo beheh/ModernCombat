@@ -19,20 +19,23 @@ HasTheFlag=%s hat die Flagge von Team <c %x>%s</c>!
 FlagLost=Die Flagge von <c %x>%s</c> wurde fallen gelassen!
 FlagReturned=Die Flagge von <c %x>%s</c> ist zurück!
 OneFlagLeft=<c ff0000>Achtung</c>: Team %s fehlt nur noch <c ffff33>eine</c> Flagge zum Sieg!
+CTFGoalDesc=Jedes Team verfügt über eine Flaggenbasis. Ziel ist das Verteidigen der eigenen Flagge und das Stehlen|feindlicher Flaggen, indem diese zur eigenen Flaggenbasis transportiert werden. Die eigene Flaggenbasis|muss über ihre Flagge verfügen, um eine feindliche Flagge erfolgreich stehlen zu können.|Flaggen können nicht durch Türverbindungen hindurch oder in Helikoptern transportiert werden.||{{IC09}} Flagge
 
-#Deathmatch
+# Deathmatch
 
 DMPlayerIsWinning=<c ff0000>Achtung</c>: %s benötigt nur noch <c ffff33>%d</c> Kill(s) zum Sieg!
 DMTeamIsWinning=<c ff0000>Achtung</c>: Team %s benötigen nur noch <c ffff33>%d</c> Kill(s) zum Sieg!
+DMGoalDesc=Die Eliminierung feindlicher Clonks gibt Punkte. Das Team welches als erstes eine bestimmte Punktzahl|erreicht, gewinnt. Wird ein Clonk reanimiert bevor er stirbt, erhält der Killer keinen Punkt.|Selbstmorde und Teamkills bringen einem Team Punkteabzug.||{{IC01}} Kill / {{IC04}} Reanimation
 
-#Last Man Standing
+# Last Man Standing
 
 LivesLow=<c ff0000>Achtung</c>: Nur noch <c ffff33>%d</c> Respawn(s) übrig!
 NoLivesLeft=<c ff0000>Achtung</c>: Keine Respawns mehr übrig!
+LMSGoalDesc=Jeder Spieler startet mit einer bestimmten Menge an Respawns. Jeder Tod eines Clonks kostet den Spieler|einen Respawn. Mit Verlust aller Respawns gilt ein Spieler als eliminiert. Das letzte verbleibende Team|gewinnt. Wird ein Clonk reanimiert bevor er stirbt, kostet dies den Spieler kein Ticket.||{{IC01}} Kill / {{IC04}} Reanimation
 
 # Chooser
 
-#Allgemein
+# Allgemein
 
 ChoosingPlayer=%s wählt jetzt die Spielkonfiguration, bitte noch etwas Geduld...
 Choosing=%s sucht gerade die Regeln aus, noch ein wenig Geduld...
@@ -46,26 +49,26 @@ ChangeHost=Menü weitergeben
 ChangeHostInfo=Spielzielwahl weitergeben
 NewHost=<c %x>%s</c> wählt jetzt die <c ffff33>Spielkonfiguration</c>
 
-#Effekte
+# Effekte
 
 Effects=Effektstufe
 MoreEffects=Effektstufe erhöhen
 LessEffects=Effektstufe senken
 EffectInfo=Effektstufe setzen
 
-#Regeln
+# Regeln
 
 CreateRules=Spielregeln
 RuleInfo=Spielregel einstellen
 
-#Dunkelheit
+# Dunkelheit
 
 Darkness=Dunkelheit
 DarknessChose=Intensität der Dunkelheit
 MoreDarkness=Dunkelheit erhöhen
 LessDarkness=Dunkelheit senken
 
-#Teams
+# Teams
 
 TeamArrangement=Teams
 TeamInfo=Teameinteilung konfigurieren
@@ -94,7 +97,7 @@ TeamRotationEnd=Die Teams wurden <c ffff33>ausgewählt</c>.
 TimeRemaining=Spielerwahl (%d)
 ChooseRandom=Zufälliger Spieler
 
-#KI
+# KI
 
 AIMenu=KIs einstellen
 AIInfo=Diverse Einstellungen für KIs
@@ -105,12 +108,12 @@ FairTeams=Faire Teams
 FairTeamsInfo=Alle Teams auffüllen, so dass überall die gleiche Anzahl Clonks vorhanden ist
 OnlyDeleteLastTeam=Das letzte Team muss als erstes entfernt werden!
 
-#Spielziel
+# Spielziel
 
 MoreWinScore=Punktzahl erhöhen
 LessWinScore=Punktzahl senken
 
-#Spielzielwahl
+# Spielzielwahl
 
 RandomGoal=Zufallsspielziel
 GoalRandomChoose=Spielziel auswürfeln

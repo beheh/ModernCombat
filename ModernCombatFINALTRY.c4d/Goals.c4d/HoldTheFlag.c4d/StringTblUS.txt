@@ -15,6 +15,7 @@ MorePoints=More points
 LessPoints=Less points
 Finished=Finished
 
-// Other
+// Misc
 
 SbrdGoalPoints=Target Score
+GoalDesc=The goal of all teams is to secure and hold a single flag post. The owner in control gains points over|time. First team to reach the requested amount of points wins the round.||{{IC12}} Flag Post / {{IC28}} Score / {{SM27}} Time till Score Gain / {{SM26}} Team

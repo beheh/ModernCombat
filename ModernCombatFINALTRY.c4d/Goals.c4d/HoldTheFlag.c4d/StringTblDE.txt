@@ -1,4 +1,5 @@
 // Flaggenposten
+09O;
 
 MsgFlagLost=Flaggenposten <c ffff33>%s</c> an Team <c %x>%s</c> verloren!
 MsgCaptured=Team <c %x>%s</c> kontrolliert Flaggenposten <c ffff33>%s</c>!
@@ -18,3 +19,4 @@ Finished=Fertig
 // Sonstiges
 
 SbrdGoalPoints=Zielpunktzahl
+GoalDesc=Ziel aller Teams ist das Erobern und Halten eines einzelnen Flaggenpostens, der Besitzer erhält dafür|nach und nach Punkte. Das Team, welches die geforderte Punktzahl als erstes erreicht, gewinnt.||{{IC12}} Flaggenposten / {{IC28}} Punktestand / {{SM27}} Zeit bis Punkteerhalt / {{SM26}} Team

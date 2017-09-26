@@ -26,3 +26,4 @@ TeamHasWon={{GBAS}} <c ffff33>Base Assault</c> - Rundenende|Team %s hat diese Sc
 
 ChoosePoint=Wähle einen <c ffff33>Einstiegspunkt</c>
 SpawnAt=beim Zielobjekt <c ffff33>%s</c>
+GoalDesc=Die Teams starten mit mehreren Zielobjekten die es zu verteidigen gilt. Das Ziel ist das Sichern und|Aufheben einzelner Sprengladungen um diese an feindlichen Zielobjekten zur Detonation zu bringen.|Ein Zielobjekt gilt als Einstiegspunkt für sein Team. Ein Team verliert mit Zerstörung all seiner|Zielobjekte. Einzelne Sprengladungen  erscheinen an zufälligen Stellen in der Mitte des Szenarios.||{{SM16}} Zielobjekt / {{SM24}} Sprengladung
