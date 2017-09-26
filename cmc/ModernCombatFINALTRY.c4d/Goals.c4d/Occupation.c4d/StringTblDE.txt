@@ -17,3 +17,7 @@ Finished=Fertig
 // Rundenende
 
 TeamHasWon={{GOCC}} <c ffff33>Besitznahme</c> - Rundenende|Team <c %x>%s</c> hat diese Schlacht <c ffff33>gewonnen</c>!
+
+// Sonstiges
+
+GoalDesc=Alle Teams starten mit einer bestimmten Menge an Flaggenposten und Tickets. Ziel ist das Erobern|weiterer Flaggenposten und das Vermindern der feindlichen Tickets. Der Tod eines Clonks| kostet das Team ein Ticket. Ein Flaggenposten gilt als Einstiegspunkt für sein Team.|Ein Team verliert bei Verbrauch des letzten Tickets oder Verlust aller Flaggenposten und lebenden Clonks.|Verfügt ein Team über die Mehrheit der Flaggenposten, verlieren alle anderen Teams über Zeit zusätzlich Tickets.||{{IC12}} Flaggenposten / {{SM03}} Ticket / {{SM27}} Zeit bis Ticketverlust / {{SM26}} Team

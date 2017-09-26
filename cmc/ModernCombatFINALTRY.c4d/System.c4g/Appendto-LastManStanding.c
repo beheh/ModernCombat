@@ -1,6 +1,6 @@
 /*-- Last Man Standing --*/
 
-//Last Man Standing Fehler überladen und korrigiert. Erstellt zudem bei Spielstart Spielzielhinweise.
+//Last Man Standing-Fehler korrigiert. Spielzielbeschreibung eingefügt.
 
 #strict 2
 #appendto GLMS
@@ -8,6 +8,7 @@
 local init;
 
 public func GoalExtraValue()	{return iWinScore;}	//Spielzielinformationen an Scoreboard weitergeben
+public func GoalDescription()	{return "$LMSGoalDesc$";}
 
 
 protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
@@ -55,18 +56,6 @@ public func IsFulfilled()
     rewarded = true;
     return true;
   }
-}
-
-public func ChooserFinished()
-{
-  //Spielzielhinweise erstellen
-  for(var i = 0; i < GetPlayerCount(); i++)
-  {
-    DoScoreboardShow(1, GetPlayerByIndex(i) + 1);
-    CreateObject(TK08, 0, 0, GetPlayerByIndex(i));
-    Sound("Info_Round.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
-  }
-  return _inherited(...);
 }
 
 /* Warnmeldung */

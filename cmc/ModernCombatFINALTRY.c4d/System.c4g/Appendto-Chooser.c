@@ -11,6 +11,7 @@ local iTeamCount, arTeams, aTeamCaptains;
 local iTeamMode, iUsedTeamSort;
 local fRandomMenu;
 local iTeamCaptainState;
+local pDesc;
 
 static const CHOS_LeagueAutostart = 60;	//Zeit bis zum automatischen Rundenstart bei Ligarunden
 
@@ -1566,6 +1567,17 @@ protected func CreateGoal(id idGoal, int iScore, string szMessage)
   else
     //Eventnachricht: Spielziele gewählt
     EventInfo4K(0, szMessage, idGoal, 0, 0, 0, "Info_Event.ogg");
+
+  //Globale Spielzielbeschreibung anzeigen
+  var desc = goal->GoalDescription(), str;
+  if(!desc)
+    desc = GetDesc(goal);
+  str = Format("@{{%i}}<c ffff00>%s</c>|%s",idGoal,GetName(goal),desc);
+  LimitString(str, 1000);
+  pDesc = CreateObject(TIM1, 450, -250);
+  SetCategory(C4D_StaticBack|C4D_Parallax|C4D_Foreground|C4D_MouseIgnore|C4D_IgnoreFoW,pDesc);
+  pDesc->CustomMessage(str,pDesc,NO_OWNER,0,0,0,0,0,MSG_NoLinebreak);
+
   //Array leeren um erneuten Menüaufruf zu verhindern
   aGoals = CreateArray();
   //Normales Menü öffnen
@@ -1578,6 +1590,9 @@ protected func ConfigurationFinished()
 {
   if(GetEffect("LeagueAutostart", this))
     RemoveEffect("LeagueAutostart", this);
+
+  //Globale Spielzielbeschreibung ausblenden
+  if(pDesc) RemoveObject(pDesc);
 
   return _inherited(...);
 }
@@ -1774,7 +1789,7 @@ public func ChangeHostMenu()
     return CreateGoal(aGoals[0], aTempGoalSave[0]);
 
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
-  
+
   for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
   {
     var plr = GetPlayerByIndex(i, C4PT_User);

@@ -8,6 +8,7 @@ static iGoal;
 
 public func IsConfigurable()	{return true;}
 public func GoalExtraValue()	{return iGoal;}	//Spielzielinformationen an Scoreboard weitergeben
+public func GoalDescription()	{return "$GoalDesc$";}
 
 
 /* Initialisierung */
@@ -52,14 +53,6 @@ public func ChooserFinished()
 
   //Geldsäcke verzögert füllen
   AddEffect("IntMoneyCollected", 0, 1, 1);
-
-  //Spielzielhinweise erstellen
-  for(var i = 0; i < GetPlayerCount(); i++)
-  {
-    DoScoreboardShow(1, GetPlayerByIndex(i) + 1);
-    CreateObject(TK09, 0, 0, GetPlayerByIndex(i));
-    Sound("Info_Round.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
-  }
 
   return _inherited(...);
 }

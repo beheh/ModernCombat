@@ -17,6 +17,7 @@ public func GoalExtraValue()		{return iStartTickets;}	//Spielzielinformationen a
 public func CustomSpawnSystem()		{return true;}
 public func RejectChoosedClassInfo()	{return true;}
 global func GetOccupationTimerSpeed()	{return 30;}		//Standard-Timer-Geschwindigkeit
+public func GoalDescription()		{return "$GoalDesc$";}
 
 
 /* Initialisierung */
@@ -52,13 +53,6 @@ public func ChooserFinished()
   //Tickets verteilen
   for(var i = 0; i < GetTeamCount(); i++)
     DoTickets(GetTeamByIndex(i), iStartTickets);
-
-  //Spielzielhinweise erstellen
-  for(var i = 0; i < GetPlayerCount(); i++)
-  {
-    CreateObject(TK01, 0, 0, GetPlayerByIndex(i));
-    Sound("Info_Round.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
-  }
 
   Schedule("AddEffect(\"OccupationGame\", this, 100, 1, this, GOCC);", 1, 0, this);
 }

@@ -1,11 +1,13 @@
 /*-- Deathmatch --*/
 
-//Das Eliminieren von Teammitgliedern oder sich selbst zieht einen Punkt ab. Zudem werden Spielzielhinweise bei Rundenstart erstellt.
+//Das Eliminieren von Teammitgliedern oder sich selbst zieht einen Punkt ab. Spielzielbeschreibung eingefügt.
 
 #strict 2
 #appendto GTDM
 
 local aMessages;
+
+public func GoalDescription()	{return "$DMGoalDesc$";}
 
 
 protected func Initialize()
@@ -43,18 +45,6 @@ public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
     else
       aMessages[mTeam] = false;
   }
-}
-
-public func ChooserFinished()
-{
-  //Spielzielhinweise erstellen
-  for(var i = 0; i < GetPlayerCount(); i++)
-  {
-    DoScoreboardShow(1, GetPlayerByIndex(i) + 1);
-    CreateObject(TK07, 0, 0, GetPlayerByIndex(i));
-    Sound("Info_Round.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
-  }
-  return _inherited(...);
 }
 
 public func OnPlayerRankUp(int iPlr)

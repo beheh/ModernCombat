@@ -17,3 +17,4 @@ PlayerHasWon={{GMNR}} <c ffff33>Money Run</c> - Rundenende|<c %x>%s</c> hat dies
 
 EnemyTeamIsWinning=<c ff0000>Achtung</c>: Team %s hat fast genug Credits gesammelt!
 EnemyPlayerIsWinning=<c ff0000>Achtung</c>: %s hat fast genug Credits gesammelt!
+GoalDesc=Ziel aller Teams ist das Sammeln einer bestimmten Menge von Credits. Credits werden für Kills und das|Sammeln von Geldsäcken vergeben. Tode, Selbstmorde oder Teamkills kosten wiederum Credits.||{{SM30}} Credit / {{IC01}} Kill / {{MNYS}} Geldsack

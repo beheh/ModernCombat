@@ -35,3 +35,7 @@ Attackers=Attackers
 
 AttackersWon={{GASS}} <c ffff33>Assault</c> - Round End|The <c ffff33>attacker team</c> has <c ffff33>won</c> this battle!
 DefendersWon={{GASS}} <c ffff33>Assault</c> - Round End|The <c ffff33>defender team</c> has <c ffff33>won</c> this battle!
+
+// Misc
+
+GoalDesc=An attacker team battles against a defender team. The attackers need to destroy all targets of the|defenders to win. The goal of the defenders is to stop the attackers and deplete their tickets by|eliminating them. The destruction of the current targets resets the attackers' tickets so that they|can advance. Defenders hold an unlimited amount of tickets. If the defenders protect their targets for|a while, the attackers will slowly loose additional tickets.||{{SM16}} Target / {{SM03}} Ticket / {{IC28}} Domination Status

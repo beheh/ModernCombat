@@ -1,24 +1,14 @@
 /*-- Capture the Flag --*/
 
-//Capture the Flag erstellt bei Spielstart Spielzielhinweise.
+//Scoreboard zeigt Ranginformationen an. Spielzielbeschreibung eingefügt.
 
 #strict 2
 #appendto GCTF
 
 
 public func GoalExtraValue()	{return iWinScore;}	//Spielzielinformationen an Scoreboard weitergeben
+public func GoalDescription()	{return "$CTFGoalDesc$";}
 
-public func ChooserFinished()
-{
-  //Spielzielhinweise erstellen
-  for(var i = 0; i < GetPlayerCount(); i++)
-  {
-    DoScoreboardShow(1, GetPlayerByIndex(i) + 1);
-    CreateObject(TK06, 0, 0, GetPlayerByIndex(i));
-    Sound("Info_Round.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
-  }
-  return _inherited(...);
-}
 
 private func SetFlagMarker(int iPlr, int iCTeam, bool fRemove)
 {

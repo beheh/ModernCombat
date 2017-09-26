@@ -13,7 +13,8 @@ Finished=Finished
 TeamHasWon={{GMNR}} <c ffff33>Money Run</c> - Round End|Team <c %x>%s</c> has <c ffff33>won</c> this battle!
 PlayerHasWon={{GMNR}} <c ffff33>Money Run</c> - Round End|<c %x>%s</c> has <c ffff33>won</c> this battle!
 
-// Other
+// Misc
 
 EnemyTeamIsWinning=<c ff0000>Warning</c>: Team %s almost collected enough credits!
 EnemyPlayerIsWinning=<c ff0000>Warning</c>: %s almost collected enough credits!
+GoalDesc=The goal of all teams is to collect a certain amount of credits. Credits are scored by getting kills|and collecting money bags. On the other hand, deaths, suicides as well as teamkills cost credits.||{{SM30}} Credit / {{IC01}} Kill / {{MNYS}} Money Bag

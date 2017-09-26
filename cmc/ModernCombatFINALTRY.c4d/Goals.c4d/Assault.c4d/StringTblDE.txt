@@ -35,3 +35,7 @@ Targets=Zielobjekte
 
 AttackersWon={{GASS}} <c ffff33>Assault</c> - Rundenende|Das <c ffff33>Angreifer-Team</c> hat diese Schlacht <c ffff33>gewonnen</c>!
 DefendersWon={{GASS}} <c ffff33>Assault</c> - Rundenende|Das <c ffff33>Verteidiger-Team</c> hat diese Schlacht <c ffff33>gewonnen</c>!
+
+// Sonstiges
+
+GoalDesc=Ein Angreifer-Team tritt gegen ein Verteidiger-Team an. Die Angreifer haben das Ziel, alle|Zielobjekte der Verteidiger zu zerstören. Die Verteidiger müssen dies verhindern und die Tickets|der Angreifer aufbrauchen, indem sie gleichere eliminieren. Das Zerstören der aktuellen Zielobjekte|setzt die Tickets der Angreifer zurück, sodass diese weiter vorrücken können. Verteidiger verfügen|über unbegrenzt viele Tickets. Schützen Verteidiger ihre Ziele über längere Zeit, verlieren die|Angreifer langsam zusätzliche Tickets.||{{SM16}} Zielobjekt / {{SM03}} Ticket / {{IC28}} Dominanzstatus
