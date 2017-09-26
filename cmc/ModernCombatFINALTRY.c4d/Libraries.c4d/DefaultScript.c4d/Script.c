@@ -312,8 +312,6 @@ public func ForceObservation(int iPlr)
 
 public func OnGameOver()
 {
-  //RewardEvaluation();
-
   //Belohnungen-Regel
   if(FindObject(RWDS))
   {
