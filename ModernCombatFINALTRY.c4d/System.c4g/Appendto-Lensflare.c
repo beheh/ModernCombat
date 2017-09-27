@@ -5,6 +5,7 @@
 #strict 2
 #appendto LENS
 
+local disabled;
 local fSun;
 static LENS_MaxDistance;
 
@@ -67,6 +68,30 @@ public func InitializeLenseflare()
 //Timer-Aufruf des Spieler-Master-Lensflare
 protected func ManageFlares()
 {
+  //Effektstufe prüfen
+  if(!GetEffectData(EFSM_Lensflares))
+  {
+    if(disabled) return;
+    disabled = true;
+  }
+  else
+    if(disabled) disabled = false;
+
+  //Geringe Effektstufe: Nur Sonne anzeigen
+  if(disabled)
+  {
+    if(!IsDay())
+      SetVisibility(VIS_None);
+    //Flares unsichtbar schalten
+    var i = 0;
+    for(var pFlare in aFlares)
+    {
+      SetVisibility(VIS_None, pFlare);
+      i++;
+    }
+    return;
+  }
+
   //Nur sichtbar wenn Tag, keine Dunkelheit und kein Material vor der Sonnenposition
   if(IsDay() && !GBackSemiSolid(0,0))
   {
