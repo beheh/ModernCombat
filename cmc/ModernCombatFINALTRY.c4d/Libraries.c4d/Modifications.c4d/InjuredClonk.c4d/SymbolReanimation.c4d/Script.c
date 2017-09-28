@@ -14,30 +14,38 @@ public func Set(object target)
   starttime = time;
 
   SetVertex(0,0,GetVertex(0,0,target));
-  SetVertex(0,1,GetVertex(0,1,target) + GetObjHeight(target)/2+10);
+  SetVertex(0,1,GetVertex(0,1,target) + GetObjHeight(target)/2+20);
   SetAction("Attach",target);
 
-  SetVisibility(VIS_Allies | VIS_Owner);
+  SetVisibility(VIS_Allies | VIS_Owner | VIS_God);
 }
 
 public func Update()
 {
   var target = GetActionTarget();
 
-  if(!obj || Hostile(GetOwner(), GetOwner(obj)) || time == 0 || !target || !GetAlive(target->GetClonk()))
+  //Konditionen prüfen
+  if(!obj || Hostile(GetOwner(), GetOwner(obj)) || time <= 0 || !target || !GetAlive(target->GetClonk()))
     return RemoveObject();
 
-  var percent = time*255/starttime;
-  SetClrModulation(RGBa(255,255,255,BoundBy(InvertA1(percent,255),0,255)));
   time -= 3;
 
   //Symbol aktualisieren
+  //Zeitanzeige
+  var percent = InvertA1(time*43/starttime,43);
+  SetPhase(percent);
+
+  //Transparenz
+  percent = time*210/starttime;
+  SetClrModulation(RGBa(255,255,255,BoundBy(InvertA1(percent,180),0,100)));
+
+  //Status
   if(FindContents(CDBT, target))
   {
     if(target->~RejectReanimation())
-      SetGraphics("NegativeArrow", this);
+      SetGraphics("NegativeDefib", this);
     else
-      SetGraphics("Arrow", this);
+      SetGraphics("Defib", this);
   }
   else
   {

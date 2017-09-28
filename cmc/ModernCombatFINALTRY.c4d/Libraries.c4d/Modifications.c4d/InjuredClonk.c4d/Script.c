@@ -86,7 +86,7 @@ public func Set(object pClonk)
   Sound("FKDT_FatalHit*.ogg", false, pClonk, 100, GetOwner(pClonk)+1);
 
   //Reanimationszeichen erstellen
-  symbol = CreateObject(SM01,0,0,GetOwner(pClonk));
+  symbol = CreateObject(SM01,0,GetObjHeight()/2-23,GetOwner(pClonk));
   symbol->Set(this);
 
   //CTF-Flagge entfernen
@@ -552,6 +552,10 @@ public func Reanimation()
   //Sichtdaten zurücksetzen
   ResetFakeDeathEffects(clonk);
   Sound("FKDT_Heartbeat.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
+
+  //Symbol entfernen
+  if(symbol)
+    RemoveObject(symbol);
 
   //Waffen-HUD aktualisieren
   clonk->UpdateCharge(true);

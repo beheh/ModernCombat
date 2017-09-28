@@ -1,7 +1,7 @@
 [Action]
 Name=Attach
 Procedure=ATTACH
-Length=1
+Length=43
 Delay=0
-FacetBase=1
+Facet=0,0,34,34,0,0
 NextAction=Hold
