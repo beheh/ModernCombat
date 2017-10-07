@@ -14,8 +14,9 @@ func Damage()
   if(GetDamage() > 90)
   {
     //Effekte
-    if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter", 4, 40, 0,0, 50, 75, RGBa(255,255,255,0), RGBa(255,255,255,0));
-    CastParticles("MetalCrateSplinter", 4, 50, 0,0, 141);
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",3,20,0,0,200,200);
+    CastParticles("MetalSplinter",10,150,0,0,50,75);
+    CastParticles("MetalCrateSplinter",4,70,0,0,100,100);
     Sound("CrateDestruct*.ogg");
 
     //Verschwinden

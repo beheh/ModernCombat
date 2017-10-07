@@ -594,8 +594,13 @@ public func OnHit(int iDmg, int iType, object pBy)
   if(iDmg < 0)
     return true;
 
+  //Effekt
+  if(iDmg >= 20) CastParticles("StructureSplinter",1,40,0,0,50,75);
+
+  //Schaden bewegt MAV
   iXDir-= Sin(Angle(GetX(), GetY(), GetX(pBy), GetY(pBy)), BoundBy(iDmg*3/2, 10, 40));
   iYDir+= Cos(Angle(GetX(), GetY(), GetX(pBy), GetY(pBy)), BoundBy(iDmg*3/2, 10, 40));
+
   return true;
 }
 
