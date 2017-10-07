@@ -24,11 +24,11 @@ public func Update()
 {
   var target = GetActionTarget();
 
+  time -= 3;
+
   //Konditionen prüfen
   if(!obj || Hostile(GetOwner(), GetOwner(obj)) || time <= 0 || !target || !GetAlive(target->GetClonk()))
     return RemoveObject();
-
-  time -= 3;
 
   //Symbol aktualisieren
   //Zeitanzeige

@@ -1254,9 +1254,7 @@ public func OnDamage(int iDamage)
 
   //Sound
   if(!EffectCall(this, GetEffect("IntVehicleUnused", this), "Damaging"))
-  {
     Sound("BulletHitMetal*.ogg");
-  }
 
   //Kritische Treffer verletzen die Besatzung
   if(iDamage >= 20)
@@ -1271,6 +1269,9 @@ public func OnDamage(int iDamage)
         if(!GetOCF(obj) & OCF_Alive || GetID(Contained(obj)) == FKDT)
           DoAchievementProgress(1, AC60, GetLastAttacker());
     }
+
+    //Effekt
+    CastParticles("StructureSplinter",1,70,RandomX(-10,10),RandomX(-10,10),50,100);
   }
 
   return true;
@@ -1294,6 +1295,8 @@ public func OnDestruction()
   FakeExplode(70, GetLastAttacker() + 1);
   FakeExplode(50, GetLastAttacker() + 1);
   RemoveObject();
+
+  //Effekte
   Sound("ExplosionHuge.ogg", false, this);
   Sound("StructureHit*.ogg", false, this);
 
@@ -1585,7 +1588,7 @@ protected func TimerCall()
   }
 
   //Objekte schrappneln
-  if(GetRotorSpeed() != 0)
+  if(GetRotorSpeed() > 40)
   {
     for(var pClonk in FindObjects(Find_OnLine(GetVertex(7), GetVertex(7, true), GetVertex(11), GetVertex(11, true)) , Find_NoContainer(), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsMAV")), Find_Not(Find_ID(FKDT))))
     {

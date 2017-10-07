@@ -553,10 +553,6 @@ public func Reanimation()
   ResetFakeDeathEffects(clonk);
   Sound("FKDT_Heartbeat.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
 
-  //Symbol entfernen
-  if(symbol)
-    RemoveObject(symbol);
-
   //Waffen-HUD aktualisieren
   clonk->UpdateCharge(true);
 
