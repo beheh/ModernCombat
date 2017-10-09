@@ -22,30 +22,13 @@ public func Fused(object pContainer)
   DamageObjects(BlastRadius()*3/2,BlastRadius()*2,this);
 
   //Effekte
-  var helper = CreateObject(TIM1,0,0,-1);
-  AddEffect("IntShockWave",helper,10,1,0,GetID());
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",10,150,0,0,25,50);
+  CreateParticle("ShockWave",0,0,0,0,12*BlastRadius(),RGB(255,255,55));
   CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(255,255,128));
-  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",8,200,0,0,25,50,RGB(40,20,20));
   Sound("GrenadeExplosion*.ogg");
 }
 
 public func FxRibbon_TheBugfixerStart(object pTarget, int iNr, int iTmep, int iKiller)
 {
   EffectVar(0, pTarget, iNr) = iKiller;
-}
-
-/* Schockwelle */
-
-public func FxIntShockWaveStart(object pTarget, int iEffectNumber, int iTemp)
-{}
-
-public func FxIntShockWaveTimer(object pTarget, int iEffectNumber, int iEffectTime)
-{
-  pTarget->CreateParticle("ShockWave",0,0,0,0,iEffectTime*(10*(FGRN->BlastRadius()*3/2))/10,RGB(255,255,128));
-  if(iEffectTime >= 10) return -1;
-}
-
-public func FxIntShockWaveStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
-{
-  RemoveObject(pTarget);
 }

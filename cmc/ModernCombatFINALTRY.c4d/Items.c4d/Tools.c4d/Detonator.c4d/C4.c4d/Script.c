@@ -176,8 +176,7 @@ public func BlastRadius()	{return 50;}
 public func BlowUp()
 {
   //Effekte
-  var helper = CreateObject(TIM1,0,0,-1);
-  AddEffect("IntShockWave",helper,10,1,0,GetID());
+  CreateParticle("ShockWave",0,0,0,0,13*BlastRadius(),RGB(255,255,55));
   CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(255,255,128));
   Sound("C4EX_Detonation*.ogg");
 
@@ -238,22 +237,6 @@ public func RTDefuse()
 public func OnDmg(int iDmg, int iType)
 {
   if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
-}
-
-/* Schockwelle */
-
-public func FxIntShockWaveStart(object pTarget, int iEffectNumber, int iTemp)
-{}
-
-public func FxIntShockWaveTimer(object pTarget, int iEffectNumber, int iEffectTime)
-{
-  pTarget->CreateParticle("ShockWave",0,0,0,0,iEffectTime*(10*(C4EX->BlastRadius()*3/2))/5,RGB(255,255,128));
-  if(iEffectTime >= 5) return -1;
-}
-
-public func FxIntShockWaveStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
-{
-  RemoveObject(pTarget);
 }
 
 /* Aufschlag */
