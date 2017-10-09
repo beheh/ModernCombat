@@ -11,6 +11,7 @@ public func BlastObjectsShockwaveCheck()	{return true;}
 protected func Damage()
 {
   //Effekte
+  CastParticles("Glas",3+Random(3),50,0,0,60,10);
   CastParticles("GlassSplinter",5+Random(5),50,0,0,20,25);
   Sound("GlassBreak*.ogg");
 

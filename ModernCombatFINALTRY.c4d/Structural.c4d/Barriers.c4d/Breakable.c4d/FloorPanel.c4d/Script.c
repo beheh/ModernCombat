@@ -24,10 +24,10 @@ public func Shatter(int iPower, object pFrom)
   }
 
   //Zersplittern
-  Sound("GlassBreak*.ogg");
+  CastParticles("Glas",3+Random(3),50,0,0,60,10);
   for(var i = 0 ; i < GetDefWidth()/3 ; i++)
-    CreateParticle ("GlassSplinter", i*3-GetDefWidth()/2, 0, +Sin(angle+(Random(spread)-spread/2),iPower), -Cos(angle+(Random(spread)-spread/2),iPower), 20);
+    CreateParticle("GlassSplinter",i*3-GetDefWidth()/2,0,+Sin(angle+(Random(spread)-spread/2),iPower),-Cos(angle+(Random(spread)-spread/2),iPower),20);
+  Sound("GlassBreak*.ogg");
 
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Glas", 2+Random(4), 50, 0,0, 60,10, RGBa(200,200,200), RGBa(200,200,200));
   RemoveObject();
 }

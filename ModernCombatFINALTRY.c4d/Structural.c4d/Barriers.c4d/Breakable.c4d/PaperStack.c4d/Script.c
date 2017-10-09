@@ -11,8 +11,7 @@ public func BlastObjectsShockwaveCheck()	{return true;}
 protected func Damage()
 {
   //Effekte
-  CastParticles("Paper", RandomX(20, 25), 40, 0, 0, 30, 60);
-  CastParticles("Paper", 5, 60, 0, 0, 40, 60);
+  CastParticles("Paper",RandomX(20, 25),40,0,0,30,60);
   Sound("PaperHit*.ogg");
 
   //Verschwinden

@@ -43,11 +43,11 @@ public func Damage()
 public func Shatter()
 {
   //Effekte
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Glas", 4+Random(8), 50, 0,0, 60,10, RGBa(200,200,200), RGBa(200,200,200));
+  CastParticles("Glas",4+Random(8),50,0,0,60,10);
   for(var i = 0 ; i < 10 ; i++)
-    CastParticles("GlassSplinter", 1, 35, RandomX(-20,20), -5, 20, 20, RGBa(255,255,255,0), RGBa(255,255,255,0));
-  SetAction("Broken");
+    CastParticles("GlassSplinter",1,35,RandomX(-20,20),-5,20,20);
   Sound("GlassBreak*.ogg");
+  SetAction("Broken");
 
   //SolidMask entfernen
   SetSolidMask();
@@ -57,7 +57,7 @@ public func Shatter()
 public func Destruct()
 {
   //Effekte
-  CastSmoke("Smoke3",8,15,0,-5,250,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+  CastSmoke("Smoke3",8,15,0,-5,250,200);
   CastParticles("MetalSplinter",3,50,-20,-5,140,70);
   CastParticles("MetalSplinter",3,50,20,-5,140,70);
   Sound("CrateDestruct*.ogg",0,0,50);
