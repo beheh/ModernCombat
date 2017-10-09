@@ -67,10 +67,14 @@ public func Fused()
   }
 
   //Effekte
-  Sound("STUN_Fused.ogg");
-  Sparks(30,RGB(255,128));
-  CastSmoke("Smoke3",12,40,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+  if(GetEffectData(EFSM_ExplosionEffects) > 1)
+  {
+    CastParticles("MetalSplinter",10,150,0,0,25,50);
+    CastSmoke("Smoke3",10,40,0,0,100,200);
+  }
   CastParticles("PxSpark",10,60,0,0,60,120,RGBa(255,255,255,70),RGBa(255,255,255,70));
+  Sparks(30,RGB(255,128));
+  Sound("STUN_Fused.ogg");
   for(var i = 0; i <= 3; i++) AddLightFlash(250,0,0,RGB(255,255,255),this);
 
   //Verschwinden

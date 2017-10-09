@@ -23,10 +23,14 @@ func Fused()
   }
 
   //Effekte
+  if(GetEffectData(EFSM_ExplosionEffects) > 1)
+  {
+    CastParticles("MetalSplinter",10,150,0,0,25,50);
+    CastSmoke("Smoke3",10,15,0,0,100,200);
+  }
+  CreateParticle("ShockWave",0,0,0,0,300,RGB(255,255,55));
+  CreateParticle("Blast",0,0,0,0,200);
   Sparks(30,RGB(255,128));
-  CreateParticle("Blast",0,0,0,0,200,RGB(255,255,128));
-  CastSmoke("Smoke3",6,12,0,0,80,200,RGBa(255,255,255,120),RGBa(255,255,255,150));
-  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",8,200,0,0,25,50,RGB(40,20,20));
   Sound("GrenadeExplosion*.ogg");
 
   RemoveObject();

@@ -28,7 +28,7 @@ public func Fused()
   ScheduleCall(this, "Smoke", 3, 10);
 
   //Effekte
-  CastSmoke("Smoke3",8, 50, 0, 0, 120, 140, RGBa(255,255,255,100), RGBa(255,255,255,130));
+  CastSmoke("Smoke3",10,50,0,0,120,140,RGBa(255,255,255,100), RGBa(255,255,255,130));
   Sound("SGRN_Fused.ogg");
 
   //Verschwinden
@@ -42,7 +42,7 @@ public func Fused()
 
 func Smoke()
 {
-  CastSmoke("Smoke3",2, 5, 0, 0, 40, 90, RGBa(255,255,255,150), RGBa(255,255,255,200));
+  CastSmoke("Smoke3",2,10,0,0,80,120);
 
   var smoke = CreateObject(SM4K, 0, 0, GetOwner(GetUser()));
   SetXDir((GetXDir() / 3 * 2) + (time * RandomX(-30, +30)),smoke,100);
@@ -71,10 +71,12 @@ protected func Damage(int iChange)
   if(GetDamage() < MaxDamage() || activated) return;
 
   //Effekte
-  Sparks(2,RGB(250,100));
-  Sparks(2,RGB(0,200));
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("BlastDirt",2,10,0,0,400,100);
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("BlastFlame",2,10,0,0,150,100);
+  if(GetEffectData(EFSM_ExplosionEffects) > 0)
+  {
+    CastParticles("BlastDirt",2,10,0,0,400,100);
+    CastParticles("BlastFlame",2,10,0,0,150,100);
+  }
+  Sparks(5,RGB(250,100));
   Sound("SGRN_Fused.ogg");
 
   //Rauch erzeugen
