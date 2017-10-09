@@ -49,8 +49,7 @@ protected func Damage()
   if(GetAction() == "Broken") return;
 
   //Effekte
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Glas", 2+Random(4), 80, 0,0, 20,80, RGBa(200,200,200), RGBa(200,200,200));
-  CreateSmokeTrail(RandomX(15,20), Random(360), 0,0, this());
+  CastParticles("Glas",3+Random(3),80,0,0,20,80);
   CreateSmokeTrail(RandomX(15,20), Random(360), 0,0, this());
   Sound("GlassBreak*.ogg");
   Sound("Blast1");
