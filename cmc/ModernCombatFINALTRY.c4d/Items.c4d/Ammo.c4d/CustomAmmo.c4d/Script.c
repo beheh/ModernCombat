@@ -199,3 +199,9 @@ protected func Selection()
 {
   Sound("FAPK_Charge.ogg");
 }
+
+public func Entrance()
+{
+  //Rotation zurücksetzen
+  SetR();
+}
