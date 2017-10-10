@@ -2,18 +2,13 @@
 id=ERND
 Version=4,9,10,7
 Name=Explosive Round
-Category=3600
-MaxUserSelect=10
+Category=C4D_Vehicle
 Width=3
 Height=5
 Offset=-1,-2
-Value=10
 Mass=4
-Components=GUNP=1;METL=1;
 Picture=3,0,64,64
 Vertices=2
 VertexY=-4,3
 VertexFriction=100
-Rebuy=1
-Collectible=1
 Rotate=1

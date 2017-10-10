@@ -14,3 +14,4 @@ DeathCounter=<c ffff33>%d Sekunden</c> bis zum Respawn
 Killer=<c ffff33>Killer</c>
 Points=<c ffff33>Punktestand</c>
 NoShockPaddles=Kein Defibrillator vorhanden!
+AutoRevive=[Springen] zum Reanimieren.

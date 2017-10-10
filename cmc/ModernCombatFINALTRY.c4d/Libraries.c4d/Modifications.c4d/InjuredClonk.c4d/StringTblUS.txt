@@ -14,3 +14,4 @@ DeathCounter=<c ffff33>%d seconds</c> till respawn
 Killer=<c ffff33>Killer</c>
 Points=<c ffff33>Points</c>
 NoShockPaddles=No shock paddles available!
+AutoRevive=[Jump] to reanimate.
