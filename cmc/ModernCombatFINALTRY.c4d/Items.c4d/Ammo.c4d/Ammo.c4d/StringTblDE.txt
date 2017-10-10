@@ -1,3 +1,4 @@
 NotMoreAmmo=Munitionslimit erreicht:|<c ff0000>%dx</c> {{%i}}
 Collected=%dx {{%i}} aufgenommen.
 EnoughAmmo=Ziel hat bereits|genügend {{%i}}.
+HUDText=<c ffbb00>Munitionsbox</c> - %s
