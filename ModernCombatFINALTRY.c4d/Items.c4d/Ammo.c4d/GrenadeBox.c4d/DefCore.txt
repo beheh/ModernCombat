@@ -18,3 +18,4 @@ Picture=14,0,100,100
 Rebuy=1
 Collectible=1
 Float=1
+Rotate=1
