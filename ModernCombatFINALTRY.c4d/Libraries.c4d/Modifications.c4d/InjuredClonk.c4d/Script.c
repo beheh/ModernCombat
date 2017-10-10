@@ -553,6 +553,10 @@ public func Reanimation()
   ResetFakeDeathEffects(clonk);
   Sound("FKDT_Heartbeat.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
 
+  //Symbol entfernen
+  if(symbol)
+    RemoveObject(symbol);
+
   //Waffen-HUD aktualisieren
   clonk->UpdateCharge(true);
 
@@ -634,6 +638,19 @@ public func ControlLeftDouble(object pByObj)
   Sound("ClonkImpact*.ogg");
   Sound("ClonkRustle*.ogg", 0, 0, 50);
   CastSmoke("Smoke3",RandomX(4,8),10,0,10,20,100);
+}
+
+/* Anfassen */
+
+protected func Grabbed(object pClonk, bool fGrab)
+{
+  if(!Hostile(GetOwner(pClonk), GetOwner()) && fGrab)
+    if(FindContents(CDBT, pClonk) || FindContents(CDBT))
+      if(!rejected)
+        //Hinweisnachricht: Autoreanimation
+        HelpMessage(GetOwner(pClonk),"$AutoRevive$", pClonk);
+  else
+    return _inherited(pClonk, ...);
 }
 
 /* Aufschlag */ 
