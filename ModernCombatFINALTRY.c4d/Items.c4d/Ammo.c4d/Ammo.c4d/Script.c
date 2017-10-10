@@ -105,7 +105,26 @@ public func ControlThrow(object caller)
   return true;
 }
 
-/* Aufschlag */
+/* HUD */
+
+public func CustomHUD()		{return true;}
+
+func UpdateHUD(object pHUD)
+{
+  if(!pHUD) return;
+
+  //Munition
+  var ammo = AmmoCount();
+
+  //Textanzeige: Objekt- und Munitionsname
+  var str = Format("$HUDText$", GetName(0,AmmoID()));
+  LimitString(str, 29 + 15);
+
+  //Daten übergeben
+  pHUD->~Ammo(ammo, 0, str, false);
+}
+
+/* Allgemein */
 
 protected func Hit()
 {
