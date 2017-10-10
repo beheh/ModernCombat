@@ -19,6 +19,14 @@ public func MinValue2()			{return 99;}
 public func AI_Inventory(object pClonk)	{return true;}
 
 
+/* Auffüllen */
+
+public func CanRefill()
+{
+  //Nur wenn von Clonk getragen
+  return Contained()->~IsClonk();
+}
+
 /* Initialisierung */
 
 protected func Initialize()
