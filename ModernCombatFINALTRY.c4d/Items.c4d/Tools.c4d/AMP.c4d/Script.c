@@ -23,8 +23,8 @@ public func AI_Inventory(object pClonk)	{return true;}
 
 public func CanRefill()
 {
-  //Nur wenn von Clonk getragen
-  return Contained()->~IsClonk();
+  //Nur wenn von Unterstützer-Klasse getragen
+  return GetEffect("ClonkClass_Support", Contained());
 }
 
 /* Initialisierung */
@@ -89,7 +89,7 @@ public func FxAmmoBarsTimer(object target, int nr)
       //Falls maximal 1 im Magazin, 10fach als 100%, ansonsten 3fach
       if(ammomax == 1)
         ammomax *= 10;
-      else 
+      else
         ammomax *= 3;
 
       //Prozentsatz errechnen
@@ -129,6 +129,14 @@ public func AmmoTypes()
 
 protected func Activate(object pCaller)
 {
+  //Leeres Pack zerstören
+  if(!GetPackPoints() && !GetEffect("ClonkClass_Support", pCaller))
+  {
+    Sound("Limitation.ogg", false, this);
+    CastParticles("Paper", RandomX(4, 8), 40, 0, 0, 20, 35, RGB(180, 180, 180), RGBa(240, 240, 240, 150));
+    RemoveObject();
+    return true;
+  }
   //Hat schon eine Box
   if(FindContents(CUAM, pCaller))
   {
@@ -147,18 +155,25 @@ protected func Activate(object pCaller)
   SetComDir(COMD_Stop, pCaller);
 
   //Menü
+  var aAmmo = AmmoTypes()[0];
   CreateMenu(GetID(), pCaller, this, 0, "$TakeAmmo$", 0, C4MN_Style_Context);
-  for (var i = 0; i < GetLength(AmmoTypes()); i++)
+  if(!GetEffect("ClonkClass_Support", pCaller) && GetPackPoints() < aAmmo[2])
   {
-    var aAmmo = AmmoTypes()[i];
-    var iColor = RGB(255,255,51);
-    if(GetPackPoints() < aAmmo[2])
-      iColor = RGB(119,119,119);
-    else if(aAmmo[0]->~MaxAmmo() && GetAmmo(aAmmo[0],pCaller)+aAmmo[1] > aAmmo[0]->~MaxAmmo())
-      iColor = RGB(255,255,255);
-    AddMenuItem(Format("<c %x>%d %s</c>", iColor, aAmmo[1], GetName(0, aAmmo[0])), "CreateAmmoPack", aAmmo[0], pCaller, aAmmo[2], pCaller, 0, C4MN_Add_ForceNoDesc | 128, 0, i);
+    AddMenuItem(Format("<c %x>%d %s</c>", RGB(255,255,51), GetPackPoints(), GetName(0, aAmmo[0])), "CreateAmmoPack", aAmmo[0], pCaller, GetPackPoints(), pCaller, 0, C4MN_Add_ForceNoDesc | 128, 0, i);
   }
-
+  else
+  {
+    for (var i = 0; i < GetLength(AmmoTypes()); i++)
+    {
+      var aAmmo = AmmoTypes()[i];
+      var iColor = RGB(255,255,51);
+      if(GetPackPoints() < aAmmo[2])
+        iColor = RGB(119,119,119);
+      else if(aAmmo[0]->~MaxAmmo() && GetAmmo(aAmmo[0],pCaller)+aAmmo[1] > aAmmo[0]->~MaxAmmo())
+        iColor = RGB(255,255,255);
+      AddMenuItem(Format("<c %x>%d %s</c>", iColor, aAmmo[1], GetName(0, aAmmo[0])), "CreateAmmoPack", aAmmo[0], pCaller, aAmmo[2], pCaller, 0, C4MN_Add_ForceNoDesc | 128, 0, i);
+    }
+  }
   return true;
 }
 
@@ -168,17 +183,25 @@ protected func CreateAmmoPack(id idAmmo, object pCaller, bool fRight, int iIndex
     return false;
 
   //Zu wenig Punkte?
+  var AmmoCount;
   var aAmmo = AmmoTypes()[iIndex];
   if(GetPackPoints() < aAmmo[2])
   {
-    PlayerMessage(GetOwner(pCaller), "$NeededPoints$", pCaller, aAmmo[2]);
-    return false;
+    if(!GetEffect("ClonkClass_Support", pCaller))
+      AmmoCount = GetPackPoints();
+    else
+    {
+      PlayerMessage(GetOwner(pCaller), "$NeededPoints$", pCaller, aAmmo[2]);
+      return false;
+    }
   }
+  else
+    AmmoCount = aAmmo[1];
 
   //Box erstellen und füllen
   var box = CreateObject(CUAM, 0, 0, GetOwner(pCaller));
   box->~SetAmmoID(aAmmo[0]);
-  box->~SetAmmoCount(aAmmo[1], true);
+  box->~SetAmmoCount(AmmoCount, true);
 
   //Einsammeln
   if(!Collect(box, pCaller))

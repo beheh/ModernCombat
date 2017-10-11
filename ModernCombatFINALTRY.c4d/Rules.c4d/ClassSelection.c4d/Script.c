@@ -462,6 +462,7 @@ static const CData_Condition		= 9;
 static const CData_DisplayCondition	= 10;
 static const CData_Facet		= 11;
 static const CData_Skins		= 12;
+static const CData_ID			= 13;
 
 public func GetCData(int iClass, int iData, int iPlr)
 {
@@ -571,6 +572,9 @@ public func SetupClass(int iClass, int iPlr)
       SetPortrait(Format("Ptr%s%d", skin[1], Random(skin[2])+1), pCrew, skin[0]);
   }
 
+  //Clonk mit Klasseninformation markieren
+  AddEffect(Format("ClonkClass_%s",GetCData(iClass, CData_ID)),pCrew,1);
+
   var szAction = Format("%d", GetCData(iClass, CData_Facet));
   if (!GetActMapVal("Name", szAction, GetCData(iClass, CData_Icon)))
     szAction = 0;
@@ -623,6 +627,7 @@ private func Default(int iData)
   if(iData == CData_DisplayCondition)	return true;
   if(iData == CData_Facet)		return;
   if(iData == CData_Skins)		return [];
+  if(iData == CData_ID)			return "<ClassID>";
   return true;
 }
 
