@@ -18,6 +18,7 @@ private func Class1Info(int iData, int iPlr)
   if(iData == CData_Grenades)   return [[STUN, 2], [SGRN, 1]];
   if(iData == CData_Facet)      return 1;
   if(iData == CData_Skins)	return [[SKIN, "Assault",2]];
+  if(iData == CData_ID)		return "Assault";
   return Default(iData);
 }
 
@@ -25,7 +26,6 @@ private func Class1Info(int iData, int iPlr)
 
 private func Class2Info(int iData, int iPlr)
 {
-
   if(iData == CData_Name)       return "$medic$";
   if(iData == CData_Desc)       return "$medic_desc$";
   if(iData == CData_Clonk)      return MDIC;
@@ -34,6 +34,7 @@ private func Class2Info(int iData, int iPlr)
   if(iData == CData_Grenades)   return [[FGRN, 1], [FRAG, 2], [SRBL, 1]];
   if(iData == CData_Facet)      return 2;
   if(iData == CData_Skins)	return [[SKIN, "Medic",2]];
+  if(iData == CData_ID)		return "Medic";
   return Default(iData);
 }
 
@@ -53,6 +54,7 @@ private func Class3Info(int iData, int iPlr)
   if(iData == CData_Grenades)   return [[STUN, 2], [SGRN, 1]];
   if(iData == CData_Facet)      return 3;
   if(iData == CData_Skins)	return [[SKIN, "Supporter",2]];
+  if(iData == CData_ID)		return "Support";
   return Default(iData);
 }
 
@@ -60,7 +62,6 @@ private func Class3Info(int iData, int iPlr)
 
 private func Class4Info(int iData, int iPlr)
 {
-
   if(iData == CData_Name)       return "$antiskill$";
   if(iData == CData_Desc)       return "$antiskill_desc$";
   if(iData == CData_Clonk)      return PCMK;
@@ -69,6 +70,7 @@ private func Class4Info(int iData, int iPlr)
   if(iData == CData_Grenades)   return [[PGRN, 2], [STUN, 1], [SRBL, 1]];
   if(iData == CData_Facet)      return 4;
   if(iData == CData_Skins)	return [[SKIN, "Antiskill",2]];
+  if(iData == CData_ID)		return "Antiskill";
   return Default(iData);
 }
 
@@ -84,5 +86,6 @@ private func Class5Info(int iData, int iPlr)
   if(iData == CData_Grenades)   return [[PGRN, 2], [FGRN, 2]];
   if(iData == CData_Facet)      return 5;
   if(iData == CData_Skins)	return [[SKIN, "Artillerist",2]];
+  if(iData == CData_ID)		return "Artillerist";
   return Default(iData);
 }
