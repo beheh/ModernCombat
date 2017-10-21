@@ -49,7 +49,7 @@ public func FMData1(int data)
   if(data == FM_PrepareReload)	return 10;						//Zeit bevor das eigentliche Nachladen beginnt
   if(data == FM_FinishReload)	return 20;						//Zeit nach dem Nachladen
 
-  if(data == FM_Damage)		return 21;						//Schadenswert
+  if(data == FM_Damage)		return 24;						//Schadenswert
 
   if(data == FM_Slot)		return 1;						//Slot des Feuermodus
 
