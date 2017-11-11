@@ -172,7 +172,7 @@ private func CheckGrab()
     return true;
   }
 
-  if(ContentsCount())
+  if(ContentsCount() || !RejectContents())
     Close();
 }
 

@@ -1,7 +1,6 @@
 /*-- APW --*/
 
 #strict 2
-
 #include WPN2
 #include RTLR
 
