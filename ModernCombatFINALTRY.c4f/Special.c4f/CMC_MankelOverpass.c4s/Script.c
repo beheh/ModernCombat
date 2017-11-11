@@ -125,7 +125,7 @@ func CreateInterior()
   CreateObject(LADR, 1300, 1386, -1)->Set(81);
   CreateObject(LADR, 1335, 1451, -1)->Set(3);
   CreateObject(LADR, 1370, 1011, -1)->Set(3);
-  CreateObject(LADR, 1450, 1011, -1)->Set(3);
+  CreateObject(LADR, 1490, 1010, -1)->Set(4);
   CreateObject(LADR, 1800, 874, -1)->Set(17);
 
   CreateObject(LADR, 1740, 955, -1)->Set(27);
@@ -153,7 +153,7 @@ func CreateInterior()
   CreateObject(LADR, 4140, 955, -1)->Set(27);
 
   CreateObject(LADR, 4080, 874, -1)->Set(17);
-  CreateObject(LADR, 4430, 1011, -1)->Set(3);
+  CreateObject(LADR, 4390, 1010, -1)->Set(4);
   CreateObject(LADR, 4510, 1011, -1)->Set(3);
   CreateObject(LADR, 4545, 1451, -1)->Set(3);
   CreateObject(LADR, 4580, 1386, -1)->Set(81);
@@ -169,7 +169,6 @@ func CreateInterior()
   CreateObject(HA4K, 1300, 933, -1);
   CreateObject(HA4K, 1300, 983, -1);
   CreateObject(HA4K, 1370, 983, -1);
-  CreateObject(HA4K, 1450, 983, -1);
 
   CreateObject(HA4K, 1800, 733, -1);
   CreateObject(HA4K, 1860, 743, -1);
@@ -189,7 +188,6 @@ func CreateInterior()
   CreateObject(HA4K, 4020, 743, -1);
   CreateObject(HA4K, 4080, 733, -1);
 
-  CreateObject(HA4K, 4430, 983, -1);
   CreateObject(HA4K, 4510, 983, -1);
   CreateObject(HA4K, 4580, 733, -1);
   CreateObject(HA4K, 4580, 933, -1);
@@ -373,7 +371,7 @@ func CreateInterior()
   CreateZipLine(3100, 820, 4040, 930);
 
   CreateZipLine(3100, 766, 3420, 690);
-  CreateZipLine(4120, 930, 4540, 890);
+  CreateZipLine(4160, 800, 4540, 690);
 
   //Tore und Konsolen
   var autod = CreateObject(HNG3, 2840, 820, -1);
