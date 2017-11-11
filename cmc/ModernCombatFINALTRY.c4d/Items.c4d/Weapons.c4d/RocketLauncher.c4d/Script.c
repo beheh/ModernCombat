@@ -1,7 +1,6 @@
 /*-- Raketenwerfer --*/
 
 #strict 2
-
 #include WPN2
 
 public func HandSize()		{return 850;}
