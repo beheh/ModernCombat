@@ -4,7 +4,7 @@
 
 #strict 2
 
-static const CMC_CURRENT_VERSION = 2;
+static const CMC_CURRENT_VERSION = 3;
 
 
 global func UpdatePlayerData(int iPlr)
@@ -15,8 +15,14 @@ global func UpdatePlayerData(int iPlr)
 
   var aUpdatedData = [["CMC_PlayerData_Version", CMC_CURRENT_VERSION]], iDMModules = GetPlrExtraData(iPlr, "CMC_DeathMenuModules");
 
+  if(plrversion < 3)
+  {
+    if(!GetPlrExtraData(iPlr, "CMC_ScoreDisplayType"))
+      SetPlrExtraData(iPlr, "CMC_ScoreDisplayType", 1);
+  }
+
   if(plrversion < 2)
-{
+  {
     if(!iDMModules)
       iDMModules = FKDT_DeathMenu_DefaultSetting;
     if(GetPlrExtraData(iPlr, "CMC_DeathMenuMode"))
