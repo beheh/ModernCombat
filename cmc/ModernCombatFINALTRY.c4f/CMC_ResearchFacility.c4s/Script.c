@@ -162,7 +162,6 @@ func CreateInterior()
   CreateObject(HA4K, 2880, 553, -1);
   CreateObject(HA4K, 2880, 743, -1);
   CreateObject(HA4K, 3130, 743, -1);
-  CreateObject(HA4K, 3220, 563, -1);
   aDoor[10] = CreateObject(HA4K, 1020, 1663, -1);
 
   //Groﬂe Bodenluken
