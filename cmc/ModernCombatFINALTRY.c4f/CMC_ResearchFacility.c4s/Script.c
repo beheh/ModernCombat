@@ -131,7 +131,7 @@ func CreateInterior()
   aDoor[01] = CreateObject(HA4K, 280, 743, -1);
   CreateObject(HA4K, 450, 563, -1);
   CreateObject(HA4K, 690, 563, -1);
-  aDoor[10] = CreateObject(HA4K, 710, 1013, -1);
+  aDoor[08] = CreateObject(HA4K, 710, 1013, -1);
   CreateObject(HA4K, 840, 233, -1);
   CreateObject(HA4K, 870, 923, -1);
   CreateObject(HA4K, 1020, 413, -1);
@@ -154,11 +154,7 @@ func CreateInterior()
   CreateObject(HA4K, 2140, 1023, -1);
   CreateObject(HA4K, 2140, 1313, -1);
   aDoor[06] = CreateObject(HA4K, 2730, 1303, -1);
-  aDoor[07] = CreateObject(HA4K, 2960, 1303, -1);
-  aDoor[08] = CreateObject(HA4K, 3150, 1303, -1);
-  CreateObject(HA4K, 2270, 553, -1);
   CreateObject(HA4K, 2270, 1023, -1);
-  CreateObject(HA4K, 2400, 553, -1);
   CreateObject(HA4K, 2400, 1233, -1);
   CreateObject(HA4K, 2410, 743, -1);
   CreateObject(HA4K, 2410, 913, -1);
@@ -167,21 +163,18 @@ func CreateInterior()
   CreateObject(HA4K, 2880, 743, -1);
   CreateObject(HA4K, 3130, 743, -1);
   CreateObject(HA4K, 3220, 563, -1);
-  aDoor[12] = CreateObject(HA4K, 1020, 1663, -1);
+  aDoor[10] = CreateObject(HA4K, 1020, 1663, -1);
 
   //Große Bodenluken
   CreateObject(H24K, 325, 928, -1);
   CreateObject(H24K, 405, 498, -1);
   CreateObject(H24K, 575, 498, -1);
-  CreateObject(H24K, 745, 1788, -1);
-  CreateObject(H24K, 945, 1788, -1);
   CreateObject(H24K, 1565, 1568, -1);
   CreateObject(H24K, 1565, 1748, -1);
   CreateObject(H24K, 2575, 618, -1);
   CreateObject(H24K, 3325, 788, -1);
   CreateObject(H24K, 3325, 918, -1);
-  CreateObject(H24K, 3365, 1168, -1)->Lock();
-  aDoor[11] = CreateObject(H24K, 3145, 1108, -1);
+  aDoor[09] = CreateObject(H24K, 3145, 1108, -1);
 
   //Glasscheiben
   CreateObject(PANE, 712, 490, -1);
@@ -245,11 +238,6 @@ func CreateInterior()
   CreateObject(WNDW, 2185, 1451, -1)->Set();
 
   //Schutztüren
-  CreateObject(GDDR, 350, 1360, -1)->DoDmg(85);
-  CreateObject(GDDR, 385, 740, -1)->DoDmg(85);
-  CreateObject(GDDR, 385, 830, -1)->DoDmg(85);
-  CreateObject(GDDR, 385, 920, -1)->DoDmg(85);
-  CreateObject(GDDR, 420, 1360, -1)->DoDmg(85);
   CreateObject(GDDR, 500, 230, -1)->Lock();
   CreateObject(GDDR, 505, 740, -1)->SetColorDw(HSL(0,0, 220));
   CreateObject(GDDR, 505, 830, -1)->SetColorDw(HSL(0,0, 220));
@@ -262,10 +250,6 @@ func CreateInterior()
   CreateObject(GDDR, 825, 830, -1)->SetColorDw(HSL(0,0, 220));
   CreateObject(GDDR, 825, 920, -1)->SetColorDw(HSL(0,0, 220));
   CreateObject(GDDR, 930, 560, -1)->SetColorDw(HSL(80, 150, 100, 127));
-  CreateObject(GDDR, 935, 740, -1)->DoDmg(85);
-  CreateObject(GDDR, 935, 830, -1)->DoDmg(85);
-  CreateObject(GDDR, 935, 920, -1)->DoDmg(85);
-  CreateObject(GDDR, 1150, 280, -1)->SetColorDw(HSL(145, 210, 100, 127));
   CreateObject(GDDR, 1265, 520, -1)->SetColorDw(HSL(145, 210, 100, 127));
   CreateObject(GDDR, 1270, 290, -1)->SetColorDw(HSL(145, 210, 100, 127));
   CreateObject(GDDR, 2755, 140, -1)->Lock();
@@ -273,28 +257,17 @@ func CreateInterior()
   CreateObject(GDDR, 3220, 1100, -1)->SetColorDw(HSL(0, 0, 100));
 
   //Gitter
-  CreateObject(GTNG, 1135, 710, -1);
-  CreateObject(GTNG, 1135, 800, -1);
-  CreateObject(GTNG, 1135, 890, -1)->DoDmg(85);
-  CreateObject(GTNG, 1270, 230, -1)->DoDmg(85);
   CreateObject(GTNG, 1290, 1280, -1);
   CreateObject(GTNG, 1347, 610, -1);
   CreateObject(GTNG, 1397, 940, -1);
-  CreateObject(GTNG, 1595, 1740, -1);
   CreateObject(GTNG, 1627, 1740, -1);
   CreateObject(GTNG, 1993, 1020, -1);
   CreateObject(GTNG, 2183, 610, -1);
-  CreateObject(GTNG, 2223, 1230, -1);
   CreateObject(GTNG, 2257, 1780, -1);
-  CreateObject(GTNG, 2297, 1230, -1)->DoDmg(85);
+  CreateObject(GTNG, 2297, 1230, -1);
   CreateObject(GTNG, 2307, 1020, -1);
-  CreateObject(GTNG, 2327, 610, -1)->DoDmg(85);
-  CreateObject(GTNG, 2383, 610, -1)->DoDmg(85);
-  CreateObject(GTNG, 2455, 1270, -1)->DoDmg(85);
-  CreateObject(GTNG, 2635, 1270, -1);
-  CreateObject(GTNG, 2777, 550, -1);
+  CreateObject(GTNG, 2455, 1270, -1);
   CreateObject(GTNG, 2777, 610, -1);
-  CreateObject(GTNG, 2913, 550, -1);
   CreateObject(GTNG, 3143, 780, -1);
 
   //Dekoschleusen
@@ -1356,10 +1329,8 @@ public func ChooserFinished()
     aDoor[03]->Lock();
     aDoor[04]->Lock();
     aDoor[05]->Lock();
-    aDoor[07]->Lock();
-    aDoor[08]->Lock();
-    aDoor[11]->Lock();
-    aDoor[12]->Lock();
+    aDoor[09]->Lock();
+    aDoor[10]->Lock();
 
     //Stahltore schließen und öffnen
     aDoorWay[39]->ControlRight();
@@ -1505,8 +1476,8 @@ public func ChooserFinished()
     CreateObject(HA4K, 1240, 1113, -1)->Lock();
 
     //Bodenluke schließen
-    aDoor[10]->Lock();
-    aDoor[11]->Lock();
+    aDoor[08]->Lock();
+    aDoor[09]->Lock();
 
     //Geschützstellungen
     CreateObject(GNET, 845, 1010, -1)->Set(SATW,90);
@@ -1784,7 +1755,7 @@ public func ChooserFinished()
     RemoveAll(HSGN);
     RemoveObject(aDoorWay[8]);
     RemoveObject(aDoorWay[9]);
-    RemoveObject(aDoor[11]);
+    RemoveObject(aDoor[09]);
     RemoveObject(FindObject2(Find_ID(HA4K),Find_InRect(435, 540, 30, 30)));
     for(var obj in FindObjects(Find_ID(LADR), Find_InRect(1120, 290, 130, 1060)))
       RemoveObject(obj);
@@ -1977,7 +1948,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
         obj->TurnOn();
 
       //Bodenluke öffnen
-      aDoor[11]->Open();
+      aDoor[09]->Open();
 
       //SSA zerstören
       aSelfDefense[1]->Disarm();
@@ -2012,7 +1983,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),0,1620,3,1);
 
     //Bodenluke öffnen
-    aDoor[12]->Open();
+    aDoor[10]->Open();
 
     //Lampen ausschalten
     for(var obj in FindObjects(Find_Or(Find_ID(LLGH), Find_ID(SLGH), Find_ID(CLGH)), Find_InRect(370,1270,2820,290)))
