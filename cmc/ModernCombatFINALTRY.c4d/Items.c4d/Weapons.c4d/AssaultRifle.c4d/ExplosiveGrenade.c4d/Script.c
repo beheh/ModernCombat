@@ -126,15 +126,16 @@ func FxGrenadeTimer(object target, int effect, int time)
   var alpha=Max(0,100-vel);
 
   //Raucheffekt
-  var vel=Abs(GetXDir())+Abs(GetYDir());
-  var alpha=Max(0,60-vel);
-  var rgb = Color();
-  if(!rgb) rgb = RGB(100,100,100);
+  if(Color())
+  {
+    var vel = Abs(GetXDir())+Abs(GetYDir());
+    var alpha = Max(0,60-vel);
 
-  if(!GBackLiquid())
-    CreateParticle("Smoke2", -GetXDir()/6, -GetYDir()/6, RandomX(-10, 10), -5, vel/3+RandomX(10, 20), SetRGBaValue(rgb,alpha)); 
-  else
-    CastObjects(FXU1,2,6);
+    if(!GBackLiquid())
+      CreateParticle("Smoke2", -GetXDir()/6, -GetYDir()/6, RandomX(-10, 10), -5, vel/3+RandomX(10, 20), SetRGBaValue(Color(),alpha)); 
+    else
+      CastObjects(FXU1,2,6);
+  }
 
   SetR(Angle (0,0,GetXDir(),GetYDir()));
 }

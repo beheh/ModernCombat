@@ -21,6 +21,10 @@ func Damage()
     Sound("CrateDestruct*.ogg");
     Sound("WoodCrack*.ogg");
 
+    //Inhalte verschleudern
+    while(Contents())
+      Exit(Contents(),0,0,0,RandomX(-5,5),RandomX(-5,5),RandomX(-5,5));
+
     //Verschwinden
     RemoveObject(0, 1);
   }
