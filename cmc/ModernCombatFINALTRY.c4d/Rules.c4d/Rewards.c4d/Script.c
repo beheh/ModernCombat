@@ -88,7 +88,7 @@ public func StatsPoints(int iPlr)
   aLastPage[iPlr] = [RWDS_Page_Points];
 
   AddMenuItem(" | ", "", RWDS, pClonk, 0, 0, "", 514, 0, 0);
-  
+
   //Erst mal einsortieren
   var aList = CreateArray();
   var szString;
@@ -179,7 +179,7 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
     SelectMenuItem(iIndex+1, pClonk);
   else
     SelectMenuItem(i-iOffset+2+iMenuEntry, pClonk);
-    
+
   return true;
 }
 
@@ -954,20 +954,37 @@ global func AwardAchievement(id idAchievement, int iPlr)
   if(IsAchievementBlocked(idAchievement)) return;
   RWDS_aAchievementBlocked[idAchievement->GetSavingSlot()] = idAchievement->~SingleAward();
 
-  //Abbrechen, falls bereits erhalten
-  if(db->GetPlayerAchievement(iPlr, idAchievement)) return;
+  //Bereits vorhanden?
+  if(db->GetPlayerAchievement(iPlr, idAchievement))
+  {
+    //Achievement-Anzeige entsprechend der Einstellung des Spielers
+    if(GetCursor(iPlr)->~AchievementDisplayType())
+    {
+      //Achievementanzeige mit goldenem Hintergrund
+      var achievement = CreateObject(idAchievement, 0, 0, iPlr);
+      achievement->SetHighlightColor(RGB(250,210,20));
+      achievement->SetDurationTime(190);
 
-  //Vergabe
-  db->SetPlayerAchievement(iPlr, idAchievement, true);
+      //Sound-Hinweis
+      Sound("RWDS_Achievement.ogg", true, 0, 100, iPlr+1);
+    }
+    else
+      return true;
+  }
+  else
+  {
+    //Vergabe
+    db->SetPlayerAchievement(iPlr, idAchievement, true);
 
-  //Achievementanzeige mit blauem Hintergrund
-  var achievement = CreateObject(idAchievement, 0, 0, iPlr);
-  achievement->SetHighlightColor(RGB(0,153,255));
-  //Eventnachricht: Errungenschaft erhalten
-  EventInfo4K(0, Format("$AchievementNewUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), IC28, 0, 0, 0, "Info_Event.ogg");
+    //Achievementanzeige mit blauem Hintergrund
+    var achievement = CreateObject(idAchievement, 0, 0, iPlr);
+    achievement->SetHighlightColor(RGB(0,153,255));
+    //Eventnachricht: Errungenschaft erhalten
+    EventInfo4K(0, Format("$AchievementNewUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), IC28, 0, 0, 0, "Info_Event.ogg");
 
-  //Sound-Hinweis
-  Sound("RWDS_Achievement.ogg", true, 0, 100, iPlr+1);
+    //Sound-Hinweis
+    Sound("RWDS_FirstAchievement.ogg", true, 0, 100, iPlr+1);
+  }
 
   return true;
 }
