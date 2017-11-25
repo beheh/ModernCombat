@@ -30,7 +30,8 @@ Use=Benutzen
 #Einstellungen
 
 Settings=Einstellungen
-CtxFunctions=Funktionen
+CtxGameplay=Gameplay
+CtxScoreDisplay=Punktedarstellung
 CtxConfiguration=Konfiguration
 CtxButtons=Menüpunkte
 CtxQuickInventoryOn=QuickInventar
@@ -48,7 +49,10 @@ CtxBetterAimingDesc=Clonks priorisieren bei [Dreifachstopp] das Zielen mit einer
 CtxScoreDisplayOverhead=Punkteanzeige über Clonk
 CtxScoreDisplayOverheadDesc=Erspielte Punkte in gewerteten Runden werden als Nachrichten über dem Clonk dargestellt.
 CtxScoreDisplayLog=Punkteanzeige als Verlauf
-CtxScoreDisplayLogDesc=Erspielte Punkte in gewerteten Runden werden in einem Verlauf neben dem Waffen-HUD dargestellt.
+CtxScoreDisplayLogDesc=Erspielte Punkte in gewerteten Runden werden in einem Verlauf über dem Waffen-HUD dargestellt.
+CtxInfiniteAchievementsOn=Unendliche Errungenschaften
+CtxInfiniteAchievementsOff=<c 777777>Unendliche Errungenschaften</c>
+CtxInfiniteAchievementsDesc=Bereits erspielte Errungenschaften werden bei erneutem Erhalt nochmals eingeblendet.
 CtxDMModules=Schwerverletztenmenü
 CtxDMModulesDesc=Wähle die im Schwerverletztenmenü anzuzeigenden Elemente aus.
 CtxRewardMenuItem=Statistiken

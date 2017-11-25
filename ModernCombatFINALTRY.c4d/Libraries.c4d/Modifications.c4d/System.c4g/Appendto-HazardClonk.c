@@ -902,7 +902,7 @@ protected func ContextSettings(object pCaller)
   CreateMenu(CSTR, pCaller, pCaller, 0, "$Settings$", 0, C4MN_Style_Context, true);
 
   //Überschrift
-  AddMenuItem("<c 777777>-$CtxFunctions$-</c>", 0, 0, pCaller, 0, 0, "");
+  AddMenuItem("<c 777777>-$CtxGameplay$-</c>", 0, 0, pCaller, 0, 0, "");
 
   //QuickInventar
   if(pCaller->QuickInventoryOff())
@@ -928,11 +928,23 @@ protected func ContextSettings(object pCaller)
   else
     AddMenuItem("$CtxBetterAimingOff$", Format("SwitchBetterAiming(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller, 0, 0, "$CtxBetterAimingDesc$");
 
+  //Leerzeile
+  AddMenuItem("", 0, 0, pCaller, 0, 0, "");
+
+  //Überschrift
+  AddMenuItem("<c 777777>-$CtxScoreDisplay$-</c>", 0, 0, pCaller, 0, 0, "");
+
   //Punkteanzeigetyp
   if(pCaller->ScoreDisplayType())
     AddMenuItem("$CtxScoreDisplayOverhead$", Format("SwitchScoreDisplayType(Object(%d))", ObjectNumber(pCaller)), PCMK, pCaller, 0, 0, "$CtxScoreDisplayOverheadDesc$");
   else
     AddMenuItem("$CtxScoreDisplayLog$", Format("SwitchScoreDisplayType(Object(%d))", ObjectNumber(pCaller)), SI4K, pCaller, 0, 0, "$CtxScoreDisplayLogDesc$");
+
+  //Unendliche Errungenschaften
+  if(pCaller->AchievementDisplayType())
+    AddMenuItem("$CtxInfiniteAchievementsOn$", Format("SwitchAchievementDisplayType(Object(%d))", ObjectNumber(pCaller)), ACHV, pCaller, 0, 0, "$CtxInfiniteAchievementsDesc$");
+  else
+    AddMenuItem("$CtxInfiniteAchievementsOff$", Format("SwitchAchievementDisplayType(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller, 0, 0, "$CtxInfiniteAchievementsDesc$");
 
   //Leerzeile
   AddMenuItem("", 0, 0, pCaller, 0, 0, "");
@@ -1028,6 +1040,14 @@ public func ScoreDisplayType()	{return !GetPlrExtraData(GetOwner(), "CMC_ScoreDi
 public func SwitchScoreDisplayType(object pCaller)
 {
   SetPlrExtraData(GetOwner(), "CMC_ScoreDisplayType", ScoreDisplayType());
+  Sound("Click", 1, 0,0, GetOwner()+1);
+  ContextSettings(pCaller);
+}
+
+public func AchievementDisplayType()	{return !GetPlrExtraData(GetOwner(), "CMC_AchievementDisplayType");}
+public func SwitchAchievementDisplayType(object pCaller)
+{
+  SetPlrExtraData(GetOwner(), "CMC_AchievementDisplayType", AchievementDisplayType());
   Sound("Click", 1, 0,0, GetOwner()+1);
   ContextSettings(pCaller);
 }

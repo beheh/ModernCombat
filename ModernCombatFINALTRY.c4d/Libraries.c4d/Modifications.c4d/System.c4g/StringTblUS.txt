@@ -30,7 +30,8 @@ Use=Benutzen
 #Settings
 
 Settings=Settings
-CtxFunctions=Functions
+CtxGameplay=Gameplay
+CtxScoreDisplay=Score Display
 CtxConfiguration=Configuration
 CtxButtons=Menu Items
 CtxQuickInventoryOn=QuickInventory
@@ -48,7 +49,10 @@ CtxBetterAimingDesc=When pressing [Triple Stop], Clonks will prioritize aiming w
 CtxScoreDisplayOverhead=Score Display above clonk
 CtxScoreDisplayOverheadDesc=Earned points in evaluated rounds will be displayed above the clonk.
 CtxScoreDisplayLog=Score Display as log
-CtxScoreDisplayLogDesc=Earned points in evaluated rounds will be displayed in a log next to the weapon HUD.
+CtxScoreDisplayLogDesc=Earned points in evaluated rounds will be displayed in a log above the weapon HUD.
+CtxInfiniteAchievementsOn=Infinite Achievements
+CtxInfiniteAchievementsOff=<c 777777>Infinite Achievements</c>
+CtxInfiniteAchievementsDesc=Already obtained achievements will display again when unlocked.
 CtxDMModules=Injured Menu
 CtxDMModulesDesc=Select or deselect modules to be shown in the injured menu.
 CtxRewardMenuItem=Statistics

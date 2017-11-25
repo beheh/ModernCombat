@@ -54,6 +54,14 @@ public func SetHighlightColor(int dwColor)
   return true;
 }
 
+public func SetDurationTime(int iTime)
+{
+  var nr = GetEffect("IntFade", this);
+  if(!nr) return false;
+  EffectVar(1, this, nr) = iTime;
+  return true;
+}
+
 /* Highlight-Effekt */
 
 public func FxIntHighlightStart(object target, int nr, temp, object ach)
@@ -86,7 +94,8 @@ public func FxIntHighlightTimer(object target, int nr)
 
 public func FxIntFadeStart(object target, int nr, temp)
 {
-  EffectVar(0, target, nr) = 0;
+  EffectVar(0, target, nr) = 0;				//Zeit
+  EffectVar(1, target, nr) = IDSP_Duration_Show;	//Anzeigedauer
 }
 
 public func FxIntFadeTimer(object target, int nr)
@@ -110,15 +119,15 @@ public func FxIntFadeTimer(object target, int nr)
     target->DrawDescription(iAlpha);
     return true;
   }
-  if(iTime < IDSP_Duration_FadeIn + IDSP_Duration_Show)
+  if(iTime < IDSP_Duration_FadeIn + EffectVar(1, target, nr))
   {
     SetClrModulation(RGBa(255,255,255,0), target);
     target->DrawDescription(0);
     return true;
   }
-  if(iTime < IDSP_Duration_FadeIn + IDSP_Duration_Show + IDSP_Duration_FadeOut)
+  if(iTime < IDSP_Duration_FadeIn + EffectVar(1, target, nr) + IDSP_Duration_FadeOut)
   {
-    var iAlpha = -Cos((iTime - IDSP_Duration_FadeIn - IDSP_Duration_Show)*180/IDSP_Duration_FadeOut, 127)+127;
+    var iAlpha = -Cos((iTime - IDSP_Duration_FadeIn - EffectVar(1, target, nr))*180/IDSP_Duration_FadeOut, 127)+127;
     SetClrModulation(RGBa(255,255,255,iAlpha), target);
     EffectVar(5, target->GetHighlight(), GetEffect("IntHighlight", target->GetHighlight())) = iAlpha;
     target->DrawDescription(iAlpha);
