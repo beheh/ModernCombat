@@ -959,9 +959,9 @@ public func ChooserFinished()
     }
 
     //Grenzen setzen
-    CreateObject(BRDR, 880, 0, -1)->Set();
-    CreateObject(BRDR, 6320, 0, -1)->Set(1);
-    CreateObject(BRDR, 0, 1400, -1)->Set(3);
+    CreateObject(BRDR, 880, 0, -1)->Set(0,0,0,0,0,1);
+    CreateObject(BRDR, 6320, 0, -1)->Set(1,0,0,0,0,1);
+    CreateObject(BRDR, 0, 1400, -1)->Set(3,0,0,0,0,1);
 
     //Objekte entfernen
     for(var obj in FindObjects(Find_ID(LADR), Find_InRect(3380, 1260, 440, 200)))
@@ -1164,8 +1164,8 @@ public func ChooserFinished()
     CreateObject(BRDR, 4140, 0, -1)->Set(1,1,0,1,2);
 
     //Grenzen setzen
-    CreateObject(BRDR, 2390, 0, -1)->Set();
-    CreateObject(BRDR, 4810, 0, -1)->Set(1);
+    CreateObject(BRDR, 2390, 0, -1)->Set(0,0,0,0,0,1);
+    CreateObject(BRDR, 4810, 0, -1)->Set(1,0,0,0,0,1);
 
     //Leitern
     CreateObject(LADR, 2650, 1255, -1)->Set(6);
@@ -1315,8 +1315,8 @@ public func ChooserFinished()
       CreateFlag(2,4260,1110,GetTeamColor(2));
 
     //Grenzen setzen
-    CreateObject(BRDR, 2390, 0, -1)->Set();
-    CreateObject(BRDR, 4810, 0, -1)->Set(1);
+    CreateObject(BRDR, 2390, 0, -1)->Set(0,0,0,0,0,1);
+    CreateObject(BRDR, 4810, 0, -1)->Set(1,0,0,0,0,1);
 
     //Leitern
     CreateObject(LADR, 2650, 1255, -1)->Set(6);

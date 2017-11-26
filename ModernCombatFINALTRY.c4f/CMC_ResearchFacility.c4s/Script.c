@@ -1401,9 +1401,9 @@ public func ChooserFinished()
     CreateObject(BRDR, 2240, 0, -1)->Set(1,1,0,1,2);
 
     //Grenzen setzen
-    CreateObject(BRDR, 760, 0, -1)->Set(0);
-    CreateObject(BRDR, 2900, 0, -1)->Set(1);
-    CreateObject(BRDR, 0, 1120, -1)->Set(3);
+    CreateObject(BRDR, 760, 0, -1)->Set(0,0,0,0,0,1);
+    CreateObject(BRDR, 2900, 0, -1)->Set(1,0,0,0,0,1);
+    CreateObject(BRDR, 0, 1120, -1)->Set(3,0,0,0,0,1);
 
     //Leitern
     CreateObject(LADR, 1660, 510, -1)->Set(6);
@@ -1637,7 +1637,7 @@ public func ChooserFinished()
     //Grenzen setzen
     CreateObject(BRDR, 210, 0, -1)->Set(0);
     CreateObject(BRDR, 3490, 0, -1)->Set(1);
-    CreateObject(BRDR, 0, 1210, -1)->Set(3);
+    CreateObject(BRDR, 0, 1210, -1)->Set(3,0,0,0,0,1);
 
     //Aufzüge
     CreateObject(LFTP, 785, 244, -1)->SetLimits(235,670);

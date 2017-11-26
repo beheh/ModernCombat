@@ -415,8 +415,8 @@ public func ChooserFinished()
     flag->~Set("$Flag3$");
 
     //Grenzen setzen
-    CreateObject(BRDR, 1300, 0, -1)->Set(0);
-    CreateObject(BRDR, 2770, 0, -1)->Set(1);
+    CreateObject(BRDR, 1300, 0, -1)->Set(0,0,0,0,0,1);
+    CreateObject(BRDR, 2930, 0, -1)->Set(1);
 
     //Teamgrenzen
     CreateObject(BRDR, 1630, 0, -1)->Set(0,1,0,1,1);
@@ -459,8 +459,8 @@ public func ChooserFinished()
   if(FindObject(GLMS) || FindObject(GTDM))
   {
     //Grenzen setzen
-    CreateObject(BRDR, 1300, 0, -1)->Set(0);
-    CreateObject(BRDR, 2770, 0, -1)->Set(1);
+    CreateObject(BRDR, 1300, 0, -1)->Set(0,0,0,0,0,1);
+    CreateObject(BRDR, 2930, 0, -1)->Set(1);
 
     //Objekte entfernen
     RemoveObject(aArtillery[0]);

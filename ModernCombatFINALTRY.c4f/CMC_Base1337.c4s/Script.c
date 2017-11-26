@@ -838,7 +838,7 @@ public func ChooserFinished()
     AddMoneySpawn(3870, 1030, [20]);
 
     //Grenzen setzen
-    CreateObject(BRDR, 1790, 0, -1)->Set(0);
+    CreateObject(BRDR, 1790, 0, -1)->Set(0,0,0,0,0,1);
     CreateObject(BRDR, 4230, 0, -1)->Set(1);
 
     //Objekt entfernen
@@ -876,7 +876,7 @@ public func ChooserFinished()
   if(FindObject(GLMS) || FindObject(GTDM))
   {
     //Grenzen setzen
-    CreateObject(BRDR, 1790, 0, -1)->Set(0);
+    CreateObject(BRDR, 1790, 0, -1)->Set(0,0,0,0,0,1);
     CreateObject(BRDR, 4230, 0, -1)->Set(1);
 
     //Objekt entfernen

@@ -811,7 +811,7 @@ public func ChooserFinished()
 
     //Grenzen setzen
     CreateObject(BRDR, 360, 0, -1)->Set(0);
-    CreateObject(BRDR, 2410, 0, -1)->Set(1);
+    CreateObject(BRDR, 2410, 0, -1)->Set(1,0,0,0,0,1);
 
     //Türen öffnen
     aDoor[00]->Open();
@@ -938,7 +938,7 @@ public func ChooserFinished()
   {
     //Grenzen setzen
     CreateObject(BRDR, 360, 0, -1)->Set(0);
-    CreateObject(BRDR, 2410, 0, -1)->Set(1);
+    CreateObject(BRDR, 2410, 0, -1)->Set(1,0,0,0,0,1);
 
     //Türen öffnen
     aDoor[00]->Open();
