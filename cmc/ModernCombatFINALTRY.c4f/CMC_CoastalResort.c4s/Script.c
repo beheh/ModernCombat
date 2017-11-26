@@ -937,6 +937,10 @@ public func ChooserFinished()
     CreateObject(BRDR, 3710, 0, -1)->Set(0,1,0,1,1);
     CreateObject(BRDR, 4780, 0, -1)->Set(1,1,0,1,2);
 
+    //Grenzen setzen
+    CreateObject(BRDR, 2650, 0, -1)->Set(0,0,0,0,0,1);
+    CreateObject(BRDR, 5840, 0, -1)->Set(1,0,0,0,0,1);
+
     //Selbstschussanlagen
     var selfdef = CreateObject(SEGU, 3100, 810, -1);
     selfdef->Set(0,1,1,180,0,3620);
@@ -944,10 +948,6 @@ public func ChooserFinished()
     selfdef = CreateObject(SEGU, 5390, 810, -1);
     selfdef->Set(0,1,1,180,4870);
     selfdef->SetTeam(2);
-
-    //Grenzen setzen
-    CreateObject(BRDR, 2650, 0, -1)->Set(0);
-    CreateObject(BRDR, 5840, 0, -1)->Set(1);
 
     //Hinweisschilder
     CreateObject(SGNP, 2480, 970, -1);
@@ -980,8 +980,8 @@ public func ChooserFinished()
     selfdef->SetTeam(2);
 
     //Grenzen setzen
-    CreateObject(BRDR, 2650, 0, -1)->Set(0);
-    CreateObject(BRDR, 5840, 0, -1)->Set(1);
+    CreateObject(BRDR, 2650, 0, -1)->Set(0,0,0,0,0,1);
+    CreateObject(BRDR, 5840, 0, -1)->Set(1,0,0,0,0,1);
 
     //Hinweisschilder
     CreateObject(SGNP, 2480, 970, -1);

@@ -790,7 +790,7 @@ public func ChooserFinished()
     flag->~Set("$Flag3$");
 
     //Grenzen setzen
-    CreateObject(BRDR, 2890, 0, -1)->Set(0);
+    CreateObject(BRDR, 2890, 0, -1)->Set(0,0,0,0,0,1);
     CreateObject(BRDR, 6010, 0, -1)->Set(1);
 
     //Teamgrenzen
@@ -858,7 +858,7 @@ public func ChooserFinished()
     AddMoneySpawn(4480, 930, [20]);
 
     //Grenzen setzen
-    CreateObject(BRDR, 3130, 0, -1)->Set(0);
+    CreateObject(BRDR, 3130, 0, -1)->Set(0,0,0,0,0,1);
     CreateObject(BRDR, 5310, 0, -1)->Set(1);
 
     //Hinweisschilder
@@ -898,7 +898,7 @@ public func ChooserFinished()
     Sound("Earthquake");
 
     //Grenzen setzen
-    CreateObject(BRDR, 3130, 0, -1)->Set(0);
+    CreateObject(BRDR, 3130, 0, -1)->Set(0,0,0,0,0,1);
     CreateObject(BRDR, 5310, 0, -1)->Set(1);
 
     //Container
@@ -926,7 +926,7 @@ public func ChooserFinished()
   if(FindObject(GLMS) || FindObject(GTDM))
   {
     //Grenzen setzen
-    CreateObject(BRDR, 3130, 0, -1)->Set(0);
+    CreateObject(BRDR, 3130, 0, -1)->Set(0,0,0,0,0,1);
     CreateObject(BRDR, 5310, 0, -1)->Set(1);
 
     //Hinweisschilder

@@ -557,8 +557,8 @@ public func ChooserFinished()
     flag->~Set("$Flag3$",72);
 
     //Grenzen setzen
-    CreateObject(BRDR, 740, 0, -1)->Set(0);
-    CreateObject(BRDR, 2660, 0, -1)->Set(1);
+    CreateObject(BRDR, 740, 0, -1)->Set(0,0,0,0,0,1);
+    CreateObject(BRDR, 2660, 0, -1)->Set(1,0,0,0,0,1);
 
     //Teamgrenzen
     CreateObject(BRDR, 1210, 0, -1)->Set(0,1,0,1,1);
@@ -601,8 +601,8 @@ public func ChooserFinished()
     AddMoneySpawn(2000, 545, [20]);
 
     //Grenzen setzen
-    CreateObject(BRDR, 740, 0, -1)->Set(0);
-    CreateObject(BRDR, 2660, 0, -1)->Set(1);
+    CreateObject(BRDR, 740, 0, -1)->Set(0,0,0,0,0,1);
+    CreateObject(BRDR, 2660, 0, -1)->Set(1,0,0,0,0,1);
 
     //Teamgrenzen
     CreateObject(BRDR, 1120, 0, -1)->Set(0,1,0,1,1);
@@ -629,8 +629,8 @@ public func ChooserFinished()
     {CreateFlag(2,2310,450,GetTeamColor(2));}
 
     //Grenzen setzen
-    CreateObject(BRDR, 740, 0, -1)->Set(0);
-    CreateObject(BRDR, 2660, 0, -1)->Set(1);
+    CreateObject(BRDR, 740, 0, -1)->Set(0,0,0,0,0,1);
+    CreateObject(BRDR, 2660, 0, -1)->Set(1,0,0,0,0,1);
 
     //Hinweisschilder
     CreateObject(SGNP, 710, 290, -1);
@@ -647,14 +647,18 @@ public func ChooserFinished()
   if(FindObject(GLMS) || FindObject(GTDM))
   {
     //Grenzen setzen
-    CreateObject(BRDR, 1000, 0, -1)->Set(0);
-    CreateObject(BRDR, 2400, 0, -1)->Set(1);
+    CreateObject(BRDR, 1010, 0, -1)->Set(0,0,0,0,0,1);
+    CreateObject(BRDR, 2390, 0, -1)->Set(1,0,0,0,0,1);
 
     //Hinweisschilder
     CreateObject(SGNP, 1020, 390, -1);
     CreateObject(SGNP, 1020, 450, -1);
     CreateObject(SGNP, 2380, 390, -1);
     CreateObject(SGNP, 2380, 450, -1);
+
+    //Leitern
+    CreateObject(LADR, 1060, 415, -1)->Set(12);
+    CreateObject(LADR, 2340, 415, -1)->Set(12);
 
     //Objekte entfernen
     RemoveObject(aSelfDefense[0]);

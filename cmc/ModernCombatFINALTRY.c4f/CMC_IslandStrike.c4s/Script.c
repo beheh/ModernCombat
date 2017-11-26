@@ -1058,8 +1058,8 @@ public func ChooserFinished()
     {CreateFlag(2,6430,440,GetTeamColor(2));}
 
     //Grenzen setzen
-    CreateObject(BRDR, 3370, 0, -1)->Set(0);
-    CreateObject(BRDR, 6870, 0, -1)->Set(1);
+    CreateObject(BRDR, 3370, 0, -1)->Set(0,0,0,0,0,1);
+    CreateObject(BRDR, 6870, 0, -1)->Set(1,0,0,0,0,1);
 
     //Hinweisschilder
     CreateObject(SGNP, 3295, 470, -1);
@@ -1100,8 +1100,8 @@ public func ChooserFinished()
   if(FindObject(GLMS) || FindObject(GTDM))
   {
     //Grenzen setzen
-    CreateObject(BRDR, 3370, 0, -1)->Set(0);
-    CreateObject(BRDR, 5980, 0, -1)->Set(1);
+    CreateObject(BRDR, 3370, 0, -1)->Set(0,0,0,0,0,1);
+    CreateObject(BRDR, 5980, 0, -1)->Set(1,0,0,0,0,1);
 
     //Hinweisschilder
     CreateObject(SGNP, 3295, 470, -1);
