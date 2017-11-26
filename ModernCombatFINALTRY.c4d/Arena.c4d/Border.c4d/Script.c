@@ -3,13 +3,13 @@
 #strict 2
 
 local x,y,xh,yh;
-local fAbyss;
+local fAbyss, fReopenDoors;
 local fTeamAllow, iAllowedTeam, iSearchDir;
 
 
 /* Einstellung */
 
-public func Set(int iDir, bool fKeepSpawns, bool fAbyssKill, bool fTeamCheck, int iTeam)
+public func Set(int iDir, bool fKeepSpawns, bool fAbyssKill, bool fTeamCheck, int iTeam, bool fLockDoors)
 {
   fAbyss = fAbyssKill;
   iSearchDir = iDir;
@@ -55,6 +55,14 @@ public func Set(int iDir, bool fKeepSpawns, bool fAbyssKill, bool fTeamCheck, in
   if(!fKeepSpawns)
     for(var obj in FindObjects(Find_InRect(x, y, xh, yh), Find_Func("IsSpawnpoint")))
       RemoveObject(obj);
+
+  //Türen und Luken abschließen?
+  if(fLockDoors)
+  {
+    for(var obj in FindObjects(Find_And(Find_InRect(x, y, xh, yh), Find_Or(Find_ID(GTNG), Find_ID(GDDR), Find_ID(H24K), Find_ID(HA4K)))))
+      obj->Lock();
+    fReopenDoors = true;
+  }
 }
 
 /* Grenzüberschreiter suchen */
@@ -205,4 +213,8 @@ protected func Destruction()
   for(var obj in FindObjects(Find_OCF(OCF_CrewMember)))
     if(GetEffect("Border", obj, 0, 4) == this)
       RemoveEffect("Border", obj);
+
+  if(fReopenDoors)
+    for(var obj in FindObjects(Find_And(Find_InRect(x, y, xh, yh), Find_Or(Find_ID(GTNG), Find_ID(GDDR), Find_ID(H24K), Find_ID(HA4K)))))
+      obj->Unlock();
 }

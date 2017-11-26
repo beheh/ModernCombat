@@ -11,8 +11,6 @@ public func GetMaxDamage()	{return maxdmg;}		//Maximaler Schaden
 public func IsDestroyable()	{return maxdmg != -1;}		//Zerstörbar?
 public func SetMaxDamage(int m)	{ maxdmg = m; }
 public func RejectC4Attach()	{return true;}
-public func Lock(bool aut)	{lock = 1; if(aut) lock = 2;}	//Tür öffnet sich nicht mehr automtisch
-public func Unlock()		{lock = 0;}
 public func IsSideDoor()	{return true;}
 func OnDestroyed()		{return 1;}			//Zerstört
 func OnOpen()			{return 1;}			//Geöffnet
@@ -26,10 +24,24 @@ public func Initialize()
   closed = true;
   Unlock();
   SetMaxDamage(50);	//Standardmaximalschaden
-  AddEffect("CheckOpen",this,1,5,this);
-
   UpdateTransferZone();
 }
+
+/* Ver- und Aufschließen */
+
+public func Lock(bool aut)
+{
+  lock = 1 + aut;
+  RemoveEffect("CheckOpen", this);
+}
+
+public func Unlock()
+{
+  lock = 0;
+  StartDoorCheck();
+}
+
+/* Suchzone */
 
 public func UpdateTransferZone()
 {
@@ -96,6 +108,7 @@ public func Open()
 {
   if(destroyed)		return;
   if(!closed)		return;
+  if(lock)		return;
   OnOpen();
   closed = false;
 }
@@ -139,41 +152,33 @@ public func IsBulletTarget()
   return true;
 }
 
-/* Türsteuerung */
+/* Clonk-Suche beginnen */
+
+private func StartDoorCheck()
+{
+  AddEffect("CheckOpen",this,1,5,this);
+}
+
+/* Clonksucheffekt */
 
 public func FxCheckOpenTimer()
 {
   if(destroyed) return -1;
   if(lock == 1) return;
 
-  if(!closed)
+  if(SomeonesApproaching())
   {
-    if(!SomeonesApproaching())
-      Close();
+    Open();
   }
-  else if(!lock)
+  else
   {
-    if(SomeonesApproaching())
-      Open();
+    Close();
   }
 }
 
 private func SomeonesApproaching()
 {
-  var aClonks = CreateArray();
-
-  for(var i = 0; i < 2; ++i)
-  {
-    aClonks = FindObjects(Find_InRect(-35 * i, -GetObjHeight() / 2, 35, GetObjHeight()),
-    				Find_NoContainer(),
-    				Find_Or(Find_And(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember), Find_Not(Find_Func("IsAlien"))),
-    				Find_Func("IsMAV")));
-    if(GetLength(aClonks) > 0)
-    {
-      return true;
-    }
-  }
-  return false;
+  return FindObject2(Find_InRect(-35, -GetObjHeight() / 2, 70, GetObjHeight()), Find_NoContainer(), Find_Or(Find_OCF(OCF_CrewMember), Find_Func("IsMav")));
 }
 
 /* Serialisierung */
