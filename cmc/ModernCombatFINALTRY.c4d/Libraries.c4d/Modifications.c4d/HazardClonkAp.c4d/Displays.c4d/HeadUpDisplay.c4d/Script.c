@@ -389,10 +389,13 @@ public func ShowResupplyInfo(id SupplyType, int SupplyAmount, int iPos)
   else {ix=-12; iy=13; iz=1;}
 
   //Munition oder Handgranate
-  if(SupplyAmount)
+  if(SupplyType->~IsAmmo() && !NoAmmo())
     CustomMessage(Format("<c ffbb00>+%d</c>{{%i}}",SupplyAmount,SupplyType), CharsGrenade[iz], NO_OWNER, ix, iy, 0, 0, 0, MSG_NoLinebreak);
   else
-    CustomMessage(Format("<c ffbb00>+</c>{{%i}}",SupplyType), CharsGrenade[iz], NO_OWNER, ix, iy, 0, 0, 0, MSG_NoLinebreak);
+    if(SupplyType->~IsGrenade())
+      CustomMessage(Format("<c ffbb00>+</c>{{%i}}",SupplyType), CharsGrenade[iz], NO_OWNER, ix, iy, 0, 0, 0, MSG_NoLinebreak);
+    else
+      return;
 
   return 1;
 }
