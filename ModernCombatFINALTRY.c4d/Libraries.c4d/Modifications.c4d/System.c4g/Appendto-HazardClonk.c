@@ -1988,7 +1988,7 @@ protected func RejectCollect(id idObj, object pObj)
     if(Collect(att, this))
     {
       att->SetAttachment(pObj->GetAttachment());
-      Sound("Merge.ogg");
+      Sound("PackGrab*.ogg");
 
       //Überschreibt die "Holen nicht möglich"-Nachricht
       Schedule(Format("PlayerMessage(%d, \"$AttachmentCollected$\", this)", GetOwner(), GetName(0, AttachmentIcon(pObj->GetAttachment()))), 1, 0, this);
