@@ -20,7 +20,8 @@ public func RejectEntrance(object pObj)
     {
       AddEffect("DragninHeal",pObj,20,1,0,DGNN,HealAmount(),HealRate());
       Sound("FAPK_Healing*.ogg");
-      Sound("Merge.ogg");
+      Sound("PackGrab*.ogg");
+
       RemoveObject();
     }
   }
@@ -28,7 +29,9 @@ public func RejectEntrance(object pObj)
   {
     pFAP->~DoPackPoints(HealAmount());
     PlayerMessage(GetOwner(pObj), "$Refilled$", pObj, FAPK, HealAmount());
-    Sound("Merge.ogg", false, pFAP);
+    Sound("Merge.ogg",0,pFAP,0,GetOwner(pObj)+1);
+    Sound("PackGrab*.ogg");
+
     RemoveObject();
   }
 

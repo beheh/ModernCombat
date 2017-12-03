@@ -149,7 +149,8 @@ public func JoinPack(object pInto, object pMsgObject)
   {
     if(pMsgObject)
       PlayerMessage(GetOwner(pMsgObject), "$Refilled$", pMsgObject, GetID(), iChange);
-    Sound("Merge.ogg", false, pInto);
+    Sound("Merge.ogg",0,pInto,0,GetOwner(pInto)+1);
+    Sound("PackGrab*.ogg");
   }
   //Wir sind leer?
   if(!GetPackPoints() && DestroyEmptyPack())
