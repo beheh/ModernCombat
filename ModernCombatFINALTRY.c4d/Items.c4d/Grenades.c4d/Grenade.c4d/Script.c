@@ -330,7 +330,7 @@ func CustomHUD()		{return true;}
 func UpdateHUD(object pHUD)
 {
   var user = GetUser();
-  if(!user) return ;
+  if(!user) return;
   if(!user->~MaxGrenades()) return 0;
 
   pHUD->Ammo(1,user->GrenadeCount(GetID()), GetName(), true);

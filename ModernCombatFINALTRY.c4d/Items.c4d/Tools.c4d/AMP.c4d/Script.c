@@ -130,8 +130,13 @@ public func AmmoTypes()
 protected func Activate(object pCaller)
 {
   //Leeres Pack zerstören
-  if(!GetPackPoints() && !GetEffect("ClonkClass_Support", pCaller))
+  if(!GetPackPoints())
   {
+    if(GetEffect("ClonkClass_Support", pCaller))
+    {
+      PlayerMessage(GetOwner(pCaller), "$CantTake$", pCaller);
+      return true;
+    }
     Sound("Limitation.ogg", false, this);
     CastParticles("Paper", RandomX(4, 8), 40, 0, 0, 20, 35, RGB(180, 180, 180), RGBa(240, 240, 240, 150));
     RemoveObject();

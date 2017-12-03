@@ -270,13 +270,18 @@ public func MinValue2()		{return 19;}
 
 func UpdateHUD(object pHUD)
 {
+  //Farbe ermitteln
   var color = ColorEmpty()*(Inside(charge, 0, MinValue()));
   if(!color)
     color = ColorLow()*(Inside(charge, MinValue()+1, MinValue2()));
+
+  //Ladung
   pHUD->~Charge(charge, MaxEnergy());
   pHUD->~Ammo(charge, MaxEnergy(), GetName(), true, color);
+  //Anwahlzeit
   if(GetEffect("IntSelection", this) != 0)
     pHUD->Recharge(GetEffect("IntSelection", this, 0, 6), GetEffect("IntSelection", this, 0, 3)-1);
+  //Ladezeit
   if(GetAction() == "Reload")
     pHUD->Recharge(GetActTime(), 34);
 }

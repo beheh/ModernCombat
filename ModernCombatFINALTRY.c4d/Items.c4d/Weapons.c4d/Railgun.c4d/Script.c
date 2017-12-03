@@ -109,7 +109,10 @@ public func Fire1()
   Sound("RLGN_Fire.ogg");
   Echo("RLGN_Echo.ogg");
   if(GetAmmo(GetFMData(FM_AmmoID)) >= 2)
+  {
     Sound("RLGN_Reload.ogg");
+    SetAction("Reload");
+  }
   else
     Sound("ASTR_Empty.ogg", 0, this, 0, GetOwner(user)+1);
 }
@@ -288,6 +291,8 @@ func UpdateHUD(object pHUD)
 
   //Daten übergeben
   pHUD->~Ammo(ammo, 0, str, false);
+  if(GetAction() == "Reload")
+    pHUD->Recharge(GetActTime(), 100);
 }
 
 /* Allgemein */
