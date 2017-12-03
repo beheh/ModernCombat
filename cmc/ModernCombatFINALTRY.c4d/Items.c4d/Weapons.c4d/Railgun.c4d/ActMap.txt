@@ -7,3 +7,9 @@ Length=9
 EndCall=CheckToFire
 NextAction=Idle
 Sound=RLGN_Charging.ogg
+
+[Action]
+Name=Reload
+Delay=100
+FacetBase=1
+NextAction=Idle

@@ -478,9 +478,12 @@ public func MinValue2()		{return 49;}
 
 func UpdateHUD(object pHUD)
 {
+  //Farbe ermitteln
   var color = ColorEmpty()*(Inside(charge, 0, MinValue()));
   if(!color)
     color = ColorLow()*(Inside(charge, MinValue()+1, MinValue2()));
+
+  //Daten übergeben
   pHUD->~Ammo(charge, MaxEnergy(), GetName(), true, color);
 }
 
