@@ -166,7 +166,7 @@ func FxDragninHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
   {
     return -1;
   }
-  //Bildschirm Effekt
+  //Bildschirmeffekt
   if(!(iEffectTime % 20))
   {
     ScreenRGB(pTarget,RGBa(0, 230, 255, 190), 80, 3,false, SR4K_LayerMedicament, 200);
