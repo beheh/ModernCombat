@@ -2,7 +2,7 @@
 
 #strict 2
 
-local ammoid,count;
+local ammoid,count,owner,ownersaved;
 
 public func IsDrawable()	{return true;}		//Wird sichtbar getragen
 public func HandSize()		{return 800;}
@@ -84,6 +84,12 @@ public func DoAmmoCount(int iCount)
   return dif;
 }
 
+public func SetBoxOwner(int iPlayer)
+{
+  owner = iPlayer;
+  ownersaved = true;
+}
+
 private func OnTransfer()	{}
 
 protected func Activate(object pObj)
@@ -113,6 +119,8 @@ public func TransferAmmo(object pObj)
     return;
   }
 
+  //Ersteller als Besitzer wiederherstellen falls vorhanden
+  if(ownersaved && GetPlayerName(owner)) SetOwner(owner);
   //Hinweisnachricht: Munition aufgenommen
   HelpMessage(GetOwner(pObj),"$Collected$",pObj,AmmoCount(), AmmoID());
   //Nachschubinfo: Munition aufgenommen

@@ -207,6 +207,7 @@ protected func CreateAmmoPack(id idAmmo, object pCaller, bool fRight, int iIndex
   var box = CreateObject(CUAM, 0, 0, GetOwner(pCaller));
   box->~SetAmmoID(aAmmo[0]);
   box->~SetAmmoCount(AmmoCount, true);
+  box->~SetBoxOwner(GetOwner(pCaller));
 
   //Einsammeln
   if(!Collect(box, pCaller))
