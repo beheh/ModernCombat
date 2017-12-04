@@ -61,10 +61,11 @@ protected func Damage(int iChange)
 protected func Selection()
 {
   Sound("BBTP_Charge.ogg");
-  return 1;
+  Sound("FAPK_Charge.ogg");
 }
 
 func Hit()
 {
   Sound("BBTP_Hit*.ogg");
+  Sound("WPN2_Hit*.ogg");
 }
