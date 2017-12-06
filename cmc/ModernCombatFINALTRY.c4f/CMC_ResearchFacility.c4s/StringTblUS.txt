@@ -4,6 +4,9 @@ CreatingDecoration=Placing decoration...
 RepeatButton=Restart game
 RepeatButtonDesc=Restart the round.
 
+MsgFlagChanging=<c ff0000>Warning</c>: Flag post will <c ffff33>change positions</c> soon!
+MsgFlagChanged=Flag post moved to position <c ffff33>%s</c>!
+
 Team1=Eurocorps
 Team2=Aggressors
 
@@ -12,6 +15,8 @@ Flag2=Control Tower
 Flag3=Vehicle Hall
 Flag4=Lobby
 Flag5=Storage Depot
+Flag6=Entrance
+Flag7=Fuel Depot
 
 Target1=Control Unit
 Target2=Data Server

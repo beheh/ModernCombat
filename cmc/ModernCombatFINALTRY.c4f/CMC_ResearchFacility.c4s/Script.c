@@ -740,6 +740,9 @@ func CreateEquipment()
   //Dragninautomaten
   CreateObject(DGND, 1000, 1780, -1);
   CreateObject(DGND, 2190, 1820, -1);
+
+  //Versorgungskiste (Railgun)
+  CreateObject(AMCT, 1760, 520, -1)->Set(RLGN,0,0,0,1);
 }
 
 func CreateDecoration()
@@ -1392,9 +1395,13 @@ public func ChooserFinished()
   //HTF-Spielziel
   if(FindObject(GHTF))
   {
+    //Script starten
+    ScriptGo(1);
+    aFlagPosition = 2;
+
     //Flaggenposten
-    var flag = CreateObject(OFPL, 1765,820, -1);
-    flag->~Set("$Flag5$");
+    aFlag[0] = CreateObject(OFPL, 1765,820, -1);
+    aFlag[0]->Set("$Flag5$");
 
     //Teamgrenzen
     CreateObject(BRDR, 1310, 0, -1)->Set(0,1,0,1,1);
@@ -1421,7 +1428,7 @@ public func ChooserFinished()
     CreateObject(LFTP, 2355, 754, -1)->SetLimits(745,1460);
     CreateObject(LFTP, 2825, 154, -1)->SetLimits(145,920);
 
-    //Automaten
+    //Automat
     var store = CreateObject(WPVM,1765, 1110,-1);
     store->AddWare(C4PA,10);
     store->AddWare(FAPK,10);
@@ -1461,7 +1468,7 @@ public func ChooserFinished()
 
     //Verbundene Räume
     aDoorWay[30] = CreateObject(GAT1, 926, 130, -1);
-    aDoorWay[31] = CreateObject(ROOM, 1080, 1110, -1);
+    aDoorWay[31] = CreateObject(GAT3, 1185, 960, -1);
     aDoorWay[30]->Connect(aDoorWay[31]);
     aDoorWay[32] = CreateObject(GAT1, 2575, 90, -1);
     aDoorWay[33] = CreateObject(GAT3, 2245, 1050, -1);
@@ -1469,14 +1476,21 @@ public func ChooserFinished()
     aDoorWay[35] = CreateObject(ROOM, 2750, 740, -1);
     aDoorWay[36] = CreateObject(ROOM, 2520, 1100, -1);
     aDoorWay[35]->Connect(aDoorWay[36]);
+    aDoorWay[37] = CreateObject(ROOM, 965, 560, -1);
+    aDoorWay[38] = CreateObject(ROOM, 1080, 1110, -1);
+    aDoorWay[37]->Connect(aDoorWay[38]);
 
     //Bodenluken
     CreateObject(HA4K, 1130, 1113, -1)->Lock();
     CreateObject(HA4K, 1240, 1113, -1)->Lock();
 
-    //Bodenluke schließen
+    //Bodenluken schließen
     aDoor[08]->Lock();
     aDoor[09]->Lock();
+
+    //Artilleriebatterien
+    CreateObject(ATBY,1185,100,-1);
+    CreateObject(ATBY,2825,100,-1);
 
     //Geschützstellungen
     CreateObject(GNET, 845, 1010, -1)->Set(SATW,90);
@@ -1504,6 +1518,7 @@ public func ChooserFinished()
     CreateObject(SGNP, 2950, 90, -1);
 
     //Gerüste
+    CreateObject(SFFG, 1185, 1010, -1)->Set(4);
     CreateObject(SFFG, 1705, 510, -1)->Set(4);
     CreateObject(SFFG, 1765, 410, -1)->Set(4);
     CreateObject(SFFG, 1765, 460, -1)->Set(5);
@@ -1513,6 +1528,9 @@ public func ChooserFinished()
     //Gerüst anpassen
     for(var obj in FindObjects(Find_ID(SFFG), Find_InRect(1740,1020,50,50)))
       obj->Set(5);
+
+    //Stahlbrücke
+    CreateObject(_HBR, 1185, 1022, -1)->SwitchMode();
 
     //Objekte entfernen
     RemoveObject(aSelfDefense[0]);
@@ -1524,11 +1542,8 @@ public func ChooserFinished()
     RemoveObject(aDoorWay[9]);
 
     //Versorgungskiste (Revolver)
-    CreateObject(AMCT, 1140, 580, -1)->Set(RVLR);
+    CreateObject(AMCT, 1020, 580, -1)->Set(RVLR);
     CreateObject(AMCT, 2440, 910, -1)->Set(RVLR);
-
-    //Versorgungskiste (APW)
-    CreateObject(AMCT, 1760, 520, -1)->Set(ATWN);
 
     //Munition
     if(!FindObject(NOAM))
@@ -1730,9 +1745,6 @@ public func ChooserFinished()
 
     //Versorgungskiste (Phosphorgranaten)
     CreateObject(AMCT, 1765, 820, -1)->Set(PGRN);
-
-    //Versorgungskiste (Railgun)
-    CreateObject(AMCT, 1760, 520, -1)->Set(RLGN,0,0,0,1);
 
     //Versorgungskisten (Revolver)
     CreateObject(AMCT, 385, 230, -1)->Set(RVLR);
@@ -2076,4 +2088,62 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
       return [[2560, 130], [2590, 260], [2760, 90], [2900, 260], [3025, 90]];
     return 1;
   }
+}
+
+/* Flaggensteuerung */
+
+protected func Script250()
+{
+  EventInfo4K(0,Format("$MsgFlagChanging$"),SM21, 0, 0, 0, "Info_Objective.ogg");
+  aFlag[0]->AddSmokeEffect4K(50,0,-10);
+}
+
+protected func Script300()
+{
+  RemoveEffect("IntWreckSmoke4K",aFlag[0]);
+  if(aFlagPosition == 1)
+  {
+    if(!Random(2))
+    {
+      aFlag[0]->MoveFlagpost(1765,820,"$Flag5$");
+      aFlagPosition = 2;
+    }
+    else
+    {
+      aFlag[0]->MoveFlagpost(1765,1064,"$Flag7$");
+      aFlagPosition = 3;
+    }
+  }
+  else
+  if(aFlagPosition == 2)
+  {
+    if(!Random(2))
+    {
+      aFlag[0]->MoveFlagpost(1765,464,"$Flag6$");
+      aFlagPosition = 1;
+    }
+    else
+    {
+      aFlag[0]->MoveFlagpost(1765,1064,"$Flag7$");
+      aFlagPosition = 3;
+    }
+  }
+  else
+  if(aFlagPosition == 3)
+  {
+    if(!Random(2))
+    {
+      aFlag[0]->MoveFlagpost(1765,464,"$Flag6$");
+      aFlagPosition = 1;
+    }
+    else
+    {
+      aFlag[0]->MoveFlagpost(1765,820,"$Flag5$");
+      aFlagPosition = 2;
+    }
+  }
+
+  EventInfo4K(0,Format("$MsgFlagChanged$", GetName(aFlag[0])),SM21, 0, 0, 0, "Info_Objective.ogg");
+
+  goto(0);
 }
