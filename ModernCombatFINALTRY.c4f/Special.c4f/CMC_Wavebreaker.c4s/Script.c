@@ -60,9 +60,7 @@ func CreateInterior()
   DrawMaterialQuad("Wall-Bricks1",3190,1760,3220,1750,3220,1760,3190,1760,true);
   DrawMaterialQuad("Wall-Bricks1",3290,1280,3350,1260,3350,1330,3290,1290,true);
   DrawMaterialQuad("Wall-Bricks1",3330,1720,3360,1690,3390,1690,3420,1720,true);
-  DrawMaterialQuad("Wall-Bricks1",3510,960,3530,950,3530,960,3510,970,true);
   DrawMaterialQuad("Wall-Bricks1",3500,1720,3530,1690,3530,1720,3500,1720,true);
-  DrawMaterialQuad("Wall-Bricks1",3670,950,3690,960,3690,970,3670,960,true);
   DrawMaterialQuad("Wall-Bricks1",3670,1690,3700,1720,3670,1720,3670,1690,true);
   DrawMaterialQuad("Wall-Bricks1",3780,1720,3810,1690,3840,1690,3870,1720,true);
   DrawMaterialQuad("Wall-Bricks1",3910,1280,3850,1260,3850,1330,3910,1290,true);
@@ -423,7 +421,7 @@ func CreateEquipment()
   PlaceSpawnpoint(MBOX, 5580, 1105);
 
   //Versorgungskiste (Railgun)
-  aInterior[4] = CreateObject(AMCT, 3600, 820, -1)->Set(RLGN,0,0,0,1);
+  aInterior[4] = CreateObject(AMCT, 3600, 920, -1)->Set(RLGN,0,0,0,1);
 
   //Versorgungskisten (APW)
   CreateObject(AMCT, 2965, 1110, -1)->Set(ATWN);
@@ -703,8 +701,9 @@ func CreateDecoration()
   CreateObject(LCKR, 1435, 1170, -1);
   CreateObject(LCKR, 5765, 1170, -1);
 
-  //Thron
-  CreateObject(THRN, 3600, 920, -1);
+  //Thröne
+  CreateObject(THRN, 3580, 920, -1)->ControlRight();
+  CreateObject(THRN, 3620, 920, -1);
 
   //Schildständer
   CreateObject(SHRC, 3370, 1481, -1)->SetPhase(1);
@@ -781,11 +780,6 @@ func OnPillarCollapse(int iPlr)
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",10,110,3480,870,60,100);
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",10,110,3600,800,60,100);
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",10,110,3720,870,60,100);
-
-  //Material entfernen
-  DrawMaterialQuad("FlySand",3510,960,3530,950,3530,960,3510,970);
-  DrawMaterialQuad("FlySand",3670,950,3690,960,3690,970,3670,960);
-  DigFreeRect(3510,950,180,20);
 
   //Lebewesen verletzen
   for(var obj in FindObjects(Find_OCF(OCF_Alive), Find_InRect(3480,820,240,150)))
@@ -1184,9 +1178,6 @@ public func ChooserFinished()
     CreateObject(SFFG, 2600, 1250, -1)->Set(4);
     CreateObject(SFFG, 4600, 1250, -1)->Set(4);
     CreateObject(SFFG, 4660, 1250, -1)->Set(4);
-
-    //Versorgungskiste verschieben
-    aInterior[4]->SetPosition(3600, 915);
 
     //Patrouillenboote
     SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2690,1270,-1),50*21);
