@@ -57,7 +57,7 @@ protected func FxIntSignalMoneyTimer(object pTarget, int iEffect)
   if(!pTarget->~GetCurrent())
     return false;
 
-  CreateParticle("XSpark", 0, 0, 0, 0, 400, RGBa(255, 250, 150, 200), this);
+  CreateParticle("NoGravSpark", 0, 0, 0, 0, 400, RGBa(255, 250, 150, 200), this);
 }
 
 /* Einsammeln */

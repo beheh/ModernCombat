@@ -128,13 +128,14 @@ public func Destruction()
   EventInfo4K(0, Format("$FlagReturned$", GetTeamColor(team), GetTeamName(team)), FLA2, 0, GetTeamColor(team), 0, "Info_Event.ogg");
 }
 
-public func FxCollectTimer(target, no)
+protected func Initialize()
 {
-  if(WildcardMatch(GetAction(target),"*Attach*")) return;
-  if(GetMaterial(AbsX(GetX(target)), AbsY(GetY(target))) == Material("DuroLava"))
-  {
-    RemoveObject(target);
-    return -1;
-  }
-  return _inherited(target, no);
+  AddEffect("IntSignalFlag", this, 1, 100, this);
+
+  return _inherited();
+}
+
+protected func FxIntSignalFlagTimer(object pTarget, int iEffect)
+{
+  CreateParticle("NoGravSpark", 0, 0, 0, 0, 500, RGBa(255, 255, 255, 200), this);
 }
