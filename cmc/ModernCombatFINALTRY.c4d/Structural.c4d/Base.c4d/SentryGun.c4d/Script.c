@@ -246,16 +246,15 @@ public func GetWeaponR()
 
 public func Activity()
 {
-  //Bereitschaft prüfen: Waffe vorhanden/kein EMP-Einfluss/nicht zerstört/ist eingeschaltet/nicht am reparieren
+  //Bereitschaft prüfen: Ist eingeschaltet/Waffe vorhanden/nicht zerstört/nicht am reparieren/kein EMP-Einfluss
+  if(!fActive)		return;
   if(!GetAttWeapon())	return;
+  if(IsDestroyed())	return;
+  if(IsRepairing())	return;
+  if(EMPShocked())	return;
 
   //Besitzer aktualisieren
   cur_Attachment->SetTeam(GetTeam());
-
-  if(EMPShocked())	return;
-  if(IsDestroyed())	return;
-  if(!fActive)		return;
-  if(IsRepairing())	return;
 
   //Wenn nicht schon gesetzt: Turn-Action
   if(!fAAMode)
