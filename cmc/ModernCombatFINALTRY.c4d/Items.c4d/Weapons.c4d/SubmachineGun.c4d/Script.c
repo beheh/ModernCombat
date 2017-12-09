@@ -115,8 +115,8 @@ public func FMData1T3(int data)
 
   if(data == FM_Damage)		return FMData1(data) + 6;					//Schadenswert
 
-  if(data == FM_SpreadAdd)	return FMData1(data) - 2;					//Bei jedem Schuss hinzuzuaddierende Streuung
-  if(data == FM_MinSpread)	return FMData1(data) - (iAttachment == AT_Laserpointer)*20;	//Kleinstmögliche Streuung
+  if(data == FM_SpreadAdd)	return FMData1(data) + 30;					//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_MinSpread)	return 20 - (iAttachment == AT_Laserpointer)*10;		//Kleinstmögliche Streuung
 
   return FMData1(data);
 }
