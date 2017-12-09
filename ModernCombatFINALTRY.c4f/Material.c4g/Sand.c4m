@@ -11,5 +11,6 @@ Soil=1
 Placement=30
 TextureOverlay=Smooth2
 DigFree=1
+Dig2Object=
 BlastFree=1
 Blast2PXSRatio=10
