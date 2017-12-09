@@ -957,13 +957,13 @@ global func AwardAchievement(id idAchievement, int iPlr)
   //Bereits vorhanden?
   if(db->GetPlayerAchievement(iPlr, idAchievement))
   {
-    //Achievement-Anzeige entsprechend der Einstellung des Spielers
+    //Anzeige entsprechend der Einstellung des Spielers
     if(GetCursor(iPlr)->~AchievementDisplayType())
     {
-      //Achievementanzeige mit goldenem Hintergrund
+      //Achievement-Anzeige mit goldenem Hintergrund
       var achievement = CreateObject(idAchievement, 0, 0, iPlr);
       achievement->SetHighlightColor(RGB(250,210,20));
-      achievement->SetDurationTime(190);
+      achievement->SetDurationTime(100);
 
       //Sound-Hinweis
       Sound("RWDS_Achievement.ogg", true, 0, 100, iPlr+1);
@@ -976,7 +976,7 @@ global func AwardAchievement(id idAchievement, int iPlr)
     //Vergabe
     db->SetPlayerAchievement(iPlr, idAchievement, true);
 
-    //Achievementanzeige mit blauem Hintergrund
+    //Achievement-Anzeige mit blauem Hintergrund
     var achievement = CreateObject(idAchievement, 0, 0, iPlr);
     achievement->SetHighlightColor(RGB(0,153,255));
     //Eventnachricht: Errungenschaft erhalten
