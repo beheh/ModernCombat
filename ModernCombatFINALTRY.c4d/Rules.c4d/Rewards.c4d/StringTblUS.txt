@@ -8,7 +8,7 @@ DeathCount=<c ee0000>%d</c> Deaths
 AchievedAchievements=<c ffff33>%d</c> / %d Achievements
 NextRank=Current Rank: %s (%d)|Next Rank: %s (%d)
 MaxRankReached=Highest rank reached.|%s (%d)
-PlayerPromoted=You have been promoted to <c ffff33>%s</c>!
+PlayerPromoted=You have been promoted to %s!
 YouHaveBeenPromoted=%s has been promoted to <c ffff33>%s</c>!
 UntilRankUp=points until promotion
 
