@@ -543,7 +543,7 @@ public func GetData()
 
 /* Ränge */
 
-global func GetRankID(int iRank)	{return C4Id(Format("RG%02d", iRank));}
+global func GetRankID(int iRank)	{return C4Id(Format("R%03d", iRank));}
 
 /* Ränge-Cache laden */
 
@@ -599,6 +599,7 @@ global func RecalcPlayerRank(int iPlr)
 
       var info = CreateObject(GetRankID(nRank), 0, 0, iPlr);
       info->SetHighlightColor(RGB(0,153,255));
+      info->SetCustomDesc(Format("$PlayerPromoted$", GetName(info)));
       //Eventnachricht: Beförderung
       EventInfo4K(0, Format("$YouHaveBeenPromoted$", GetTaggedPlayerName(iPlr), GetName(info)), GetID(info), 0, 0, 0, "Info_Event.ogg");
 
@@ -637,9 +638,9 @@ global func CalcRank(int iPlr)
 
   for(var j = 0; j < iRankCount; j++)
   {
-    var k = 800 * j ** 2;
+    var k = 500 * j ** 2;
     k -= (k % 1000) * (k > 1000); // benötigte Punktzahl (unter Grenze)
-    var k2 = 800 * (j+1) ** 2;
+    var k2 = 500 * (j+1) ** 2;
     k2 -= (k2 % 1000) * (k2 > 1000); // benötigte Punktzahl (obere Grenze)
 
     if(j+1 == iRankCount)
@@ -788,7 +789,7 @@ public func StatsStatistics(int iPlr)
 
   var rank = GetPlayerRank(iPlr);
   if(rank != iRankCount-1)
-    AddMenuItem(Format("$NextRank$", GetName(0, GetRankID(rank)), rank, GetName(0, C4Id(Format("RG%02d", rank+1))), rank+1), 0, 0, pClonk);
+    AddMenuItem(Format("$NextRank$", GetName(0, GetRankID(rank)), rank, GetName(0, C4Id(Format("R%03d", rank+1))), rank+1), 0, 0, pClonk);
   else
     AddMenuItem(Format("$MaxRankReached$", GetName(0, GetRankID(rank)), rank), 0, 0, pClonk);
 
@@ -799,9 +800,9 @@ public func StatsStatistics(int iPlr)
 
     var str = "";
 
-    var k = 800 * rank ** 2;
+    var k = 500 * rank ** 2;
     k -= (k % 1000) * (k > 1000);
-    var k2 = 800 * (rank+1) ** 2;
+    var k2 = 500 * (rank+1) ** 2;
     k2 -= (k2 % 1000) * (k2 > 1000);
 
     var diff = k2-k;

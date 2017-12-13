@@ -8,6 +8,7 @@ DeathCount=<c ee0000>%d</c> Tode
 AchievedAchievements=<c ffff33>%d</c> / %d Errungenschaften
 NextRank=Aktueller Rang: %s (%d)|Nächster Rang: %s (%d)
 MaxRankReached=Höchster Rang erreicht.|%s (%d)
+PlayerPromoted=Du wurdest auf den Rang <c ffff33>%s</c> befördert!
 YouHaveBeenPromoted=%s wurde auf den Rang <c ffff33>%s</c> befördert!
 UntilRankUp=Punkte bis Beförderung
 
