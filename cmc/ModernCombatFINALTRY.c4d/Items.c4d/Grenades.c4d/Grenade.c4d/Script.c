@@ -177,6 +177,8 @@ public func Throw()
 
 public func Activate(object pCaller)
 {
+  if(IsFusing()) return 1;
+
   //Granate in den Granatengürtel des Clonks lagern
   pCaller->~StoreGrenade(this);
 
