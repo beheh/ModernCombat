@@ -517,7 +517,7 @@ public func Reanimation()
       AutoUnstuck(clonk);
   }
 
-  //Besitztümer weitergeben
+  //Besitztümer wiedergeben
   if(GetAlive(clonk))
   {
     for(i = 0; i < GetLength(aContents); i++)
@@ -544,11 +544,13 @@ public func Reanimation()
 
     RemoveEffect("NoAnnounce", clonk);
   }
+  //Überschüssige Objekte auswerfen
   while(Contents())
   {
     if(!GetAlive(clonk) || !Contents()->~IsClonk())
       Exit(Contents(),0,+10);
   }
+
   //Sichtdaten zurücksetzen
   ResetFakeDeathEffects(clonk);
   Sound("FKDT_Heartbeat.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
