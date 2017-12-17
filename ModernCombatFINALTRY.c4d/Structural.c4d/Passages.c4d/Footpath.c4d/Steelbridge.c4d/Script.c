@@ -5,6 +5,7 @@
 public func IsRepairable()	{return !norepair;}
 public func MaxDamage()		{return 150;}
 public func RepairSpeed()	{return 2;}
+public func BonusPointRepair()	{return 50;}
 
 local ruins, destroyed, norepair;
 
