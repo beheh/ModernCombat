@@ -108,7 +108,6 @@ public func Open()
 {
   if(destroyed)		return;
   if(!closed)		return;
-  if(lock)		return;
   OnOpen();
   closed = false;
 }
