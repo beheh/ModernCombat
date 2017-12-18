@@ -897,7 +897,9 @@ public func BlowTorch(bool statusOnly)
            obj->~OnRepairing(this);
       }
 
-      if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(this) && LocalN("iRepaired", pItem)++ >= obj->~BonusPointRepair())
+      var BonusRepairAmount = obj->~BonusPointRepair();
+      if(!BonusRepairAmount) BonusRepairAmount = 50;
+      if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(this) && LocalN("iRepaired", pItem)++ >= BonusRepairAmount)
       {
          //Punkte bei Belohnungssystem (Reparatur)
          DoPlayerPoints(BonusPoints("Repair"), RWDS_TeamPoints, GetOwner(this), this, IC29);

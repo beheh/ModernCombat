@@ -417,7 +417,9 @@ public func Use(caller)
             obj->~OnRepairing(this);
         }
 
-        if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(Contained()) && iRepaired++ >= obj->~BonusPointRepair())
+        var BonusRepairAmount = obj->~BonusPointRepair();
+        if(!BonusRepairAmount) BonusRepairAmount = 50;
+        if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(Contained()) && iRepaired++ >= BonusRepairAmount)
         {
           //Punkte bei Belohnungssystem (Reparatur)
           DoPlayerPoints(BonusPoints("Repair"), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC29);
