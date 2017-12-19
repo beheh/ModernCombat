@@ -292,6 +292,10 @@ func CreateInterior()
   CreateObject(SBBA, 1751, 1030, -1);
 
   CreateObject(SBBA, 2351, 820, -1);
+  CreateObject(SBBA, 2385, 172, -1);
+  CreateObject(SBBA, 2385, 353, -1);
+  CreateObject(SBBA, 2455, 172, -1)->Right();
+  CreateObject(SBBA, 2455, 353, -1)->Right();
   CreateObject(SBBA, 2490, 820, -1)->Right();
   CreateObject(SBBA, 2540, 1420, -1)->Right();
   CreateObject(SBBA, 2822, 740, -1);
@@ -299,8 +303,12 @@ func CreateInterior()
   CreateObject(SBBA, 3058, 740, -1)->Right();
   CreateObject(SBBA, 3058, 820, -1)->Right();
   CreateObject(SBBA, 3341, 1420, -1);
-  CreateObject(SBBA, 3530, 820, -1)->Right();
   CreateObject(SBBA, 3391, 820, -1);
+  CreateObject(SBBA, 3425, 172, -1);
+  CreateObject(SBBA, 3425, 353, -1);
+  CreateObject(SBBA, 3495, 172, -1)->Right();
+  CreateObject(SBBA, 3495, 353, -1)->Right();
+  CreateObject(SBBA, 3530, 820, -1)->Right();
 
   CreateObject(SBBA, 4130, 1030, -1)->Right();
   CreateObject(SBBA, 4391, 1420, -1);
