@@ -110,8 +110,8 @@ func InstaExplode(int iPlr)
   damaged = true;
 
   //Effekte
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(250,0,0),RGB(250,250,250));
   Sound("BarrelImpact*.ogg");
-  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(250,0,0));
 
   //Umliegende Objekte anzünden
   for(var obj in FindObjects(Find_Distance(30+Random(20)),Find_Exclude(this),Find_Not(Find_Category(C4D_StaticBack))))

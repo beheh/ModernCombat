@@ -28,11 +28,11 @@ func InstaExplode()
   damaged = true;
 
   //Effekte
-  Sound("BarrelImpact*.ogg");
-  Sound("Fuse.wav");
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("MetalSplinter", 3+Random(3), 80, 0,0, 30,80,RGB(250,0,0));
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",4,30,0,0,100,300,RGBa(255,255,255,100),RGBa(255,255,255,130));
-  if(GetEffectData(EFSM_ExplosionEffects) > 1) AddEffect("GSBL_Smoke",this,251,1,this);
+  AddEffect("GSBL_Smoke",this,251,1,this);
+  Sound("BarrelImpact*.ogg");
+  Sound("Fuse.wav");
 
   //Kategorie wechseln
   SetCategory(C4D_Vehicle);

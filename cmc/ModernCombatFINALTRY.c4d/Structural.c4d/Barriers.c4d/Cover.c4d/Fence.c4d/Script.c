@@ -9,14 +9,14 @@ local damaged;
 
 func Damage(int iChange)
 {
-  if(damaged) return ;
+  if(damaged) return;
   if(GetDamage() < 70) return;
   Destruct();
 }
 
 func Destruct()
 {
-  if(damaged) return ;
+  if(damaged) return;
   damaged = true;
 
   //Effekte
