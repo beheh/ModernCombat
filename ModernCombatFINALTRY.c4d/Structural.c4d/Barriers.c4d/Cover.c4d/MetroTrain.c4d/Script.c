@@ -9,14 +9,10 @@ local damaged;
 
 func Damage(int iChange, int iPlr)
 {
-  if(!this)
-    return;
-  if(damaged)
-    return;
+  if(!this) return;
+  if(damaged) return;
   SetController(iPlr);
-
-  if(!this)
-    return;
+  if(!this) return;
   if(GetDamage() < 250) return;
   Explode(iPlr);
 }

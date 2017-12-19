@@ -20,11 +20,11 @@ func InstaExplode(int iPlr)
   damaged = true;
 
   //Effekte
-  Sound("BarrelImpact*.ogg");
-  Sound("Fuse.wav");
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("MetalSplinter", 2+Random(3), 100, 0,0, 30,100,RGB(250,0,0));
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",4,30,0,0,100,300,RGBa(255,255,255,100),RGBa(255,255,255,130));
-  if(GetEffectData(EFSM_ExplosionEffects) > 1) AddEffect("GSBL_Smoke",this,251,1,this);
+  AddEffect("GSBL_Smoke",this,251,1,this);
+  Sound("BarrelImpact*.ogg");
+  Sound("Fuse.wav");
 
   //Nach oben schleudern
   SetRDir(RandomX(-15,15));

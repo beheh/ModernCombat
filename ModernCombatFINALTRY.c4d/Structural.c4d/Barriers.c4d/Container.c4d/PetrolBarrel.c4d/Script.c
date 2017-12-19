@@ -20,8 +20,8 @@ func BlowUp(int iPlr)
 
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(250,0,0));
-  Sound("Inflame");
   AddFireEffect(this,50,RGB(80,80,80),true,30);
+  Sound("Inflame");
   FadeOut();
 
   //Flammenwalze erstellen
