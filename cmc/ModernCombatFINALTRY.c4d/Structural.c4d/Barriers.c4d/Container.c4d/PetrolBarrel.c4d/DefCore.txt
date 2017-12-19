@@ -19,5 +19,5 @@ VertexCNAT=5,6,10,9
 VertexFriction=80,80,80,80
 AttractLightning=1
 Float=1
-Timer=1
+Timer=3
 TimerCall=FloatUpright
