@@ -19,7 +19,7 @@ HasTheFlag=%s has got the flag of team <c %x>%s</c>!
 FlagLost=The flag of <c %x>%s</c> was dropped!
 FlagReturned=The flag of <c %x>%s</c> was returned!
 OneFlagLeft=<c ff0000>Warning</c>: Team %s needs only <c ffff33>one</c> more flag to win!
-CTFGoalDesc=All teams start off with a flag base. The goal is to defend it and steal enemy flags by transporting|them to the own flag base. The own flag base needs its own flag to be able to steal an enemy flag.|Flags cannot be transported through door connections or inside a helicopter.||{{IC09}} Flag
+CTFGoalDesc=All teams start off with a flag base. The goal is to defend it and steal enemy flags by transporting|them to the own flag base. The own flag base needs its own flag to be able to steal an enemy flag.|Flags cannot be transported through door connections or inside a helicopter.|A dropped flag will automatically return to its flag base after 60 seconds.||{{IC09}} Flag
 
 # Deathmatch
 
