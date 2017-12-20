@@ -2,6 +2,8 @@
 
 #strict 2
 
+local pointsgiven;
+
 public func IgnoreTracer()	{return true;}
 public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
 {
@@ -63,8 +65,12 @@ public func Damage()
 {
   if(GetDamage() > 20)
   {
-    //Punkte bei Belohnungssystem (Projektil abgefangen)
-    DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetOwner(), GetCursor(GetOwner()), IC16);
+    if(!pointsgiven)
+    {
+      //Punkte bei Belohnungssystem (Projektil abgefangen)
+      DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetOwner(), GetCursor(GetOwner()), IC16);
+      pointsgiven = true;
+    }
     Hit();
   }
 }

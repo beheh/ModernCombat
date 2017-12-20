@@ -35,24 +35,22 @@ public func DropFlag()
   //Flagge nach 60 Sekunden automatisch zurückbringen
   AddEffect("AutoReturn", this, 1, 36 * 60, this);
 
-  if(!GetActionTarget())
-    return;
-
   SetAction("Lost");
   SetActionTargets();
   SetDir();
+  carrier = 0;
 
+  //Verschachtelt: Ins Freie verschieben
   while(Contained())
     Exit();
 
-  //Falls sie festsitzt, wird sie sofort zurückgebracht
+  //Flagge steckt fest: Sofort zurückbringen
   if(GBackSolid())
   {
     RemoveObject();
     return;
   }
 
-  carrier = 0;
   //Spieler verliert Flagge
   EventInfo4K(0, Format("$FlagLost$", GetTeamColor(team), GetTeamName(team)), FLA2, 0, GetTeamColor(team), 0, "Info_Event.ogg");
   GameCallEx("FlagLost",team);

@@ -19,7 +19,7 @@ HasTheFlag=%s hat die Flagge von Team <c %x>%s</c>!
 FlagLost=Die Flagge von <c %x>%s</c> wurde fallen gelassen!
 FlagReturned=Die Flagge von <c %x>%s</c> ist zurück!
 OneFlagLeft=<c ff0000>Achtung</c>: Team %s fehlt nur noch <c ffff33>eine</c> Flagge zum Sieg!
-CTFGoalDesc=Jedes Team verfügt über eine Flaggenbasis. Ziel ist das Verteidigen der eigenen Flagge und das Stehlen|feindlicher Flaggen, indem diese zur eigenen Flaggenbasis transportiert werden. Die eigene Flaggenbasis|muss über ihre Flagge verfügen, um eine feindliche Flagge erfolgreich stehlen zu können.|Flaggen können nicht durch Türverbindungen hindurch oder in Helikoptern transportiert werden.||{{IC09}} Flagge
+CTFGoalDesc=Jedes Team verfügt über eine Flaggenbasis. Ziel ist das Verteidigen der eigenen Flagge und das Stehlen|feindlicher Flaggen, indem diese zur eigenen Flaggenbasis transportiert werden. Die eigene Flaggenbasis|muss über ihre Flagge verfügen, um eine feindliche Flagge erfolgreich stehlen zu können.|Flaggen können nicht durch Türverbindungen hindurch oder in Helikoptern transportiert werden.|Eine fallengelassene Flagge kehrt nach 60 Sekunden automatisch zu ihrer Flaggenbasis zurück.||{{IC09}} Flagge
 
 # Deathmatch
 
