@@ -1079,27 +1079,44 @@ global func AttemptAwardRibbon(id idRibbon, int iPlr, int iPlrFrom)
   var db = FindObject2(Find_ID(RWDS));
   if(!db) return false;
 
-  //Abbrechen, falls bereits erhalten
-  if(db->GetPlayerRibbon(iPlr, idRibbon)) return;
-
-  //Vergabe
-  db->SetPlayerRibbon(iPlr, idRibbon, true);
-
-  //Ehrenbandanzeige mit weißem Hintergrund
-  var ribbon = CreateObject(idRibbon, 0, 0, iPlr);
-  ribbon->SetHighlightColor(RGB(255,255,255));
-  if(iPlr == iPlrFrom)
+  //Bereits vorhanden?
+  if(db->GetPlayerRibbon(iPlr, idRibbon))
   {
-    ribbon->SetCustomDesc(Format("You are %s.", GetName(ribbon)));
+    //Anzeige entsprechend der Einstellung des Spielers
+    if(GetCursor(iPlr)->~AchievementDisplayType() && iPlr != iPlrFrom)
+    {
+      //Ehrenbandanzeige mit goldenem Hintergrund
+      var ribbon = CreateObject(idRibbon, 0, 0, iPlr);
+      ribbon->SetHighlightColor(RGB(250,210,20));
+      ribbon->SetDurationTime(100);
+
+      //Sound-Hinweis
+      Sound("RWDS_Achievement.ogg", true, 0, 100, iPlr+1);
+    }
+    else
+      return true;
   }
   else
   {
-    //Eventnachricht: Ehrenband erhalten
-    EventInfo4K(0, Format("$RibbonAwarded$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idRibbon), GetPlrColorDw(iPlrFrom), GetPlayerName(iPlrFrom)), IC28, 0, 0, 0, "Info_Event.ogg");
-  }
+    //Vergabe
+    db->SetPlayerRibbon(iPlr, idRibbon, true);
 
-  //Sound-Hinweis
-  Sound("RWDS_Ribbon.ogg", true, 0, 100, iPlr+1);
+    //Ehrenbandanzeige mit weißem Hintergrund
+    var ribbon = CreateObject(idRibbon, 0, 0, iPlr);
+    ribbon->SetHighlightColor(RGB(255,255,255));
+    if(iPlr == iPlrFrom)
+    {
+      ribbon->SetCustomDesc(Format("You are %s.", GetName(ribbon)));
+    }
+    else
+    {
+      //Eventnachricht: Ehrenband erhalten
+      EventInfo4K(0, Format("$RibbonAwarded$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idRibbon), GetPlrColorDw(iPlrFrom), GetPlayerName(iPlrFrom)), IC28, 0, 0, 0, "Info_Event.ogg");
+    }
+
+    //Sound-Hinweis
+    Sound("RWDS_Ribbon.ogg", true, 0, 100, iPlr+1);
+  }
 
   return true;
 }
