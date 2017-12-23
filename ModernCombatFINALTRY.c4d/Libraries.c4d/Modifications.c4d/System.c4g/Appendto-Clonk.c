@@ -92,6 +92,12 @@ public func HurtSounds(int iDmg, int iType)
   //Minimalschaden
   if(iDmg <= RandomX(2,8))
   {
+    if(iType == DMG_Fire)
+    {
+      Sound("ClonkSmallBurn*.ogg", 0, 0, 0, GetOwner()+1);
+      return;
+    }
+
     Sound("ClonkSmallPain*.ogg", 0, 0, 0, GetOwner()+1);
     return;
   }
