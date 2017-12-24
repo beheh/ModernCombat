@@ -729,6 +729,74 @@ public func ChooserFinished()
       PlaceSpawnpoint(MBOX, 2300, 845);
     }
   }
+
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+    //Flaggen
+    if(aTeams[1] == true)
+    {CreateFlag(1,1240,1200,GetTeamColor(1));}
+    if(aTeams[2] == true)
+    {CreateFlag(2,3000,1210,GetTeamColor(2));}
+
+    //Leitern
+    CreateObject(LADR, 1550, 780, -1)->Set(18);
+    CreateObject(LADR, 1680, 740, -1)->Set(13);
+    CreateObject(LADR, 2560, 740, -1)->Set(13);
+    CreateObject(LADR, 2690, 780, -1)->Set(18);
+
+    //Verbandskisten
+    CreateObject(BECR, 940, 1170, -1)->AutoRespawn();
+    CreateObject(BECR, 3255, 1240, -1)->AutoRespawn();
+
+    //Versorgungskiste (APW)
+    var crate = CreateObject(AMCT, 2120, 1170, -1);
+    crate->Set(ATWN);
+
+    //Geschützstellungen
+    CreateObject(GNET, 970, 1170, -1)->Set(LCAC,0,1);
+    CreateObject(GNET, 1580, 1250, -1)->Set(SATW);
+    CreateObject(GNET, 2840, 1280, -1)->Set(SATW);
+    CreateObject(GNET, 3225, 1240, -1)->Set(LCAC,0,1);
+
+    //Türverbindungen entfernen
+    aDoorWay[02]->SealEntrance();
+    aDoorWay[03]->SealEntrance();
+    aDoorWay[04]->SealEntrance();
+    aDoorWay[05]->SealEntrance();
+
+    //Objekte entfernen
+    for(var obj in FindObjects(Find_Or(Find_ID(SFFG), Find_ID(FENC)), Find_InRect(1540, 720, 160, 100)))
+      RemoveObject(obj);
+    for(var obj in FindObjects(Find_Or(Find_ID(SFFG), Find_ID(FENC)), Find_InRect(2540, 720, 160, 100)))
+      RemoveObject(obj);
+    for(var obj in FindObjects(Find_Or(Find_ID(SNPT), Find_ID(SGNP)), Find_InRect(240, 1090, 3500, 180)))
+      RemoveObject(obj);
+
+    //Gerüste
+    CreateObject(SFFG, 1550, 770, -1)->Set(5);
+    CreateObject(SFFG, 1550, 820, -1)->Set(5);
+    CreateObject(SFFG, 1680, 770, -1)->Set(5);
+    CreateObject(SFFG, 1680, 820, -1)->Set(5);
+    CreateObject(SFFG, 2560, 770, -1)->Set(5);
+    CreateObject(SFFG, 2560, 820, -1)->Set(5);
+    CreateObject(SFFG, 2690, 770, -1)->Set(5);
+    CreateObject(SFFG, 2690, 820, -1)->Set(5);
+
+    //Zusätzliche Munition
+    if(!FindObject(NOAM))
+    {
+      //Kugeln
+      PlaceSpawnpoint(ABOX, 710, 1215);
+      PlaceSpawnpoint(ABOX, 3540, 1305);
+
+     //Gewehrgranaten
+     PlaceSpawnpoint(GBOX, 1940, 845);
+
+     //Raketen
+     PlaceSpawnpoint(MBOX, 2300, 845);
+    }
+  }
 }
 
 /* Relaunch */
@@ -739,6 +807,16 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
     iX = 2220; iY = 600;
+    return 1;
+  }
+
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+    if(iTeam == 1)
+      return [[480, 550], [475, 630], [585, 680]];
+    if(iTeam == 2)
+      return [[3760, 550], [3765, 630], [3655, 680]];
     return 1;
   }
 

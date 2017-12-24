@@ -14,7 +14,7 @@ Definition4=Knights.c4d\Camp.c4d\Banner.c4d
 
 [Game]
 StructNeedEnergy=0
-Goals=GLMS=5;GMNR=4;GHTF=1;GBAS=1;GOCC=1
+Goals=GLMS=5;GCTF=3;GMNR=4;GHTF=1;GBAS=1;GOCC=1
 Rules=MCSL=1;CHOS=1
 
 [Player1]
