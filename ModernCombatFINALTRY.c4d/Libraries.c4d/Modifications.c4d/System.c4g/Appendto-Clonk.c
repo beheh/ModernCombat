@@ -334,19 +334,21 @@ func Hit2(int xDir, int yDir)
   if(IsFakeDeath() || !GetAlive(this)) return _inherited(xDir,yDir,...);
 
   var hit = Distance(xDir,yDir);//Max(xDir,yDir);
-
+  var water = GBackLiquid(0,6);
   //Effekte
   if(hit >= 800)
   {
     Sound("ClonkImpact*.ogg");
     Sound("ClonkRustle*.ogg", 0, 0, 50);
-    CastSmoke("Smoke3",8,10,0,10,20,100);
+    if(!water) CastSmoke("Smoke3",8,10,0,10,20,100);
+    else Sound("Splash1", 0, 0, 50);
   }
   else if(hit >= 600)
   {
     Sound("ClonkStep*.ogg");
     Sound("ClonkRustle*.ogg", 0, 0, 25);
-    CastSmoke("Smoke3",4,8,0,10,20,50);
+    if(!water) CastSmoke("Smoke3",4,8,0,10,20,50);
+    else Sound("Splash1", 0, 0, 25);
   }
   else if(hit >= 100)
   {
