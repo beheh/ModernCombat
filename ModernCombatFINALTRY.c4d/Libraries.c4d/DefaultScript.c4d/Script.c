@@ -137,7 +137,7 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
   if(!iTeam) iTeam = GetPlayerTeam(iPlr);
 
   //Falscher Cursor?
-  if (!pCrew || !pCrew->~IsClonk())
+  if(!pCrew || !pCrew->~IsClonk())
     pCrew = GetCrew(iPlr);
 
   //Reject?
