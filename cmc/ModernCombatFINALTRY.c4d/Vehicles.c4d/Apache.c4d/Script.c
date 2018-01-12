@@ -111,7 +111,7 @@ protected func ContainedUp(object ByObj)
   [$CtrlUp$]
 
   //Pilot
-  if (ByObj == GetPilot())
+  if(ByObj == GetPilot())
   {
     if(GetY() < 80)
       return;
@@ -156,7 +156,7 @@ protected func ContainedUp(object ByObj)
   }
 
   //Schütze
-  if (ByObj == GetGunner())
+  if(ByObj == GetGunner())
     //Waffe nachladen
     pMGStation->~ControlUp(ByObj);
 
@@ -168,7 +168,7 @@ protected func ContainedDown(object ByObj)
   [$CtrlDown$]
 
   //Pilot
-  if (ByObj == GetPilot())
+  if(ByObj == GetPilot())
   {
     //Autopilot stoppen
     ResetAutopilot();
@@ -260,12 +260,12 @@ protected func ContainedLeft(object ByObj)
   [$CtrlLeft$]
 
   //Pilot
-  if (ByObj == GetPilot())
+  if(ByObj == GetPilot())
   {
     //Autopilot stoppen
     ResetAutopilot();
     //Helikopter neigen
-    if (GetAction() == "Fly" || GetAction() == "Turn")
+    if(GetAction() == "Fly" || GetAction() == "Turn")
       if(GetPlrCoreJumpAndRunControl(GetController(ByObj)))
         rotation = -BKHK_MaxRotation;
       else
@@ -283,9 +283,9 @@ protected func ContainedLeft(object ByObj)
 protected func ContainedRight(object ByObj, fRelease)
 {
   [$CtrlRight$]
-  
+
   //Pilot
-  if (ByObj == GetPilot())
+  if(ByObj == GetPilot())
   {
     //Autopilot stoppen
     ResetAutopilot();
@@ -293,7 +293,7 @@ protected func ContainedRight(object ByObj, fRelease)
     if(fRelease)
       rotation = GetR();
     else 
-      if (GetAction() == "Fly" || GetAction() == "Turn")
+      if(GetAction() == "Fly" || GetAction() == "Turn")
         if(GetPlrCoreJumpAndRunControl(GetController(ByObj)))
           rotation = BKHK_MaxRotation;
         else
@@ -312,13 +312,13 @@ protected func ContainedLeftDouble(object ByObj)
 {
   [$CtrlLeftD$]
   //Pilot
-  if (ByObj == GetPilot())
+  if(ByObj == GetPilot())
   {
     //Autopilot stoppen
     ResetAutopilot();
     //Helikopter neigen
-    if (GetDir() && GetAction() == "Fly")
-      if (GetAction() == "Turn" || GetContact(this, -1))
+    if(GetDir() && GetAction() == "Fly")
+      if(GetAction() == "Turn" || GetContact(this, -1))
         return true;
       else
         SetAction("Turn");
@@ -335,15 +335,15 @@ protected func ContainedLeftDouble(object ByObj)
 protected func ContainedRightDouble(object ByObj)
 {
   [$CtrlRightD$]
-  
+
   //Pilot
-  if (ByObj == GetPilot())
+  if(ByObj == GetPilot())
   {
     //Autopilot stoppen
     ResetAutopilot();
     //Helikopter neigen
-    if (!GetDir() && GetAction() == "Fly")
-      if (GetAction() == "Turn" || GetContact(this, -1))
+    if(!GetDir() && GetAction() == "Fly")
+      if(GetAction() == "Turn" || GetContact(this, -1))
         return true;
       else
         SetAction("Turn");
@@ -360,12 +360,12 @@ protected func ContainedRightDouble(object ByObj)
 protected func ContainedThrow(object ByObj)
 {
   [Image=KOKR|$CtrlThrow$]
-  
+
   //nicht wenn kaputt
-  if (GetDamage() > MaxDamage())
+  if(GetDamage() > MaxDamage())
     return true;
   //Piloten-Speedmenü
-  if (ByObj == GetPilot())
+  if(ByObj == GetPilot())
   {
     var ring = CreateSpeedMenu(this, ByObj);
 
@@ -461,7 +461,7 @@ private func DeleteActualSeatPassenger(object Obj)
 public func EnterSeat(int iSeat, object pObj)
 {
   //Besetzt
-  if (aSeats[iSeat])
+  if(aSeats[iSeat])
   {
     SeatOccupied(0, pObj);
     return false;
@@ -473,7 +473,7 @@ public func EnterSeat(int iSeat, object pObj)
   Sound("StructureEnter*.ogg", true, this, 100, GetOwner(pObj) + 1);
 
   //Pilot
-  if (iSeat == APCE_Seat_Pilot)
+  if(iSeat == APCE_Seat_Pilot)
   {
     if(GetOwner() == -1 || GetPlayerTeam(GetOwner()) != GetPlayerTeam(GetOwner(pObj)))
     {
@@ -492,7 +492,7 @@ public func EnterSeat(int iSeat, object pObj)
   }
 
   //Schütze
-  if (iSeat == APCE_Seat_Gunner)
+  if(iSeat == APCE_Seat_Gunner)
   {
     SetGraphics("Passenger", this, GetID(), BKHK_PassengerLayer, GFXOV_MODE_ExtraGraphics, 0, GFX_BLIT_Custom, this);
     GetGunner() = pObj;

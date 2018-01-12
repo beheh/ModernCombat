@@ -844,7 +844,7 @@ public func ControlThrow(caller)
       }
     }
   }
-  if (meleeattacked)
+  if(meleeattacked)
   {
     //Sound
     Sound("ClonkMelee*.ogg", 0, this);
@@ -1035,7 +1035,7 @@ public func FxRechargeStop(object pTarget, int iNumber, int iReason, bool fTemp)
       Shoot(pTarget);
     }
   }
-  if (GetEffect("ForceNoStop", this))
+  if(GetEffect("ForceNoStop", this))
   {
     stopauto = false;
     RemoveEffect("ForceNoStop", this);
@@ -1495,7 +1495,7 @@ public func GetFMData(int data, int i, int t)
 public func GetFMData()
 {
   //Bei Einzel- und Stoﬂfeuer ist JnR zu schnell, bremsen
-  if (Par() == FM_Recharge && GetPlrCoreJumpAndRunControl(GetController(GetUser())) && !GetFMData(FM_Auto))
+  if(Par() == FM_Recharge && GetPlrCoreJumpAndRunControl(GetController(GetUser())) && !GetFMData(FM_Auto))
     return _inherited(...)+2;
   return _inherited(...);
 }
@@ -1578,8 +1578,8 @@ public func SetFireTec(int iFT,int iFM, bool bNoCalls)
   //diverse sachen aktualisieren
   ratecount = GetFMData(FM_AmmoRate, iFM);
 
-  if (GetFMData(FM_Auto, iFM, iFT))
-    if (!GetEffect("Recharge", this))
+  if(GetFMData(FM_Auto, iFM, iFT))
+    if(!GetEffect("Recharge", this))
       stopauto = false;
     else
       AddEffect("ForceNoStop", this);
