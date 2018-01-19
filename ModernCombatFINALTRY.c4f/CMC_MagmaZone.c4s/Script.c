@@ -473,7 +473,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //Startsicht
   if(!g_chooserFinished)
   {
-    iX = 1745; iY = 380;
+    iX = 1745; iY = 370;
     return 1;
   }
 

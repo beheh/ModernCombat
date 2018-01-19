@@ -196,9 +196,7 @@ func CreateInterior()
   CreateObject(SFFG, 6910, 610, -1)->Set(4);
 
   //Haie
-  CreateObject(SHRK, 100, 660, -1)->AutoRespawn();
-  CreateObject(SHRK, 200, 660, -1)->AutoRespawn();
-  CreateObject(SHRK, 500, 660, -1)->AutoRespawn();
+  CreateObject(SHRK, 300, 660, -1)->AutoRespawn();
   CreateObject(SHRK, 600, 660, -1)->AutoRespawn();
 
   CreateObject(SHRK, 1500, 645, -1)->AutoRespawn();
@@ -211,7 +209,6 @@ func CreateInterior()
   CreateObject(SHRK, 4040, 700, -1)->AutoRespawn();
   CreateObject(SHRK, 4100, 700, -1)->AutoRespawn();
 
-  CreateObject(SHRK, 4700, 685, -1)->AutoRespawn();
   CreateObject(SHRK, 4800, 685, -1)->AutoRespawn();
   CreateObject(SHRK, 5100, 685, -1)->AutoRespawn();
   CreateObject(SHRK, 5200, 685, -1)->AutoRespawn();
@@ -959,7 +956,7 @@ public func ChooserFinished()
 
     //Stahlbrücken
     CreateObject(_HBR, 495, 622, -1);
-    CreateObject(_HBR, 635, 622, -1);
+    CreateObject(_HBR, 567, 622, -1);
     CreateObject(_HBR, 705, 622, -1);
     CreateObject(_HBR, 775, 622, -1);
     CreateObject(_HBR, 2125, 532, -1);
@@ -987,7 +984,7 @@ public func ChooserFinished()
     CreateObject(MWCR, 5400, 650, -1);
 
     //Kisten
-    CreateObject(WCR2, 630, 610, -1);
+    CreateObject(WCR2, 550, 610, -1);
     CreateObject(WCR2, 890, 580, -1);
     CreateObject(WCR2, 1310, 540, -1);
     CreateObject(WCR2, 1330, 540, -1);
@@ -997,7 +994,7 @@ public func ChooserFinished()
     CreateObject(WCR2, 5880, 610, -1);
 
     //Verbandskisten
-    CreateObject(BECR, 650, 610, -1);
+    CreateObject(BECR, 570, 610, -1);
     CreateObject(BECR, 785, 592, -1);
     CreateObject(BECR, 2120, 520, -1);
     CreateObject(BECR, 5270, 650, -1);
@@ -1226,7 +1223,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
     //Grenzen neu setzen
     RemoveAll(BRDR);
     CreateObject(BRDR, 3200, 0, -1)->Set(0,1);
-    CreateObject(BRDR, 6210, 0, -1)->Set(1,1);
+    CreateObject(BRDR, 6430, 0, -1)->Set(1,1);
 
     //Teamgrenze setzen
     FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),4910,0,1,1);
