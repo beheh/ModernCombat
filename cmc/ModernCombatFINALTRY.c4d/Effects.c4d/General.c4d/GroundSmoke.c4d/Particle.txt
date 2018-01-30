@@ -1,6 +1,6 @@
 [Particle]
 Name=GroundSmoke
-MaxCount=1000
+MaxCount=2000
 InitFn=StdInit
 ExecFn=StdExec
 DrawFn=Std
