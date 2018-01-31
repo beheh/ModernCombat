@@ -797,6 +797,13 @@ public func ChooserFinished()
      PlaceSpawnpoint(MBOX, 2300, 845);
     }
   }
+
+  //LMS-Spielziel
+  if(FindObject(GLMS))
+  {
+    //Grenze
+    CreateObject(BRDR, 0, 1110, -1)->Set(3);
+  }
 }
 
 /* Relaunch */
