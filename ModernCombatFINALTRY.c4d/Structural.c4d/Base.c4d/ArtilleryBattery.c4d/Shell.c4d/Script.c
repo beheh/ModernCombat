@@ -17,10 +17,14 @@ public func IgnoreEnemyCheck()	{return true;}	//Ignoriert Feindcheck bei Fahrzeu
 
 func Initialize()
 {
-   fSounded = false;
-   fHit = false;
-   fAchievement = true;
-   return 1;
+  fSounded = false;
+  fHit = false;
+  fAchievement = true;
+
+  //Fluggeräusch
+  EchoLoop("ArtilleryEcho*.ogg",1);
+
+  return 1;
 }
 
 /* Rotation */
@@ -29,6 +33,7 @@ func ResetRotation()
 {
   SetR(Angle(GetX(),GetY(),GetX()+GetXDir(),GetY()+GetYDir()),this);
 
+  //Geräusch bei Beginn des Falls
   if(GetYDir() > 2 && !fSounded)
   {
     fSounded = true;

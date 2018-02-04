@@ -63,6 +63,18 @@ public func SetGunner(pObj)
   iPat_Dir = 0;
 }
 
+public func SetCooldown()
+{
+  var weapon = GetAttWeapon();
+  if(!weapon) return;
+
+  //Eventuell bereits vorhandenen Cooldown vorher entfernen
+  if(GetEffect("StrikeRecharge", weapon) != 0)
+    RemoveEffect("StrikeRecharge", weapon);
+
+  AddEffect("StrikeRecharge", weapon, 1, 1, weapon);
+}
+
 public func Arm(id idWeapon)
 {
   //Waffe existiert?
@@ -182,7 +194,6 @@ protected func FxIntTimerTimer(object pTarget, int iEffect, int iTime)
     return RemoveObject();
   }
 
-  
   //Rotation des Heli abfragen
   var rot = GetR(heli) + (GetDir(heli) * 2 - 1) * (90 + Ang);
 
