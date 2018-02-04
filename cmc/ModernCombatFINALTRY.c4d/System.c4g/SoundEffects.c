@@ -1,6 +1,6 @@
 /*-- Soundeffekte --*/
 
-//Stellt das Echosystem zur Verfügung.
+//Echosystem für szenarioweit hörbare Geräusche.
 
 #strict 2
 
@@ -28,7 +28,7 @@ global func Echo(string szSound, bool fNewObject)
   return true;
 }
 
-/* Echo für Loop-Sounds */
+/* Wiederholendes Echo */
 
 global func EchoLoop(string szSound, int iLoopCount)
 {
@@ -38,7 +38,6 @@ global func EchoLoop(string szSound, int iLoopCount)
   if(GetMaterial(AbsX(GetX(obj)), AbsY(GetY(obj))) != -1) iLevel /= 3;
 
   //Der eigentliche Sound
-  //SoundLevel(szSound, 0, obj);
   if(iLevel) Sound(szSound, false, obj, BoundBy(iLevel, 0, 100), 0, iLoopCount, false, 1000);
 
   return true;
