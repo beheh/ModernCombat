@@ -13,6 +13,7 @@ protected func SecureDistance()	{return 75;}		//Sicherungsreichweite
 func ExplodeDelay()		{return 35*3;}		//Verzögerung bis zu automatischer Zündung
 public func IgnoreTracer()	{return true;}		//Nicht markierbar
 public func IsRifleGrenade()	{return true;}		//Ist eine Gewehrgranate
+public func IsSpawnTrap()	{return true;}
 public func AllowHitboxCheck()	{return true;}
 public func RejectC4Attach()	{return true;}
 
