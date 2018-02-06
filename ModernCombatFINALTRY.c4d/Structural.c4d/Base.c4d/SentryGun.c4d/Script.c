@@ -136,7 +136,7 @@ public func OnDestruction()
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",4,100,0,0,40,15,RGB(40,20,20));
 
   //Eventuelles Waffenbewegungsgeräusch stoppen
-  Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, -1);
+  Sound("ATBY_CannonRotation.ogg", false, this, 15, 0, -1);
 }
 
 public func Destruction()
@@ -686,15 +686,15 @@ public func EMPShock()
 public func SoundStart()
 {
   //Sounds für Waffenbewegung starten
-  Sound("ATBY_CannonStart.ogg", false, this, 30);
-  Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, 1);
+  Sound("ATBY_CannonStart.ogg", false, this, 15);
+  Sound("ATBY_CannonRotation.ogg", false, this, 15, 0, 1);
 }
 
 public func SoundStop()
 {
   //Sounds für Waffenbewegung stoppen
-  Sound("ATBY_CannonStop.ogg", false, this, 30);
-  Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, -1);
+  Sound("ATBY_CannonStop.ogg", false, this, 15);
+  Sound("ATBY_CannonRotation.ogg", false, this, 15, 0, -1);
 }
 
 /* Konsolensteuerung */

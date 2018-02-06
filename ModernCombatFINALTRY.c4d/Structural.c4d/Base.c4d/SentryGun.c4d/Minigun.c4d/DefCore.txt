@@ -3,15 +3,13 @@ id=MISA
 Version=4,9,10,7
 Name=Minigun
 Category=C4D_Vehicle
-MaxUserSelect=1
 Width=34
 Height=9
 Offset=-17,-4
 Vertices=1
 VertexFriction=20
+Picture=0,6,49,49
 Value=250
 Mass=55
-Components=METL=4
-Picture=0,6,49,49
 Rotate=1
 NoStabilize=1

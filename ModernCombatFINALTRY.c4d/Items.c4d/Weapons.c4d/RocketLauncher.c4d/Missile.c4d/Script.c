@@ -18,15 +18,15 @@ public func ExplosionDamage()	{return 25;}				//Explosionsschaden
 public func ExplosionRadius()	{return 25;}				//Radius
 
 public func TracerCompatible()	{return true;}				//Peilsendersuchende Rakete
-public func TracerRadius()	{return 350;}
+public func TracerRadius()	{return 350;}				//Radius für Peilsenderempfang
 
 public func MaxTurn()		{return 6;}				//max. Drehung
 public func MaxTracerTurn()	{return 8;}				//max. Drehung bei Zielverfolgung
 
 public func IgnoreTracer()	{return true;}				//Nicht markierbar
-public func IsDamaged()		{return GetEffect("Damaged", this);}
 public func IsRocket()		{return true;}				//Ist eine Rakete
-
+public func IsSpawnTrap()	{return !IsDamaged();}
+public func IsDamaged()		{return GetEffect("Damaged", this);}
 public func AllowHitboxCheck()	{return true;}
 public func RejectC4Attach()	{return true;}
 

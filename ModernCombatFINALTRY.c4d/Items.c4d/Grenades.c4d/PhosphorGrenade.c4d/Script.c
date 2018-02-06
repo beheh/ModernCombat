@@ -3,6 +3,7 @@
 #strict 2
 #include NADE
 
+public func IsSpawnTrap()	{return IsFusing();}
 public func Color()		{return RGB(235,199,54);}	//Farbe
 public func ContainedDamage()	{return 100;}			//Schaden bei Detonation innerhalb eines Objekts
 public func BlastRadius()	{return 10;}			//Explosionsradius
