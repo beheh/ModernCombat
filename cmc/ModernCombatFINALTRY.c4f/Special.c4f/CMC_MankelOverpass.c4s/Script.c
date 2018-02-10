@@ -338,22 +338,6 @@ func CreateInterior()
   CreateObject(CON1, 3548, 741, -1);
   CreateObject(CON1, 4590, 1421, -1)->SetPerspective(0);
 
-  //Nebel
-  for(var i=0;i<50;++i)
-    CreateParticle("Fog",Random(LandscapeWidth()),Random(LandscapeHeight()-330),0,0,RandomX(900,1700));
-  for(i=0;i<25;++i)
-    CreateParticle("Fog",2170+RandomX(-200,200),600+RandomX(-200,200),0,0,RandomX(900,1700));
-  for(i=0;i<25;++i)
-    CreateParticle("Fog",2420+RandomX(-200,200),1020+RandomX(-200,200),0,0,RandomX(900,1700));
-  for(i=0;i<40;++i)
-    CreateParticle("Fog",2940+RandomX(-400,400),420+RandomX(-200,200),0,0,RandomX(900,1700));
-  for(i=0;i<40;++i)
-    CreateParticle("Fog",2940+RandomX(-400,400),1170+RandomX(-200,200),0,0,RandomX(900,1700));
-  for(i=0;i<25;++i)
-    CreateParticle("Fog",3460+RandomX(-200,200),1020+RandomX(-200,200),0,0,RandomX(900,1700));
-  for(i=0;i<25;++i)
-    CreateParticle("Fog",3710+RandomX(-200,200),600+RandomX(-200,200),0,0,RandomX(900,1700));
-
   //Seegras und Muscheln entfernen
   for(var obj in FindObjects(Find_Or(Find_ID(SWD1), Find_ID(SWD2), Find_ID(SHEL)), Find_InRect(0, 1350, LandscapeWidth(), 80)))
     RemoveObject(obj);
@@ -390,15 +374,9 @@ func CreateInterior()
   CreateObject(CONS, 2990, 860, -1)->Set(autod);
 
   //Sendemäste
-  var tower = CreateObject(AATR, 1300, 730, -1);
-  tower->SwitchMode();
-  tower->SwitchDestructability();
-  tower = CreateObject(AATR, 2420, 730, -1);
+  var tower = CreateObject(AATR, 2420, 730, -1);
   tower->SwitchDestructability();
   tower = CreateObject(AATR, 3460, 730, -1);
-  tower->SwitchDestructability();
-  tower = CreateObject(AATR, 4580, 730, -1);
-  tower->SwitchMode();
   tower->SwitchDestructability();
 
   //Verbundene Räume
@@ -748,35 +726,6 @@ func CreateOptionalFeatures()
   CreateObject(BD10,2880,1460,-1);
 }
 
-/* Regenerstellung */
-
-func FormRain()
-{
-  //Materialregen starten
-  LaunchRain(0, Material("Rain"), LandscapeWidth(), 100)->SetCategory(1);
-
-  //Globale Regengeräusche starten
-  Sound("Rain.ogg",true,0,10,0,+1);
-
-  //Nebel lichten
-  PushParticles("Fog", 0, -2);
-
-  //Zeitverzögertes Ende des Regens
-  Schedule("GameCall(\"EndRain\")", RandomX(8000,12000));
-}
-
-func EndRain()
-{
-  //Materialregen stoppen
-  RemoveAll(FXP1);
-
-  //Restnebel entfernen
-  ClearParticles("Fog");
-
-  //Globale Regengeräusche stoppen
-  Sound("Rain.ogg",true,0,10,0,-1);
-}
-
 /* Bei Flaggenübernahme */
 
 func FlagCaptured(object pPoint, int iTeam)
@@ -805,9 +754,6 @@ public func ChooserFinished()
   var aTeams = [false,false,false,false,false];
   for(var i = 0; i < GetPlayerCount(); i++)
     aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
-
-  //Zeitverzögerter Regen
-  Schedule("GameCall(\"FormRain\")", RandomX(8000,12000));
 
   //Helikopter und Hinweisschilder
   if(!FindObject(NOHC))
