@@ -29,6 +29,7 @@ public func IsSpawnTrap()	{return !IsDamaged();}
 public func IsDamaged()		{return GetEffect("Damaged", this);}
 public func AllowHitboxCheck()	{return true;}
 public func RejectC4Attach()	{return true;}
+public func SoundThrust()	{return "MISL_Thrust.ogg";}
 
 
 /* Initialisierung */
@@ -72,7 +73,7 @@ public func Launch(int iAngle, object pFollow, bool fUnguided, int iXDir, int iY
   sy = GetY();
 
   //Effekte
-  AddEffect("ThrustSound",this,1,11,this);
+  StartThrust();
   pLight = AddLight(70,RGB(255,200,200),this,GLOW);
 
   //Mündungsposition für Schussmechanik speichern
@@ -117,10 +118,14 @@ public func StartChasing()
 
 /* Soundeffekt */
 
-public func FxThrustSoundTimer(object pTarget, int iEffectNumber, int iEffectTime)
+private func StartThrust()
 {
-  Sound("MISL_Thrust.ogg",0,0,0,0,+1);
-  return -1;
+  Sound(SoundThrust(),0,0,0,0,+1);
+}
+
+private func StopThrust()
+{
+  Sound(SoundThrust(),0,0,0,0,-1);
 }
 
 /* Optischer Steuerungseffekt */
@@ -360,11 +365,6 @@ private func Accelerate()
 
   SetXDir(+Sin(GetR(),iSpeed)+iStartX);
   SetYDir(-Cos(GetR(),iSpeed)+iStartY);
-}
-
-private func StopThrust()
-{
-  Sound("MISL_Thrust.ogg",0,0,0,0,-1);
 }
 
 /* Rauch */
