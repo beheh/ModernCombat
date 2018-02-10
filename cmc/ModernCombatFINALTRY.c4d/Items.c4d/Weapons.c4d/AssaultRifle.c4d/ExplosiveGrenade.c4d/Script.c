@@ -106,7 +106,7 @@ func HitObject(object pObj)
     //Punkte bei Belohnungssystem (Projektil abgefangen)
     DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, iLastAttacker, GetCursor(iLastAttacker), IC16);
 
-  Trigger();
+  Trigger(pObj);
 }
 
 func Trigger(object pObj)
