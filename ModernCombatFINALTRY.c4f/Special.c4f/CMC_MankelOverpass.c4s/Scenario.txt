@@ -34,8 +34,5 @@ Crew=PCMK=1
 Vegetation=SWD2=5;SWD1=5;SHEL=4
 NoScan=1
 
-[Environment]
-Objects=LENS=1
-
 [Animals]
 Animal=BIRD=6
