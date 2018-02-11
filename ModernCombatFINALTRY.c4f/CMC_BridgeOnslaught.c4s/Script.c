@@ -290,12 +290,6 @@ func CreateInterior()
   CreateObject(PIPL, 2770, 515, -1)->Solid()->Left()->Solid()->Left()->Solid();
   CreateObject(PIPL, 3130, 515, -1)->Solid()->Left()->Solid()->Left()->Solid()->Left()->Solid()->Left()->Solid()->Left()->Solid()->Left()->Solid();
 
-  //Raucheffekte an Rohrenden
-  for(var obj in FindObjects(Find_ID(PIPL), Find_InRect(280, 470, 100, 70)))
-    obj->AddSmokeEffect4K(40,-2,-5,true,this);
-  for(var obj in FindObjects(Find_ID(PIPL), Find_InRect(2750, 470, 100, 70)))
-    obj->AddSmokeEffect4K(40,-2,-5,true,this);
-
   //Giftfässer
   CreateObject(TBRL, 565, 430, -1)->AutoRespawn();
   CreateObject(TBRL, 2565, 430, -1)->AutoRespawn();
