@@ -23,5 +23,7 @@ GunnerDesc=Übernehme die Kontrolle über die außen angebrachte Maschinenkanone.
 #Aktionen
 Flares=Flareabwurf
 HUD=HUD ein-ausblenden
+Reload=Nachladen
 Spotlight=Scheinwerfer
+Extinguisher=Feuerlöscher
 RocketLauncher=Raketenwerfer

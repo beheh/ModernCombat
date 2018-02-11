@@ -3,7 +3,7 @@
 #strict 2
 #include BHUD
 
-static const APCE_Overlay_RocketPod = 5;
+static const APCE_Overlay_RocketPod = 7;
 
 local fRocketPod;
 
@@ -16,15 +16,21 @@ public func Initialize()
   iState = -1;
   fFlares = true;
   fRocketPod = true;
+  fExtinguisher = true;
   Schedule("SetVisibility(VIS_Owner)", 1, 0, this);
   SetGraphics("Flares", this, BHUD, BHUD_Overlay_Flares, GFXOV_MODE_Base);
   SetGraphics("Rockets", this, AHUD, APCE_Overlay_RocketPod, GFXOV_MODE_Base);
+  SetGraphics("Extinguisher", this, BHUD, BHUD_Overlay_Extinguisher, GFXOV_MODE_Base);
+  SetGraphics("ExtinguisherInfo", this, BHUD, BHUD_Overlay_ExtinguisherInfo, GFXOV_MODE_Base);
   SetGraphics("Warning", this, BHUD, BHUD_Overlay_Warning, GFXOV_MODE_Base);
   SetGraphics("Failure", this, BHUD, BHUD_Overlay_Failure, GFXOV_MODE_Base);
   SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Flares);
   SetClrModulation(RGBa(255,255,255,255), this, APCE_Overlay_RocketPod);
+  SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Extinguisher);
+  SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_ExtinguisherInfo);
   SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Warning);
   SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Failure);
+  SetStandardColor(0,210,255,50);
   SetState(BHUD_Ready);
   return true;
 }
@@ -43,13 +49,24 @@ public func SetState(int iNewState, bool fKeepSound)
     SetClrModulation(RGBa(255,0,0,50));
     SetClrModulation(RGBa(255,0,0,50), this, BHUD_Overlay_Failure);
     dwArrowColor = RGBa(255,0,0,50);
-    Sound("WarningDamage.ogg", false, this, 100, GetOwner()+1, +1);
+    if(pHelicopter->GetDamage() >= pHelicopter->MaxDamage()*3/4)
+    {
+      Sound("WarningDamageCritical.ogg", false, this, 100, GetOwner()+1, +1);
+      if(fExtinguisher)
+        SetClrModulation(dwArrowColor, this, BHUD_Overlay_ExtinguisherInfo);
+      else
+        SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_ExtinguisherInfo);
+    }
+    else
+      Sound("WarningDamage.ogg", false, this, 100, GetOwner()+1, +1);
   }
   else
   {
     SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Failure);
+    SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_ExtinguisherInfo);
     if(!fKeepSound)
     {
+      Sound("WarningDamageCritical.ogg", false, this, 100, GetOwner()+1, -1);
       Sound("WarningDamage.ogg", false, this, 100, GetOwner()+1, -1);
     }
   }
@@ -70,7 +87,7 @@ public func SetState(int iNewState, bool fKeepSound)
   }
   if(iState == BHUD_Ready)
   {
-    SetClrModulation(RGBa(0,210,255,50));
+    SetClrModulation(RGBa(iR,iG,iB,iT));
     dwArrowColor = RGBa(255,204,0,50);
   }
   if(iState == BHUD_Disabled)
@@ -93,6 +110,14 @@ public func SetState(int iNewState, bool fKeepSound)
   else
   {
     SetClrModulation(RGBa(255,255,255,255), this, APCE_Overlay_RocketPod);
+  }
+  if(fExtinguisher)
+  {
+    SetClrModulation(dwArrowColor, this, BHUD_Overlay_Extinguisher);
+  }
+  else
+  {
+    SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Extinguisher);
   }
   if(pRotation) pRotation->SetClrModulation(dwArrowColor);
   if(pThrottle) pThrottle->SetClrModulation(dwArrowColor);
@@ -155,10 +180,11 @@ protected func Timer()
   SetPosition(GetX()+BoundBy((1400*GetWind(AbsX(GetX(pHelicopter)), AbsY(GetY(pHelicopter))))/1000, -70, 70), GetY()-63, pWind);
   pWind->SetVisibility(GetVisibility());
 
-  //Flares und Raketenpod
+  //Flares, Raketenpod und Feuerlöscher
   var fUpdate = false;
   var tFlares = pHelicopter->CanDeployFlares();
   var tRocketPod = pHelicopter->~RocketPodsReady();
+  var tExtinguisher = pHelicopter->CanDeployExtinguisher();
   if(fFlares != tFlares)
   {
     fUpdate = true;
@@ -170,6 +196,12 @@ protected func Timer()
     fUpdate = true;
     if(!fRocketPod) Sound("WarningRocketPodReloaded.ogg", false, this, 100, GetOwner()+1);
     fRocketPod = tRocketPod;
+  }
+  if(fExtinguisher != tExtinguisher)
+  {
+    fUpdate = true;
+    if(!fExtinguisher) Sound("WarningExtinguisherReloaded.ogg", false, this, 100, GetOwner()+1);
+    fExtinguisher = tExtinguisher;
   }
   if(fUpdate)
   {

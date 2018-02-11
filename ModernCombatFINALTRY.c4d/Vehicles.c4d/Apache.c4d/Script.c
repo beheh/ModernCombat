@@ -155,10 +155,30 @@ protected func ContainedUp(object ByObj)
     }
   }
 
-  //Sch¸tze
+  //Sch¸tzen-Speedmen¸
   if(ByObj == GetGunner())
+  {
+    var ring = CreateSpeedMenu(this, ByObj);
+
+    var overlay;
+
     //Waffe nachladen
-    pMGStation->~ControlUp(ByObj);
+    var weapon = pMGStation->~GetAttWeapon();
+    if(weapon && weapon->GetAmmoCount(weapon->GetSlot()) < weapon->GetFMData(FM_AmmoLoad))
+    {
+      overlay = ring->AddThrowItem("$Reload$", "ReloadWeapon", ByObj, SMIN);
+      SetGraphics("1", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
+    }
+
+    //Scheinwerfer ein- oder ausschalten
+    if(SpotlightsReady())
+    {
+      overlay = ring->AddDownItem("$Spotlight$", "SwitchSpotlights", ByObj, SMIN);
+      SetGraphics("9", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
+    }
+
+    return Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(ByObj) + 1);
+  }
 
   return true;
 }
@@ -386,26 +406,53 @@ protected func ContainedThrow(object ByObj)
       SetGraphics("10", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
     }
 
+    //Feuerlˆscher
+    //Nur wenn geladen
+    if(CanDeployExtinguisher())
+    {
+      overlay = ring->AddUpItem("$Extinguisher$", "DeployExtinguisher", ByObj, SMIN);
+      SetGraphics("11", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
+    }
+
     //HUD ein- oder ausblenden
     overlay = ring->AddRightItem("$HUD$", "SwitchHUD", ByObj, SMIN);
     SetGraphics("8", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
-
-    //Scheinwerfer ein- oder ausschalten
-    overlay = ring->AddDownItem("$Spotlight$", "SwitchSpotlights", ByObj, SMIN);
-    SetGraphics("9", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
 
     return Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(ByObj) + 1);
   }
 
   //Sch¸tze: Feuer erˆffnen/einstellen
   if(ByObj == GetGunner())
+  {
     if(!GetPlrCoreJumpAndRunControl(GetController(ByObj)))
     {
       if(GetPilot())
+      {
+        if(!SpotlightsReady())
+          return true;
+        else
+          if(fShowSpotlight)
+            SwitchSpotlights();
+
         pMGStation->~ControlThrow(ByObj);
+      }
       else
         RefuseLaunch(ByObj);
     }
+    if(fShowSpotlight)
+      SwitchSpotlights();
+  }
+
+  return true;
+}
+
+/* Scheinwerfer */
+
+public func SpotlightsReady()
+{
+  var weapon;
+  if(!pMGStation || !(weapon = pMGStation->~GetAttWeapon()) || GetEffect("StrikeRecharge", weapon) != 0)
+    return false;
 
   return true;
 }
@@ -450,6 +497,7 @@ private func DeleteActualSeatPassenger(object Obj)
   {
     GetGunner() = 0;
     if(pMGStation) pMGStation->SetGunner(0);
+    if(fShowSpotlight) SwitchSpotlights();
   }
 
   //Falls keine Passagiere auﬂer Pilot mehr da

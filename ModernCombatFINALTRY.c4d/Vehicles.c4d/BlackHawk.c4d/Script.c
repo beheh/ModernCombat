@@ -6,9 +6,8 @@
 
 local throttle, rotation, hud;
 local pMGStation, pRocketStation;
-local smokereload, flarereload;
+local smokereload, flarereload, extinguisherreload;
 local fShowSpotlight, pSpotlight;
-local iWarningSound;
 local iRotorSpeed;
 local pEntrance;
 local enginelock;
@@ -483,10 +482,30 @@ protected func ContainedUp(object ByObj)
     }
   }
 
-  //Schütze
+  //Schützen-Speedmenü
   if(ByObj == GetGunner())
+  {
+    var ring = CreateSpeedMenu(this, ByObj);
+
+    var overlay;
+
     //Waffe nachladen
-    pMGStation->~ControlUp(ByObj);
+    var weapon = pMGStation->~GetAttWeapon();
+    if(weapon && weapon->GetAmmoCount(weapon->GetSlot()) < weapon->GetFMData(FM_AmmoLoad))
+    {
+      overlay = ring->AddThrowItem("$Reload$", "ReloadWeapon", ByObj, SMIN);
+      SetGraphics("1", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
+    }
+
+    //Scheinwerfer ein- oder ausschalten
+    if(SpotlightsReady())
+    {
+      overlay = ring->AddDownItem("$Spotlight$", "SwitchSpotlights", ByObj, SMIN);
+      SetGraphics("9", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
+    }
+
+    return Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(ByObj) + 1);
+  }
 
   //Koordinator
   if(ByObj == GetCoordinator())
@@ -809,6 +828,11 @@ public func CanDeploySmokeWall()
   return !smokereload;
 }
 
+public func CanDeployExtinguisher()
+{
+  return !extinguisherreload;
+}
+
 protected func ContainedThrow(object ByObj)
 {
   [Image=KOKR|$CtrlThrow$]
@@ -839,13 +863,17 @@ protected func ContainedThrow(object ByObj)
       SetGraphics("7", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
     }
 
+    //Feuerlöscher
+    //Nur wenn geladen
+    if(CanDeployExtinguisher())
+    {
+      overlay = ring->AddUpItem("$Extinguisher$", "DeployExtinguisher", ByObj, SMIN);
+      SetGraphics("11", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
+    }
+
     //HUD ein- oder ausblenden
     overlay = ring->AddRightItem("$HUD$", "SwitchHUD", ByObj, SMIN);
     SetGraphics("8", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
-
-    //Scheinwerfer ein- oder ausschalten
-    overlay = ring->AddDownItem("$Spotlight$", "SwitchSpotlights", ByObj, SMIN);
-    SetGraphics("9", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
 
     return Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(ByObj) + 1);
   }
@@ -856,10 +884,20 @@ protected func ContainedThrow(object ByObj)
     if(!GetPlrCoreJumpAndRunControl(GetController(ByObj)))
     {
       if(GetPilot())
+      {
+        if(!SpotlightsReady())
+          return true;
+        else
+          if(fShowSpotlight)
+            SwitchSpotlights();
+
         pMGStation->~ControlThrow(ByObj);
+      }
       else
         RefuseLaunch(ByObj);
     }
+    if(fShowSpotlight)
+      SwitchSpotlights();
   }
   //Koordinator
   if(ByObj == GetCoordinator())
@@ -930,6 +968,7 @@ public func DeployFlares()
   //Sound
   Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(GetPilot()) + 1);
   Sound("BKHK_DeployFlares.ogg");
+  Echo("BKHK_DeployFlaresEcho.ogg",true);
 
   //Flareladezeit setzen
   flarereload = 35 * 10;
@@ -956,6 +995,74 @@ public func DeploySmoke()
   smokereload = 35 * 30;
 
   return true;
+}
+
+/* Feuerlöscher */
+
+public func DeployExtinguisher()
+{
+  //Nur bei starken Schäden einsetzbar
+  if(GetDamage() < MaxDamage() * 3 / 4)
+  {
+    if(GetPilot())
+      PlayerMessage(GetOwner(GetPilot()), "$NotEnoughDamage$", GetPilot());
+    return 1;
+  }
+
+  //Reparatureffekt setzen
+  if(GetEffect("HelicopterRepair", this))
+    RemoveEffect("HelicopterRepair", this);
+  AddEffect("HelicopterRepair",this,20,1,0,GetID(),RepairRate());
+
+  //Sound
+  Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(GetPilot()) + 1);
+  Sound("BKHK_DeployExtinguisher.ogg");
+
+  //Feuerlöscherladezeit setzen
+  extinguisherreload = 35 * 40;
+}
+
+/* Feuerlöschereffekt */
+
+func RepairRate()	{return 4;}
+
+func FxHelicopterRepairStart(object pTarget, int iEffectNumber, int iTemp, int iRepairRate)
+{
+  Sound("BKHK_Extinguisher.ogg", false, pTarget, 50, 0, 1);
+
+  EffectVar(0,pTarget,iEffectNumber) = iRepairRate;	//Frames pro Reparatur
+}
+
+func FxHelicopterRepairTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  //Effekte
+  var iX = RandomX(-25,25);
+  var iY = RandomX(-25,25);
+  pTarget->CreateParticle("FireSpark",iX,iY,GetXDir(pTarget)/2,GetYDir(pTarget)/2,RandomX(30,40)*5,RGB(255,255,255),pTarget);
+  pTarget->CreateParticle("Smoke3",iX,iY,GetXDir(pTarget)/2,GetYDir(pTarget)/2,100,RGB(255,255,255),pTarget);
+  //Reparatur
+  if(!(iEffectTime % EffectVar(0, pTarget, iEffectNumber)))
+    DoDamage(-1, pTarget);
+
+  //Fahrzeug zu 50% repariert?
+  if(GetDamage(pTarget) <= MaxDamage() / 2)
+  {
+    return -1;
+  }
+}
+
+func FxHelicopterRepairDamage(target, no, dmg, dmgtype)
+{
+  //Bei Schaden abbrechen
+  if(dmg > 0) RemoveEffect(0,target,no);
+
+  return dmg;
+}
+
+public func FxHelicopterRepairStop(object pTarget, no, reason, temp)
+{
+  Sound("BKHK_DeployExtinguisher.ogg", false, pTarget, 0, 0, -1);
+  Sound("BKHK_Extinguisher.ogg", false, pTarget, 50, 0, -1);
 }
 
 /* HUD (de)aktivieren */
@@ -988,6 +1095,13 @@ public func SwitchHUD()
 
 public func SwitchSpotlights()
 {
+  Sound("BKHK_Handle*.ogg", false, pMGStation);
+  Sound("WPN2_Handle*.ogg", false, pMGStation);
+
+  //Feuer einstellen
+  pMGStation->~StopAutoFire();
+  pMGStation->~SetCooldown();
+
   fShowSpotlight = !fShowSpotlight;
 
   //Sound
@@ -1003,7 +1117,7 @@ public func UpdateSpotlights()
 
 public func CreateSpotlights()
 {
-  pSpotlight[0] = AddLightCone(5000, RGBa(255,255,220,70), pMGStation, 60, 0, 200, LHC2);
+  pSpotlight[0] = AddLightCone(3000, RGBa(255,255,220,70), pMGStation, 60, 220, 200, LHC2);
   pSpotlight[0]->ChangeR(pMGStation->AimAngle());
   pSpotlight[0]->ChangeOffset(0, 3);
   return true;
@@ -1017,7 +1131,26 @@ public func RemoveSpotlights()
   return true;
 }
 
+public func SpotlightsReady()
+{
+  var weapon;
+  if(!pMGStation || !(weapon = pMGStation->~GetAttWeapon()) || GetEffect("StrikeRecharge", weapon) != 0)
+    return false;
+
+  return true;
+}
+
 /* Schützen-/Koordinator-Steuerung */
+
+/* Waffe nachladen */
+
+public func ReloadWeapon(object ByObj)
+{
+  //Schütze
+  if(ByObj == GetGunner())
+    //Waffe nachladen
+    pMGStation->~ControlUp(ByObj);
+}
 
 protected func RefuseLaunch(object pClonk)
 {
@@ -1105,6 +1238,7 @@ private func DeleteActualSeatPassenger(object Obj)
   {
     GetGunner() = 0;
     if(pMGStation) pMGStation->SetGunner(0);
+    if(fShowSpotlight) SwitchSpotlights();
   }
   if(GetCoordinator() == Obj)
   {
@@ -1252,9 +1386,12 @@ public func OnDamage(int iDamage)
   if(GetContact(this, -1))
     ResetAutopilot();
 
-  //Sound
-  if(!EffectCall(this, GetEffect("IntVehicleUnused", this), "Damaging"))
-    Sound("BulletHitMetal*.ogg");
+  //Warnsignal an Insassen
+  if(EngineRunning())
+  {
+    for(var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this), Find_Exclude(GetPilot())))
+      Sound("WarningDamage.ogg", false, this, 100, GetOwner(obj) + 1);
+  }
 
   //Kritische Treffer verletzen die Besatzung
   if(iDamage >= 20)
@@ -1273,6 +1410,10 @@ public func OnDamage(int iDamage)
     //Effekt
     CastParticles("StructureSplinter",1,70,RandomX(-10,10),RandomX(-10,10),50,100);
   }
+
+  //Effekt
+  if(!EffectCall(this, GetEffect("IntVehicleUnused", this), "Damaging"))
+    Sound("BulletHitMetal*.ogg");
 
   return true;
 }
@@ -1653,6 +1794,8 @@ protected func TimerCall()
     smokereload--;
   if(flarereload)
     flarereload--;
+  if(extinguisherreload)
+    extinguisherreload--;
 
   //Bei Wasserkontakt Schaden nehmen
   if(GBackLiquid(0, 10))
@@ -1672,30 +1815,11 @@ protected func TimerCall()
     if(!GBackLiquid(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25)))
       CreateParticle("Blast", -Sin(GetR() - iDir * 60, 25) + RandomX(-10, 10), +Cos(GetR() + iDir * 100, 25) + RandomX(-10, 10),0, -10, 100 + Random(30), RGB(255, 255, 255), this);
 
+    //Warnsignal an Insassen
     if(EngineRunning())
     {
-      if(GetDamage() < MaxDamage() * 3 / 4) 
-      {
-        if(!(iWarningSound % 36))
-        for(var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
-          Sound("WarningDamage.ogg", false, this, 100, GetOwner(obj) + 1);
-        iWarningSound++;
-        if(iWarningSound >= 100)
-          iWarningSound = 0;
-      }
-      else
-      {
-        if(!(iWarningSound % 20))
-        {
-          Local(2) = 0;
-          for(var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
-            if(obj != GetPilot())
-              Sound("WarningDamageCritical.ogg", false, this, 100, GetOwner(obj) + 1);
-        }
-        iWarningSound++;
-        if(iWarningSound >= 100)
-          iWarningSound = 0;
-      }
+      for(var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this), Find_Exclude(GetPilot())))
+        Sound("WarningDamageCritical.ogg", false, this, 100, GetOwner(obj) + 1);
     }
   }
 }

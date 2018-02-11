@@ -25,7 +25,6 @@ AttractLightning=1
 NoSell=1
 NoGet=1
 RotatedEntrance=1
-SmokeRate=150
 NoTransferZones=1
 Exclusive=0
 Timer=1
