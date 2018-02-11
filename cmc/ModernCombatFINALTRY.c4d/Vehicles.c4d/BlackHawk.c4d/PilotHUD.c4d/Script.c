@@ -12,12 +12,16 @@ static const BHUD_Overlay_Flares = 1;
 static const BHUD_Overlay_SmokeWall = 2;
 static const BHUD_Overlay_Warning = 3;
 static const BHUD_Overlay_Failure = 4;
+static const BHUD_Overlay_Extinguisher = 5;
+static const BHUD_Overlay_ExtinguisherInfo = 6;
 
 local pHelicopter;
 local iState;
 local pRotation, pThrottle, pAltitude, pWind;
 local fDamage, iDamageRemaining;
-local fFlares, fSmokeWall;
+local fFlares, fSmokeWall, fExtinguisher;
+
+local iR, iG, iB, iT;	//Standardfarbe der Hauptgrafik
 
 
 /* Initialisierung */
@@ -28,17 +32,33 @@ public func Initialize()
   iState = -1;
   fFlares = true;
   fSmokeWall = true;
+  fExtinguisher = true;
   Schedule("SetVisibility(VIS_Owner)", 1, 0, this);
   SetGraphics("Flares", this, GetID(), BHUD_Overlay_Flares, GFXOV_MODE_Base);
   SetGraphics("SmokeWall", this, GetID(), BHUD_Overlay_SmokeWall, GFXOV_MODE_Base);
+  SetGraphics("Extinguisher", this, GetID(), BHUD_Overlay_Extinguisher, GFXOV_MODE_Base);
+  SetGraphics("ExtinguisherInfo", this, GetID(), BHUD_Overlay_ExtinguisherInfo, GFXOV_MODE_Base);
   SetGraphics("Warning", this, GetID(), BHUD_Overlay_Warning, GFXOV_MODE_Base);
   SetGraphics("Failure", this, GetID(), BHUD_Overlay_Failure, GFXOV_MODE_Base);
   SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Flares);
   SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_SmokeWall);
+  SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Extinguisher);
+  SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_ExtinguisherInfo);
   SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Warning);
   SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Failure);
+  SetStandardColor(0,210,255,50);
   SetState(BHUD_Ready);
   return true;
+}
+
+public func SetStandardColor(int iRn, int iGn, int iBn, int iTn)
+{
+  iR = iRn;
+  iG = iGn;
+  iB = iBn;
+  iT = iTn;
+
+  SetClrModulation(RGBa(iR,iG,iB,iT));
 }
 
 protected func SetState(int iNewState, bool fKeepSound, bool fUpdate)
@@ -56,13 +76,25 @@ protected func SetState(int iNewState, bool fKeepSound, bool fUpdate)
     SetClrModulation(RGBa(255,0,0,50));
     SetClrModulation(RGBa(255,0,0,50), this, BHUD_Overlay_Failure);
     dwArrowColor = RGBa(255,0,0,50);
-    Sound("WarningDamage.ogg", false, this, 100, GetOwner()+1, +1);
+
+    if(pHelicopter->GetDamage() >= pHelicopter->MaxDamage()*3/4)
+    {
+      Sound("WarningDamageCritical.ogg", false, this, 100, GetOwner()+1, +1);
+      if(fExtinguisher)
+        SetClrModulation(dwArrowColor, this, BHUD_Overlay_ExtinguisherInfo);
+      else
+        SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_ExtinguisherInfo);
+    }
+    else
+      Sound("WarningDamage.ogg", false, this, 100, GetOwner()+1, +1);
   }
   else
   {
     SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Failure);
+    SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_ExtinguisherInfo);
     if(!fKeepSound)
     {
+      Sound("WarningDamageCritical.ogg", false, this, 100, GetOwner()+1, -1);
       Sound("WarningDamage.ogg", false, this, 100, GetOwner()+1, -1);
     }
   }
@@ -83,7 +115,7 @@ protected func SetState(int iNewState, bool fKeepSound, bool fUpdate)
   }
   if(iState == BHUD_Ready)
   {
-    SetClrModulation(RGBa(0,210,255,50));
+    SetClrModulation(RGBa(iR,iG,iB,iT));
     dwArrowColor = RGBa(255,204,0,50);
   }
   if(iState == BHUD_Disabled)
@@ -106,6 +138,14 @@ protected func SetState(int iNewState, bool fKeepSound, bool fUpdate)
   else
   {
     SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_SmokeWall);
+  }
+  if(fExtinguisher)
+  {
+    SetClrModulation(dwArrowColor, this, BHUD_Overlay_Extinguisher);
+  }
+  else
+  {
+    SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Extinguisher);
   }
   if(pRotation) pRotation->SetClrModulation(dwArrowColor);
   if(pThrottle) pThrottle->SetClrModulation(dwArrowColor);
@@ -200,10 +240,11 @@ protected func Timer()
     SetObjDrawTransform(1000,0,0,0,1000,0);
   }
 
-  //Flares und Rauchwand
+  //Flares, Rauchwand und Feuerlöscher
   var fUpdate = false;
   var tFlares = pHelicopter->CanDeployFlares();
   var tSmokeWall = pHelicopter->CanDeploySmokeWall();
+  var tExtinguisher = pHelicopter->CanDeployExtinguisher();
   if(fFlares != tFlares)
   {
     fUpdate = true;
@@ -215,6 +256,12 @@ protected func Timer()
     fUpdate = true;
     if(!fSmokeWall) Sound("WarningSmokeWallReloaded.ogg", false, this, 100, GetOwner()+1);
     fSmokeWall = tSmokeWall;
+  }
+  if(fExtinguisher != tExtinguisher)
+  {
+    fUpdate = true;
+    if(!fExtinguisher) Sound("WarningExtinguisherReloaded.ogg", false, this, 100, GetOwner()+1);
+    fExtinguisher = tExtinguisher;
   }
   if(fUpdate)
   {

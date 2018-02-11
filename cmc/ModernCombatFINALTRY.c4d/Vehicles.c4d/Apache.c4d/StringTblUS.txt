@@ -23,5 +23,7 @@ GunnerDesc=Take control over the outside automatic cannon.
 #Actions
 Flares=Flare Drop
 HUD=Fade HUD in/out
+Reload=Reload
 Spotlight=Spotlight
+Extinguisher=Extinguisher
 RocketLauncher=Rocket Launcher
