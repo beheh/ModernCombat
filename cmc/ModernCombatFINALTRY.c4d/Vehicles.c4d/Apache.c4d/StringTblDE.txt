@@ -14,11 +14,11 @@ CtrlThrow=Aktion
 Seats=Sitze
 SeatOccupied=Sitz bereits belegt.
 Exit=Aussteigen
-ExitDesc=Verlasse den Helikopter.
+ExitDesc=Helikopter verlassen.
 Pilot=Pilot
-PilotDesc=Fliege den Helikopter.
+PilotDesc=Helikopter steuern.
 Gunner=Schütze
-GunnerDesc=Übernehme die Kontrolle über die außen angebrachte Maschinenkanone.
+GunnerDesc=Maschinenkanone bedienen.
 
 #Aktionen
 Flares=Flareabwurf

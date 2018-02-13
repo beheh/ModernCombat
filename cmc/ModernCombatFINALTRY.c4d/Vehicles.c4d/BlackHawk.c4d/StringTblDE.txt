@@ -14,17 +14,17 @@ CtrlThrow=Aktion
 Seats=Sitze
 SeatOccupied=Sitz bereits belegt.
 Exit=Aussteigen
-ExitDesc=Verlasse den Helikopter.
+ExitDesc=Helikopter verlassen.
 Pilot=Pilot
-PilotDesc=Fliege den Helikopter.
+PilotDesc=Helikopter steuern.
 Gunner=Schütze
-GunnerDesc=Übernehme die Kontrolle über die außen angebrachte Maschinenkanone.
+GunnerDesc=Maschinenkanone bedienen.
 Coordinator=Koordinator
-CoordinatorDesc=Steuere das Raketenwerfersystem mit optisch lenkbaren Raketen.
+CoordinatorDesc=Raketenwerfer mit optisch lenkbaren Raketen bedienen.
 Passenger=Passagier
-PassengerDesc=Ein Sitzplatz mit Seil zum Ausklinken.
+PassengerDesc=Sitzplatz mit Seil zum Ausklinken.
 ExitRope=Abseilen
-ExitRopeDesc=Verlasse den Helikopter durch Abseilen.
+ExitRopeDesc=Helikopter durch Abseilen verlassen.
 
 #Aktionen
 Flares=Flareabwurf
