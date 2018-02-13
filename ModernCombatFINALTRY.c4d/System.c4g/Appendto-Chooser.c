@@ -413,7 +413,7 @@ protected func OpenMenu()
 
   Message("", pClonk);
 
-  CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
+  CreateMenu(GetID(),pClonk,0,0,0,0,1);
   if(!GetLeague())
   {
     //Spielregeln
@@ -445,7 +445,7 @@ protected func OpenRuleMenu(id dummy, int iSelection)
 {
   var pClonk = GetCursor(iChosenPlr);
   //Menü erstellen
-  CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
+  CreateMenu(GetID(),pClonk,0,0,0,0,1);
   //Regeln einfügen
   for(var i=0, idR, def, j, check ; idR = GetDefinition(i, Chooser_Cat) ; i++)
   {
@@ -481,11 +481,9 @@ protected func OpenEffectMenu(id dummy, int iSelection)
 {
   var pClonk = GetCursor(iChosenPlr);
   //Menü aufmachen
-  CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
+  CreateMenu(GetID(),pClonk,0,0,0,0,1);
   //Anzeige
   AddMenuItem("$Effects$", 0, EFMN, pClonk, iEffectCount);
-  //Zähler erhöhen
-
   //Effekte erhöhen oder senken
   if(GetEffectLevel() < 3)
   AddMenuItem("$MoreEffects$", "ChangeEffectConf", GOCC, pClonk, 0, +1, "$MoreEffects$",2,1); else
@@ -521,7 +519,7 @@ protected func OpenGoalMenu(id dummy, int iSelection)
     return 1;
 
   //Menü aufmachen
-  CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
+  CreateMenu(GetID(),pClonk,0,0,0,0,1);
   //Anzeige
   AddMenuItem(" ", "OpenGoalMenu", GetID(pGoal), pClonk, GetWinScore2(), 0, " ");
   //Zähler erhöhen
@@ -539,7 +537,7 @@ protected func OpenDarknessMenu(id dummy, int iSelection)
 {
   var pClonk = GetCursor(iChosenPlr);
   //Menü aufmachen
-  CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
+  CreateMenu(GetID(),pClonk,0,0,0,0,1);
   //Dunkelheitsanzeige
   AddMenuItem("$Darkness$", 0, DARK, pClonk, iDarkCount);
   //Zähler erhöhen
@@ -564,7 +562,7 @@ protected func OpenTeamMenu(id dummy, int iSelection)
   fRandomMenu = false;
   var pClonk = GetCursor(iChosenPlr);
   //Menü erstellen
-  CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
+  CreateMenu(GetID(),pClonk,0,0,0,0,1);
   //Teams auflisten
   for(var j = 0; j < GetPlayerCount(); j++)
   {
@@ -575,7 +573,7 @@ protected func OpenTeamMenu(id dummy, int iSelection)
 
     AddMenuItem(Format("%s (%s)", GetTaggedPlayerName(plr, true), team_name), "SwitchTeam", PCMK, pClonk, 0, plr);
   }
-  
+
   //Zusätzliche Teameinstellungen
   AddMenuItem("$RandomTeams$", "ChoosePossibleTeams(CHOS_TeamRandom)", MCMC, pClonk);
   AddMenuItem("$AutoBalanceTeams$", "ChoosePossibleTeams(CHOS_TeamAutobalance)", MCMC, pClonk);
@@ -596,7 +594,7 @@ protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
   var pClonk = GetCursor(iChosenPlr);
 
   //Menü erstellen
-  CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
+  CreateMenu(GetID(),pClonk,0,0,0,0,1);
 
   var caption = "$CreateTeams$";
   if(iMode == CHOS_TeamRotation)
@@ -695,7 +693,7 @@ protected func SelectPredefinedTeamMember(bool fInvisible, int iSelection, int i
   aTeamMenu = [2, fInvisible, iSelection, iTeamSort, iPlr];
   var pClonk = GetCursor(iChosenPlr);
   //Menü erstellen
-  CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
+  CreateMenu(GetID(),pClonk,0,0,0,0,1);
   //Teams auflisten
   for(var j = 0; j < GetPlayerCount(); j++)
   {
@@ -1035,7 +1033,7 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
     CloseMenu(pClonk);
 
     //Menü erstellen
-    CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
+    CreateMenu(GetID(),pClonk,0,0,0,0,1);
 
     //Teams auflisten
     for(var j = 0; j < GetPlayerCount(); j++)
@@ -1234,7 +1232,7 @@ public func FxTeamRotationChoosePlrTimer(object pTarget, int iNr)
   if(EffectVar(2, pTarget, iNr) <= 5)
     Sound("Select.ogg", true);
 
-  CreateMenu(GetID(), obj, this, 0, 0, 0, 1);
+  CreateMenu(GetID(),obj,this,0,0,0,1);
   AddMenuItem(Format("$TimeRemaining$", EffectVar(2, pTarget, iNr)), 0, TEAM, obj);
 
   for(var plr in EffectVar(3, pTarget, iNr))
@@ -1682,7 +1680,7 @@ protected func ConfigurationFinished2()
 private func IsStandardSetting()
 {
   var a = GameCall("ChooserRuleConfig"), i;
-  for (var i = 0; i < GetLength(aRules); i++)
+  for(var i = 0; i < GetLength(aRules); i++)
   {
     if(GetIndexOf(GetDefinition(i, Chooser_Cat), a) != -1)
     {
@@ -1746,7 +1744,7 @@ protected func OpenGoalChooseMenu()
   if(GetLeague())
     return OpenGoalVoteMenu(GetID(), pClonk);
 
-  CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
+  CreateMenu(GetID(),pClonk,0,0,0,0,1);
 
   var i;
   var rGoals = RecommendedGoals();
@@ -1788,7 +1786,7 @@ public func ChangeHostMenu()
   if(GetLength(aGoals) == 1)
     return CreateGoal(aGoals[0], aTempGoalSave[0]);
 
-  CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
+  CreateMenu(GetID(),pClonk,0,0,0,0,1);
 
   for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
   {
@@ -1828,7 +1826,7 @@ local aGoalsChecked;
 
 protected func OpenGoalRandomMenu(id id, object pClonk)
 {
-  CreateMenu(GetID(), pClonk, 0, 0, 0, 0, C4MN_Style_Context);
+  CreateMenu(GetID(),pClonk,0,0,0,0,1);
 
   var rGoals = RecommendedGoals();
   if(!rGoals)
@@ -1837,7 +1835,7 @@ protected func OpenGoalRandomMenu(id id, object pClonk)
   if(!aGoalsChecked)
     aGoalsChecked = [];
   var fChecked = false;
-  for (var i = 0; i < GetLength(aGoals); i++)
+  for(var i = 0; i < GetLength(aGoals); i++)
   {
     if(!aGoals[i])
       continue;
@@ -1880,7 +1878,7 @@ protected func CheckRandomGoal(id idGoal, object pClonk)
 protected func GoalRandomChoose(id id, object pClonk)
 {
   var array = [];
-  for (var i = 0; i < GetLength(aGoals); i++)
+  for(var i = 0; i < GetLength(aGoals); i++)
     if(aGoalsChecked[i])
       array[GetLength(array)] = aGoals[i];
   var idGoal = array[Random(GetLength(array))];
@@ -1896,7 +1894,7 @@ static const CHOS_GoalVotingTime = 15;
 
 protected func CheckGoalVoteMenu(id id, object pClonk)
 {
-  CreateMenu(GetID(), pClonk, 0, 0, 0, 0, C4MN_Style_Context);
+  CreateMenu(GetID(),pClonk,0,0,0,0,1);
   AddMenuItem("$BeginVote$", 0, GetID(), pClonk, 0, 0, 0, C4MN_Add_ForceNoDesc);
   AddMenuItem("$BeginVoteYes$", "OpenGoalVoteMenu", GetID(), pClonk, 0, pClonk, 0, C4MN_Add_ImgIndexed | C4MN_Add_ForceNoDesc, 3);
   AddMenuItem("$BeginVoteNo$", "OpenGoalChooseMenu", MCMX, pClonk, 0, pClonk, 0, C4MN_Add_ForceNoDesc);
@@ -1906,7 +1904,7 @@ protected func OpenGoalVoteMenu(id id, object pClonk)
 {
   if(!aGoalsVoted)
     aGoalsVoted = [];
-  for (var i = 0; i < GetPlayerCount(); i++)
+  for(var i = 0; i < GetPlayerCount(); i++)
     GoalVoteMenu(0, 0, GetPlayerByIndex(i));
   AddEffect("EvaluateGoalVote", this, 1, 35, this);
   //Eventnachricht: Spielzielvoting gestartet
@@ -1926,7 +1924,7 @@ protected func GoalVoteMenu(id id, object pClonk, int iPlr)
   if(iTime >= CHOS_GoalVotingTime * 35)
     return false;
 
-  CreateMenu(GetID(), pClonk, 0, 0, 0, 0, C4MN_Style_Context);
+  CreateMenu(GetID(),pClonk,0,0,0,0,1);
   if(!aGoalsVoted[iPlr])
     aGoalsVoted[iPlr] = [];
 
@@ -1935,7 +1933,7 @@ protected func GoalVoteMenu(id id, object pClonk, int iPlr)
     rGoals = [];
 
   AddMenuItem(Format("$VoteGoal$ (%d)", CHOS_GoalVotingTime - iTime / 35), 0, GetID(), pClonk, 0, 0, 0, C4MN_Add_ForceNoDesc);
-  for (var i = 0; i < GetLength(aGoals); i++)
+  for(var i = 0; i < GetLength(aGoals); i++)
   {
     var obj = CreateObject(TIM1, 0, 0, -1);
     SetPicture(0, 0, 64, 64, obj);
