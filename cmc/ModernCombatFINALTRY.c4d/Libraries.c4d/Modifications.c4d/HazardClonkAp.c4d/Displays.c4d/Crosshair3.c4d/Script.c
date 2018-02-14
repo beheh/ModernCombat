@@ -23,6 +23,14 @@ public func Set(object pObj)
   //Animieren
   SetAction("Ping",this);
 
+  //Färbung
+  var rgb;
+  if(pArtillery->~GetCooldown() > 0)
+    rgb = RGB(255,0,0);
+  else
+    rgb = RGB(0,255,0);
+  SetClrModulation(rgb);
+
   return true;
 }
 
@@ -43,6 +51,14 @@ public func Check()
     SetVisibility(VIS_Owner);
     fActive = true;
   }
+
+  //Färbung
+  var rgb;
+  if(pArtillery->~GetCooldown() > 0)
+    rgb = RGB(255,0,0);
+  else
+    rgb = RGB(0,255,0);
+  SetClrModulation(rgb);
 
   return true;
 }
