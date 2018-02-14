@@ -5,19 +5,20 @@
 
 local pCannon;
 local bRotate, bDirection;
-local iCooldown;
+local iCooldown, iLastX, iLastY;
 local byObj;
 
 public func IsMachine()		{return true;}
 public func MaxDamage()		{return 150;}
 public func RepairSpeed()	{return 2;}
+public func GetCooldown()	{return iCooldown;}
 
 
 /* Initialisierung */
 
 func Initialize()
 {
-  //Kanone erstellen
+  //Geschütz erstellen
   pCannon = CreateObject(CNON,0,32,-1);
   iCooldown = 0;
   pCannon->~Attach(this, 4);
@@ -26,7 +27,13 @@ func Initialize()
   return inherited();
 }
 
-/* Check */
+func SetRotation(aRotation)
+{
+  if(pCannon)
+    SetR(aRotation, pCannon);
+}
+
+/* Timer */
 
 func Rotation()
 {
@@ -37,7 +44,6 @@ func Rotation()
       CreateParticle("PSpark",18,-9,0,0,50,RGB(255,255,0),this);
     return;
   }
-
   if(iCooldown <= 0)
     CreateParticle("PSpark",18,-9,0,0,40,RGB(0,255,0,100),this);
   else
@@ -46,8 +52,9 @@ func Rotation()
       CreateParticle("PSpark",18,-9,0,0,40,RGB(255,0,0,100),this);
   }
 
+  //Rotation
   if(!bRotate) return;
-
+  //Kein Bediener: Stop
   if(!FindObject2(Find_Action("Push"), Find_ActionTarget(this)))
   {
     bRotate = 0;
@@ -55,34 +62,27 @@ func Rotation()
     StopCannonSound();
     return;
   }
-
+  //Rechtes Rotationsende erreicht: Stop
   if(GetR(pCannon)> 80)
   {
     bRotate=0;
     SetR(GetR(pCannon)-1,pCannon);
-    //Geschützrotationsgeräusche stoppen
     StopCannonSound();
     return;
   }
+  //Linkes Rotationsende erreicht: Stop
   if(GetR(pCannon)<-80)
   {
     bRotate=0;
     SetR(GetR(pCannon)+1,pCannon);
-    //Geschützrotationsgeräusche stoppen
     StopCannonSound();
     return;
   }
-
+  //Geschütz drehen
   if(bDirection==0)
     SetR(GetR(pCannon)+1,pCannon);
   if(bDirection==1)
     SetR(GetR(pCannon)-1,pCannon);
-}
-
-func SetRotation(aRotation)
-{
-  if(pCannon)
-    SetR(aRotation, pCannon);
 }
 
 /* Steuerung */
@@ -98,8 +98,9 @@ func ControlRight(pByObj)
     //Geschützrotationsgeräusche
     StartCannonSound();
   }
-
   bRotate=1;
+  iLastX=0;
+  iLastY=0;
   bDirection=0;
 }
 
@@ -114,8 +115,9 @@ func ControlLeft(pByObj)
     //Geschützrotationsgeräusche
     StartCannonSound();
   }
-
   bRotate=1;
+  iLastX=0;
+  iLastY=0;
   bDirection=1;
 }
 
@@ -130,6 +132,8 @@ func ControlDown(pByObj)
     //Geschützrotationsgeräusche stoppen
     StopCannonSound();
   }
+  iLastX=0;
+  iLastY=0;
   bRotate=0;
 }
 
@@ -148,7 +152,7 @@ func ControlDig(object pByObj)
   if(IsDestroyed())
     return PlayerMessage(GetOwner(pByObj),"$Destroyed$", this);
 
-  //Puffer
+  //Cooldown
   if(GetEffect("CommandDelay", this))
   {
     Sound("BKHK_SwitchFail.ogg", 1, pByObj, 100, GetOwner(pByObj)+1);
@@ -156,16 +160,30 @@ func ControlDig(object pByObj)
   }
   AddEffect("CommandDelay", this, 1, 50, this);
 
-  //Flugbahn berechnen
-  var iX = Sin(GetR(pCannon),34), iY = -Cos(GetR(pCannon),34)-3, iXDir = Sin(GetR(pCannon),150), iYDir = -Cos(GetR(pCannon),150);
-
-  if (SimFlight2(iX, iY, iXDir, iYDir))
+  //Zielpunkt unverändert: Weiterverwenden
+  if(iLastX && iLastY)
   {
-    var target = CreateObject(ACRH, iX, iY, GetOwner(pByObj));
+    var target = CreateObject(ACRH, iLastX, iLastY, GetOwner(pByObj));
     SetVisibility(VIS_Owner, target);
     SetPlrView(GetOwner(pByObj), target);
     target->Set(pByObj);
     Sound("BKHK_Switch.ogg", 1, pByObj, 100, GetOwner(pByObj)+1);
+  }
+  else
+  {
+    //Zielpunkt berechnen
+    var iX = Sin(GetR(pCannon),34), iY = -Cos(GetR(pCannon),34)-3, iXDir = Sin(GetR(pCannon),150), iYDir = -Cos(GetR(pCannon),150);
+
+    if(SimFlight2(iX, iY, iXDir, iYDir))
+    {
+      var target = CreateObject(ACRH, iX, iY, GetOwner(pByObj));
+      SetVisibility(VIS_Owner, target);
+      SetPlrView(GetOwner(pByObj), target);
+      target->Set(pByObj);
+      iLastX=iX;
+      iLastY=iY;
+      Sound("BKHK_Switch.ogg", 1, pByObj, 100, GetOwner(pByObj)+1);
+    }
   }
 }
 
@@ -262,6 +280,12 @@ public func OnDestruction()
   Sound("StructureHeavyHit*.ogg");
 }
 
+public func Destruction()
+{
+  if(pCannon) RemoveObject(pCannon);
+  RemoveEffect("ShowWeapon",this); 
+}
+
 public func OnDmg(int iDmg, int iType)
 {
   if(iType == DMG_Fire)		return 60;	//Feuer
@@ -274,15 +298,7 @@ public func OnDmg(int iDmg, int iType)
 
 public func OnRepair()
 {
-  //Neue Kanone
+  //Neues Geschütz
   pCannon = CreateObject(CNON,0, 32, -1);
   pCannon->~Attach(this, 4);
-}
-
-/* Normale Entfernung */
-
-public func Destruction()
-{
-  if(pCannon) RemoveObject(pCannon);
-  RemoveEffect("ShowWeapon",this); 
 }
