@@ -1139,12 +1139,14 @@ protected func ResetData(int iData, bool fContinue)
 global func ResetSettings(int iPlr)
 {
   //Standardwerte wiederherstellen
-  SetPlrExtraData(iPlr, "CMC_InvLockMode", 0);
-  SetPlrExtraData(iPlr, "CMC_DeathMenuMode", 0);
-  SetPlrExtraData(iPlr, "CMC_QuickInv", 0);
-  SetPlrExtraData(iPlr, "Hazard_NoHelpMsg", 0);
-  SetPlrExtraData(iPlr, "CMC_NoBetterAiming", 1);
-  SetPlrExtraData(iPlr, "CMC_ScoreDisplayType", 0);
+  SetPlrExtraData(iPlr, "CMC_QuickInv", 0);					//QuickInventar (Aus)
+  SetPlrExtraData(iPlr, "Hazard_NoHelpMsg", 0);					//Hilfen (Ein)
+  SetPlrExtraData(iPlr, "CMC_InvLockMode", 0);					//Inventarsperre (Aus)
+  SetPlrExtraData(iPlr, "CMC_NoBetterAiming", 1);				//Zielen priorisieren (Aus)
+  SetPlrExtraData(iPlr, "CMC_ScoreDisplayType", 0);				//Punkteanzeige als Verlauf (Ein)
+  SetPlrExtraData(iPlr, "CMC_AchievementDisplayType", 0);			//Unendliche Errungenschaften (Ein)
+  SetPlrExtraData(iPlr, "CMC_DeathMenuModules", FKDT_DeathMenu_DefaultSetting);	//Schwerverletztenmenü zurücksetzen
+  SetPlrExtraData(iPlr, "CMC_DeathMenuMode", 0);				//Veraltet: Kompaktes Schwerverletztenmenü (Aus)
 }
 
 /* Ausrüstung ablegen */
