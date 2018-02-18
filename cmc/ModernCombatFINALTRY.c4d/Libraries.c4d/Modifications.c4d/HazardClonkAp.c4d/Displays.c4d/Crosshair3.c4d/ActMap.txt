@@ -3,11 +3,3 @@ Name=Attach
 Procedure=ATTACH
 NextAction=Hold
 Facet=0,0,25,25
-
-[Action]
-Name=Ping
-Procedure=ATTACH
-Length=6
-Delay=3
-NextAction=Attach
-Facet=25,0,25,25

@@ -21,9 +21,6 @@ func Initialize()
   fHit = false;
   fAchievement = true;
 
-  //Fluggeräusch
-  EchoLoop("ArtilleryEcho*.ogg",1);
-
   return 1;
 }
 
@@ -33,11 +30,12 @@ func ResetRotation()
 {
   SetR(Angle(GetX(),GetY(),GetX()+GetXDir(),GetY()+GetYDir()),this);
 
-  //Geräusch bei Beginn des Falls
+  //Geräusche bei Beginn des Falls
   if(GetYDir() > 2 && !fSounded)
   {
     fSounded = true;
     Sound("Artillery*.ogg");
+    EchoLoop("ArtilleryEcho*.ogg",1);
   }
 
   SearchObjects();

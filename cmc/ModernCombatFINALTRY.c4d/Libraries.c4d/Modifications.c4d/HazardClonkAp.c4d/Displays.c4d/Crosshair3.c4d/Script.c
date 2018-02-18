@@ -20,9 +20,6 @@ public func Set(object pObj)
   //Besitzer-Clonk übernehmen
   pClonk = pObj;
 
-  //Animieren
-  SetAction("Ping",this);
-
   //Färbung
   var rgb;
   if(pArtillery->~GetCooldown() > 0)
@@ -59,6 +56,9 @@ public func Check()
   else
     rgb = RGB(0,255,0);
   SetClrModulation(rgb);
+
+  //Drehen
+  SetR(GetR()+7);
 
   return true;
 }
