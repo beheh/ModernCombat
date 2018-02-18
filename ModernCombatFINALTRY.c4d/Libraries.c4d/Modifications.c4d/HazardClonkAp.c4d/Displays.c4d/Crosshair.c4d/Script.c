@@ -18,8 +18,27 @@ func Initialize()
 {
   angle = 0;
   InitGraphics();
-  
+
   return 1;
+}
+
+public func InitGraphics()
+{
+  //Kontrast links
+  SetGraphics(0,0,GetID(),1,GFXOV_MODE_Action,"Base1");
+  SetClrModulation(RGB(255,255,255),0,1);
+
+  //Färbung links
+  SetGraphics(0,0,GetID(),2,GFXOV_MODE_Action,"Status1",GFX_BLIT_Additive);
+
+  //Kontrast rechts
+  SetGraphics(0,0,GetID(),3,GFXOV_MODE_Action,"Base2");
+  SetClrModulation(RGB(255,255,255),0,3);
+
+  //Färbung rechts
+  SetGraphics(0,0,GetID(),4,GFXOV_MODE_Action,"Status2",GFX_BLIT_Additive);
+
+  UpdateGraphics();
 }
 
 protected func GetUser()
@@ -27,14 +46,19 @@ protected func GetUser()
   return target;
 }
 
+/* Timer */
+
 protected func Check()
 {
+  //Clonk ermitteln
   if(!target)
     return RemoveObject();
   if(!GetAlive(target))
     return RemoveObject();
 
+  //Waffe ermitteln
   var wpn = Contents(0, target);
+  //Keine Waffe: Ausblenden
   if(!wpn)
   {
     target->HideCH();
@@ -42,33 +66,26 @@ protected func Check()
   }
   if(!wpn->~IsWeapon() && !wpn->~IsGrenade()) return;
 
+  //Clonk mit unpassender Aktion: Ausblenden
   if(GetProcedure(target) == "PUSH" && GetActionTarget(0, target) && GetActionTarget(0, target)->~CanAim())
-  {
     target->HideCH();
-    /*if(GetActionTarget(0, target)->~IsWeapon() && !(GetActionTarget(0, target)->~IsWeapon2()))
-      return false; 
-    else
-      return true;*/
-  }
 
-  var alpha = 0;//Sin(spread*90/CH_MaxSpread,255);
-  //var alpha = spread*255/CH_MaxSpread;
-
-  var rgb = RGBa(0,255,0,alpha);
+  //Färbung je nach Waffenstatus
+  var rgb = RGB(0,255,0);
   if(wpn->IsReloading() || !wpn->GetCharge())
-    rgb = RGBa(255,0,0,alpha);
+    rgb = RGB(255,0,0);
+  SetClrModulation(rgb,0,2);	//Färbung links
+  SetClrModulation(rgb,0,4);	//Färbung rechts
 
-  SetClrModulation(RGBa(255,255,255,alpha),0,1);	//Base oben
-  SetClrModulation(rgb,0,2);				//Overlay oben
-  SetClrModulation(RGBa(255,255,255,alpha),0,3);	//Base unten
-  SetClrModulation(rgb,0,4);				//Overlay unten
-
+  //Spread bei Bedarf aktualisieren
   if(spread != iLastSpread)
   {
     UpdateGraphics();
     iLastSpread = spread;
   }
 }
+
+/* Konfiguration */
 
 public func Init(object pTarget)
 {
@@ -124,7 +141,7 @@ public func DoAngle(int iChange)
 
 public func UpdateAngle()
 {
-  if(target)  //Haaaaaax
+  if(target)
     if(Contents(0,target))
       if(Contents(0,target)->~IsGrenade())
         if(!target->~IsAiming())
@@ -133,7 +150,7 @@ public func UpdateAngle()
   UpdateGraphics();
 }
 
-public func SetSpread(int iSpread)//Achtung, Präzision beachten!
+public func SetSpread(int iSpread)
 {
   spread = iSpread;
   if(spread != iLastSpread)
@@ -143,43 +160,20 @@ public func SetSpread(int iSpread)//Achtung, Präzision beachten!
   }
 }
 
-public func GetSpread()//Achtung, Präzision beachten!
+public func GetSpread()
 {
   return spread;
 }
 
-public func InitGraphics()
-{
-  //Oben
-  SetGraphics(0,0,GetID(),1,GFXOV_MODE_Action,"Base1"); 
-  
-  //Status oben
-  SetGraphics(0,0,GetID(),2,GFXOV_MODE_Action,"Status1",GFX_BLIT_Additive); 
-  
-  //Nachtsicht oben
-  //SetGraphics(0,0,GetID(),3,GFXOV_MODE_Action,"Add1"); 
-  
-  //Unten
-  SetGraphics(0,0,GetID(),3,GFXOV_MODE_Action,"Base2"); 
-  
-  //Status unten
-  SetGraphics(0,0,GetID(),4,GFXOV_MODE_Action,"Status2",GFX_BLIT_Additive);
-  
-  //Nachtsicht unten
-  //SetGraphics(0,0,GetID(),6,GFXOV_MODE_Action,"Add2"); 
-  
-  UpdateGraphics();
-}
+/* Fadenkreuz zeichnen */
 
 public func UpdateGraphics()
 {
   Draw(-GetR()*CH_Spread_Prec-(spread/2),CH_Distance,CH_Spread_Prec,1);
-  Draw(-GetR()*CH_Spread_Prec-(spread/2),CH_Distance,CH_Spread_Prec,2);//,0,0,GFX_BLIT_Additive);
-  //Draw(GetR()*CH_Spread_Prec-(spread/2),CH_Distance,CH_Spread_Prec,3,0,0,GFX_BLIT_Additive);
-  
+  Draw(-GetR()*CH_Spread_Prec-(spread/2),CH_Distance,CH_Spread_Prec,2);
+
   Draw(-GetR()*CH_Spread_Prec+(spread/2),CH_Distance,CH_Spread_Prec,3);
-  Draw(-GetR()*CH_Spread_Prec+(spread/2),CH_Distance,CH_Spread_Prec,4);//,0,0,GFX_BLIT_Additive);
-  //Draw(GetR()*CH_Spread_Prec+(spread/2),CH_Distance,CH_Spread_Prec,6,0,0,GFX_BLIT_Additive);
+  Draw(-GetR()*CH_Spread_Prec+(spread/2),CH_Distance,CH_Spread_Prec,4);
 }
 
 private func Draw(int r, int off, int prec, int overlay)
