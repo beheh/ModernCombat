@@ -2,7 +2,6 @@
 
 #strict 2
 
-
 local CharsAmmo,	//Munition (Erste Zahl - Munitionswert)
       CharsSupply,	//Nachschub (Zweite Zahl - Clonk-Munitionswert)
       CharsGrenade,	//Granate (Dritte Zahl - Clonk-Handgranatenwert)
