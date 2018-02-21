@@ -195,9 +195,18 @@ public func OnHit(int iDamage, int iType, object pFrom)
   }
 
   //Effekte
-  Sound("BulletHitMetal*.ogg");
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Glas", 1+Random(3), 40, 0,0, 40,10, RGBa(200,200,200), RGBa(2,2,200));
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) if(!Random(5)) Sparks(Random(2)+6,RGB(255,255,Random(5)+255));
+  if(iType == DMG_Projectile)
+  {
+    MuzzleFlash(RandomX(30,60),GetUser(),0,0,GetUser()->~AimAngle()+RandomX(-25,25),0, 2);
+    Sparks(RandomX(2,4),RGB(255,255,Random(5)+255));
+    Sound("BulletRicochet*.ogg",0,pFrom,RandomX(40,100));
+  }
+  else
+  {
+    CastParticles("Glas", 1+Random(3), 40, 0,0, 40,10, RGBa(200,200,200), RGBa(2,2,200));
+    if(!Random(5)) Sparks(Random(2)+6,RGB(255,255,Random(5)+255));
+    Sound("BulletHitMetal*.ogg",0,0,RandomX(50,100));
+  }
 }
 
 public func QueryCatchBlow(object pObj) 
