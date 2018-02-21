@@ -57,6 +57,7 @@ public func CheckChange()
           GetUser()->~StartSquatAiming();
           GetUser()->~SetAiming(iAimingAngle);
         }
+        Sound("RSHL_Stabilize*.ogg",0,GetUser(),0,GetOwner(GetUser())+1);
       }
       iPrevDir = GetDir(GetUser());
       fAiming = false;
