@@ -1,0 +1,8 @@
+[DefCore]
+id=STIN
+Version=4,9,10,7
+Name=Seat Menu Icons
+Category=1
+Picture=0,0,64,64
+Width=64
+Height=64

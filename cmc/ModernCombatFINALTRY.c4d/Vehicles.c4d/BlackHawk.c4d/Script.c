@@ -43,7 +43,7 @@ public func BonusPointRepair()		{return 30;}
 
 public func EngineRunning()		{return GetEffect("Engine", this);}
 public func GetRotorSpeed()		{return iRotorSpeed;}
-
+public func MaxPassengerCount()		{return 5;}
 public func SoundIdle()			{return "BKHK_IdleSystem.ogg";}
 public func SoundIdleEcho()		{return "BKHK_IdleSystemEcho.ogg";}
 
@@ -1087,6 +1087,7 @@ public func SwitchHUD()
   }
 
   //Sound
+  Sound("BKHK_Handle*.ogg", false, this, 100, GetOwner(GetPilot()) + 1);
   Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(GetPilot()) + 1);
   return true;
 }
@@ -1171,41 +1172,41 @@ protected func OpenSeatMenu(object pClonk, int iSelection)
   CreateMenu(GetID(), pClonk, this, 0, "$Seats$", 0, C4MN_Style_Context, false);
 
   //Ausstieg
-  AddMenuItem("<c ffff33>$Exit$</c>", "ExitClonk", STDR, pClonk, 0, pClonk, "$ExitDesc$");
+  AddMenuItem("<c ffff33>$Exit$</c>", "ExitClonk", STIN, pClonk, 0, pClonk, "$ExitDesc$");
 
   //Pilot
   if(GetPilot())
-    AddMenuItem("<c 777777>$Pilot$</c>", "SeatOccupied", GetID(), pClonk, 0, pClonk, "$SeatOccupied$");
+    AddMenuItem("<c 777777>$Pilot$</c>", "SeatOccupied", STIN, pClonk, 0, pClonk, "$SeatOccupied$",2,1);
   else
-    AddMenuItem("<c ffffff>$Pilot$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Pilot, ObjectNumber(pClonk)), GetID(), pClonk, 0, pClonk, "$PilotDesc$");
+    AddMenuItem("<c ffffff>$Pilot$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Pilot, ObjectNumber(pClonk)), STIN, pClonk, 0, pClonk, "$PilotDesc$",2,1);
 
   //Schütze
   if(GetGunner())
-    AddMenuItem("<c 777777>$Gunner$</c>", "SeatOccupied", GetID(), pClonk, 0, pClonk, "$SeatOccupied$");
+    AddMenuItem("<c 777777>$Gunner$</c>", "SeatOccupied", STIN, pClonk, 0, pClonk, "$SeatOccupied$",2,2);
   else
-    AddMenuItem("<c ffffff>$Gunner$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Gunner, ObjectNumber(pClonk)), GetID(), pClonk, 0, pClonk, "$GunnerDesc$");
+    AddMenuItem("<c ffffff>$Gunner$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Gunner, ObjectNumber(pClonk)), STIN, pClonk, 0, pClonk, "$GunnerDesc$",2,2);
 
   //Koordinator
   if(GetCoordinator())
-    AddMenuItem("<c 777777>$Coordinator$</c>", "SeatOccupied", GetID(), pClonk, 0, pClonk, "$SeatOccupied$");
+    AddMenuItem("<c 777777>$Coordinator$</c>", "SeatOccupied", STIN, pClonk, 0, pClonk, "$SeatOccupied$",2,3);
   else
-    AddMenuItem("<c ffffff>$Coordinator$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Coordinator, ObjectNumber(pClonk)), GetID(), pClonk, 0, pClonk, "$CoordinatorDesc$");
+    AddMenuItem("<c ffffff>$Coordinator$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Coordinator, ObjectNumber(pClonk)), STIN, pClonk, 0, pClonk, "$CoordinatorDesc$",2,3);
 
   //Passagier 1
   if(GetPassenger1())
-    AddMenuItem("<c 777777>$Passenger$</c>", "SeatOccupied", GetID(), pClonk, 0, pClonk, "$SeatOccupied$");
+    AddMenuItem("<c 777777>$Passenger$</c>", "SeatOccupied", STIN, pClonk, 0, pClonk, "$SeatOccupied$",2,6);
   else
-    AddMenuItem("<c ffffff>$Passenger$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Passenger1, ObjectNumber(pClonk)), GetID(), pClonk, 0, pClonk, "$PassengerDesc$");
+    AddMenuItem("<c ffffff>$Passenger$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Passenger1, ObjectNumber(pClonk)), STIN, pClonk, 0, pClonk, "$PassengerDesc$",2,6);
 
   //Passagier 2
   if(GetPassenger2())
-    AddMenuItem("<c 777777>$Passenger$</c>", "SeatOccupied", GetID(), pClonk, 0, pClonk, "$SeatOccupied$");
+    AddMenuItem("<c 777777>$Passenger$</c>", "SeatOccupied", STIN, pClonk, 0, pClonk, "$SeatOccupied$",2,6);
   else
-    AddMenuItem("<c ffffff>$Passenger$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Passenger2, ObjectNumber(pClonk)), GetID(), pClonk, 0, pClonk, "$PassengerDesc$");
-  
+    AddMenuItem("<c ffffff>$Passenger$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Passenger2, ObjectNumber(pClonk)), STIN, pClonk, 0, pClonk, "$PassengerDesc$",2,6);
+
   //Ausstieg per Seil
-  AddMenuItem("<c ffff33>$ExitRope$</c>", "ExitClonkByRope", CK5P, pClonk, 0, pClonk, "$ExitRopeDesc$");
-  
+  AddMenuItem("<c ffff33>$ExitRope$</c>", "ExitClonkByRope", STIN, pClonk, 0, pClonk, "$ExitRopeDesc$",2,5);
+
   SelectMenuItem(iSelection, pClonk);
 }
 

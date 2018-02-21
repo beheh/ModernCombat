@@ -42,7 +42,7 @@ public func Set(pTarget, iRad, iAng, iRotLeft, iRotRight)
   AddEffect("IntTimer", this, 1, 1, this);
 }
 
-public func SetGunner(pObj)
+public func SetGunner(pObj, fNoAim)
 {
   //Zielen & HUD
   if(pController)
@@ -52,14 +52,21 @@ public func SetGunner(pObj)
   else
   {
     SetOwner(GetOwner(pObj));
-    SetOwner(GetOwner(pObj), cur_Attachment);
-    InitAim();
-    pObj->SetHUDTarget(GetAttWeapon());
+    if(cur_Attachment)
+    {
+      SetOwner(GetOwner(pObj), cur_Attachment);
+      if(!fNoAim)
+      {
+        InitAim();
+        pObj->SetHUDTarget(GetAttWeapon());
+      }
+    }
   }
-  
-  //Besitzer, Vorbereitung, etc...
+
+  //Controller setzen und eventuelles Geschützfeuer einstellen
   pController = pObj;
-  cur_Attachment->~StopAutoFire();
+  if(cur_Attachment)
+    cur_Attachment->~StopAutoFire();
   iPat_Dir = 0;
 }
 

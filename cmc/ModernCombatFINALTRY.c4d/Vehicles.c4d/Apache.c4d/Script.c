@@ -7,6 +7,7 @@ static const APCE_Seat_Pilot = 1;
 static const APCE_Seat_Gunner = 2;
 local pEntrance;
 
+public func MaxPassengerCount()	{return 2;}
 public func SoundIdle()		{return "APCE_IdleSystem.ogg";}
 
 
@@ -465,19 +466,19 @@ protected func ContainedDigDouble(object ByObj)
   CreateMenu(GetID(), ByObj, this, 0, "$Seats$", 0, 1);
 
     //Ausstieg
-    AddMenuItem("<c ffff33>$Exit$</c>", "ExitClonk", STDR, ByObj, 0, ByObj, "$ExitDesc$");
+    AddMenuItem("<c ffff33>$Exit$</c>", "ExitClonk", STIN, ByObj, 0, ByObj, "$ExitDesc$");
 
     //Pilot
     if(GetPilot())
-      AddMenuItem("<c 777777>$Pilot$</c>", "SeatOccupied", GetID(), ByObj, 0, ByObj, "$SeatOccupied$");
+      AddMenuItem("<c 777777>$Pilot$</c>", "SeatOccupied", STIN, ByObj, 0, ByObj, "$SeatOccupied$",2,1);
     else
-      AddMenuItem("<c ffffff>$Pilot$</c>", Format("EnterSeat(%d, Object(%d))", APCE_Seat_Pilot, ObjectNumber(ByObj)), GetID(), ByObj, 0, ByObj, "$PilotDesc$");
+      AddMenuItem("<c ffffff>$Pilot$</c>", Format("EnterSeat(%d, Object(%d))", APCE_Seat_Pilot, ObjectNumber(ByObj)), STIN, ByObj, 0, ByObj, "$PilotDesc$",2,1);
 
     //Schütze
     if(GetGunner())
-      AddMenuItem("<c 777777>$Gunner$</c>", "SeatOccupied", GetID(), ByObj, 0, ByObj, "$SeatOccupied$");
+      AddMenuItem("<c 777777>$Gunner$</c>", "SeatOccupied", STIN, ByObj, 0, ByObj, "$SeatOccupied$",2,2);
     else
-      AddMenuItem("<c ffffff>$Gunner$</c>", Format("EnterSeat(%d, Object(%d))", APCE_Seat_Gunner, ObjectNumber(ByObj)), GetID(), ByObj, 0, ByObj, "$GunnerDesc$");
+      AddMenuItem("<c ffffff>$Gunner$</c>", Format("EnterSeat(%d, Object(%d))", APCE_Seat_Gunner, ObjectNumber(ByObj)), STIN, ByObj, 0, ByObj, "$GunnerDesc$",2,2);
 
   return 1;
 }
@@ -531,6 +532,7 @@ public func EnterSeat(int iSeat, object pObj)
     }
     SetGraphics("Pilot", this, GetID(), BKHK_PilotLayer, GFXOV_MODE_ExtraGraphics, 0, GFX_BLIT_Custom, this);
     GetPilot() = pObj;
+    pRocketStation->~SetGunner(GetPilot(),true);
     pObj->~SetHUDTarget(pRocketStation->GetAttWeapon());
 
     hud = CreateObject(AHUD, 0, 0, GetOwner(pObj));

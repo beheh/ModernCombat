@@ -180,7 +180,7 @@ private func CheckToFire()
     PlayerMessage(GetController(GetUser())," ", GetUser());
 
   //Schütze feuerbereit?
-  if(!GetUser() || !GetUser()->~ReadyToFire() || !GetUser()->~IsClonk() || this != Contents(0, GetUser()))
+  if(!GetUser() || !GetUser()->~ReadyToFire() || this != Contents(0, GetUser()))
   {
     SetAction("Idle");
     PlayerMessage(GetOwner(GetUser()), "$NotReady$", GetUser());
