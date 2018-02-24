@@ -20,10 +20,6 @@ func Initialize()
   SetGamma(RGB(15,15,15),RGB(118,118,118),RGB(215,215,215));
   //Himmelparallaxität
   SetSkyParallax(1,50,15);
-  //Materialregen starten
-  LaunchRain(0, Material("Rain"), LandscapeWidth(), 100)->SetCategory(1);
-  //Globaler Regensound
-  Sound("Rain.ogg",true,0,50,0,+1);
   //Flaggen
   aFlag = [];
   //Selbstschussanlagen
@@ -48,9 +44,6 @@ func Initialize()
 func CreateInterior()
 {
   Log("$CreatingInterior$");
-
-  //Sonne umplazieren
-  FindObject(LENS)->SetPosition(2300,530);
 
   //Grenzen setzen
   CreateObject(BRDR, 100, 0, -1)->Set();
@@ -426,8 +419,8 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //LMS-Spielziel
   if(FindObject(GLMS))
   {
-   return [[400, 600], [535, 950], [735, 1200], [1020, 1200], [1320, 300], [3280, 300], [3580, 1200], [3860, 1200], [4060, 950], [4200, 600]];
-   return 1;
+    return [[400, 600], [535, 950], [735, 1200], [1020, 1200], [1320, 300], [3280, 300], [3580, 1200], [3860, 1200], [4060, 950], [4200, 600]];
+    return 1;
   }
 }
 
@@ -435,43 +428,28 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
 
 protected func Script250()
 {
-  SupplyDrop();
+  EventInfo4K(0,Format("$MsgSupplyDrop$"),PARA, 0, 0, 0, "PriorityInfo.ogg");
+
+  SupplyDrop(RandomX(1220,1570),-450);
+  SupplyDrop(RandomX(1220,1570),-550);
+  SupplyDrop(RandomX(1220,1570),-650);
+
+  SupplyDrop(RandomX(3030,3380),-450);
+  SupplyDrop(RandomX(3030,3380),-550);
+  SupplyDrop(RandomX(3030,3380),-650);
+
+  CreateObject(SMWN,1395,250, -1)->FadeOut(0,3);
+  CreateObject(SMWN,3205,250, -1)->FadeOut(0,3);
+
+  Sound("JetFlyBy*.ogg",1,0,30);
 
   goto(0);
 }
 
-protected func SupplyDrop()
+protected func SupplyDrop(int iX, int iY)
 {
-  EventInfo4K(0,Format("$MsgSupplyDrop$"),PARA, 0, 0, 0, "PriorityInfo.ogg");
-
-  var obj = CreateObject(RndObjectID(), RandomX(1220,1570), -100, -1);
-  obj->AddEffect("IntPara", obj, 1, 1);
-  obj = CreateObject(RndObjectID(), RandomX(1220,1570), -150, -1);
-  obj->AddEffect("IntPara", obj, 1, 1);
-  obj = CreateObject(RndObjectID(), RandomX(1220,1570), -200, -1);
-  obj->AddEffect("IntPara", obj, 1, 1);
-
-  obj = CreateObject(RndObjectID(), RandomX(3030,3380), -100, -1);
-  obj->AddEffect("IntPara", obj, 1, 1);
-  obj = CreateObject(RndObjectID(), RandomX(3030,3380), -150, -1);
-  obj->AddEffect("IntPara", obj, 1, 1);
-  obj = CreateObject(RndObjectID(), RandomX(3030,3380), -200, -1);
-  obj->AddEffect("IntPara", obj, 1, 1);
-
-  CreateObject(SMWN,1395,150, -1)->FadeOut(0,3);
-  CreateObject(SMWN,3205,150, -1)->FadeOut(0,3);
-
-  Sound("JetFlyBy*.ogg",1,0,30);
-}
-
-protected func RndObjectID()
-{
- var r = Random(10);
- if (!r)   return(PLLT);
- if (!--r) return(BECR);
- if (!--r) return(WCR2);
- if (!--r) return(XWCR);
- return(MWCR);
+  var obj = CreateObject(PLDP,iX,iY,NO_OWNER);
+  obj->AddEffect("IntPara",obj,1,1);
 }
 
 global func FxIntParaTimer(object pTarget)
