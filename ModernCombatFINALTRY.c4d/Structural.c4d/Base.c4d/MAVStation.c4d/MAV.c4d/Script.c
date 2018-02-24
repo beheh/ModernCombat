@@ -994,11 +994,14 @@ public func AMP(bool statusOnly)
     Sound("ResupplyIn*.ogg",0,pTarget,0,GetOwner(pTarget)+1);
     Sound("ResupplyOut*.ogg");
 
-    //Achievement-Fortschritt (Ammo Distributor)
-    DoAchievementProgress(ammoID->MaxAmmo() / 10 * factor, AC03, GetOwner(this));
+    if(GetOwner(this) != GetOwner(pTarget))
+    {
+      //Achievement-Fortschritt (Ammo Distributor)
+      DoAchievementProgress(ammoID->MaxAmmo() / 10 * factor, AC03, GetOwner(this));
 
-    //Punkte bei Belohnungssystem (Munitionierung)
-    DoPlayerPoints(BonusPoints("Supply", ammoID->MaxAmmo() / 10 * factor), RWDS_TeamPoints, GetOwner(this), this, IC14);
+      //Punkte bei Belohnungssystem (Munitionierung)
+      DoPlayerPoints(BonusPoints("Supply", ammoID->MaxAmmo() / 10 * factor), RWDS_TeamPoints, GetOwner(this), this, IC14);
+    }
   }
 }
 
@@ -1145,7 +1148,7 @@ public func Arm(id idWeapon)
   //Waffe erstellen
   var pLaserDesignator = CreateObject(idWeapon, 0, 0, GetOwner(this));
   Enter(this, pLaserDesignator);
-
+  ShiftContents(this,0,GetID(cur_Attachment),0);
   //Und konfigurieren
   SetObjectOrder(this, pLaserDesignator, 1);
   cur_Attachment = pLaserDesignator;
@@ -1431,6 +1434,9 @@ public func ControlThrow(pByObj)
     //Objekt aufnehmen
     Enter(this, pTemp);
     SetOwner(GetOwner(), pTemp);
+    if(cur_Attachment)
+      ShiftContents(this,0,GetID(cur_Attachment),0);
+    Sound("WNAT_AddAttachement.ogg",0,this);
 
     //Sprengfalle entfernen, wenn bereits verwendet
     if(pItem)
@@ -1447,8 +1453,6 @@ public func ControlThrow(pByObj)
     pItem = pTemp;
     iItemType = iTemp;
     iHKShots = 5;
-
-    ShiftContents();
 
     //Hilfsnachrichten
     var szStr = Format("$Updated$", GetName(pItem));
@@ -1527,6 +1531,7 @@ public func ControlDig(pByObj)
 
     SetPhase(iItemType, this);
     Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
+    Sound("WNAT_RemoveAttachement.ogg",0,this);
   }
 }
 

@@ -23,8 +23,11 @@ local iHealed;
 
 public func CanRefill()
 {
-  //Nur wenn Träger ein Sanitäter ist und Pack momentan nicht benutzt wird
-  return Contained()->~IsMedic() && !GetEffect("FAPHeal", this);
+  //Nur wenn nicht in Benutzung und von Sanitäter oder MAV getragen
+  if(!GetEffect("FAPHeal", this) && Contained()->~IsMedic() || Contained()->~IsMAV())
+    return true;
+  else
+    return false;
 }
 
 /* Selbstheilung */

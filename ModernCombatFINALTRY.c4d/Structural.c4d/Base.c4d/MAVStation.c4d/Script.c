@@ -503,7 +503,8 @@ func AddItem(id iItem, object pUser)
     LocalN("iItemType", pMAV) = iType;
     LocalN("iHKShots", pMAV) = 5;
     SetPhase(iType, pMAV);
-    pMAV->Sound("RSHL_Deploy.ogg");
+    pMAV->Sound("WNAT_AddAttachement.ogg");
+    ShiftContents(pMAV);
 
     //Hilfsnachrichten
     var szStr = Format("$Updated$", GetName(pItem));
