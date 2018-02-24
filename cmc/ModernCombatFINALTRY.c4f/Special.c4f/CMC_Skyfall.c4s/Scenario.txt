@@ -34,8 +34,5 @@ BottomOpen=1
 Vegetation=TRE4=5;GRAS=3
 NoScan=1
 
-[Environment]
-Objects=LENS=1
-
 [Animals]
 Animal=BIRD=6
