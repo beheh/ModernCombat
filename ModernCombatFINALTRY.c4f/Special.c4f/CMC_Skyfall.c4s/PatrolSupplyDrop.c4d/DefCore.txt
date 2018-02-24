@@ -1,0 +1,17 @@
+[DefCore]
+id=PLDP
+Version=4,9,10,7
+Name=Patrol Supply Drop
+Category=C4D_Vehicle
+Width=57
+Height=49
+Offset=-29,-25
+Vertices=5
+VertexX=0,-27,27,-27,27
+VertexY=-28,24,24,2,2
+VertexFriction=50,50,50,50
+Mass=150
+Picture=0,0,57,49
+Rotate=1
+Timer=1
+TimerCall=SearchObjects
