@@ -75,6 +75,7 @@ public func LaunchRocket(id rid, int angle)
   SetController(GetController(), rocket);
 
   Sound("JetConfirm*.ogg",0,0,0,GetOwner(user)+1);
+  Sound("BKHK_Handle*.ogg",0,0,0,GetOwner(user)+1);
   Sound("JetFlyBy*.ogg",0,rocket);
   rocket->Echo("RTLR_Echo.ogg");
 }

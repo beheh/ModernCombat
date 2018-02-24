@@ -23,8 +23,11 @@ public func AI_Inventory(object pClonk)	{return true;}
 
 public func CanRefill()
 {
-  //Nur wenn von Unterstützer-Klasse getragen
-  return GetEffect("ClonkClass_Support", Contained());
+  //Nur wenn von Unterstützer oder MAV getragen
+  if(GetEffect("ClonkClass_Support", Contained()) || Contained()->~IsMAV())
+    return true;
+  else
+    return false;
 }
 
 /* Initialisierung */
