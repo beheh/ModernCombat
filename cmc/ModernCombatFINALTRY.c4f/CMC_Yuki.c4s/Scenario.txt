@@ -4,12 +4,12 @@ Title=CMC - Yuki
 MaxPlayer=12
 MaxPlayerLeague=12
 Loader=Loader_CMC*
-Origin=ModernCombatFINALTRY.c4f\CMC_Yuki.c4s
+Origin=ModernCombat.c4f\CMC_Yuki.c4s
 
 [Definitions]
 Definition1=Objects.c4d
 Definition2=Hazard.c4d
-Definition3=ModernCombatFINALTRY.c4d
+Definition3=ModernCombat.c4d
 
 [Game]
 StructNeedEnergy=0

@@ -4,12 +4,12 @@ Title=CMC - Wavebreaker
 MaxPlayer=12
 MaxPlayerLeague=12
 Loader=Loader_CMC*
-Origin=ModernCombatFINALTRY.c4f\Special.c4f\CMC_Wavebreaker.c4s
+Origin=ModernCombat.c4f\Special.c4f\CMC_Wavebreaker.c4s
 
 [Definitions]
 Definition1=Objects.c4d
 Definition2=Hazard.c4d
-Definition3=ModernCombatFINALTRY.c4d
+Definition3=ModernCombat.c4d
 Definition4=Knights.c4d\Camp.c4d\Banner.c4d
 Definition5=Missions.c4f\Pearls.c4s\Wreck.c4d
 Definition6=FarWorlds.c4d\Jungle.c4d\Animals.c4d\Piranha.c4d

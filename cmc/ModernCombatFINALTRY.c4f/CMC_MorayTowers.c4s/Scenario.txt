@@ -4,12 +4,12 @@ Title=CMC - Moray Towers
 MaxPlayer=12
 MaxPlayerLeague=12
 Loader=Loader_CMC*
-Origin=ModernCombatFINALTRY.c4f\CMC_MorayTowers.c4s
+Origin=ModernCombat.c4f\CMC_MorayTowers.c4s
 
 [Definitions]
 Definition1=Objects.c4d
 Definition2=Hazard.c4d
-Definition3=ModernCombatFINALTRY.c4d
+Definition3=ModernCombat.c4d
 Definition4=Knights.c4d\Camp.c4d\Banner.c4d
 
 [Game]
