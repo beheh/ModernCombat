@@ -11,8 +11,13 @@ FullscreenBG=1
 
 	[Scenario]
 	File=CMC_MankelOverpass.c4s
-	Area=20,158,348,65
+	Area=20,161,348,65
 	OverlayImage=OverlayMankelOverpass.png
+
+	[Scenario]
+	File=CMC_ResearchFacility.c4s
+	Area=20,230,348,65
+	OverlayImage=OverlayResearchFacility.png
 
 
 
@@ -24,5 +29,5 @@ FullscreenBG=1
 
 	[Scenario]
 	File=CMC_Wavebreaker.c4s
-	Area=379,158,348,65
+	Area=379,161,348,65
 	OverlayImage=OverlayWavebreaker.png

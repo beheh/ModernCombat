@@ -1,2 +1,0 @@
-DE:CMC - <c ffff33>Laguna</c>
-US:CMC - <c ffff33>Laguna</c>
