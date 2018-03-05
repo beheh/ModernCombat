@@ -36,7 +36,7 @@ func Initialize()
   //Dekoration plazieren
   CreateDecoration();
   //Neustart-Button setzen
-  SetNextMission("ModernCombat.c4f\\CMC_ResearchFacility.c4s", "$RepeatButton$", "$RepeatButtonDesc$");
+  SetNextMission("ModernCombat.c4f\\Special.c4f\\CMC_ResearchFacility.c4s", "$RepeatButton$", "$RepeatButtonDesc$");
   return 1; 
 }
 
