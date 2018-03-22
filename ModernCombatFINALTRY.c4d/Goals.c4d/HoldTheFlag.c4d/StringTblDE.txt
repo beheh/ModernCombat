@@ -1,5 +1,4 @@
 // Flaggenposten
-09O;
 
 MsgFlagLost=Flaggenposten <c ffff33>%s</c> an Team <c %x>%s</c> verloren!
 MsgCaptured=Team <c %x>%s</c> kontrolliert Flaggenposten <c ffff33>%s</c>!

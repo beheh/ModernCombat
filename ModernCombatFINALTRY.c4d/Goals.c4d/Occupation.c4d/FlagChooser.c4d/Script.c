@@ -45,7 +45,8 @@ protected func Collection2(object pObject)
   if(!flagpoles)
   {
     flagpoles = FindObject(GOCC)->GetSortedFlags();
-    if(!flagpoles) {
+    if(!flagpoles)
+    {
       ErrorLog("Couldn't find any flags");
       GameOver();
     }
@@ -183,7 +184,7 @@ public func SpawnMenu()
   var team = GetPlayerTeam(GetOwner(crew));
   if(!team) return;
 
-  CloseMenu (crew);
+  CloseMenu(crew);
 
   var tmp,point;
   CreateMenu(OFLG,crew,0,C4MN_Extra_Info,"$SpawnMenu$",0,C4MN_Style_Dialog);
