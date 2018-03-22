@@ -1019,12 +1019,12 @@ public func DeployExtinguisher()
   Sound("BKHK_DeployExtinguisher.ogg");
 
   //Feuerlöscherladezeit setzen
-  extinguisherreload = 35 * 40;
+  extinguisherreload = 35 * 50;
 }
 
 /* Feuerlöschereffekt */
 
-func RepairRate()	{return 4;}
+func RepairRate()	{return 5;}
 
 func FxHelicopterRepairStart(object pTarget, int iEffectNumber, int iTemp, int iRepairRate)
 {
@@ -1043,7 +1043,6 @@ func FxHelicopterRepairTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //Reparatur
   if(!(iEffectTime % EffectVar(0, pTarget, iEffectNumber)))
     DoDamage(-1, pTarget);
-
   //Fahrzeug zu 50% repariert?
   if(GetDamage(pTarget) <= MaxDamage() / 2)
   {
