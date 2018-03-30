@@ -1431,8 +1431,8 @@ public func UpdateFMDataCache()
   return true;
 }
 
-public func GetFMDataCache()    {return aCachedFMData;}
-public func GetDynFMDataCache()    {return aCachedFMDataDyn;}
+public func GetFMDataCache()	{return aCachedFMData;}
+public func GetDynFMDataCache()	{return aCachedFMDataDyn;}
 
 public func GetFMData(int data, int i, int t)
 {
@@ -1900,7 +1900,7 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
   //Situation prüfen
   var x, y, z;
-  if(!user || !user->~IsClonk() || !user->WeaponAt(x, y, z) || Contents(0, user) != this)
+  if(!user || !user->WeaponAt(x, y, z) || Contents(0, user) != this)
   {
     if(pBeam) RemoveObject(pBeam);
     if(pLaser) RemoveObject(pLaser);
