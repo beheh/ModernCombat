@@ -192,7 +192,7 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //Nutzer festlegen
   var user = this->~GetUser();
   var x, y, z;
-  if(!user || !user->WeaponAt(x, y, z) || !user->IsAiming() || Contents(0, user) != this || iAttachment != AT_Laserpointer)
+  if(!user || !user->~IsClonk() && !user->~IsWeaponRack() || !user->WeaponAt(x, y, z) || !user->IsAiming() || Contents(0, user) != this || iAttachment != AT_Laserpointer)
   {
     RemoveTrajectory(pTarget);
     return;
