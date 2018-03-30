@@ -1,1 +1,4 @@
-The most efficient helicopter of the armed force. The Blackhawk can pick up up to 5 crew members. Armed with a machine gun and a rocket launcher, the chopper can be used for both attack and transportation.
+The most efficient helicopter of the armed forces. The Blackhawks power comes from its big crew manning its several guns.
+The vehicle has a machine gun and rocket launcher for its passengers as well as two additional seats for fast transports.
+
+There are seats for a pilot, two gunners and two normal passengers.
