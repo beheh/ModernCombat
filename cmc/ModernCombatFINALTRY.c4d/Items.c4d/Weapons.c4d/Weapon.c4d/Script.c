@@ -1900,7 +1900,7 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
   //Situation prüfen
   var x, y, z;
-  if(!user || !user->WeaponAt(x, y, z) || Contents(0, user) != this)
+  if(!user || !user->~IsClonk() && !user->~IsWeaponRack() || !user->WeaponAt(x, y, z) || Contents(0, user) != this)
   {
     if(pBeam) RemoveObject(pBeam);
     if(pLaser) RemoveObject(pLaser);
