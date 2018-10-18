@@ -9,7 +9,7 @@ Height=7
 Offset=-3,-3
 Value=100
 Mass=15
-Components=METL=1;WOOD=2;DGNN=5;SPHR=1
+Components=WOOD=1;DGNN=5
 Picture=0,7,64,64
 Vertices=4
 VertexX=5,0,0,-3
