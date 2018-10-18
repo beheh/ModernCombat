@@ -5,6 +5,25 @@
 #strict 2
 #appendto FLA2
 
+local pBar;
+
+static const BAR_CTFFlagBar = 7;
+
+
+/* Initialisierung */
+
+protected func Initialize()
+{
+  AddEffect("IntSignalFlag", this, 1, 100, this);
+
+  pBar = CreateObject(SBAR, 0, 0, -1);
+  pBar->Set(this, 0, BAR_CTFFlagBar, 100, 0, SM22, 0, 11000, true, true);
+  pBar->Update(0, true, true);
+  pBar->SetIcon(0, SM22, 0, 11000, 32);
+  pBar->PositionToVertex(0, true);
+
+  return _inherited();
+}
 
 protected func Collected(pClonk)
 {
@@ -14,6 +33,9 @@ protected func Collected(pClonk)
 
   carrier = pClonk;
   cteam = GetPlayerTeam(GetOwner(pClonk));
+
+  //Grafik ausblenden
+  if(pBar) pBar->SwitchVisibility(1,0);
 
   //game call: FlagCaptured(flagTeam, captureTeam, clonk)
   //flagTeam: The team to which the flag belongs to
@@ -51,6 +73,9 @@ public func DropFlag()
     return;
   }
 
+  //Grafik einblenden
+  if(pBar) pBar->SwitchVisibility(1,1);
+
   //Spieler verliert Flagge
   EventInfo4K(0, Format("$FlagLost$", GetTeamColor(team), GetTeamName(team)), FLA2, 0, GetTeamColor(team), 0, "Info_Event.ogg");
   GameCallEx("FlagLost",team);
@@ -77,6 +102,9 @@ protected func Return2Base(pClonk, nolog)
   SetRDir();
   SetAction("Fly", base);
   carrier = 0;
+
+  //Grafik einblenden
+  if(pBar) pBar->SwitchVisibility(1,1);
 
   if(!nolog)
     //Eventnachricht: Spieler setzt Flagge zurück
@@ -124,13 +152,6 @@ public func Destruction()
   GameCallEx("FlagReturned",team);
   //Flagge zurückgesetzt
   EventInfo4K(0, Format("$FlagReturned$", GetTeamColor(team), GetTeamName(team)), FLA2, 0, GetTeamColor(team), 0, "Info_Event.ogg");
-}
-
-protected func Initialize()
-{
-  AddEffect("IntSignalFlag", this, 1, 100, this);
-
-  return _inherited();
 }
 
 protected func FxIntSignalFlagTimer(object pTarget, int iEffect)
