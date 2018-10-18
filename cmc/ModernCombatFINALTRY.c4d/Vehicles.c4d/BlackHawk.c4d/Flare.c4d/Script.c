@@ -65,7 +65,7 @@ public func Damage()
 {
   if(GetDamage() > 20)
   {
-    if(!pointsgiven)
+    if(!pointsgiven && !GetEffect("ScoreDelay", this))
     {
       //Punkte bei Belohnungssystem (Projektil abgefangen)
       DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetOwner(), GetCursor(GetOwner()), IC16);
